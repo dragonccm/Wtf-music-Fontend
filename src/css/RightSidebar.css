@@ -1,0 +1,16 @@
+.top_bar{
+    width: 420px;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(75, 75, 75);
+    font-size: 20px;
+    border-radius: 10px;
+    justify-content: center;
+}
+.top_bar a{
+    text-decoration: none;
+    color: white;
+    text-align: justify;
+    margin: 15px;
+}
