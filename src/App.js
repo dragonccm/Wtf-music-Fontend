@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const [apiResult, setApiResult] = useState(null);
+  const [apiResult, setApiResult] = useState({});
 
   async function fetchData() {
     const url = 'https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem';
@@ -19,6 +19,7 @@ function App() {
       const response = await fetch(url, options);
       const result = await response.json();
       setApiResult(result);
+      console.log(result.data[0].preview);
     } catch (error) {
       console.error(error);
     }
@@ -31,12 +32,13 @@ function App() {
         <button onClick={fetchData}>First Fetch</button>
 
 
-        {apiResult && (
+        {/* {apiResult && (
           <div>
             <h2>API Result:</h2>
             <pre>{JSON.stringify(apiResult, null, 2)}</pre>
           </div>
-        )}
+        )} */}
+      <audio src={apiResult.data[0].preview}></audio>
       </header>
 
     </div>
