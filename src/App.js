@@ -33,7 +33,7 @@ function App() {
 
         {apiResult && (
           <div>
-            <h2>API kết quả:</h2>
+            <h2>API Result:</h2>
             <pre>{JSON.stringify(apiResult, null, 2)}</pre>
           </div>
         )}
