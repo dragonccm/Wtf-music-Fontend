@@ -4,7 +4,6 @@ import './App.css';
 import RightSidebar from './components/RightSidebar'
 import Bottombar from './components/Bottombar'
 
-import { FontAwesomeIcon } from "@fortawesome/fontawesome-free";
 
 function App() {
   const [apiResult, setApiResult] = useState({});
