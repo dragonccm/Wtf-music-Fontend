@@ -41,18 +41,18 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <div className="main_content">
         <RightSidebar />
-
-        <button onClick={fetchData}>First Fetch</button>
-
+        <div className="main">
+          
+        </div>
+      </div>
+        {/* <button onClick={fetchData}>First Fetch</button>
         {audio && (
           <>
-            <Bottombar music='https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4'/>
           </>
-        )}
-      </header>
+        )} */}
+        <Bottombar music='https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4'/>
     </div>
   );
 }

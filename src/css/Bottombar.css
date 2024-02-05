@@ -12,4 +12,27 @@
     align-items: center;
     font-size: 15px;
     gap: 20px;
+    flex: 1;
 }
+.center{
+    flex: 3;
+}
+.right{
+    flex: 1;
+    color: aliceblue;
+}
+.rhap_container{
+    box-shadow: none;
+    background-color: transparent !important;
+}
+.bottom_bar{
+    display: flex;
+    height: 13vh;
+    width: 100%;
+    background-color: #000000;
+}
+/* .main_bottom_bar{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+} */

@@ -8,7 +8,7 @@ import 'react-h5-audio-player/lib/styles.css';
 import "../css/Bottombar.css"
 const Bottombar = (props) => {
     return (
-        <div>
+        <div className="main_bottom_bar">
             <div className="bottom_bar">
                 <div className="left">
                     <div className="info_img">
@@ -28,7 +28,7 @@ const Bottombar = (props) => {
                         />
                 </div>
                 <div className="right">
-
+                    <p>một cái gì đó tao sẽ làm </p>
                 </div>
             </div>
         </div>
