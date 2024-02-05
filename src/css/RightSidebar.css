@@ -57,9 +57,13 @@
     margin: 0 5px;
 }
 .bottom_list{
-    display: flex;
-    flex-direction: column;
+    height: 53vh;
+}
+.bottom_list_container{
+    width: 100%;
+    height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 .playlist{
     display: flex;

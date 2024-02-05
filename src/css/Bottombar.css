@@ -31,8 +31,6 @@
     width: 100%;
     background-color: #000000;
 }
-/* .main_bottom_bar{
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-} */
+.main_bottom_bar{
+    height: 13vh;
+}

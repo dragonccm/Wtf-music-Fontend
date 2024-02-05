@@ -13,7 +13,7 @@ const RightSidebar = () => {
         name: `Playlist ${index + 1}`,
         image: "../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
         category: "playlist",
-      }));
+    }));
     return (
         <div className="rightsidebar">
             <div className="rs_top_bar">
@@ -36,26 +36,29 @@ const RightSidebar = () => {
                     </div>
                 </div>
                 <div className="bottom_list">
-                    {playlists.map((playlist) => (
-                        <button className="playlist" key={playlist.id}>
+                    <div className="bottom_list_container">
+                        {playlists.map((playlist) => (
+                            <button className="playlist" key={playlist.id}>
+                                <div className="img">
+                                    <img src={playlist.image} alt="" />
+                                </div>
+                                <div className="info">
+                                    <h3 className="name">{playlist.name}</h3>
+                                    <div className="category">{playlist.category}</div>
+                                </div>
+                            </button>
+                        ))}
+                        <button className="song">
                             <div className="img">
-                                <img src={playlist.image} alt="" />
+                                <img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="" />
                             </div>
                             <div className="info">
-                                <h3 className="name">{playlist.name}</h3>
-                                <div className="category">{playlist.category}</div>
+                                <h3 className="name">FLOWERS</h3>
+                                <div className="category">playlist</div>
                             </div>
                         </button>
-                    ))}
-                    <button className="song">
-                        <div className="img">
-                            <img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="" />
-                        </div>
-                        <div className="info">
-                            <h3 className="name">FLOWERS</h3>
-                            <div className="category">playlist</div>
-                        </div>
-                    </button>
+                    </div>
+
                 </div>
             </div>
         </div>
