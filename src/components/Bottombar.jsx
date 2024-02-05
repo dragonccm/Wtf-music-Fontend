@@ -1,15 +1,12 @@
 import React from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
-import { faBackwardStep } from '@fortawesome/free-solid-svg-icons'
-import { faForwardStep } from '@fortawesome/free-solid-svg-icons'
-import { faRepeat } from '@fortawesome/free-solid-svg-icons'
-import { faShuffle } from '@fortawesome/free-solid-svg-icons'
 
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 import "../css/Bottombar.css"
-const Bottombar = () => {
+const Bottombar = (props) => {
     return (
         <div>
             <div className="bottom_bar">
@@ -24,16 +21,11 @@ const Bottombar = () => {
                     <FontAwesomeIcon icon={faHeart} />
                 </div>
                 <div className="center">
-                    <div className="control">
-                        <FontAwesomeIcon icon={faShuffle} />
-                        <FontAwesomeIcon icon={faBackwardStep} />
-                        <FontAwesomeIcon icon={faCirclePlay} />
-                        <FontAwesomeIcon icon={faForwardStep} />
-                        <FontAwesomeIcon icon={faRepeat} />
-                    </div>
-                    <div className="timeline">
-
-                    </div>
+                        <AudioPlayer
+                            autoPlay
+                            src={props.music}
+                            onPlay={e => console.log("onPlay")}
+                        />
                 </div>
                 <div className="right">
 

@@ -10,7 +10,7 @@ function App() {
   const [audio, setAudio] = useState();
 
   async function fetchData() {
-    const url = 'https://deezerdevs-deezer.p.rapidapi.com/search?q=eminem';
+    const url = 'https://deezerdevs-deezer.p.rapidapi.com/search?q=jisoo';
     const options = {
       method: 'GET',
       headers: {
@@ -36,7 +36,6 @@ function App() {
   useEffect(() => {
     if (apiResult && apiResult.data && apiResult.data.length > 0) {
       setAudio(apiResult.data[0].preview);
-      console.log(apiResult.data[0].preview)
     }
   }, [apiResult]);
 
@@ -44,15 +43,14 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <RightSidebar/>
-        <Bottombar/>
+        <RightSidebar />
+
         <button onClick={fetchData}>First Fetch</button>
 
         {audio && (
-          <audio controls onError={() => console.error('Audio error')}>
-            <source src={audio} type="audio/mp3" />
-            Your browser does not support the audio tag.
-          </audio>
+          <>
+            <Bottombar music='https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4'/>
+          </>
         )}
       </header>
     </div>
