@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import RightSidebar from './components/RightSidebar'
 import Bottombar from './components/Bottombar'
+import Mainpage_playlist from './components/mainpage_playlist'
+
 
 
 function App() {
@@ -43,9 +45,7 @@ function App() {
     <div className="App">
       <div className="main_content">
         <RightSidebar />
-        <div className="main">
-          
-        </div>
+        <Mainpage_playlist/>
       </div>
         {/* <button onClick={fetchData}>First Fetch</button>
         {audio && (
