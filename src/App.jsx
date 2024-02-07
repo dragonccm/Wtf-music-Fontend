@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import './App.css';
 import RightSidebar from './components/RightSidebar'
 import Bottombar from './components/Bottombar'
