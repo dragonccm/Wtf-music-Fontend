@@ -1,6 +1,9 @@
 .main_page{
     width: 100%;
     display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .img_container{
     width: 85%;
