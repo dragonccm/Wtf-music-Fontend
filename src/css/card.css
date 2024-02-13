@@ -1,0 +1,25 @@
+.img_container{
+    width: 85%;
+    height: 70%;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin: 1rem auto;
+}
+.img_container img{
+    width: 100%;
+    height: 100%;
+}
+.artists{
+    margin: 1rem 2rem;
+}
+.card{
+    width: 21rem;
+    height: 28.3rem;
+    background-color: #181818;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    align-items: center;
+    border-radius: 1rem;
+}
