@@ -42,7 +42,7 @@ const RightSidebar = () => {
                                 <div className="img">
                                     <img src={playlist.image} alt="" />
                                 </div>
-                                <div className="info">
+                                <div className="info_rightbar">
                                     <h3 className="name">{playlist.name}</h3>
                                     <div className="category">{playlist.category}</div>
                                 </div>

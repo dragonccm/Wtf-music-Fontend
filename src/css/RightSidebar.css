@@ -49,12 +49,14 @@
 .bottom_ctrl_bot{
     width: 100%;
     display: flex;
+    margin-top: 2rem;
 }
 .btn_l{
     border-radius: 20px;
-    font-size: 0.875rem;
+    font-size: 1.5rem;
     padding: 0.4em 1em !important;
     margin: 0 5px;
+
 }
 .bottom_list{
     height: 53vh;
@@ -81,8 +83,14 @@
     width: 100%;
     height: 100%;
 }
-.info h3{
-    margin: 0 10px;
+.info_rightbar{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+    align-items: flex-start;
+}
+.info_rightbar h3{
+    margin: 0;
     font-size: 20px;
 }
 .category{
