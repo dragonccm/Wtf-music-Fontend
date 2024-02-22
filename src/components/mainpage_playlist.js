@@ -2,6 +2,8 @@ import React from "react";
 import "../css/mainpage.css";
 import Card from "./song_card";
 import Detailed_list from "./Detailed_list";
+import Songpage from "./Songpage";
+
 
 const Mainpage_playlist = ({ playlists }) => {
   return (
@@ -22,7 +24,9 @@ const Mainpage_playlist = ({ playlists }) => {
           </div>
         ))} */}
 
-        <Detailed_list />
+        {/* <Detailed_list /> */}
+
+        <Songpage/>
       </>
     </div>
   );
