@@ -163,6 +163,7 @@ const Songpage = () => {
                     </button>
 
                     <Popup trigger={<button className="menu_btn">  <FontAwesomeIcon icon={faEllipsis} /></button>} position="left top"
+                        nested
                         closeOnDocumentClick
                         mouseLeaveDelay={300}
                         mouseEnterDelay={0}

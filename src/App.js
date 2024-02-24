@@ -1,7 +1,7 @@
 import './App.css';
 import RightSidebar from './components/RightSidebar'
 import Bottombar from './components/Bottombar'
-import Mainpage_playlist from './components/mainpage_playlist'
+import Mainpage from './components/mainpage'
 
 
 
@@ -25,7 +25,7 @@ function App() {
     <div className="App">
       <div className="main_content">
         <RightSidebar />
-        <Mainpage_playlist playlists={element} />
+        <Mainpage playlists={element} />
       </div>
       <Bottombar music="https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4" />
     </div>

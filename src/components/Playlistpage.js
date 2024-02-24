@@ -12,7 +12,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 
 import Recommended from './Recommended'
-const Detailed_list = () => {
+const Playlistpage = () => {
 
 
     const Recommendeds = Array.from({ length: 5 }, (_, index) => ({
@@ -75,6 +75,7 @@ const Detailed_list = () => {
                         <FontAwesomeIcon icon={faCirclePlay} />
                     </button>
                     <Popup trigger={<button className="menu_btn">  <FontAwesomeIcon icon={faEllipsis} /></button>} position="left top"
+                        nested
                         closeOnDocumentClick
                         mouseLeaveDelay={300}
                         mouseEnterDelay={0}
@@ -159,4 +160,4 @@ const Detailed_list = () => {
     )
 
 }
-export default Detailed_list
+export default Playlistpage
