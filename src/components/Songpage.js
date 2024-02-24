@@ -7,10 +7,11 @@ import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'
+import ListCard from './ListCard'
 
 import Recommended from './Recommended'
 const Songpage = () => {
-    const Recommendeds = Array.from({ length: 10 }, (_, index) => ({
+    const Recommendeds = Array.from({ length: 5 }, (_, index) => ({
         id: index,
         name: `Playlist ${index + 1}`,
         image: "../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
@@ -23,7 +24,27 @@ const Songpage = () => {
         total: "3:00",
         root_album: "Solo"
     }));
-    const lyrics=`Em đang buồn buồn buồn hay vui
+
+    const playlistsData = Array.from({ length: 5 }, (_, index) => ({
+        id: index,
+        name: `Playlist ${index + 1}`,
+        image: "../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
+        artists_list: ["Jisso", "Jisso", "Jisso", "Jisso", "Jisso"],
+    }));
+
+    const element = [
+        {
+          title: 'POPULAR',
+          list: playlistsData,
+        },
+        {
+          title: 'chill day',
+          list: playlistsData,
+        },
+      ];
+
+
+    const lyrics = `Em đang buồn buồn buồn hay vui
     Môi em cười nhưng nước mắt của em tuôn rơi x2
     
     Mascara em nhòe xin đừng che dấu
@@ -103,10 +124,10 @@ const Songpage = () => {
     Dồn hết vào trong màn đêm đêm đêm ta phóng lên`
     const lyricLines = lyrics.split('\n').map((line, index) => (
         <React.Fragment key={index}>
-          {line}
-          <br />
+            {line}
+            <br />
         </React.Fragment>
-      ));
+    ));
     return (
         <section>
             <div className="list_head">
@@ -161,7 +182,10 @@ const Songpage = () => {
                     {lyricLines}
                 </section>
 
-                <Recommended datas={Recommendeds}/>
+                <Recommended datas={Recommendeds} type={"Recommended"} describe={'Based on this song'} />
+                <Recommended datas={Recommendeds} type={"Popular"} describe={'Rap Việt'} />
+
+                <ListCard data={element} />
             </div>
         </section>
     )

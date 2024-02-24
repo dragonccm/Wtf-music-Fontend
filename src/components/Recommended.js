@@ -8,12 +8,12 @@ import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'
 
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
-const Recommended = ({ datas }) => {
+const Recommended = ({ datas,type,describe }) => {
     return (
         <>
             {/* lable */}
-            <h1 className="Recommended">Recommended</h1>
-            <p className="Recommended_1">Based on what's in this playlist</p>
+            <h1 className="Recommended">{type}</h1>
+            <p className="Recommended_1">{describe}</p>
             {/* lable */}
             {datas.map((data, index) => (
                 <div className="list_row">

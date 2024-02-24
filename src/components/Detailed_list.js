@@ -11,11 +11,11 @@ import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 
-import Recommended from './RightSidebar'
+import Recommended from './Recommended'
 const Detailed_list = () => {
 
 
-    const Recommendeds = Array.from({ length: 10 }, (_, index) => ({
+    const Recommendeds = Array.from({ length: 5 }, (_, index) => ({
         id: index,
         name: `Playlist ${index + 1}`,
         image: "../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
