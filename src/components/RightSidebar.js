@@ -17,8 +17,8 @@ const RightSidebar = () => {
     return (
         <div className="rightsidebar">
             <div className="rs_top_bar">
-                <a href="/"><FontAwesomeIcon icon={faHouse} />  Home</a>
-                <a href="/"><FontAwesomeIcon icon={faMagnifyingGlass} />  Search</a>
+                <a href="/"><img className="logo" src='../../img/logo3 (1).png'/></a>
+                {/* <a href="/"><FontAwesomeIcon icon={faMagnifyingGlass} />  Search</a> */}
             </div>
             <div className="rs_bottom_bar">
                 <div className="bottom_ctrl">

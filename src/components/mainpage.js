@@ -15,11 +15,11 @@ const Mainpage = ({ playlists }) => {
       <>
         <Header />
           <section className="main_page_container">
-            {/* <ListCard data={playlists}/> */}
+            <ListCard data={playlists}/>
 
             {/* <Playlistpage /> */}
 
-            <Songpage />
+            {/* <Songpage /> */}
             <Footer />
           </section>
       </>

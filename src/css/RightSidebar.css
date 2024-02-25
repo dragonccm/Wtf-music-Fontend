@@ -1,3 +1,6 @@
+.logo{
+    width: 100px;
+}
 .rs_top_bar{
     width: 100%;
     height: 120px;
@@ -23,7 +26,8 @@
     text-decoration: none;
     color: white;
     text-align: justify;
-    margin: 15px;
+    /* margin: 15px; */
+    text-align: center;
 }
 .rightsidebar{
     background-color: #000000;
