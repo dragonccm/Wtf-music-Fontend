@@ -27,7 +27,7 @@ function App() {
         <RightSidebar />
         <Mainpage playlists={element} />
       </div>
-      <Bottombar music="https://ve141.aadika.xyz/download/t7tZFq29lis/mp3/128/1708608459/4e83910e4c9d47caaa9034d5f35ec9f81a660c4ee667bc2d8029287f62844953/1?f=X2Download.app" />
+      <Bottombar music="https://vnso-zn-16-tf-a128-zmp3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1709022776~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=47652769b376607e4f2a481c74636d82" />
     </div>
   );
 }
