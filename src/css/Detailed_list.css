@@ -55,9 +55,12 @@
 .control {
     display: flex;
     justify-content: space-between;
+    margin: 2rem 0;
 }
-
-.control button {
+.menu_btn{
+    font-size: 3rem !important ;
+}
+.control button{
     background-color: transparent;
     font-size: 5rem;
     margin: 0;
@@ -91,9 +94,7 @@
     display: flex;
 
 }
-.popup-content {
-    top:300px !important;
-}
+
 
 .list_lable{
     display: flex;
@@ -123,6 +124,9 @@
 
 
 /* row css */
+.row_order{
+    width: 1.5rem;
+}
 .list_row{
     display:  flex;
     align-items: center;
@@ -170,3 +174,8 @@
     display: none;
 }
 /* row css */
+
+
+
+
+

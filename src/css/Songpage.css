@@ -1,0 +1,85 @@
+*{
+    color: #a7a7a7;
+}
+.list_head {
+    display: flex;
+}
+
+.mid_head {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-left: 2rem;
+    color: white;
+}
+
+.mid_head h1 {
+    font-size: 6rem;
+}
+
+.mid_head p {
+    font-size: 1.5rem;
+}
+
+.left_head {
+    width: 23rem;
+    height: 23rem;
+
+}
+
+.left_head img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.small_avt {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    overflow: hidden;
+    object-fit: contain;
+}
+
+.small_avt img {
+
+    width: 100%;
+    height: 100%;
+
+}
+.song_control {
+    display: flex;
+    margin: 2rem 0;
+    align-items: center;
+    gap: 2rem;
+
+}
+.menu_btn{
+    font-size: 3rem !important ;
+}
+.song_control button{
+    background-color: transparent;
+    font-size: 5rem;
+    margin: 0;
+    padding: 0;
+}
+.like_btn{
+    background-color: transparent;
+    font-size: 3rem !important;
+    margin: 0;
+    padding: 0;
+}
+
+.Lyrics{
+    font-size: 3rem;
+    margin: 3rem 0;
+}
+.lyrics_line{
+    font-size: 2rem;
+}

@@ -19,7 +19,8 @@
     "react-h5-audio-player": "^3.9.1",
     "react-scripts": "5.0.1",
     "reactjs-popup": "^2.0.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "ytmusic-api": "^5.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
