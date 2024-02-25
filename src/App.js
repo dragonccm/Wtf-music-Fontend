@@ -24,7 +24,7 @@ function App() {
         <RightSidebar />
         <Mainpage_playlist playlists={element} />
       </div>
-      <Bottombar music="https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4" />
+      <Bottombar music="https://ve141.aadika.xyz/download/t7tZFq29lis/mp3/128/1708608459/4e83910e4c9d47caaa9034d5f35ec9f81a660c4ee667bc2d8029287f62844953/1?f=X2Download.app" />
     </div>
   );
 }
