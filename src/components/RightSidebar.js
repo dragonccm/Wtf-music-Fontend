@@ -1,10 +1,10 @@
 import React from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse } from '@fortawesome/free-solid-svg-icons'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faRankingStar } from '@fortawesome/free-solid-svg-icons'
+import { faIcons } from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+
 
 import "../css/RightSidebar.css"
 const RightSidebar = () => {
@@ -21,42 +21,30 @@ const RightSidebar = () => {
                 {/* <a href="/"><FontAwesomeIcon icon={faMagnifyingGlass} />  Search</a> */}
             </div>
             <div className="rs_bottom_bar">
-                <div className="bottom_ctrl">
-                    <div className="bottom_ctrl_top">
-                        <button className="btn library"><FontAwesomeIcon icon={faBarsStaggered} /> Your Library</button>
-                        <div>
-                            <button className="btn plush"><FontAwesomeIcon icon={faPlus} /></button>
-                            <button className="btn show_more"><FontAwesomeIcon icon={faArrowRight} /></button>
+                <div className="list_nav">
+                    <div className="list_nav_item active">
+                        <div className="icon_list_nav_item">
+                        <FontAwesomeIcon icon={faHouse} />
                         </div>
+                        <span>Trang chủ</span>
                     </div>
-                    <div className="bottom_ctrl_bot">
-                        <button className="btn_l PlayLists">PlayLists</button>
-                        <button className="btn_l Artists">Artists</button>
-                        <button className="btn_l Albums">Albums</button>
+                    <div className="list_nav_item">
+                        <div className="icon_list_nav_item">
+                        <FontAwesomeIcon icon={faRankingStar} />
+                        </div>
+                        <span>Bảng xếp hạng</span>
                     </div>
-                </div>
-                <div className="bottom_list">
-                    <div className="bottom_list_container">
-                        {playlists.map((playlist) => (
-                            <button className="playlist" key={playlist.id}>
-                                <div className="img">
-                                    <img src={playlist.image} alt="" />
-                                </div>
-                                <div className="info_rightbar">
-                                    <h3 className="name">{playlist.name}</h3>
-                                    <div className="category">{playlist.category}</div>
-                                </div>
-                            </button>
-                        ))}
-                        <button className="song">
-                            <div className="img">
-                                <img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="" />
-                            </div>
-                            <div className="info">
-                                <h3 className="name">FLOWERS</h3>
-                                <div className="category">playlist</div>
-                            </div>
-                        </button>
+                    <div className="list_nav_item">
+                        <div className="icon_list_nav_item">
+                        <FontAwesomeIcon icon={faIcons} />
+                        </div>
+                        <span>Chủ đề & thể loại</span>
+                    </div>
+                    <div className="list_nav_item">
+                        <div className="icon_list_nav_item">
+                        <FontAwesomeIcon icon={faStar} />
+                        </div>
+                        <span>Top 100</span>
                     </div>
 
                 </div>

@@ -3,22 +3,20 @@
 }
 .rs_top_bar{
     width: 100%;
-    height: 120px;
     display: flex;
     flex-direction: column;
-    background-color:#121212;
     font-size: 20px;
     border-radius: 10px;
     justify-content: center;
     margin: 0px 4px 4px 4px;
+    border-bottom: 2px solid;
 }
 .rs_bottom_bar{
-    background-color:#121212;
     font-size: 20px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    margin: 4px;
+    margin-top: 40px;
     width: 100%;
     height: 100%;
 }
@@ -30,31 +28,19 @@
     text-align: center;
 }
 .rightsidebar{
-    background-color: #000000;
+    background-color: #ffe6f6;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 390px;
+    width: 300px;
     padding: 7px;
     height: 85vh;
 }
-.bottom_ctrl{
-    margin-bottom: 15px;
-    padding: 10px;
-}
-.bottom_ctrl_top{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
+
 .btn{
     background-color: transparent !important;
 }
-.bottom_ctrl_bot{
-    width: 100%;
-    display: flex;
-    margin-top: 2rem;
-}
+
 .btn_l{
     border-radius: 20px;
     font-size: 1.5rem;
@@ -71,50 +57,24 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
-.playlist{
-    display: flex;
-    background-color: transparent !important;
-    margin: 0px 15px 10px;
-    padding: 0 !important;
-}
-.playlist .img{
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    overflow: hidden;
-}
-.playlist .img img{
-    width: 100%;
-    height: 100%;
-}
-.info_rightbar{
-    display: flex;
-    flex-direction: column;
-    margin-left: 1rem;
-    align-items: flex-start;
-}
-.info_rightbar h3{
-    margin: 0;
-    font-size: 20px;
-}
-.category{
-    font-size: 15px;
-}
 
-.song{
+.list_nav_item{
     display: flex;
-    background-color: transparent !important;
-    margin: 0px 15px 10px;
-    padding: 0 !important;
+    padding: 10px 20px;
 }
-.song .img{
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    overflow: hidden;
-    border-radius: 50%;
+.icon_list_nav_item{
+    margin-right: 10px;
+    width: 35px;
 }
-.song .img img{
-    width: 100%;
-    height: 100%;
+.list_nav_item svg{
+    color: rgba(0, 0, 0, 0.719);
+    
+}
+.list_nav_item span{
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.719);
+}
+.list_nav_item.active{
+    background: #ff3ea657;
+    color: #cd4eaf;
 }
