@@ -31,18 +31,18 @@ const Footer = () => {
                 </div>
 
                 <div className="Social_media">
-                    <a href="#"><FontAwesomeIcon icon={faSquareGithub} /></a>
-                    <a href="#"><FontAwesomeIcon icon={faSquareFacebook} /></a>
-                    <a href="#"><FontAwesomeIcon icon={faInstagram} /></a>
+                    <a href="https://www.ditmenavi.com/"><FontAwesomeIcon icon={faSquareGithub} /></a>
+                    <a href="https://www.ditmenavi.com/"><FontAwesomeIcon icon={faSquareFacebook} /></a>
+                    <a href="https://www.ditmenavi.com/"><FontAwesomeIcon icon={faInstagram} /></a>
                 </div>
             </div>
             <div className="Privacy">
-                <a href="#">Legal</a>
-                <a href="#">Safety & Privacy Center</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Cookies</a>
-                <a href="#">About Ads</a>
-                <a href="#">Accessibility</a>
+                <a href="https://www.ditmenavi.com/">Legal</a>
+                <a href="https://www.ditmenavi.com/">Safety & Privacy Center</a>
+                <a href="https://www.ditmenavi.com/">Privacy Policy</a>
+                <a href="https://www.ditmenavi.com/">Cookies</a>
+                <a href="https://www.ditmenavi.com/">About Ads</a>
+                <a href="https://www.ditmenavi.com/">Accessibility</a>
             </div>
         </div>
     )
