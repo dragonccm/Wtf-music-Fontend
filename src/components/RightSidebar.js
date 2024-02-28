@@ -1,9 +1,9 @@
 import React from "react"
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse } from '@fortawesome/free-solid-svg-icons'
-import { faRankingStar } from '@fortawesome/free-solid-svg-icons'
-import { faIcons } from '@fortawesome/free-solid-svg-icons'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faHouse,faRankingStar,faIcons,faStar } from '@fortawesome/free-solid-svg-icons'
 
 
 import "../css/RightSidebar.css"
