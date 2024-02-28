@@ -22,30 +22,30 @@ const RightSidebar = () => {
             </div>
             <div className="rs_bottom_bar">
                 <div className="list_nav">
-                    <div className="list_nav_item active">
+                    <a href="/home" className="list_nav_item active">
                         <div className="icon_list_nav_item">
                         <FontAwesomeIcon icon={faHouse} />
                         </div>
                         <span>Trang chủ</span>
-                    </div>
-                    <div className="list_nav_item">
+                    </a>
+                    <a href="/top100" className="list_nav_item">
                         <div className="icon_list_nav_item">
                         <FontAwesomeIcon icon={faRankingStar} />
                         </div>
                         <span>Bảng xếp hạng</span>
-                    </div>
-                    <div className="list_nav_item">
+                    </a>
+                    <a href='/category' className="list_nav_item">
                         <div className="icon_list_nav_item">
                         <FontAwesomeIcon icon={faIcons} />
                         </div>
                         <span>Chủ đề & thể loại</span>
-                    </div>
-                    <div className="list_nav_item">
+                    </a>
+                    <a href="/listcard" className="list_nav_item">
                         <div className="icon_list_nav_item">
                         <FontAwesomeIcon icon={faStar} />
                         </div>
                         <span>Top 100</span>
-                    </div>
+                    </a>
 
                 </div>
             </div>

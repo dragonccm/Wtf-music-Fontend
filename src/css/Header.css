@@ -25,7 +25,9 @@
 }
 
 
-
+.menu{
+    border-radius: 1rem;
+}
 .menu_head {
     width: 200px;
     display: flex;
@@ -51,6 +53,9 @@
 .menu_head_btn{
     display: flex;
 
+}
+.popup-content {
+    border-radius: 3rem !important;
 }
 .popup-content_head {
     top:30px !important;

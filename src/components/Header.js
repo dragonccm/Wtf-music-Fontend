@@ -3,7 +3,7 @@ import "../css/Header.css";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faAngleLeft, faChevronRight,faUser,faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
     return (
@@ -27,9 +27,8 @@ const Header = () => {
                     contentStyle={{ padding: '0', border: 'none' }}
                     arrow={false}>
                     <div className="menu">
-                        <button className="menu-item"> item 1</button>
-                        <button className="menu-item"> item 2</button>
-                        <button className="menu-item"> item 3</button>
+                        <button className="menu-item"><FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn</button>
+                        <button className="menu-item"><FontAwesomeIcon icon={faRightFromBracket} /> đăng xuất</button>
                     </div>
                 </Popup>
 
