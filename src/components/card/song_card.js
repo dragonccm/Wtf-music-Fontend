@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/card.css";
+import "../../css/card.css";
 const Card = ({ playlist }) => {
     return (
         <div className="card" key={playlist.id}>

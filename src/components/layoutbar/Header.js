@@ -1,5 +1,5 @@
 import React from 'react';
-import "../css/Header.css";
+import "../../css/Header.css";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,7 +19,7 @@ const Header = () => {
             <div className="avt_container">
 
 
-                <Popup trigger={<button className='avt_page'><img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="f" /></button>} position="bottom right"
+                <Popup trigger={<button className='avt_page'><img src="../../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="f" /></button>} position="bottom right"
                     nested
                     closeOnDocumentClick
                     mouseLeaveDelay={300}
@@ -27,8 +27,8 @@ const Header = () => {
                     contentStyle={{ padding: '0', border: 'none' }}
                     arrow={false}>
                     <div className="menu">
-                        <button className="menu-item"><FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn</button>
-                        <button className="menu-item"><FontAwesomeIcon icon={faRightFromBracket} /> đăng xuất</button>
+                        <a href='/login' className="menu-item"><FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn</a>
+                        <a href='/login' className="menu-item"><FontAwesomeIcon icon={faRightFromBracket} /> đăng xuất</a>
                     </div>
                 </Popup>
 

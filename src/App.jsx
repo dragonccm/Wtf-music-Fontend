@@ -1,7 +1,7 @@
 import './App.css';
-import RightSidebar from './components/RightSidebar'
-import Bottombar from './components/Bottombar'
-import Mainpage from './components/mainpage'
+import RightSidebar from './components/card/RightSidebar'
+import Bottombar from './components/card/Bottombar'
+import Mainpage from './components/pages/mainpage'
 import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {

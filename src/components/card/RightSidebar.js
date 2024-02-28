@@ -6,7 +6,7 @@ import { faIcons } from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 
-import "../css/RightSidebar.css"
+import "../../css/RightSidebar.css"
 const RightSidebar = () => {
     // const playlists = Array.from({ length: 20 }, (_, index) => ({
     //     id: index,
@@ -17,7 +17,7 @@ const RightSidebar = () => {
     return (
         <div className="rightsidebar">
             <div className="rs_top_bar">
-                <a href="/"><img className="logo" src='../../img/logo3 (1).png' alt="f"/></a>
+                <a href="/"><img className="logo" src='../../../img/logo3 (1).png' alt="f"/></a>
             </div>
             <div className="rs_bottom_bar">
                 <div className="list_nav">
