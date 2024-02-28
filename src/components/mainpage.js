@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/mainpage.css";
-import Card from "./song_card";
 import Playlistpage from "./Playlistpage";
 import Songpage from "./Songpage";
 import ListCard from "./ListCard";
