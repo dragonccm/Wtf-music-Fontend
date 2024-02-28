@@ -1,13 +1,11 @@
 import React from "react";
 import "../css/Recommended.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'
 
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
-import { faClock } from '@fortawesome/free-solid-svg-icons'
+
 const Recommended = ({ datas,type,describe }) => {
     return (
         <>
