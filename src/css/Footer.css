@@ -1,5 +1,6 @@
 a{
     text-decoration: none !important;
+    color: aliceblue;
 }
 .Footer{
     font-size: 1.5rem;
@@ -24,8 +25,10 @@ a{
     display: flex;
 }
 .column{
+    color: aliceblue;
     margin:  0 1rem;
 }
 .Social_media a{
+    font-size: 3rem;
     margin: 0 1rem;
 }

@@ -5,7 +5,7 @@ const ListCard = ({ data }) => {
     return (
         <>
             {data.map((element) => (
-                <div className="element" key={element.title}>
+                <a href="/songpage" className="element" key={element.title}>
                     <div className="element_head">
                         <h1>{element.title}</h1>
                         <button className="show_all">Hiện tất cả</button>
@@ -16,7 +16,7 @@ const ListCard = ({ data }) => {
                             <Card playlist={playlist} />
                         ))}
                     </div>
-                </div>
+                </a>
             ))}
         </>
     )

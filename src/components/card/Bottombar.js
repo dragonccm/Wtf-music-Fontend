@@ -5,14 +5,14 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-import "../css/Bottombar.css"
+import "../../css/Bottombar.css"
 const Bottombar = (props) => {
     return (
         <div className="main_bottom_bar">
             <div className="bottom_bar">
                 <div className="left">
                     <div className="info_img">
-                        <img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="" className="song_avt" />
+                        <img src="../../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="f" className="song_avt" />
                     </div>
                     <div className="info">
                         <h3>Flower</h3>

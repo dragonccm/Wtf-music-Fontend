@@ -1,7 +1,7 @@
 import React from 'react';
-import "../css/Footer.css";
+import "../../css/Footer.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { faSquareGithub,faSquareFacebook,faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 
 const Footer = () => {
@@ -31,18 +31,18 @@ const Footer = () => {
                 </div>
 
                 <div className="Social_media">
-                    <a href="">git</a>
-                    <a href="">fb</a>
-                    <a href="">ins</a>
+                    <a href="https://www.ditmenavi.com/"><FontAwesomeIcon icon={faSquareGithub} /></a>
+                    <a href="https://www.ditmenavi.com/"><FontAwesomeIcon icon={faSquareFacebook} /></a>
+                    <a href="https://www.ditmenavi.com/"><FontAwesomeIcon icon={faInstagram} /></a>
                 </div>
             </div>
             <div className="Privacy">
-                <a href="">Legal</a>
-                <a href="">Safety & Privacy Center</a>
-                <a href="">Privacy Policy</a>
-                <a href="">Cookies</a>
-                <a href="">About Ads</a>
-                <a href="">Accessibility</a>
+                <a href="https://www.ditmenavi.com/">Legal</a>
+                <a href="https://www.ditmenavi.com/">Safety & Privacy Center</a>
+                <a href="https://www.ditmenavi.com/">Privacy Policy</a>
+                <a href="https://www.ditmenavi.com/">Cookies</a>
+                <a href="https://www.ditmenavi.com/">About Ads</a>
+                <a href="https://www.ditmenavi.com/">Accessibility</a>
             </div>
         </div>
     )

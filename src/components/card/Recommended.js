@@ -1,13 +1,11 @@
 import React from "react";
-import "../css/Recommended.css";
+import "../../css/Recommended.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'
 
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
-import { faClock } from '@fortawesome/free-solid-svg-icons'
+
 const Recommended = ({ datas,type,describe }) => {
     return (
         <>
@@ -29,7 +27,7 @@ const Recommended = ({ datas,type,describe }) => {
                             </div>
                         </div>
                         <div className="song_img">
-                            <img src={data.image} alt="" />
+                            <img src={data.image} alt="f" />
                         </div>
                         <div className="songif">
                             <div className="songname">{data.songname}</div>
