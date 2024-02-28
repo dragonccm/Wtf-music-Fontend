@@ -38,6 +38,38 @@ div{
     font-size: 1.5rem;
     border-radius: 1rem;
 }
+/* signup */
+.signup_form{
+    width: 60rem;
+    background-color: #2b2b2c;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.signup_form h1{
+    font-size: 2.5rem;
+    margin: 2rem auto;
+    color: aliceblue;
+}
+.signup_form input[type="text"]{
+    background-color: #1b1b1d;
+    border: none;
+    margin: 1rem;
+    padding: 2rem;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+}
+.signup_form button{
+    padding: 1.2rem;
+    font-size: 2rem;
+    margin: 1rem auto;
+    width: 45rem;
+    background-color: #ff8888 !important;
+}
+/* signup */
 .check_box{
     display: flex;
     align-items: center;
@@ -57,6 +89,10 @@ div{
     margin: 0 0.4rem !important;
     font-size: 1.5rem !important;
     color: red;
+    cursor: pointer;
+}
+.change_page:hover{
+    color: black !important;
 }
 .change_page_text{
     display: flex;
