@@ -27,7 +27,7 @@ const Recommended = ({ datas,type,describe }) => {
                             </div>
                         </div>
                         <div className="song_img">
-                            <img src={data.image} alt="" />
+                            <img src={data.image} alt="f" />
                         </div>
                         <div className="songif">
                             <div className="songname">{data.songname}</div>

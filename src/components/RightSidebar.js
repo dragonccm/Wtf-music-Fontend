@@ -8,17 +8,16 @@ import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 import "../css/RightSidebar.css"
 const RightSidebar = () => {
-    const playlists = Array.from({ length: 20 }, (_, index) => ({
-        id: index,
-        name: `Playlist ${index + 1}`,
-        image: "../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
-        category: "playlist",
-    }));
+    // const playlists = Array.from({ length: 20 }, (_, index) => ({
+    //     id: index,
+    //     name: `Playlist ${index + 1}`,
+    //     image: "../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
+    //     category: "playlist",
+    // }));
     return (
         <div className="rightsidebar">
             <div className="rs_top_bar">
-                <a href="/"><img className="logo" src='../../img/logo3 (1).png'/></a>
-                {/* <a href="/"><FontAwesomeIcon icon={faMagnifyingGlass} />  Search</a> */}
+                <a href="/"><img className="logo" src='../../img/logo3 (1).png' alt="f"/></a>
             </div>
             <div className="rs_bottom_bar">
                 <div className="list_nav">

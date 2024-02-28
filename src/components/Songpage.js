@@ -132,7 +132,7 @@ const Songpage = () => {
             <div className="list_head">
 
                 <div className="left_head">
-                    <img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="" />
+                    <img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="f" />
                 </div>
 
                 <div className="mid_head">
@@ -140,7 +140,7 @@ const Songpage = () => {
                     <h1 className="list_name">MyList</h1>
                     <p className="info">
                         <div className="small_avt">
-                            <img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="" />
+                            <img src="../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="f" />
                         </div>
                         <div className="user_name">long</div>
                         .
