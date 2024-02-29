@@ -4,6 +4,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faChevronRight,faUser,faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import logo from '../../img/logo3 (1).png'
 
 const Header = () => {
     return (
@@ -19,7 +20,7 @@ const Header = () => {
             <div className="avt_container">
 
 
-                <Popup trigger={<button className='avt_page'><img src="../../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="f" /></button>} position="bottom right"
+                <Popup trigger={<button className='avt_page'><img src={logo} alt="f" /></button>} position="bottom right"
                     nested
                     closeOnDocumentClick
                     mouseLeaveDelay={300}

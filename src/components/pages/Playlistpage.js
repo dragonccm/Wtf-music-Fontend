@@ -10,7 +10,7 @@ import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'
 
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
-
+import Ima from '../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg'
 import Recommended from '../card/Recommended'
 const Playlistpage = () => {
 
@@ -18,7 +18,7 @@ const Playlistpage = () => {
     const Recommendeds = Array.from({ length: 5 }, (_, index) => ({
         id: index,
         name: `Playlist ${index + 1}`,
-        image: "../../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
+        image: Ima,
         category: "playlist",
         songartist: "jisoo",
         songname: "Flower",
@@ -31,7 +31,7 @@ const Playlistpage = () => {
     const My_list = Array.from({ length: 10 }, (_, index) => ({
         id: index,
         name: `Playlist ${index + 1}`,
-        image: "../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
+        image: Ima,
         category: "playlist",
         songartist: "jisoo",
         songname: "Flower",
@@ -49,7 +49,7 @@ const Playlistpage = () => {
             <div className="list_head">
 
                 <div className="left_head">
-                    <img src="../../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="f" />
+                    <img src={Image} alt="f" />
                 </div>
 
                 <div className="mid_head">
@@ -57,7 +57,7 @@ const Playlistpage = () => {
                     <h1 className="list_name">MyList</h1>
                     <p className="info">
                         <div className="small_avt">
-                            <img src="../../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg" alt="" />
+                            <img src={Image} alt="" />
                         </div>
                         <div className="user_name">long</div>
                         .

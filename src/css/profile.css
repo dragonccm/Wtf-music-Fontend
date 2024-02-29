@@ -1,0 +1,107 @@
+.profile_bar{
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    width: 100%;
+    height: 100%;
+}
+.list_nav_pr{
+    display: flex;
+    justify-content: center;
+}
+.icon_list_nav_item {
+    margin-right: 8px;
+    width: 35px;
+}
+
+.list_nav_item_pr svg {
+    color: white;
+
+}
+
+.list_nav_item_pr span {
+    font-size: 18px;
+    color: white;
+}
+
+.list_nav_item.active {
+    background: #ff3ea657;
+    color: #cd4eaf;
+    background: rgba(255, 255, 255, 0.3);
+    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
+    box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4), 1px 1px 3px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all 0.3s ease-in-out;
+}
+
+.list_nav_item:hover {
+    background: #ff3ea657;
+    color: #cd4eaf;
+    /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4), 1px 1px 3px rgba(0, 0, 0, 0.1); */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    /* border: 1px solid rgba(255, 255, 255, 0.18); */
+    background-position: top right, bottom left;
+}
+
+.list_nav_item {
+    --color: #f1aaaa;
+    position: relative;
+    overflow: hidden;
+    transition: color .5s;
+    z-index: 1;
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    padding: 15px 20px;
+    /* transition: all .3s; */
+    z-index: 1;
+    border-radius: 10px;
+    text-decoration: none;
+}
+.list_nav_item_pr{
+    align-items: center;
+    margin: 0 1rem;
+}
+
+.list_nav_item:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+.list_nav_item:hover {
+    color: #fff;
+}
+
+.list_nav_item:before {
+    top: 100%;
+    left: 100%;
+    transition: all .7s;
+}
+
+.list_nav_item:hover:before {
+    top: -30px;
+    left: -30px;
+}
+
+.list_nav_item:active:before {
+    background: #fff;
+    transition: background 0s;
+}
+
+
+
+.profile_container{
+    height: 60rem;
+}

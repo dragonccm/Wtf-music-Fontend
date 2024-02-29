@@ -3,16 +3,12 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { ReactSVG } from "react-svg";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, useLocation, useHistory } from "react-router-dom";
+import { NavLink, useLocation,useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHouse,faRankingStar,faIcons,faStar } from '@fortawesome/free-solid-svg-icons'
+import logo from '../../img/logo3 (1).png'
 
-import logo from "../../img/logo3 (1).png";
-import icon_Rating from "../../img/music-player-audio-bars-svgrepo-com.svg";
-import icon_Home from "../../img/music-house-fill-svgrepo-com.svg";
-import icon_Category from "../../img/music-library-svgrepo-com.svg";
-import icon_top from "../../img/music-upload-svgrepo-com.svg";
-import icon_libary from "../../img/music-files-svgrepo-com.svg";
-import Mascot from '../sideNavigation/mascot_animation'
-import "../../css/RightSidebar.css";
+import "../../css/RightSidebar.css"
 const RightSidebar = () => {
   return (
     <div className="rightsidebar">
