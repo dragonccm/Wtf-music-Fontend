@@ -4,10 +4,13 @@ import Nav from "react-bootstrap/Nav";
 import { ReactSVG } from "react-svg";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, useLocation,useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse,faRankingStar,faIcons,faStar } from '@fortawesome/free-solid-svg-icons'
+import iconHome from '../../img/music-house-fill-svgrepo-com.svg'
+import icon_Rating from '../../img/music-player-audio-bars-svgrepo-com.svg'
+import icon_Category from '../../img/music-library-svgrepo-com.svg'
+import icon_top from '../../img/music-upload-svgrepo-com.svg'
+import icon_libary from '../../img/music-folder-svgrepo-com.svg'
 import logo from '../../img/logo3 (1).png'
-
+import Mascot from '../sideNavigation/mascot_animation'
 import "../../css/RightSidebar.css"
 const RightSidebar = () => {
   return (
@@ -29,7 +32,7 @@ const RightSidebar = () => {
                     beforeInjection={(svg) => {
                       svg.classList.add("icon_list_nav_item_svg");
                     }}
-                    src={icon_Home}
+                    src={iconHome}
                   />
                 </div>
                 <span>Trang chủ</span>
