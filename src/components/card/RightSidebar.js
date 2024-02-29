@@ -2,7 +2,8 @@ import React from "react"
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, useLocation,useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+// import { useLocation,useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse,faRankingStar,faIcons,faStar } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../img/logo3 (1).png'

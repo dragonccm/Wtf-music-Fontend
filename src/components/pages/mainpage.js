@@ -6,6 +6,7 @@ import ListCard from "../card/ListCard";
 import Header from "../layoutbar/Header";
 import Footer from "../layoutbar/Footer";
 import Loginform from "../pages/loginpage";
+import Profile from "./profilepage";
 import {Routes, Route } from 'react-router-dom';
 
 const Mainpage = ({ playlists }) => {
@@ -25,6 +26,7 @@ const Mainpage = ({ playlists }) => {
             <Route path='/playlistpage' element={<Playlistpage />} />
             <Route path='/songpage' element={<Songpage />} />
             <Route path='/login' element={<Loginform />} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
           <Footer />
         </section>
