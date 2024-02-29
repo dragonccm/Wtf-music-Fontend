@@ -51,7 +51,7 @@
 }
 
 .list_nav_item {
-    --color: #fff;
+    --color: #f1aaaa;
     position: relative;
     overflow: hidden;
     transition: color .5s;
@@ -98,4 +98,10 @@
 .list_nav_item:active:before {
     background: #fff;
     transition: background 0s;
+}
+
+
+
+.profile_container{
+    height: 60rem;
 }
