@@ -1,60 +1,89 @@
-import React from "react"
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
+import { ReactSVG } from "react-svg";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, useLocation,useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse,faRankingStar,faIcons,faStar } from '@fortawesome/free-solid-svg-icons'
-import logo from '../../img/logo3 (1).png'
+import { NavLink, useLocation, useHistory } from "react-router-dom";
 
-import "../../css/RightSidebar.css"
+import logo from "../../img/logo3 (1).png";
+import icon_Rating from "../../img/music-player-audio-bars-svgrepo-com.svg";
+import icon_Home from "../../img/music-house-fill-svgrepo-com.svg";
+import icon_Category from "../../img/music-library-svgrepo-com.svg";
+import icon_top from "../../img/music-upload-svgrepo-com.svg";
+import icon_libary from "../../img/music-files-svgrepo-com.svg";
+import Mascot from '../sideNavigation/mascot_animation'
+import "../../css/RightSidebar.css";
 const RightSidebar = () => {
-    
-    return (
-        <div className="rightsidebar">
-            <Navbar expand="lg" className="bg-body-tertiary">
-                <Container>
-                <Navbar.Brand href="#home" className="logo-name">
-                <img
-                  src={logo}
-                  className="d-inline-block align-top"
-                  alt="React Bootstrap logo"
-                />
-              </Navbar.Brand>
-              <Navbar.Collapse id="basic-navbar-nav" className="rs_bottom_bar">
-                <Nav className="me-auto list_nav">
-                  <NavLink to="/" exact className="nav-link list_nav_item">
-                  <div className="icon_list_nav_item">
-                        <FontAwesomeIcon icon={faHouse} />
-                        </div>
-                        <span>Trang chủ</span>
-                  </NavLink>
-                  <NavLink to="/users" className="nav-link list_nav_item">
-                  <div className="icon_list_nav_item">
-                        <FontAwesomeIcon icon={faRankingStar} />
-                        </div>
-                        <span>Bảng xếp hạng</span>
-                  </NavLink>
-                  <NavLink to="/roles" className="nav-link list_nav_item">
-                  <div className="icon_list_nav_item">
-                        <FontAwesomeIcon icon={faIcons} />
-                        </div>
-                        <span>Chủ đề & thể loại</span>
-                  </NavLink>
-                  <NavLink to="/group-role" className="nav-link list_nav_item">
-                  <div className="icon_list_nav_item">
-                        <FontAwesomeIcon icon={faStar} />
-                        </div>
-                        <span>Top 100</span>
-                  </NavLink>
-                  <NavLink to="/project" className="nav-link list_nav_item">
-                    Project
-                  </NavLink>
-                  <NavLink to="/about" className="nav-link list_nav_item">
-                    About
-                  </NavLink>
-                </Nav>
-                {/* <Nav>
+  return (
+    <div className="rightsidebar">
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand href="#home" className="logo-name">
+            <img
+              src={logo}
+              className="d-inline-block align-top"
+              alt="React Bootstrap logo"
+            />
+          </Navbar.Brand>
+          <Navbar.Collapse id="basic-navbar-nav" className="rs_bottom_bar">
+            <Nav className="me-auto list_nav">
+              <NavLink to="/" exact className="nav-link list_nav_item">
+                <div className="icon_list_nav_item">
+                  <ReactSVG
+                    beforeInjection={(svg) => {
+                      svg.classList.add("icon_list_nav_item_svg");
+                    }}
+                    src={icon_Home}
+                  />
+                </div>
+                <span>Trang chủ</span>
+              </NavLink>
+              <NavLink to="/users" className="nav-link list_nav_item">
+                <div className="icon_list_nav_item">
+                                  <ReactSVG
+                                      beforeInjection={(svg) => {
+                                        svg.classList.add('icon_list_nav_item_svg')
+                                      }}
+                                      src={icon_Rating}
+                                  />
+                </div>
+                <span>Bảng xếp hạng</span>
+              </NavLink>
+              <NavLink to="/roles" className="nav-link list_nav_item">
+                <div className="icon_list_nav_item">
+                  <ReactSVG
+                    beforeInjection={(svg) => {
+                      svg.classList.add("icon_list_nav_item_svg");
+                    }}
+                    src={icon_Category}
+                  />
+                </div>
+                <span>Chủ đề & thể loại</span>
+              </NavLink>
+              <NavLink to="/group-role" className="nav-link list_nav_item">
+                <div className="icon_list_nav_item">
+                  <ReactSVG
+                    beforeInjection={(svg) => {
+                      svg.classList.add("icon_list_nav_item_svg");
+                    }}
+                    src={icon_top}
+                  />
+                </div>
+                <span>Top 100</span>
+                          </NavLink>
+                          <NavLink to="/group-role" className="nav-link list_nav_item">
+                <div className="icon_list_nav_item">
+                  <ReactSVG
+                    beforeInjection={(svg) => {
+                      svg.classList.add("icon_list_nav_item_svg");
+                    }}
+                    src={icon_libary}
+                  />
+                </div>
+                <span>Thư viện</span>
+                          </NavLink>
+            </Nav>
+            {/* <Nav>   
                   {user && user.isAuthenticated === true ? (
                     <>
                       <Nav.Item className="name-user nav-link ">
@@ -74,8 +103,8 @@ const RightSidebar = () => {
                     </>
                   )}
                 </Nav> */}
-              </Navbar.Collapse>
-            {/* <div className="rs_bottom_bar">
+          </Navbar.Collapse>
+          {/* <div className="rs_bottom_bar">
                 <div className="list_nav">
                     <a href="/home" className="list_nav_item active">
                         <div className="icon_list_nav_item">
@@ -104,9 +133,11 @@ const RightSidebar = () => {
 
                 </div>
             </div> */}
-            </Container>
-            </Navbar>
-        </div>
-    )
-}
-export default RightSidebar
+        </Container>
+          </Navbar>
+          <Mascot/>
+          
+    </div>
+  );
+};
+export default RightSidebar;
