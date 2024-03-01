@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faTableList, faHistory, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faTableList, faHistory, faGear, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { Routes, Route } from 'react-router-dom';
 import Recommended from "../card/Recommended";
 import "../../css/profile.scss"
@@ -287,16 +287,16 @@ function Profile() {
 
 
             <UserInfo data={userdata} />
-            
+
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
                     <Navbar.Collapse id="basic-navbar-nav" className="profile_bar">
                         <Nav className="me-auto list_nav list_nav_pr">
-                            <NavLink to="info" exact className="nav-link list_nav_item  list_nav_item_pr">
+                            <NavLink to="info" className="nav-link list_nav_item  list_nav_item_pr">
                                 <div className="icon_list_nav_item">
-                                    <FontAwesomeIcon icon={faUser} />
+                                    <FontAwesomeIcon icon={faHeart} />
                                 </div>
-                                <span>Hồ Sơ Của Bạn</span>
+                                <span>Yêu Thích</span>
                             </NavLink>
                             <NavLink to="myplaylist" className="nav-link list_nav_item  list_nav_item_pr">
                                 <div className="icon_list_nav_item">
@@ -334,7 +334,7 @@ function Profile() {
                         <div className="artist_card">
                             <img src="artist_card" alt="artist" />
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

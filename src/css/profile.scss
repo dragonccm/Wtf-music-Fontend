@@ -11,7 +11,7 @@
   }
   .list_nav_pr {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
   }
   .icon_list_nav_item {
     margin-right: 8px;
@@ -19,17 +19,17 @@
   }
 
   .list_nav_item_pr svg {
-    color: white;
+     color: rgb(44, 44, 44);
   }
 
   .list_nav_item_pr span {
     font-size: 18px;
-    color: white;
+     color: rgb(113, 111, 111);
   }
 
   .list_nav_item.active {
-    background: #ff3ea657;
-    color: #cd4eaf;
+    background: #F2BED1;
+    color: #FDCEDF;
     background: rgba(255, 255, 255, 0.3);
     /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
     box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4),
@@ -41,8 +41,8 @@
   }
 
   .list_nav_item:hover {
-    background: #ff3ea657;
-    color: #cd4eaf;
+    background: #F2BED1;
+    color: #FDCEDF;
     /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4), 1px 1px 3px rgba(0, 0, 0, 0.1); */
     backdrop-filter: blur(4px);
@@ -53,7 +53,7 @@
   }
 
   .list_nav_item {
-    --color: #f1aaaa;
+    --color: #ffffff;
     position: relative;
     overflow: hidden;
     transition: color 0.5s;
@@ -66,10 +66,11 @@
     z-index: 1;
     border-radius: 10px;
     text-decoration: none;
+    width: 30%;
   }
   .list_nav_item_pr {
     align-items: center;
-    margin: 0 1rem;
+    margin: 0 ;
   }
 
   .list_nav_item:before {
@@ -91,21 +92,25 @@
     left: 100%;
     transition: all 0.7s;
   }
-
+  .bg-body-tertiary{
+    background-color: #F8E8EE;
+    margin: 0 4%;
+    border-radius: 1rem;
+  }
   .list_nav_item:hover:before {
     top: -30px;
     left: -30px;
   }
 
   .list_nav_item:active:before {
-    background: #ffe1e1;
+    background: #ffffff;
     transition: background 0s;
   }
   .profile_content {
     display: flex;
     justify-content: center;
     margin: 5rem;
-    background-color: #5e5e5e;
+    background-color: #F8E8EE;
     padding: 5rem;
     border-radius: 1rem;
   }
@@ -152,7 +157,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #363636;
+    background-color: #F9F5F6;
     padding: 1rem;
     border-radius: 1rem;
   }
@@ -170,9 +175,10 @@
   .mylist_page {
     display: flex;
     flex-direction: column;
+    width: 90%;
   }
   .mylisttitle {
-    color: white !important;
+    color: rgb(31, 31, 31) !important;
     font-size: 3rem;
     margin-bottom: 2rem;
   }
