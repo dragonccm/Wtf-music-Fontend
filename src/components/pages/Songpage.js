@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/Songpage.css";
+import "../../css/Songpage.scss";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,7 +14,7 @@ const Songpage = () => {
     const Recommendeds = Array.from({ length: 5 }, (_, index) => ({
         id: index,
         name: `Playlist ${index + 1}`,
-        image: {Image},
+        image: "https://th.bing.com/th/id/OIP.XusXZvUJb2jQFc8QvjBnIwHaL2?rs=1&pid=ImgDetMain",
         category: "playlist",
         songartist: "jisoo",
         songname: "Flower",
@@ -28,7 +28,7 @@ const Songpage = () => {
     const playlistsData = Array.from({ length: 5 }, (_, index) => ({
         id: index,
         name: `Playlist ${index + 1}`,
-        image: {Image},
+        image: "https://th.bing.com/th/id/OIP.XusXZvUJb2jQFc8QvjBnIwHaL2?rs=1&pid=ImgDetMain",
         artists_list: ["Jisso", "Jisso", "Jisso", "Jisso", "Jisso"],
     }));
 
@@ -129,24 +129,24 @@ const Songpage = () => {
         </React.Fragment>
     ));
     return (
-        <section>
-            <div className="list_head">
+        <section className ="songpage_main">
+            <div className="songpage_list_head">
 
-                <div className="left_head">
+                <div className="songpage_left_head">
                     <img src={Image} alt="f" />
                 </div>
 
-                <div className="mid_head">
+                <div className="songpage_mid_head">
                     <p>PlayList</p>
-                    <h1 className="list_name">MyList</h1>
-                    <p className="info">
-                        <div className="small_avt">
+                    <h1 className="songpage_list_name">MyList</h1>
+                    <p className="songpage_info">
+                        <div className="songpage_small_avt">
                             <img src={Image} alt="f" />
                         </div>
-                        <div className="user_name">long</div>
+                        <div className="songpage_user_name">long</div>
                         .
-                        <div className="total_song">41 bài hát,</div>
-                        <div className="total_time">2 giờ 15 phút</div>
+                        <div className="songpage_total_song">41 bài hát,</div>
+                        <div className="songpage_total_time">2 giờ 15 phút</div>
                     </p>
                 </div>
 

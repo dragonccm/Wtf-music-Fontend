@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/Recommended.css";
+import "../../css/recommend.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'

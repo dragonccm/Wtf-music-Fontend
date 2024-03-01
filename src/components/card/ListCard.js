@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "./song_card";
+import "../../css/list_card.scss";
 const ListCard = ({ data }) => {
     console.log(JSON.stringify(data));
     return (

@@ -6,18 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faTableList, faHistory, faGear } from '@fortawesome/free-solid-svg-icons'
 import { Routes, Route } from 'react-router-dom';
 import Recommended from "../card/Recommended";
-import { useFormik } from "formik";
-import {
-    Box,
-    Button,
-    Checkbox,
-    Flex,
-    FormControl,
-    FormLabel,
-    Input,
-    VStack
-} from "@chakra-ui/react";
-import "../../css/profile.css"
+import "../../css/profile.scss"
 function Profile() {
 
 
@@ -285,61 +274,9 @@ function Profile() {
             <Recommended datas={data} type={"Lịch Sử"} describe={'Đã Xem Gần Đây'} />
         </div>
     )
-
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-            rememberMe: false
-        },
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        }
-    });
     const Setting = () => (
         <div className="setting_ctn">
-            <Flex bg="gray.100" align="center" justify="center" h="100vh">
-                <Box bg="white" p={6} rounded="md">
-                    <form onSubmit={formik.handleSubmit}>
-                        <VStack spacing={4} align="flex-start">
-                            <FormControl>
-                                <FormLabel htmlFor="email">Email Address</FormLabel>
-                                <Input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    variant="filled"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.email}
-                                />
-                            </FormControl>
-                            <FormControl>
-                                <FormLabel htmlFor="password">Password</FormLabel>
-                                <Input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    variant="filled"
-                                    onChange={formik.handleChange}
-                                    value={formik.values.password}
-                                />
-                            </FormControl>
-                            <Checkbox
-                                id="rememberMe"
-                                name="rememberMe"
-                                onChange={formik.handleChange}
-                                isChecked={formik.values.rememberMe}
-                                colorScheme="purple"
-                            >
-                                Remember me?
-                            </Checkbox>
-                            <Button type="submit" colorScheme="purple" width="full">
-                                Login
-                            </Button>
-                        </VStack>
-                    </form>
-                </Box>
-            </Flex>
+            <h1>setting</h1>
         </div>
     )
 
@@ -347,6 +284,10 @@ function Profile() {
 
     return (
         <div className="profile_container">
+
+
+            <UserInfo data={userdata} />
+            
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
                     <Navbar.Collapse id="basic-navbar-nav" className="profile_bar">
@@ -383,11 +324,19 @@ function Profile() {
 
             <div className="profile_content">
                 <Routes>
-                    <Route path='/info' element={<UserInfo data={userdata} />} />
                     <Route path='/myplaylist' element={<Myplaylist datas={usserplaylist} />} />
                     <Route path='/history' element={<History data={Recommendeds} />} />
                     <Route path='/setting' element={<Setting />} />
                 </Routes>
+
+                <div className="artist_ctn">
+                    <div className="artist_card">
+                        <div className="artist_card">
+                            <img src="artist_card" alt="artist" />
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     );

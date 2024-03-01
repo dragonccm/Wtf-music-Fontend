@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/Detailed_list.css";
+import "../../css/Detailed_list.scss";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -45,7 +45,7 @@ const Playlistpage = () => {
 
 
     return (
-        <section>
+        <section className="detailed_list">
             <div className="list_head">
 
                 <div className="left_head">

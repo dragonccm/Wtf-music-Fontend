@@ -1,0 +1,34 @@
+/* a{
+    text-decoration: none !important;
+    color: aliceblue;
+} */
+.Footer{
+    font-size: 1.5rem;
+    .info_contaier{
+        border-top: 1px solid #a7a7a7;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0;
+        line-height: 3rem;
+    }
+    .Privacy{
+        margin: 1rem 0;
+        padding: 1rem 0;
+        border-top: 1px solid #a7a7a7;
+    }
+    .Privacy a{
+        margin:  0 1rem;
+    }
+    .column_container{
+        display: flex;
+    }
+    .column{
+        color: rgb(0, 0, 0);
+        margin:  0 1rem;
+    }
+    .Social_media a{
+        font-size: 3rem;
+        margin: 0 1rem;
+    }
+}

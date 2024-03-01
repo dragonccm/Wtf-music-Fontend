@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../css/Header.css";
+import "../../css/Header.scss";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -29,7 +29,7 @@ const Header = () => {
                     arrow={false}>
                     <div className="menu">
                         <a href='/login' className="menu-item"><FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn</a>
-                        <a href='/login' className="menu-item"><FontAwesomeIcon icon={faRightFromBracket} /> đăng xuất</a>
+                        <a href='/profile/info' className="menu-item"><FontAwesomeIcon icon={faRightFromBracket} /> đăng xuất</a>
                     </div>
                 </Popup>
 
