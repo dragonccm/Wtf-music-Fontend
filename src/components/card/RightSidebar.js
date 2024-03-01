@@ -37,7 +37,7 @@ const RightSidebar = () => {
                 </div>
                 <span>Trang chủ</span>
               </NavLink>
-              <NavLink to="/users" className="nav-link list_nav_item">
+              <NavLink to="/rating" className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
                                   <ReactSVG
                                       beforeInjection={(svg) => {
@@ -48,7 +48,7 @@ const RightSidebar = () => {
                 </div>
                 <span>Bảng xếp hạng</span>
               </NavLink>
-              <NavLink to="/roles" className="nav-link list_nav_item">
+              <NavLink to="/category" className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
                   <ReactSVG
                     beforeInjection={(svg) => {
@@ -59,7 +59,7 @@ const RightSidebar = () => {
                 </div>
                 <span>Chủ đề & thể loại</span>
               </NavLink>
-              <NavLink to="/group-role" className="nav-link list_nav_item">
+              <NavLink to="/top100" className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
                   <ReactSVG
                     beforeInjection={(svg) => {
@@ -70,7 +70,7 @@ const RightSidebar = () => {
                 </div>
                 <span>Top 100</span>
                           </NavLink>
-                          <NavLink to="/group-role" className="nav-link list_nav_item">
+                          <NavLink to="/libary" className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
                   <ReactSVG
                     beforeInjection={(svg) => {

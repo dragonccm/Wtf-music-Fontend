@@ -16,6 +16,7 @@ function Loginform() {
 
     return (
         <div className="mod">
+            <div className="form-con">
             {isLogin ? (
                 // Form đăng nhập
                 <form action="" className="login_form">
@@ -52,6 +53,7 @@ function Loginform() {
                     <button className="logout">Đăng Xuất</button>
                 </form>
             )}
+           </div>
         </div>
     );
 }
