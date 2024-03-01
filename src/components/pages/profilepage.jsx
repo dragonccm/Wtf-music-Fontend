@@ -35,8 +35,69 @@ function Profile() {
         total: "3:00",
         root_album: "Solo"
     }));
-    const UserInfo = () => <h1>Hồ Sơ Của Bạn</h1>;
-    const UserSettings = () => <h1>Cài Đặt</h1>;
+
+
+    const userdata = {
+        avt: "https://i.redd.it/ykbmzd7rlyq01.jpg",
+        name: "Dragonccm",
+        email: "dragonccm@gmail.com",
+        date: "10/02/2003",
+        pass: "long20%long555"
+    }
+    const usserplaylist = [
+        {
+            id: "jdfhhjf",
+            img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
+            name: "Gone"
+        },
+        {
+            id: "jdfhhjf",
+            img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
+            name: "house"
+        },
+        {
+            id: "jdfhhjf",
+            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+            name: "Money"
+        }
+    ]
+    const UserInfo = ({ data }) => (
+        <div className="info_card_ctn">
+            <div className="avt_container">
+                <img src={data.avt} alt="f" />
+            </div>
+            <div className="info_card">
+                <div className="info_card_item">
+                    <label>Tên: </label>
+                    <p>{userdata.name}</p>
+                </div>
+                <div className="info_card_item">
+                    <label>Email: </label>
+                    <p>{userdata.email}</p>
+                </div>
+                <div className="info_card_item">
+                    <label>Ngày Sinh: </label>
+                    <p>{userdata.date}</p>
+                </div>
+            </div>
+        </div>
+    );
+    const Myplaylist = ({ datas }) => (
+        <section className="mylist_page">
+            <div className="mylisttitle">Danh Sách Phát Của bạn</div>
+            <div className="list_container">
+                {datas.map((data) => (
+                    <div className="myListcard">
+                        <div className="list_img">
+                            <img src={data.img} alt="f" />
+                        </div>
+                        <p className="playlist_name">{data.name}</p>
+                    </div>
+
+                ))}
+            </div>
+        </section>
+    );
 
     return (
         <div className="profile_container">
@@ -69,7 +130,7 @@ function Profile() {
                                 <span>Cài Đặt</span>
                             </NavLink>
                         </Nav>
-                        
+
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
@@ -77,8 +138,8 @@ function Profile() {
             <div className="profile_content">
                 <Routes>
                     {/* Đảm bảo path và element tương ứng đúng với nhau */}
-                    <Route path='/info' element={<ListCard data={element}/>} />
-                    <Route path='/setting' element={ <Recommended datas={Recommendeds} type={"Popular"} describe={'Rap Việt'} />} />
+                    <Route path='/info' element={<UserInfo data={userdata} />} />
+                    <Route path='/setting' element={<Myplaylist datas={usserplaylist} />} />
                 </Routes>
             </div>
         </div>

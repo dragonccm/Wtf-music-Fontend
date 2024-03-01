@@ -17,7 +17,7 @@ const Header = () => {
                     <FontAwesomeIcon icon={faChevronRight} />
                 </button>
             </div>
-            <div className="avt_container">
+            <div className="h_avt_container">
 
 
                 <Popup trigger={<button className='avt_page'><img src={logo} alt="f" /></button>} position="bottom right"
