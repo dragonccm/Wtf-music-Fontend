@@ -36,7 +36,7 @@ const Recommended = ({ datas,type,describe }) => {
                     </div>
                     <div className="root_album">{data.root_album}</div>
                     <div className="added_time">{data.addedday}</div>
-                    <div className="foot">
+                    <div className="foot_r">
                         <div className="liked"><FontAwesomeIcon icon={data.liked_state ? faHeart : regular} /></div>
                         <div className="time">{data.songname}</div>
                     </div>

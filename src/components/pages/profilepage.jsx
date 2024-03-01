@@ -5,36 +5,21 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faTableList, faHistory, faGear } from '@fortawesome/free-solid-svg-icons'
 import { Routes, Route } from 'react-router-dom';
-import ListCard from "../card/ListCard";
 import Recommended from "../card/Recommended";
-
+import { useFormik } from "formik";
+import {
+    Box,
+    Button,
+    Checkbox,
+    Flex,
+    FormControl,
+    FormLabel,
+    Input,
+    VStack
+} from "@chakra-ui/react";
 import "../../css/profile.css"
 function Profile() {
-    const playlistsData = Array.from({ length: 5 }, (_, index) => ({
-        id: index,
-        name: `Playlist ${index + 1}`,
-        image: "../../img/_e1a54268-fb6e-4c76-98a4-8a32aef31266.jpg",
-        artists_list: ["Jisso", "Jisso", "Jisso", "Jisso", "Jisso"],
-    }));
 
-    const element = Array.from({ length: 5 }, (_, index) => ({
-        title: 'title',
-        list: playlistsData,
-    }));
-
-    const Recommendeds = Array.from({ length: 5 }, (_, index) => ({
-        id: index,
-        name: `Playlist ${index + 1}`,
-        image: { Image },
-        category: "playlist",
-        songartist: "jisoo",
-        songname: "Flower",
-        addedday: "11 thg 11, 2021",
-        liked_state: false,
-        songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-        total: "3:00",
-        root_album: "Solo"
-    }));
 
 
     const userdata = {
@@ -61,6 +46,203 @@ function Profile() {
             name: "Money"
         }
     ]
+    const Recommendeds = [
+        {
+            id: "jhfjh",
+            name: `Flowers`,
+            image: "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "jisoo",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "kdjfkdj",
+            name: `typaGirls`,
+            image: "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "jshdjshdjs",
+            name: `Pink Venom`,
+            image: "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "859485948",
+            name: `Hard To Love`,
+            image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
+            category: "playlist",
+            songartist: "Rosé",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "987598495",
+            name: ` HOW YOU LIKE THAT`,
+            image: "https://th.bing.com/th/id/R.29b5df9442fe7d7ab67361bb6c354ebf?rik=hnHONhheHbyY9A&pid=ImgRaw&r=0",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: " HOW YOU LIKE THAT",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "jhfjh",
+            name: `Flowers`,
+            image: "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "jisoo",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "kdjfkdj",
+            name: `typaGirls`,
+            image: "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "jshdjshdjs",
+            name: `Pink Venom`,
+            image: "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "859485948",
+            name: `Hard To Love`,
+            image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
+            category: "playlist",
+            songartist: "Rosé",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "987598495",
+            name: ` HOW YOU LIKE THAT`,
+            image: "https://th.bing.com/th/id/R.29b5df9442fe7d7ab67361bb6c354ebf?rik=hnHONhheHbyY9A&pid=ImgRaw&r=0",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: " HOW YOU LIKE THAT",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "jhfjh",
+            name: `Flowers`,
+            image: "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "jisoo",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "kdjfkdj",
+            name: `typaGirls`,
+            image: "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "jshdjshdjs",
+            name: `Pink Venom`,
+            image: "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "859485948",
+            name: `Hard To Love`,
+            image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
+            category: "playlist",
+            songartist: "Rosé",
+            songname: "Flower",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+        {
+            id: "987598495",
+            name: ` HOW YOU LIKE THAT`,
+            image: "https://th.bing.com/th/id/R.29b5df9442fe7d7ab67361bb6c354ebf?rik=hnHONhheHbyY9A&pid=ImgRaw&r=0",
+            category: "playlist",
+            songartist: "BlackPink",
+            songname: " HOW YOU LIKE THAT",
+            addedday: "11 thg 11, 2021",
+            liked_state: false,
+            songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+            total: "3:00",
+            root_album: "Solo"
+        },
+    ];
     const UserInfo = ({ data }) => (
         <div className="info_card_ctn">
             <div className="avt_container">
@@ -98,6 +280,70 @@ function Profile() {
             </div>
         </section>
     );
+    const History = ({ data }) => (
+        <div className="history_ctn">
+            <Recommended datas={data} type={"Lịch Sử"} describe={'Đã Xem Gần Đây'} />
+        </div>
+    )
+
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+            rememberMe: false
+        },
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 2));
+        }
+    });
+    const Setting = () => (
+        <div className="setting_ctn">
+            <Flex bg="gray.100" align="center" justify="center" h="100vh">
+                <Box bg="white" p={6} rounded="md">
+                    <form onSubmit={formik.handleSubmit}>
+                        <VStack spacing={4} align="flex-start">
+                            <FormControl>
+                                <FormLabel htmlFor="email">Email Address</FormLabel>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    variant="filled"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.email}
+                                />
+                            </FormControl>
+                            <FormControl>
+                                <FormLabel htmlFor="password">Password</FormLabel>
+                                <Input
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    variant="filled"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.password}
+                                />
+                            </FormControl>
+                            <Checkbox
+                                id="rememberMe"
+                                name="rememberMe"
+                                onChange={formik.handleChange}
+                                isChecked={formik.values.rememberMe}
+                                colorScheme="purple"
+                            >
+                                Remember me?
+                            </Checkbox>
+                            <Button type="submit" colorScheme="purple" width="full">
+                                Login
+                            </Button>
+                        </VStack>
+                    </form>
+                </Box>
+            </Flex>
+        </div>
+    )
+
+
 
     return (
         <div className="profile_container">
@@ -111,13 +357,13 @@ function Profile() {
                                 </div>
                                 <span>Hồ Sơ Của Bạn</span>
                             </NavLink>
-                            <NavLink to="info" className="nav-link list_nav_item  list_nav_item_pr">
+                            <NavLink to="myplaylist" className="nav-link list_nav_item  list_nav_item_pr">
                                 <div className="icon_list_nav_item">
                                     <FontAwesomeIcon icon={faTableList} />
                                 </div>
                                 <span>PlayList</span>
                             </NavLink>
-                            <NavLink to="setting" className="nav-link list_nav_item  list_nav_item_pr">
+                            <NavLink to="history" className="nav-link list_nav_item  list_nav_item_pr">
                                 <div className="icon_list_nav_item">
                                     <FontAwesomeIcon icon={faHistory} />
                                 </div>
@@ -137,9 +383,10 @@ function Profile() {
 
             <div className="profile_content">
                 <Routes>
-                    {/* Đảm bảo path và element tương ứng đúng với nhau */}
                     <Route path='/info' element={<UserInfo data={userdata} />} />
-                    <Route path='/setting' element={<Myplaylist datas={usserplaylist} />} />
+                    <Route path='/myplaylist' element={<Myplaylist datas={usserplaylist} />} />
+                    <Route path='/history' element={<History data={Recommendeds} />} />
+                    <Route path='/setting' element={<Setting />} />
                 </Routes>
             </div>
         </div>
