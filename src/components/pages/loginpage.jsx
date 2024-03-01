@@ -22,20 +22,23 @@ function Loginform() {
         {isLogin ? (
           // Form đăng nhập
           <form action="" className="login_form">
-            <h1><a href="/">WTF_MUSIC</a></h1>
+            <h1><a href="/">WTF MUSIC</a></h1>
             <input
-              placeholder="email"
+              placeholder="Tên đăng nhập hoặc Email"
               className="email input_form_text"
               name="email"
               type="text"></input>
             <input
-              placeholder="mật khẩu"
+              placeholder="Mật khẩu"
               className="pass input_form_text"
               name="pass"
               type="text"></input>
             <div className="check_box">
               <div className="remember_login">
-                <input type="checkbox" name="nho" className="login_check" />
+                <label class="container">
+                  <input type="checkbox" />
+                  <div class="checkmark"></div>
+                </label>
                 <p>Ghi Nhớ Đăng Nhập</p>
               </div>
               <a className="forgot_pass" href="">
@@ -44,7 +47,7 @@ function Loginform() {
             </div>
             <div className="form_button">
               <button className="signin form_btn">LOGIN</button>
-              <p>Or Sign in with</p>
+              <p>Or Login with</p>
               <button className="signin_gg form_btn">
                 <FontAwesomeIcon icon={faGoogle} /> Google
               </button>
@@ -52,36 +55,33 @@ function Loginform() {
             <p className="change_page_text">
               Bạn chưa có tài khoản?{" "}
               <div className="change_page" onClick={toggleForm}>
-                đăng ký{" "}
+                Đăng ký{" "}
               </div>
             </p>
           </form>
         ) : (
           // Form đăng ký
           <form action="" className="signup_form">
-            <h1>WTF_MUSIC</h1>
+              <h1><a href="/">WTF MUSIC</a></h1>
+              <input
+              placeholder="Tên tài khoản"
+              className="username input_form_text"
+              name="username"
+              type="text"></input>      
             <input
-              placeholder="email"
-              className="email input_form_text"
+              placeholder="Email"
+              className="email input_form_text is-invalid"
               name="email"
               type="text"></input>
             <input
-              placeholder="mật khẩu"
+              placeholder="Mật khẩu"
               className="pass input_form_text"
               name="pass"
               type="text"></input>
-            <div className="check_box">
-              <div className="remember_login">
-                <input type="checkbox" name="nho" className="login_check" />
-                <p>Ghi Nhớ Đăng Nhập</p>
-              </div>
-              <a className="forgot_pass" href="">
-                Quên mật khẩu?
-              </a>
-            </div>
+            
             <div className="form_button">
-              <button className="signin form_btn">LOGIN</button>
-              <p>Or Sign in with</p>
+              <button className="signin form_btn">SIGN UP</button>
+              <p>Or Sign up with</p>
               <button className="signin_gg form_btn">
                 <FontAwesomeIcon icon={faGoogle} /> Google
               </button>
@@ -89,7 +89,7 @@ function Loginform() {
             <p className="change_page_text">
               Bạn chưa có tài khoản?{" "}
               <div className="change_page" onClick={toggleForm}>
-                đăng ký{" "}
+                Đăng nhập{" "}
               </div>
             </p>
           </form>
