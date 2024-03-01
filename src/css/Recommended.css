@@ -18,3 +18,21 @@
 .refresh:hover{
    color: white;
 }
+
+.song_img_ctn{
+    flex: 3;
+}
+.root_album{
+    flex: 1;
+    cursor: pointer;
+}
+.root_album:hover{
+    color: white;
+}
+.added_time{
+    flex: 2;
+}
+.foot_r {
+    flex: 1;
+    display: flex;
+}

@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { ReactSVG } from "react-svg";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink, useLocation,useHistory } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import iconHome from '../../img/music-house-fill-svgrepo-com.svg'
 import icon_Rating from '../../img/music-player-audio-bars-svgrepo-com.svg'
 import icon_Category from '../../img/music-library-svgrepo-com.svg'
