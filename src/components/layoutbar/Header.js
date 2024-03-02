@@ -9,6 +9,7 @@ import logo from '../../img/logo3 (1).png'
 const Header = () => {
     return (
         <div className='Header'>
+            <div className='header_wrap'>
             <div className="Navigation">
                 <button className='Navigation_btn previous_page'>
                     <FontAwesomeIcon icon={faAngleLeft} />
@@ -33,6 +34,7 @@ const Header = () => {
                     </div>
                 </Popup>
 
+            </div>
             </div>
         </div>
     )
