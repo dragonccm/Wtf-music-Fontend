@@ -402,37 +402,32 @@ const Bottombar = (props) => {
 //     console.log("Updated audio instance", audioInstance);
 //   }, [audioInstance]);
   return (
-    <div className="main_bottom_bar">
-      <link
-        rel="stylesheet/less"
-        type="text/css"
-        href="path/to/your-less-file.less"
-      />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    // <div className="main_bottom_bar">
 
-      <div className="bottom_bar">
-        <div className="left">
-          <div className="info_img">
-            <img
-              src="https://lh3.googleusercontent.com/03WLPin15fkpkLMayBhp4E1YyOJRtcwOL8r2albpcYfmva2vqNbr4RM8q8zk5pGhu9PHdWHk60d2haTOPdgghaUxpDFO4ROPSg=w1600-rj"
-              alt="f"
-              className="song_avt"
-            />
-          </div>
-          <div className="info">
-            <h3>Flower</h3>
-            <p>JISOO</p>
-          </div>
-          <FontAwesomeIcon icon={faHeart} />
-        </div>
-        <div className="center">
-          <div id="music-player"></div>
-        </div>
-        <div className="right">
-          <p>một cái gì đó tao sẽ làm </p>
-        </div>
-      </div>
-    </div>
+    //   <div className="bottom_bar">
+    //     <div className="left">
+    //       <div className="info_img">
+    //         <img
+    //           src="https://lh3.googleusercontent.com/03WLPin15fkpkLMayBhp4E1YyOJRtcwOL8r2albpcYfmva2vqNbr4RM8q8zk5pGhu9PHdWHk60d2haTOPdgghaUxpDFO4ROPSg=w1600-rj"
+    //           alt="f"
+    //           className="song_avt"
+    //         />
+    //       </div>
+    //       <div className="info">
+    //         <h3>Flower</h3>
+    //         <p>JISOO</p>
+    //       </div>
+    //       <FontAwesomeIcon icon={faHeart} />
+    //     </div>
+    //     <div className="center">
+    //       <div id="music-player"></div>
+    //     </div>
+    //     <div className="right">
+    //       <p>một cái gì đó tao sẽ làm </p>
+    //     </div>
+    //   </div>
+    // </div>
+    <></>
   );
 };
 

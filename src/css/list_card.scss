@@ -9,16 +9,17 @@
     font-size: 1.5rem;
 }
 .element_head h1{
-    font-size: 2.5rem;
+    font-size: 2rem;
+    color: #32323d;
 }
 .element{
-    padding: 20px;
+    padding: 10px;
     color: white;
 }
 .card_container{
    display: flex;
+   gap: 20px;
 }
 .playlist_name{
-    margin: 0 2rem;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
 }

@@ -9,14 +9,14 @@ import Loginform from "./components/pages/loginpage";
 function App() {
   const playlistsData = Array.from({ length: 5 }, (_, index) => ({
     id: index,
-    name: `Playlist ${index + 1}`,
+    name: `Nhạc nghe cho sự ngu dốt ${index + 1}`,
     image:
       "",
     artists_list: ["Jisso", "Jisso", "Jisso", "Jisso", "Jisso"],
   }));
 
   const element = Array.from({ length: 5 }, (_, index) => ({
-    title: "title",
+    title: "BXH nhạc ngu",
     list: playlistsData,
   }));
   const Login = () => (

@@ -3,15 +3,15 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { ReactSVG } from "react-svg";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink} from "react-router-dom";
-import iconHome from '../../img/music-house-fill-svgrepo-com.svg'
-import icon_Rating from '../../img/music-player-audio-bars-svgrepo-com.svg'
-import icon_Category from '../../img/music-library-svgrepo-com.svg'
-import icon_top from '../../img/music-upload-svgrepo-com.svg'
-import icon_libary from '../../img/music-folder-svgrepo-com.svg'
-import logo from '../../img/logo3 (1).png'
-import Mascot from '../sideNavigation/mascot_animation'
-import "../../css/RightSidebar.scss"
+import { NavLink } from "react-router-dom";
+import iconHome from "../../img/music-house-fill-svgrepo-com.svg";
+import icon_Rating from "../../img/music-player-audio-bars-svgrepo-com.svg";
+import icon_Category from "../../img/music-library-svgrepo-com.svg";
+import icon_top from "../../img/music-upload-svgrepo-com.svg";
+import icon_libary from "../../img/music-folder-svgrepo-com.svg";
+import logo from "../../img/logo3 (1).png";
+import Mascot from "../sideNavigation/mascot_animation";
+import "../../css/RightSidebar.scss";
 const RightSidebar = () => {
   return (
     <div className="rightsidebar">
@@ -39,12 +39,12 @@ const RightSidebar = () => {
               </NavLink>
               <NavLink to="/rating" className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
-                                  <ReactSVG
-                                      beforeInjection={(svg) => {
-                                        svg.classList.add('icon_list_nav_item_svg')
-                                      }}
-                                      src={icon_Rating}
-                                  />
+                  <ReactSVG
+                    beforeInjection={(svg) => {
+                      svg.classList.add("icon_list_nav_item_svg");
+                    }}
+                    src={icon_Rating}
+                  />
                 </div>
                 <span>Bảng xếp hạng</span>
               </NavLink>
@@ -69,8 +69,8 @@ const RightSidebar = () => {
                   />
                 </div>
                 <span>Top 100</span>
-                          </NavLink>
-                          <NavLink to="/libary" className="nav-link list_nav_item">
+              </NavLink>
+              <NavLink to="/libary" className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
                   <ReactSVG
                     beforeInjection={(svg) => {
@@ -80,7 +80,7 @@ const RightSidebar = () => {
                   />
                 </div>
                 <span>Thư viện</span>
-                          </NavLink>
+              </NavLink>
             </Nav>
             {/* <Nav>   
                   {user && user.isAuthenticated === true ? (
@@ -103,39 +103,40 @@ const RightSidebar = () => {
                   )}
                 </Nav> */}
           </Navbar.Collapse>
-          {/* <div className="rs_bottom_bar">
-                <div className="list_nav">
-                    <a href="/home" className="list_nav_item active">
-                        <div className="icon_list_nav_item">
-                        <FontAwesomeIcon icon={faHouse} />
-                        </div>
-                        <span>Trang chủ</span>
-                    </a>
-                    <a href="/top100" className="list_nav_item">
-                        <div className="icon_list_nav_item">
-                        <FontAwesomeIcon icon={faRankingStar} />
-                        </div>
-                        <span>Bảng xếp hạng</span>
-                    </a>
-                    <a href='/category' className="list_nav_item">
-                        <div className="icon_list_nav_item">
-                        <FontAwesomeIcon icon={faIcons} />
-                        </div>
-                        <span>Chủ đề & thể loại</span>
-                    </a>
-                    <a href="/listcard" className="list_nav_item">
-                        <div className="icon_list_nav_item">
-                        <FontAwesomeIcon icon={faStar} />
-                        </div>
-                        <span>Top 100</span>
-                    </a>
-
-                </div>
-            </div> */}
+          <div className="nav_bot_playlist">
+            <div className="playlist_item">
+              <div className="playlist_item_img">
+                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg'/>
+              </div>
+              <div className="playlist_item_content">
+                <div className="content_name"><p>Rose</p></div>
+                <div className="content_cate">Nghệ sĩ</div>
+              </div>
+            </div>
+            <div className="playlist_item">
+              <div className="playlist_item_img">
+                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg'/>
+              </div>
+              <div className="playlist_item_content">
+                <div className="content_name"><p>Rose</p></div>
+                <div className="content_cate">Nghệ sĩ</div>
+              </div>
+            </div>
+            <div className="playlist_item">
+              <div className="playlist_item_img">
+                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg'/>
+              </div>
+              <div className="playlist_item_content">
+                <div className="content_name"><p>Rose</p></div>
+                <div className="content_cate">Nghệ sĩ</div>
+              </div>
+            </div>
+            
+          </div>
+ 
         </Container>
-          </Navbar>
-          <Mascot/>
-          
+      </Navbar>
+      <Mascot />
     </div>
   );
 };

@@ -35,5 +35,29 @@ button {
 
 
 .main_content{
-  height: 87vh;
+  height: 100vh;
+}
+.music-player-panel.translate{
+  background-color: rgba(255, 255, 255, 0.75)!important;
+}
+.react-jinke-music-player-main .music-player-panel{
+  color: rgb(66, 66, 66) !important;
+}
+.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle, .react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-track {
+  background-color: #ff6c8f !important;
+}
+.react-jinke-music-player-main svg:active, .react-jinke-music-player-main svg:hover {
+  color: #ff9f9f !important;
+}
+.rc-slider-step{
+  background: #0000001c !important;
+}
+.react-jinke-music-player .music-player-controller{
+  color: #e169a4 !important;
+}
+.react-jinke-music-player .music-player-controller .music-player-controller-setting{
+  background: rgb(255 0 144 / 30%) !important;
+}
+.group.loading-icon svg{
+  fill: #e169a4;
 }
