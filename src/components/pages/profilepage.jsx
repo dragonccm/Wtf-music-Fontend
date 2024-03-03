@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faTableList, faHistory, faGear, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faTableList, faHistory, faGear, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { Routes, Route } from 'react-router-dom';
 import Recommended from "../card/Recommended";
 import "../../css/profile.scss"

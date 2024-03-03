@@ -9,6 +9,7 @@ import Profile from "./profilepage";
 import {Routes, Route } from 'react-router-dom';
 
 const Mainpage = ({ playlists }) => {
+  document.title = "This is demo Component";
   return (
     <div className="main_page">
       <>
