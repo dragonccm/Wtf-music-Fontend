@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    margin: 1rem 0;
+    margin: 2rem 0;
 }
 .element_head button{
     background-color: transparent;
@@ -15,6 +15,7 @@
 .element{
     padding: 10px;
     color: white;
+    margin-top: 20px;
 }
 .card_container{
    display: flex;
@@ -22,4 +23,15 @@
 }
 .playlist_name{
     font-size: 1.4rem;
+}
+.show_all{
+    color: #00000094;
+    font-size: 15px;
+    &:hover{
+        color: #f13a82;
+        cursor: pointer;
+    }
+    .icon{
+        margin-left: 10px;
+    }
 }
