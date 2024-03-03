@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import React, { useState} from "react";
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
 // import "react-jinke-music-player/lib/styles/index.less";
@@ -390,13 +388,13 @@ const Bottombar = (props) => {
   const [play, setPlay] = useState(false);
   const [audioInstance, setAudioInstance] = useState();
 
-  const getAudioInstance = (instance) => {
-    console.log("Getting audio instance", instance);
-    setAudioInstance(instance);
-  };
+  // const getAudioInstance = (instance) => {
+  //   console.log("Getting audio instance", instance);
+  //   setAudioInstance(instance);
+  // };
 
-  const onPlayHandler = () => setPlay(true);
-  const onPauseHandler = () => setPlay(false);
+  // const onPlayHandler = () => setPlay(true);
+  // const onPauseHandler = () => setPlay(false);
 
 //   useEffect(() => {
 //     console.log("Updated audio instance", audioInstance);
@@ -411,7 +409,7 @@ const Bottombar = (props) => {
       <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
 
       <div className="bottom_bar">
-        <div className="left">
+        {/* <div className="left">
           <div className="info_img">
             <img
               src="https://lh3.googleusercontent.com/03WLPin15fkpkLMayBhp4E1YyOJRtcwOL8r2albpcYfmva2vqNbr4RM8q8zk5pGhu9PHdWHk60d2haTOPdgghaUxpDFO4ROPSg=w1600-rj"
@@ -430,7 +428,7 @@ const Bottombar = (props) => {
         </div>
         <div className="right">
           <p>một cái gì đó tao sẽ làm </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
