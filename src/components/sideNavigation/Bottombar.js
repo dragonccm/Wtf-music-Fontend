@@ -384,9 +384,9 @@ const options = {
   // }
 };
 
-const Bottombar = (props) => {
-  const [play, setPlay] = useState(false);
-  const [audioInstance, setAudioInstance] = useState();
+const Bottombar = () => {
+  // const [play, setPlay] = useState(false);
+  // const [audioInstance, setAudioInstance] = useState();
 
   // const getAudioInstance = (instance) => {
   //   console.log("Getting audio instance", instance);
@@ -396,9 +396,11 @@ const Bottombar = (props) => {
   // const onPlayHandler = () => setPlay(true);
   // const onPauseHandler = () => setPlay(false);
 
+
 //   useEffect(() => {
 //     console.log("Updated audio instance", audioInstance);
 //   }, [audioInstance]);
+
   return (
     <div className="main_bottom_bar">
       <link
