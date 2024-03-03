@@ -39,6 +39,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={ <Mainn datas={element}/>} />
         </Routes>
+        
     </Router>
   );
 }

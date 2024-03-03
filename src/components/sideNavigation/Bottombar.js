@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
 // import "react-jinke-music-player/lib/styles/index.less";
@@ -386,21 +384,23 @@ const options = {
   // }
 };
 
-const Bottombar = (props) => {
-  const [play, setPlay] = useState(false);
-  const [audioInstance, setAudioInstance] = useState();
+const Bottombar = () => {
+  // const [play, setPlay] = useState(false);
+  // const [audioInstance, setAudioInstance] = useState();
 
-  const getAudioInstance = (instance) => {
-    console.log("Getting audio instance", instance);
-    setAudioInstance(instance);
-  };
+  // const getAudioInstance = (instance) => {
+  //   console.log("Getting audio instance", instance);
+  //   setAudioInstance(instance);
+  // };
 
-  const onPlayHandler = () => setPlay(true);
-  const onPauseHandler = () => setPlay(false);
+  // const onPlayHandler = () => setPlay(true);
+  // const onPauseHandler = () => setPlay(false);
+
 
 //   useEffect(() => {
 //     console.log("Updated audio instance", audioInstance);
 //   }, [audioInstance]);
+
   return (
     // <div className="main_bottom_bar">
 

@@ -41,7 +41,7 @@ function Loginform() {
                 </label>
                 <p>Ghi Nhớ Đăng Nhập</p>
               </div>
-              <a className="forgot_pass" href="">
+              <a className="forgot_pass" href="/">
                 Quên mật khẩu?
               </a>
             </div>

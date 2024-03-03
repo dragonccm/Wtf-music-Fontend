@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faTableList, faHistory, faGear, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faTableList, faHistory, faGear, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { Routes, Route } from 'react-router-dom';
 import Recommended from "../card/Recommended";
 import "../../css/profile.scss"
@@ -329,14 +329,14 @@ function Profile() {
                     <Route path='/setting' element={<Setting />} />
                 </Routes>
 
-                <div className="artist_ctn">
+                {/* <div className="artist_ctn">
                     <div className="artist_card">
                         <div className="artist_card">
-                            <img src="artist_card" alt="artist" />
+                            <img src="https://th.bing.com/th/id/OIP.mquf4eUVLnuM6W29sL0v9gHaLG?rs=1&pid=ImgDetMain" alt="artist" />
                         </div>
 
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
