@@ -26,7 +26,10 @@ function SamplePrevArrow(props) {
 const SliderBar = () => {
     const settings = {
         infinite: true,
-        speed: 500,
+      speed: 500,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      cssEase: "linear",
         slidesToShow: 3,
         slidesToScroll: 1,
         nextArrow: <SampleNextArrow />,
