@@ -17,7 +17,7 @@ const RightSidebar = () => {
     <div className="rightsidebar">
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home" className="logo-name">
+          <Navbar.Brand href="/" className="logo-name">
             <img
               src={logo}
               className="d-inline-block align-top"
