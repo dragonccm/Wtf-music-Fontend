@@ -13,7 +13,7 @@ const ListCard = ({ data }) => {
                 <div className="element" key={element.title}>
                     <div className="element_head">
                         <h1>{element.title}</h1>
-                        <a className="show_all">Tất cả<FontAwesomeIcon className="icon" icon={faChevronRight} /></a>
+                        <a href="show" className="show_all">Tất cả<FontAwesomeIcon className="icon" icon={faChevronRight} /></a>
                     </div>
 
                     <div className="card_container">
