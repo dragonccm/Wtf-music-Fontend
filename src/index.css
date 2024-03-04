@@ -61,3 +61,6 @@ button {
 .group.loading-icon svg{
   fill: #e169a4;
 }
+.react-jinke-music-player{
+  right: 120px !important;
+}

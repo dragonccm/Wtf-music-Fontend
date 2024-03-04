@@ -4,8 +4,6 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAngleLeft,
-  faChevronRight,
   faUser,
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
@@ -16,12 +14,7 @@ const Header = () => {
     <div className="Header">
       <div className="header_wrap">
         <div className="Navigation">
-          <button className="Navigation_btn previous_page">
-            <FontAwesomeIcon icon={faAngleLeft} />
-          </button>
-          <button className="Navigation_btn next_page">
-            <FontAwesomeIcon icon={faChevronRight} />
-          </button>
+          
         </div>
         <div className="header_search">
           <input
