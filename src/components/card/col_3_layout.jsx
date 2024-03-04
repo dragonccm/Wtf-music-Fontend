@@ -1,7 +1,7 @@
 import '../../css/col_3_layout.scss';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faHeart } from '@fortawesome/free-regular-svg-icons'
-// import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 const Col3Layout = ({ data }) => {
     console.log(JSON.stringify(data));
   
@@ -16,7 +16,7 @@ const Col3Layout = ({ data }) => {
   
     return (
         <div className="col_3_layout_Container">
-        {/* {chunkedData.map((chunk, index) => (
+        {chunkedData.map((chunk, index) => (
           <div key={index} className="col_3_layout">
             <div className="col_3_layout_colum">
               {chunk.map((data, elementIndex) => (
@@ -39,7 +39,7 @@ const Col3Layout = ({ data }) => {
               ))}
             </div>
           </div>
-        ))} */}
+        ))}
       </div>
     );
   };
