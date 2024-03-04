@@ -75,7 +75,7 @@ const Header = () => {
                 <a href="/login" className="menu-item">
                   <FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn
                 </a>
-                <a href="/profile/info" className="menu-item">
+                <a href="/profile" className="menu-item">
                   <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
                 </a>
               </div>

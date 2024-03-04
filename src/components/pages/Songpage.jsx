@@ -183,8 +183,8 @@ const Songpage = () => {
                     {lyricLines}
                 </section>
 
-                <Recommended datas={Recommendeds} type={"Recommended"} describe={'Based on this song'} />
-                <Recommended datas={Recommendeds} type={"Popular"} describe={'Rap Việt'} />
+                <Recommended datas={Recommendeds} type={"Recommended"} describe={'Based on this song'} maxItemsToShow="4"/>
+                <Recommended datas={Recommendeds} type={"Popular"} describe={'Rap Việt'} maxItemsToShow="4"/>
 
                 <ListCard data={element} />
             </div>

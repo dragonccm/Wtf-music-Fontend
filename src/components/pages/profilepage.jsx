@@ -385,6 +385,8 @@ function Profile() {
                     <Route path='/history' element={<History data={Recommendeds} />} />
                     <Route path='/setting' element={<Setting />} />
                     <Route path='/artist' element={<Artist data={element} />} />
+                    <Route path='/' element={<Artist data={element} />} />
+
                 </Routes>
 
                 {/* <div className="artist_ctn">

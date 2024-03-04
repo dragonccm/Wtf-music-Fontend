@@ -12,18 +12,18 @@
     background-color: transparent !important;
     padding: 1rem;
     float: right !important;
-    color: #a7a7a7;
+    color: #ffc7c7;
     border: none !important;
 }
 .refresh:hover{
-   color: white;
+   color: rgb(255, 162, 162);
 }
 
 .song_img_ctn{
-    flex: 3;
+    flex: 2;
 }
 .root_album{
-    flex: 1;
+    flex: 2;
     cursor: pointer;
 }
 .root_album:hover{
@@ -49,6 +49,7 @@
     font-size: 1.5rem;
     color: #a7a7a7;
     margin: 2rem 0;
+    width: 100%;
 }
 .song_img_ctn{
     display:flex ;

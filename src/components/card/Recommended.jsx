@@ -1,3 +1,4 @@
+import { useState } from "react";
 import React from "react";
 import "../../css/recommend.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,14 +7,20 @@ import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'
 
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 
-const Recommended = ({ datas,type,describe }) => {
+const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
+    const [showAll, setShowAll] = useState(false);
+
+    const toggleShowAll = () => {
+        setShowAll(!showAll);
+    };
+
     return (
         <>
             {/* lable */}
             <h1 className="Recommended">{type}</h1>
             <p className="Recommended_1">{describe}</p>
             {/* lable */}
-            {datas.map((data, index) => (
+            {datas.slice(0, showAll ? datas.length : maxItemsToShow).map((data, index) => (
                 <div className="list_row">
                     <div className="song_img_ctn">
                         <div className="row_order">
@@ -42,7 +49,9 @@ const Recommended = ({ datas,type,describe }) => {
                     </div>
                 </div>
             ))}
-            <button className="refresh">refresh</button>
+            {datas.length > maxItemsToShow && !showAll && (
+                <button className="refresh"  onClick={toggleShowAll}>Hiển Thị Tất Cả</button>
+            )}
         </>
     )
 }

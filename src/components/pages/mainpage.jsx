@@ -8,6 +8,8 @@ import Col3Layout from "../card/col_3_layout";
 import Header from "../layoutbar/Header";
 import Footer from "../layoutbar/Footer";
 import Profile from "./profilepage";
+import Rating from "./Rating";
+
 import { Routes, Route } from "react-router-dom";
 
 const Mainpage = ({ playlists }) => {
@@ -36,7 +38,9 @@ const Mainpage = ({ playlists }) => {
             <Route path="/listcard" element={<ListCard data={playlists} />} />
             <Route path="/playlistpage" element={<Playlistpage />} />
             <Route path="/songpage" element={<Songpage />} />
+            <Route path="/rating" element={<Rating />} />
             <Route path="/profile*" element={<Profile />} />
+
           </Routes>
           <Footer />
         </section>

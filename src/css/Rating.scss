@@ -1,0 +1,81 @@
+.rating_main{
+    .week_title{
+       font-size: 3rem; 
+       margin: 3rem;
+       color: black;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .week_rating{
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 3rem;
+        .week_card_ctn{
+            background-color: #f9dbdb;
+            padding: 2rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 35rem;
+            .week_rating_card{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .current_rank{
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    p{
+                        font-size: 3rem;
+                        font-weight: 600;
+                    }
+                }
+                .child_info{
+                    display: flex;
+                    gap: 1rem;
+                    .week_rating_img{
+                        width: 7rem;
+                        height: 7rem;
+                        overflow: hidden;
+                        display: flex;
+                        border-radius: 1rem;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                    section{
+                        display: flex;
+                        flex-direction: column;
+                        font-size: 1.5rem;
+                        justify-content: space-between;
+                    }
+                }
+                .total_time{
+                    font-size: 1.3rem;
+                }
+                
+            }
+            h1{
+                color: #fd66ad;
+                font-size: 2.5rem;
+                text-align: center;
+            }
+            .show_all{
+                background: rgb(253, 192, 192);
+                font-size: 2rem;
+                margin: 1rem auto;
+                padding: 1.2rem;
+                transition: all .2s ease-in-out;
+                width: 20rem;
+                text-align: center;
+                border-radius: 1rem;
+            }
+        }
+    }
+}
+
