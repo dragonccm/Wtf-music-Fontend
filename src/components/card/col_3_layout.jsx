@@ -1,6 +1,6 @@
 import '../../css/col_3_layout.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-regular-svg-icons'
+// import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 const Col3Layout = ({ data }) => {
     console.log(JSON.stringify(data));

@@ -106,7 +106,7 @@ const RightSidebar = () => {
           <div className="nav_bot_playlist">
             <div className="playlist_item">
               <div className="playlist_item_img">
-                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg'/>
+                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg' alt="f"/>
               </div>
               <div className="playlist_item_content">
                 <div className="content_name"><p>Rose</p></div>
@@ -115,7 +115,7 @@ const RightSidebar = () => {
             </div>
             <div className="playlist_item">
               <div className="playlist_item_img">
-                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg'/>
+                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg' alt="f"/>
               </div>
               <div className="playlist_item_content">
                 <div className="content_name"><p>Rose</p></div>
@@ -124,7 +124,7 @@ const RightSidebar = () => {
             </div>
             <div className="playlist_item">
               <div className="playlist_item_img">
-                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg'/>
+                <img src='https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg' alt="f"/>
               </div>
               <div className="playlist_item_content">
                 <div className="content_name"><p>Rose</p></div>

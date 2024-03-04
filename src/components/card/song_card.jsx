@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faCirclePlay } from '@fortawesome/free-regular-svg-icons'
 import { faShare } from '@fortawesome/free-solid-svg-icons'
-import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
-import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
+// import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
+// import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
     return (
