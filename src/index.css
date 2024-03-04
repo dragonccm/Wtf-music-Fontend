@@ -63,4 +63,5 @@ button {
 }
 .react-jinke-music-player{
   right: 120px !important;
+  left: unset!important;
 }

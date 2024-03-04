@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import "../../css/login_page.scss";
-import bg_login from '../../img/bg_login.jpg'
+
 
 function Loginform() {
   // Trạng thái để xác định form đăng nhập hay form đăng ký đang hiển thị
@@ -17,7 +17,7 @@ function Loginform() {
 
   return (
     <div className="mod">
-      <img className="bg_login" src={bg_login} alt="" />
+      <img className="bg_login" src='https://th.bing.com/th/id/R.d454115307015ba9cdaa40e510fbb012?rik=aqjycCmZNnqTtw&riu=http%3a%2f%2fgetwallpapers.com%2fwallpaper%2ffull%2ff%2fe%2f7%2f1385470-best-blue-music-wallpaper-1920x1200-for-xiaomi.jpg&ehk=HrnnakVPa%2bMrE4T%2bktSVYoPogJTfXpV%2f5Fin29xZK%2bI%3d&risl=&pid=ImgRaw&r=0' alt="" />
       <div className="form-con">
         {isLogin ? (
           // Form đăng nhập

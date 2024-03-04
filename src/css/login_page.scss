@@ -45,7 +45,7 @@
     a {
         font-size: 2.5rem;
         margin: 2rem auto;
-        color: #ff218a;
+        color: #257eff;
     }
 }
 
@@ -56,7 +56,7 @@
         font-size: 1.5rem;
         border-radius: 1rem;
         border-radius: 20px;
-        box-shadow: #ffade0 0px 7px 4px -3px;
+        box-shadow: #257eff 0px 7px 4px -3px;
         border-inline: 2px solid transparent;
         color: #000;
         &.is-invalid{
@@ -66,7 +66,7 @@
 
 
     .forgot_pass {
-        color: #ff218a;
+        color: #257eff;
         text-decoration: none;
     }
 
@@ -94,7 +94,7 @@
     a {
         font-size: 2.5rem;
         margin: 2rem auto;
-        color: #ff218a;
+        color: #257eff;
     }}
 
    
@@ -144,7 +144,7 @@
            .container input:checked ~ .checkmark {
             transition: all 0.2s;
             opacity: 1;
-            background-image: linear-gradient(45deg, rgb(100, 61, 219) 0%, rgb(217, 21, 239) 100%);
+            background-image: linear-gradient(45deg, rgb(100, 61, 219) 0%, rgb(82, 203, 255) 100%);
            }
            
            .container input ~ .checkmark {
@@ -184,19 +184,20 @@
         font-size: 2rem;
         margin: 1rem auto;
         width: 100%;
-        background: linear-gradient(90deg, rgb(255 154 206) 0%, rgb(255, 93, 247) 50%, rgb(210 247 255) 100%);
+        background: rgb(37,126,255);
+        background: linear-gradient(90deg, rgba(37,126,255,1) 0%, rgba(235,241,255,1) 100%);
         // background-color: rgb(255 0 131 / 76%);
         transition: all 0.2s ease-in-out;
     }
 
     .form_btn:hover {
         transform: scale(1.03);
-        box-shadow: rgba(215, 133, 158, 0.878) 0px 23px 10px -20px;
+        box-shadow: rgba(125, 197, 255, 0.878) 0px 23px 10px -20px;
     }
 
     .form_btn:active {
         transform: scale(0.95);
-        box-shadow: rgba(215, 133, 151, 0.878) 0px 15px 10px -10px;
+        box-shadow: rgba(122, 175, 255, 0.878) 0px 15px 10px -10px;
     }
 
     .change_page {
@@ -205,7 +206,7 @@
         padding: 0 !important;
         margin: 0 0.4rem !important;
         font-size: 1.5rem !important;
-        color: #ff218a;
+        color: #257eff;
         cursor: pointer;
     }
 
@@ -227,7 +228,7 @@
         align-items: center;
         width: 100%;
         p {
-            color: #ff218a;
+            color: #257eff;
             font-size: 13px;
             margin-top: 20px;
         }

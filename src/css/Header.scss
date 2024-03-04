@@ -2,7 +2,7 @@
     position: absolute;
     width: 100%;
     height: 72px;
-    background-color: #f9dbdb;
+    background-color: #fff;
     padding: 0 60px;
     z-index: 9;
 
@@ -27,28 +27,9 @@
         border-radius: 50%;
     }
 
-    .Navigation {
-        display: flex;
-        gap: 15px;
-    }
 
-    .Navigation_btn {
-        font-size: 2rem;
-        padding: 1rem;
-        color: black;
-        background: #fff;
-        width: 34px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        &:hover{
-            background-color: #fbb6b6;
-        }
-    }
+
+    
 
     .header_search {
         width: 50%;
@@ -58,21 +39,22 @@
             padding: 12px 18px;
             font-size: 16px;
             font-family: inherit;
-            box-shadow: 0 0 0 1px #f8bfbf;
+            box-shadow: 0 0 0 1px #b9ceff;
             border: none;
             border-radius: 25px;
-            background-color: #fff5f5;
+            background-color: #ebf1ff;
             transition: all .3s;
+            color: #3e3e3e;
         }
 
         .input__search::placeholder {
-            color: #ce9797;
+            color: #82b0fb;
             font-size: 14px;
         }
 
         .input__search:focus {
             outline: none;
-            box-shadow: 0 0 10px 1px #ee8c8c;
+            box-shadow: 0 0 10px 1px #346ffa;
             border: none;
             transition: all .3s;
         }
@@ -187,7 +169,7 @@
         }
 
         .theme__toggle {
-            background-color: hsl(0deg 90% 85%);
+            background-color: #c9d9ff;
             border-radius: 25% / 50%;
             box-shadow: 0 0 0 0.125em var(--primaryT);
             padding: 0.25em;
@@ -201,7 +183,7 @@
         }
 
         .theme__toggle:before {
-            background-color: hsl(327.88deg 90% 55%);
+            background-color: #3a89ff;
             border-radius: 50%;
             content: "";
             width: 2em;
@@ -296,14 +278,14 @@
         width: 150px;
         display: flex;
         flex-direction: column;
-        background: #fde8e8;
-        color: white;
+        background: #ebf1ff;
+        color: #257eff;
         padding: 0.5rem;
         font-size: 1.5rem;
     }
 
     .menu-item {
-        color: #645d5d;
+        color: #257eff;
         cursor: pointer;
         background-color: transparent;
         text-align: left;
