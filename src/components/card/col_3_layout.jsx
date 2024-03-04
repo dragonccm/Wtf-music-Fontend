@@ -19,10 +19,10 @@ const Col3Layout = ({ data }) => {
         {chunkedData.map((chunk, index) => (
           <div key={index} className="col_3_layout">
             <div className="col_3_layout_colum">
-              {chunk.map((element, elementIndex) => (
+              {chunk.map((data, elementIndex) => (
                 <div key={elementIndex} className="col_3_layout_colum_item">
                   <div className="playlist_item_img">
-                          <img src={element.img} alt="Playlist Image" />
+                          <img src={data.img} alt="Playlist Image" />
                           <div className="img_overlay">
                         <div className="img_overlay_group_btn">
                             <a href="/songpage"><FontAwesomeIcon icon={faPlay} /></a>
@@ -31,9 +31,9 @@ const Col3Layout = ({ data }) => {
                   </div>
                   <div className="playlist_item_content">
                     <div className="content_name">
-                      <p>{element.name}</p>
+                      <p>{data.name}</p>
                     </div>
-                    <div className="content_cate">{element.artist}</div>
+                    <div className="content_cate">{data.artist}</div>
                   </div>
                 </div>
               ))}
