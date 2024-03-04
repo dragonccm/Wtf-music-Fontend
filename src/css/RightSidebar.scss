@@ -237,3 +237,26 @@
     
 }
 
+@media screen and (max-width:600px) {
+    .rightsidebar{
+        width: 100%;
+        align-items: center;
+        height: 10rem;
+        .nav_bot_playlist{
+          display: none;
+        }
+        .logo-name{
+            display: none !important;
+        }
+        .rs_bottom_bar{
+            .list_nav{
+                display: flex;
+            }
+        } 
+        .list_nav_item{ 
+            span{
+                display: none !important;
+            }
+        } 
+    }
+  }

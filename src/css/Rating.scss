@@ -78,4 +78,13 @@
         }
     }
 }
+@media screen and (max-width:600px) {
+    .rating_main {
+        .week_rating{
+            overflow-x: auto;
+            width: 100%;
+        }
+    }
+
+}
 

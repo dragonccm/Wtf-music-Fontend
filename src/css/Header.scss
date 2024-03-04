@@ -363,3 +363,8 @@
     .popup-content_head {
         top: 30px !important;
     }
+    @media screen and (max-width:600px) {
+        .Header{
+            padding: 0;
+        }
+    }

@@ -38,3 +38,9 @@ h1{
 a{
   text-decoration: none;
 }
+
+@media screen and (max-width:600px) {
+  .main_content{
+    flex-direction: column-reverse;
+  }
+}
