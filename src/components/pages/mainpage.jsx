@@ -32,6 +32,40 @@ const Mainpage = ({ playlists }) => {
                   <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
                 <Col3Layout data={listSong} />
                 </div>
+
+                <div className="for_you">
+                  <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
+                  <div class="radio-inputs">
+  <label>
+    <input class="radio-input " type="radio" name="engine" />
+    <span class="radio-tile ">
+      <span class="radio-icon">
+        Tất cả
+      </span>
+    </span>
+  </label>
+
+  <label>
+    <input class="radio-input " type="radio" name="engine" />
+    <span class="radio-tile ">
+      <span class="radio-icon">
+       Việt Nam
+      </span>
+    </span>
+  </label>
+
+  <label>
+    <input class="radio-input " type="radio" name="engine" />
+    <span class="radio-tile ">
+      <span class="radio-icon">
+        Quốc tế
+      </span>
+    </span>
+  </label>
+</div>
+
+                <Col3Layout data={listSong} />
+                </div>
                 <ListCard data={playlists} />
               </>
             } />
