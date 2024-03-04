@@ -35,3 +35,13 @@
         }
     }
 }
+@media screen and (max-width:600px) {
+    .slick-initialized{
+        .slick-slide{
+            width: 350px !important;
+        }
+    } 
+    .slick-slider .slick-track, .slick-slider .slick-list{
+        height: 20rem;
+    }
+}

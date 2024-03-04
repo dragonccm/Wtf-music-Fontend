@@ -1,19 +1,21 @@
-.main_page{
+.main_page {
     width: 84%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
     position: relative;
+
     /* background-color: #121212; */
-    .main_page_container{
+    .main_page_container {
         margin-top: 50px;
         overflow-y: auto;
         overflow-x: hidden;
         padding: 50px;
     }
+
     .for_you {
-    h1{
-        margin: 30px 0;
+        h1 {
+            margin: 30px 0;
 
         color: #000;
         font-size: 23px;

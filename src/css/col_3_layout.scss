@@ -83,3 +83,12 @@
         }
     }
 }
+
+@media screen and (max-width:600px) {
+    .col_3_layout_Container{
+        flex-direction: column;
+        .col_3_layout{
+            width: auto !important;
+        }
+    }
+}
