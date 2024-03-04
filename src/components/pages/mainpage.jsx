@@ -16,7 +16,7 @@ const Mainpage = ({ playlists }) => {
     name: "Không phải gu",
     artist:'Hiếu Thứ Hai'
   }));
-  document.title = "This is demo Component";
+  document.title = "What The Fuck Music Never die";
   return (
     <div className="main_page">
       <>
