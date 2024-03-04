@@ -108,7 +108,7 @@ const audioList1 = [
       "http://res.cloudinary.com/alick/image/upload/v1502689731/Despacito_uvolhp.jpg",
     musicSrc: () => {
       return Promise.resolve(
-        "http://res.cloudinary.com/alick/video/upload/v1502689683/Luis_Fonsi_-_Despacito_ft._Daddy_Yankee_uyvqw9.mp3"
+        "https://a128-zmp3.zmdcdn.me/8b9cceca4cec82a9d5f97b963890e07d?authen=exp=1709720572~acl=/8b9cceca4cec82a9d5f97b963890e07d/*~hmac=1d7a5e953aeae3029eae4da2d9b2fd06"
       );
     },
   },
