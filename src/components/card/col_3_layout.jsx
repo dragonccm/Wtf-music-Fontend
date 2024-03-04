@@ -22,7 +22,7 @@ const Col3Layout = ({ data }) => {
             {chunk.map((element, elementIndex) => (
               <div key={elementIndex} className="col_3_layout_colum_item">
                 <div className="playlist_item_img">
-                  <img src={element.img} alt="Playlist Image" />
+                  <img src={element.img} alt="Playlist Image"/>
                   <div className="img_overlay">
                     <div className="img_overlay_group_btn">
                       <a href="/songpage">

@@ -15,7 +15,6 @@ const Mainpage = ({ playlists }) => {
     img: 'https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg',
     name: "Không phải gu",
     artist:'Hiếu Thứ Hai'
-    
   }));
   document.title = "This is demo Component";
   return (
