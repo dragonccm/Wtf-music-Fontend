@@ -3,45 +3,70 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTableList, faHistory, faGear, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faTableList, faHistory, faGear, faHeart, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { Routes, Route } from 'react-router-dom';
 import Recommended from "../card/Recommended";
-import ListCard from "../card/ListCard";
+import Card from "../card/song_card";
 
 
 import "../../css/profile.scss"
+import { useState } from "react";
+// import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 function Profile() {
+    const [ispass, setIsPass] = useState(true);
+    const [ispassNew, setIsPassNew] = useState(true);
+    const [oldPass, setOldPass] = useState('');
+    const [newPass, setNewPass] = useState('');
 
+
+    const handleIsPass = () => {
+        console.log('hahahah')
+        if (ispass) {
+            setIsPass(false);
+            console.log(ispass);
+        } else {
+            setIsPass(true);
+        }
+    };
+    const handleIsPassNew = () => {
+        console.log('hahahah')
+        if (ispassNew) {
+            setIsPassNew(false);
+            console.log(ispassNew);
+        } else {
+            setIsPassNew(true);
+        }
+    };
 
     const playlistsData = [
         ({
             id: 1,
             name: `Jisoo`,
-            image:"https://i.pinimg.com/originals/3a/f1/e7/3af1e70ef7617658aeb52141f47f51b0.jpg",
+            image: "https://i.pinimg.com/originals/3a/f1/e7/3af1e70ef7617658aeb52141f47f51b0.jpg",
             artists_list: ["Jisso"],
         }),
         ({
             id: 1,
             name: `Jennie`,
-            image:"https://th.bing.com/th/id/OIP.0nv52jyNLFV9dMf8FydGBQAAAA?rs=1&pid=ImgDetMain",
+            image: "https://th.bing.com/th/id/OIP.0nv52jyNLFV9dMf8FydGBQAAAA?rs=1&pid=ImgDetMain",
             artists_list: ["Jennie"],
         }),
         ({
             id: 1,
             name: `Lisa`,
-            image:"https://th.bing.com/th/id/OIP.yXzNZo5S4j75KDC6uzAwKAHaJ4?w=800&h=1067&rs=1&pid=ImgDetMain",
+            image: "https://th.bing.com/th/id/OIP.yXzNZo5S4j75KDC6uzAwKAHaJ4?w=800&h=1067&rs=1&pid=ImgDetMain",
             artists_list: ["Lisa"],
         }),
         ({
             id: 1,
             name: `Rosé`,
-            image:"https://lh3.googleusercontent.com/LjrrZepK7r13k7KIA7hkqOKFN0rLntt_994Fp9QS6_UGbi5YdI8OnDK0n2C9lxd3pXr1ImX7VFCGfoFeMazK7oRAN1ehejD0aA=w960-rj-nu-e365",
+            image: "https://lh3.googleusercontent.com/LjrrZepK7r13k7KIA7hkqOKFN0rLntt_994Fp9QS6_UGbi5YdI8OnDK0n2C9lxd3pXr1ImX7VFCGfoFeMazK7oRAN1ehejD0aA=w960-rj-nu-e365",
             artists_list: ["Rosé"],
         }),
         ({
             id: 1,
             name: `jang Wongyoung`,
-            image:"https://th.bing.com/th/id/R.95272410e0cd81f991eb92c07e6a503c?rik=XjGqEwoeZgRuSQ&pid=ImgRaw&r=0",
+            image: "https://th.bing.com/th/id/R.95272410e0cd81f991eb92c07e6a503c?rik=XjGqEwoeZgRuSQ&pid=ImgRaw&r=0",
             artists_list: ["Jang Wongyoung"],
         })
     ]
@@ -59,7 +84,7 @@ function Profile() {
             title: "Đề Xuất Cho Bạn",
             list: playlistsData,
         })
-    ] 
+    ]
 
     const userdata = {
         avt: "https://i.redd.it/ykbmzd7rlyq01.jpg",
@@ -282,6 +307,7 @@ function Profile() {
             root_album: "Solo"
         },
     ];
+
     const UserInfo = ({ data }) => (
         <div className="info_card_ctn">
             <div className="avt_container">
@@ -307,15 +333,7 @@ function Profile() {
         <section className="mylist_page">
             <div className="mylisttitle">Danh Sách Phát Của bạn</div>
             <div className="list_container">
-                {datas.map((data) => (
-                    <div className="myListcard">
-                        <div className="list_img">
-                            <img src={data.img} alt="f" />
-                        </div>
-                        <p className="playlist_name">{data.name}</p>
-                    </div>
-
-                ))}
+                <Card playlist={datas} />
             </div>
         </section>
     );
@@ -324,15 +342,16 @@ function Profile() {
             <Recommended datas={data} type={"Lịch Sử"} describe={'Đã Xem Gần Đây'} />
         </div>
     )
-    const Setting = () => (
-        <div className="setting_ctn">
-            <h1>setting</h1>
+    const Like_song = ({ data }) => (
+        <div className="history_ctn">
+            <Recommended datas={data} type={"Bài hát yêu thích"} describe={'Đã Xem Gần Đây'} maxItemsToShow="5" />
         </div>
     )
+   
     const Artist = ({ data }) => {
         return (
             <div className="history_ctn">
-                <ListCard data={data} />
+                {/* <ListCard data={data} /> */}
             </div>
         );
     }
@@ -343,7 +362,7 @@ function Profile() {
         <div className="profile_container">
 
 
-            <UserInfo data={userdata} />
+
 
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
@@ -383,8 +402,41 @@ function Profile() {
                 <Routes>
                     <Route path='/myplaylist' element={<Myplaylist datas={usserplaylist} />} />
                     <Route path='/history' element={<History data={Recommendeds} />} />
-                    <Route path='/setting' element={<Setting />} />
-                    <Route path='/artist' element={<Artist data={element} />} />
+                    <Route path='/setting' element={<>
+                        <div className="setting_ctn profile_page">
+                            <UserInfo data={userdata} />
+                            <div className="change_pass">
+                                <h1>Thay đổi mật khẩu</h1>
+                                <form action="">
+                                    <div className="input_group">
+                                        <label htmlFor="old_pass">Mật khẩu hiện tại</label>
+                                        <div className="input_group_pass">
+                                            <input type={ispass ? "password" : "text"} value={oldPass} onChange={(event) => setOldPass(event.target.value)} />
+                                            {ispass ? <FontAwesomeIcon icon={faEyeSlash} onClick={handleIsPass} /> : <FontAwesomeIcon icon={faEye} onClick={handleIsPass} />}
+                                        </div>
+
+                                    </div>
+                                    <div className="input_group">
+                                        <label htmlFor="new_pass">Mật khẩu mới</label>
+                                        <div className="input_group_pass">
+                                        <input type={ispassNew ? "password" : "text"} value={newPass} onChange={(event) => setNewPass(event.target.value)} />
+                                            {ispassNew ? <FontAwesomeIcon icon={faEyeSlash} onClick={handleIsPassNew} /> : <FontAwesomeIcon icon={faEye} onClick={handleIsPassNew} />}
+                                        </div>
+                                    </div>
+                                    <div className="input_group">
+
+                                        <button className="list_nav_item">Thay đổi</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </>} />
+                    <Route path='/artist' element={
+                        <div className="like_song">
+                            <Like_song data={Recommendeds} />
+                            <Myplaylist datas={usserplaylist} />
+                        </div>
+                    } />
                     <Route path='/' element={<Artist data={element} />} />
 
                 </Routes>

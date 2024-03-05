@@ -4,8 +4,9 @@
 } */
 .Footer{
     font-size: 1.5rem;
+    margin-top: 30px;
+    background-color: #ebf1ff;
     .info_contaier{
-        border-top: 1px solid #a7a7a7;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -22,10 +23,37 @@
     }
     .column_container{
         display: flex;
+        gap: 20px;
     }
     .column{
+        width: 25%;
         color: #257eff;
         margin:  0 1rem;
+        &.main{
+            width: 30%;
+            text-align: justify;
+            margin-right: 150px;
+
+        }
+        h3{
+        font-style : italic;
+        font-family: sans-serif;
+        font-size: 20px;
+        margin-bottom: 10px;
+
+        }
+        .logo{
+            width: 60%;
+            display: block;
+            margin: 0 auto;
+            img{
+                width: 100%;
+               
+            }
+        }
+        span{
+            margin-left: 10px;
+        }
     }
     .Social_media a{
         font-size: 3rem;

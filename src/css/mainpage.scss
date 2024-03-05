@@ -4,13 +4,15 @@
   flex-direction: column;
   overflow: hidden;
   position: relative;
-
+  height: fit-content;
+  margin-left: 240px;
   /* background-color: #121212; */
   .main_page_container {
     margin-top: 50px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 50px;
+    padding-bottom: 0;
   }
 
   .for_you {
@@ -42,7 +44,7 @@
       }
 
       .radio-input:checked+.radio-tile {
-        border-color: #cc39a4;
+        border-color: #3887ff;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         color: #ffffff;
       }
@@ -50,7 +52,7 @@
       .radio-input:checked+.radio-tile:before {
         transform: scale(1);
         opacity: 1;
-        background-color: #ff9fe5;
+        background-color: #afc7ff;
         border-color: #cc39a4;
       }
 
@@ -63,13 +65,13 @@
       }
 
       .radio-input:focus+.radio-tile {
-        background-color: #ff9fe5;
+        background-color: #afc7ff;
         border-color: #fff;
         // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
       }
 
       .radio-input:checked+.radio-tile {
-        background-color: #ff9fe5;
+        background-color: #afc7ff;
         border-color: #fff;
       }
 
@@ -98,7 +100,7 @@
       }
 
       .radio-input:hover {
-        border-color: #cc39a4;
+        border-color: #3887ff;
       }
 
       .radio-tile:hover:before {
@@ -128,7 +130,7 @@
 
     }
   }
-  .ratings {
+  .ratings,.list_card {
     h1 {
       margin: 30px 0 10px;
 
