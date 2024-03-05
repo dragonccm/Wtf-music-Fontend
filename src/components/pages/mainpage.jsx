@@ -33,144 +33,170 @@ const Mainpage = ({ playlists }) => {
     root_album: "Solo"
   }));
 
-  const playlistsData = Array.from({ length: 5 }, (_, index) => ({
-    id: index,
-    name: `Playlist ${index + 1}`,
-    image: "https://th.bing.com/th/id/OIP.XusXZvUJb2jQFc8QvjBnIwHaL2?rs=1&pid=ImgDetMain",
-    artists_list: ["Jisso", "Jisso", "Jisso", "Jisso", "Jisso"],
-  }));
-
-  const element = [
+  const playlistsData = [
     {
-      title: 'POPULAR',
-      list: playlistsData,
+      id: 3,
+      name: `Playlist ${3 + 1}`,
+      image: "https://th.bing.com/th/id/OIP.2Taaw3tCXQRTYFNqPYXOdgHaHa?rs=1&pid=ImgDetMain",
+      artists_list: ["Jisso"],
     },
     {
-      title: 'chill day',
-      list: playlistsData,
+      id: 3,
+      name: `Playlist ${3 + 1}`,
+      image: "https://i.redd.it/3sx2ys0arsv21.jpg",
+      artists_list: ["Jisso"],
     },
-  ];
+    {
+      id: 3,
+      name: `Playlist ${3 + 1}`,
+      image: "https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg",
+      artists_list: ["Jisso"],
+    },
+    {
+      id: 3,
+      name: `Playlist ${3 + 1}`,
+      image: "https://i2.wp.com/blackpinkupdate.com/wp-content/uploads/2019/05/1-BLACKPINK-Jennie-Instagram-Update-25-May-2019.jpg?fit=1080%2C1080&ssl=1",
+      artists_list: ["Jisso"],
+    },
+    {
+      id: 3,
+      name: `Playlist ${3 + 1}`,
+      image: "https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg",
+      artists_list: ["Jisso"],
+    },
+]
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getSongData();
-      if (data) {
-        const newAudio = {
-          avt: "https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/f/3/a/f/f3af71df0b7a68ec44955faa5dc7d0ce.jpg",
-          songname: data.songname,
-          Recommended: Recommendeds,
-          element: element,
-          ar:data.artistsNames,
-          small:data.img,
-        };
-        setAudioList(newAudio);
-      }
-    };
-    fetchData();
-  }, []);
-  console.log("cái gì ", audioList);
-  const songpagedata = audioList
-  // song page
+const element = [
+  {
+    title: 'POPULAR',
+    list: playlistsData,
+  },
+  {
+    title: 'chill day',
+    list: playlistsData,
+  },
+];
+
+useEffect(() => {
+  const fetchData = async () => {
+    const data = await getSongData();
+    if (data) {
+      const newAudio = {
+        avt: "https://th.bing.com/th/id/OIP.2Taaw3tCXQRTYFNqPYXOdgHaHa?rs=1&pid=ImgDetMain",
+        songname: data.songname,
+        Recommended: Recommendeds,
+        element: element,
+        ar: data.artistsNames,
+        small: data.img,
+      };
+      setAudioList(newAudio);
+    }
+  };
+  fetchData();
+}, []);
+console.log("cái gì ", audioList);
+const songpagedata = audioList
+// song page
 
 
 
-  const listSong = Array.from({ length: 9 }, (_, index) => ({
-    img: 'https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg',
-    name: "Không phải gu",
-    artist: 'Hiếu Thứ Hai'
-  }));
-  document.title = "What The Fuck Music Never die";
-  return (
-    <div className="main_page">
-      <>
-        <Header />
-        <section className="main_page_container">
-          <Routes>
-            <Route path="/*" element={
-              <>
-                <SliderBar />
-                <div className="for_you">
-                  <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
-                  <Col3Layout data={listSong} />
-                </div>
-                <div className="list_card">
-                  <h1>Có thể bạn muốn nghe</h1>
-                  <Card playlist={playlistsData} />
-                </div>
-                <div className="for_you">
-                  <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
-                  <div class="radio-inputs">
-                    <label>
-                      <input class="radio-input " type="radio" name="engine" />
-                      <span class="radio-tile ">
-                        <span class="radio-icon">
-                          Tất cả
-                        </span>
+const listSong = Array.from({ length: 9 }, (_, index) => ({
+  img: 'https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg',
+  name: "Không phải gu",
+  artist: 'Hiếu Thứ Hai'
+}));
+document.title = "What The Fuck Music Never die";
+return (
+  <div className="main_page">
+    <>
+      <Header />
+      <section className="main_page_container">
+        <Routes>
+          <Route path="/*" element={
+            <>
+              <SliderBar />
+              <div className="for_you">
+                <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
+                <Col3Layout data={listSong} />
+              </div>
+              <div className="list_card">
+                <h1>Có thể bạn muốn nghe</h1>
+                <Card playlist={playlistsData} />
+              </div>
+              <div className="for_you">
+                <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
+                <div class="radio-inputs">
+                  <label>
+                    <input class="radio-input " type="radio" name="engine" />
+                    <span class="radio-tile ">
+                      <span class="radio-icon">
+                        Tất cả
                       </span>
-                    </label>
+                    </span>
+                  </label>
 
-                    <label>
-                      <input class="radio-input " type="radio" name="engine" />
-                      <span class="radio-tile ">
-                        <span class="radio-icon">
-                          Việt Nam
-                        </span>
+                  <label>
+                    <input class="radio-input " type="radio" name="engine" />
+                    <span class="radio-tile ">
+                      <span class="radio-icon">
+                        Việt Nam
                       </span>
-                    </label>
+                    </span>
+                  </label>
 
-                    <label>
-                      <input class="radio-input " type="radio" name="engine" />
-                      <span class="radio-tile ">
-                        <span class="radio-icon">
-                          Quốc tế
-                        </span>
+                  <label>
+                    <input class="radio-input " type="radio" name="engine" />
+                    <span class="radio-tile ">
+                      <span class="radio-icon">
+                        Quốc tế
                       </span>
-                    </label>
-                  </div>
+                    </span>
+                  </label>
+                </div>
 
-                  <Col3Layout data={listSong} />
-                </div>
-                <div className="list_card">
-                  <h1>Nhạc hot gây bão</h1>
-                  <Card playlist={playlistsData} />
-                </div>
-                <div className="list_card">
-                  <h1>Remix hay hết sảy</h1>
-                  <Card playlist={playlistsData} />
-                </div>
-                <div className="list_card">
-                  <h1>Chill</h1>
-                  <Card playlist={playlistsData} />
-                </div>
-                <div className="list_card">
-                  <h1>Nhạc buồn tâm trạng</h1>
-                  <Card playlist={playlistsData} />
-                </div>
-                <div className="ratings">
-                  <h1>BXH nhạc mới</h1>
-                  <HomeRating />
-                  </div>
-                <div className="list_card">
-                  <h1>Top 100</h1>
-                  <Card playlist={playlistsData} />
-                </div>
-                <div className="list_card">
-                  <h1>Album hot</h1>
-                  <Card playlist={playlistsData} />
-                </div>
-              </>
-            } />
-            <Route path="/listcard" element={<ListCard data={playlists} />} />
-            <Route path="/playlistpage" element={<Playlistpage />} />
-            <Route path="/songpage" element={<Songpage data={songpagedata} />} />
-            <Route path="/rating" element={<Rating />} />
-            <Route path="/profile*" element={<Profile />} />
+                <Col3Layout data={listSong} />
+              </div>
+              <div className="list_card">
+                <h1>Nhạc hot gây bão</h1>
+                <Card playlist={playlistsData} />
+              </div>
+              <div className="list_card">
+                <h1>Remix hay hết sảy</h1>
+                <Card playlist={playlistsData} />
+              </div>
+              <div className="list_card">
+                <h1>Chill</h1>
+                <Card playlist={playlistsData} />
+              </div>
+              <div className="list_card">
+                <h1>Nhạc buồn tâm trạng</h1>
+                <Card playlist={playlistsData} />
+              </div>
+              <div className="ratings">
+                <h1>BXH nhạc mới</h1>
+                <HomeRating />
+              </div>
+              <div className="list_card">
+                <h1>Top 100</h1>
+                <Card playlist={playlistsData} />
+              </div>
+              <div className="list_card">
+                <h1>Album hot</h1>
+                <Card playlist={playlistsData} />
+              </div>
+            </>
+          } />
+          <Route path="/listcard" element={<ListCard data={playlists} />} />
+          <Route path="/playlistpage" element={<Playlistpage />} />
+          <Route path="/songpage" element={<Songpage data={songpagedata} />} />
+          <Route path="/rating" element={<Rating />} />
+          <Route path="/profile*" element={<Profile />} />
 
-          </Routes>
-        </section>
-          <Footer />
-      </>
-    </div>
-  );
+        </Routes>
+      </section>
+      <Footer />
+    </>
+  </div>
+);
 };
 export default Mainpage;

@@ -32,7 +32,6 @@ const Card = ({ playlist }) => {
                 ))
             }
         </div>
-        </div>
     )
 }
 export default Card
