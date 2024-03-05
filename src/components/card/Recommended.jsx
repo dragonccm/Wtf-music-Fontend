@@ -13,14 +13,14 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
     const toggleShowAll = () => {
         setShowAll(!showAll);
     };
-
+    const validDatas = Array.isArray(datas) ? datas : [];
     return (
         <>
             {/* lable */}
             <h1 className="Recommended">{type}</h1>
             <p className="Recommended_1">{describe}</p>
             {/* lable */}
-            {datas.slice(0, showAll ? datas.length : maxItemsToShow).map((data, index) => (
+            {validDatas.slice(0, showAll ? validDatas.length : maxItemsToShow).map((data, index) => (
                 <div className="list_row">
                     <div className="song_img_ctn">
                         <div className="row_order">
@@ -49,7 +49,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
                     </div>
                 </div>
             ))}
-            {datas.length > maxItemsToShow && !showAll && (
+            {validDatas.length > maxItemsToShow && !showAll && (
                 <button className="refresh"  onClick={toggleShowAll}>Hiển Thị Tất Cả</button>
             )}
         </>
