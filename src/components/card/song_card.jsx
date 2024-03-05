@@ -41,14 +41,9 @@ const Card = ({ playlist }) => {
             {playlist.name}
           </a>
         </div>
-// <<<<<<< HEAD
-//     )
-// }
-// export default Card
-// =======
       ))}
     </div>
   );
 };
 export default Card;
-// >>>>>>> ef6130f05e8eacbada9449474202154b345d96c7
+
