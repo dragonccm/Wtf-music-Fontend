@@ -19,10 +19,19 @@
 }
 .card_container{
    display: flex;
-   gap: 20px;
+   gap: 30px;
 }
 .playlist_name{
     font-size: 1.4rem;
+    font-weight: 700;
+    color: #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: Inter,sans-serif;
+    &:hover{
+        color:#3587ff
+    }
 }
 
 .show_all{

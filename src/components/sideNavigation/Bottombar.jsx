@@ -4,7 +4,6 @@ import "react-jinke-music-player/assets/index.css";
 // import "react-jinke-music-player/lib/styles/index.less";
 import "../../css/Bottombar.scss";
 import { createRoot } from "react-dom/client";
-import "../../css/player.less";
 
 const lyric = [
   "[ti:高尚]",

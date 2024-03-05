@@ -6,6 +6,7 @@
 }
 .main_content{
   display: flex;
+  overflow-x: hidden;
 }
 .App-logo {
   height: 40vmin;

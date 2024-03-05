@@ -1,5 +1,6 @@
 .profile_container {
   height: auto !important;
+
   .profile_bar {
     font-size: 20px;
     border-radius: 10px;
@@ -9,22 +10,24 @@
     width: 100%;
     height: 100%;
   }
+
   .list_nav_pr {
     display: flex;
     justify-content: space-between;
   }
+
   .icon_list_nav_item {
     margin-right: 8px;
     width: 35px;
   }
 
   .list_nav_item_pr svg {
-     color: rgb(44, 44, 44);
+    color: rgb(44, 44, 44);
   }
 
   .list_nav_item_pr span {
     font-size: 18px;
-     color: rgb(113, 111, 111);
+    color: rgb(113, 111, 111);
   }
 
   .list_nav_item.active {
@@ -68,9 +71,10 @@
     text-decoration: none;
     width: 30%;
   }
+
   .list_nav_item_pr {
     align-items: center;
-    margin: 0 ;
+    margin: 0;
   }
 
   .list_nav_item:before {
@@ -92,11 +96,13 @@
     left: 100%;
     transition: all 0.7s;
   }
-  .bg-body-tertiary{
+
+  .bg-body-tertiary {
     background-color: #ebf1ff;
     margin: 0 4%;
     border-radius: 1rem;
   }
+
   .list_nav_item:hover:before {
     top: -30px;
     left: -30px;
@@ -106,18 +112,109 @@
     background: #ffffff;
     transition: background 0s;
   }
+
   .profile_content {
     display: flex;
-    justify-content: center;
+    // justify-content: center;
     margin: 5rem;
     background-color: #ebf1ff;
     padding: 5rem;
     border-radius: 1rem;
+
+    .like_song {
+      width: 100%;
+
+      .refresh {
+        width: 100%;
+      }
+    }
+
+    .profile_page {
+      width: 100%;
+
+      .change_pass {
+        margin-top: 30px;
+        h1{
+          color: #000;
+          margin: 20px 0;
+          font-size: 20px;
+        }
+       form{
+        padding: 30px;
+        background-color: #afc7ff;
+        border-radius: 10px;
+        width: 60%;
+       }
+
+        .input_group {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-top: 20px;
+          label {
+            font-size: 16px;
+          }
+          .input_group_pass{
+            position: relative;
+            svg{
+              position: absolute;
+              top: 35%;
+              right: 3%;
+              font-size: 15px;
+            }
+          }
+
+        }
+
+        button {
+          background-color: #cfdcfe;
+          width: 50%;
+          margin: 20px auto;
+          padding: 20px;
+          font-size: 16px;
+          display: flex;
+          justify-content: center;
+          box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4);
+          color: #000;
+
+          &:hover {
+            background-color: #5498ff;
+          }
+        }
+
+        input {
+          width: 100%;
+          padding: 12px 18px;
+          font-size: 16px;
+          font-family: inherit;
+          box-shadow: 0 0 0 1px #b9ceff;
+          border: none;
+          border-radius: 25px;
+          background-color: #ebf1ff;
+          transition: all .3s;
+          color: #3e3e3e;
+        }
+
+        input::placeholder {
+          color: #82b0fb;
+          font-size: 14px;
+        }
+
+        input:focus {
+          outline: none;
+          box-shadow: 0 0 10px 1px #346ffa;
+          border: none;
+          transition: all .3s;
+        }
+      }
+    }
   }
+
   .info_card_ctn {
     display: flex;
     align-items: center;
   }
+
   /* user info */
   .avt_container {
     width: 25rem;
@@ -127,21 +224,25 @@
     border-radius: 1rem;
     margin: 3rem;
   }
+
   .avt_container img {
     width: 100%;
   }
+
   .info_card_item {
     display: flex;
     font-size: large;
     text-align: left;
     align-items: center;
   }
+
   .info_card_item label {
     font-size: 2rem;
     width: 20rem;
     color: rgb(0, 0, 0);
     margin: 1rem;
   }
+
   /* user info */
 
   /* list  */
@@ -153,6 +254,7 @@
     height: 100%;
     gap: 1rem;
   }
+
   .myListcard {
     display: flex;
     flex-direction: column;
@@ -161,6 +263,7 @@
     padding: 1rem;
     border-radius: 1rem;
   }
+
   .list_img {
     width: 17rem;
     height: 17rem;
@@ -168,25 +271,31 @@
     overflow: hidden;
     border-radius: 1rem;
   }
+
   .list_img img {
     width: 100%;
     height: 100%;
   }
+
   .mylist_page {
     display: flex;
     flex-direction: column;
     width: 90%;
   }
+
   .mylisttitle {
     color: rgb(31, 31, 31) !important;
     font-size: 3rem;
     margin-bottom: 2rem;
   }
+
   /* list */
 
   /* history */
   .profile_content .history_ctn {
     width: 100%;
+
   }
+
   /* history */
 }
