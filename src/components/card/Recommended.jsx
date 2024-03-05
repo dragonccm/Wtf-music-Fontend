@@ -25,7 +25,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
                     <div className="song_img_ctn">
                         <div className="row_order">
                             <div className="number">
-                                {index}
+                                {index+1}
                             </div>
                             <div className="hidden_button">
                                 <button className="play">

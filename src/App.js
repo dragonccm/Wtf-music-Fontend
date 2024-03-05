@@ -35,12 +35,10 @@ function App() {
   return (
     <>
       <Router>
-        <div className="App">
-          <div className="main_content">
-            <RightSidebar />
-            <Mainpage playlists={element} />
-          </div>
-        </div>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/*" element={ <Mainn datas={element}/>} />
+          </Routes>
       </Router>
       <Bottombar music="https://vnso-zn-16-tf-a128-zmp3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1709022776~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=47652769b376607e4f2a481c74636d82" />
     </>

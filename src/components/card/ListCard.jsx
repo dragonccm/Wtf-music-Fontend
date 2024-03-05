@@ -27,3 +27,6 @@ const ListCard = ({ data }) => {
     )
 }
 export default ListCard;
+
+
+
