@@ -14,6 +14,7 @@ import Profile from "./profilepage";
 import Rating from "./Rating";
 import Card from "../card/song_card";
 
+
 import { Routes, Route } from "react-router-dom";
 
 const Mainpage = ({ playlists }) => {
@@ -205,6 +206,7 @@ const Mainpage = ({ playlists }) => {
             <Route path="/rating" element={<Rating />} />
             <Route path="/profile*" element={<Profile />} />
             <Route path="/top100" element={<Top100 data={playlistsData} />} />
+            <Route path="/playlist" element={<Playlistpage />} />
           </Routes>
         </section>
         <Footer />
