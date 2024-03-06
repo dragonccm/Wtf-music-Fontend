@@ -2,67 +2,66 @@
     text-decoration: none !important;
     color: aliceblue;
 } */
-.Footer{
-    font-size: 1.5rem;
-    margin-top: 30px;
-    background-color: #ebf1ff;
-    .info_contaier{
+.Footer {
+  font-size: 1.5rem;
+  background-color: #ebf1ff;
+  .info_contaier {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    line-height: 3rem;
+  }
+  .Privacy {
+    margin: 1rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid #a7a7a7;
+  }
+  .Privacy a {
+    margin: 0 1rem;
+  }
+  .column_container {
+    display: flex;
+    gap: 20px;
+  }
+  .column {
+    width: 25%;
+    color: #333;
+    margin: 0 1rem;
+    &.main {
+      width: 30%;
+      text-align: justify;
+      margin-right: 150px;
+    }
+    h3 {
+      font-style: italic;
+      font-family: sans-serif;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .logo {
+      width: 60%;
+      display: block;
+      margin: 0 auto;
+      img {
         width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 1rem 0;
-        line-height: 3rem;
+      }
     }
-    .Privacy{
-        margin: 1rem 0;
-        padding: 1rem 0;
-        border-top: 1px solid #a7a7a7;
+    span {
+      margin-left: 10px;
     }
-    .Privacy a{
-        margin:  0 1rem;
+    svg {
+      color: #257eff;
     }
-    .column_container{
-        display: flex;
-        gap: 20px;
-    }
-    .column{
-        width: 25%;
-        color: #257eff;
-        margin:  0 1rem;
-        &.main{
-            width: 30%;
-            text-align: justify;
-            margin-right: 150px;
-
-        }
-        h3{
-        font-style : italic;
-        font-family: sans-serif;
-        font-size: 20px;
-        margin-bottom: 10px;
-
-        }
-        .logo{
-            width: 60%;
-            display: block;
-            margin: 0 auto;
-            img{
-                width: 100%;
-               
-            }
-        }
-        span{
-            margin-left: 10px;
-        }
-    }
-    .Social_media a{
-        font-size: 3rem;
-        margin: 0 1rem;
-        color: #257eff;
-    }
+  }
+  .Social_media a {
+    font-size: 3rem;
+    margin: 0 1rem;
+    color: #257eff;
+  }
 }
-@media screen and (max-width:600px) {
-    .Footer {
-      display: none;
-    }
+@media screen and (max-width: 600px) {
+  .Footer {
+    display: none;
+  }
 }
