@@ -86,9 +86,12 @@
 
 @media screen and (max-width:600px) {
     .col_3_layout_Container{
-        flex-direction: column;
+        overflow-x: auto;
         .col_3_layout{
             width: auto !important;
+            .col_3_layout_colum{
+                width: 30rem;
+            }
         }
     }
 }

@@ -61,3 +61,8 @@
         color: #257eff;
     }
 }
+@media screen and (max-width:600px) {
+    .Footer {
+      display: none;
+    }
+}

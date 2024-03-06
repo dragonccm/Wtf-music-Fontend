@@ -1,26 +1,28 @@
-.card_container{
+.card_container {
     margin-top: 20px;
+
     .card {
         color: rgb(0 0 0 / 60%);
         width: 20%;
         height: 100%;
-        
-    
+
+
+
         .img_container {
-            width:17rem;
-            height:17rem;
+            width: 100%;
+            aspect-ratio: 1/1;
             position: relative;
             overflow: hidden;
             border-radius: 5px;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
-            justify-content: center ;
-    
+            justify-content: center;
+
             &:hover .img_overlay {
                 display: flex;
             }
-    
+
             img {
                 -webkit-transform: scale(1);
                 transform: scale(1);
@@ -28,12 +30,12 @@
                 transition: .5s ease-in-out;
                 object-fit: cover;
             }
-    
+
             &:hover img {
                 -webkit-transform: scale(1.1);
                 transform: scale(1.1);
             }
-    
+
             .img_overlay {
                 position: absolute;
                 background: #00000045;
@@ -45,34 +47,34 @@
                 align-items: center;
                 display: none;
                 transition: all 1s ease;
-    
+
                 .img_overlay_group_btn {
                     width: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: space-around;
-    
+
                     svg {
                         font-size: 20px;
                         color: #fff;
                     }
-    
+
                     svg.play_icon {
                         font-size: 40px;
                     }
                 }
             }
         }
-    
+
         .img_container img {
             width: 100%;
             height: 100%;
         }
-    
+
         .artists {
             margin: 1rem 2rem;
         }
-    
+
         .card {
             width: 21rem;
             height: 28.3rem;
@@ -85,8 +87,16 @@
         }
     }
 }
+
 @media screen and (max-width:600px) {
-    .card {
-        width: 50%;
+    .card_container {
+        .card {
+            width: 50%;
+            .img_container {
+                width: 17rem;
+                height: 17rem;
+                aspect-ratio: unset;
+            }
+        }
     }
 }

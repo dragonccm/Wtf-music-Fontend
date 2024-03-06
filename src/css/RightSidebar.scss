@@ -1,5 +1,6 @@
 
 .rightsidebar{
+    left: 0;
     // background-image: linear-gradient(to top, #FDCEDF, #F2BED1, #F8E8EE, #F9F5F6, #F9F5F6);
     background-color: #ebf1ff;
     display: flex;
@@ -236,7 +237,11 @@
     .rightsidebar{
         width: 100%;
         align-items: center;
-        height: 10rem;
+        height: 7rem;
+        z-index: 9;
+        .puffed{
+            display: none;
+        }
         .nav_bot_playlist{
           display: none;
         }
@@ -246,12 +251,31 @@
         .rs_bottom_bar{
             .list_nav{
                 display: flex;
+                height: 100%;
             }
         } 
         .list_nav_item{ 
             span{
                 display: none !important;
             }
+            .icon_list_nav_item{
+                text-align: center;
+            }
+            margin-right: 0 !important;
         } 
+        .navbar-light{
+            height: 100%;
+            .container{
+                height: 100%;
+            }
+        }
+        .icon_list_nav_item{
+            margin: 0;
+        }
+        .rs_bottom_bar {
+            .list_nav{
+                padding: 0;
+            }
+        }
     }
   }

@@ -5,6 +5,7 @@
   flex-direction: column;
 }
 .main_content{
+  justify-content: flex-end;
   display: flex;
   overflow-x: hidden;
 }
@@ -42,6 +43,7 @@ a{
 
 @media screen and (max-width:600px) {
   .main_content{
-    flex-direction: column-reverse;
+    flex-direction: column;
+    margin: 0 !important;
   }
 }
