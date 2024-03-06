@@ -14,7 +14,7 @@
         position: absolute;
         right: 10%;
         border-radius: 1rem;
-        padding: 3rem 4rem ;
+        padding: 3rem 4rem;
         background: rgba(255, 255, 255, 0.2);
         -webkit-backdrop-filter: blur(4px);
         backdrop-filter: blur(4px);
@@ -39,15 +39,16 @@
         flex-direction: column;
     }
 
-    .login_form h1{
+    .login_form h1 {
         text-align: center;
         margin-bottom: 30px;
-    a {
-        font-size: 2.5rem;
-        margin: 2rem auto;
-        color: #257eff;
+
+        a {
+            font-size: 2.5rem;
+            margin: 2rem auto;
+            color: #257eff;
+        }
     }
-}
 
     .input_form_text {
         border: none;
@@ -59,7 +60,8 @@
         box-shadow: #257eff 0px 7px 4px -3px;
         border-inline: 2px solid transparent;
         color: #000;
-        &.is-invalid{
+
+        &.is-invalid {
             border: 2px solid red;
         }
     }
@@ -85,19 +87,21 @@
         justify-content: center;
         flex-direction: column;
         border-radius: 1rem;
-       
+
     }
 
-    .signup_form h1{
+    .signup_form h1 {
         text-align: center;
         margin-bottom: 30px;
-    a {
-        font-size: 2.5rem;
-        margin: 2rem auto;
-        color: #257eff;
-    }}
 
-   
+        a {
+            font-size: 2.5rem;
+            margin: 2rem auto;
+            color: #257eff;
+        }
+    }
+
+
 
     /* signup */
     .check_box {
@@ -111,6 +115,7 @@
     .remember_login {
         display: flex;
         align-items: center;
+
         .checkmark {
             position: relative;
             top: 0;
@@ -119,17 +124,18 @@
             width: 15px;
             background-color: #ffffff;
             border-radius: 5px;
-           }
-           .container input {
+        }
+
+        .container input {
             position: absolute;
             opacity: 0;
             cursor: pointer;
             height: 0;
             width: 0;
             border-radius: 5px;
-           }
-           
-           .container {
+        }
+
+        .container {
             display: block;
             position: relative;
             cursor: pointer;
@@ -139,36 +145,37 @@
             box-shadow: 2px 2px 0px rgb(183, 183, 183);
             margin-right: 10px;
 
-           }
-           /* When the checkbox is checked, add a blue background */
-           .container input:checked ~ .checkmark {
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .container input:checked~.checkmark {
             transition: all 0.2s;
             opacity: 1;
             background-image: linear-gradient(45deg, rgb(100, 61, 219) 0%, rgb(82, 203, 255) 100%);
-           }
-           
-           .container input ~ .checkmark {
+        }
+
+        .container input~.checkmark {
             transition: all 0.2s;
             opacity: 1;
             box-shadow: 0px 1px 0px 1px rgb(183, 183, 183);
-           }
-           
-           /* Create the checkmark/indicator (hidden when not checked) */
-           .checkmark:after {
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
             content: "";
             position: absolute;
             opacity: 0;
             transition: all 0.2s;
-           }
-           
-           /* Show the checkmark when checked */
-           .container input:checked ~ .checkmark:after {
+        }
+
+        /* Show the checkmark when checked */
+        .container input:checked~.checkmark:after {
             opacity: 1;
             transition: all 0.2s;
-           }
-           
-           /* Style the checkmark/indicator */
-           .container .checkmark:after {
+        }
+
+        /* Style the checkmark/indicator */
+        .container .checkmark:after {
             left: 5px;
             top: 1px;
             width: 3px;
@@ -176,7 +183,7 @@
             border: solid white;
             border-width: 0 0.15em 0.15em 0;
             transform: rotate(45deg);
-           }
+        }
     }
 
     .form_btn {
@@ -184,8 +191,8 @@
         font-size: 2rem;
         margin: 1rem auto;
         width: 100%;
-        background: rgb(37,126,255);
-        background: linear-gradient(90deg, rgba(37,126,255,1) 0%, rgba(235,241,255,1) 100%);
+        background: rgb(37, 126, 255);
+        background: linear-gradient(90deg, rgba(37, 126, 255, 1) 0%, rgba(235, 241, 255, 1) 100%);
         // background-color: rgb(255 0 131 / 76%);
         transition: all 0.2s ease-in-out;
     }
@@ -227,10 +234,27 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+
         p {
             color: #257eff;
             font-size: 13px;
             margin-top: 20px;
         }
+    }
+}
+
+
+@media screen and (max-width:600px) {
+    .mod {
+        background: url("https://th.bing.com/th?id=OIF.C9X%2bsDi0%2fgCUf%2fvy%2btV2gw&rs=1&pid=ImgDetMain");
+        height: 100vh;
+        .form-con {
+            width: 100%;
+            right: 0;
+            padding: 0;
+        }
+        .bg_login{
+            display: none;
+        }        
     }
 }

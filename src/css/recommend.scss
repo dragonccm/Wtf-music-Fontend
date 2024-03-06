@@ -90,3 +90,14 @@
     display: none;
 }
 /* row css */
+
+@media screen and (max-width:600px) {
+    .list_row {
+      .added_time{
+        display: none;
+      }
+      .root_album{
+        display: none;
+      }
+    }
+  }
