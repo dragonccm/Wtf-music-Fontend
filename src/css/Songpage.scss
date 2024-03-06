@@ -83,11 +83,10 @@
   }
 }
 .main_page_container {
-  background: rgb(73, 146, 255);
   background: linear-gradient(
-    180deg,
-    rgb(191, 215, 250) 0%,
-    rgba(235, 241, 255, 1) 42%,
-    rgba(255, 255, 255, 1) 100%
+    -90deg,
+    rgb(237, 245, 255) 0%,
+    rgb(226, 235, 248) 50%,
+    rgb(228, 238, 251) 100%
   );
 }

@@ -24,13 +24,13 @@ const Footer = () => {
               <img src={logo} alt="" />
             </div>
             <div className="content">
-              Nền tảng giải trí trực tuyến số 1 đa vũ trụ.Ngoài ra, còn các dịch
-              vụ ẩn vô cùng vô cùng thú vị.
+              Nền tảng giải trí trực tuyến số 1 đa vũ trụ. Ngoài ra, còn các
+              dịch vụ ẩn vô cùng vô cùng thú vị.
             </div>
           </div>
           <div className="column">
             <h3>Contact</h3>
-            <div>
+            <div className="pd_phone">
               <FontAwesomeIcon icon={faLocationDot} />
               <span>120 Đồng Không Mông Quạnh,Ninh Kiều, Cần Thơ, VN</span>
             </div>
