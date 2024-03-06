@@ -13,7 +13,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding: 50px;
-    padding-bottom: 0;
+    padding-bottom: 50px;
   }
 
   .for_you {
@@ -24,9 +24,6 @@
       font-size: 23px;
       text-transform: capitalize;
     }
-
-
-
 
     .radio-inputs {
       display: flex;
@@ -40,48 +37,46 @@
       margin: 20px 0;
     }
 
-    .radio-inputs>* {
+    .radio-inputs > * {
       margin: 6px;
     }
 
-    .radio-input:checked+.radio-tile {
+    .radio-input:checked + .radio-tile {
       border-color: #3887ff;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
       color: #ffffff;
     }
 
-    .radio-input:checked+.radio-tile:before {
+    .radio-input:checked + .radio-tile:before {
       transform: scale(1);
       opacity: 1;
       background-color: #afc7ff;
       border-color: #cc39a4;
     }
 
-    .radio-input:checked+.radio-tile .radio-icon svg {
+    .radio-input:checked + .radio-tile .radio-icon svg {
       fill: #fff;
     }
 
-    .radio-input:checked+.radio-tile .radio-label {
+    .radio-input:checked + .radio-tile .radio-label {
       color: #ffffff;
     }
 
-    .radio-input:focus+.radio-tile {
+    .radio-input:focus + .radio-tile {
       background-color: #afc7ff;
       border-color: #fff;
       // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
     }
 
-    .radio-input:checked+.radio-tile {
+    .radio-input:checked + .radio-tile {
       background-color: #afc7ff;
       border-color: #fff;
     }
 
-    .radio-input:focus+.radio-tile:before {
+    .radio-input:focus + .radio-tile:before {
       transform: scale(1);
       opacity: 1;
     }
-
-
 
     .radio-tile {
       display: flex;
@@ -109,8 +104,6 @@
       opacity: 1;
     }
 
-
-
     .radio-label {
       color: #707070;
       transition: 0.375s ease;
@@ -128,7 +121,6 @@
       white-space: nowrap;
       width: 1px;
     }
-
   }
 }
 
@@ -143,7 +135,7 @@
   }
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width: 600px) {
   .main_page {
     width: 100%;
     margin-left: 0 !important;

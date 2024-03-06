@@ -1,16 +1,16 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 body {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-	background-color: var(--background-color);
-	color: var(--white-color);
-	font-family: "Roboto", "Arial", sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--white-color);
+  font-family: "Roboto", "Arial", sans-serif;
   overflow: hidden;
-  background-color:white;
+  background-color: white;
 }
 html {
   font-size: 62.5%;
@@ -18,7 +18,7 @@ html {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 button {
@@ -33,35 +33,44 @@ button {
   color: #000;
 }
 
-
-.main_content{
+.main_content {
   height: 100vh;
 }
-.music-player-panel.translate{
-  background-color: rgba(255, 255, 255, 0.75)!important;
+.music-player-panel.translate {
+  background-color: rgba(255, 255, 255, 0.75) !important;
 }
-.react-jinke-music-player-main .music-player-panel{
+.react-jinke-music-player-main .music-player-panel {
   color: rgb(66, 66, 66) !important;
 }
-.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle, .react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-track {
-  background-color: #ff6c8f !important;
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-handle,
+.react-jinke-music-player-main
+  .music-player-panel
+  .panel-content
+  .rc-slider-track {
+  background-color: #257eff !important;
 }
-.react-jinke-music-player-main svg:active, .react-jinke-music-player-main svg:hover {
-  color: #ff9f9f !important;
+.react-jinke-music-player-main svg:active,
+.react-jinke-music-player-main svg:hover {
+  color: #257eff !important;
 }
-.rc-slider-step{
+.rc-slider-step {
   background: #0000001c !important;
 }
-.react-jinke-music-player .music-player-controller{
-  color: #e169a4 !important;
+.react-jinke-music-player .music-player-controller {
+  color: #257eff !important;
 }
-.react-jinke-music-player .music-player-controller .music-player-controller-setting{
-  background: rgb(255 0 144 / 30%) !important;
+.react-jinke-music-player
+  .music-player-controller
+  .music-player-controller-setting {
+  background: rgba(0, 68, 255, 0.3) !important;
 }
-.group.loading-icon svg{
-  fill: #e169a4;
+.group.loading-icon svg {
+  fill: #257eff;
 }
-.react-jinke-music-player{
+.react-jinke-music-player {
   right: 20px !important;
-  left: unset!important;
+  left: unset !important;
 }

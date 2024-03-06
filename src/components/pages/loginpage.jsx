@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import "../../css/login_page.scss";
-
+import logo from "../../img/logo3 (1).png";
 
 function Loginform() {
   // Trạng thái để xác định form đăng nhập hay form đăng ký đang hiển thị
@@ -17,22 +17,32 @@ function Loginform() {
 
   return (
     <div className="mod">
-      <img className="bg_login" src='https://th.bing.com/th/id/R.d454115307015ba9cdaa40e510fbb012?rik=aqjycCmZNnqTtw&riu=http%3a%2f%2fgetwallpapers.com%2fwallpaper%2ffull%2ff%2fe%2f7%2f1385470-best-blue-music-wallpaper-1920x1200-for-xiaomi.jpg&ehk=HrnnakVPa%2bMrE4T%2bktSVYoPogJTfXpV%2f5Fin29xZK%2bI%3d&risl=&pid=ImgRaw&r=0' alt="" />
+      <img
+        className="bg_login"
+        src="https://static.vecteezy.com/system/resources/previews/019/849/103/non_2x/music-speaker-with-blue-sound-notes-background-vector.jpg"
+        alt=""
+      />
       <div className="form-con">
         {isLogin ? (
           // Form đăng nhập
           <form action="" className="login_form">
-            <h1><a href="/">WTF MUSIC</a></h1>
+            <h1>
+              <a href="/">
+                <img src={logo}></img>
+              </a>
+            </h1>
             <input
               placeholder="Tên đăng nhập hoặc Email"
               className="email input_form_text"
               name="email"
-              type="text"></input>
+              type="text"
+            ></input>
             <input
               placeholder="Mật khẩu"
               className="pass input_form_text"
               name="pass"
-              type="text"></input>
+              type="text"
+            ></input>
             <div className="check_box">
               <div className="remember_login">
                 <label class="container">
@@ -62,23 +72,28 @@ function Loginform() {
         ) : (
           // Form đăng ký
           <form action="" className="signup_form">
-              <h1><a href="/">WTF MUSIC</a></h1>
-              <input
+            <h1>
+              <a href="/">WTF MUSIC</a>
+            </h1>
+            <input
               placeholder="Tên tài khoản"
               className="username input_form_text"
               name="username"
-              type="text"></input>      
+              type="text"
+            ></input>
             <input
               placeholder="Email"
               className="email input_form_text is-invalid"
               name="email"
-              type="text"></input>
+              type="text"
+            ></input>
             <input
               placeholder="Mật khẩu"
               className="pass input_form_text"
               name="pass"
-              type="text"></input>
-            
+              type="text"
+            ></input>
+
             <div className="form_button">
               <button className="signin form_btn">SIGN UP</button>
               <p>Or Sign up with</p>
