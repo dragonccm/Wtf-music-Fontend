@@ -82,4 +82,11 @@
     font-size: 2rem;
   }
 }
-
+.main_page_container {
+  background: linear-gradient(
+    -90deg,
+    rgb(237, 245, 255) 0%,
+    rgb(226, 235, 248) 50%,
+    rgb(228, 238, 251) 100%
+  );
+}

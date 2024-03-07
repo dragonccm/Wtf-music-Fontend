@@ -9,7 +9,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 1rem 0;
+    padding: 3rem 0;
     line-height: 3rem;
   }
   .Privacy {
@@ -47,11 +47,27 @@
         width: 100%;
       }
     }
+    .content {
+      line-height: 1.8;
+    }
+    .pd_phone {
+      display: flex;
+
+      svg {
+        position: relative;
+        top: 6px;
+      }
+      span {
+        padding-left: 4px;
+      }
+    }
     span {
-      margin-left: 10px;
+      display: inline-block;
     }
     svg {
+      font-size: 20px;
       color: #257eff;
+      padding-right: 10px;
     }
   }
   .Social_media a {

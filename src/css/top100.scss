@@ -1,25 +1,39 @@
-.top100_main{
-    .number{
-        font-size: 2rem;
-        font-weight: 600;
+.top100_main {
+  .number {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  .main_banner {
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      color: blueviolet;
+      font-size: 10rem;
+      text-align: center;
     }
-    .main_banner{
-        width: 100%;
-        height: 30rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        h1{
-            color: blueviolet;
-            font-size: 10rem;
-            text-align: center;
-        }
+    span {
+      font-size: 36px;
+      color: transparent;
+      background-image: linear-gradient(-180deg, #819fc1, #84b4fb, #8cabcf);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-background-clip: text;
+      letter-spacing: 61px;
+      margin-right: -211px;
     }
-    .catego_title{
-        font-size: 3rem;
-        color: #257eff;
-    }
-    .list_card{
-        margin: 3rem 0;
-    }
+  }
+  .catego_title {
+    font-size: 3.1rem;
+    color: transparent;
+    background-image: linear-gradient(-90deg, #aabbc7, #8499a5, #4d77a0);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+  }
+  .list_card {
+    margin: 2rem 0 4rem;
+  }
 }

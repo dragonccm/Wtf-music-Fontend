@@ -1,52 +1,48 @@
-.element_head{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    margin: 2rem 0;
+.element_head {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 2rem 0;
 }
-.element_head button{
-    background-color: transparent;
-    font-size: 1.5rem;
+.element_head button {
+  background-color: transparent;
+  font-size: 1.5rem;
 }
-.element_head h1{
-    font-size: 2rem;
-    color: #32323d;
+.element_head h1 {
+  font-size: 2rem;
+  color: #32323d;
 }
-.element{
-    padding: 10px;
-    color: white;
-    margin-top: 20px;
+.element {
+  padding: 10px;
+  color: white;
+  margin-top: 20px;
 }
-.card_container{
-   display: flex;
-   gap: 30px;
+.card_container {
+  display: flex;
+  gap: 30px;
 }
-.playlist_name{
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #000;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-family: Inter,sans-serif;
-    &:hover{
-        color:#3587ff
-    }
+.playlist_name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: Inter, sans-serif;
+  &:hover {
+    color: #3587ff;
+  }
 }
 
-.show_all{
-    color: #00000094;
-    font-size: 15px;
-    &:hover{
-        color: #f13a82;
-        cursor: pointer;
-    }
-    .icon{
-        margin-left: 10px;
-    }
+.show_all {
+  color: #00000094;
+  font-size: 15px;
+  .icon {
+    margin-left: 10px;
+  }
 }
-@media screen and (max-width:600px) {
-    .card_container {
-        overflow-x: auto;
-    }
+@media screen and (max-width: 600px) {
+  .card_container {
+    overflow-x: auto;
+  }
 }

@@ -6,7 +6,7 @@ const Top100 = ({ data }) => {
   return (
     <div className="top100_main">
       <div className="main_banner">
-        <span>cc</span>
+        <span>TOP</span>
         <svg width="625" height="166" viewBox="0 0 625 166">
           <defs>
             <linearGradient
@@ -60,20 +60,20 @@ const Top100 = ({ data }) => {
           </g>
         </svg>
       </div>
-      <h1 className="catego_title">Nhạc việt</h1>
+      <h1 className="catego_title">Nhạc Việt Nam</h1>
       <div className="list_card">
         <Card playlist={data} />
       </div>
-      <h1 className="catego_title">US-UK</h1>
+      <h1 className="catego_title">Nhạc US-UK</h1>
       <div className="list_card">
         <Card playlist={data} />
         <Card playlist={data} />
       </div>
-      <h1 className="catego_title">KPOP</h1>
+      <h1 className="catego_title">Nhạc KPOP</h1>
       <div className="list_card">
         <Card playlist={data} />
       </div>
-      <h1 className="catego_title">phonk</h1>
+      <h1 className="catego_title">Nhạc Châu Á</h1>
       <div className="list_card">
         <Card playlist={data} />
       </div>

@@ -58,7 +58,7 @@ const Rating = () => {
     <section className="rating_main">
       <Recommended
         datas={Recommendeds}
-        type={"BXH Tháng 1"}
+        type={"BẢNG XẾP HẠNG THÁNG"}
         describe={"KPOP"}
         maxItemsToShow="10"
       />
