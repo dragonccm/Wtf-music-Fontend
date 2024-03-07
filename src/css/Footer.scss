@@ -4,7 +4,7 @@
 } */
 .Footer {
   font-size: 1.5rem;
-  background-color: #ebf1ff;
+  background-color: var(--bg-white);
   .info_contaier {
     width: 100%;
     display: flex;
@@ -26,7 +26,7 @@
   }
   .column {
     width: 25%;
-    color: #333;
+    color: var(--footer-text);
     margin: 0 1rem;
     &.main {
       width: 30%;
@@ -66,14 +66,14 @@
     }
     svg {
       font-size: 20px;
-      color: #257eff;
+      color: var(--main-color);
       padding-right: 10px;
     }
   }
   .Social_media a {
     font-size: 3rem;
     margin: 0 1rem;
-    color: #257eff;
+    color: var(--main-color);
   }
 }
 @media screen and (max-width: 600px) {

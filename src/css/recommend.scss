@@ -45,7 +45,7 @@
   width: 200px;
   height: 50px;
   border-radius: 50px;
-  color: #fff;
+  color: var(--white-color);
   background-image: linear-gradient(180deg, #7ec9f5, #97b8f7);
   box-shadow: 0 6px 10px -2px rgba(97, 163, 238, 0.5);
   outline: none;
@@ -60,7 +60,7 @@
   &:hover {
     transform: translateY(3px);
     box-shadow: none;
-    color: #000;
+    color: var(--deep-black);;
   }
 
   svg {

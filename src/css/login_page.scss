@@ -29,7 +29,7 @@
   }
 
   p {
-    color: #fff;
+    color: var(--white-color);
   }
 
   /* div{
@@ -48,7 +48,7 @@
     a {
       font-size: 2.5rem;
       margin: 2rem auto;
-      color: #257eff;
+      color: var(--main-color);
     }
   }
 
@@ -61,7 +61,7 @@
     border-radius: 20px;
     box-shadow: #257eff 0px 7px 4px -3px;
     border-inline: 2px solid transparent;
-    color: #000;
+    color: var(--deep-black);;
 
     &.is-invalid {
       border: 2px solid red;
@@ -69,7 +69,7 @@
   }
 
   .forgot_pass {
-    color: #257eff;
+    color: var(--main-color);
     text-decoration: none;
   }
 
@@ -78,7 +78,7 @@
   }
 
   .input_form_text:focus-visible {
-    border: 2px solid #257eff;
+    border: 2px solid var(--main-color);
     outline: none;
   }
 
@@ -97,7 +97,7 @@
     a {
       font-size: 2.5rem;
       margin: 2rem auto;
-      color: #257eff;
+      color: var(--main-color);
     }
   }
 
@@ -120,7 +120,7 @@
       left: 0;
       height: 15px;
       width: 15px;
-      background-color: #ffffff;
+      background-color: var(--white-color);
       border-radius: 5px;
     }
 
@@ -218,7 +218,7 @@
     padding: 0 !important;
     margin: 0 0.4rem !important;
     font-size: 1.5rem !important;
-    color: #257eff;
+    color: var(--main-color);
     cursor: pointer;
   }
 
@@ -241,7 +241,7 @@
     width: 100%;
 
     p {
-      color: #257eff;
+      color: var(--main-color);
       font-size: 13px;
       margin-top: 20px;
     }

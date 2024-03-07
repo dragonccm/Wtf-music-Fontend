@@ -64,7 +64,7 @@
     font-size: 5rem;
     margin: 0;
     padding: 0;
-    color: #257eff;
+    color: var(--main-color);
   }
   .like_btn {
     background-color: transparent;
@@ -76,7 +76,7 @@
   .Lyrics {
     font-size: 3rem;
     margin: 3rem 0;
-    color: #257eff;
+    color: var(--main-color);
   }
   .lyrics_line {
     font-size: 2rem;

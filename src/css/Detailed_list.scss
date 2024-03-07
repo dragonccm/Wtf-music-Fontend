@@ -12,7 +12,7 @@
             }
             section {
                 margin: 2rem;
-
+                color: var(--footer-text);
                 p {
                     font-size: 1.5rem;
                 }
@@ -43,7 +43,7 @@
                 }
 
                 .play_random {
-                    color: #257eff;
+                    color: var(--main-color);
                     background-color: #b9ceff !important;
                     border-radius: 2rem;
                     padding-right: 1rem;
@@ -82,12 +82,12 @@
             flex-direction: column;
             justify-content: flex-end;
             margin-left: 2rem;
-            color: #257eff;
+            color: var(--main-color);
         }
 
         .mid_head h1 {
             font-size: 6rem;
-            color: #257eff;
+            color: var(--main-color);
         }
 
         .mid_head p {
@@ -139,7 +139,7 @@
             display: flex;
             flex-direction: column;
             background: #282828;
-            color: #257eff;
+            color: var(--main-color);
             padding: 2rem;
             font-size: 1.5rem;
         }
@@ -167,7 +167,7 @@
             display: flex;
             align-items: center;
             font-size: 1.5rem;
-            color: #257eff;
+            color: var(--main-color);
             justify-content: space-between;
             margin-bottom: 2rem;
             border-bottom: 2px #393333 solid;

@@ -31,7 +31,7 @@
   }
 
   .list_nav_item.active {
-    background: #257eff;
+    background: var(--main-color);
     color: #096cff;
     background: rgba(255, 255, 255, 0.3);
     /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
@@ -44,7 +44,7 @@
   }
 
   .list_nav_item:hover {
-    background: #257eff;
+    background: var(--main-color);
     color: #096cff;
     /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
         box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4), 1px 1px 3px rgba(0, 0, 0, 0.1); */
@@ -56,7 +56,7 @@
   }
 
   .list_nav_item {
-    --color: #ffffff;
+    --color: var(--white-color);
     position: relative;
     overflow: hidden;
     transition: color 0.5s;
@@ -88,7 +88,7 @@
   }
 
   .list_nav_item:hover {
-    color: #fff;
+    color: var(--white-color);
   }
 
   .list_nav_item:before {
@@ -98,7 +98,7 @@
   }
 
   .bg-body-tertiary {
-    background-color: #ebf1ff;
+    background-color: var(--bg-white);
     margin: 0 4%;
     border-radius: 1rem;
   }
@@ -109,7 +109,7 @@
   }
 
   .list_nav_item:active:before {
-    background: #ffffff;
+    background: var(--white-color);
     transition: background 0s;
   }
 
@@ -117,7 +117,7 @@
     display: flex;
     // justify-content: center;
     margin: 5rem;
-    background-color: #ebf1ff;
+    background-color: var(--bg-white);
     padding: 5rem;
     border-radius: 1rem;
 
@@ -135,7 +135,7 @@
       .change_pass {
         margin-top: 30px;
         h1{
-          color: #000;
+          color: var(--deep-black);;
           margin: 20px 0;
           font-size: 20px;
         }
@@ -175,7 +175,7 @@
           display: flex;
           justify-content: center;
           box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4);
-          color: #000;
+          color: var(--deep-black);;
 
           &:hover {
             background-color: #5498ff;
@@ -190,7 +190,7 @@
           box-shadow: 0 0 0 1px #b9ceff;
           border: none;
           border-radius: 25px;
-          background-color: #ebf1ff;
+          background-color: var(--bg-white);
           transition: all .3s;
           color: #3e3e3e;
         }

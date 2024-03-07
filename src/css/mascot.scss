@@ -1,11 +1,11 @@
 @import 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300';
 $black: #a41020;
-$white: #fff;
+$white: var(--white-color);
 $grey: #6a5262;
 
 $primary-color: #ffcdc5;
 $primary-color-dark: lighten(#ffaca4, 3%);
-$primary-color-tint: #fff;
+$primary-color-tint: var(--white-color);
 $secondary-color: #10b4ee;
 $secondary-color-dark: #1873c5;
 $blush-color: #f67b94;

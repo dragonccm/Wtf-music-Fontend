@@ -2,7 +2,7 @@
     position: absolute;
     width: 100%;
     height: 72px;
-    background-color: #fff;
+    background-color: var(--white-color);
     padding: 0 60px;
     z-index: 9;
 
@@ -42,7 +42,7 @@
             box-shadow: 0 0 0 1px #b9ceff;
             border: none;
             border-radius: 25px;
-            background-color: #ebf1ff;
+            background-color: var(--bg-white);
             transition: all .3s;
             color: #3e3e3e;
         }
@@ -278,14 +278,14 @@
         width: 150px;
         display: flex;
         flex-direction: column;
-        background: #ebf1ff;
-        color: #257eff;
+        background: var(--bg-white);
+        color: var(--main-color);
         padding: 0.5rem;
         font-size: 1.5rem;
     }
 
     .menu-item {
-        color: #257eff;
+        color: var(--main-color);
         cursor: pointer;
         background-color: transparent;
         text-align: left;

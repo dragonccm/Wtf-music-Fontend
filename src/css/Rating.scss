@@ -2,12 +2,12 @@
   .week_title {
     font-size: 3rem;
     margin-top: 7rem;
-    border: 2px solid #000;
+    border: 2px solid var(--deep-black);;
     border-radius: 9999px;
     background-color: #272727;
     padding: 0.625rem 3rem;
     text-align: center;
-    color: #fff;
+    color: var(--white-color);
   }
   display: flex;
   flex-direction: column;
@@ -18,13 +18,14 @@
     gap: 2rem;
     margin: 3rem;
     .week_card_ctn {
-      background-color: #ebf1ff;
+      background-color: var(--bg-white);
       padding: 2rem;
       border-radius: 1rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
       width: 35rem;
+      color: var(--footer-text);
       .week_rating_card {
         display: flex;
         align-items: center;
@@ -74,7 +75,7 @@
         width: 150px;
         height: 45px;
         border-radius: 50px;
-        color: #fff;
+        color: var(--white-color);;
         background-image: linear-gradient(180deg, #7ec9f5, #97b8f7);
         box-shadow: 0 6px 10px -2px rgba(97, 163, 238, 0.5);
         outline: none;
@@ -89,7 +90,7 @@
         &:hover {
           transform: translateY(3px);
           box-shadow: none;
-          color: #000;
+          color: var(--deep-black);;
         }
         &:active {
           opacity: 0.5;

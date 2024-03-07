@@ -10,12 +10,13 @@
             gap: 20px;
             align-items: center;
             padding: 10px 10px;
-            background: #ebf1ff;
+            background: var(--bg-white);
             margin: 10px 0;
+            color: var(--footer-text);
         border-radius: 5px;
 
             &:hover {
-                background-color: #bcd0fe;
+                background-color:var(--bg-white-1);
                 cursor: pointer;
             }
 
@@ -56,7 +57,7 @@
 
                         svg {
                             font-size: 20px;
-                            color: #fff;
+                            color: var(--white-color);
                         }
 
                         svg.play_icon {

@@ -76,19 +76,39 @@ button {
 }
 
 :root {
-  --background-color-light: linear-gradient(
+  --lightmain-color:#257eff;
+  --lightwhite-color:#fff;
+  --lightfooter-text:#333;
+  --lightbg-white:#ebf1ff;
+  --lightbg-white-1:#bcd0fe;
+  --lightdeep-black:#000;
+  --lightbackground-color-light: linear-gradient(
     180deg,
     rgb(191, 215, 250) 0%,
     rgba(235, 241, 255, 1) 42%,
     rgba(255, 255, 255, 1) 100%
   );
-  --rightsidebar-light: #ebf1ff;
-  --background-color-dark: linear-gradient(180deg, 
+  --lightrightsidebar-light: #ebf1ff;
+
+
+  /* --background-color-dark: linear-gradient(180deg, 
   rgb(27, 27, 27) 0%, 
   rgb(86, 86, 86) 42%, 
   rgb(130, 130, 130) 100%);
-  --rightsidebar-dark: #7d818a;
+  --rightsidebar-dark: #7d818a; */
   /* Thêm các biến màu cho text, borders, v.v ... cho cả hai chủ đề */
+  --main-color-dark: #002766; /* Màu đối ngược của blue */
+  --white-color-dark: #000; /* Đối ngược của white */
+  --footer-text-dark: #ccc; /* Màu trung gian sáng hơn đối ngược của #333 */
+  --bg-white-dark: #102037; /* Màu tối hơn đối ngược của blue pale */
+  --bg-white-1-dark: #435789; /* Màu tối hơn và đậm hơn đối ngược của light blue */
+  --background-color-dark: linear-gradient(
+    180deg,
+    rgb(20, 33, 61) 0%,
+    rgba(16, 32, 55, 1) 42%,
+    rgba(28, 43, 77, 1) 100%
+  ); /* Gradient cho dark theme */
+  --rightsidebar-dark: #102037; /* Tương tự như nền tối */
 }
 
 [data-theme="dark"] {
@@ -101,6 +121,7 @@ button {
   --background-color: var(--background-color-light);
   --rigthsidebar-bg:var(--rightsidebar-light)
   /* Set lại các biến cho light theme */
+  
 }
 
 .main_page_container {

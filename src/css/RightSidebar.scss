@@ -26,7 +26,7 @@
         border-radius: 10px;
         justify-content: center;
         margin: 0px 4px 4px 4px;
-        // border-bottom: 2px solid #000;
+        // border-bottom: 2px solid var(--deep-black);;
 
 
     }
@@ -83,7 +83,7 @@
     .icon_list_nav_item_svg{
         width: 20px;
         height: 20px;
-        fill: #000;
+        fill: var(--deep-black);;
     }
     /* #ee1169 */
     .list_nav_item svg{
@@ -105,10 +105,10 @@
 
 
         & span{
-            color: #257eff;
+            color: var(--main-color);
         }
         & svg{
-            fill: #257eff;
+            fill: var(--main-color);
         }
     }
     .list_nav_item:hover{
@@ -121,12 +121,12 @@
     .list_nav_item:hover .icon_list_nav_item_svg{
         width: 22px;
         height: 22px;
-        fill:  #257eff;
+        fill:  var(--main-color);
         animation: beatingHeart 1.2s infinite;
     
     }
     .list_nav_item:hover span{
-        color: #257eff
+        color: var(--main-color);
     }
     @keyframes beatingHeart {
         0% {
@@ -150,7 +150,7 @@
         }
       }
     .list_nav_item {
-        --color: #fff!important;
+        --color: var(--white-color)!important;
         position: relative;
         overflow: hidden;
         transition: color .5s;
@@ -177,7 +177,7 @@
        }
        
        .list_nav_item:hover {
-        color: #fff;
+        color: var(--white-color);
        }
        
        .list_nav_item:before {
@@ -192,7 +192,7 @@
     //    }
        
        .list_nav_item:active:before {
-        background: #fff;
+        background: var(--white-color);
         transition: background 0s;
        }
 
@@ -204,7 +204,7 @@
             align-items: center;
             padding: 5px 10px;
             border-radius: 10px;
-
+            color: var(--footer-text);
             &:hover{
                 background-color: rgb(60 117 255 / 34%);
                 cursor: pointer;
