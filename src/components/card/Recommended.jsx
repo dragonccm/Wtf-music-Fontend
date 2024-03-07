@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from "react";
 import "../../css/recommend.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
 
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +17,11 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
   return (
     <>
       {/* lable */}
-      <h1 className="Recommended">{type}</h1>
+      <h1 className="Recommended">
+        <i className="animation"></i>
+        {type}
+        <i className="animation"></i>
+      </h1>
       <p className="Recommended_1">{describe}</p>
       {/* lable */}
       {validDatas
@@ -54,7 +58,8 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
       {validDatas.length > maxItemsToShow && !showAll && (
         <div className="list_row list_row_btn ">
           <button className="refresh" onClick={toggleShowAll}>
-            Hiển Thị Tất Cả
+            Xem tất cả
+            <FontAwesomeIcon icon={faCaretDown} />
           </button>
         </div>
       )}
