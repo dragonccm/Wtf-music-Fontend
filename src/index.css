@@ -81,18 +81,25 @@ button {
     rgb(191, 215, 250) 0%,
     rgba(235, 241, 255, 1) 42%,
     rgba(255, 255, 255, 1) 100%
-  );;
-  --background-color-dark: linear-gradient(180deg, rgb(27, 27, 27) 0%, rgb(86, 86, 86) 42%, rgb(130, 130, 130) 100%);
+  );
+  --rightsidebar-light: #ebf1ff;
+  --background-color-dark: linear-gradient(180deg, 
+  rgb(27, 27, 27) 0%, 
+  rgb(86, 86, 86) 42%, 
+  rgb(130, 130, 130) 100%);
+  --rightsidebar-dark: #7d818a;
   /* Thêm các biến màu cho text, borders, v.v ... cho cả hai chủ đề */
 }
 
 [data-theme="dark"] {
   --background-color: var(--background-color-dark);
+  --rigthsidebar-bg:var(--rightsidebar-dark)
   /* Set lại các biến cho dark theme */
 }
 
 [data-theme="light"] {
   --background-color: var(--background-color-light);
+  --rigthsidebar-bg:var(--rightsidebar-light)
   /* Set lại các biến cho light theme */
 }
 
