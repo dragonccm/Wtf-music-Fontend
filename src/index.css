@@ -74,3 +74,46 @@ button {
   right: 20px !important;
   left: unset !important;
 }
+
+:root {
+  --background-color-light: linear-gradient(
+    180deg,
+    rgb(191, 215, 250) 0%,
+    rgba(235, 241, 255, 1) 42%,
+    rgba(255, 255, 255, 1) 100%
+  );;
+  --background-color-dark: linear-gradient(180deg, rgb(27, 27, 27) 0%, rgb(86, 86, 86) 42%, rgb(130, 130, 130) 100%);
+  /* Thêm các biến màu cho text, borders, v.v ... cho cả hai chủ đề */
+}
+
+[data-theme="dark"] {
+  --background-color: var(--background-color-dark);
+  /* Set lại các biến cho dark theme */
+}
+
+[data-theme="light"] {
+  --background-color: var(--background-color-light);
+  /* Set lại các biến cho light theme */
+}
+
+.main_page_container {
+  background: var(--background-color) !important;
+}
+
+
+/* scrollbar  */
+html *::-webkit-scrollbar {
+  border-radius: 0;
+  width: 8px;
+  height: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #257cff81;
+}
+
+html *::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
+}

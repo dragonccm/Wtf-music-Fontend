@@ -26,7 +26,7 @@ const Card = ({ playlist }) => {
                             <div className="img_overlay_group_btn">
                                 <FontAwesomeIcon icon={faHeart} />
                                 <NavLink
-                                    to="/songpage"
+                                    to="/playlist"
                                     exact
                                     className="nav-link list_nav_item"
                                 >

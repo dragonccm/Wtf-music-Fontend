@@ -6,6 +6,10 @@
         .list_head {
             width: 50%;
 
+            .total_like{
+                font-size: 1.5rem;
+                text-align: center;
+            }
             section {
                 margin: 2rem;
 
@@ -186,6 +190,28 @@
 
         .lable1 :last-child {
             margin: 0 2rem;
+        }
+    }
+    .recommen_list{
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .detailed_list{
+        .list_father{
+            flex-direction: column;
+            height: auto;
+            .list_head{
+                width: 100%;
+            }
+            .list_body{
+                width: 100%;
+            }
+        }
+        .recommen{
+            margin-bottom: 10rem;
         }
     }
 }

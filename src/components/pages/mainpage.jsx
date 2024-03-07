@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { getSongData } from "../../controller/firstfetch";
 import "../../css/mainpage.scss";
 import Playlistpage from "./Playlistpage";
@@ -13,13 +13,20 @@ import Footer from "../layoutbar/Footer";
 import Profile from "./profilepage";
 import Rating from "./Rating";
 import Card from "../card/song_card";
-
+import ThemeContext from "../../lib/action/ThemeContext";
 
 import { Routes, Route } from "react-router-dom";
 
 const Mainpage = ({ playlists }) => {
   const [audioList, setAudioList] = useState([]);
+
+  const { theme, toggleTheme } = useContext(ThemeContext);
   
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
+
   // song page
   const Recommendeds = Array.from({ length: 100 }, (_, index) => ({
     id: index,
@@ -119,12 +126,11 @@ const Mainpage = ({ playlists }) => {
 
 
   document.title = "What The Fuck Music Never die";
-  
   return (
     <div className="main_page">
       <>
         <Header />
-        <section className="main_page_container">
+        <section className={`main_page_container ${theme}`}>
           <Routes>
             <Route path="/*" element={
               <>

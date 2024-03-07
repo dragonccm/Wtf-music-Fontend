@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from 'react';
+import ThemeContext from "../../lib/action/ThemeContext";
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -10,6 +11,7 @@ import {
 import logo from "../../img/logo3 (1).png";
 
 const Header = () => {
+  const { toggleTheme } = useContext(ThemeContext);
   return (
     <div className="Header">
       <div className="header_wrap">
@@ -35,8 +37,8 @@ const Header = () => {
                 role="switch"
                 name="theme"
                 value="dark"
+                onClick={toggleTheme}
               />
-
               <span class="theme__icon">
                 <span class="theme__icon-part"></span>
                 <span class="theme__icon-part"></span>
