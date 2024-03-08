@@ -97,7 +97,7 @@
 
                 .ratimg_item_content_name {
                     font-size: 15px;
-                    color: #000;
+                    color: var(--deep-black);
                 }
 
                 .ratimg_item_content_artist {
@@ -112,7 +112,7 @@
 
                     .rating_number {
                         opacity: .4;
-                        -webkit-text-stroke: 1px #344183;
+                        -webkit-text-stroke: 1px #001062;
                         font-size: 40px;
                         font-weight: 900;
                         color: transparent;
