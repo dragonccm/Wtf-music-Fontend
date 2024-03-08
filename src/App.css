@@ -4,11 +4,13 @@
   display: flex;
   flex-direction: column;
 }
-.main_content{
+
+.main_content {
   justify-content: flex-end;
   display: flex;
   overflow-x: hidden;
 }
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -34,16 +36,21 @@
 .App-link {
   color: #61dafb;
 }
-h1{
+
+h1 {
   color: red;
 }
-a{
+
+a {
   text-decoration: none;
 }
 
 @media screen and (max-width:600px) {
-  .main_content{
+  .main_content {
     flex-direction: column;
     margin: 0 !important;
+    justify-content: flex-start;
+
+    margin-bottom: 15rem;
   }
 }
