@@ -4,7 +4,6 @@ import Bottombar from "./components/sideNavigation/Bottombar";
 import Mainpage from "./components/pages/mainpage";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
-import Loginform from "./components/pages/loginpage";
 import ThemeProvider from './lib/action/ThemeProvider';
 function App() {
   const playlistsData = Array.from({ length: 5 }, (_, index) => ({
@@ -19,11 +18,7 @@ function App() {
     title: "BXH nhạc ngu",
     list: playlistsData,
   }));
-  const Login = () => (
-    <div className="App">
-      <Loginform />
-    </div>
-  );
+
   const Mainn = ({ datas }) => (
     <ThemeProvider>
       <div className="App">
@@ -38,7 +33,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          
           <Route path="/*" element={<Mainn datas={element} />} />
         </Routes>
       </Router>

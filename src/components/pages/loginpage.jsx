@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import "../../css/login_page.scss";
 import logo from "../../img/logo3 (1).png";
+import bg from "../../img/bg_login.jpg";
 
 function Loginform() {
   // Trạng thái để xác định form đăng nhập hay form đăng ký đang hiển thị
@@ -19,7 +20,7 @@ function Loginform() {
     <div className="mod">
       <img
         className="bg_login"
-        src="https://static.vecteezy.com/system/resources/previews/019/849/103/non_2x/music-speaker-with-blue-sound-notes-background-vector.jpg"
+        src={bg}
         alt=""
       />
       <div className="form-con">

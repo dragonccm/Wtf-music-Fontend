@@ -40,6 +40,8 @@ button {
   height: 100vh;
 }
 
+
+/* player */
 .music-player-panel.translate {
   background-color: rgba(255, 255, 255, 0.75) !important;
 }
@@ -80,6 +82,7 @@ button {
 }
 
 :root {
+
   --lightmain-color: #257eff;
   --lightwhite-color: #fff;
   --lightfooter-text: #333;
@@ -91,7 +94,10 @@ button {
       rgba(235, 241, 255, 1) 42%,
       rgba(255, 255, 255, 1) 100%);
   --lightrightsidebar-light: #ebf1ff;
-
+  --lightrightsidebar-item: rgba(255, 255, 255, 0.3);
+  --likerightsidebar-hover:rgba(60, 117, 255, 0.34);
+  --light-bg-radio:#afc7ff;
+  --light-stroke:#001062;
 
   /* --background-color-dark: linear-gradient(180deg, 
   rgb(27, 27, 27) 0%, 
@@ -99,7 +105,7 @@ button {
   rgb(130, 130, 130) 100%);
   --rightsidebar-dark: #7d818a; */
   /* Thêm các biến màu cho text, borders, v.v ... cho cả hai chủ đề */
-  --main-color-dark: #663a00;
+  --main-color-dark: #fff;
   /* Màu đối ngược của blue */
   --white-color-dark: #000;
   /* Đối ngược của white */
@@ -107,16 +113,18 @@ button {
   /* Màu trung gian sáng hơn đối ngược của #333 */
   --bg-white-dark: #102037;
   /* Màu tối hơn đối ngược của blue pale */
-  --bg-white-1-dark: #435789;
-  --deep-black-dark:#fff;
+  --bg-white-1-dark: #2f3e62;
+  --deep-black-dark:#dddddd;
   /* Màu tối hơn và đậm hơn đối ngược của light blue */
-  --background-color-dark: linear-gradient(180deg,
-      rgb(20, 33, 61) 0%,
-      rgba(16, 32, 55, 1) 42%,
-      rgba(28, 43, 77, 1) 100%);
+  --background-color-dark: #162a45;
   /* Gradient cho dark theme */
-  --rightsidebar-dark: #102037;
+  --rightsidebar-dark: #21344e;
   /* Tương tự như nền tối */
+  --darkrightsidebar-item:rgba(255, 255, 255, 0.2);
+  --darkrightsidebar-hover:rgb(88 118 188 / 34%);
+  --dark-bg-radio:#3b68ef;
+  --dark-stroke:#ffffff;
+
 }
 
 [data-theme="dark"] {
@@ -131,11 +139,15 @@ button {
   --deep-black:var(--deep-black-dark);
   --background-color: var(--background-color-dark);
   --trightsidebar-light:var(--rightsidebar-dark);
+  --rightsidebar-item-active:var(--darkrightsidebar-item);
+  --rightsidebar-hover:var(--darkrightsidebar-hover);
+  --bg-radio:var(--dark-bg-radio);
+  --color-stroke:var(--dark-stroke);
 }
 
 [data-theme="light"] {
   --background-color: var(--background-color-light);
-  --rigthsidebar-bg: var(--rightsidebar-light);
+  --rigthsidebar-bg: var(--lightrightsidebar-light);
   /* Set lại các biến cho light theme */
   --main-color: var(--lightmain-color);
   --white-color: var(--lightwhite-color);
@@ -144,13 +156,16 @@ button {
   --bg-white-1: var(--lightbg-white-1);
   --deep-black:var(--lightdeep-black);
   --background-color: var(--lightbackground-color);
-  --trightsidebar-light:var(--rightsidebar-light);
+  --trightsidebar-light:var(--lightrightsidebar-light);
+  --rightsidebar-item-active:var(--lightrightsidebar-item);
+  --rightsidebar-hover:var(--likerightsidebar-hover);
+  --bg-radio:var(--light-bg-radio);
+  --color-stroke:var(--light-stroke);
+
 
 }
 
-.main_page_container {
-  background: var(--background-color) !important;
-}
+
 
 
 /* scrollbar  */

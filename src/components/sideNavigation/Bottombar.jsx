@@ -115,7 +115,7 @@ const Bottombar = () => {
     once: false,
 
     //Whether the audio is played after loading is completed. [type `Boolean` default 'true']
-    autoPlay: true,
+    autoPlay: false,
 
     //Whether you can switch between two modes, full => mini  or mini => full   [type 'Boolean' default 'true']
     toggleMode: true,

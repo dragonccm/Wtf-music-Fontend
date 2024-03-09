@@ -8,6 +8,8 @@ import ListCard from "../card/ListCard";
 import SliderBar from "../card/Slider_bar";
 import Col3Layout from "../card/col_3_layout";
 import HomeRating from "../card/Home_ rating";
+import Loginform from "../pages/loginpage";
+
 import Header from "../layoutbar/Header";
 import Footer from "../layoutbar/Footer";
 import Profile from "./profilepage";
@@ -213,6 +215,7 @@ const Mainpage = ({ playlists }) => {
             <Route path="/profile*" element={<Profile />} />
             <Route path="/top100" element={<Top100 data={playlistsData} />} />
             <Route path="/playlist" element={<Playlistpage />} />
+            <Route path="/login" element={<Loginform />} />
           </Routes>
         </section>
         <Footer />

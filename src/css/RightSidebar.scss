@@ -95,7 +95,7 @@
         color: var(--deep-black);
     }
     .list_nav_item.active{
-        background: rgba(255, 255, 255, 0.3);
+        background: var(--rightsidebar-item-active);
         /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
         box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4), 1px 1px 3px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(4px);
@@ -112,7 +112,7 @@
         }
     }
     .list_nav_item:hover{
-        background: rgb(60 117 255 / 34%);
+        background: var(--rightsidebar-hover);
         backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
         transform: scale(105%);
@@ -206,7 +206,7 @@
             border-radius: 10px;
             color: var(--footer-text);
             &:hover{
-                background-color: rgb(60 117 255 / 34%);
+                background-color: var(--rightsidebar-hover);
                 cursor: pointer;
             }
             .playlist_item_img{
