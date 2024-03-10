@@ -3,6 +3,7 @@ import ThemeContext from "../../lib/action/ThemeContext";
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -16,7 +17,7 @@ const Header = () => {
     <div className="Header">
       <div className="header_wrap">
         <div className="Navigation">
-          
+
         </div>
         <div className="header_search">
           <input
@@ -64,15 +65,16 @@ const Header = () => {
               closeOnDocumentClick
               mouseLeaveDelay={300}
               mouseEnterDelay={0}
-                          contentStyle={{ padding: "0", border: "none", width: "150px", top: '55px', left:'1334px' }}
+              contentStyle={{ padding: "0", border: "none", width: "150px", top: '55px', left: '1334px' }}
               arrow={false}>
               <div className="menu">
-                <a href="/login" className="menu-item">
+
+                <NavLink to="/login" exact className="nav-link list_nav_item menu-item">
                   <FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn
-                </a>
-                <a href="/profile" className="menu-item">
-                  <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
-                </a>
+                </NavLink>
+                <NavLink to="/profile" exact className="nav-link list_nav_item menu-item">
+                <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
+                </NavLink>
               </div>
             </Popup>
           </div>

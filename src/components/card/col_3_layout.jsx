@@ -1,7 +1,7 @@
 import '../../css/col_3_layout.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
-
+import { NavLink } from "react-router-dom";
 const Col3Layout = ({ data }) => {
   console.log(JSON.stringify(data));
 
@@ -22,12 +22,12 @@ const Col3Layout = ({ data }) => {
             {chunk.map((element, elementIndex) => (
               <div key={elementIndex} className="col_3_layout_colum_item">
                 <div className="playlist_item_img">
-                  <img src={element.img} alt="Playlist"/>
+                  <img src={element.img} alt="Playlist" />
                   <div className="img_overlay">
                     <div className="img_overlay_group_btn">
-                      <a href="/songpage">
+                      <NavLink to="/songpage" exact className="nav-link list_nav_item">
                         <FontAwesomeIcon icon={faPlay} />
-                      </a>
+                      </NavLink>
                     </div>
                   </div>
                 </div>

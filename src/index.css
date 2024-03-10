@@ -6,12 +6,11 @@
 body {
   box-sizing: border-box;
   padding: 0;
-  margin: 0;
+  margin: 0;  
   background-color: var(--background-color);
   color: var(--white-color);
   font-family: "Roboto", "Arial", sans-serif;
   overflow: hidden;
-  background-color: white;
 }
 
 html {
@@ -99,27 +98,14 @@ button {
   --light-bg-radio:#afc7ff;
   --light-stroke:#001062;
 
-  /* --background-color-dark: linear-gradient(180deg, 
-  rgb(27, 27, 27) 0%, 
-  rgb(86, 86, 86) 42%, 
-  rgb(130, 130, 130) 100%);
-  --rightsidebar-dark: #7d818a; */
-  /* Thêm các biến màu cho text, borders, v.v ... cho cả hai chủ đề */
   --main-color-dark: #fff;
-  /* Màu đối ngược của blue */
   --white-color-dark: #000;
-  /* Đối ngược của white */
   --footer-text-dark: #ccc;
-  /* Màu trung gian sáng hơn đối ngược của #333 */
   --bg-white-dark: #102037;
-  /* Màu tối hơn đối ngược của blue pale */
   --bg-white-1-dark: #2f3e62;
   --deep-black-dark:#dddddd;
-  /* Màu tối hơn và đậm hơn đối ngược của light blue */
   --background-color-dark: #162a45;
-  /* Gradient cho dark theme */
   --rightsidebar-dark: #21344e;
-  /* Tương tự như nền tối */
   --darkrightsidebar-item:rgba(255, 255, 255, 0.2);
   --darkrightsidebar-hover:rgb(88 118 188 / 34%);
   --dark-bg-radio:#3b68ef;
@@ -128,9 +114,8 @@ button {
 }
 
 [data-theme="dark"] {
-  --background-color: var(--background-color-dark);
-  --rigthsidebar-bg: var(--rightsidebar-dark);
   /* Set lại các biến cho dark theme */
+  --rigthsidebar-bg: var(--rightsidebar-dark);
   --main-color: var(--main-color-dark);
   --white-color: var(--white-color-dark);
   --footer-text: var(--footer-text-dark);
@@ -146,9 +131,8 @@ button {
 }
 
 [data-theme="light"] {
-  --background-color: var(--background-color-light);
-  --rigthsidebar-bg: var(--lightrightsidebar-light);
   /* Set lại các biến cho light theme */
+  --rigthsidebar-bg: var(--lightrightsidebar-light);
   --main-color: var(--lightmain-color);
   --white-color: var(--lightwhite-color);
   --footer-text: var(--lightfooter-text);
@@ -161,8 +145,6 @@ button {
   --rightsidebar-hover:var(--likerightsidebar-hover);
   --bg-radio:var(--light-bg-radio);
   --color-stroke:var(--light-stroke);
-
-
 }
 
 

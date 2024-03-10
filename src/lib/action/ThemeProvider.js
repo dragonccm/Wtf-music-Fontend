@@ -1,12 +1,20 @@
-// ThemeProvider.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ThemeContext from './ThemeContext';
 
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light'); // Khởi tạo với chủ đề sáng
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme || 'light';
+  });
+
+  useEffect(() => {
+    document.body.dataset.theme = theme;
+  }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((currentTheme) => (currentTheme === 'light' ? 'dark' : 'light'));
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', newTheme);
+    setTheme(newTheme);
   };
 
   return (
