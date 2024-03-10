@@ -31,14 +31,16 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
             <div className="song_img_ctn">
               <div className="row_order">
                 <div className="number">{index + 1}</div>
-                <div className="hidden_button">
-                  <button className="play">
-                    <FontAwesomeIcon icon={faPlay} />
-                  </button>
-                </div>
+               
               </div>
               <div className="song_img">
                 <img src={data.image} alt="f" />
+                <div className="img_overlay">
+                  <a href="">
+                  <FontAwesomeIcon icon={faPlay} />
+
+                  </a>
+                </div>
               </div>
               <div className="songif">
                 <div className="songname">{data.songname}</div>

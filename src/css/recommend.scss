@@ -87,38 +87,107 @@
 }
 
 /* row css */
-.row_order {
-  width: 1.5rem;
-}
+
 .list_row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 1.6rem;
-  color: #383838;
-  margin: 2rem 0;
+  color: var(--text-1);
   width: 100%;
+  padding: 10px;
 
+  &:hover{
+    background-color: var(--rightsidebar-hover)
+  }
+  &.list_row_btn:hover{
+    background-color: unset!important;
+  }
   &.list_row_btn {
     justify-content: center;
   }
+  &:hover .img_overlay {
+    display: block!important;
+  }
+  &:first-child {
+    .number{
+      -webkit-text-stroke: 1.5px #4581c7!important;
+    }
+  }
+  &:nth-of-type(2) {
+    .number{
+      -webkit-text-stroke: 1.5px #50e3c2!important;
+    }
+  }
+  &:nth-of-type(3) {
+    .number{
+      -webkit-text-stroke: 1.5px #9f4a53!important;
+    }
+  }
+  .song_img_ctn {
+    display: flex;
+    align-items: center;
+    .row_order {
+      width: 3.5rem;
+      display: flex;
+      justify-content: center;
+
+      
+      .number{
+        -webkit-text-stroke: 1.5px var(--text-1);
+        opacity: .7;
+        font-family: Inter;
+        font-size: 32px;
+        font-weight: 900;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1;
+        width: 32px;
+        letter-spacing: normal;
+        text-align: center;
+        color: transparent;
+        font-family: "Roboto",sans-serif;
+      }
+    }
+  }
+  .song_img {
+    width: 4.2rem;
+    height: 4.2rem;
+    object-fit: contain;
+    overflow: hidden;
+    border-radius: 4px;
+    margin: 0 2rem;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+    .img_overlay {
+      position: absolute;
+      background: rgba(0, 0, 0, 0.2705882353);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      display: none;
+      transition: all 1s ease;
+      a{
+        width: 100%;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+
+        svg{
+          color: #fff;
+        }
+      }
+    }
+  }
 }
-.song_img_ctn {
-  display: flex;
-  align-items: center;
-}
-.song_img {
-  width: 4.2rem;
-  height: 4.2rem;
-  object-fit: contain;
-  overflow: hidden;
-  border-radius: 4px;
-  margin: 0 2rem;
-}
-.song_img img {
-  width: 100%;
-  height: 100%;
-}
+
+
+
 .foot {
   display: flex;
   align-items: center;
@@ -135,12 +204,8 @@
   margin: 0;
   background-color: transparent !important;
 }
-.list_row:hover .hidden_button {
-  display: block;
-}
-.list_row:hover .number {
-  display: none;
-}
+
+
 /* row css */
 
 @media screen and (max-width: 600px) {

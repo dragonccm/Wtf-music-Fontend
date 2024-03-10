@@ -70,7 +70,7 @@ const RightSidebar = () => {
                 </div>
                 <span>Top 100</span>
               </NavLink>
-              <NavLink to="/libary" className="nav-link list_nav_item">
+              <NavLink to="/profile/artist" className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
                   <ReactSVG
                     beforeInjection={(svg) => {

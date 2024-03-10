@@ -28,7 +28,7 @@ const Bottombar = () => {
     //audio lists model
     audioLists: audioList,
     modifyVars: {
-      'primary-color': '#000'
+      'primary-color': '#222'
     },
     javascriptEnabled: true,
 
@@ -151,7 +151,7 @@ const Bottombar = () => {
     showPlayMode: true,
 
     //theme toggle switch  display of the audio player panel   [type `Boolean` default `true`]
-    showThemeSwitch: true,
+    showThemeSwitch: false,
 
     //lyric display of the audio player panel   [type `Boolean` default `false`]
     showLyric: true,

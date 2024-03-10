@@ -2,6 +2,7 @@ import React from "react";
 import Recommended from "../card/Recommended";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import "../../css/Rating.scss";
 
 const Rating = () => {
@@ -77,6 +78,12 @@ const Rating = () => {
               <div className="child_info">
                 <div className="week_rating_img">
                   <img src={data.img} alt="f" />
+                  <div className="img_overlay">
+                  <a href="">
+                  <FontAwesomeIcon icon={faPlay} />
+
+                  </a>
+                </div>
                 </div>
                 <section>
                   <div className="week_rating_name">{data.name}</div>
@@ -104,6 +111,12 @@ const Rating = () => {
               <div className="child_info">
                 <div className="week_rating_img">
                   <img src={data.img} alt="f" />
+                  <div className="img_overlay">
+                  <a href="">
+                  <FontAwesomeIcon icon={faPlay} />
+
+                  </a>
+                </div>
                 </div>
                 <section>
                   <div className="week_rating_name">{data.name}</div>
@@ -130,6 +143,12 @@ const Rating = () => {
               <div className="child_info">
                 <div className="week_rating_img">
                   <img src={data.img} alt="f" />
+                  <div className="img_overlay">
+                  <a href="">
+                  <FontAwesomeIcon icon={faPlay} />
+
+                  </a>
+                </div>
                 </div>
                 <section>
                   <div className="week_rating_name">{data.name}</div>

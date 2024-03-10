@@ -1,10 +1,12 @@
 .Header {
-    position: absolute;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: 72px;
-    background-color: var(--background-color);
+    background-color: var(--bg-header);
     padding: 0 60px;
-    z-index: 9;
+    z-index: 999;
+    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
 
     .header_wrap {
         width: 100%;
@@ -171,6 +173,7 @@
 
         .theme__toggle {
             background-color: #c9d9ff;
+            border: 1px solid #3b82bb;
             border-radius: 25% / 50%;
             box-shadow: 0 0 0 0.125em var(--primaryT);
             padding: 0.25em;
@@ -190,6 +193,7 @@
             width: 2em;
             height: 2em;
             transition: 0.3s;
+            transform: translate(0, -1px);
         }
 
         .theme__toggle:focus {
@@ -204,7 +208,7 @@
 
         .theme__toggle:checked:before,
         .theme__toggle:checked~.theme__icon {
-            transform: translateX(2.5em);
+            transform: translate(2.5em, -1px);
         }
 
         .theme__toggle:checked:before {
