@@ -48,6 +48,9 @@ button {
 .react-jinke-music-player-main .music-player-panel {
   color: var(--item-player) !important;
 }
+.react-jinke-music-player-main.dark-theme .rc-slider-rail{
+  background-color: var(--line-player)!important;
+}
 
 .react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle,
 .react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-track {
@@ -102,7 +105,7 @@ button {
   --light-bg-header: #bfd7fa;
   --light-bg-player: #fff;
   --light-item-player: #424242;
-
+  --light-line-player: #fff;
 
   /* --background-color-dark: linear-gradient(180deg, 
   rgb(27, 27, 27) 0%, 
@@ -131,6 +134,7 @@ button {
   --dark-bg-header: #162a45;
   --dark-bg-player: #172f4f;
   --dark-item-player: #fff;
+  --dark-line-player: #5d6d84;
 
 
 }
@@ -155,6 +159,7 @@ button {
   --item-player: var(--dark-item-player);
   --text-1: var(--dark-text-1);
   --text-2: var(--dark-text-2);
+  --line-player: var(--dark-line-player);
 }
 
 [data-theme="light"] {
@@ -177,6 +182,7 @@ button {
   --item-player: var(--light-item-player);
   --text-1: var(--light-text-1);
   --text-2: var(--light-text-2);
+  --line-player: var(--light-line-player);
 
 
 }

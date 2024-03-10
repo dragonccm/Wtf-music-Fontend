@@ -31,15 +31,30 @@ const Header = () => {
         <div className="header_right">
           <label for="theme" class="theme">
             <span class="theme__toggle-wrap">
-              <input
-                id="theme"
-                class="theme__toggle"
-                type="checkbox"
-                role="switch"
-                name="theme"
-                value="dark"
-                onClick={toggleTheme}
-              />
+              {localStorage.getItem('theme') && localStorage.getItem('theme') == 'dark' ?
+                <input
+                  id="theme"
+                  class="theme__toggle"
+                  type="checkbox"
+                  role="switch"
+                  name="theme"
+                  value="dark"
+                  checked
+                  onClick={toggleTheme}
+                />
+                :
+                <input
+                  id="theme"
+                  class="theme__toggle"
+                  type="checkbox"
+                  role="switch"
+                  name="theme"
+                  value="dark"
+                  onClick={toggleTheme}
+                />
+              }
+
+
               <span class="theme__icon">
                 <span class="theme__icon-part"></span>
                 <span class="theme__icon-part"></span>
@@ -73,7 +88,7 @@ const Header = () => {
                   <FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn
                 </NavLink>
                 <NavLink to="/profile" exact className="nav-link list_nav_item menu-item">
-                <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
+                  <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
                 </NavLink>
               </div>
             </Popup>
