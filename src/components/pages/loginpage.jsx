@@ -18,11 +18,7 @@ function Loginform() {
 
   return (
     <div className="mod">
-      <img
-        className="bg_login"
-        src={bg}
-        alt=""
-      />
+      <img className="bg_login" src={bg} alt="" />
       <div className="form-con">
         {isLogin ? (
           // Form đăng nhập
@@ -46,11 +42,11 @@ function Loginform() {
             ></input>
             <div className="check_box">
               <div className="remember_login">
-                <label class="container">
-                  <input type="checkbox" />
+                <div class="container">
+                  <input id="checked" type="checkbox" />
                   <div class="checkmark"></div>
-                </label>
-                <p>Ghi Nhớ Đăng Nhập</p>
+                </div>
+                <label for="checked">Ghi Nhớ Đăng Nhập</label>
               </div>
               <a className="forgot_pass" href="/">
                 Quên mật khẩu?
