@@ -6,12 +6,11 @@
 body {
   box-sizing: border-box;
   padding: 0;
-  margin: 0;
+  margin: 0;  
   background-color: var(--background-color);
   color: var(--white-color);
   font-family: "Roboto", "Arial", sans-serif;
   overflow: hidden;
-  background-color: white;
 }
 
 html {
@@ -112,21 +111,17 @@ button {
   --rightsidebar-dark: #7d818a; */
   /* Thêm các biến màu cho text, borders, v.v ... cho cả hai chủ đề */
   --main-color-dark: #fff;
-  /* Màu đối ngược của blue */
   --white-color-dark: #000;
-  /* Đối ngược của white */
   --footer-text-dark: #ccc;
   --dark-text-1: #fff;
   --dark-text-2: #a6b3c4;
 
   /* Màu trung gian sáng hơn đối ngược của #333 */
   --bg-white-dark: #102037;
-  /* Màu tối hơn đối ngược của blue pale */
   --bg-white-1-dark: #2f3e62;
   --deep-black-dark: #dddddd;
   /* Màu tối hơn và đậm hơn đối ngược của light blue */
   --background-color-dark: #162a45;
-  /* Gradient cho dark theme */
   --rightsidebar-dark: #21344e;
   /* Tương tự như nền tối */
   --darkrightsidebar-item: rgba(255, 255, 255, 0.2);
@@ -141,9 +136,8 @@ button {
 }
 
 [data-theme="dark"] {
-  --background-color: var(--background-color-dark);
-  --rigthsidebar-bg: var(--rightsidebar-dark);
   /* Set lại các biến cho dark theme */
+  --rigthsidebar-bg: var(--rightsidebar-dark);
   --main-color: var(--main-color-dark);
   --white-color: var(--white-color-dark);
   --footer-text: var(--footer-text-dark);
@@ -164,9 +158,8 @@ button {
 }
 
 [data-theme="light"] {
-  --background-color: var(--background-color-light);
-  --rigthsidebar-bg: var(--lightrightsidebar-light);
   /* Set lại các biến cho light theme */
+  --rigthsidebar-bg: var(--lightrightsidebar-light);
   --main-color: var(--lightmain-color);
   --white-color: var(--lightwhite-color);
   --footer-text: var(--lightfooter-text);
