@@ -107,8 +107,8 @@
   }
   .list_nav_item:hover {
     background: var(--rightsidebar-hover);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    // backdrop-filter: blur(4px);
+    // -webkit-backdrop-filter: blur(4px);
     transform: scale(105%);
     transition: all 0.2s ease-in-out;
   }

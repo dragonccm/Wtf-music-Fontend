@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getSongData } from "../../controller/firstfetch";
+import { getSongData } from "../../services/SongService";
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
 import "../../css/Bottombar.scss";

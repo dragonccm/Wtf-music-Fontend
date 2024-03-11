@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useContext } from "react";
-import { getSongData } from "../../controller/firstfetch";
+import { getSongData } from "../../services/SongService";
 import "../../css/mainpage.scss";
 import Playlistpage from "./Playlistpage";
 import Songpage from "./Songpage";
