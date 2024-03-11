@@ -347,6 +347,7 @@ function Profile() {
 
   const UserInfo = ({ data }) => (
     <div className="info_card_ctn">
+      <h2 className="profile_details">Profile details</h2>
       <div className="avt_container">
         <img src={data.avt} alt="f" />
       </div>
