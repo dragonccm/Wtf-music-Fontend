@@ -461,6 +461,7 @@ function Profile() {
                         <label htmlFor="old_pass">Mật khẩu hiện tại</label>
                         <div className="input_group_pass">
                           <input
+                            id="old_pass"
                             type={ispass ? "password" : "text"}
                             value={oldPass}
                             onChange={(event) => setOldPass(event.target.value)}
@@ -482,6 +483,7 @@ function Profile() {
                         <label htmlFor="new_pass">Mật khẩu mới</label>
                         <div className="input_group_pass">
                           <input
+                            id="new_pass"
                             type={ispassNew ? "password" : "text"}
                             value={newPass}
                             onChange={(event) => setNewPass(event.target.value)}
