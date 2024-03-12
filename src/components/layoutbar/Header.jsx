@@ -21,7 +21,6 @@ const Header = () => {
     setdata(event.target.value);
   }
   useEffect(() => {
-    console.table("sdsdsdsds",currentData)
     if (currentData) {
       const fetchData = async () => {
         const data = await getSongData(currentData);
@@ -38,7 +37,7 @@ const Header = () => {
       }
       fetchData();
     }
-  },[currentData])
+  },[currentData, setSongData])
 
 
   return (
@@ -60,7 +59,7 @@ const Header = () => {
         <div className="header_right">
           <label for="theme" class="theme">
             <span class="theme__toggle-wrap">
-              {localStorage.getItem('theme') && localStorage.getItem('theme') == 'dark' ?
+              {localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark' ?
                 <input
                   id="theme"
                   class="theme__toggle"

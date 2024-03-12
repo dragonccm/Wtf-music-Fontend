@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-bootstrap";
 import Recommended from "../card/Recommended";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
@@ -79,11 +80,14 @@ const Rating = () => {
                 <div className="week_rating_img">
                   <img src={data.img} alt="f" />
                   <div className="img_overlay">
-                  <a href="">
-                  <FontAwesomeIcon icon={faPlay} />
-
-                  </a>
-                </div>
+                    <NavLink
+                      to="/playlist"
+                      exact
+                      className="nav-link list_nav_item"
+                    >
+                      <FontAwesomeIcon className="play_icon" icon={faPlay} />
+                    </NavLink>
+                  </div>
                 </div>
                 <section>
                   <div className="week_rating_name">{data.name}</div>
@@ -93,9 +97,14 @@ const Rating = () => {
               <div className="total_time">{data.total_time}</div>
             </div>
           ))}
-          <a href="/rating" className="show_all">
-            Xem tất cả
-          </a>
+          <NavLink
+            to="/rating"
+            exact
+            className="nav-link list_nav_item"
+            clasName="show_all"
+          >
+            xem tất cả
+          </NavLink>
         </div>
 
         <div className="week_card_ctn">
@@ -112,11 +121,14 @@ const Rating = () => {
                 <div className="week_rating_img">
                   <img src={data.img} alt="f" />
                   <div className="img_overlay">
-                  <a href="">
-                  <FontAwesomeIcon icon={faPlay} />
-
-                  </a>
-                </div>
+                    <NavLink
+                      to="/songpage"
+                      exact
+                      className="nav-link list_nav_item"
+                    >
+                      <FontAwesomeIcon className="play_icon" icon={faPlay} />
+                    </NavLink>
+                  </div>
                 </div>
                 <section>
                   <div className="week_rating_name">{data.name}</div>
@@ -126,9 +138,14 @@ const Rating = () => {
               <div className="total_time">{data.total_time}</div>
             </div>
           ))}
-          <a href="/rating" className="show_all">
-            Xem tất cả
-          </a>
+          <NavLink
+            to="/rating"
+            exact
+            className="nav-link list_nav_item"
+            clasName="show_all"
+          >
+            xem tất cả
+          </NavLink>
         </div>
         <div className="week_card_ctn">
           <h1 className="top_week_title">K-POP</h1>
@@ -144,11 +161,14 @@ const Rating = () => {
                 <div className="week_rating_img">
                   <img src={data.img} alt="f" />
                   <div className="img_overlay">
-                  <a href="">
-                  <FontAwesomeIcon icon={faPlay} />
-
-                  </a>
-                </div>
+                    <NavLink
+                      to="/songpage"
+                      exact
+                      className="nav-link list_nav_item"
+                    >
+                      <FontAwesomeIcon className="play_icon" icon={faPlay} />
+                    </NavLink>
+                  </div>
                 </div>
                 <section>
                   <div className="week_rating_name">{data.name}</div>
@@ -158,9 +178,14 @@ const Rating = () => {
               <div className="total_time">{data.total_time}</div>
             </div>
           ))}
-          <a href="/rating" className="show_all">
-            Xem tất cả
-          </a>
+          <NavLink
+            to="/playlist"
+            exact
+            className="nav-link list_nav_item"
+            clasName="show_all"
+          >
+            xem tất cả
+          </NavLink>
         </div>
       </section>
     </section>

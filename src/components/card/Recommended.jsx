@@ -1,5 +1,6 @@
 import { useState } from "react";
 import React from "react";
+import { NavLink } from "react-bootstrap";
 import "../../css/recommend.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -31,15 +32,18 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
             <div className="song_img_ctn">
               <div className="row_order">
                 <div className="number">{index + 1}</div>
-               
+
               </div>
               <div className="song_img">
                 <img src={data.image} alt="f" />
                 <div className="img_overlay">
-                  <a href="">
-                  <FontAwesomeIcon icon={faPlay} />
-
-                  </a>
+                  <NavLink
+                    to="/songpage"
+                    exact
+                    className="nav-link list_nav_item"
+                  >
+                    <FontAwesomeIcon icon={faPlay} />
+                  </NavLink>
                 </div>
               </div>
               <div className="songif">

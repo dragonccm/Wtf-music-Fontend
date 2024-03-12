@@ -380,7 +380,7 @@ function Profile() {
       <Recommended datas={data} type={"Lịch Sử"} describe={"Đã Xem Gần Đây"} />
     </div>
   );
-  const Like_song = ({ data }) => (
+  const Likesong = ({ data }) => (
     <div className="history_ctn">
       <Recommended
         datas={data}
@@ -515,7 +515,7 @@ function Profile() {
             path="/artist"
             element={
               <div className="like_song">
-                <Like_song data={Recommendeds} />
+                <Likesong data={Recommendeds} />
                 <Myplaylist datas={usserplaylist} />
               </div>
             }

@@ -25,7 +25,7 @@ function Loginform() {
           <form action="" className="login_form">
             <h1>
               <a href="/">
-                <img src={logo}></img>
+                <img src={logo} alt="avt"></img>
               </a>
             </h1>
             <input
