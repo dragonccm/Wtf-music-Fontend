@@ -30,9 +30,21 @@ const Bottombar = () => {
 
 
   useEffect(() => {
-    console.table("bottombar",songData)
+    if(songData){
+      const newAudio = {
+        name: songData.songname,
+        singer: songData.artistsNames,
+        cover: songData.img,
+        musicSrc: songData.song,
+        lyric: songData.lyricsString,
+      };
+      setAudioList([newAudio]);
+    }
   },[songData]);
 
+
+
+  
   const options = {
     //audio lists model
     audioLists: audioList,
