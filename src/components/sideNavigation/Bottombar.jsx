@@ -1,307 +1,101 @@
 import React, { useEffect, useState } from "react";
-import { getSongData } from "../../services/SongService";
-import ReactJkMusicPlayer from "react-jinke-music-player";
-import "react-jinke-music-player/assets/index.css";
 import "../../css/Bottombar.scss";
-import { createRoot } from "react-dom/client";
+import 'react-h5-audio-player/lib/styles.css';
+import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
+import { ReactSVG } from "react-svg";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsis, faShuffle, faForwardStep, faBackwardStep } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCirclePlay, faCirclePause, faWindowRestore } from "@fortawesome/free-regular-svg-icons";
+import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
+import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg"
 
 const Bottombar = () => {
-  const [audioList, setAudioList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getSongData();
-      if (data) {
-        const newAudio = {
-          name: data.songname,
-          singer: data.artistsNames,
-          cover: data.img,
-          musicSrc: data.song,
-          lyric: data.lyricsString,
-        };
-        setAudioList([newAudio]);
-      }
-    };
-    fetchData();
-  }, []);
-  const options = {
-    //audio lists model
-    audioLists: audioList,
-    modifyVars: {
-      'primary-color': '#222'
-    },
-    javascriptEnabled: true,
-
-    //default play index of the audio player  [type `number` default `0`]
-    defaultPlayIndex: 0,
-
-    //if you want dynamic change current play audio you can change it [type `number` default `0`]
-    // playIndex: 0,
-
-    //color of the music player theme    [ type `string: 'light' or 'dark'  ` default 'dark' ]
-    theme: "dark",
-
-    // Specifies movement boundaries. Accepted values:
-    // - `parent` restricts movement within the node's offsetParent
-    //    (nearest node with position relative or absolute), or
-    // - a selector, restricts movement within the targeted node
-    // - An object with `left, top, right, and bottom` properties.
-    //   These indicate how far in each direction the draggable
-    //   can be moved.
-    bounds: "body",
-
-    // Replace a new playlist with the first loaded playlist
-    // instead of adding it at the end of it.
-    // [type `boolean`, default `false`]
-    clearPriorAudioLists: false,
-
-    // Play your new play list right after your new play list is loaded turn false.
-    // [type `boolean`, default `false`]
-    autoPlayInitLoadPlayList: false,
-
-    //Whether to load audio immediately after the page loads.  [type `Boolean | String`, default `false`]
-    //"auto|metadata|none" "true| false"
-    preload: false,
-
-    //Whether the player's background displays frosted glass effect  [type `Boolean`, default `false`]
-    glassBg: false,
-
-    //The next time you access the player, do you keep the last state  [type `Boolean` default `false`]
-    remember: false,
-
-    //The Audio Can be deleted  [type `Boolean`, default `true`]
-    remove: true,
-
-    //audio controller initial position    [ type `Object` default '{top:0,left:0}' ]
-    defaultPosition: {
-      top: 300,
-      left: 120,
-    },
-
-    // play mode text config of the audio player
-    playModeText: {
-      order: "顺序播放",
-      orderLoop: "列表循环",
-      singleLoop: "单曲循环",
-      shufflePlay: "随机播放",
-    },
-
-    //audio controller open text  [ type `String | ReactNode` default 'open']
-    openText: "打开",
-
-    //audio controller close text  [ type `String | ReactNode` default 'close']
-    closeText: "关闭",
-
-    //audio theme switch checkedText  [ type `String | ReactNode` default '-']
-    checkedText: "开",
-
-    //audio theme switch unCheckedText [ type `String | ReactNode` default '-']
-    unCheckedText: "关",
-
-    // audio list panel show text of the playlist has no songs [ type `String` | ReactNode  default 'no music']
-    notContentText: "暂无音乐",
-
-    panelTitle: "播放列表",
-
-    defaultPlayMode: "order",
-
-    //audio mode        mini | full          [type `String`  default `mini`]
-    mode: "mini",
-
-    /**
-     * [ type `Boolean` default 'false' ]
-     * The default audioPlay handle function will be played again after each pause, If you only want to trigger it once, you can set 'true'
-     */
-    once: false,
-
-    //Whether the audio is played after loading is completed. [type `Boolean` default 'true']
-    autoPlay: false,
-
-    //Whether you can switch between two modes, full => mini  or mini => full   [type 'Boolean' default 'true']
-    toggleMode: true,
-
-    //audio cover is show of the "mini" mode [type `Boolean` default 'true']
-    showMiniModeCover: true,
-
-    //audio playing progress is show of the "mini"  mode
-    showMiniProcessBar: false,
-
-    //audio controller is can be drag of the "mini" mode     [type `Boolean` default `true`]
-    drag: true,
-
-    //drag the audio progress bar [type `Boolean` default `true`]
-    seeked: true,
-
-    //audio controller title [type `String | ReactNode`  default <FaHeadphones/>]
-    // controllerTitle: <FaHeadphones />,
-
-    //Displays the audio load progress bar.  [type `Boolean` default `true`]
-    showProgressLoadBar: true,
-
-    //play button display of the audio player panel   [type `Boolean` default `true`]
-    showPlay: true,
-
-    //reload button display of the audio player panel   [type `Boolean` default `true`]
-    showReload: true,
-
-    //download button display of the audio player panel   [type `Boolean` default `true`]
-    showDownload: true,
-
-    //loop button display of the audio player panel   [type `Boolean` default `true`]
-    showPlayMode: true,
-
-    //theme toggle switch  display of the audio player panel   [type `Boolean` default `true`]
-    showThemeSwitch: false,
-
-    //lyric display of the audio player panel   [type `Boolean` default `false`]
-    showLyric: true,
-
-    //Extensible custom content       [type 'Array' default '[]' ]
-    extendsContent: [],
-
-    //default volume of the audio player [type `Number` default `100` range `0-100`]
-    defaultVolume: 100,
-
-    //playModeText show time [type `Number(ms)` default `700`]
-    playModeShowTime: 600,
-
-    //Whether to try playing the next audio when the current audio playback fails [type `Boolean` default `true`]
-    loadAudioErrorPlayNext: true,
-
-    // Auto hide the cover photo if no cover photo is available [type `Boolean` default `false`]
-    autoHiddenCover: true,
-
-    //Music is downloaded handle
-    onAudioDownload(audioInfo) {
-      console.log("audio download", audioInfo);
-    },
-
-    //audio play handle
-    onAudioPlay(audioInfo) {
-      console.log("audio playing", audioInfo);
-    },
-
-    //audio pause handle
-    onAudioPause(audioInfo) {
-      console.log("audio pause", audioInfo);
-    },
-
-    //When the user has moved/jumped to a new location in audio
-    onAudioSeeked(audioInfo) {
-      console.log("audio seeked", audioInfo);
-    },
-
-    //When the volume has changed  min = 0.0  max = 1.0
-    onAudioVolumeChange(currentVolume) {
-      console.log("audio volume change", currentVolume);
-    },
-
-    //The single song is ended handle
-    onAudioEnded(audioInfo) {
-      // swal('Audio is ended!', '', 'success')
-      console.log("audio ended", audioInfo);
-    },
-
-    //audio load abort The target event like {...,audioName:xx,audioSrc:xx,playMode:xx}
-    onAudioAbort(e) {
-      console.log("audio abort", e);
-    },
-
-    //audio play progress handle
-    onAudioProgress(audioInfo) {
-      // console.log('audio progress',audioInfo);
-    },
-
-    //audio reload handle
-    onAudioReload(audioInfo) {
-      console.log("audio reload:", audioInfo);
-    },
-
-    //audio load failed error handle
-    onAudioLoadError(e) {
-      console.error("audio load err", e);
-    },
-
-    //theme change handle
-    onThemeChange(theme) {
-      console.log("theme change:", theme);
-    },
-
-    onAudioListsChange(currentPlayId, audioLists, audioInfo) {
-      console.log("[currentPlayId] audio lists change:", currentPlayId);
-      console.log("[audioLists] audio lists change:", audioLists);
-      console.log("[audioInfo] audio lists change:", audioInfo);
-    },
-
-    onAudioPlayTrackChange(currentPlayId, audioLists, audioInfo) {
-      console.log(
-        "audio play track change:",
-        currentPlayId,
-        audioLists,
-        audioInfo
-      );
-    },
-
-    onPlayModeChange(playMode) {
-      console.log("play mode change:", playMode);
-    },
-
-    onModeChange(mode) {
-      console.log("mode change:", mode);
-    },
-
-    onAudioListsPanelChange(panelVisible) {
-      console.log("audio lists panel visible:", panelVisible);
-    },
-
-    onAudioListsDragEnd(fromIndex, endIndex) {
-      console.log("audio lists drag end:", fromIndex, endIndex);
-    },
-
-    onAudioLyricChange(lineNum, currentLyric) {
-      console.log("audio lyric change:", lineNum, currentLyric);
-    },
-
-    // custom music player root node
-    getContainer() {
-      return document.body;
-    },
-
-    /**
-     * @description get origin audio element instance , you can use it do everything
-     * @example
-     * audio.playbackRate = 1.5  // set play back rate
-     * audio.crossOrigin = 'xxx' // config cross origin
-     */
-    getAudioInstance(audio) {
-      console.log("audio instance", audio);
-    },
-
-    // transform audio info like return a Promise
-
-    /**
-     * @return
-     *  {
-     *    src: 'xxx',
-     *    filename: 'xxx',
-     *    mimeType: 'xxx'
-     *  }
-     */
-    // onBeforeAudioDownload() {
-    //   return Promise.resolve({
-    //     src: '1.mp3'
-    //   })
-    // }
-  };
-
+  const icon_play = <FontAwesomeIcon icon={faCirclePlay} />;
+  const icon_next = <FontAwesomeIcon icon={faForwardStep} />;
+  const icon_previous = <FontAwesomeIcon icon={faBackwardStep} />
+  const icon_pause = <FontAwesomeIcon icon={faCirclePause} />
   return (
     <div className="main_bottom_bar">
-      {/* ... (phần render giao diện) */}
-      <ReactJkMusicPlayer {...options} />
+      <div className="player_info">
+        <div className="player_info_ctn">
+          <div className="img">
+            <img src="https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="" />
+
+          </div>
+          <div className="name">
+            <div className="name_ctn">
+              <h5>TETTOVENT</h5>
+              <div className="artist">
+                Wxrdie, Andree Right Hand, Machiot
+                <a href=""></a>
+              </div>
+            </div>
+            <div className="more">
+              <button className="rhap_main-controls-button rhap_button-clear">
+                <FontAwesomeIcon icon={faHeart} />
+              </button>
+              <button className="rhap_main-controls-button rhap_button-clear">
+              <FontAwesomeIcon icon={faEllipsis} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="player_main">
+        <AudioPlayer
+          showSkipControls='true'
+          autoPlay
+          src="https://a128-z3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1710404434~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=c599ade140021055087e3cc8bdd87e64"
+          onPlay={e => console.log("onPlay")}
+          customProgressBarSection={
+            [
+              RHAP_UI.CURRENT_TIME,
+              RHAP_UI.PROGRESS_BAR,
+              RHAP_UI.CURRENT_LEFT_TIME,
+              RHAP_UI.VOLUME,
+            ]
+          }
+          layout="stacked-reverse"
+          customVolumeControls={[
+            <button className="rhap_button-clear"><FontAwesomeIcon icon={faShuffle} />
+            </button>,
+          ]}
+          customIcons={{
+            play: icon_play,
+            next: icon_next,
+            previous: icon_previous,
+            pause: icon_pause,
+          }}
+        // other props here
+        />
+      </div>
+      <div className="player_more">
+        <div className="player_more_1">
+        <button className="rhap_button-clear rhap_main-controls-button btn_more">
+          <ReactSVG
+            beforeInjection={(svg) => {
+              svg.classList.add("icon_list_nav_item_svg");
+            }}
+            src={icon_karaoke}
+          />
+        </button>
+        <button className="rhap_button-clear rhap_main-controls-button btn_more">
+          <FontAwesomeIcon icon={faWindowRestore} />
+        </button>
+        </div>
+        <button className="rhap_button-clear rhap_main-controls-button btn_more">
+          <ReactSVG
+            beforeInjection={(svg) => {
+              svg.classList.add("icon_list_nav_item_svg");
+            }}
+            src={icon_playlist}
+          />
+        </button>
+      </div>
     </div>
   );
 };
 
-createRoot(document.getElementById("root")).render(<Bottombar />);
 
 export default Bottombar;
