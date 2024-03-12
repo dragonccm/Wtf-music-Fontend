@@ -15,7 +15,7 @@ import Footer from "../layoutbar/Footer";
 import Profile from "./profilepage";
 import Rating from "./Rating";
 import Card from "../card/song_card";
-import ThemeContext from "../../lib/action/ThemeContext";
+import ThemeContext from "../../lib/Context/ThemeContext";
 
 import { Routes, Route } from "react-router-dom";
 

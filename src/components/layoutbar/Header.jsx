@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
-import ThemeContext from "../../lib/action/ThemeContext";
+import React, { useContext,useState,useEffect } from 'react';
+import ThemeContext from "../../lib/Context/ThemeContext";
+import SongDataContext from '../../lib/Context/SongContext';
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -10,9 +11,36 @@ import {
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../img/logo3 (1).png";
-
+import { getSongData } from "../../services/SongService";
 const Header = () => {
+  const [currentData,setdata] = useState("");
   const { toggleTheme } = useContext(ThemeContext);
+  const {setSongData} = useContext(SongDataContext)
+
+  const handleSearchData = (event) => {
+    setdata(event.target.value);
+  }
+  useEffect(() => {
+    console.table("sdsdsdsds",currentData)
+    if (currentData) {
+      const fetchData = async () => {
+        const data = await getSongData(currentData);
+        if (data) {
+          const newAudio = {
+            name: data.songname,
+            singer: data.artistsNames,
+            cover: data.img,
+            musicSrc: data.song,
+            lyric: data.lyricsString,
+          };
+          setSongData(newAudio)
+        }
+      }
+      fetchData();
+    }
+  },[currentData])
+
+
   return (
     <div className="Header">
       <div className="header_wrap">
@@ -21,11 +49,12 @@ const Header = () => {
         </div>
         <div className="header_search">
           <input
-            type="email"
+            type="text"
             id="input__search"
             class="input__search"
             placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
             required=""
+            onChange={handleSearchData}
           />
         </div>
         <div className="header_right">

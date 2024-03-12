@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { getSongData } from "../../services/SongService";
+import SongDataContext from '../../lib/Context/SongContext';
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
 import "../../css/Bottombar.scss";
@@ -7,10 +8,11 @@ import { createRoot } from "react-dom/client";
 
 const Bottombar = () => {
   const [audioList, setAudioList] = useState([]);
+  const {songData} = useContext(SongDataContext)
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getSongData();
+      const data = await getSongData("Z690CWC8");
       if (data) {
         const newAudio = {
           name: data.songname,
@@ -24,6 +26,13 @@ const Bottombar = () => {
     };
     fetchData();
   }, []);
+
+
+
+  useEffect(() => {
+    console.table("bottombar",songData)
+  },[songData]);
+
   const options = {
     //audio lists model
     audioLists: audioList,
