@@ -2,11 +2,6 @@ import React from "react";
 import "../../css/Footer.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSquareGithub,
-  faSquareFacebook,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-import {
   faLocationDot,
   faPhone,
   faEnvelope,

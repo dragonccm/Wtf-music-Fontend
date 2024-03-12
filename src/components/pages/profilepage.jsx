@@ -25,7 +25,6 @@ function Profile() {
   const [newPass, setNewPass] = useState("");
 
   const handleIsPass = () => {
-    console.log("hahahah");
     if (ispass) {
       setIsPass(false);
       console.log(ispass);
@@ -34,7 +33,6 @@ function Profile() {
     }
   };
   const handleIsPassNew = () => {
-    console.log("hahahah");
     if (ispassNew) {
       setIsPassNew(false);
       console.log(ispassNew);
@@ -380,7 +378,7 @@ function Profile() {
       <Recommended datas={data} type={"Lịch Sử"} describe={"Đã Xem Gần Đây"} />
     </div>
   );
-  const Like_song = ({ data }) => (
+  const Likesong = ({ data }) => (
     <div className="history_ctn">
       <Recommended
         datas={data}
@@ -515,7 +513,7 @@ function Profile() {
             path="/artist"
             element={
               <div className="like_song">
-                <Like_song data={Recommendeds} />
+                <Likesong data={Recommendeds} />
                 <Myplaylist datas={usserplaylist} />
               </div>
             }

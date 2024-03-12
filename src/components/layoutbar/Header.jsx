@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
-import ThemeContext from "../../lib/action/ThemeContext";
+import React, { useContext, useState, useEffect } from 'react';
+import ThemeContext from "../../lib/Context/ThemeContext";
+import SongDataContext from '../../lib/Context/SongContext';
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -8,11 +9,121 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faRightFromBracket,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../img/logo3 (1).png";
+import { searchFetch } from "../../services/searchService";
 
 const Header = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isVisible, setIsVisible] = useState(false); 
   const { toggleTheme } = useContext(ThemeContext);
+  const { setSongData } = useContext(SongDataContext);
+
+  const handleSearchData = (event) => {
+    setSearchTerm(event.target.value);
+    if (event.target.value.trim() === '') {
+      setIsVisible(true); 
+    }
+  };
+  const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  };
+  const debouncedFetchData = debounce(() => {
+    letfetch();
+  }, 500);
+
+  useEffect(() => {
+    if (searchTerm.trim()) {
+      debouncedFetchData(); 
+    } else {
+      setSearchResults([]);
+      setIsVisible(true);
+    }
+  }, [searchTerm]);
+  const letfetch = () => {
+    if (searchTerm.trim()) {
+      const fetchData = async () => {
+        const data = await searchFetch(searchTerm);
+        if (data && data.result) {
+          
+          setSongData(data); 
+          setSearchResults(data.result); 
+          setIsVisible(false); 
+        }
+      };
+      fetchData();
+    } else {
+      setSearchResults([]); 
+      setIsVisible(true); 
+    }
+  };
+  const handleBlur = () => {
+    setIsVisible(true);
+  };
+  const renderData = () => {
+    return searchResults.map((d) => {
+      if (d.type === 1) { 
+        return <Songitem key={d.id} data={d} />;
+      } else if (d.type === 4) {
+        return <Artistsitem key={d.id} data={d} />;
+      }
+      return null;
+    });
+  };
+
+  const Songitem = ({ data }) => {
+    return (
+      <section className='search_item_song'>
+        <div className="search_item_song_img">
+          <img src={data.thumb} alt="d" />
+        </div>
+        <NavLink to={`/songpage/${data.id}`} exact className="search_item_name">{data.name}</NavLink>
+      </section>
+    );
+  }
+
+  const Artistsitem = ({ data }) => {
+    return (
+      <section className='search_item_artists'>
+        <div className="search_item_artists_img">
+          <img src={data.avatar} alt="d" />
+        </div>
+        <NavLink to={`/songpage/${data.id}`} exact className="search_item_name">{data.name}</NavLink>
+      </section>
+    );
+  }
+  // truyeen du lieu qua bottombar
+  // const letfetch = () => {
+  //   if (currentData && currentData.trim()) {
+  //     const fetchData = async () => {
+  //       const data = await getSongData(currentData);
+  //       if (data) {
+  //         const newAudio = {
+  //           name: data.songname,
+  //           singer: data.artistsNames,
+  //           cover: data.img,
+  //           musicSrc: data.song,
+  //           lyric: data.lyricsString,
+  //         };
+  //         setSongData(newAudio)
+  //       }
+  //     }
+  //     fetchData();
+  //   }
+  // }// truyeen du lieu qua bottombar
+
+
   return (
     <div className="Header">
       <div className="header_wrap">
@@ -21,17 +132,25 @@ const Header = () => {
         </div>
         <div className="header_search">
           <input
-            type="email"
+            type="text"
             id="input__search"
             class="input__search"
             placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
             required=""
+            onChange={handleSearchData || letfetch}
+            // onBlur={handleBlur}
           />
+          <button className='search_btn' onClick={letfetch}>
+            <FontAwesomeIcon icon={faSearch} />
+          </button>
+          <section className={`result_box ${isVisible ? 'visible' : ''}`}>
+            {renderData()}
+          </section>
         </div>
         <div className="header_right">
           <label for="theme" class="theme">
             <span class="theme__toggle-wrap">
-              {localStorage.getItem('theme') && localStorage.getItem('theme') == 'dark' ?
+              {localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark' ?
                 <input
                   id="theme"
                   class="theme__toggle"

@@ -10,21 +10,6 @@ import { faHeart as regular } from '@fortawesome/free-regular-svg-icons'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import Card from "../card/song_card";
 const Playlistpage = () => {
-
-
-    const Recommendeds = Array.from({ length: 5 }, (_, index) => ({
-        id: index,
-        name: `Playlist ${index + 1}`,
-        image: "https://th.bing.com/th/id/OIP.XusXZvUJb2jQFc8QvjBnIwHaL2?rs=1&pid=ImgDetMain",
-        category: "playlist",
-        songartist: "jisoo",
-        songname: "Flower",
-        addedday: "11 thg 11, 2021",
-        liked_state: false,
-        songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-        total: "3:00",
-        root_album: "Solo"
-    }));
     const My_list = Array.from({ length: 10 }, (_, index) => ({
         id: index,
         name: `Playlist ${index + 1}`,
