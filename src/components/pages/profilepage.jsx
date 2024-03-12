@@ -25,7 +25,6 @@ function Profile() {
   const [newPass, setNewPass] = useState("");
 
   const handleIsPass = () => {
-    console.log("hahahah");
     if (ispass) {
       setIsPass(false);
       console.log(ispass);
@@ -34,7 +33,6 @@ function Profile() {
     }
   };
   const handleIsPassNew = () => {
-    console.log("hahahah");
     if (ispassNew) {
       setIsPassNew(false);
       console.log(ispassNew);

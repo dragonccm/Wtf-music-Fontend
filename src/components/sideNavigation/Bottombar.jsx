@@ -1,6 +1,6 @@
 import React, { useEffect, useState,useContext } from "react";
 import { getSongData } from "../../services/SongService";
-import SongDataContext from '../../lib/Context/SongContext';
+// import SongDataContext from '../../lib/Context/SongContext';
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import "react-jinke-music-player/assets/index.css";
 import "../../css/Bottombar.scss";
@@ -8,7 +8,7 @@ import { createRoot } from "react-dom/client";
 
 const Bottombar = () => {
   const [audioList, setAudioList] = useState([]);
-  const {songData} = useContext(SongDataContext)
+  // const {songData} = useContext(SongDataContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,19 +28,20 @@ const Bottombar = () => {
   }, []);
 
 
-
-  useEffect(() => {
-    if(songData){
-      const newAudio = {
-        name: songData.songname,
-        singer: songData.artistsNames,
-        cover: songData.img,
-        musicSrc: songData.song,
-        lyric: songData.lyricsString,
-      };
-      setAudioList([newAudio]);
-    }
-  },[songData]);
+// nhaanj du lieu tu context
+  // useEffect(() => {
+  //   console.table(songData);
+  //   if(songData){
+  //     const newAudio = {
+  //       name: songData.songname,
+  //       singer: songData.artistsNames,
+  //       cover: songData.img,
+  //       musicSrc: songData.song,
+  //       lyric: songData.lyricsString,
+  //     };
+  //     setAudioList([newAudio]);
+  //   }
+  // },[songData]);
 
 
 

@@ -9,6 +9,9 @@ const songUrl = (data) => {
 const songLyric = (data) => {
     return axios.get(`/api/songly/${data}`)
 }
+const search = (data) => {
+    return axios.get(`/api/search/${data}`)
+}
 export {
-    songInfo,songUrl,songLyric
+    songInfo,songUrl,songLyric,search
 }

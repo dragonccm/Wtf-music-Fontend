@@ -32,6 +32,7 @@
   }
 
   .header_search {
+    position: relative;
     width: 50%;
 
     .input__search {
@@ -48,6 +49,7 @@
       color: var(--deep-black);
     }
 
+
     .input__search::placeholder {
       color: #82b0fb;
       font-size: 14px;
@@ -58,6 +60,69 @@
       box-shadow: 0 0 10px 1px #346ffa;
       border: none;
       transition: all 0.3s;
+    }
+
+    .search_btn{
+      background-color: transparent ;
+      color: #82b0fb;
+      font-size: 2rem;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+    .search_btn:hover{
+      color: #498dfa
+    }
+    .result_box{
+      position: absolute;
+      background-color: var(--bg-white);
+      width: 100%;
+      padding: 1rem;
+      border-radius: 1rem;
+      .search_item_song{
+        margin: 1rem 0;
+        width: 100%;
+        display: flex;
+        // align-items: center;
+        .search_item_song_img{
+          width: 5rem;
+          height: 5rem;
+          overflow: hidden;
+          border-radius: 0.5rem;
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .search_item_name{
+          font-size: 1.5rem;
+          color: var(--deep-black);
+          margin: 0 1rem;
+        }
+      }
+      .search_item_artists{
+        margin: 1rem 0;
+        width: 100%;
+        display: flex;
+        // align-items: center;
+        .search_item_artists_img{
+          width: 5rem;
+          height: 5rem;
+          overflow: hidden;
+          border-radius: 50%;
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .search_item_name{
+          font-size: 1.5rem;
+          color: var(--deep-black);
+          margin: 0 1rem;
+        }
+      }
     }
   }
 }
@@ -341,6 +406,9 @@
 
 .popup-content_head {
   top: 30px !important;
+}
+.visible{
+  display: none;
 }
 @media screen and (max-width: 600px) {
   .Header {

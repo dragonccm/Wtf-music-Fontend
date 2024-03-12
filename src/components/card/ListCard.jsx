@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 const ListCard = ({ data }) => {
-    console.log(JSON.stringify(data));
+
     return (
         <>
             {data.map((element) => (

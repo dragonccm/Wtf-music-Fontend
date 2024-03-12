@@ -130,7 +130,7 @@ const Mainpage = ({ playlists }) => {
       },
     ];
     const fetchData = async () => {
-      const data = await getSongData();
+      const data = await getSongData("Z690CWC8");
       if (data) {
         const newAudio = {
           avt: "https://th.bing.com/th/id/OIP.2Taaw3tCXQRTYFNqPYXOdgHaHa?rs=1&pid=ImgDetMain",
@@ -145,8 +145,8 @@ const Mainpage = ({ playlists }) => {
     };
     fetchData();
   }, []);
-  console.log("cái gì ", audioList);
-  const songpagedata = audioList
+
+
   // song page
 
 
@@ -242,7 +242,7 @@ const Mainpage = ({ playlists }) => {
             } />
             <Route path="/listcard" element={<ListCard data={playlists} />} />
             <Route path="/playlistpage" element={<Playlistpage />} />
-            <Route path="/songpage" element={<Songpage data={songpagedata} />} />
+            <Route path="/songpage/:id" element={<Songpage/>} />
             <Route path="/rating" element={<Rating />} />
             <Route path="/profile*" element={<Profile />} />
             <Route path="/top100" element={<Top100 data={playlistsData} />} />

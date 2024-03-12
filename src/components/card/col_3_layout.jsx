@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from "react-router-dom";
 const Col3Layout = ({ data }) => {
-  console.log(JSON.stringify(data));
 
   // Chia data thành các mảng con có 3 phần tử
   const chunkedData = [];
