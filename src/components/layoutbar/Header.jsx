@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
 import ThemeContext from "../../lib/Context/ThemeContext";
-import SongDataContext from '../../lib/Context/SongContext';
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -19,7 +18,6 @@ const Header = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isVisible, setIsVisible] = useState(false); 
   const { toggleTheme } = useContext(ThemeContext);
-  const { setSongData } = useContext(SongDataContext);
 
   const handleSearchData = (event) => {
     setSearchTerm(event.target.value);
@@ -55,9 +53,8 @@ const Header = () => {
     if (searchTerm.trim()) {
       const fetchData = async () => {
         const data = await searchFetch(searchTerm);
+        console.table("search debug",data);
         if (data && data.result) {
-          
-          setSongData(data); 
           setSearchResults(data.result); 
           setIsVisible(false); 
         }
@@ -69,7 +66,8 @@ const Header = () => {
     }
   };
   const handleBlur = () => {
-    setIsVisible(true);
+    setTimeout(() => {setIsVisible(true);},[2000])
+    
   };
   const renderData = () => {
     return searchResults.map((d) => {
@@ -103,25 +101,6 @@ const Header = () => {
       </section>
     );
   }
-  // truyeen du lieu qua bottombar
-  // const letfetch = () => {
-  //   if (currentData && currentData.trim()) {
-  //     const fetchData = async () => {
-  //       const data = await getSongData(currentData);
-  //       if (data) {
-  //         const newAudio = {
-  //           name: data.songname,
-  //           singer: data.artistsNames,
-  //           cover: data.img,
-  //           musicSrc: data.song,
-  //           lyric: data.lyricsString,
-  //         };
-  //         setSongData(newAudio)
-  //       }
-  //     }
-  //     fetchData();
-  //   }
-  // }// truyeen du lieu qua bottombar
 
 
   return (
@@ -138,7 +117,7 @@ const Header = () => {
             placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
             required=""
             onChange={handleSearchData || letfetch}
-            // onBlur={handleBlur}
+            onBlur={handleBlur}
           />
           <button className='search_btn' onClick={letfetch}>
             <FontAwesomeIcon icon={faSearch} />

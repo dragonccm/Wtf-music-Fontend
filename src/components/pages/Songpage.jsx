@@ -40,25 +40,25 @@ const Songpage = () => {
             artists_list: ["Jisso"],
           },
           {
-            id: 3,
+            id: 4,
             name: `Playlist ${3 + 1}`,
             image: "https://i.redd.it/3sx2ys0arsv21.jpg",
             artists_list: ["Jisso"],
           },
           {
-            id: 3,
+            id: 5,
             name: `Playlist ${3 + 1}`,
             image: "https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg",
             artists_list: ["Jisso"],
           },
           {
-            id: 3,
+            id: 6,
             name: `Playlist ${3 + 1}`,
             image: "https://i2.wp.com/blackpinkupdate.com/wp-content/uploads/2019/05/1-BLACKPINK-Jennie-Instagram-Update-25-May-2019.jpg?fit=1080%2C1080&ssl=1",
             artists_list: ["Jisso"],
           },
           {
-            id: 3,
+            id: 7,
             name: `Playlist ${3 + 1}`,
             image: "https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg",
             artists_list: ["Jisso"],
@@ -84,6 +84,7 @@ const Songpage = () => {
           },
         ];
         const fetchData = async () => {
+          console.log(`${id}`)
           const data = await getSongData(`${id}`);
           if (data) {
             const newAudio = {

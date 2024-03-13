@@ -1,7 +1,7 @@
 import React from "react";
 
 const SongDataContext = React.createContext({
-  Cur_data:{},
+  Cur_data:"",
   setSongData: () => {}, 
 });
   

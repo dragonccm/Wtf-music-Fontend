@@ -1,13 +1,23 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
+import SongDataContext from '../../lib/Context/SongContext';
+import React, { useContext } from 'react';
+
+
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
+
+    const { setSongData } = useContext(SongDataContext)
+
+    const handleChangeData = (data) => {
+        setSongData(data);
+    }
+    const item = "Z6Z8WZWB"
     return (
         <div className="card_container">
             {playlist.map((playlist) => (
@@ -25,13 +35,11 @@ const Card = ({ playlist }) => {
                         <div className="img_overlay">
                             <div className="img_overlay_group_btn">
                                 <FontAwesomeIcon icon={faHeart} />
-                                <NavLink
-                                    to="/playlist"
-                                    exact
-                                    className="nav-link list_nav_item"
+                                <button
+                                    onClick={() => handleChangeData(item)}
                                 >
                                     <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-                                </NavLink>
+                                </button>
                                 <FontAwesomeIcon icon={faShare} />
                             </div>
                         </div>
