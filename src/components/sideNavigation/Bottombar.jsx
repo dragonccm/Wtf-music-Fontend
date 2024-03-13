@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import { getSongData } from "../../services/SongService";
 import SongDataContext from "../../lib/Context/SongContext";
+import Popup from "reactjs-popup";
+import { NavLink } from "react-router-dom";
+import 'reactjs-popup/dist/index.css';
 import "../../css/Bottombar.scss";
 import 'react-h5-audio-player/lib/styles.css';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
 import { ReactSVG } from "react-svg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faShuffle, faForwardStep, faBackwardStep } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faShuffle, faForwardStep, faBackwardStep, faHeadphonesSimple } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faCirclePlay, faCirclePause, faWindowRestore } from "@fortawesome/free-regular-svg-icons";
 import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg"
@@ -74,9 +77,53 @@ const Bottombar = () => {
               <button className="rhap_main-controls-button rhap_button-clear">
                 <FontAwesomeIcon icon={faHeart} />
               </button>
-              <button className="rhap_main-controls-button rhap_button-clear">
-                <FontAwesomeIcon icon={faEllipsis} />
-              </button>
+              <Popup
+                trigger={
+                  <button className="rhap_main-controls-button rhap_button-clear">
+                    <FontAwesomeIcon icon={faEllipsis} />
+                  </button>
+                }
+                position="top right"
+                nested
+                closeOnDocumentClick
+                mouseLeaveDelay={300}
+                mouseEnterDelay={0}
+                contentStyle={{ padding: "0", border: "none", width: "150px", top: '1000px', left: '1334px' }}
+                arrow={false}>
+
+                <div className="r_click">
+                  <div className="r_click_head">
+                    <div className="r_click_head_img"><img src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="" /></div>
+                    <div className="r_click_head_info">
+                      <div className="name">Tettovent</div>
+                      <div className="more">
+                        <div className="more_item">
+                          <FontAwesomeIcon icon={faHeart} />
+                          4K
+                        </div>
+                        <div className="more_item">
+                          <FontAwesomeIcon icon={faHeadphonesSimple} />
+                          318K
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="r_click_navigation">
+                    <div className="item">
+tải xuống
+                    </div>
+                    <div className="item">
+                        lời bài hát
+                    </div>
+                    <div className="item">
+                        chặn
+                    </div>
+                  </div>
+
+                </div>
+
+              </Popup>
+
             </div>
           </div>
         </div>
