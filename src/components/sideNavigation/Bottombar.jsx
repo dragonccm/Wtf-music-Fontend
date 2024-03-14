@@ -36,22 +36,22 @@ const Bottombar = () => {
     fetchData()
   }, [])
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await getSongData(songData ? songData:localStorage.getItem("LastSong"));
-  //     const viprotrack = {
-  //       artistsNames: response.artistsNames,
-  //       songname: response.songname,
-  //       img: response.img,
-  //       song: response.song,
-  //       lyricsString: response.lyricsString,
-  //     }
-  //     console.table("BOTTOM BAR ", viprotrack)
-  //     SetSong([viprotrack])
-  //     console.table("BOTTOM BAR FIRST FETCH", viprotrack)
-  //   }
-  //   fetchData()
-  // }, [songData])
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getSongData(songData ? songData : localStorage.getItem("LastSong"));
+      const viprotrack = {
+        artistsNames: response.artistsNames,
+        songname: response.songname,
+        img: response.img,
+        song: response.song,
+        lyricsString: response.lyricsString,
+      }
+      console.table("BOTTOM BAR ", viprotrack)
+      SetSong([viprotrack])
+      console.table("BOTTOM BAR FIRST FETCH", viprotrack)
+    }
+    fetchData()
+  }, [songData])
 
 
   const icon_play = <FontAwesomeIcon icon={faCirclePlay} />;
