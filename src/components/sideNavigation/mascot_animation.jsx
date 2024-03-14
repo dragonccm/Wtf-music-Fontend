@@ -2,40 +2,40 @@ import  '../../css/mascot.scss'
 
 const Mascot_animation = () => {
   return (
-    <div classname="jiggly puffed">
-      <div classname="jiggly-body-upper">
-        <div classname="jiggly-body"></div>
-        <div classname="jiggly-ear jiggly-ear-left"></div>
-        <div classname="jiggly-ear jiggly-ear-right"></div>
-        <div classname="jiggly-puff"></div>
-        <div classname="jiggly-face">
-          <div classname="jiggly-eye jiggly-eye-left">
-            <div classname="jiggly-eye-pupil"></div>
-            <div classname="jiggly-eye-lid"></div>
+    <div className="jiggly puffed">
+      <div className="jiggly-body-upper">
+        <div className="jiggly-body"></div>
+        <div className="jiggly-ear jiggly-ear-left"></div>
+        <div className="jiggly-ear jiggly-ear-right"></div>
+        <div className="jiggly-puff"></div>
+        <div className="jiggly-face">
+          <div className="jiggly-eye jiggly-eye-left">
+            <div className="jiggly-eye-pupil"></div>
+            <div className="jiggly-eye-lid"></div>
           </div>
-          <div classname="jiggly-eye jiggly-eye-right">
-            <div classname="jiggly-eye-pupil"></div>
-            <div classname="jiggly-eye-lid"></div>
+          <div className="jiggly-eye jiggly-eye-right">
+            <div className="jiggly-eye-pupil"></div>
+            <div className="jiggly-eye-lid"></div>
           </div>
-          <div classname="jiggly-blush jiggly-blush-left"></div>
-          <div classname="jiggly-blush jiggly-blush-right"></div>
-          <div classname="jiggly-mouth">
-            <div classname="jiggly-mouth-singing"></div>
+          <div className="jiggly-blush jiggly-blush-left"></div>
+          <div className="jiggly-blush jiggly-blush-right"></div>
+          <div className="jiggly-mouth">
+            <div className="jiggly-mouth-singing"></div>
           </div>
         </div>
-        <div classname="jiggly-arm jiggly-arm-left">
-          <div classname="jiggly-marker"></div>
+        <div className="jiggly-arm jiggly-arm-left">
+          <div className="jiggly-marker"></div>
         </div>
-        <div classname="jiggly-arm-right-wrapper">
-          <div classname="jiggly-arm jiggly-arm-right"></div>
+        <div className="jiggly-arm-right-wrapper">
+          <div className="jiggly-arm jiggly-arm-right"></div>
         </div>
       </div>
-      <div classname="jiggly-leg jiggly-leg-left"></div>
-      <div classname="jiggly-leg jiggly-leg-right"></div>
-      <div classname="jiggly-music-notes">
-        <div classname="jiggly-music-note jiggly-music-note-one"></div>
-        <div classname="jiggly-music-note jiggly-music-note-two"></div>
-        <div classname="jiggly-music-note jiggly-music-note-three"></div>
+      <div className="jiggly-leg jiggly-leg-left"></div>
+      <div className="jiggly-leg jiggly-leg-right"></div>
+      <div className="jiggly-music-notes">
+        <div className="jiggly-music-note jiggly-music-note-one"></div>
+        <div className="jiggly-music-note jiggly-music-note-two"></div>
+        <div className="jiggly-music-note jiggly-music-note-three"></div>
       </div>
     </div>
   );

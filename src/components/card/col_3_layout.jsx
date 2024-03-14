@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from "react-router-dom";
 const Col3Layout = ({ data }) => {
-  console.log(JSON.stringify(data));
 
   // Chia data thành các mảng con có 3 phần tử
   const chunkedData = [];
@@ -25,7 +24,7 @@ const Col3Layout = ({ data }) => {
                   <img src={element.img} alt="Playlist" />
                   <div className="img_overlay">
                     <div className="img_overlay_group_btn">
-                      <NavLink to="/songpage" exact className="nav-link list_nav_item">
+                      <NavLink to="/songpage"  className="nav-link list_nav_item">
                         <FontAwesomeIcon icon={faPlay} />
                       </NavLink>
                     </div>
