@@ -11,10 +11,11 @@ import 'react-h5-audio-player/lib/styles.css';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
 import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faShuffle, faForwardStep, faBackwardStep, faHeadphonesSimple } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faShuffle, faForwardStep, faBackwardStep, faHeadphonesSimple, faBan, faDownload, faCirclePlus, faLink } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faCirclePlay, faCirclePause, faWindowRestore } from "@fortawesome/free-regular-svg-icons";
 import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg"
+import icon_mic from "../../img/karaoke-svgrepo-com.svg"
 
 const Bottombar = () => {
   const [currentSong, SetSong] = useState([])
@@ -89,7 +90,7 @@ const Bottombar = () => {
                 closeOnDocumentClick
                 mouseLeaveDelay={300}
                 mouseEnterDelay={0}
-                contentStyle={{ padding: "0", border: "none", width: "150px", top: '1000px', left: '1334px' }}
+                contentStyle={{ padding: "0", border: "none", width: "285px", top: '1000px', left: '1334px' }}
                 arrow={false}>
 
                 <div className="r_click">
@@ -111,13 +112,40 @@ const Bottombar = () => {
                   </div>
                   <div className="r_click_navigation">
                     <div className="item">
-tải xuống
+                      <FontAwesomeIcon icon={faDownload} />
+                      <p>tải xuống</p>
                     </div>
                     <div className="item">
-                        lời bài hát
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_karaoke}
+                      />
+                      <p>lời bài hát</p>
                     </div>
                     <div className="item">
-                        chặn
+                      <FontAwesomeIcon icon={faBan} />
+                      <p>chặn</p>
+                    </div>
+                  </div>
+                  <div className="r_click_list">
+                    <div className="r_click_list_item">
+                      <FontAwesomeIcon icon={faCirclePlus} />
+                      Thêm vào playlist
+                    </div>
+                    <div className="r_click_list_item">
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_mic}
+                      />
+                      Phát cùng lời bài hát
+                    </div>
+                    <div className="r_click_list_item">
+                    <FontAwesomeIcon icon={faLink} />
+                      Sao chép link
                     </div>
                   </div>
 
