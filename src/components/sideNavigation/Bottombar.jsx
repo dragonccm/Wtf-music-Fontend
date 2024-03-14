@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { getSongData } from "../../services/SongService";
 import SongDataContext from "../../lib/Context/SongContext";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-
-
+import Modal from 'react-modal';
 import Popup from "reactjs-popup";
 import 'reactjs-popup/dist/index.css';
 import "../../css/Bottombar.scss";
@@ -16,7 +16,7 @@ import { faHeart, faCirclePlay, faCirclePause, faWindowRestore } from "@fortawes
 import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg"
 import icon_mic from "../../img/karaoke-svgrepo-com.svg"
-
+Modal.setAppElement('#root');
 const Bottombar = () => {
   const [currentSong, SetSong] = useState([])
   const { songData } = useContext(SongDataContext)
@@ -59,6 +59,29 @@ const Bottombar = () => {
   const icon_next = <FontAwesomeIcon icon={faForwardStep} />;
   const icon_previous = <FontAwesomeIcon icon={faBackwardStep} />
   const icon_pause = <FontAwesomeIcon icon={faCirclePause} />
+
+
+  let subtitle;
+  const [modalMenuIsOpen, setMenuIsOpen] = React.useState(false);
+  const [modalPlaylistIsOpen, setPlaylistIsOpen] = React.useState(false);
+
+  function openModal() {
+    setMenuIsOpen(true);
+  }
+  function openModalPlaylist() {
+    setPlaylistIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  function closeModal() {
+    setMenuIsOpen(false);
+  }
+  function closeModalPlaylist() {
+    setPlaylistIsOpen(false);
+  }
   return (
     <div className="main_bottom_bar">
       <div className="player_info">
@@ -79,7 +102,7 @@ const Bottombar = () => {
               <button className="rhap_main-controls-button rhap_button-clear">
                 <FontAwesomeIcon icon={faHeart} />
               </button>
-              <Popup
+              {/* <Popup
                 trigger={
                   <button className="rhap_main-controls-button rhap_button-clear">
                     <FontAwesomeIcon icon={faEllipsis} />
@@ -110,6 +133,41 @@ const Bottombar = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="submenu-content">
+                    <div className="item">
+                      <h5>Nghệ sĩ</h5>
+                      <div className="content">
+                        <a href="">Wxrdie, </a>
+                        <a href="">Andree right Hand, </a>
+                        <a href="">Machiot, </a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Albuml</h5>
+                      <div className="content">
+                        <a href="">TETVOVENT (Single)</a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Sáng tác</h5>
+                      <div className="content">
+                        <a href="">Đỗ Minh Nghĩa</a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Thể loại</h5>
+                      <div className="content">
+                        <a href="">Việt Nam</a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Cung cấp bởi</h5>
+                      <div className="content">
+                        <a href="">Ingrooves Music Group</a>
+                      </div>
+                    </div>
+
+                  </div>
                   <div className="r_click_navigation">
                     <div className="item">
                       <FontAwesomeIcon icon={faDownload} />
@@ -130,9 +188,38 @@ const Bottombar = () => {
                     </div>
                   </div>
                   <div className="r_click_list">
-                    <div className="r_click_list_item">
+                    <div className="r_click_list_item add-playlist">
                       <FontAwesomeIcon icon={faCirclePlus} />
                       Thêm vào playlist
+                      <div className="playlist-content">
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                      </div>
                     </div>
                     <div className="r_click_list_item">
                       <ReactSVG
@@ -143,15 +230,179 @@ const Bottombar = () => {
                       />
                       Phát cùng lời bài hát
                     </div>
+                    <div>
+      <button onClick={openModal}>Open Modal</button>
+    
+    </div>
+                      <CopyToClipboard text="Fuck you!">
                     <div className="r_click_list_item">
-                    <FontAwesomeIcon icon={faLink} />
-                      Sao chép link
+                        <FontAwesomeIcon icon={faLink} />
+                        Sao chép link
                     </div>
+                      </CopyToClipboard>
+
+
                   </div>
 
                 </div>
 
-              </Popup>
+              </Popup> */}
+              <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
+                <FontAwesomeIcon icon={faEllipsis} />
+              </button>
+              <Modal
+                isOpen={modalMenuIsOpen}
+                onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal}
+                // style={customStyles}
+                className="Modal"
+                overlayClassName="Overlay"
+                shouldCloseOnOverlayClick={true}
+
+              >
+                {/* <button onClick={closeModal}>close</button> */}
+                <div className="r_click">
+                  <div className="r_click_head">
+                    <div className="r_click_head_img"><img src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="" /></div>
+                    <div className="r_click_head_info">
+                      <div className="name">Tettovent</div>
+                      <div className="more">
+                        <div className="more_item">
+                          <FontAwesomeIcon icon={faHeart} />
+                          4K
+                        </div>
+                        <div className="more_item">
+                          <FontAwesomeIcon icon={faHeadphonesSimple} />
+                          318K
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="submenu-content">
+                    <div className="item">
+                      <h5>Nghệ sĩ</h5>
+                      <div className="content">
+                        <a href="">Wxrdie, </a>
+                        <a href="">Andree right Hand, </a>
+                        <a href="">Machiot, </a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Albuml</h5>
+                      <div className="content">
+                        <a href="">TETVOVENT (Single)</a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Sáng tác</h5>
+                      <div className="content">
+                        <a href="">Đỗ Minh Nghĩa</a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Thể loại</h5>
+                      <div className="content">
+                        <a href="">Việt Nam</a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Cung cấp bởi</h5>
+                      <div className="content">
+                        <a href="">Ingrooves Music Group</a>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div className="r_click_navigation">
+                    <div className="item">
+                      <FontAwesomeIcon icon={faDownload} />
+                      <p>tải xuống</p>
+                    </div>
+                    <div className="item">
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_karaoke}
+                      />
+                      <p>lời bài hát</p>
+                    </div>
+                    <div className="item">
+                      <FontAwesomeIcon icon={faBan} />
+                      <p>chặn</p>
+                    </div>
+                  </div>
+                  <div className="r_click_list">
+                    <div className="r_click_list_item add-playlist">
+                      <FontAwesomeIcon icon={faCirclePlus} />
+                      Thêm vào playlist
+                      <div className="playlist-content">
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="r_click_list_item" onClick={openModalPlaylist}>
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_mic}
+                      />
+                      Phát cùng lời bài hát
+                    </div>
+                    <Modal
+                      isOpen={modalPlaylistIsOpen}
+                      onAfterOpen={afterOpenModal}
+                      onRequestClose={closeModalPlaylist}
+                      // style={customStyles}
+                      className="Modal_playlist"
+                      overlayClassName="Overlay_playlist"
+                      shouldCloseOnOverlayClick={true}
+
+                    >
+                      {/* <button onClick={closeModal}>close</button> */}
+                      <div className="playlist_player">
+                      <button onClick={closeModalPlaylist}>close</button>
+                      </div>
+                    </Modal>
+
+                    <CopyToClipboard text="Fuck you!">
+                      <div className="r_click_list_item">
+                        <FontAwesomeIcon icon={faLink} />
+                        Sao chép link
+                      </div>
+                    </CopyToClipboard>
+
+
+                  </div>
+
+                </div>
+              </Modal>
 
             </div>
           </div>
