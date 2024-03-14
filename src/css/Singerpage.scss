@@ -1,0 +1,87 @@
+.main_artists {
+    .for_artist_lable{
+        color: var(--deep-black);
+        font-size: 4rem;
+        margin: 4rem 0;
+    }
+    .main_artists_head {
+        display: flex;
+        align-items: center;
+        background-color: var(--rigthsidebar-bg);
+        padding: 2rem;
+        border-radius: 2rem;
+        background: url("https://getworldwideupdates.com/wp-content/uploads/2021/07/World-Records-by-Rose-Blackpink-768x509.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        .artists_avt_ctn {
+            width: 15rem;
+            height: 15rem;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            border-radius: 50%;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+
+            }
+        }
+
+        .artists_if_ctn {
+            margin: 0 4rem;
+            display: flex;
+            flex-direction: column;
+
+            .artists_name {
+                font-size: 6rem;
+                color: var(--deep-black);
+            }
+
+            .follower {
+                font-size: 1.5rem;
+                color: var(--deep-black);
+            }
+        }
+
+        
+    }
+    .for_artists_ctn {
+        display: flex;
+        margin: 3rem 0;
+        .for_artist_avt_ctn {
+            flex: 2;
+            width: 40rem;
+            height: 40rem;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 2rem;
+            }
+        }
+        .for_artist_if_ctn {
+            flex: 3;
+            margin: 0 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .for_artist_name {
+                width: 60rem;
+                font-size:2rem;
+                color: var(--deep-black);
+            }
+
+            .follower {
+                font-size: 3rem;
+                color: var(--deep-black);
+            }
+        }
+    }
+}
