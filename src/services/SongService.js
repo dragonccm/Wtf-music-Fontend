@@ -6,10 +6,10 @@ export const getSongData = async (Songid) => {
             const songUrlResult = await songUrl(Songid)
             const songLyricsResult = await songLyric(Songid)
 
-            const artistsNames = songDetailResult.data.artistsNames;
-            const songname = songDetailResult.data.title;
-            const img = songDetailResult.data.thumbnail;
-            const song = songUrlResult.data[128];
+            const artistsNames = songDetailResult.data?.artistsNames || 'Unknown Artist';
+            const songname = songDetailResult.data?.title || 'Untitled Song';
+            const img = songDetailResult.data?.thumbnail || 'https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg';
+            const song = songUrlResult.data?.[128] || "https://a128-z3.zmdcdn.me/c0ae0b2f3b725d48e5e9c93c5ee8bdda?authen=exp=1710563102~acl=/c0ae0b2f3b725d48e5e9c93c5ee8bdda/*~hmac=34375752b5df23f3197d3cbd167970c1";
 
             const Ly = songLyricsResult.data.sentences.map(sentence =>
                 sentence.words.map(word => {
@@ -42,11 +42,11 @@ export const getSongData = async (Songid) => {
         }
     } else {
         return {
-            artistsNames: "N/A",
-            songname: "N/A",
-            img: "N/A",
-            song: "N/A",
-            lyricsString: null,
+            artistsNames: "Andree Right Hand {bạn đang ngoại tuyến}",
+            img: "https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/cover/1/e/5/5/1e55187635c4e3bab9b8c2ea88ac35fa.jpg",
+            lyricsString: "nône",
+            song: "https://a128-z3.zmdcdn.me/c0ae0b2f3b725d48e5e9c93c5ee8bdda?authen=exp=1710563102~acl=/c0ae0b2f3b725d48e5e9c93c5ee8bdda/*~hmac=34375752b5df23f3197d3cbd167970c1",
+            songname: "Chơi Như Tụi Mỹ",
         }
     }
 };
