@@ -457,7 +457,7 @@ function Profile() {
                     <h1>Thay đổi mật khẩu</h1>
                     <form action="">
                       <div className="input_group">
-                        <label htmlFor="old_pass">Mật khẩu hiện tại</label>
+                        <label htmlhtmlFor="old_pass">Mật khẩu hiện tại</label>
                         <div className="input_group_pass">
                           <input
                             id="old_pass"
@@ -479,7 +479,7 @@ function Profile() {
                         </div>
                       </div>
                       <div className="input_group">
-                        <label htmlFor="new_pass">Mật khẩu mới</label>
+                        <label htmlhtmlFor="new_pass">Mật khẩu mới</label>
                         <div className="input_group_pass">
                           <input
                             id="new_pass"

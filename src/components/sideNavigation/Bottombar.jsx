@@ -23,7 +23,7 @@ const Bottombar = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await getSongData("Z7I9OC70");
+      const response = await getSongData(localStorage.getItem("LastSong"));
       const viprotrack = {
         artistsNames: response.artistsNames,
         songname: response.songname,
@@ -47,9 +47,7 @@ const Bottombar = () => {
         song: response.song,
         lyricsString: response.lyricsString,
       }
-      console.table("BOTTOM BAR ", viprotrack)
       SetSong([viprotrack])
-      console.table("BOTTOM BAR FIRST FETCH", viprotrack)
     }
     fetchData()
   }, [songData])
