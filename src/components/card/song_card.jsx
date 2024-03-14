@@ -16,6 +16,7 @@ const Card = ({ playlist }) => {
 
     const handleChangeData = (data) => {
         setSongData(data);
+        localStorage.setItem("LastSong", data)
     }
     const item = "Z6Z8WZWB"
     return (

@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
 import { getSongData } from "../../services/SongService";
 import SongDataContext from "../../lib/Context/SongContext";
+
+
+
 import Popup from "reactjs-popup";
-import { NavLink } from "react-router-dom";
 import 'reactjs-popup/dist/index.css';
 import "../../css/Bottombar.scss";
 import 'react-h5-audio-player/lib/styles.css';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
 import { ReactSVG } from "react-svg";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faShuffle, faForwardStep, faBackwardStep, faHeadphonesSimple } from "@fortawesome/free-solid-svg-icons";
 import { faHeart, faCirclePlay, faCirclePause, faWindowRestore } from "@fortawesome/free-regular-svg-icons";
@@ -37,7 +38,7 @@ const Bottombar = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await getSongData(songData ? songData : "");
+      const response = await getSongData(songData ? songData:localStorage.getItem("LastSong"));
       const viprotrack = {
         artistsNames: response.artistsNames,
         songname: response.songname,
@@ -45,11 +46,11 @@ const Bottombar = () => {
         song: response.song,
         lyricsString: response.lyricsString,
       }
-      // console.table("BOTTOM BAR ", viprotrack)
-      SetSong(viprotrack)
+      console.table("BOTTOM BAR ", viprotrack)
+      SetSong([viprotrack])
+      console.table("BOTTOM BAR FIRST FETCH", viprotrack)
     }
     fetchData()
-    console.table(currentSong, songData)
   }, [songData])
 
 
