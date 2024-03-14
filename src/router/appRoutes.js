@@ -19,10 +19,10 @@
 //         {/* <PrivateRoutes path={'/users'} component={Users} />
 //         <PrivateRoutes path={'/roles'} component={Role} />
 //         <PrivateRoutes path={'/group-role'} component={GroupRole} /> */}
-//         <Route path="/" exact>
+//         <Route path="/" >
 //           home
 //         </Route>
-//         <Route path="*" exact>
+//         <Route path="*" >
 //           404 not found
 //         </Route>
 //       </Switch>

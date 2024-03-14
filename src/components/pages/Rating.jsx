@@ -82,7 +82,7 @@ const Rating = () => {
                   <div className="img_overlay">
                     <NavLink
                       to="/playlist"
-                      exact
+                      
                       className="nav-link list_nav_item"
                     >
                       <FontAwesomeIcon className="play_icon" icon={faPlay} />
@@ -99,7 +99,7 @@ const Rating = () => {
           ))}
           <NavLink
             to="/rating"
-            exact
+            
             className="nav-link list_nav_item"
             clasName="show_all"
           >
@@ -123,7 +123,7 @@ const Rating = () => {
                   <div className="img_overlay">
                     <NavLink
                       to="/songpage"
-                      exact
+                      
                       className="nav-link list_nav_item"
                     >
                       <FontAwesomeIcon className="play_icon" icon={faPlay} />
@@ -140,7 +140,7 @@ const Rating = () => {
           ))}
           <NavLink
             to="/rating"
-            exact
+            
             className="nav-link list_nav_item"
             clasName="show_all"
           >
@@ -163,7 +163,7 @@ const Rating = () => {
                   <div className="img_overlay">
                     <NavLink
                       to="/songpage"
-                      exact
+                      
                       className="nav-link list_nav_item"
                     >
                       <FontAwesomeIcon className="play_icon" icon={faPlay} />
@@ -180,7 +180,7 @@ const Rating = () => {
           ))}
           <NavLink
             to="/playlist"
-            exact
+            
             className="nav-link list_nav_item"
             clasName="show_all"
           >

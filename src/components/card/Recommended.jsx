@@ -39,7 +39,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
                 <div className="img_overlay">
                   <NavLink
                     to="/songpage"
-                    exact
+                    
                     className="nav-link list_nav_item"
                   >
                     <FontAwesomeIcon icon={faPlay} />

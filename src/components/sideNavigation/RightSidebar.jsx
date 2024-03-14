@@ -26,7 +26,7 @@ const RightSidebar = () => {
           </Navbar.Brand>
           <Navbar.Collapse id="basic-navbar-nav" className="rs_bottom_bar">
             <Nav className="me-auto list_nav">
-              <NavLink to="/" exact className="nav-link list_nav_item">
+              <NavLink to="/"  className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
                   <ReactSVG
                     beforeInjection={(svg) => {

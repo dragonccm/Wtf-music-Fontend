@@ -86,7 +86,7 @@ const Header = () => {
         <div className="search_item_song_img">
           <img src={data.thumb} alt="d" />
         </div>
-        <NavLink to={`/songpage/${data.id}`} exact className="search_item_name">{data.name}</NavLink>
+        <NavLink to={`/songpage/${data.id}`}  className="search_item_name">{data.name}</NavLink>
       </section>
     );
   }
@@ -97,7 +97,7 @@ const Header = () => {
         <div className="search_item_artists_img">
           <img src={data.avatar} alt="d" />
         </div>
-        <NavLink to={`/songpage/${data.id}`} exact className="search_item_name">{data.name}</NavLink>
+        <NavLink to={`/songpage/${data.id}`}  className="search_item_name">{data.name}</NavLink>
       </section>
     );
   }
@@ -113,7 +113,7 @@ const Header = () => {
           <input
             type="text"
             id="input__search"
-            class="input__search"
+            classname="input__search"
             placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
             required=""
             onChange={handleSearchData || letfetch}
@@ -127,12 +127,12 @@ const Header = () => {
           </section>
         </div>
         <div className="header_right">
-          <label for="theme" class="theme">
-            <span class="theme__toggle-wrap">
+          <label htmlFor="theme" classname="theme">
+            <span classname="theme__toggle-wrap">
               {localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark' ?
                 <input
                   id="theme"
-                  class="theme__toggle"
+                  classname="theme__toggle"
                   type="checkbox"
                   role="switch"
                   name="theme"
@@ -143,7 +143,7 @@ const Header = () => {
                 :
                 <input
                   id="theme"
-                  class="theme__toggle"
+                  classname="theme__toggle"
                   type="checkbox"
                   role="switch"
                   name="theme"
@@ -153,16 +153,16 @@ const Header = () => {
               }
 
 
-              <span class="theme__icon">
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
+              <span classname="theme__icon">
+                <span classname="theme__icon-part"></span>
+                <span classname="theme__icon-part"></span>
+                <span classname="theme__icon-part"></span>
+                <span classname="theme__icon-part"></span>
+                <span classname="theme__icon-part"></span>
+                <span classname="theme__icon-part"></span>
+                <span classname="theme__icon-part"></span>
+                <span classname="theme__icon-part"></span>
+                <span classname="theme__icon-part"></span>
               </span>
             </span>
           </label>
@@ -182,10 +182,10 @@ const Header = () => {
               arrow={false}>
               <div className="menu">
 
-                <NavLink to="/login" exact className="nav-link list_nav_item menu-item">
+                <NavLink to="/login"  className="nav-link list_nav_item menu-item">
                   <FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn
                 </NavLink>
-                <NavLink to="/profile" exact className="nav-link list_nav_item menu-item">
+                <NavLink to="/profile"  className="nav-link list_nav_item menu-item">
                   <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
                 </NavLink>
               </div>

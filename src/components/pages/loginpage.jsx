@@ -42,9 +42,9 @@ function Loginform() {
             ></input>
             <div className="check_box">
               <div className="remember_login">
-                <div class="container">
+                <div classname="container">
                   <input id="checked" type="checkbox" />
-                  <div class="checkmark"></div>
+                  <div classname="checkmark"></div>
                 </div>
                 <label for="checked">Ghi Nhớ Đăng Nhập</label>
               </div>

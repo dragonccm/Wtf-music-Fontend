@@ -24,7 +24,7 @@ const Col3Layout = ({ data }) => {
                   <img src={element.img} alt="Playlist" />
                   <div className="img_overlay">
                     <div className="img_overlay_group_btn">
-                      <NavLink to="/songpage" exact className="nav-link list_nav_item">
+                      <NavLink to="/songpage"  className="nav-link list_nav_item">
                         <FontAwesomeIcon icon={faPlay} />
                       </NavLink>
                     </div>

@@ -179,29 +179,29 @@ const Mainpage = ({ playlists }) => {
                 </div>
                 <div className="for_you">
                   <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
-                  <div class="radio-inputs">
+                  <div classname="radio-inputs">
                     <label>
-                      <input class="radio-input " type="radio" name="engine" />
-                      <span class="radio-tile ">
-                        <span class="radio-icon">
+                      <input classname="radio-input " type="radio" name="engine" />
+                      <span classname="radio-tile ">
+                        <span classname="radio-icon">
                           Tất cả
                         </span>
                       </span>
                     </label>
 
                     <label>
-                      <input class="radio-input " type="radio" name="engine" />
-                      <span class="radio-tile ">
-                        <span class="radio-icon">
+                      <input classname="radio-input " type="radio" name="engine" />
+                      <span classname="radio-tile ">
+                        <span classname="radio-icon">
                           Việt Nam
                         </span>
                       </span>
                     </label>
 
                     <label>
-                      <input class="radio-input " type="radio" name="engine" />
-                      <span class="radio-tile ">
-                        <span class="radio-icon">
+                      <input classname="radio-input " type="radio" name="engine" />
+                      <span classname="radio-tile ">
+                        <span classname="radio-icon">
                           Quốc tế
                         </span>
                       </span>
