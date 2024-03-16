@@ -513,9 +513,9 @@ const Bottombar = () => {
               src={icon_karaoke}
             />
           </button>
-          <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={handlePIP}>
+          {/* <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={handlePIP}>
             <FontAwesomeIcon icon={faWindowRestore} />
-          </button>
+          </button> */}
         </div>
         <button className="rhap_button-clear rhap_main-controls-button btn_more playlist_btn">
           <ReactSVG
