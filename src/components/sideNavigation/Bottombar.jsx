@@ -20,7 +20,7 @@ Modal.setAppElement('#root');
 const Bottombar = () => {
   const [currentSong, SetSong] = useState([])
   const [isFullScreen, SetIsFullScreen] = useState(false)
-  const { songData } = useContext(SongDataContext)
+  // const { songData } = useContext(SongDataContext)
 
   useEffect(() => {
     async function fetchData() {
@@ -28,30 +28,31 @@ const Bottombar = () => {
       const viprotrack = {
         artistsNames: response.artistsNames,
         songname: response.songname,
-        img: response.img,
+        imge: response.img,
         song: response.song,
         lyricsString: response.lyricsString,
       }
-      // console.table("BOTTOM BAR FIRST FETCH", viprotrack)
+      
       SetSong(viprotrack)
     }
     fetchData()
   }, [])
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await getSongData(songData ? songData : localStorage.getItem("LastSong"));
-      const viprotrack = {
-        artistsNames: response.artistsNames,
-        songname: response.songname,
-        img: response.img,
-        song: response.song,
-        lyricsString: response.lyricsString,
-      }
-      SetSong([viprotrack])
-    }
-    fetchData()
-  }, [songData])
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await getSongData(songData ? songData : localStorage.getItem("LastSong"));
+  //     const viprotrack = {
+  //       artistsNames: response.artistsNames,
+  //       songname: response.songname,
+  //       imge: response.img,
+  //       song: response.song,
+  //       lyricsString: response.lyricsString,
+  //     }
+  //     SetSong([viprotrack])
+  //   }
+  //   fetchData()
+  //   localStorage.setItem("currentsong", currentSong.song)
+  // }, [songData])
 
 
   const icon_play = <FontAwesomeIcon icon={faCirclePlay} />;
@@ -113,8 +114,7 @@ const Bottombar = () => {
       <div className="player_info">
         <div className="player_info_ctn">
           <div className="img">
-            <img src={currentSong.img} alt="f" />
-
+            <img src={currentSong.imge} alt="f" referrerpolicy="no-referrer"/>
           </div>
           <div className="name">
             <div className="name_ctn">
