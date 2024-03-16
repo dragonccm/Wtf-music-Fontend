@@ -36,11 +36,18 @@ const Card = ({ playlist }) => {
                         <div className="img_overlay">
                             <div className="img_overlay_group_btn">
                                 <FontAwesomeIcon icon={faHeart} />
-                                <button
+                                {/* <button
                                     onClick={() => handleChangeData(item)}
                                 >
                                     <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-                                </button>
+                                </button> */}
+                                <NavLink
+                                    to="/playlist"
+                                    exact
+                                    className="nav-link list_nav_item"
+                                >
+                                    <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+                                </NavLink>
                                 <FontAwesomeIcon icon={faShare} />
                             </div>
                         </div>
