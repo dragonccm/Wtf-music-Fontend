@@ -4,7 +4,6 @@ import SongDataContext from "../../lib/Context/SongContext";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Modal from 'react-modal';
-import Popup from "reactjs-popup";
 import 'reactjs-popup/dist/index.css';
 import "../../css/Bottombar.scss";
 import 'react-h5-audio-player/lib/styles.css';
@@ -21,7 +20,7 @@ const Bottombar = () => {
   const [currentSong, SetSong] = useState([])
   const [isFullScreen, SetIsFullScreen] = useState(false)
   const { songData } = useContext(SongDataContext)
-
+  const [animationActive, setAnimationActive] = useState(true);
   useEffect(() => {
     async function fetchData() {
       const response = await getSongData(localStorage.getItem("LastSong"));
@@ -69,6 +68,9 @@ const Bottombar = () => {
   }
   function openModalPlaylist() {
     setPlaylistIsOpen(true);
+    setAnimationActive(true);
+    setMenuIsOpen(true);
+
   }
 
   function afterOpenModal() {
@@ -79,8 +81,11 @@ const Bottombar = () => {
     setMenuIsOpen(false);
   }
   function closeModalPlaylist() {
-    setPlaylistIsOpen(false);
-    setMenuIsOpen(false)
+    setAnimationActive(false);
+    setTimeout(() => {
+      setMenuIsOpen(false)
+      setPlaylistIsOpen(false);
+    }, 700)
   }
 
   const elem = document.documentElement;
@@ -107,7 +112,7 @@ const Bottombar = () => {
       document.msExitFullscreen();
     }
   }
-  
+
   return (
     <div className="main_bottom_bar">
       <div className="player_info">
@@ -407,7 +412,7 @@ const Bottombar = () => {
                       onRequestClose={closeModalPlaylist}
                       // style={customStyles}
                       className="Modal_playlist"
-                      overlayClassName="Overlay_playlist"
+                      overlayClassName={animationActive ? "Overlay_playlist" : "Overlay_playlist active"}
                       shouldCloseOnOverlayClick={false}
 
                     >
@@ -498,7 +503,7 @@ const Bottombar = () => {
       </div>
       <div className="player_more">
         <div className="player_more_1">
-          <button className="rhap_button-clear rhap_main-controls-button btn_more">
+          <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={openModalPlaylist}>
             <ReactSVG
               beforeInjection={(svg) => {
                 svg.classList.add("icon_list_nav_item_svg");
@@ -510,7 +515,7 @@ const Bottombar = () => {
             <FontAwesomeIcon icon={faWindowRestore} />
           </button>
         </div>
-        <button className="rhap_button-clear rhap_main-controls-button btn_more">
+        <button className="rhap_button-clear rhap_main-controls-button btn_more playlist_btn">
           <ReactSVG
             beforeInjection={(svg) => {
               svg.classList.add("icon_list_nav_item_svg");

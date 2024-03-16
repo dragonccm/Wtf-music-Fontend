@@ -14,7 +14,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
+        &.playlist_btn{
+            border-radius: 10px;
+            margin-left: 20px;
+        }
         &:hover {
             background-color: var(--rightsidebar-hover);
 
@@ -255,12 +258,12 @@
         display: flex;
         width: 30%;
         justify-content: flex-end;
-        padding-right: 30px;
+        // padding-right: 30px;
 
         .player_more_1 {
             display: flex;
             border-right: 1px solid var(--text-2);
-
+            padding-right: 10px;
         }
 
         svg {
@@ -479,6 +482,31 @@
     // height: 80vh;
     z-index: 9;
     background-color: var(--bg-player);
+    animation: bot-to-top 1s ease-in-out;
+
+
+    &.active{
+        animation: top-to-bot 0.8s ease-in-out;
+
+    }
+
+    @keyframes bot-to-top{
+        0% {
+            transform: translateY(100%);
+        }
+        100% {
+            transform: translateY(0%);
+        }
+    }
+    @keyframes top-to-bot{
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(100%);
+        }
+    }
+
 
     .playlist_player_bg {
         z-index: -1;
@@ -486,32 +514,35 @@
         top: 0%;
         opacity: .5;
     }
-    .playlist_player_header{
+
+    .playlist_player_header {
         display: flex;
         justify-content: flex-end;
         padding: 20px;
         gap: 10px;
 
-        .header_btn{
-                width: 50px;
-                height: 50px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 50%;
-                background-color: hsl(0deg 0% 100% / 15%);
-    
-                &:hover{
+        .header_btn {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: hsl(0deg 0% 100% / 15%);
+
+            &:hover {
                 background-color: hsl(0deg 0% 100% / 20%);
-    
-                }
-                svg{
-                    font-size: 20px;
-                    color: #fff;
-                }
-            
+
+            }
+
+            svg {
+                font-size: 20px;
+                color: #fff;
+            }
+
         }
     }
+
     .playlist_player_body {
         display: flex;
         flex-direction: column;
@@ -538,6 +569,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+
                 .scroll-content {
                     font-size: 42px;
 
@@ -552,10 +584,11 @@
                         letter-spacing: -1px;
                         list-style: none;
 
-                        &.over{
-                            color: hsla(0,0%,100%,.5);
+                        &.over {
+                            color: hsla(0, 0%, 100%, .5);
                         }
-                        &.active{
+
+                        &.active {
                             color: #ffed00;
                         }
                     }
