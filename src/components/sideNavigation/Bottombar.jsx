@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { getSongData } from "../../services/SongService";
 import SongDataContext from "../../lib/Context/SongContext";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Player } from 'video-react';
 import Modal from 'react-modal';
 import 'reactjs-popup/dist/index.css';
 import "../../css/Bottombar.scss";
@@ -31,7 +30,7 @@ const Bottombar = () => {
         song: response.song,
         lyricsString: response.lyricsString,
       }
-      
+
       SetSong(viprotrack)
     }
     fetchData()
@@ -114,24 +113,14 @@ const Bottombar = () => {
     }
   }
 
-  const handlePIP = () => {
-    const vid = document.querySelector('.video-react-video')
-    if (document.pictureInPictureElement) {
-      document
-        .exitPictureInPicture()
-        .then(() => console.log("Document Exited from Picture-in-Picture mode"))
-        .catch((err) => console.error(err));
-    } else {
-      vid.requestPictureInPicture();
-    }
-  }
+
 
   return (
     <div className="main_bottom_bar">
       <div className="player_info">
         <div className="player_info_ctn">
           <div className="img">
-            <img src={currentSong.imge} alt="f" referrerpolicy="no-referrer"/>
+            <img src={currentSong.imge} alt="f" referrerpolicy="no-referrer" />
           </div>
           <div className="name">
             <div className="name_ctn">
@@ -486,9 +475,7 @@ const Bottombar = () => {
         </div>
       </div>
       <div className="player_main">
-      <Player>
-      <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
-    </Player>
+        
         <AudioPlayer
           showSkipControls='true'
           autoPlay
