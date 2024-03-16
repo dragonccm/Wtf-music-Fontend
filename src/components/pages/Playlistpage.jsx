@@ -83,9 +83,11 @@ const Playlistpage = () => {
                     alt="playlist-img"
                   />
                 </div>
+                <div className="playlist_info_item">
                 <span className="user_name">long</span>
                 <span className="total_song">, 41 bài hát</span>
                 <span className="total_time">, 2 giờ 15 phút</span>
+                </div>
               </div>
             </div>
           </div>

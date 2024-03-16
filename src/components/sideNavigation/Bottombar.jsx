@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { getSongData } from "../../services/SongService";
 import SongDataContext from "../../lib/Context/SongContext";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-
+import { Player } from 'video-react';
 import Modal from 'react-modal';
 import 'reactjs-popup/dist/index.css';
 import "../../css/Bottombar.scss";
@@ -111,6 +111,18 @@ const Bottombar = () => {
       document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) { /* IE11 */
       document.msExitFullscreen();
+    }
+  }
+
+  const handlePIP = () => {
+    const vid = document.querySelector('.video-react-video')
+    if (document.pictureInPictureElement) {
+      document
+        .exitPictureInPicture()
+        .then(() => console.log("Document Exited from Picture-in-Picture mode"))
+        .catch((err) => console.error(err));
+    } else {
+      vid.requestPictureInPicture();
     }
   }
 
@@ -474,6 +486,9 @@ const Bottombar = () => {
         </div>
       </div>
       <div className="player_main">
+      <Player>
+      <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" />
+    </Player>
         <AudioPlayer
           showSkipControls='true'
           autoPlay
@@ -511,7 +526,7 @@ const Bottombar = () => {
               src={icon_karaoke}
             />
           </button>
-          <button className="rhap_button-clear rhap_main-controls-button btn_more">
+          <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={handlePIP}>
             <FontAwesomeIcon icon={faWindowRestore} />
           </button>
         </div>
