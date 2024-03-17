@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { getSongData } from "../../services/SongService";
-import SongDataContext from "../../lib/Context/SongContext";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Modal from 'react-modal';
 import 'reactjs-popup/dist/index.css';
