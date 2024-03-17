@@ -26,8 +26,9 @@ const Header = () => {
     }
   }, []);
 
-  // The debounce function is not dependent on any variables outside its scope and hence has an empty dependency array.
-  const debounce = useCallback((func, wait) => {
+  // Assuming that 'debounce' does not require any state or props, we can define it outside the component
+  // or just remove its useCallback wrapper if no dependency will ever be included.
+  const debounce = (func, wait) => {
     let timeout;
     return function executedFunction(...args) {
       const later = () => {
@@ -37,9 +38,8 @@ const Header = () => {
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
     };
-  }, []);
+  };
 
-  // Adding searchFetch in the dependency array
   const letfetch = useCallback(async () => {
     if (searchTerm.trim()) {
       const data = await searchFetch(searchTerm);
@@ -52,18 +52,22 @@ const Header = () => {
       setSearchResults([]);
       setIsVisible(true);
     }
-  }, [searchTerm, searchFetch]);
+  // Removed searchFetch from dependency array
+  }, [searchTerm]);
 
-  // Adding letfetch in the dependency array of 'debouncedFetchData'
-  const debouncedFetchData = useCallback(debounce(() => {
-    letfetch();
-  }, 500), [letfetch]);
+  // Passing an inline function to debounce inside useCallback
+  const debouncedFetchData = useCallback(() => {
+    const fetchData = debounce(() => {
+      letfetch();
+    }, 500);
+    fetchData();
+  // letfetch is the only dependency since it's the only function from the component scope used inside the callback
+  }, [letfetch]);
 
   useEffect(() => {
     if (searchTerm.trim()) {
       debouncedFetchData();
-    }
-    else {
+    } else {
       setSearchResults([]);
       setIsVisible(true);
     }
