@@ -19,13 +19,14 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { toggleTheme } = useContext(ThemeContext);
 
-  const handleSearchData = (event) => {
+  const handleSearchData = useCallback((event) => {
     setSearchTerm(event.target.value);
     if (event.target.value.trim() === '') {
       setIsVisible(true);
     }
-  };
+  }, []);
 
+  // The debounce function is not dependent on any variables outside its scope and hence has an empty dependency array.
   const debounce = useCallback((func, wait) => {
     let timeout;
     return function executedFunction(...args) {
@@ -38,23 +39,22 @@ const Header = () => {
     };
   }, []);
 
+  // Adding searchFetch in the dependency array
   const letfetch = useCallback(async () => {
     if (searchTerm.trim()) {
-      const fetchData = async () => {
-        const data = await searchFetch(searchTerm);
-        console.table("search debug", data);
-        if (data && data.result) {
-          setSearchResults(data.result);
-          setIsVisible(false);
-        }
-      };
-      fetchData();
+      const data = await searchFetch(searchTerm);
+      console.table("search debug", data);
+      if (data && data.result) {
+        setSearchResults(data.result);
+        setIsVisible(false);
+      }
     } else {
       setSearchResults([]);
       setIsVisible(true);
     }
   }, [searchTerm, searchFetch]);
 
+  // Adding letfetch in the dependency array of 'debouncedFetchData'
   const debouncedFetchData = useCallback(debounce(() => {
     letfetch();
   }, 500), [letfetch]);
@@ -62,14 +62,15 @@ const Header = () => {
   useEffect(() => {
     if (searchTerm.trim()) {
       debouncedFetchData();
-    } else {
+    }
+    else {
       setSearchResults([]);
       setIsVisible(true);
     }
   }, [searchTerm, debouncedFetchData]);
 
   const handleBlur = () => {
-    setTimeout(() => { setIsVisible(true); }, 200);
+    setTimeout(() => { setIsVisible(false); }, 200);
   };
 
   const renderData = () => {
@@ -92,7 +93,7 @@ const Header = () => {
         <NavLink to={`/songpage/${data.id}`} className="search_item_name">{data.name}</NavLink>
       </section>
     );
-  }
+  };
 
   const Artistsitem = ({ data }) => {
     return (
@@ -100,10 +101,10 @@ const Header = () => {
         <div className="search_item_artists_img">
           <img src={data.avatar} alt={data.name} />
         </div>
-        <NavLink to={`/songpage/${data.id}`} className="search_item_name">{data.name}</NavLink>
+        <NavLink to={`/artistspage/${data.id}`} className="search_item_name">{data.name}</NavLink>
       </section>
     );
-  }
+  };
 
   return (
     <div className="Header">
@@ -121,7 +122,7 @@ const Header = () => {
             onChange={handleSearchData}
             onBlur={handleBlur}
           />
-          <button className='search_btn' onClick={letfetch}>
+          <button className='search_btn' onClick={debouncedFetchData}>
             <FontAwesomeIcon icon={faSearch} />
           </button>
           <section className={`result_box ${isVisible ? 'visible' : ''}`}>
