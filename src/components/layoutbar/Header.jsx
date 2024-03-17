@@ -186,7 +186,7 @@ const Header = () => {
                   <FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn
                 </NavLink>
                 <NavLink to="/profile"  className="nav-link list_nav_item menu-item">
-                  <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
+                  <FontAwesomeIcon icon={faRightFromBracket} /> Đăng Xuất
                 </NavLink>
               </div>
             </Popup>
