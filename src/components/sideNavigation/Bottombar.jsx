@@ -10,7 +10,7 @@ import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
 import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faShuffle, faForwardStep, faBackwardStep, faHeadphonesSimple, faBan, faDownload, faCirclePlus, faLink, faChevronDown, faCompress, faExpand } from "@fortawesome/free-solid-svg-icons";
-import { faHeart, faCirclePlay, faCirclePause, faWindowRestore } from "@fortawesome/free-regular-svg-icons";
+import { faHeart, faCirclePlay, faCirclePause} from "@fortawesome/free-regular-svg-icons";
 import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg"
 import icon_mic from "../../img/karaoke-svgrepo-com.svg"
@@ -18,7 +18,7 @@ Modal.setAppElement('#root');
 const Bottombar = () => {
   const [currentSong, SetSong] = useState([])
   const [isFullScreen, SetIsFullScreen] = useState(false)
-  const { songData } = useContext(SongDataContext)
+  // const { songData } = useContext(SongDataContext)
   const [animationActive, setAnimationActive] = useState(true);
   useEffect(() => {
     async function fetchData() {
@@ -59,7 +59,6 @@ const Bottombar = () => {
   const icon_pause = <FontAwesomeIcon icon={faCirclePause} />
 
 
-  let subtitle;
   const [modalMenuIsOpen, setMenuIsOpen] = React.useState(false);
   const [modalPlaylistIsOpen, setPlaylistIsOpen] = React.useState(false);
 
@@ -295,7 +294,7 @@ const Bottombar = () => {
                 {/* <button onClick={closeModal}>close</button> */}
                 <div className="r_click">
                   <div className="r_click_head">
-                    <div className="r_click_head_img"><img src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="" /></div>
+                    <div className="r_click_head_img"><img src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="f" /></div>
                     <div className="r_click_head_info">
                       <div className="name">Tettovent</div>
                       <div className="more">
@@ -314,33 +313,33 @@ const Bottombar = () => {
                     <div className="item">
                       <h5>Nghệ sĩ</h5>
                       <div className="content">
-                        <a href="">Wxrdie, </a>
-                        <a href="">Andree right Hand, </a>
-                        <a href="">Machiot, </a>
+                        <a href="/">Wxrdie, </a>
+                        <a href="/">Andree right Hand, </a>
+                        <a href="/">Machiot, </a>
                       </div>
                     </div>
                     <div className="item">
                       <h5>Albuml</h5>
                       <div className="content">
-                        <a href="">TETVOVENT (Single)</a>
+                        <a href="/">TETVOVENT (Single)</a>
                       </div>
                     </div>
                     <div className="item">
                       <h5>Sáng tác</h5>
                       <div className="content">
-                        <a href="">Đỗ Minh Nghĩa</a>
+                        <a href="/">Đỗ Minh Nghĩa</a>
                       </div>
                     </div>
                     <div className="item">
                       <h5>Thể loại</h5>
                       <div className="content">
-                        <a href="">Việt Nam</a>
+                        <a href="/">Việt Nam</a>
                       </div>
                     </div>
                     <div className="item">
                       <h5>Cung cấp bởi</h5>
                       <div className="content">
-                        <a href="">Ingrooves Music Group</a>
+                        <a href="/">Ingrooves Music Group</a>
                       </div>
                     </div>
 
@@ -420,7 +419,7 @@ const Bottombar = () => {
                       {/* <button onClick={closeModal}>close</button> */}
                       <div className="playlist_player">
                         <div className="playlist_player_bg">
-                          <img src="https://photo-resize-zmp3.zmdcdn.me/w1920_r3x2_jpeg/cover/b/8/0/e/b80e5777c7eec332c882bf79bd692056.jpg" alt="" />
+                          <img src="https://photo-resize-zmp3.zmdcdn.me/w1920_r3x2_jpeg/cover/b/8/0/e/b80e5777c7eec332c882bf79bd692056.jpg" alt="g" />
 
                         </div>
                         <div className="playlist_player_header">
@@ -441,7 +440,7 @@ const Bottombar = () => {
                         <div className="playlist_player_body">
                           <div className="body">
                             <div className="avt">
-                              <img src="https://photo-resize-zmp3.zmdcdn.me/w480_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="" />
+                              <img src="https://photo-resize-zmp3.zmdcdn.me/w480_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="h" />
                             </div>
                             <div className="lyric">
                               <ul className="scroll-content">

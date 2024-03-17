@@ -25,7 +25,7 @@ const Header = () => {
       setIsVisible(true); 
     }
   };
-  const debounce = (func, wait) => {
+  const debounce = useCallback((func, wait) => {
     let timeout;
     return function executedFunction(...args) {
       const later = () => {
@@ -36,10 +36,10 @@ const Header = () => {
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
     };
-  };
-  const debouncedFetchData = debounce(() => {
+  }, []);
+  const debouncedFetchData = useCallback(debounce(() => {
     letfetch();
-  }, 500);
+  }, 500), [letfetch, debounce]);
 
   useEffect(() => {
     if (searchTerm.trim()) {
@@ -48,8 +48,8 @@ const Header = () => {
       setSearchResults([]);
       setIsVisible(true);
     }
-  }, [searchTerm]);
-  const letfetch = () => {
+  }, [searchTerm, debouncedFetchData]); 
+  const letfetch = useCallback(async () => {
     if (searchTerm.trim()) {
       const fetchData = async () => {
         const data = await searchFetch(searchTerm);
@@ -64,7 +64,7 @@ const Header = () => {
       setSearchResults([]); 
       setIsVisible(true); 
     }
-  };
+  }, [searchTerm]);
   const handleBlur = () => {
     setTimeout(() => {setIsVisible(true);},[2000])
     
