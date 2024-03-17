@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { getSongData } from "../../services/SongService";
 import SongDataContext from "../../lib/Context/SongContext";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-
 import Modal from 'react-modal';
 import 'reactjs-popup/dist/index.css';
 import "../../css/Bottombar.scss";
@@ -31,7 +30,7 @@ const Bottombar = () => {
         song: response.song,
         lyricsString: response.lyricsString,
       }
-      
+
       SetSong(viprotrack)
     }
     fetchData()
@@ -114,12 +113,14 @@ const Bottombar = () => {
     }
   }
 
+
+
   return (
     <div className="main_bottom_bar">
       <div className="player_info">
         <div className="player_info_ctn">
           <div className="img">
-            <img src={currentSong.imge} alt="f" referrerpolicy="no-referrer"/>
+            <img src={currentSong.imge} alt="f" referrerpolicy="no-referrer" />
           </div>
           <div className="name">
             <div className="name_ctn">
@@ -474,6 +475,7 @@ const Bottombar = () => {
         </div>
       </div>
       <div className="player_main">
+        
         <AudioPlayer
           showSkipControls='true'
           autoPlay
@@ -511,9 +513,9 @@ const Bottombar = () => {
               src={icon_karaoke}
             />
           </button>
-          <button className="rhap_button-clear rhap_main-controls-button btn_more">
+          {/* <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={handlePIP}>
             <FontAwesomeIcon icon={faWindowRestore} />
-          </button>
+          </button> */}
         </div>
         <button className="rhap_button-clear rhap_main-controls-button btn_more playlist_btn">
           <ReactSVG
