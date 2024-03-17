@@ -18,7 +18,6 @@ Modal.setAppElement('#root');
 const Bottombar = () => {
   const [currentSong, SetSong] = useState([])
   const [isFullScreen, SetIsFullScreen] = useState(false)
-  // const { songData } = useContext(SongDataContext)
   const [animationActive, setAnimationActive] = useState(true);
   useEffect(() => {
     async function fetchData() {
