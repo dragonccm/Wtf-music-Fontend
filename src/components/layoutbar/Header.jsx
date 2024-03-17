@@ -53,7 +53,7 @@ const Header = () => {
       setSearchResults([]);
       setIsVisible(true);
     }
-  }, [searchTerm]);
+  }, [searchTerm, searchFetch]);
 
   const debouncedFetchData = useCallback(debounce(() => {
     letfetch();

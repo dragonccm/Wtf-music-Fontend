@@ -124,7 +124,7 @@ const Bottombar = () => {
               <h5>{currentSong.songname}</h5>
               <div className="artist">
                 {currentSong.artistsNames}
-                <a href="/"></a>
+                <a href="/">three some</a>
               </div>
             </div>
             <div className="more">
