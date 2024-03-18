@@ -31,7 +31,9 @@
   }
 
   p {
-    color: var(--deep-black);
+    // color: var(--deep-black);
+    color: #257eff;
+
   }
 
   /* div{
@@ -75,7 +77,8 @@
   }
 
   .forgot_pass {
-    color: var(--main-color);
+    // color: var(--main-color);
+    color: #257eff;
     text-decoration: none;
   }
 
@@ -120,7 +123,7 @@
     display: flex;
     align-items: center;
     label {
-      color: var(--deep-black);
+      color: #333;
     }
     .checkmark {
       position: relative;
@@ -128,7 +131,7 @@
       left: 0;
       height: 15px;
       width: 15px;
-      background-color: var(--white-color);
+      background-color: #fff;
       border-radius: 5px;
     }
 
@@ -226,7 +229,9 @@
     padding: 0 !important;
     margin: 0 0.4rem !important;
     font-size: 1.5rem !important;
-    color: var(--main-color);
+    // color: var(--main-color);
+    color: #333;
+
     cursor: pointer;
   }
 
@@ -249,7 +254,9 @@
     width: 100%;
 
     p {
-      color: var(--main-color);
+      // color: var(--main-color);
+    color: #257eff;
+
       font-size: 13px;
       margin-top: 20px;
     }

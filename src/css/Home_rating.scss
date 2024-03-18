@@ -71,7 +71,7 @@
                     align-items: center;
                     display: none;
                     transition: all 1s ease;
-
+                    cursor: pointer;
                     .img_overlay_group_btn {
                         width: 100%;
                         display: flex;
@@ -81,7 +81,7 @@
 
                         svg {
                             font-size: 20px;
-                            color: var(--white-color);
+                            color: #fff;
                         }
 
                         svg.play_icon {

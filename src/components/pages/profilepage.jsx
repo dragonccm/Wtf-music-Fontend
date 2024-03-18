@@ -121,12 +121,12 @@ function Profile() {
   const Recommendeds = [
     {
       id: "jhfjh",
-      name: `Flowers`,
+      name: `Chuyến Xe Thùng`,
       image:
         "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "jisoo",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -141,7 +141,7 @@ function Profile() {
         "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "BlackPink",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -156,7 +156,7 @@ function Profile() {
         "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "BlackPink",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -170,7 +170,7 @@ function Profile() {
       image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
       category: "playlist",
       songartist: "Rosé",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -195,12 +195,12 @@ function Profile() {
     },
     {
       id: "jhfjh",
-      name: `Flowers`,
+      name: `Chuyến Xe Thùng`,
       image:
         "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "jisoo",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -215,7 +215,7 @@ function Profile() {
         "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "BlackPink",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -230,7 +230,7 @@ function Profile() {
         "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "BlackPink",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -244,7 +244,7 @@ function Profile() {
       image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
       category: "playlist",
       songartist: "Rosé",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -269,12 +269,12 @@ function Profile() {
     },
     {
       id: "jhfjh",
-      name: `Flowers`,
+      name: `Chuyến Xe Thùng`,
       image:
         "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "jisoo",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -289,7 +289,7 @@ function Profile() {
         "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "BlackPink",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -304,7 +304,7 @@ function Profile() {
         "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
       category: "playlist",
       songartist: "BlackPink",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:
@@ -318,7 +318,7 @@ function Profile() {
       image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
       category: "playlist",
       songartist: "Rosé",
-      songname: "Flower",
+      songname: "chuyến xe thùng",
       addedday: "11 thg 11, 2021",
       liked_state: false,
       songdata:

@@ -52,7 +52,7 @@ const Header = () => {
       setSearchResults([]);
       setIsVisible(true);
     }
-  // Removed searchFetch from dependency array
+    // Removed searchFetch from dependency array
   }, [searchTerm]);
 
   // Passing an inline function to debounce inside useCallback
@@ -61,7 +61,7 @@ const Header = () => {
       letfetch();
     }, 500);
     fetchData();
-  // letfetch is the only dependency since it's the only function from the component scope used inside the callback
+    // letfetch is the only dependency since it's the only function from the component scope used inside the callback
   }, [letfetch]);
 
   useEffect(() => {
@@ -146,9 +146,19 @@ const Header = () => {
                 checked={localStorage.getItem('theme') === 'dark'}
                 onChange={toggleTheme}
               />
-              <span className="theme__icon">
-                {/* Theme toggle icon components */}
+
+              <span class="theme__icon">
+                <span class="theme__icon-part"></span>
+                <span class="theme__icon-part"></span>
+                <span class="theme__icon-part"></span>
+                <span class="theme__icon-part"></span>
+                <span class="theme__icon-part"></span>
+                <span class="theme__icon-part"></span>
+                <span class="theme__icon-part"></span>
+                <span class="theme__icon-part"></span>
+                <span class="theme__icon-part"></span>
               </span>
+
             </span>
           </label>
           <div className="h_avt_container">

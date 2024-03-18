@@ -25,7 +25,7 @@ code {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: unset;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;

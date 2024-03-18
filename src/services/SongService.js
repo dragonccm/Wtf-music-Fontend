@@ -8,7 +8,7 @@ export const getSongData = async (Songid) => {
 
             const artistsNames = songDetailResult.data?.artistsNames || 'Unknown Artist';
             const songname = songDetailResult.data?.title || 'Untitled Song';
-            const img = songDetailResult.data?.thumbnail || 'https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg';
+            const img = songDetailResult.data?.thumbnailM || 'https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg';
             const song = songUrlResult.data?.[128] || "https://a128-z3.zmdcdn.me/c0ae0b2f3b725d48e5e9c93c5ee8bdda?authen=exp=1710563102~acl=/c0ae0b2f3b725d48e5e9c93c5ee8bdda/*~hmac=34375752b5df23f3197d3cbd167970c1";
 
             const Ly = songLyricsResult.data.sentences.map(sentence =>

@@ -20,7 +20,7 @@ const Bottombar = () => {
   const [animationActive, setAnimationActive] = useState(true);
   useEffect(() => {
     async function fetchData() {
-      const response = await getSongData(localStorage.getItem("LastSong"));
+      const response = await getSongData("Z7I9OC70");
       const viprotrack = {
         artistsNames: response.artistsNames,
         songname: response.songname,
