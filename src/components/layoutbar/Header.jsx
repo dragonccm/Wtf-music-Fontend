@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import ThemeContext from "../../lib/Context/ThemeContext";
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
@@ -16,15 +16,18 @@ import { searchFetch } from "../../services/searchService";
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [isVisible, setIsVisible] = useState(false); 
+  const [isVisible, setIsVisible] = useState(false);
   const { toggleTheme } = useContext(ThemeContext);
 
-  const handleSearchData = (event) => {
+  const handleSearchData = useCallback((event) => {
     setSearchTerm(event.target.value);
     if (event.target.value.trim() === '') {
-      setIsVisible(true); 
+      setIsVisible(true);
     }
-  };
+  }, []);
+
+  // Assuming that 'debounce' does not require any state or props, we can define it outside the component
+  // or just remove its useCallback wrapper if no dependency will ever be included.
   const debounce = (func, wait) => {
     let timeout;
     return function executedFunction(...args) {
@@ -32,46 +35,51 @@ const Header = () => {
         clearTimeout(timeout);
         func(...args);
       };
-
       clearTimeout(timeout);
       timeout = setTimeout(later, wait);
     };
   };
-  const debouncedFetchData = debounce(() => {
-    letfetch();
-  }, 500);
 
-  useEffect(() => {
+  const letfetch = useCallback(async () => {
     if (searchTerm.trim()) {
-      debouncedFetchData(); 
+      const data = await searchFetch(searchTerm);
+      console.table("search debug", data);
+      if (data && data.result) {
+        setSearchResults(data.result);
+        setIsVisible(false);
+      }
     } else {
       setSearchResults([]);
       setIsVisible(true);
     }
+  // Removed searchFetch from dependency array
   }, [searchTerm]);
-  const letfetch = () => {
+
+  // Passing an inline function to debounce inside useCallback
+  const debouncedFetchData = useCallback(() => {
+    const fetchData = debounce(() => {
+      letfetch();
+    }, 500);
+    fetchData();
+  // letfetch is the only dependency since it's the only function from the component scope used inside the callback
+  }, [letfetch]);
+
+  useEffect(() => {
     if (searchTerm.trim()) {
-      const fetchData = async () => {
-        const data = await searchFetch(searchTerm);
-        console.table("search debug",data);
-        if (data && data.result) {
-          setSearchResults(data.result); 
-          setIsVisible(false); 
-        }
-      };
-      fetchData();
+      debouncedFetchData();
     } else {
-      setSearchResults([]); 
-      setIsVisible(true); 
+      setSearchResults([]);
+      setIsVisible(true);
     }
-  };
+  }, [searchTerm, debouncedFetchData]);
+
   const handleBlur = () => {
-    setTimeout(() => {setIsVisible(true);},[2000])
-    
+    setTimeout(() => { setIsVisible(false); }, 200);
   };
+
   const renderData = () => {
     return searchResults.map((d) => {
-      if (d.type === 1) { 
+      if (d.type === 1) {
         return <Songitem key={d.id} data={d} />;
       } else if (d.type === 4) {
         return <Artistsitem key={d.id} data={d} />;
@@ -84,30 +92,29 @@ const Header = () => {
     return (
       <section className='search_item_song'>
         <div className="search_item_song_img">
-          <img src={data.thumb} alt="d" />
+          <img src={data.thumb} alt={data.name} />
         </div>
-        <NavLink to={`/songpage/${data.id}`}  className="search_item_name">{data.name}</NavLink>
+        <NavLink to={`/songpage/${data.id}`} className="search_item_name">{data.name}</NavLink>
       </section>
     );
-  }
+  };
 
   const Artistsitem = ({ data }) => {
     return (
       <section className='search_item_artists'>
         <div className="search_item_artists_img">
-          <img src={data.avatar} alt="d" />
+          <img src={data.avatar} alt={data.name} />
         </div>
-        <NavLink to={`/songpage/${data.id}`}  className="search_item_name">{data.name}</NavLink>
+        <NavLink to={`/artistspage/${data.id}`} className="search_item_name">{data.name}</NavLink>
       </section>
     );
-  }
-
+  };
 
   return (
     <div className="Header">
       <div className="header_wrap">
         <div className="Navigation">
-
+          {/* Potentially other navigation elements */}
         </div>
         <div className="header_search">
           <input
@@ -116,10 +123,10 @@ const Header = () => {
             className="input__search"
             placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
             required=""
-            onChange={handleSearchData || letfetch}
+            onChange={handleSearchData}
             onBlur={handleBlur}
           />
-          <button className='search_btn' onClick={letfetch}>
+          <button className='search_btn' onClick={debouncedFetchData}>
             <FontAwesomeIcon icon={faSearch} />
           </button>
           <section className={`result_box ${isVisible ? 'visible' : ''}`}>
@@ -129,40 +136,18 @@ const Header = () => {
         <div className="header_right">
           <label htmlFor="theme" className="theme">
             <span className="theme__toggle-wrap">
-              {localStorage.getItem('theme') && localStorage.getItem('theme') === 'dark' ?
-                <input
-                  id="theme"
-                  className="theme__toggle"
-                  type="checkbox"
-                  role="switch"
-                  name="theme"
-                  value="dark"
-                  checked
-                  onClick={toggleTheme}
-                />
-                :
-                <input
-                  id="theme"
-                  className="theme__toggle"
-                  type="checkbox"
-                  role="switch"
-                  name="theme"
-                  value="dark"
-                  onClick={toggleTheme}
-                />
-              }
-
-
+              <input
+                id="theme"
+                className="theme__toggle"
+                type="checkbox"
+                role="switch"
+                name="theme"
+                value="dark"
+                checked={localStorage.getItem('theme') === 'dark'}
+                onChange={toggleTheme}
+              />
               <span className="theme__icon">
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
+                {/* Theme toggle icon components */}
               </span>
             </span>
           </label>
@@ -170,7 +155,7 @@ const Header = () => {
             <Popup
               trigger={
                 <button className="avt_page">
-                  <img src={logo} alt="f" />
+                  <img src={logo} alt="profile" />
                 </button>
               }
               position="bottom right"
@@ -179,13 +164,13 @@ const Header = () => {
               mouseLeaveDelay={300}
               mouseEnterDelay={0}
               contentStyle={{ padding: "0", border: "none", width: "150px", top: '55px', left: '1334px' }}
-              arrow={false}>
+              arrow={false}
+            >
               <div className="menu">
-
-                <NavLink to="/login"  className="nav-link list_nav_item menu-item">
+                <NavLink to="/login" className="nav-link list_nav_item menu-item">
                   <FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn
                 </NavLink>
-                <NavLink to="/profile"  className="nav-link list_nav_item menu-item">
+                <NavLink to="/profile" className="nav-link list_nav_item menu-item">
                   <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
                 </NavLink>
               </div>
@@ -196,4 +181,5 @@ const Header = () => {
     </div>
   );
 };
+
 export default Header;

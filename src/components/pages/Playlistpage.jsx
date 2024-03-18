@@ -3,12 +3,12 @@ import "../../css/Detailed_list.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+// import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import Card from "../card/song_card";
+// import Card from "../card/song_card";
 const Playlistpage = () => {
   const My_list = Array.from({ length: 10 }, (_, index) => ({
     id: index,
@@ -26,42 +26,42 @@ const Playlistpage = () => {
     root_album: "Solo",
   }));
 
-  const data = [
-    {
-      id: 3,
-      name: `Playlist ${3 + 1}`,
-      image:
-        "https://th.bing.com/th/id/OIP.2Taaw3tCXQRTYFNqPYXOdgHaHa?rs=1&pid=ImgDetMain",
-      artists_list: ["Jisso"],
-    },
-    {
-      id: 3,
-      name: `Playlist ${3 + 1}`,
-      image: "https://i.redd.it/3sx2ys0arsv21.jpg",
-      artists_list: ["Jisso"],
-    },
-    {
-      id: 3,
-      name: `Playlist ${3 + 1}`,
-      image:
-        "https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg",
-      artists_list: ["Jisso"],
-    },
-    {
-      id: 3,
-      name: `Playlist ${3 + 1}`,
-      image:
-        "https://i2.wp.com/blackpinkupdate.com/wp-content/uploads/2019/05/1-BLACKPINK-Jennie-Instagram-Update-25-May-2019.jpg?fit=1080%2C1080&ssl=1",
-      artists_list: ["Jisso"],
-    },
-    {
-      id: 3,
-      name: `Playlist ${3 + 1}`,
-      image:
-        "https://lh3.googleusercontent.com/OaWHF5UWsNIBmhMRsMCQ6bAwwKroyMtld8Y_nubjphm7db55xwcYMVjgZv5Rj3CwWkGcpQNDl-3xAXAimAb4wUBGXCFBhLm5XkE7tdjderLbBSA=w960-rj-nu-e365",
-      artists_list: ["Jisso"],
-    },
-  ];
+  // const data = [
+  //   {
+  //     id: 3,
+  //     name: `Playlist ${3 + 1}`,
+  //     image:
+  //       "https://th.bing.com/th/id/OIP.2Taaw3tCXQRTYFNqPYXOdgHaHa?rs=1&pid=ImgDetMain",
+  //     artists_list: ["Jisso"],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: `Playlist ${3 + 1}`,
+  //     image: "https://i.redd.it/3sx2ys0arsv21.jpg",
+  //     artists_list: ["Jisso"],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: `Playlist ${3 + 1}`,
+  //     image:
+  //       "https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg",
+  //     artists_list: ["Jisso"],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: `Playlist ${3 + 1}`,
+  //     image:
+  //       "https://i2.wp.com/blackpinkupdate.com/wp-content/uploads/2019/05/1-BLACKPINK-Jennie-Instagram-Update-25-May-2019.jpg?fit=1080%2C1080&ssl=1",
+  //     artists_list: ["Jisso"],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: `Playlist ${3 + 1}`,
+  //     image:
+  //       "https://lh3.googleusercontent.com/OaWHF5UWsNIBmhMRsMCQ6bAwwKroyMtld8Y_nubjphm7db55xwcYMVjgZv5Rj3CwWkGcpQNDl-3xAXAimAb4wUBGXCFBhLm5XkE7tdjderLbBSA=w960-rj-nu-e365",
+  //     artists_list: ["Jisso"],
+  //   },
+  // ];
 
   return (
     <section className="detailed_list">

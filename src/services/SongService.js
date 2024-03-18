@@ -46,7 +46,7 @@ export const getSongData = async (Songid) => {
             img: "https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/cover/1/e/5/5/1e55187635c4e3bab9b8c2ea88ac35fa.jpg",
             lyricsString: "nône",
             song: "https://a128-z3.zmdcdn.me/c0ae0b2f3b725d48e5e9c93c5ee8bdda?authen=exp=1710563102~acl=/c0ae0b2f3b725d48e5e9c93c5ee8bdda/*~hmac=34375752b5df23f3197d3cbd167970c1",
-            songname: "Chơi Như Tụi Mỹ",
+            songname: "Chơi Như Tụi Mỹ Clai",
         }
     }
 };

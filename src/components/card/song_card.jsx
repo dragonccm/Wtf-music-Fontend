@@ -3,8 +3,8 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
-import SongDataContext from '../../lib/Context/SongContext';
-import React, { useContext } from 'react';
+// import SongDataContext from '../../lib/Context/SongContext';
+// import React, { useContext } from 'react';
 
 
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
@@ -12,13 +12,13 @@ import React, { useContext } from 'react';
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
 
-    const { setSongData } = useContext(SongDataContext)
+    // const { setSongData } = useContext(SongDataContext)
 
-    const handleChangeData = (data) => {
-        setSongData(data);
-        localStorage.setItem("LastSong", data)
-    }
-    const item = "Z6Z8WZWB"
+    // const handleChangeData = (data) => {
+    //     setSongData(data);
+    //     localStorage.setItem("LastSong", data)
+    // }
+    // const item = "Z6Z8WZWB"
     return (
         <div className="card_container">
             {playlist.map((playlist) => (
