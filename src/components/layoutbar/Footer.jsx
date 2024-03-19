@@ -31,8 +31,8 @@ const Footer = () => {
             </div>
             <div>
               <FontAwesomeIcon icon={faPhone} />
-              <a href="tel:(+84) 24042003">
-                <span>(+84) 24042003</span>
+              <a href="tel:(+84) 25042003">
+                <span>(+84) 25042003</span>
               </a>
             </div>
             <div>

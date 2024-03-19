@@ -9,8 +9,20 @@ import { Routes, Route } from "react-router-dom";
 // rovider 
 import ThemeProvider from './lib/provider/ThemeProvider';
 import SongDataProvider from './lib/provider/SongDataProvider';
+import {fetchSong} from './redux/slide/songSlice'
 
-function App() {
+
+
+
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+function App(props) {
+  const dispatch = useDispatch()
+
+
+  useEffect(()=> {
+      dispatch(fetchSong())
+  },[])
   const playlistsData = Array.from({ length: 5 }, (_, index) => ({
     id: index,
     name: `Nhạc nghe cho sự ngu dốt ${index + 1}`,
@@ -36,6 +48,7 @@ function App() {
   );
   return (
     <>
+
       <SongDataProvider>
         <Router>
           <Routes>
@@ -48,4 +61,6 @@ function App() {
   );
 }
 
-export default App;
+
+
+export default App
