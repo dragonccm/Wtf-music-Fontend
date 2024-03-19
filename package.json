@@ -21,7 +21,7 @@
     "framer-motion": "^11.0.8",
     "less": "^4.2.0",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.10.1",
+    "react-bootstrap": "^2.10.2",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-h5-audio-player": "^3.9.1",
