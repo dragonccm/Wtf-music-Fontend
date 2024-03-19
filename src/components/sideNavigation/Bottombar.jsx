@@ -117,7 +117,7 @@ const Bottombar = () => {
       <div className="player_info">
         <div className="player_info_ctn">
           <div className="img">
-            <img src={currentSong.imge} alt="f" referrerpolicy="no-referrer" />
+            <img src={currentSong.imge} alt="f"  />
           </div>
           <div className="name">
             <div className="name_ctn">

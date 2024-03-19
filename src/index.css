@@ -36,8 +36,26 @@ button {
 
 .main_content {
   height: 88vh;
+  transition: all ease-in-out 2s;
+}
+/* transitions.css */
+.fade-enter {
+  opacity: 0;
 }
 
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
 
 /* player */
 .music-player-panel.translate {

@@ -18,7 +18,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-
+            
             &:hover .img_overlay {
                 display: flex;
             }
@@ -30,12 +30,12 @@
                 transition: .5s ease-in-out;
                 object-fit: cover;
             }
-
+            
             &:hover img {
                 -webkit-transform: scale(1.1);
                 transform: scale(1.1);
             }
-
+            
             .img_overlay {
                 position: absolute;
                 background: #00000045;
@@ -47,13 +47,12 @@
                 align-items: center;
                 display: none;
                 transition: all 1s ease;
-
+                
                 .img_overlay_group_btn {
                     width: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: space-around;
-                    
 
                     svg {
                         font-size: 20px;   
