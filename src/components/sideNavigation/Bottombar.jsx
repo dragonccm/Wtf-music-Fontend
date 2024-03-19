@@ -475,7 +475,6 @@ const Bottombar = () => {
         
         <AudioPlayer
           showSkipControls='true'
-          autoPlay
           src={currentSong.song}
           onPlay={e => console.log("onPlay")}
           customProgressBarSection={

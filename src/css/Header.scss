@@ -37,7 +37,7 @@
 
     .input__search {
       width: 100%;
-      padding: 12px 18px;
+      padding: 6px 18px;
       font-size: 16px;
       font-family: inherit;
       box-shadow: 0 0 0 1px #b9ceff;
@@ -67,8 +67,9 @@
       color: #82b0fb;
       font-size: 2rem;
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 50%;
+      right: 0rem;
+      transform: translate(-50%, -50%);
     }
     .search_btn:hover{
       color: #498dfa
