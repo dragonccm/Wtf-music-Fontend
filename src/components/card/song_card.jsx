@@ -43,7 +43,7 @@ const Card = ({ playlist }) => {
                                 </button> */}
                                 <NavLink
                                     to="/playlist"
-                                    exact
+                                    
                                     className="nav-link list_nav_item"
                                 >
                                     <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />

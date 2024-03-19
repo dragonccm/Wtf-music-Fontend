@@ -48,7 +48,7 @@ const RightSidebar = () => {
                 </div>
                 <span>Bảng xếp hạng</span>
               </NavLink>
-              <NavLink to="/category" className="nav-link list_nav_item">
+              <NavLink to="/hub" className="nav-link list_nav_item">
                 <div className="icon_list_nav_item">
                   <ReactSVG
                     beforeInjection={(svg) => {

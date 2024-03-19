@@ -147,16 +147,16 @@ const Header = () => {
                 onChange={toggleTheme}
               />
 
-              <span class="theme__icon">
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
-                <span class="theme__icon-part"></span>
+              <span className="theme__icon">
+                <span className="theme__icon-part"></span>
+                <span className="theme__icon-part"></span>
+                <span className="theme__icon-part"></span>
+                <span className="theme__icon-part"></span>
+                <span className="theme__icon-part"></span>
+                <span className="theme__icon-part"></span>
+                <span className="theme__icon-part"></span>
+                <span className="theme__icon-part"></span>
+                <span className="theme__icon-part"></span>
               </span>
 
             </span>

@@ -4,10 +4,8 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis,faSquarePlus,faPlay,faLink,faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
 // import Card from "../card/song_card";
 const Playlistpage = () => {
   const My_list = Array.from({ length: 10 }, (_, index) => ({
@@ -108,7 +106,7 @@ const Playlistpage = () => {
                     <FontAwesomeIcon icon={faEllipsis} />
                   </button>
                 }
-                position="left top"
+                position="bottom center"
                 nested
                 closeOnDocumentClick
                 mouseLeaveDelay={300}
@@ -117,9 +115,9 @@ const Playlistpage = () => {
                 arrow={false}
               >
                 <div className="menu">
-                  <button className="menu-item"> item 1</button>
-                  <button className="menu-item"> item 2</button>
-                  <button className="menu-item"> item 3</button>
+                  <button className="menu-item"><FontAwesomeIcon icon={faSquarePlus} /> Thêm Vào PlayList</button>
+                  <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
+                  <button className="menu-item"><FontAwesomeIcon icon={faPlay} /> Phát Tất Cả</button>
                 </div>
               </Popup>
             </div>
