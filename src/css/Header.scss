@@ -19,8 +19,8 @@
   }
 
   .avt_page {
-    width: 3rem;
-    height: 3rem;
+    width: 3.5rem;
+    height: 3.5rem;
     object-fit: contain;
     border-radius: 50%;
   }
@@ -161,10 +161,10 @@
 
     .theme__icon {
       display: block;
-      top: 0.8em;
-      left: 0.8em;
-      width: 1.5em;
-      height: 1.5em;
+      top: 0.4em;
+      left: 0.5em;
+      width: 2.5em;
+      height: 2.5em;
     }
 
     .theme__icon-part {
@@ -236,8 +236,8 @@
       border-radius: 25% / 50%;
       box-shadow: 0 0 0 0.125em var(--primaryT);
       padding: 0.25em;
-      width: 5em;
-      height: 2.5em;
+      width: 6.5em;
+      height: 3.5em;
       -webkit-appearance: none;
       appearance: none;
       transition: background-color var(--transDur) ease-in-out,
@@ -248,8 +248,8 @@
       background-color: #3a89ff;
       border-radius: 50%;
       content: "";
-      width: 2em;
-      height: 2em;
+      width: 3em;
+      height: 3em;
       transition: 0.3s;
       transform: translate(0, -1px);
     }
@@ -266,7 +266,7 @@
 
     .theme__toggle:checked:before,
     .theme__toggle:checked ~ .theme__icon {
-      transform: translate(2.5em, -1px);
+      transform: translate(3em, -1px);
     }
 
     .theme__toggle:checked:before {

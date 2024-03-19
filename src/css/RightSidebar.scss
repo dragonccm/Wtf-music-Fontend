@@ -12,6 +12,13 @@
   flex-direction: column;
   justify-content: space-between;
   position: fixed;
+  .bg-body-tertiary{
+    background-color: unset!important;
+    width: 100%;
+    .container{
+      flex-direction: column;
+    }
+  }
   .logo-name img {
     width: 110px;
     display: block;
@@ -24,7 +31,7 @@
     font-size: 20px;
     border-radius: 10px;
     justify-content: center;
-    margin: 0px 4px 4px 4px;
+    margin: 0;
     // border-bottom: 2px solid var(--deep-black);;
   }
   .rs_bottom_bar {
@@ -36,8 +43,11 @@
     height: 100%;
 
     .list_nav {
+      width: 85%;
       padding-bottom: 20px;
       border-bottom: 1px solid;
+      flex-direction: column;
+      margin: 0 !important;
     }
   }
   .rs_top_bar a {
@@ -68,8 +78,7 @@
   }
 
   .icon_list_nav_item {
-    margin-right: 8px;
-    width: 35px;
+    margin-right: 12px;
   }
   .icon_list_nav_item img {
     width: 20px;
@@ -107,6 +116,7 @@
   }
   .list_nav_item:hover {
     background: var(--rightsidebar-hover);
+    box-shadow: unset;
     // backdrop-filter: blur(4px);
     // -webkit-backdrop-filter: blur(4px);
     transform: scale(105%);
@@ -148,11 +158,11 @@
     overflow: hidden;
     transition: color 0.5s;
     z-index: 1;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 500;
     display: flex;
     align-items: center;
-    padding: 12px 20px;
+    padding: 12px!important;
     /* transition: all .3s; */
     z-index: 1;
     border-radius: 10px;
@@ -191,7 +201,12 @@
 
   .nav_bot_playlist {
     margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     .playlist_item {
+      width: 90%;
       display: flex;
       gap: 20px;
       align-items: center;

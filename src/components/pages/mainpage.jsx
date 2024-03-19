@@ -26,7 +26,6 @@ import HomeAdmin from "./admin/home";
 
 import { Routes, Route } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import React, { useEffect, useContext } from "react";
 import { useLocation } from 'react-router-dom';
 
 const Mainpage = ({ playlists }) => {

@@ -5,6 +5,8 @@ import { faMusic } from "@fortawesome/free-solid-svg-icons";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import "../../../css/admin/homeAdmin.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const HomeAdmin = () => {
   return (
     <main className="main-content">

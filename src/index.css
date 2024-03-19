@@ -17,6 +17,12 @@ html {
   font-size: 62.5%;
   font-family: Arial, Helvetica, sans-serif;
 }
+p{
+  margin: 0!important;
+}
+a{
+  text-decoration: none !important;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -57,48 +63,7 @@ button {
   transition: opacity 300ms ease-in;
 }
 
-/* player */
-.music-player-panel.translate {
-  background-color: var(--bg-player) !important;
-}
 
-.react-jinke-music-player-main .music-player-panel {
-  color: var(--item-player) !important;
-}
-.react-jinke-music-player-main.dark-theme .rc-slider-rail{
-  background-color: var(--line-player)!important;
-}
-
-.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-handle,
-.react-jinke-music-player-main .music-player-panel .panel-content .rc-slider-track {
-  background-color: var(--main-color) !important;
-}
-
-.react-jinke-music-player-main svg:active,
-.react-jinke-music-player-main svg:hover {
-  color: #257eff !important;
-}
-
-.rc-slider-step {
-  background: #0000001c !important;
-}
-
-.react-jinke-music-player .music-player-controller {
-  color: #257eff !important;
-}
-
-.react-jinke-music-player .music-player-controller .music-player-controller-setting {
-  background: rgba(0, 68, 255, 0.3) !important;
-}
-
-.group.loading-icon svg {
-  fill: var(--main-color);
-}
-
-.react-jinke-music-player {
-  right: 20px !important;
-  left: unset !important;
-}
 
 :root {
 

@@ -22,7 +22,7 @@ const Card = ({ playlist }) => {
     return (
         <div className="card_container">
             {playlist.map((playlist) => (
-                <div className="card" key={playlist.id}>
+                <div className="card_item" key={playlist.id}>
                     <div className="img_container">
                         <img
                             src={
