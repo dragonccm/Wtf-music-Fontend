@@ -1,0 +1,79 @@
+// variable background
+$bg-artist: #f7e7ef;
+$bg-albums: #fbf2e5;
+$bg-songs: #e8ecfb;
+$bg-playlist: #e4efec;
+$bg-users: #efe9fb;
+
+// variable icon svg
+$icon-color-artist: #db2f63;
+$icon-color-albums: #fd9c02;
+$icon-color-songs: #405eda;
+$icon-color-playlist: #1b8142;
+$icon-color-users: #8545dc;
+
+.main-content {
+  padding-top: 11px;
+  margin: 0 -26px;
+
+  .card-box {
+    border: none !important;
+    background: none !important;
+  }
+  .card-body {
+    border-radius: 10px;
+
+    h4 {
+      font-size: 21px;
+      font-weight: 400;
+    }
+    p {
+      font-size: 17px;
+    }
+  }
+
+  .bg-artist {
+    background-color: $bg-artist;
+  }
+  .bg-albums {
+    background-color: $bg-albums;
+  }
+  .bg-songs {
+    background-color: $bg-songs;
+  }
+  .bg-playlist {
+    background-color: $bg-playlist;
+  }
+  .bg-users {
+    background-color: $bg-users;
+  }
+
+  .admin-circle-box {
+    height: 89px;
+    width: 89px;
+    line-height: 104px;
+    background-color: #fff;
+    display: block;
+    margin: 0 auto;
+
+    svg {
+      font-size: 36px;
+    }
+
+    .icon-artist {
+      color: $icon-color-artist;
+    }
+    .icon-albums {
+      color: $icon-color-albums;
+    }
+    .icon-songs {
+      color: $icon-color-songs;
+    }
+    .icon-playlist {
+      color: $icon-color-playlist;
+    }
+    .icon-users {
+      color: $icon-color-users;
+    }
+  }
+}
