@@ -2,7 +2,32 @@ import React from "react";
 import Card from "../card/song_card";
 import "../../css/top100.scss";
 
-const Top100 = ({ data }) => {
+import { useEffect } from "react";
+import { fetchTop100 } from '../../redux/slide/top100Slice'
+import { useSelector, useDispatch } from "react-redux";
+
+const Top100 = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTop100());
+  }, [dispatch]);
+
+  const currData = useSelector((state) => state.top100.top100);
+  if (!Array.isArray(currData)) {
+    
+    console.error('currData is not an array:', currData);
+    return <div className="main_banner">Loading...</div>; 
+  }
+  const dataHandle = (data) => {
+    return data.map((con, index) => ({
+      id: index,
+      name: con.title,
+      thumbnailM: con.thumbnail.replace('w165', 'w320'),
+      artists_list: [], 
+    }));
+  };
+
   return (
     <div className="top100_main">
       <div className="main_banner">
@@ -60,23 +85,15 @@ const Top100 = ({ data }) => {
           </g>
         </svg>
       </div>
-      <h1 className="catego_title">Nhạc Việt Nam</h1>
-      <div className="list_card">
-        <Card playlist={data} />
-      </div>
-      <h1 className="catego_title">Nhạc US-UK</h1>
-      <div className="list_card">
-        <Card playlist={data} />
-        <Card playlist={data} />
-      </div>
-      <h1 className="catego_title">Nhạc KPOP</h1>
-      <div className="list_card">
-        <Card playlist={data} />
-      </div>
-      <h1 className="catego_title">Nhạc Châu Á</h1>
-      <div className="list_card">
-        <Card playlist={data} />
-      </div>
+
+      {currData.map((data, index) => (
+        <React.Fragment key={index}>
+          <h1 className="catego_title">{data.title}</h1>
+          <div className="list_card">
+            <Card playlist={dataHandle(data.items)} />
+          </div>
+        </React.Fragment>
+      ))}
     </div>
   );
 };

@@ -188,7 +188,7 @@ const Mainpage = ({ playlists },props) => {
             <Route path="/artists" element={<Singerpage />} />
             <Route path="/rating" element={<Rating />} />
             <Route path="/profile*" element={<Profile />} />
-            <Route path="/top100" element={<Top100 data={playlistsData} />} />
+            <Route path="/top100" element={<Top100 />} />
             <Route path="/playlist" element={<Playlistpage />} />
             <Route path="/login" element={<Loginform />} />
             <Route path="/admin" element={<HomeAdmin />} />
