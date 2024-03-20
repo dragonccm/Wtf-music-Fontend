@@ -1,4 +1,6 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 
 import "../../css/mainpage.scss";
 // page
@@ -28,7 +30,8 @@ import { Routes, Route } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useLocation } from 'react-router-dom';
 
-const Mainpage = ({ playlists }) => {
+
+const Mainpage = ({ playlists },props) => {
   const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -72,13 +75,22 @@ const Mainpage = ({ playlists }) => {
     },
   ];
 
-  // song page
-
+  // home
+  const dispatch = useDispatch()
   const listSong = Array.from({ length: 9 }, (_, index) => ({
     img: "https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg",
     name: "Không phải gu",
     artist: "Hiếu Thứ Hai",
   }));
+
+  const newRelease = useSelector((state) => state.home.newRelease);
+  const songHot = useSelector((state) => state.home.songHot);
+  const songRemix = useSelector((state) => state.home.songRemix);
+  const songChill = useSelector((state) => state.home.songChill);
+  const songSad = useSelector((state) => state.home.songSad);
+  const top100 = useSelector((state) => state.home.top100);
+  const albumHot = useSelector((state) => state.home.albumHot);
+  console.log(newRelease)
 
   document.title = "What The Fuck Music Never die";
   return (
@@ -94,14 +106,14 @@ const Mainpage = ({ playlists }) => {
                   <SliderBar />
                   <div className="for_you">
                     <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
-                    <Col3Layout data={listSong} />
+                    <Col3Layout data={newRelease} />
                   </div>
                   <div className="list_card">
                     <h1>Có thể bạn muốn nghe</h1>
                     <Card playlist={playlistsData} />
                   </div>
                   <div className="for_you">
-                    <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
+                    <h1>Mới phát hành</h1>
                     <div className="radio-inputs">
                       <label>
                         <input
@@ -137,23 +149,23 @@ const Mainpage = ({ playlists }) => {
                       </label>
                     </div>
 
-                    <Col3Layout data={listSong} />
+                    <Col3Layout data={newRelease} />
                   </div>
                   <div className="list_card">
                     <h1>Nhạc hot gây bão</h1>
-                    <Card playlist={playlistsData} />
+                    <Card playlist={songHot} />
                   </div>
                   <div className="list_card">
                     <h1>Remix hay hết sảy</h1>
-                    <Card playlist={playlistsData} />
+                    <Card playlist={songRemix} />
                   </div>
                   <div className="list_card">
                     <h1>Chill</h1>
-                    <Card playlist={playlistsData} />
+                    <Card playlist={songChill} />
                   </div>
                   <div className="list_card">
                     <h1>Nhạc buồn tâm trạng</h1>
-                    <Card playlist={playlistsData} />
+                    <Card playlist={songSad} />
                   </div>
                   <div className="ratings">
                     <h1>BXH nhạc mới</h1>
@@ -161,11 +173,11 @@ const Mainpage = ({ playlists }) => {
                   </div>
                   <div className="list_card">
                     <h1>Top 100</h1>
-                    <Card playlist={playlistsData} />
+                    <Card playlist={top100} />
                   </div>
                   <div className="list_card">
                     <h1>Album hot</h1>
-                    <Card playlist={playlistsData} />
+                    <Card playlist={albumHot} />
                   </div>
                 </>
               }

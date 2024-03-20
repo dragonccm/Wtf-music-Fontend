@@ -9,17 +9,26 @@ import { Routes, Route } from "react-router-dom";
 // rovider 
 import ThemeProvider from './lib/provider/ThemeProvider';
 import SongDataProvider from './lib/provider/SongDataProvider';
-import {fetchSong} from './redux/slide/songSlice'
+import { fetchSong } from './redux/slide/songSlice'
+import {fetchHome} from './redux/slide/homeSlice'
 
 
 
 
 import { useSelector, useDispatch } from "react-redux";
+import {increment,decrement} from './redux/slide/counterSlice'
 import { useEffect } from "react";
 function App(props) {
   const dispatch = useDispatch()
-
-
+  const newCount = useSelector(
+      (state)=>{return state.counter.value}
+  )
+  const handelIncrease = () => {
+    dispatch(increment())
+  }
+  useEffect(()=> {
+    dispatch(fetchHome())
+},[])
   useEffect(()=> {
       dispatch(fetchSong())
   },[])
