@@ -6,7 +6,10 @@ import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import "../../css/Rating.scss";
 
+
+
 const Rating = () => {
+
   const Recommendeds = Array.from({ length: 100 }, (_, index) => ({
     id: index,
     name: `Playlist ${index + 1}`,
@@ -100,8 +103,7 @@ const Rating = () => {
           <NavLink
             to="/rating"
             
-            className="nav-link list_nav_item"
-            clasName="show_all"
+            className="nav-link list_nav_item show_all" 
           >
             xem tất cả
           </NavLink>
@@ -141,8 +143,8 @@ const Rating = () => {
           <NavLink
             to="/rating"
             
-            className="nav-link list_nav_item"
-            clasName="show_all"
+            className="nav-link list_nav_item show_all"
+            
           >
             xem tất cả
           </NavLink>
@@ -181,8 +183,8 @@ const Rating = () => {
           <NavLink
             to="/playlist"
             
-            className="nav-link list_nav_item"
-            clasName="show_all"
+            className="nav-link list_nav_item show_all"
+            
           >
             xem tất cả
           </NavLink>

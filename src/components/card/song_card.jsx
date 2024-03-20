@@ -11,7 +11,6 @@ import { NavLink } from "react-router-dom";
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
-
     const slicedData = playlist.slice(0, 5);
     // const { setSongData } = useContext(SongDataContext)
 

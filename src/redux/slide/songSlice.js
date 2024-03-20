@@ -1,4 +1,4 @@
-import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getSongData } from "../../services/SongService";
 
 export const fetchSong = createAsyncThunk(
@@ -9,33 +9,33 @@ export const fetchSong = createAsyncThunk(
   },
 )
 const initialState = {
-    listSong:[],
-    isLoading: false,
-    isError: false,
+  listSong: [],
+  isLoading: false,
+  isError: false,
 }
 
 export const songSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-   
+
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder
       .addCase(fetchSong.pending, (state, action) => {
-      // Add user to the state array
-      state.isLoading= true
-      state.isError= false
+        // Add user to the state array
+        state.isLoading = true
+        state.isError = false
       })
-        .addCase(fetchSong.fulfilled, (state, action) => {
-            state.listSong= action.payload
-        state.isLoading= false
-        state.isError= false
+      .addCase(fetchSong.fulfilled, (state, action) => {
+        state.listSong = action.payload
+        state.isLoading = false
+        state.isError = false
       })
       .addCase(fetchSong.rejected, (state, action) => {
-        state.isLoading= false
-      state.isError= true
+        state.isLoading = false
+        state.isError = true
       })
   },
 })
