@@ -609,7 +609,7 @@ const HomeAdmin = () => {
                         </div>
                       </div>
                       <p
-                        style={{ color: "#aaa" }}
+                        style={{ color: "#aaa", width: "22%" }}
                         className="mb-0 custom-icon fs-3"
                       >
                         12 hours ago
@@ -643,7 +643,7 @@ const HomeAdmin = () => {
                         </div>
                       </div>
                       <p
-                        style={{ color: "#aaa" }}
+                        style={{ color: "#aaa", width: "22%" }}
                         className="mb-0 custom-icon fs-3"
                       >
                         18 hours ago
@@ -677,7 +677,7 @@ const HomeAdmin = () => {
                         </div>
                       </div>
                       <p
-                        style={{ color: "#aaa" }}
+                        style={{ color: "#aaa", width: "22%" }}
                         className="mb-0 custom-icon fs-3"
                       >
                         24 hours ago
@@ -711,7 +711,7 @@ const HomeAdmin = () => {
                         </div>
                       </div>
                       <p
-                        style={{ color: "#aaa" }}
+                        style={{ color: "#aaa", width: "22%" }}
                         className="mb-0 custom-icon fs-3"
                       >
                         28 hours ago
@@ -745,7 +745,7 @@ const HomeAdmin = () => {
                         </div>
                       </div>
                       <p
-                        style={{ color: "#aaa" }}
+                        style={{ color: "#aaa", width: "22%" }}
                         className="mb-0 custom-icon fs-3"
                       >
                         36 hours ago
@@ -779,7 +779,7 @@ const HomeAdmin = () => {
                         </div>
                       </div>
                       <p
-                        style={{ color: "#aaa" }}
+                        style={{ color: "#aaa", width: "22%" }}
                         className="mb-0 custom-icon fs-3"
                       >
                         48 hours ago
