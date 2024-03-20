@@ -6,37 +6,33 @@ import Mainpage from "./components/pages/mainpage";
 // react route
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
-// rovider 
-import ThemeProvider from './lib/provider/ThemeProvider';
-import SongDataProvider from './lib/provider/SongDataProvider';
-import { fetchSong } from './redux/slide/songSlice'
-import {fetchHome} from './redux/slide/homeSlice'
-
-
-
+// rovider
+import ThemeProvider from "./lib/provider/ThemeProvider";
+import SongDataProvider from "./lib/provider/SongDataProvider";
+import { fetchSong } from "./redux/slide/songSlice";
+import { fetchHome } from "./redux/slide/homeSlice";
 
 import { useSelector, useDispatch } from "react-redux";
-import {increment,decrement} from './redux/slide/counterSlice'
+import { increment, decrement } from "./redux/slide/counterSlice";
 import { useEffect } from "react";
 function App(props) {
-  const dispatch = useDispatch()
-  const newCount = useSelector(
-      (state)=>{return state.counter.value}
-  )
+  const dispatch = useDispatch();
+  const newCount = useSelector((state) => {
+    return state.counter.value;
+  });
   const handelIncrease = () => {
-    dispatch(increment())
-  }
-  useEffect(()=> {
-    dispatch(fetchHome())
-},[])
-  useEffect(()=> {
-      dispatch(fetchSong())
-  },[])
+    dispatch(increment());
+  };
+  useEffect(() => {
+    dispatch(fetchHome());
+  }, []);
+  useEffect(() => {
+    dispatch(fetchSong());
+  }, []);
   const playlistsData = Array.from({ length: 5 }, (_, index) => ({
     id: index,
     name: `Nhạc nghe cho sự ngu dốt ${index + 1}`,
-    image:
-      "",
+    image: "",
     artists_list: ["Jisso", "Jisso", "Jisso", "Jisso", "Jisso"],
   }));
 
@@ -57,7 +53,6 @@ function App(props) {
   );
   return (
     <>
-
       <SongDataProvider>
         <Router>
           <Routes>
@@ -70,6 +65,4 @@ function App(props) {
   );
 }
 
-
-
-export default App
+export default App;
