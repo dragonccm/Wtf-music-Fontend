@@ -15,7 +15,7 @@ const initialState = {
 }
 
 export const songSlice = createSlice({
-  name: 'counter',
+  name: 'song',
   initialState,
   reducers: {
    
@@ -34,6 +34,7 @@ export const songSlice = createSlice({
         state.isError= false
       })
       .addCase(fetchSong.rejected, (state, action) => {
+        console.log('lỗi')
         state.isLoading= false
       state.isError= true
       })

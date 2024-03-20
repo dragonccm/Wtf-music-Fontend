@@ -15,6 +15,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
     setShowAll(!showAll);
   };
   const validDatas = Array.isArray(datas) ? datas : [];
+  console.log(datas)
   return (
     <>
       {/* lable */}
@@ -35,7 +36,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
 
               </div>
               <div className="song_img">
-                <img src={data.image} alt="f" />
+                <img src={data.thumbnailM} alt="f" />
                 <div className="img_overlay">
                   <NavLink
                     to="/songpage"
@@ -47,17 +48,17 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
                 </div>
               </div>
               <div className="songif">
-                <div className="songname">{data.songname}</div>
-                <div className="songartist">{data.songartist}</div>
+                <div className="songname">{data.title}</div>
+                <div className="songartist">{data.artistsNames}</div>
               </div>
             </div>
-            <div className="root_album">{data.root_album}</div>
-            <div className="added_time">{data.addedday}</div>
+            <div className="root_album">{data.album.title}</div>
+            {/* <div className="added_time">{data.addedday}</div> */}
             <div className="foot_r">
               <div className="liked">
                 <FontAwesomeIcon icon={data.liked_state ? faHeart : regular} />
               </div>
-              <div className="time">{data.songname}</div>
+              <div className="time">{String(Math.floor(data.duration / 60)).padStart(2, "0")+':'+ String(data.duration % 60).padStart(2, "0")}</div>
             </div>
           </div>
         ))}
