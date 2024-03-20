@@ -586,10 +586,15 @@ const HomeAdmin = () => {
                     <div className="d-flex align-items-center justify-content-between flex-wrap">
                       <div className="d-flex align-items-center">
                         <img
-                          src="../../assets/images/dashboard/50.png"
-                          id="01"
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "10%",
+                            height: "20%",
+                            borderRadius: "10px",
+                          }}
+                          id="07"
                           className="img-fluid   avatar-52"
-                          alt="user-img"
+                          alt="review-img"
                         />
                         <div className="ms-5">
                           <h6 className="text-capitalize fs-3 fw-normal">
@@ -615,10 +620,15 @@ const HomeAdmin = () => {
                     <div className="d-flex align-items-center justify-content-between flex-wrap">
                       <div className="d-flex align-items-center">
                         <img
-                          src="../../assets/images/dashboard/51.png"
-                          id="02"
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "10%",
+                            height: "20%",
+                            borderRadius: "10px",
+                          }}
+                          id="07"
                           className="img-fluid   avatar-52"
-                          alt="user-img"
+                          alt="review-img"
                         />
                         <div className="ms-5">
                           <h6 className="text-capitalize fs-3 fw-normal">
@@ -644,10 +654,15 @@ const HomeAdmin = () => {
                     <div className="d-flex align-items-center justify-content-between flex-wrap">
                       <div className="d-flex align-items-center">
                         <img
-                          src="../../assets/images/dashboard/52.png"
-                          id="03"
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "10%",
+                            height: "20%",
+                            borderRadius: "10px",
+                          }}
+                          id="07"
                           className="img-fluid   avatar-52"
-                          alt="user-img"
+                          alt="review-img"
                         />
                         <div className="ms-5">
                           <h6 className="text-capitalize fs-3 fw-normal">
@@ -673,10 +688,15 @@ const HomeAdmin = () => {
                     <div className="d-flex align-items-center justify-content-between flex-wrap">
                       <div className="d-flex align-items-center">
                         <img
-                          src="../../assets/images/dashboard/53.png"
-                          id="04"
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "10%",
+                            height: "20%",
+                            borderRadius: "10px",
+                          }}
+                          id="07"
                           className="img-fluid   avatar-52"
-                          alt="user-img"
+                          alt="review-img"
                         />
                         <div className="ms-5">
                           <h6 className="text-capitalize fs-3 fw-normal">
@@ -702,10 +722,15 @@ const HomeAdmin = () => {
                     <div className="d-flex align-items-center justify-content-between flex-wrap">
                       <div className="d-flex align-items-center">
                         <img
-                          src="../../assets/images/dashboard/54.png"
-                          id="05"
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "10%",
+                            height: "20%",
+                            borderRadius: "10px",
+                          }}
+                          id="07"
                           className="img-fluid   avatar-52"
-                          alt="user-img"
+                          alt="review-img"
                         />
                         <div className="ms-5">
                           <h6 className="text-capitalize fs-3 fw-normal">
@@ -731,10 +756,15 @@ const HomeAdmin = () => {
                     <div className="d-flex align-items-center justify-content-between flex-wrap">
                       <div className="d-flex align-items-center">
                         <img
-                          src="../../assets/images/dashboard/55.png"
-                          id="06"
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "10%",
+                            height: "20%",
+                            borderRadius: "10px",
+                          }}
+                          id="07"
                           className="img-fluid   avatar-52"
-                          alt="user-img"
+                          alt="review-img"
                         />
                         <div className="ms-5">
                           <h6 className="text-capitalize fs-3 fw-normal">
@@ -774,9 +804,9 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "50px",
-                          height: "50px",
-                          borderRadius: "25px",
+                          width: "10%",
+                          height: "20%",
+                          borderRadius: "10px",
                         }}
                         id="07"
                         className="img-fluid   avatar-52"
@@ -810,9 +840,9 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "50px",
-                          height: "50px",
-                          borderRadius: "25px",
+                          width: "10%",
+                          height: "20%",
+                          borderRadius: "10px",
                         }}
                         id="08"
                         className="img-fluid   avatar-52"
@@ -846,9 +876,9 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "50px",
-                          height: "50px",
-                          borderRadius: "25px",
+                          width: "10%",
+                          height: "20%",
+                          borderRadius: "10px",
                         }}
                         id="09"
                         className="img-fluid   avatar-52"
@@ -882,9 +912,9 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "50px",
-                          height: "50px",
-                          borderRadius: "25px",
+                          width: "10%",
+                          height: "20%",
+                          borderRadius: "10px",
                         }}
                         id="10"
                         className="img-fluid   avatar-52"
@@ -918,9 +948,9 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "50px",
-                          height: "50px",
-                          borderRadius: "25px",
+                          width: "10%",
+                          height: "20%",
+                          borderRadius: "10px",
                         }}
                         id="10"
                         className="img-fluid   avatar-52"
