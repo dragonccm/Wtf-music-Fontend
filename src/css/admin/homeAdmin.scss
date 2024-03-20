@@ -12,9 +12,25 @@ $icon-color-songs: #405eda;
 $icon-color-playlist: #1b8142;
 $icon-color-users: #8545dc;
 
+.icon-artist {
+  color: $icon-color-artist;
+}
+.icon-albums {
+  color: $icon-color-albums;
+}
+.icon-songs {
+  color: $icon-color-songs;
+}
+.icon-playlist {
+  color: $icon-color-playlist;
+}
+.icon-users {
+  color: $icon-color-users;
+}
+
 .main-content {
   padding-top: 11px;
-  margin: 0 -26px 24px;
+  margin: 0 -26px;
 
   // data statistical
   .card-box {
@@ -42,22 +58,6 @@ $icon-color-users: #8545dc;
         svg {
           font-size: 36px;
         }
-
-        .icon-artist {
-          color: $icon-color-artist;
-        }
-        .icon-albums {
-          color: $icon-color-albums;
-        }
-        .icon-songs {
-          color: $icon-color-songs;
-        }
-        .icon-playlist {
-          color: $icon-color-playlist;
-        }
-        .icon-users {
-          color: $icon-color-users;
-        }
       }
     }
 
@@ -78,7 +78,7 @@ $icon-color-users: #8545dc;
     }
   }
 
-  // data statistical
+  // Top Artist
   .card {
     border: none;
     margin-bottom: 24px;
@@ -237,4 +237,13 @@ $icon-color-users: #8545dc;
       }
     }
   }
+  // Total Reviews
+  .chart-01 {
+    min-height: 210px !important;
+  }
+  .icon_top-reviews {
+    font-size: 2rem;
+  }
+
+  // Recent Users
 }
