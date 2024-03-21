@@ -41,7 +41,7 @@ const HomeAdmin = () => {
                 </div>
                 <h4 className="text-capitalize mt-4 mb-1">352</h4>
                 <p className="mb-0 text-capitalize text-body">
-                  total Music Artist
+                  total Music Albums
                 </p>
               </div>
             </div>
@@ -54,7 +54,7 @@ const HomeAdmin = () => {
                 </div>
                 <h4 className="text-capitalize mt-4 mb-1">352</h4>
                 <p className="mb-0 text-capitalize text-body">
-                  total Music Artist
+                  total Music Songs
                 </p>
               </div>
             </div>
@@ -67,7 +67,7 @@ const HomeAdmin = () => {
                 </div>
                 <h4 className="text-capitalize mt-4 mb-1">352</h4>
                 <p className="mb-0 text-capitalize text-body">
-                  total Music Artist
+                  total Music Playlist
                 </p>
               </div>
             </div>
@@ -80,7 +80,7 @@ const HomeAdmin = () => {
                 </div>
                 <h4 className="text-capitalize mt-4 mb-1">352</h4>
                 <p className="mb-0 text-capitalize text-body">
-                  total Music Artist
+                  total Music Users
                 </p>
               </div>
             </div>
@@ -583,13 +583,13 @@ const HomeAdmin = () => {
               <div className="card-body">
                 <ui className="list-unstyled p-0 m-0">
                   <li className="mb-4">
-                    <div className="d-flex align-items-center justify-content-between flex-wrap">
+                    <div className="d-flex align-items-center justify-content-between">
                       <div className="d-flex align-items-center">
                         <img
                           src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                           style={{
-                            width: "10%",
-                            height: "20%",
+                            width: "100px",
+
                             borderRadius: "10px",
                           }}
                           id="07"
@@ -617,13 +617,13 @@ const HomeAdmin = () => {
                     </div>{" "}
                   </li>
                   <li className="mb-4">
-                    <div className="d-flex align-items-center justify-content-between flex-wrap">
+                    <div className="d-flex align-items-center justify-content-between">
                       <div className="d-flex align-items-center">
                         <img
                           src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                           style={{
-                            width: "10%",
-                            height: "20%",
+                            width: "100px",
+
                             borderRadius: "10px",
                           }}
                           id="07"
@@ -651,13 +651,13 @@ const HomeAdmin = () => {
                     </div>{" "}
                   </li>
                   <li className="mb-4">
-                    <div className="d-flex align-items-center justify-content-between flex-wrap">
+                    <div className="d-flex align-items-center justify-content-between">
                       <div className="d-flex align-items-center">
                         <img
                           src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                           style={{
-                            width: "10%",
-                            height: "20%",
+                            width: "100px",
+
                             borderRadius: "10px",
                           }}
                           id="07"
@@ -685,13 +685,13 @@ const HomeAdmin = () => {
                     </div>{" "}
                   </li>
                   <li className="mb-4">
-                    <div className="d-flex align-items-center justify-content-between flex-wrap">
+                    <div className="d-flex align-items-center justify-content-between">
                       <div className="d-flex align-items-center">
                         <img
                           src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                           style={{
-                            width: "10%",
-                            height: "20%",
+                            width: "100px",
+
                             borderRadius: "10px",
                           }}
                           id="07"
@@ -719,13 +719,13 @@ const HomeAdmin = () => {
                     </div>{" "}
                   </li>
                   <li className="mb-4">
-                    <div className="d-flex align-items-center justify-content-between flex-wrap">
+                    <div className="d-flex align-items-center justify-content-between">
                       <div className="d-flex align-items-center">
                         <img
                           src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                           style={{
-                            width: "10%",
-                            height: "20%",
+                            width: "100px",
+
                             borderRadius: "10px",
                           }}
                           id="07"
@@ -753,13 +753,13 @@ const HomeAdmin = () => {
                     </div>{" "}
                   </li>
                   <li>
-                    <div className="d-flex align-items-center justify-content-between flex-wrap">
+                    <div className="d-flex align-items-center justify-content-between">
                       <div className="d-flex align-items-center">
                         <img
                           src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                           style={{
-                            width: "10%",
-                            height: "20%",
+                            width: "100px",
+
                             borderRadius: "10px",
                           }}
                           id="07"
@@ -804,8 +804,8 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "10%",
-                          height: "20%",
+                          width: "100px",
+
                           borderRadius: "10px",
                         }}
                         id="07"
@@ -818,7 +818,7 @@ const HomeAdmin = () => {
                           with its beautiful melody and heartfelt lyrics. It's
                           truly special.
                         </h6>
-                        <div className="d-flex align-items-center justify-content-between flex-wrap">
+                        <div className="d-flex align-items-center justify-content-between">
                           <small
                             style={{ color: "#aaa" }}
                             className="text-capitalize fs-4"
@@ -840,8 +840,8 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "10%",
-                          height: "20%",
+                          width: "100px",
+
                           borderRadius: "10px",
                         }}
                         id="08"
@@ -854,7 +854,7 @@ const HomeAdmin = () => {
                           with its beautiful melody and heartfelt lyrics. It's
                           truly special.
                         </h6>
-                        <div className="d-flex align-items-center justify-content-between flex-wrap">
+                        <div className="d-flex align-items-center justify-content-between">
                           <small
                             style={{ color: "#aaa" }}
                             className="text-capitalize fs-4"
@@ -876,8 +876,8 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "10%",
-                          height: "20%",
+                          width: "100px",
+
                           borderRadius: "10px",
                         }}
                         id="09"
@@ -890,7 +890,7 @@ const HomeAdmin = () => {
                           with its beautiful melody and heartfelt lyrics. It's
                           truly special.
                         </h6>
-                        <div className="d-flex align-items-center justify-content-between flex-wrap">
+                        <div className="d-flex align-items-center justify-content-between">
                           <small
                             style={{ color: "#aaa" }}
                             className="text-capitalize fs-4"
@@ -912,8 +912,8 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "10%",
-                          height: "20%",
+                          width: "100px",
+
                           borderRadius: "10px",
                         }}
                         id="10"
@@ -926,7 +926,7 @@ const HomeAdmin = () => {
                           with its beautiful melody and heartfelt lyrics. It's
                           truly special.
                         </h6>
-                        <div className="d-flex align-items-center justify-content-between flex-wrap">
+                        <div className="d-flex align-items-center justify-content-between">
                           <small
                             style={{ color: "#aaa" }}
                             className="text-capitalize fs-4"
@@ -948,8 +948,8 @@ const HomeAdmin = () => {
                       <img
                         src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
                         style={{
-                          width: "10%",
-                          height: "20%",
+                          width: "100px",
+
                           borderRadius: "10px",
                         }}
                         id="10"
@@ -962,7 +962,7 @@ const HomeAdmin = () => {
                           with its beautiful melody and heartfelt lyrics. It's
                           truly special.
                         </h6>
-                        <div className="d-flex align-items-center justify-content-between flex-wrap">
+                        <div className="d-flex align-items-center justify-content-between">
                           <small
                             style={{ color: "#aaa" }}
                             className="text-capitalize fs-4"
