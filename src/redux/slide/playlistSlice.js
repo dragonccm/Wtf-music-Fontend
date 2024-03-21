@@ -1,32 +1,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { gettop100 } from "../../services/top100Service";
+import { getPlaylist } from "../../services/playlistService";
 
-export const fetchTop100 = createAsyncThunk("top100/getTop100", async () => {
-    const response = await gettop100();
+export const fetchPlayList = createAsyncThunk("playlsit/getplaylist", async (id) => {
+    const response = await getPlaylist(id);
     return response
 });
 const initialState = {
-    top100: {},
+    playlist: {},
     isLoading: false,
     isError: false,
 };
 
-export const Top100slice = createSlice({
-    name: "top100",
+export const Playlistslice = createSlice({
+    name: "playlist",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchTop100.pending, (state, action) => {
+            .addCase(fetchPlayList.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(fetchTop100.fulfilled, (state, action) => {
-                state.top100 = action.payload;
+            .addCase(fetchPlayList.fulfilled, (state, action) => {
+                state.playlist = action.payload;
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(fetchTop100.rejected, (state, action) => {
+            .addCase(fetchPlayList.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
             });
@@ -35,4 +35,4 @@ export const Top100slice = createSlice({
 
 // Action creators are generated for each case reducer function
 
-export default Top100slice.reducer;
+export default Playlistslice.reducer;

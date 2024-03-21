@@ -76,7 +76,6 @@ const Mainpage = ({ playlists },props) => {
   ];
 
   // home
-  const dispatch = useDispatch()
   const listSong = Array.from({ length: 9 }, (_, index) => ({
     img: "https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg",
     name: "Không phải gu",
@@ -90,6 +89,7 @@ const Mainpage = ({ playlists },props) => {
   const songSad = useSelector((state) => state.home.songSad);
   const top100 = useSelector((state) => state.home.top100);
   const albumHot = useSelector((state) => state.home.albumHot);
+  const hNewrelease = useSelector((state) => state.home.hNewrelease);
   console.log(newRelease)
 
   document.title = "What The Fuck Music Never die";
@@ -169,7 +169,7 @@ const Mainpage = ({ playlists },props) => {
                   </div>
                   <div className="ratings">
                     <h1>BXH nhạc mới</h1>
-                    <HomeRating />
+                    <HomeRating data={ hNewrelease} />
                   </div>
                   <div className="list_card">
                     <h1>Top 100</h1>
@@ -187,9 +187,9 @@ const Mainpage = ({ playlists },props) => {
             <Route path="/songpage/:id" element={<Songpage />} />
             <Route path="/artists" element={<Singerpage />} />
             <Route path="/rating" element={<Rating />} />
-            <Route path="/profile*" element={<Profile />} />
+            <Route path="/profile/*" element={<Profile />} />
             <Route path="/top100" element={<Top100 />} />
-            <Route path="/playlist" element={<Playlistpage />} />
+            <Route path="/playlist/:id" element={<Playlistpage />} />
             <Route path="/login" element={<Loginform />} />
             <Route path="/admin" element={<HomeAdmin />} />
           </Routes>
