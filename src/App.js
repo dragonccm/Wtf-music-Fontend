@@ -11,7 +11,6 @@ import ThemeProvider from "./lib/provider/ThemeProvider";
 import SongDataProvider from "./lib/provider/SongDataProvider";
 import { fetchSong } from "./redux/slide/songSlice";
 import { fetchHome } from "./redux/slide/homeSlice";
-import { fetchRating } from "./redux/slide/ratingSlice";
 
 
 import { useSelector, useDispatch } from "react-redux";
@@ -31,9 +30,7 @@ function App(props) {
   useEffect(() => {
     dispatch(fetchSong());
   }, []);
-  useEffect(() => {
-    dispatch(fetchRating());
-  }, []);
+
   const playlistsData = Array.from({ length: 5 }, (_, index) => ({
     id: index,
     name: `Nhạc nghe cho sự ngu dốt ${index + 1}`,

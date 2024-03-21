@@ -1,15 +1,20 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { NavLink } from "react-bootstrap";
 import Recommended from "../card/Recommended";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import "../../css/Rating.scss";
+import { fetchRating } from "../../redux/slide/ratingSlice";
 
 import { useSelector, useDispatch } from "react-redux";
 
 const Rating = () => {
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchRating());
+  }, [dispatch]);
   const RTChart_items = useSelector((state) => {
     return state.rating.RTChart_items;
   });
@@ -20,61 +25,25 @@ const Rating = () => {
   const week_us = useSelector((state) => {
     return state.rating.week_us;
   });
+  console.log(week_us);
   const week_korea = useSelector((state) => {
     return state.rating.week_korea;
   });
   console.log(RTChart_items);
-  const Recommendeds = Array.from({ length: 100 }, (_, index) => ({
-    id: index,
-    name: `Playlist ${index + 1}`,
-    image:
-      "https://i.pinimg.com/originals/3a/f1/e7/3af1e70ef7617658aeb52141f47f51b0.jpg",
-    category: "playlist",
-    songartist: "jisoo",
-    songname: "Flower",
-    addedday: "11 thg 11, 2021",
-    liked_state: false,
-    songdata:
-      "https://aac.saavncdn.com/533/a4d723b<FontAwesomeIcon icon={faCaretUp} /> 40 272bd6bbcb4263c61af847a_320.mp4",
-    total: "3:00",
-    root_album: "Solo",
-  }));
-  const week_data = [
-    {
-      top: 1,
-      upto: 40,
-      img: "https://th.bing.com/th/id/OIF.o1z0u9jURgq99a8fcNv2Fg?rs=1&pid=ImgDetMain",
-      name: "Việt Nam Drill",
-      artists: "Long Đại Đế",
-      total_time: "3:30",
-    },
-    {
-      top: 2,
-      upto: 40,
-      img: "https://www.geo.tv/assets/uploads/updates/2021-03-08/338616_3468239_updates.jpg",
-      name: "Việt Nam Drill",
-      artists: "Long Đại Đế",
-      total_time: "3:30",
-    },
-    {
-      top: 3,
-      upto: 40,
-      img: "https://2sao.vietnamnetjsc.vn/images/2022/02/28/11/41/00.png",
-      name: "Việt Nam Drill",
-      artists: "Long Đại Đế",
-      total_time: "3:30",
-    },
-    {
-      top: 4,
-      upto: 40,
-      img: "https://world.kbs.co.kr/special/survey/kpi_2021/images/quest_1_3.jpg",
-      name: "Việt Nam Drill",
-      artists: "Long Đại Đế",
-      total_time: "3:30",
-    },
-  ];
+  const isLoading = useSelector((state) => {
+    return state.rating.isLoading;
+  });
+  console.log(isLoading)
+
+  if (Array.isArray(RTChart_items) && Array.isArray(week_vn)&&Array.isArray(week_us)&&Array.isArray(week_korea)) {
+    
+    console.error('RTChart_items is not an array:', RTChart_items);
+    return <div className="main_banner">Loading...</div>; 
+  }
   return (
-    <section className="rating_main">
+  <>
+    { isLoading === true ? (<h1>cccccccccccc</h1>):
+      (<section className="rating_main">
       <Recommended
         datas={RTChart_items}
         type={"BẢNG XẾP HẠNG THÁNG"}
@@ -205,7 +174,9 @@ const Rating = () => {
           </NavLink>
         </div>
       </section>
-    </section>
+    </section>)
+      }
+      </>
   );
 };
 

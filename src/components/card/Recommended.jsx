@@ -29,7 +29,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
       {validDatas
         .slice(0, showAll ? validDatas.length : maxItemsToShow)
         .map((data, index) => (
-          <div className="list_row">
+          <div className="list_row" key={'haha'+index}>
             <div className="song_img_ctn">
               <div className="row_order">
                 <div className="number">{index + 1}</div>
