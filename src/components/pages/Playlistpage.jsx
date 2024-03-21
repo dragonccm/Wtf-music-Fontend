@@ -2,64 +2,48 @@ import React from "react";
 import "../../css/Detailed_list.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import { NavLink } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
-import { faEllipsis,faSquarePlus,faPlay,faLink,faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faSquarePlus, faPlay, faLink, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
-// import Card from "../card/song_card";
-const Playlistpage = () => {
-  const My_list = Array.from({ length: 10 }, (_, index) => ({
-    id: index,
-    name: `Playlist ${index + 1}`,
-    image:
-      "https://th.bing.com/th/id/OIP.XusXZvUJb2jQFc8QvjBnIwHaL2?rs=1&pid=ImgDetMain",
-    category: "playlist",
-    songartist: "jisoo",
-    songname: "Flower",
-    addedday: "11 thg 11, 2021",
-    liked_state: false,
-    songdata:
-      "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-    total: "3:00",
-    root_album: "Solo",
-  }));
+// redux
+import { useEffect } from "react";
+import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from 'react-router-dom';
 
-  // const data = [
-  //   {
-  //     id: 3,
-  //     name: `Playlist ${3 + 1}`,
-  //     image:
-  //       "https://th.bing.com/th/id/OIP.2Taaw3tCXQRTYFNqPYXOdgHaHa?rs=1&pid=ImgDetMain",
-  //     artists_list: ["Jisso"],
-  //   },
-  //   {
-  //     id: 3,
-  //     name: `Playlist ${3 + 1}`,
-  //     image: "https://i.redd.it/3sx2ys0arsv21.jpg",
-  //     artists_list: ["Jisso"],
-  //   },
-  //   {
-  //     id: 3,
-  //     name: `Playlist ${3 + 1}`,
-  //     image:
-  //       "https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg",
-  //     artists_list: ["Jisso"],
-  //   },
-  //   {
-  //     id: 3,
-  //     name: `Playlist ${3 + 1}`,
-  //     image:
-  //       "https://i2.wp.com/blackpinkupdate.com/wp-content/uploads/2019/05/1-BLACKPINK-Jennie-Instagram-Update-25-May-2019.jpg?fit=1080%2C1080&ssl=1",
-  //     artists_list: ["Jisso"],
-  //   },
-  //   {
-  //     id: 3,
-  //     name: `Playlist ${3 + 1}`,
-  //     image:
-  //       "https://lh3.googleusercontent.com/OaWHF5UWsNIBmhMRsMCQ6bAwwKroyMtld8Y_nubjphm7db55xwcYMVjgZv5Rj3CwWkGcpQNDl-3xAXAimAb4wUBGXCFBhLm5XkE7tdjderLbBSA=w960-rj-nu-e365",
-  //     artists_list: ["Jisso"],
-  //   },
-  // ];
+
+const Playlistpage = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPlayList(id));
+  }, [dispatch]);
+
+  const currData = useSelector((state) => state.playlist.playlist.data);
+  console.log(currData)
+  if (!currData || !currData.song || !Array.isArray(currData.song.items)) {
+    console.error('currData is not properly formatted:', currData);
+    return <div className="main_banner">Loading...</div>;
+  }
+  function handledata(data) {
+    return data.song.items.map((con) => ({
+      id: con.encodeId,
+      name: con.title,
+      image: con.thumbnailM,
+      category: "playlist",
+      songartist: con.artistsNames,
+      songname: con.title,
+      addedday: "11 thg 11, 2021",
+      liked_state: false,
+      songdata:
+        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
+      total: "3:00",
+      root_album: "Solo",
+    }));;
+  }
+
 
   return (
     <section className="detailed_list">
@@ -68,23 +52,23 @@ const Playlistpage = () => {
           <div className="list_info_ctn">
             <div className="left_head">
               <img
-                src="https://i.pinimg.com/originals/3a/f1/e7/3af1e70ef7617658aeb52141f47f51b0.jpg"
+                src={currData.thumbnailM}
                 alt="f"
               />
             </div>
             <div className="mid_head">
-              <h1 className="list_name">MyList</h1>
+              <h1 className="list_name">{currData.title}</h1>
               <div className="info">
                 <div className="small_avt">
                   <img
-                    src="https://i.pinimg.com/originals/3a/f1/e7/3af1e70ef7617658aeb52141f47f51b0.jpg"
+                    src={currData.thumbnail}
                     alt="playlist-img"
                   />
                 </div>
                 <div className="playlist_info_item">
-                <span className="user_name">long</span>
-                <span className="total_song">, 41 bài hát</span>
-                <span className="total_time">, 2 giờ 15 phút</span>
+                  <span className="user_name">{currData.artistsNames}</span>
+                  <span className="total_song">, {currData.song.items.lenght} bài hát</span>
+                  <span className="total_time">, 2 giờ 15 phút</span>
                 </div>
               </div>
             </div>
@@ -129,23 +113,22 @@ const Playlistpage = () => {
           <section className="description">
             <p>Lời tựa</p>
             <span>
-              Top 100 Nhạc Pop Âu Mỹ là danh sách 100 ca khúc hot nhất hiện tại
-              của thể loại Top 100 Nhạc Pop Âu Mỹ, được Zing MP3 tự động tổng
-              hợp dựa trên thông tin số liệu lượt nghe và lượt chia sẻ của từng
-              bài hát trên phiên bản web và phiên bản Mobile. Dữ liệu sẽ được
-              lấy trong 30 ngày gần nhất và được cập nhật liên tục.
+              {currData.sortDescription}
             </span>
           </section>
           <div className="list">
-            {My_list.map((data, index) => (
+            {handledata(currData).map((data, index) => (
               <div className="list_row">
                 <div className="song_img_ctn">
                   <div className="row_order">
-                    <div className="number">{index+1}</div>
+                    <div className="number">{index + 1}</div>
                     <div className="hidden_button">
-                      <button className="play">
+                      <NavLink
+                        to="/songpage"
+                        className="nav-link list_nav_item play"
+                      >
                         <FontAwesomeIcon icon={faPlay} />
-                      </button>
+                      </NavLink>
                     </div>
                   </div>
                   <div className="song_img">
