@@ -15,7 +15,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
     setShowAll(!showAll);
   };
   const validDatas = Array.isArray(datas) ? datas : [];
-  console.log(datas)
+  console.log("dụ má có",datas)
   return (
     <>
       {/* lable */}
@@ -48,11 +48,11 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
                 </div>
               </div>
               <div className="songif">
-                <div className="songname">{data.title}</div>
+                <div className="songname"></div>
                 <div className="songartist">{data.artistsNames}</div>
               </div>
             </div>
-            <div className="root_album">{data.album.title}</div>
+            <div className="root_album"></div>
             {/* <div className="added_time">{data.addedday}</div> */}
             <div className="foot_r">
               <div className="liked">
