@@ -9,7 +9,7 @@ import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
 import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faShuffle, faForwardStep, faBackwardStep, faHeadphonesSimple, faBan, faDownload, faCirclePlus, faLink, faChevronDown, faCompress, faExpand } from "@fortawesome/free-solid-svg-icons";
-import { faHeart, faCirclePlay, faCirclePause} from "@fortawesome/free-regular-svg-icons";
+import { faHeart, faCirclePlay, faCirclePause } from "@fortawesome/free-regular-svg-icons";
 import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg"
 import icon_mic from "../../img/karaoke-svgrepo-com.svg"
@@ -34,21 +34,6 @@ const Bottombar = () => {
     fetchData()
   }, [])
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await getSongData(songData ? songData : localStorage.getItem("LastSong"));
-  //     const viprotrack = {
-  //       artistsNames: response.artistsNames,
-  //       songname: response.songname,
-  //       imge: response.img,
-  //       song: response.song,
-  //       lyricsString: response.lyricsString,
-  //     }
-  //     SetSong([viprotrack])
-  //   }
-  //   fetchData()
-  //   localStorage.setItem("currentsong", currentSong.song)
-  // }, [songData])
 
 
   const icon_play = <FontAwesomeIcon icon={faCirclePlay} />;
@@ -58,17 +43,26 @@ const Bottombar = () => {
 
 
   const [modalMenuIsOpen, setMenuIsOpen] = React.useState(false);
+  const [modalFullIsOpen, setFullIsOpen] = React.useState(false);
+  const [modalLyricIsOpen, setLyricIsOpen] = React.useState(false);
   const [modalPlaylistIsOpen, setPlaylistIsOpen] = React.useState(false);
 
   function openModal() {
     setMenuIsOpen(true);
   }
-  function openModalPlaylist() {
-    setPlaylistIsOpen(true);
+  function openModalFull() {
+    setFullIsOpen(true);
     setAnimationActive(true);
     setMenuIsOpen(true);
 
   }
+  function openModalLyric() {
+    setLyricIsOpen(true)
+  }
+  function openModalPlaylist() {
+    setPlaylistIsOpen(true)
+  }
+
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
@@ -77,11 +71,17 @@ const Bottombar = () => {
   function closeModal() {
     setMenuIsOpen(false);
   }
+  function closeModalLyric() {
+    setLyricIsOpen(false);
+  }
   function closeModalPlaylist() {
+    setPlaylistIsOpen(false);
+  }
+  function closeModalFull() {
     setAnimationActive(false);
     setTimeout(() => {
       setMenuIsOpen(false)
-      setPlaylistIsOpen(false);
+      setFullIsOpen(false);
     }, 700)
   }
 
@@ -117,7 +117,7 @@ const Bottombar = () => {
       <div className="player_info">
         <div className="player_info_ctn">
           <div className="img">
-            <img src={currentSong.imge} alt="f"  />
+            <img src={currentSong.imge} alt="f" />
           </div>
           <div className="name">
             <div className="name_ctn">
@@ -347,7 +347,7 @@ const Bottombar = () => {
                       <FontAwesomeIcon icon={faDownload} />
                       <p>tải xuống</p>
                     </div>
-                    <div className="item">
+                    <div className="item" onClick={openModalLyric} >
                       <ReactSVG
                         beforeInjection={(svg) => {
                           svg.classList.add("icon_list_nav_item_svg");
@@ -356,6 +356,102 @@ const Bottombar = () => {
                       />
                       <p>lời bài hát</p>
                     </div>
+                    <Modal
+                      isOpen={modalLyricIsOpen}
+                      onAfterOpen={afterOpenModal}
+                      onRequestClose={closeModalLyric}
+                      // style={customStyles}
+                      className="Modal_lyric"
+                      overlayClassName="Overlay_lyric"
+                      shouldCloseOnOverlayClick={true}
+
+                    >
+                      <div className="Modal_lyric_title">haha</div>
+                      <div className="Modal_lyric_ctn">
+                        <textarea name="" id="" rows='15'>
+                          Chăn mền tôi đắp
+                          Vẫn còn vương vấn cũ
+                          Sau làn da thắm
+                          Vết thương chưa dứt đủ
+                          Thế nên mình đến lúc này
+                          Biết đâu là quá ngây dại
+                          Những lời yêu dấu
+                          Thốt ra ru êm tôi
+                          Cung đàn anh tấu
+                          Khẽ lay tim bồi hồi
+                          Tôi thấy quên ngày tháng nhạt nhoà
+                          Và tôi đã mơ chuyện của chúng ta
+                          Nhiều lần bên nhau lúc hẹn hò
+                          Còn vài niềm riêng
+                          Bối rối đầy gượng gạo
+                          Tự dày vò không ngơi bao đêm thâu
+                          Giờ tôi muốn anh hiểu hết tâm tình
+                          Để lòng tôi lắng yên
+                          Mình à sao đôi ta
+                          Lại chẳng xuất phát đi chung
+                          Một chuyến ga đời
+                          Đã lỡ viết trước
+                          Câu chuyện yêu không vui
+                          Thứ lỗi cho tôi
+                          Không thể đợi lúc gặp người
+                          Đành hẹn nơi khác nhé
+                          Đừng buồn ôi yêu thương ơi
+                          Vì mình mang đến cho tôi
+                          Hạnh phúc thật nhiều
+                          Sẽ dõi ánh mắt trông theo từ xa
+                          Mong sao tháng năm
+                          Mang tôi đi khỏi
+                          Nỗi khắc khoải tiếc thương
+                          Khi bỏ lỡ danh phận
+                          Sau lời từ khước
+                          Tôi về như lúc trước
+                          Không còn chung bước
+                          Chỉ có thêm đôi vết xước
+                          In vào hình hài cuộc đời
+                          Nhiều khi tôi không thể nói
+                          Điều này đúng hay sai
+                          Tôi lại gai góc giấu đi ưu tư
+                          Để ngăn mình bật khóc
+                          Những chuyện đã qua
+                          Sao phải giữ trong lòng chi nữa
+                          Chắc tôi khiến cho chính tôi
+                          Cứ thêm đớn đau đấy thôi
+                          Mình à sao đôi ta
+                          Lại chẳng xuất phát đi chung
+                          Một chuyến ga đời
+                          Đã lỡ viết trước
+                          Câu chuyện yêu không vui
+                          Thứ lỗi cho tôi
+                          Không thể đợi lúc gặp người
+                          Đành hẹn nơi khác nhé
+                          Đừng buồn ôi yêu thương ơi
+                          Vì mình mang đến cho tôi
+                          Hạnh phúc thật nhiều
+                          Sẽ dõi ánh mắt trông theo từ xa
+                          Mong sao tháng năm mang tôi đi khỏi
+                          Nỗi khắc khoải tiếc thương
+                          Khi bỏ lỡ danh phận
+                          Mình à sao đôi ta
+                          Lại chẳng xuất phát đi chung
+                          Một chuyến ga đời
+                          Đã lỡ viết trước
+                          Câu chuyện yêu không vui
+                          Thứ lỗi cho tôi
+                          Không thể đợi lúc gặp người
+                          Đành hẹn nơi khác nhé
+                          Đừng buồn ôi yêu thương ơi
+                          Vì mình mang đến cho tôi
+                          Hạnh phúc thật nhiều
+                          Sẽ dõi ánh mắt trông theo từ xa
+                          Mong sao tháng năm mang tôi đi khỏi
+                          Nỗi khắc khoải tiếc thương
+                          Khi bỏ lỡ danh phận
+                        </textarea>
+                      </div>
+                      <div className="Modal_lyric_btn">
+                        <button onClick={closeModalLyric}>Đóng</button>
+                      </div>
+                    </Modal>
                     <div className="item">
                       <FontAwesomeIcon icon={faBan} />
                       <p>chặn</p>
@@ -395,7 +491,7 @@ const Bottombar = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="r_click_list_item" onClick={openModalPlaylist}>
+                    <div className="r_click_list_item" onClick={openModalFull}>
                       <ReactSVG
                         beforeInjection={(svg) => {
                           svg.classList.add("icon_list_nav_item_svg");
@@ -405,9 +501,9 @@ const Bottombar = () => {
                       Phát cùng lời bài hát
                     </div>
                     <Modal
-                      isOpen={modalPlaylistIsOpen}
+                      isOpen={modalFullIsOpen}
                       onAfterOpen={afterOpenModal}
-                      onRequestClose={closeModalPlaylist}
+                      onRequestClose={closeModalFull}
                       // style={customStyles}
                       className="Modal_playlist"
                       overlayClassName={animationActive ? "Overlay_playlist" : "Overlay_playlist active"}
@@ -430,7 +526,7 @@ const Bottombar = () => {
                               <FontAwesomeIcon icon={faExpand} />
                             </button>
                           )}
-                          <button onClick={closeModalPlaylist} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
+                          <button onClick={closeModalFull} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
 
 
 
@@ -472,7 +568,7 @@ const Bottombar = () => {
         </div>
       </div>
       <div className="player_main">
-        
+
         <AudioPlayer
           showSkipControls='true'
           src={currentSong.song}
@@ -501,7 +597,7 @@ const Bottombar = () => {
       </div>
       <div className="player_more">
         <div className="player_more_1">
-          <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={openModalPlaylist}>
+          <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={openModalFull}>
             <ReactSVG
               beforeInjection={(svg) => {
                 svg.classList.add("icon_list_nav_item_svg");
@@ -513,7 +609,7 @@ const Bottombar = () => {
             <FontAwesomeIcon icon={faWindowRestore} />
           </button> */}
         </div>
-        <button className="rhap_button-clear rhap_main-controls-button btn_more playlist_btn">
+        <button className="rhap_button-clear rhap_main-controls-button btn_more playlist_btn" onClick={openModalPlaylist}>
           <ReactSVG
             beforeInjection={(svg) => {
               svg.classList.add("icon_list_nav_item_svg");
@@ -521,6 +617,26 @@ const Bottombar = () => {
             src={icon_playlist}
           />
         </button>
+        <Modal
+          isOpen={modalPlaylistIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModalPlaylist}
+          // style={customStyles}
+          className="Modal_playlist"
+          overlayClassName="Overlay_playlist"
+          shouldCloseOnOverlayClick={true}
+
+        >
+          <div className="Modal_playlist_header">
+            Clock
+          </div>
+          <div className="Modal_playlist_ctn">
+            
+          </div>
+          <div className="Modal_playlist_btn">
+            <button onClick={closeModalPlaylist}>Đóng</button>
+          </div>
+        </Modal>
       </div>
     </div>
   );
