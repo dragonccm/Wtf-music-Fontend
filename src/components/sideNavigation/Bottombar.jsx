@@ -8,8 +8,8 @@ import 'react-h5-audio-player/lib/styles.css';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player'
 import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faShuffle, faForwardStep, faBackwardStep, faHeadphonesSimple, faBan, faDownload, faCirclePlus, faLink, faChevronDown, faCompress, faExpand } from "@fortawesome/free-solid-svg-icons";
-import { faHeart, faCirclePlay, faCirclePause } from "@fortawesome/free-regular-svg-icons";
+import { faPlay,faEllipsis, faShuffle, faForwardStep, faBackwardStep, faHeadphonesSimple, faBan, faDownload, faCirclePlus, faLink, faChevronDown, faCompress, faExpand } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCirclePlay, faCirclePause, faClock } from "@fortawesome/free-regular-svg-icons";
 import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg"
 import icon_mic from "../../img/karaoke-svgrepo-com.svg"
@@ -18,6 +18,7 @@ const Bottombar = () => {
   const [currentSong, SetSong] = useState([])
   const [isFullScreen, SetIsFullScreen] = useState(false)
   const [animationActive, setAnimationActive] = useState(true);
+  const [animationPlaylistActive, setAnimationPlaylistActive] = useState(true);
   useEffect(() => {
     async function fetchData() {
       const response = await getSongData("Z7I9OC70");
@@ -60,7 +61,16 @@ const Bottombar = () => {
     setLyricIsOpen(true)
   }
   function openModalPlaylist() {
-    setPlaylistIsOpen(true)
+    if (modalPlaylistIsOpen) {
+      setAnimationPlaylistActive(false);
+      setTimeout(() => {
+        setPlaylistIsOpen(false)
+      },700)
+
+    } else {
+      setPlaylistIsOpen(true)
+      setAnimationPlaylistActive(true)
+    }
   }
 
 
@@ -74,9 +84,7 @@ const Bottombar = () => {
   function closeModalLyric() {
     setLyricIsOpen(false);
   }
-  function closeModalPlaylist() {
-    setPlaylistIsOpen(false);
-  }
+
   function closeModalFull() {
     setAnimationActive(false);
     setTimeout(() => {
@@ -110,7 +118,7 @@ const Bottombar = () => {
     }
   }
 
-
+const arr_playlist = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','jj']
 
   return (
     <div className="main_bottom_bar">
@@ -506,7 +514,7 @@ const Bottombar = () => {
                       onRequestClose={closeModalFull}
                       // style={customStyles}
                       className="Modal_playlist"
-                      overlayClassName={animationActive ? "Overlay_playlist" : "Overlay_playlist active"}
+                      overlayClassName={animationActive ? "Overlay_full" : "Overlay_full active"}
                       shouldCloseOnOverlayClick={false}
 
                     >
@@ -620,22 +628,81 @@ const Bottombar = () => {
         <Modal
           isOpen={modalPlaylistIsOpen}
           onAfterOpen={afterOpenModal}
-          onRequestClose={closeModalPlaylist}
+          onRequestClose={openModalPlaylist}
           // style={customStyles}
           className="Modal_playlist"
-          overlayClassName="Overlay_playlist"
+          overlayClassName={animationPlaylistActive ? "Overlay_playlist" : "Overlay_playlist active" }
           shouldCloseOnOverlayClick={true}
 
         >
           <div className="Modal_playlist_header">
-            Clock
+            <h3>Danh sách phát</h3>
+            <div className="time">
+              <FontAwesomeIcon icon={faClock} />
+            </div>
           </div>
           <div className="Modal_playlist_ctn">
-            
+            <div className="playlist">
+              {arr_playlist.map((item,index) => {
+                if (index === 4) {
+                  return (
+                    <div className="item active">
+                    <div className="img">
+                      <img src="https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="avt" />
+                      <div className="img_overlay">
+                        <div className="img_overlay_group_btn">
+                          <div className="nav-link list_nav_item">
+                            <FontAwesomeIcon icon={faPlay} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="content">
+                      <div className="name">
+                        <span>TETVOVEN</span>
+                      </div>
+                      <div className="artist">
+                        <span>Wxrdie, Andree Right Hand</span>
+                      </div>
+                    </div>
+                    <div className="love">
+                    <FontAwesomeIcon icon={faHeart} />
+                    </div>
+                  </div>
+                  )
+                } else {
+                  return (
+                    <div className="item">
+                    <div className="img">
+                      <img src="https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="avt" />
+                      <div className="img_overlay">
+                        <div className="img_overlay_group_btn">
+                          <div className="nav-link list_nav_item">
+                            <FontAwesomeIcon icon={faPlay} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="content">
+                      <div className="name">
+                        <span>TETVOVEN</span>
+                      </div>
+                      <div className="artist">
+                        <span>Wxrdie, Andree Right Hand</span>
+                      </div>
+                    </div>
+                    <div className="love">
+                    <FontAwesomeIcon icon={faHeart} />
+                    </div>
+                  </div>
+                  )
+                }
+             })}
+            </div>
           </div>
-          <div className="Modal_playlist_btn">
-            <button onClick={closeModalPlaylist}>Đóng</button>
-          </div>
+          {/* <div className="Modal_playlist_btn">
+            <button onClick={openModalPlaylist}>Đóng</button>
+          </div> */}
         </Modal>
       </div>
     </div>
