@@ -4,7 +4,8 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import "../../css/login_page.scss";
 import logo from "../../img/logo3 (1).png";
 import bg from "../../img/bg_login.jpg";
-
+import { toast } from "react-toastify";
+import {getRegister} from "../../services/registerService"
 function Loginform() {
   // Trạng thái để xác định form đăng nhập hay form đăng ký đang hiển thị
   const [isLogin, setIsLogin] = useState(true);
@@ -15,6 +16,52 @@ function Loginform() {
     event.preventDefault();
     setIsLogin(!isLogin);
   }
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+
+  const defaultValidInput = {
+    isValidUser: true,
+    isValidPassword: true,
+    isValidEmail: true,
+  };
+  const [objCheckInput, setObjCheckInput] = useState(defaultValidInput);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    let check = isValid();
+    if (check) {
+      let response = await getRegister(email, password, username);
+     console.log(response);
+    }
+    console.log('hahahahahahh')
+  };
+  const isValid = () => {
+    setObjCheckInput(defaultValidInput);
+    let regexEmail = /\S+@\S+\.\S+/;
+    if (!email) {
+      toast.error("Email is required !");
+      setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
+      return false;
+    } else if (!regexEmail.test(email)) {
+      toast.error("Please enter a valid email address");
+      setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
+
+      return false;
+    }  else if (!username) {
+      toast.error("Username is required !");
+
+      return false;
+    } else if (!password) {
+      toast.error("Password is required !");
+      setObjCheckInput({ ...defaultValidInput, isValidPassword: false });
+
+      return false;
+    } 
+
+    return true;
+  };
 
   return (
     <div className="mod">
@@ -59,12 +106,12 @@ function Loginform() {
                 <FontAwesomeIcon icon={faGoogle} /> Google
               </button>
             </div>
-            <p className="change_page_text">
+            <div className="change_page_text">
               Bạn chưa có tài khoản?{" "}
               <div className="change_page" onClick={toggleForm}>
                 Đăng ký{" "}
               </div>
-            </p>
+            </div>
           </form>
         ) : (
           // Form đăng ký
@@ -74,36 +121,54 @@ function Loginform() {
             </h1>
             <input
               placeholder="Tên tài khoản"
-              className="username input_form_text"
+              className={
+                objCheckInput.isValidPassword
+                  ? "username input_form_text"
+                  : "username input_form_text is-invalid"
+              }
               name="username"
-              type="text"
+                type="text"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
             ></input>
             <input
               placeholder="Email"
-              className="email input_form_text is-invalid"
+                className={
+                  objCheckInput.isValidEmail
+                  ? "email input_form_text"
+                  : "email input_form_text is-invalid"
+              }
               name="email"
-              type="text"
+                type="text"
+                value={email}
+                  onChange={(event) => setEmail(event.target.value)}
             ></input>
             <input
               placeholder="Mật khẩu"
-              className="pass input_form_text"
+              className={
+                objCheckInput.isValidPassword
+                  ? "pass input_form_text"
+                  : "pass input_form_text is-invalid"
+              }
               name="pass"
-              type="text"
+                type="text"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
             ></input>
 
             <div className="form_button">
-              <button className="signin form_btn">SIGN UP</button>
+              <button className="signin form_btn" onClick={(e)=> handleRegister(e)}>SIGN UP</button>
               <p>Or Sign up with</p>
               <button className="signin_gg form_btn">
                 <FontAwesomeIcon icon={faGoogle} /> Google
               </button>
             </div>
-            <p className="change_page_text">
+            <div className="change_page_text">
               Bạn chưa có tài khoản?{" "}
               <div className="change_page" onClick={toggleForm}>
                 Đăng nhập{" "}
               </div>
-            </p>
+            </div>
           </form>
         )}
       </div>

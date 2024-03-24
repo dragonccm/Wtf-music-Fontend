@@ -21,8 +21,8 @@ const Card = ({ playlist }) => {
     // const item = "Z6Z8WZWB"
     return (
         <div className="card_container">
-            {slicedData.map((playlist) => (
-                <div className="card_item" key={playlist.encodeId}>
+            {slicedData.map((playlist,index) => (
+                <div className="card_item" key={'ola'+index}>
                     <div className="img_container">
                         <img
                             src={

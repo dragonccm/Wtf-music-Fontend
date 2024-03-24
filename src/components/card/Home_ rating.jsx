@@ -44,7 +44,7 @@ const HomeRating = ({ data }) => {
     <div className="HomeRating_container">
       <Slider {...settings}>
         {data.map((item,index) => (
-           <div className="ratimg_item">
+           <div className="ratimg_item" key={'lala'+index}>
            <div className="rating_item_wrap">
              <div className="ratimg_item_img">
                <img src={item.thumbnailM} alt="f"></img>
