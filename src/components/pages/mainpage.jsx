@@ -11,7 +11,7 @@ import Top100 from "./top100";
 import Profile from "./profilepage";
 import HomeRating from "../card/Home_ rating";
 import HubPage from "./hubPage";
-import Letclone from "./admin/letclone";
+// import Letclone from "./admin/letclone";
 import LoginPage from './loginPage'
 import RegisterPage from './register'
 

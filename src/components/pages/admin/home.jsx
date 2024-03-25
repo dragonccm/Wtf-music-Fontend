@@ -8,9 +8,10 @@ import { faCircleChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "../../../css/admin/homeAdmin.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
+
 import { fetchAdminHome } from '../../../redux/slide/adminHomeSlice'
 import { useSelector, useDispatch } from "react-redux";
-import ProgressBar from 'react-customizable-progressbar'
+// import ProgressBar from 'react-customizable-progressbar'
 import { BarChart } from '@mui/x-charts/BarChart';
 const HomeAdmin = () => {
   const dispatch = useDispatch();
