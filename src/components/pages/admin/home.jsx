@@ -7,8 +7,19 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { faCircleChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "../../../css/admin/homeAdmin.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { useEffect } from "react";
+import { fetchAdminHome } from '../../../redux/slide/adminHomeSlice'
+import { useSelector, useDispatch } from "react-redux";
+import ProgressBar from 'react-customizable-progressbar'
+import { BarChart } from '@mui/x-charts/BarChart';
 const HomeAdmin = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAdminHome());
+  }, [dispatch]);
+
+  const currData = useSelector((state) => state.admin.AdminHome);
   return (
     <main className="main-content">
       <div className="HomeAdmin">
@@ -23,9 +34,9 @@ const HomeAdmin = () => {
                     className="icon-artist"
                   />
                 </div>
-                <h4 className="text-capitalize mt-4 mb-1">352</h4>
+                <h4 className="text-capitalize mt-4 mb-1">{currData.songListen}</h4>
                 <p className="mb-0 text-capitalize text-body">
-                  total Music Artist
+                  total Music listen
                 </p>
               </div>
             </div>
@@ -39,9 +50,9 @@ const HomeAdmin = () => {
                     className="icon-albums"
                   />
                 </div>
-                <h4 className="text-capitalize mt-4 mb-1">352</h4>
+                <h4 className="text-capitalize mt-4 mb-1">{currData.playlistListen}</h4>
                 <p className="mb-0 text-capitalize text-body">
-                  total Music Albums
+                  total Music playlist
                 </p>
               </div>
             </div>
@@ -52,7 +63,7 @@ const HomeAdmin = () => {
                 <div className="admin-circle-box rounded-pill">
                   <FontAwesomeIcon icon={faMusic} className="icon-songs" />
                 </div>
-                <h4 className="text-capitalize mt-4 mb-1">352</h4>
+                <h4 className="text-capitalize mt-4 mb-1">{currData.songCount}</h4>
                 <p className="mb-0 text-capitalize text-body">
                   total Music Songs
                 </p>
@@ -65,7 +76,7 @@ const HomeAdmin = () => {
                 <div className="admin-circle-box rounded-pill">
                   <FontAwesomeIcon icon={faList} className="icon-playlist" />
                 </div>
-                <h4 className="text-capitalize mt-4 mb-1">352</h4>
+                <h4 className="text-capitalize mt-4 mb-1">{currData.playlistCount}</h4>
                 <p className="mb-0 text-capitalize text-body">
                   total Music Playlist
                 </p>
@@ -309,183 +320,12 @@ const HomeAdmin = () => {
                   className=" chart-01 d-flex justify-content-center"
                   style={{ minHeight: "195.017px" }}
                 >
-                  <div
-                    id="apexchartsc33jz0t9"
-                    className="apexcharts-canvas apexchartsc33jz0t9 apexcharts-theme-light"
-                    style={{ width: "307px", height: "195.017px" }}
-                  >
-                    <svg
-                      id="SvgjsSvg1165"
-                      width="307"
-                      height="195.01666666666668"
-                      xmlns="http://www.w3.org/2000/svg"
-                      version="1.1"
-                      className="apexcharts-svg"
-                      transform="translate(0, 0)"
-                      style={{ background: "transparent" }}
-                    >
-                      <foreignObject
-                        x="0"
-                        y="0"
-                        width="307"
-                        height="195.01666666666668"
-                      >
-                        <div
-                          className="apexcharts-legend"
-                          xmlns="http://www.w3.org/1999/xhtml"
-                        ></div>
-                      </foreignObject>
-                      <g
-                        id="SvgjsG1167"
-                        className="apexcharts-inner apexcharts-graphical"
-                        transform="translate(11.5, 0)"
-                      >
-                        <defs id="SvgjsDefs1166">
-                          <clipPath id="gridRectMaskc33jz0t9">
-                            <rect
-                              id="SvgjsRect1168"
-                              width="292"
-                              height="320"
-                              x="-4"
-                              y="-6"
-                              rx="0"
-                              ry="0"
-                              opacity="1"
-                              stroke-width="0"
-                              stroke="none"
-                              stroke-dasharray="0"
-                              fill="#fff"
-                            ></rect>
-                          </clipPath>
-                          <clipPath id="forecastMaskc33jz0t9"></clipPath>
-                          <clipPath id="nonForecastMaskc33jz0t9"></clipPath>
-                          <clipPath id="gridRectMarkerMaskc33jz0t9">
-                            <rect
-                              id="SvgjsRect1169"
-                              width="290"
-                              height="312"
-                              x="-2"
-                              y="-2"
-                              rx="0"
-                              ry="0"
-                              opacity="1"
-                              stroke-width="0"
-                              stroke="none"
-                              stroke-dasharray="0"
-                              fill="#fff"
-                            ></rect>
-                          </clipPath>
-                        </defs>
-                        <g id="SvgjsG1170" className="apexcharts-radialbar">
-                          <g id="SvgjsG1171">
-                            <g id="SvgjsG1172" className="apexcharts-tracks">
-                              <g
-                                id="SvgjsG1173"
-                                className="apexcharts-radialbar-track apexcharts-track"
-                                rel="1"
-                              >
-                                <path
-                                  id="apexcharts-radialbarTrack-0"
-                                  d="M 59.88877155792923 173.25001328621235 A 88.44512195121953 88.44512195121953 0 1 1 226.11122844207077 173.25001328621235"
-                                  fill="none"
-                                  fill-opacity="1"
-                                  stroke="rgba(231,231,231,0.85)"
-                                  stroke-opacity="1"
-                                  stroke-linecap="butt"
-                                  stroke-width="21.04024390243903"
-                                  stroke-dasharray="0"
-                                  className="apexcharts-radialbar-area"
-                                ></path>
-                              </g>
-                            </g>
-                            <g id="SvgjsG1175">
-                              <g
-                                id="SvgjsG1180"
-                                className="apexcharts-series apexcharts-radial-series"
-                                seriesName="PositivexReviews"
-                                rel="1"
-                              >
-                                <path
-                                  id="SvgjsPath1181"
-                                  d="M 59.88877155792923 173.25001328621235 A 88.44512195121953 88.44512195121953 0 0 1 202.1813380807027 77.27246528323411"
-                                  fill="none"
-                                  fill-opacity="0.85"
-                                  stroke="rgba(255,69,69,0.85)"
-                                  stroke-opacity="1"
-                                  stroke-linecap="butt"
-                                  stroke-width="23.37804878048781"
-                                  stroke-dasharray="0"
-                                  className="apexcharts-radialbar-area apexcharts-radialbar-slice-0"
-                                  index="0"
-                                  j="0"
-                                ></path>
-                              </g>
-                              <circle
-                                id="SvgjsCircle1176"
-                                r="72.92500000000001"
-                                cx="143"
-                                cy="143"
-                                className="apexcharts-radialbar-hollow"
-                                fill="transparent"
-                              ></circle>
-                              <g
-                                id="SvgjsG1177"
-                                className="apexcharts-datalabels-group"
-                                transform="translate(0, 0) scale(1)"
-                                style={{ opacity: "1" }}
-                              >
-                                <text
-                                  id="SvgjsText1178"
-                                  font-family="Helvetica, Arial, sans-serif"
-                                  x="143"
-                                  y="133"
-                                  text-anchor="middle"
-                                  dominant-baseline="auto"
-                                  font-size="17px"
-                                  font-weight="600"
-                                  fill="#ff4545"
-                                  className="apexcharts-text apexcharts-datalabel-label"
-                                  style={{
-                                    fontFamily: "Helvetica, Arial, sans-serif",
-                                  }}
-                                >
-                                  Positive Reviews
-                                </text>
-                                <text
-                                  id="SvgjsText1179"
-                                  font-family="Helvetica, Arial, sans-serif"
-                                  x="143"
-                                  y="175"
-                                  text-anchor="middle"
-                                  dominant-baseline="auto"
-                                  font-size="23px"
-                                  font-weight="400"
-                                  fill="#222428"
-                                  className="apexcharts-text apexcharts-datalabel-value"
-                                  style={{
-                                    fontFamily: "Helvetica, Arial, sans-serif",
-                                  }}
-                                >
-                                  69
-                                </text>
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                        <line
-                          id="SvgjsLine1183"
-                          x1="0"
-                          y1="0"
-                          x2="286"
-                          y2="0"
-                          stroke-dasharray="0"
-                          stroke-width="0"
-                          stroke-linecap="butt"
-                          className="apexcharts-ycrosshairs-hidden"
-                        ></line>
-                      </g>
-                    </svg>
-                  </div>
+                  <BarChart
+                    xAxis={[{ scaleType: 'band', data: ['Song Listen', 'PlayList Listen'] }]}
+                    series={[{ data: [currData.songListen, currData.playlistListen] }]}
+                    width={500}
+                    height={300}
+                  />
                 </div>
                 <div className="d-flex align-items-center mb-5">
                   <FontAwesomeIcon
@@ -514,31 +354,6 @@ const HomeAdmin = () => {
                   </div>
                 </div>
                 <div className="d-flex align-items-center mb-5">
-                  <FontAwesomeIcon
-                    icon={faCompactDisc}
-                    className="icon-albums icon_top-reviews me-5"
-                  />
-
-                  <div style={{ width: "100%" }}>
-                    <div className="d-flex justify-content-between  ">
-                      <h6 className="mb-2 fs-3 fw-normal">Albums</h6>
-                      <h6 className="text-body fs-3 fw-normal">1,624</h6>
-                    </div>
-                    <div
-                      className="progress bg-soft-warning shadow-none w-100"
-                      style={{ height: "6px" }}
-                    >
-                      <div
-                        className="progress-bar bg-soft-warning"
-                        data-toggle="progress-bar"
-                        role="progressbar"
-                        aria-valuenow="35"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style={{ width: "35%", transition: "width 2s ease 0s" }}
-                      ></div>
-                    </div>
-                  </div>
                 </div>
                 <div className="d-flex align-items-center">
                   <FontAwesomeIcon

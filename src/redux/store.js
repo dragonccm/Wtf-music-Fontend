@@ -5,6 +5,7 @@ import homeReducer from './slide/homeSlice'
 import top100Reducer from './slide/top100Slice'
 import ratingReducer from './slide/ratingSlice'
 import playlistReducer from './slide/playlistSlice'
+import AdminHomeReducer from './slide/adminHomeSlice'
 import AuthenticationRedecer from './slide/AuthenticationSlice'
 
 export const store = configureStore({
@@ -15,6 +16,8 @@ export const store = configureStore({
     top100: top100Reducer,
     rating: ratingReducer,
     playlist: playlistReducer,
+    admin: AdminHomeReducer,
     AuthenticationRedecer:AuthenticationRedecer
+
   },
 })

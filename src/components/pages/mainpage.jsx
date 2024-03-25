@@ -193,7 +193,6 @@ const Mainpage = ({ playlists },props) => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/admin" element={<HomeAdmin />} />
-            <Route path="/admin/letclone" element={<Letclone />} />
           </Routes>
         </section>
 
