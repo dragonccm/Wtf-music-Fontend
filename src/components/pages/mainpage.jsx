@@ -11,7 +11,6 @@ import Top100 from "./top100";
 import Profile from "./profilepage";
 import HomeRating from "../card/Home_ rating";
 import HubPage from "./hubPage";
-import Letclone from "./admin/letclone";
 
 
 // layout
@@ -194,7 +193,6 @@ const Mainpage = ({ playlists },props) => {
             <Route path="/playlist/:id" element={<Playlistpage />} />
             <Route path="/login" element={<Loginform />} />
             <Route path="/admin" element={<HomeAdmin />} />
-            <Route path="/admin/letclone" element={<Letclone />} />
           </Routes>
         </section>
 
