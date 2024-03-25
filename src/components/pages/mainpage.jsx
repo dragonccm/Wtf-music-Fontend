@@ -12,6 +12,8 @@ import Profile from "./profilepage";
 import HomeRating from "../card/Home_ rating";
 import HubPage from "./hubPage";
 import Letclone from "./admin/letclone";
+import LoginPage from './loginPage'
+import RegisterPage from './register'
 
 
 // layout
@@ -21,7 +23,7 @@ import Footer from "../layoutbar/Footer";
 // component
 import Col3Layout from "../card/col_3_layout";
 import ListCard from "../card/ListCard";
-import Loginform from "../pages/loginpage";
+import Authentication from "../pages/AuthenticationPage";
 import Rating from "./Rating";
 import Card from "../card/song_card";
 // react fucnc
@@ -78,11 +80,7 @@ const Mainpage = ({ playlists },props) => {
   ];
 
   // home
-  const listSong = Array.from({ length: 9 }, (_, index) => ({
-    img: "https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg",
-    name: "Không phải gu",
-    artist: "Hiếu Thứ Hai",
-  }));
+
 
   const newRelease = useSelector((state) => state.home.newRelease);
   const songHot = useSelector((state) => state.home.songHot);
@@ -192,7 +190,8 @@ const Mainpage = ({ playlists },props) => {
             <Route path="/profile/*" element={<Profile />} />
             <Route path="/top100" element={<Top100 />} />
             <Route path="/playlist/:id" element={<Playlistpage />} />
-            <Route path="/login" element={<Loginform />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/admin" element={<HomeAdmin />} />
             <Route path="/admin/letclone" element={<Letclone />} />
           </Routes>

@@ -12,12 +12,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../img/logo3 (1).png";
 import { searchFetch } from "../../services/searchService";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const { toggleTheme } = useContext(ThemeContext);
+
+
+  const isAuthentication = useSelector((state) => state.AuthenticationRedecer.defaultUser);
+console.log(isAuthentication)
+
 
   const handleSearchData = useCallback((event) => {
     setSearchTerm(event.target.value);
@@ -166,6 +172,7 @@ const Header = () => {
               trigger={
                 <button className="avt_page">
                   <img src={logo} alt="profile" />
+                  {isAuthentication.isAuthenticated === true ? (<span>{isAuthentication.account.username}</span>):(<span>hahah</span>)}
                 </button>
               }
               position="bottom right"

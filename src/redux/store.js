@@ -5,7 +5,7 @@ import homeReducer from './slide/homeSlice'
 import top100Reducer from './slide/top100Slice'
 import ratingReducer from './slide/ratingSlice'
 import playlistReducer from './slide/playlistSlice'
-
+import AuthenticationRedecer from './slide/AuthenticationSlice'
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +14,7 @@ export const store = configureStore({
     home: homeReducer,
     top100: top100Reducer,
     rating: ratingReducer,
-    playlist: playlistReducer
+    playlist: playlistReducer,
+    AuthenticationRedecer:AuthenticationRedecer
   },
 })

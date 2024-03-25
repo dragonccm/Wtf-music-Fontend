@@ -11,6 +11,7 @@ import ThemeProvider from "./lib/provider/ThemeProvider";
 import SongDataProvider from "./lib/provider/SongDataProvider";
 import { fetchSong } from "./redux/slide/songSlice";
 import { fetchHome } from "./redux/slide/homeSlice";
+import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
 
 
 import { useSelector, useDispatch } from "react-redux";
@@ -26,6 +27,8 @@ function App(props) {
   };
   useEffect(() => {
     dispatch(fetchHome());
+    dispatch(fetchAuthentication());
+
   }, []);
   useEffect(() => {
     dispatch(fetchSong());

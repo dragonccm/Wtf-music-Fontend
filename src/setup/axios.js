@@ -49,6 +49,7 @@ instance.interceptors.request.use(function (config) {
 
       // not found
       case 404: {
+        console.log('long');
         return Promise.reject(error);
       }
 
