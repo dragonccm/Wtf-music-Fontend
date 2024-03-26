@@ -7,6 +7,8 @@ import ratingReducer from './slide/ratingSlice'
 import playlistReducer from './slide/playlistSlice'
 import AdminHomeReducer from './slide/adminHomeSlice'
 import AuthenticationRedecer from './slide/AuthenticationSlice'
+import ArtistReducer from './slide/artistSlice'
+
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +19,7 @@ export const store = configureStore({
     rating: ratingReducer,
     playlist: playlistReducer,
     admin: AdminHomeReducer,
-    AuthenticationRedecer:AuthenticationRedecer
-
+    AuthenticationRedecer:AuthenticationRedecer,
+    Artist:ArtistReducer
   },
 })
