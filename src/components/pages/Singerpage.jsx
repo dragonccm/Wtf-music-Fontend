@@ -17,7 +17,6 @@ const Singerpage = () => {
     }, [dispatch]);
 
     const currData = useSelector((state) => state.Artist.Artist);
-console.log(currData)
     if (loading) {
         return <div>Loading...</div>;
     }

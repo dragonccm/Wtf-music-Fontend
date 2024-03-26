@@ -90,7 +90,6 @@ const Mainpage = ({ playlists },props) => {
   const top100 = useSelector((state) => state.home.top100);
   const albumHot = useSelector((state) => state.home.albumHot);
   const hNewrelease = useSelector((state) => state.home.hNewrelease);
-  console.log(newRelease)
 
   document.title = "What The Fuck Music Never die";
   return (

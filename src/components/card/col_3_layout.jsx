@@ -9,7 +9,6 @@ import { NavLink } from "react-router-dom";
 const Col3Layout = ({ data }) => {
 
   const slicedData = data.slice(0, 12);
-  console.log(slicedData)
   // Chia data thành các mảng con có 3 phần tử
   const chunkedData = [];
   const chunkSize = 4;
