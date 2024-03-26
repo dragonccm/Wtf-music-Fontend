@@ -1,4 +1,6 @@
 import "./App.css";
+import AppRoutes from "./router/appRoutes";
+
 // component
 import RightSidebar from "./components/sideNavigation/RightSidebar";
 import Bottombar from "./components/sideNavigation/Bottombar";
@@ -51,7 +53,8 @@ function App(props) {
       <div className="App">
         <div className="main_content">
           <RightSidebar />
-          <Mainpage playlists={datas} />
+          {/* <Mainpage playlists={datas} /> */}
+          <AppRoutes playlists={datas}/>
         </div>
       </div>
     </ThemeProvider>

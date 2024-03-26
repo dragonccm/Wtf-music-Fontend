@@ -1,4 +1,4 @@
-import { registerUser,loginUser } from '../controller/Authentication';
+import { registerUser,loginUser,logoutUser } from '../controller/Authentication';
 const getRegister = async (email, password, username) => {
     try {
          const data = await registerUser(email, password, username)
@@ -8,9 +8,19 @@ const getRegister = async (email, password, username) => {
         return null;
     }
 }; 
-const getLogin = async (valueLogin, password) => {
+const getLogin = async (valueLogin, password,checkRemember) => {
     try {
-         const data = await loginUser(valueLogin, password)
+         const data = await loginUser(valueLogin, password,checkRemember)
+        return data
+    } catch (error) {
+        console.log("Error login:", error);
+        return null;
+    }
+}; 
+
+const getLogout = async () => {
+    try {
+         const data = await logoutUser()
         return data
     } catch (error) {
         console.log("Error login:", error);
@@ -20,5 +30,6 @@ const getLogin = async (valueLogin, password) => {
 
 export {
     getRegister,
-    getLogin
+    getLogin,
+    getLogout
 }

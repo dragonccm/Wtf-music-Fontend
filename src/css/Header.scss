@@ -130,6 +130,8 @@
 
 .header_right {
   display: flex;
+  align-items: center;
+  gap: 10px;
   .theme {
     display: flex;
     align-items: center;
@@ -335,6 +337,47 @@
 
       .theme__toggle:focus-visible {
         box-shadow: 0 0 0 0.125em var(--primary);
+      }
+    }
+  }
+  .h_avt_container{
+    .group_authentication{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      .login_btn{
+        padding: 6px 15px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        border-radius: 20px;
+        border: 1px solid transparent;
+        transition: all 0.2s ease-in-out;
+
+        &:hover{
+          border: 1px solid var(--main-color);
+        }
+        a{
+        color: var(--text-1);
+
+        }
+      }
+      .register_btn{
+        background-color: var(--bg-white);
+        padding: 6px 15px;
+        font-size: 16px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease-in-out;
+        border: 1px solid var(--main-color);
+
+        &:hover{
+          scale: 1.1;
+        }
+        a{
+          color: var(--main-color);
+        }
       }
     }
   }

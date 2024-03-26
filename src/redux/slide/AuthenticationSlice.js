@@ -16,16 +16,21 @@ const initialState = {
     account: {},
   },
 };
-
-export const homeSlice = createSlice({
+const initState = {
+  isLoading: true,
+  isAuthenticated: false,
+  token: "",
+  account: {},
+}
+export const authenticationSlice = createSlice({
   name: "authentication",
   initialState,
   reducers: {
-    loginer: (state, userData) => {
-      state.defaultUser = { ...userData, isLoading: false };
+    loginer: (state, action) => {
+      state.defaultUser = { ...action.payload, isLoading: false };
     },
     logouter: (state) => {
-      state.defaultUser = { ...state.defaultUser, isLoading: false };
+      state.defaultUser = { ...initState, isLoading: false };
     },
   },
   extraReducers: (builder) => {
@@ -61,5 +66,6 @@ export const homeSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
+export const { loginer, logouter} = authenticationSlice.actions
 
-export default homeSlice.reducer;
+export default authenticationSlice.reducer;
