@@ -9,11 +9,16 @@ const registerUser = (email, password, username) => {
   });
 };
 
-const loginUser = (valueLogin, password) => {
+const loginUser = (valueLogin, password,checkRemember) => {
   return axios.post("/api/login", {
     valueLogin,
     password,
+    checkRemember
   });
 };
 
-export { registerUser, loginUser };
+const logoutUser = () => {
+  return axios.post("/api/logout");
+};
+
+export { registerUser, loginUser,logoutUser };

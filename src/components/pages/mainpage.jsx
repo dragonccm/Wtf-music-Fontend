@@ -1,7 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-
 import "../../css/mainpage.scss";
 // page
 import Playlistpage from "./Playlistpage";

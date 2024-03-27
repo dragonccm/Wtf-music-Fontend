@@ -1,9 +1,10 @@
+import instance from "../../setup/axios";
 import React, { useContext, useState, useEffect, useCallback } from 'react';
 import ThemeContext from "../../lib/Context/ThemeContext";
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { NavLink } from "react-router-dom";
+import { NavLink  } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -12,7 +13,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../img/logo3 (1).png";
 import { searchFetch } from "../../services/searchService";
-import { useSelector } from "react-redux";
+import { getLogout } from '../../services/registerService'
+import {logouter} from '../../redux/slide/AuthenticationSlice'
+import { useSelector ,useDispatch} from "react-redux";
+import { toast } from "react-toastify"
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,9 +24,10 @@ const Header = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { toggleTheme } = useContext(ThemeContext);
 
+  const dispatch = useDispatch();
 
   const isAuthentication = useSelector((state) => state.AuthenticationRedecer.defaultUser);
-console.log(isAuthentication)
+  console.log(isAuthentication)
 
 
   const handleSearchData = useCallback((event) => {
@@ -82,7 +87,17 @@ console.log(isAuthentication)
   const handleBlur = () => {
     setTimeout(() => { setIsVisible(false); }, 200);
   };
-
+  const handleLogoutUser = async() => {
+    let data = await getLogout();//clear cookies
+    localStorage.removeItem('jwt') // clear local storage
+    instance.defaults.headers.common['Authorization'] = undefined;
+    dispatch(logouter()) //clear user in context
+    if (data && data.EC === '0') {
+      toast.success('Logout successful')
+    } else {
+      toast.error(data.EM)
+    }
+  }
   const renderData = () => {
     return searchResults.map((d) => {
       if (d.type === 1) {
@@ -168,30 +183,47 @@ console.log(isAuthentication)
             </span>
           </label>
           <div className="h_avt_container">
-            <Popup
-              trigger={
-                <button className="avt_page">
-                  <img src={logo} alt="profile" />
-                  {isAuthentication.isAuthenticated === true ? (<span>{isAuthentication.account.username}</span>):(<span>hahah</span>)}
-                </button>
-              }
-              position="bottom right"
-              nested
-              closeOnDocumentClick
-              mouseLeaveDelay={300}
-              mouseEnterDelay={0}
-              contentStyle={{ padding: "0", border: "none", width: "150px", top: '55px', left: '1334px' }}
-              arrow={false}
-            >
-              <div className="menu">
-                <NavLink to="/login" className="nav-link list_nav_item menu-item">
-                  <FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn
-                </NavLink>
-                <NavLink to="/profile" className="nav-link list_nav_item menu-item">
-                  <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
-                </NavLink>
-              </div>
-            </Popup>
+            {isAuthentication.isAuthenticated === true
+              ?
+              (<Popup
+                trigger={
+                  <button className="avt_page">
+                    <img src={logo} alt="profile" />
+                    {isAuthentication.isAuthenticated === true ? (<span>{isAuthentication.account.username}</span>) : (<span>hahah</span>)}
+                  </button>
+                }
+                position="bottom right"
+                nested
+                closeOnDocumentClick
+                mouseLeaveDelay={300}
+                mouseEnterDelay={0}
+                contentStyle={{ padding: "0", border: "none", width: "150px", top: '55px', left: '1334px' }}
+                arrow={false}
+              >
+                <div className="menu">
+                  <NavLink to="/profile/setting" className="nav-link list_nav_item menu-item">
+                    <FontAwesomeIcon icon={faUser} /> Hồ sơ của bạn
+                  </NavLink>
+                  <NavLink onClick={()=>handleLogoutUser()} className="nav-link list_nav_item menu-item">
+                    <FontAwesomeIcon icon={faRightFromBracket} /> Đăng xuất
+                  </NavLink>
+                </div>
+              </Popup>)
+              :
+              (<div className='group_authentication'>
+                <div className="login_btn">
+                  <NavLink to="/login" className="">
+                    Login
+                  </NavLink>
+                </div>
+                <div className="register_btn">
+                  <NavLink to="/register" className="">
+                    Register
+                  </NavLink>
+                </div>
+              </div>)
+            }
+
           </div>
         </div>
       </div>
