@@ -5,16 +5,17 @@ import Col3Layout from "../card/col_3_layout";
 import Card from "../card/song_card";
 
 import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import { fetchgArtist } from '../../redux/slide/artistSlice'
 import { useSelector, useDispatch } from "react-redux";
 const Singerpage = () => {
     const dispatch = useDispatch();
-
+    const { id } = useParams();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        dispatch(fetchgArtist()).then(() => setLoading(false));
-    }, [dispatch]);
+        dispatch(fetchgArtist(id)).then(() => setLoading(false));
+    }, [dispatch, id]);
 
     const currData = useSelector((state) => state.Artist.Artist);
     if (loading) {
@@ -80,14 +81,8 @@ const Singerpage = () => {
                     <img src={currData.img} alt="f" />
                 </div>
                 <div className="for_artist_if_ctn">
-                    <p className="for_artist_name">Park Chae-young (Hangul: 박채영; Hanja: 朴彩英;
-                        Hán-Việt: Phác Thái Anh sinh ngày 11 tháng 2 năm 1997
-                        tên tiếng Anh là Roseanne Park), thường được biết đến
-                        với nghệ danh Rosé là một nữ ca sĩ, thần tượng người
-                        New Zealand gốc Hàn Quốc. Cô là thành viên nhóm
-                        nhạc nữ Hàn Quốc BLACKPINK do công ty YG
-                        Entertainment thành lập và quản lý</p>
-                    <p className="follower">324.114 người quan tâm</p>
+                <p className="for_artist_name" dangerouslySetInnerHTML={{__html: currData.biography.replace(/<br>/g, "<br/>")}}></p>
+                    <p className="follower">{currData.totalFollow.toLocaleString()} người quan tâm</p>
                 </div>
             </section>
         </section>

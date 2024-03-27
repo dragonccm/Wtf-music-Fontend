@@ -78,8 +78,6 @@ const Mainpage = ({ playlists },props) => {
   ];
 
   // home
-
-
   const newRelease = useSelector((state) => state.home.newRelease);
   const songHot = useSelector((state) => state.home.songHot);
   const songRemix = useSelector((state) => state.home.songRemix);
@@ -88,7 +86,7 @@ const Mainpage = ({ playlists },props) => {
   const top100 = useSelector((state) => state.home.top100);
   const albumHot = useSelector((state) => state.home.albumHot);
   const hNewrelease = useSelector((state) => state.home.hNewrelease);
-
+  
   document.title = "What The Fuck Music Never die";
   return (
     <div className="main_page">

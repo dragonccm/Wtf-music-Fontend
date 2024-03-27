@@ -1,7 +1,7 @@
 import axios from "../setup/axios";
 
-const cloneData = async(data) => {
-     await axios.post(`/api/clone`, {
+const cloneArtistsData = async(data) => {
+     await axios.post(`/api/clonepArtists`, {
         data:data
     }, {
         headers: {
@@ -11,5 +11,5 @@ const cloneData = async(data) => {
 }
 
 export {
-    cloneData
+    cloneArtistsData
 }

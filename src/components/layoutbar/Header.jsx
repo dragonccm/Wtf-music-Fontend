@@ -54,7 +54,6 @@ const Header = () => {
   const letfetch = useCallback(async () => {
     if (searchTerm.trim()) {
       const data = await searchFetch(searchTerm);
-      console.table("search debug", data);
       if (data && data.result) {
         setSearchResults(data.result);
         setIsVisible(false);
@@ -85,7 +84,7 @@ const Header = () => {
   }, [searchTerm, debouncedFetchData]);
 
   const handleBlur = () => {
-    setTimeout(() => { setIsVisible(false); }, 200);
+    setTimeout(() => { setIsVisible(true); }, 200);
   };
   const handleLogoutUser = async() => {
     let data = await getLogout();//clear cookies
@@ -99,11 +98,24 @@ const Header = () => {
     }
   }
   const renderData = () => {
-    return searchResults.map((d) => {
-      if (d.type === 1) {
-        return <Songitem key={d.id} data={d} />;
-      } else if (d.type === 4) {
-        return <Artistsitem key={d.id} data={d} />;
+    const groupedResults = searchResults.reduce((obj, result) => {
+      if (obj[result.type]) {
+        obj[result.type].push(result);
+      } else {
+        obj[result.type] = [result];
+      }
+      return obj;
+    }, {});
+  
+    const sortedResults = Object.values(groupedResults).flat();
+  
+    return sortedResults.map((result) => {
+      if (result.type === 1) {
+        return <Songitem key={result.id} data={result} />;
+      } else if (result.type === 4) {
+        return <Artistsitem key={result.aliasName} data={result} />;
+      } else if (result.type === 3) {
+        return <Album key={result.id} data={result} />;
       }
       return null;
     });
@@ -119,6 +131,16 @@ const Header = () => {
       </section>
     );
   };
+  const Album = ({ data }) => {
+    return (
+      <section className='search_item_song'>
+        <div className="search_item_song_img">
+          <img src={data.thumb} alt={data.name} />
+        </div>
+        <NavLink to={`/playlist/${data.id}`} className="search_item_name">{data.name}</NavLink>
+      </section>
+    );
+  };
 
   const Artistsitem = ({ data }) => {
     return (
@@ -126,7 +148,7 @@ const Header = () => {
         <div className="search_item_artists_img">
           <img src={data.avatar} alt={data.name} />
         </div>
-        <NavLink to={`/artistspage/${data.id}`} className="search_item_name">{data.name}</NavLink>
+        <NavLink to={`/artists/${data.aliasName}`} className="search_item_name">{data.name}</NavLink>
       </section>
     );
   };
@@ -145,7 +167,7 @@ const Header = () => {
             placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
             required=""
             onChange={handleSearchData}
-            onBlur={handleBlur}
+            onBlur={()=>handleBlur()}
           />
           <button className='search_btn' onClick={debouncedFetchData}>
             <FontAwesomeIcon icon={faSearch} />

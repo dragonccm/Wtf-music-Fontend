@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getArtist } from "../../services/artistsService";
 
-export const fetchgArtist = createAsyncThunk("Artist/getArtist", async () => {
-    const response = await getArtist();
+export const fetchgArtist = createAsyncThunk("Artist/getArtist", async (id) => {
+    const response = await getArtist(id);
     const handleData = (data) => {
         if (data && data.sections && data.sections[1] && data.sections[1].items) {
             return {
