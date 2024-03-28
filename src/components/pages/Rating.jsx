@@ -9,6 +9,7 @@ import "../../css/Rating.scss";
 import { fetchRating } from "../../redux/slide/ratingSlice";
 
 import { useSelector, useDispatch } from "react-redux";
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 
 const Rating = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,10 @@ const Rating = () => {
   const group_rating_title = ['Việt Nam','US-UK','K-Pop']
   console.log(group_rating)
 
+  const handlePlaying = (e, id) => {
+    e.preventDefault();
+    dispatch(fetchSongPlaying(id));
+  }
   return (
     <>
       {RTChart_items && Array.isArray(RTChart_items) && Array.isArray(week_vn) && Array.isArray(week_us) && Array.isArray(week_korea) ?
@@ -73,7 +78,7 @@ const Rating = () => {
                           <div className="week_rating_img">
                             <img src={data.thumbnailM} alt="f" />
                             <div className="img_overlay">
-                              <NavLink to="/playlist" className="nav-link list_nav_item">
+                              <NavLink to={'/'+data.encodeId} onClick={(e)=>handlePlaying(e,data.encodeId)} className="nav-link list_nav_item">
                                 <FontAwesomeIcon className="play_icon" icon={faPlay} />
                               </NavLink>
                             </div>

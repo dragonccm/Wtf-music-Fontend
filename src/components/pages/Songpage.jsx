@@ -8,16 +8,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+import {  useDispatch } from "react-redux";
 
 
 import Recommended from '../card/Recommended'
 const Songpage = () => {
+  const dispatch = useDispatch();
+
   const [audioList, setAudioList] = useState([]);
 
   const { id } = useParams();
 
-  const setlocal = () => {
-    localStorage.setItem("LastSong", id)
+  const handlePlaying = (e, id) => {
+    e.preventDefault();
+    dispatch(fetchSongPlaying(id));
   }
   useEffect(() => {
     const Recommendeds = Array.from({ length: 100 }, (_, index) => ({
@@ -89,6 +94,7 @@ const Songpage = () => {
       const data = await getSongData(`${id}`);
       if (data) {
         const newAudio = {
+          encodeId: data.id,
           avt: data.img,
           songname: data.songname,
           Recommended: Recommendeds,
@@ -131,7 +137,7 @@ const Songpage = () => {
 
       <div className="song_body">
         <div className="song_control">
-          <button className="play_random" onClick={setlocal} >
+          <button className="play_random"  onClick={(e)=>handlePlaying(e,audioList.encodeId)} >
             <FontAwesomeIcon icon={faCirclePlay} />
           </button>
           <button className="like_btn">

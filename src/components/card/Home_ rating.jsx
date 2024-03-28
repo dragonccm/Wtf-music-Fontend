@@ -7,7 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from "react-router-dom";
 import moment from 'moment';
+import { useDispatch } from "react-redux";
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+
+
 function SampleNextArrow(props) {
+
   const { className, style, onClick } = props;
   return (
     <div
@@ -29,6 +34,11 @@ function SamplePrevArrow(props) {
 }
 
 const HomeRating = ({ data }) => {
+  const dispatch = useDispatch();
+  const handlePlaying = (e, id) => {
+    e.preventDefault();
+    dispatch(fetchSongPlaying(id));
+  }
   const settings = {
     infinite: true,
     speed: 400,
@@ -50,7 +60,7 @@ const HomeRating = ({ data }) => {
                <img src={item.thumbnailM} alt="f"></img>
                <div className="img_overlay">
                  <div className="img_overlay_group_btn">
-                   <NavLink to="/songpage"  className="nav-link list_nav_item">
+                   <NavLink to="/songpage" onClick={(e)=>handlePlaying(e,item.encodeId)}  className="nav-link list_nav_item">
                      <FontAwesomeIcon icon={faPlay} />
                    </NavLink>
                  </div>

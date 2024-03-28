@@ -7,15 +7,23 @@ import { faCaretDown, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
 
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import {  useDispatch } from "react-redux";
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 
 const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
+  const dispatch = useDispatch();
+
   const [showAll, setShowAll] = useState(false);
 
   const toggleShowAll = () => {
     setShowAll(!showAll);
   };
   const validDatas = Array.isArray(datas) ? datas : [];
-  console.log("dụ má có",datas)
+  console.log("dụ má có", datas)
+  const handlePlaying = (e, id) => {
+    e.preventDefault();
+    dispatch(fetchSongPlaying(id));
+  }
   return (
     <>
       {/* lable */}
@@ -39,8 +47,8 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
                 <img src={data.thumbnailM} alt="f" />
                 <div className="img_overlay">
                   <NavLink
-                    to="/songpage"
-                    
+                    to={'/'+data.encodeId}
+                    onClick={(e)=>handlePlaying(e,data.encodeId)}
                     className="nav-link list_nav_item"
                   >
                     <FontAwesomeIcon icon={faPlay} />
