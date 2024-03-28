@@ -1,7 +1,7 @@
 // controller/SongController.js
 import axios from "../setup/axios";
-const artist = () => {
-    return axios.get(`/api/artist`)
+const artist = (id) => {
+    return axios.get(`/api/artist/${id}`)
 }
 
 export {

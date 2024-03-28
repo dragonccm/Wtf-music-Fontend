@@ -97,7 +97,7 @@ const AppRoutes = ({ playlists }, props) => {
             <Route path="/listcard" element={<ListCard data={playlists} />} />
             <Route path="/playlistpage" element={<Playlistpage />} />
             <Route path="/songpage/:id" element={<Songpage />} />
-            <Route path="/artists" element={<Singerpage />} />
+            <Route path="/artists/:id" element={<Singerpage />} />
             <Route path="/rating" element={<Rating />} />
             <Route path="/top100" element={<Top100 />} />
             <Route path="/playlist/:id" element={<Playlistpage />} />

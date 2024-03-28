@@ -27,7 +27,7 @@ function Profile() {
   const handleIsPass = () => {
     if (ispass) {
       setIsPass(false);
-      console.log(ispass);
+      console.log("đây là trang profile",ispass);
     } else {
       setIsPass(true);
     }
@@ -35,7 +35,7 @@ function Profile() {
   const handleIsPassNew = () => {
     if (ispassNew) {
       setIsPassNew(false);
-      console.log(ispassNew);
+      console.log("đây là trang profile new",ispassNew);
     } else {
       setIsPassNew(true);
     }

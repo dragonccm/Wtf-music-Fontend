@@ -5,7 +5,7 @@ const getPlaylist = async (id) => {
     try {
         const data = await playlistroute(id)
         const clone = {
-            id:data.data.encodeId ,
+            playlistId:data.data.encodeId ,
             playlistname:data.data.title ,
             genresid:data.data.genres.map(genres => genres.id),
             artistsId:data.data.artists.map(artists => artists.id),

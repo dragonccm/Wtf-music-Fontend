@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getArtist } from "../../services/artistsService";
 
-export const fetchgArtist = createAsyncThunk("Artist/getArtist", async () => {
-    const response = await getArtist();
+export const fetchgArtist = createAsyncThunk("Artist/getArtist", async (id) => {
+    const response = await getArtist(id);
     const handleData = (data) => {
         if (data && data.sections && data.sections[1] && data.sections[1].items) {
             return {
@@ -13,7 +13,7 @@ export const fetchgArtist = createAsyncThunk("Artist/getArtist", async () => {
                 playlist: data.sections[1].items.map((item) => ({
                     id: item.encodeId,
                     name: item.title,
-                    thumbnailM: item.thumbnail,
+                    thumbnailM: item.thumbnailM.replace('w165', 'w320'),
                     artists_list: item.artists ? item.artists.map((artist) => artist.name) : [],
                 })),
                 songFavorite: data.sections[0].items.map((item) => ({
