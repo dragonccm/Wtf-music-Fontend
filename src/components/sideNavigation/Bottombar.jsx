@@ -13,27 +13,36 @@ import { faHeart, faCirclePlay, faCirclePause, faClock } from "@fortawesome/free
 import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg"
 import icon_mic from "../../img/karaoke-svgrepo-com.svg"
+import { useSelector } from "react-redux";
+
 Modal.setAppElement('#root');
 const Bottombar = () => {
   const [currentSong, SetSong] = useState([])
   const [isFullScreen, SetIsFullScreen] = useState(false)
   const [animationActive, setAnimationActive] = useState(true);
   const [animationPlaylistActive, setAnimationPlaylistActive] = useState(true);
-  useEffect(() => {
-    async function fetchData() {
-      const response = await getSongData("Z7I9OC70");
-      const viprotrack = {
-        artistsNames: response.artistsNames,
-        songname: response.songname,
-        imge: response.img,
-        song: response.song,
-        lyricsString: response.lyricsString,
-      }
 
-      SetSong(viprotrack)
-    }
-    fetchData()
-  }, [])
+
+  const songInfo = useSelector((state) => state.getSongData.inforSong);
+  const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+
+
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await getSongData("Z7I9OC70");
+  //     const viprotrack = {
+  //       artistsNames: response.artistsNames,
+  //       songname: response.songname,
+  //       imge: response.img,
+  //       song: response.song,
+  //       lyricsString: response.lyricsString,
+  //     }
+
+  //     SetSong(viprotrack)
+  //   }
+  //   fetchData()
+  // }, [])
 
 
 
@@ -121,18 +130,24 @@ const Bottombar = () => {
   const arr_playlist = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 'jj']
 
   return (
+    isPlaying &&
     <div className="main_bottom_bar">
       <div className="player_info">
         <div className="player_info_ctn">
           <div className="img">
-            <img src={currentSong.imge} alt="f" />
+            <img src={songInfo.infor.img} alt="f" />
           </div>
           <div className="name">
             <div className="name_ctn">
-              <h5>{currentSong.songname}</h5>
+              <h5><a href={"/nghe-si/" + songInfo.infor.alias}>{songInfo.infor.songname}</a></h5>
               <div className="artist">
-                {currentSong.artistsNames}
-                <a href="/">three some</a>
+                {songInfo.infor.artistInfo.map((artist, index) => (
+                  <span key={index}>
+                    <a href={"/nghe-si/" + artist.alias}>{artist.name}</a>
+                    {index !== songInfo.infor.artistInfo.length - 1 && ","}
+                  </span>
+                ))}
+
               </div>
             </div>
             <div className="more">
@@ -300,17 +315,17 @@ const Bottombar = () => {
                 {/* <button onClick={closeModal}>close</button> */}
                 <div className="r_click">
                   <div className="r_click_head">
-                    <div className="r_click_head_img"><img src="https://photo-resize-zmp3.zmdcdn.me/w94_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="f" /></div>
+                    <div className="r_click_head_img"><img src={songInfo.infor.img} alt="f" /></div>
                     <div className="r_click_head_info">
-                      <div className="name">Tettovent</div>
+                      <div className="name"><a href={"/nghe-si/" + songInfo.infor.alias}>{songInfo.infor.songname}</a></div>
                       <div className="more">
                         <div className="more_item">
                           <FontAwesomeIcon icon={faHeart} />
-                          4K
+                          {Math.ceil(songInfo.infor.like / 1000)>1?Math.ceil(songInfo.infor.like / 1000)+'k':songInfo.infor.like}
                         </div>
                         <div className="more_item">
                           <FontAwesomeIcon icon={faHeadphonesSimple} />
-                          318K
+                          {Math.ceil(songInfo.infor.listen / 1000)>1?Math.ceil(songInfo.infor.listen / 1000)+'k':songInfo.infor.listen}
                         </div>
                       </div>
                     </div>
@@ -319,27 +334,31 @@ const Bottombar = () => {
                     <div className="item">
                       <h5>Nghệ sĩ</h5>
                       <div className="content">
-                        <a href="/">Wxrdie, </a>
-                        <a href="/">Andree right Hand, </a>
-                        <a href="/">Machiot, </a>
+                        {songInfo.infor.artistInfo.map((artist, index) => (
+                          <span key={index}>
+                            <a href={"/nghe-si/" + artist.alias}>{artist.name}</a>
+                            {index !== songInfo.infor.artistInfo.length - 1 && ","}
+                          </span>
+                        ))}
                       </div>
                     </div>
                     <div className="item">
-                      <h5>Albuml</h5>
-                      <div className="content">
-                        <a href="/">TETVOVENT (Single)</a>
+                      <h5>Album</h5>
+                        <div className="content">
+                        
+                        <a href="">{songInfo.infor.album.name}</a>
                       </div>
                     </div>
                     <div className="item">
                       <h5>Sáng tác</h5>
                       <div className="content">
-                        <a href="/">Đỗ Minh Nghĩa</a>
+                          {<a href={"/nghe-si/"+songInfo.infor.composers[0].alias} >{songInfo.infor.composers[0].name}</a>}
                       </div>
                     </div>
                     <div className="item">
                       <h5>Thể loại</h5>
                       <div className="content">
-                        <a href="/">Việt Nam</a>
+                      {<a href={"/nghe-si/"+songInfo.infor.genres[0].alias} >{songInfo.infor.genres[0].name}</a>}
                       </div>
                     </div>
                     <div className="item">

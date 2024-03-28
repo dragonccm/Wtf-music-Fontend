@@ -26,7 +26,7 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
-  const isAuthentication = useSelector((state) => state.AuthenticationRedecer.defaultUser);
+  const isAuthentication = useSelector((state) => state.Authentication.defaultUser);
   console.log(isAuthentication)
 
 
@@ -145,7 +145,7 @@ const Header = () => {
             placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
             required=""
             onChange={handleSearchData}
-            onBlur={handleBlur}
+            onBlur={()=>handleBlur()}
           />
           <button className='search_btn' onClick={debouncedFetchData}>
             <FontAwesomeIcon icon={faSearch} />
@@ -189,7 +189,6 @@ const Header = () => {
                 trigger={
                   <button className="avt_page">
                     <img src={logo} alt="profile" />
-                    {isAuthentication.isAuthenticated === true ? (<span>{isAuthentication.account.username}</span>) : (<span>hahah</span>)}
                   </button>
                 }
                 position="bottom right"
