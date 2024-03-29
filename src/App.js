@@ -30,9 +30,10 @@ function App(props) {
     } else {
       console.log('lỗi')
     }
-    dispatch(fetchSong());
-  }, [dispatch]);
-  
+  }, []);
+  useEffect(() => {
+    dispatch(fetchSong(localStorage.getItem('idSongPlaying')));
+  }, []);
 
   const playlistsData = Array.from({ length: 5 }, (_, index) => ({
     id: index,

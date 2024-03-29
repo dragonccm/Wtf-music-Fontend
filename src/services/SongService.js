@@ -6,11 +6,10 @@ export const getSongData = async (Songid) => {
       const songDetailResult = await songInfo(Songid);
       const songUrlResult = await songUrl(Songid);
       const songLyricsResult = await songLyric(Songid);
-
       const id = Songid;
       const genres = songDetailResult.data.genres.map((genre) => ({
         id: genre.id,
-          name: genre.name,
+        name: genre.name,
         alias: genre.alias
       }));
       const like = songDetailResult.data.like;
@@ -25,10 +24,6 @@ export const getSongData = async (Songid) => {
         name: composer.name,
         alias: composer.alias,
       }));
-      const album = {
-        id: songDetailResult.data.album.encodeId,
-        name: songDetailResult.data.album.title,
-      };
       const alias = songDetailResult.data?.alias || "Unknown Artist";
       const duration = songDetailResult.data?.duration || "Unknown Artist";
       const distributor =
@@ -70,14 +65,12 @@ export const getSongData = async (Songid) => {
         duration: duration,
         distributor: distributor,
         genres: genres,
-        album,
         like: like,
         listen: listen,
         lyric: Ly,
         link: song,
       };
-      const clonee = await cloneData(clonedata);
-      console.log("clone sucsses" + clonee);
+      await cloneData(clonedata);
       return {
         id,
         img,
@@ -89,9 +82,8 @@ export const getSongData = async (Songid) => {
         like,
         duration,
         lyricsString: Ly,
-        album,
-          composers,
-          genres
+        composers,
+        genres
       };
     } catch (error) {
       console.error("Error loading song data:", error);

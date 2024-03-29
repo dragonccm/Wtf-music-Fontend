@@ -21,7 +21,7 @@ const Top100 = () => {
   }
   const dataHandle = (data) => {
     return data.map((con) => ({
-      id: con.encodeId,
+      encodeId: con.encodeId,
       name: con.title,
       thumbnailM: con.thumbnail.replace('w165', 'w320'),
       artists_list: [], 
