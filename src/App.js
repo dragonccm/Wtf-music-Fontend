@@ -4,7 +4,6 @@ import AppRoutes from "./router/appRoutes";
 // component
 import RightSidebar from "./components/sideNavigation/RightSidebar";
 import Bottombar from "./components/sideNavigation/Bottombar";
-import Mainpage from "./components/pages/mainpage";
 // react route
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
@@ -22,7 +21,6 @@ import { useEffect } from "react";
 function App(props) {
   const dispatch = useDispatch();
 
-  localStorage.setItem("idSongPlaying",'Z7I9OC70')
 
   useEffect(() => {
     dispatch(fetchHome());
@@ -32,10 +30,9 @@ function App(props) {
     } else {
       console.log('lỗi')
     }
-  }, []);
-  useEffect(() => {
     dispatch(fetchSong());
-  }, []);
+  }, [dispatch]);
+  
 
   const playlistsData = Array.from({ length: 5 }, (_, index) => ({
     id: index,
