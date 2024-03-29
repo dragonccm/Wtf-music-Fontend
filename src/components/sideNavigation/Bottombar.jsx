@@ -128,7 +128,7 @@ const Bottombar = () => {
   }
 
   const arr_playlist = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 'jj']
-
+  console.log("loi chuaw")
   return (
     isPlaying &&
     <div className="main_bottom_bar">
@@ -202,7 +202,7 @@ const Bottombar = () => {
                       <h5>Album</h5>
                       <div className="content">
 
-                        <a href="">{songInfo.infor.album.name}</a>
+                        <a href=""></a>
                       </div>
                     </div>
                     <div className="item">

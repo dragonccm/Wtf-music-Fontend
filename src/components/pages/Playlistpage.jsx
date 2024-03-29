@@ -12,7 +12,7 @@ import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 
-
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 const Playlistpage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -42,6 +42,10 @@ const Playlistpage = () => {
       total: "3:00",
       root_album: "Solo",
     }));;
+  }
+  const handlePlaying = (e, id) => {
+    e.preventDefault();
+    dispatch(fetchSongPlaying(id));
   }
 
 
@@ -119,16 +123,15 @@ const Playlistpage = () => {
           <div className="list">
             {handledata(currData).map((data, index) => (
               <div className="list_row">
-                <div className="song_img_ctn">
+                <div className="song_img_ctn" onClick={(e) => handlePlaying(e, data.id)}>
                   <div className="row_order">
                     <div className="number">{index + 1}</div>
                     <div className="hidden_button">
-                      <NavLink
-                        to="/songpage"
+                      <div
                         className="nav-link list_nav_item play"
                       >
                         <FontAwesomeIcon icon={faPlay} />
-                      </NavLink>
+                      </div>
                     </div>
                   </div>
                   <div className="song_img">

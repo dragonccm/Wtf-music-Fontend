@@ -19,7 +19,6 @@ const Col3Layout = ({ data }) => {
     const chunk = slicedData.slice(i, i + chunkSize);
     chunkedData.push(chunk);
   }
-  console.log(chunkedData)
 
   const handlePlaying = (e, id) => {
     e.preventDefault();

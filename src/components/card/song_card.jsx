@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
+    console.table(playlist)
     const slicedData = playlist.slice(0, 5);
     // const { setSongData } = useContext(SongDataContext)
 
@@ -42,7 +43,7 @@ const Card = ({ playlist }) => {
                                     <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
                                 </button> */}
                                 <NavLink
-                                    to={`/playlist/${playlist.id}`}
+                                    to={`/playlist/${playlist.encodeId}`}
                                     className="nav-link list_nav_item"
                                 >
                                     <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
