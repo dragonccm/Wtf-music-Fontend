@@ -1,11 +1,13 @@
-import { Route, Navigate } from "react-router-dom";
+import {  Navigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-const PrivateRoutes = (props) => {
-  const isAuthentication = useSelector((state) => state.AuthenticationRedecer.defaultUser);
+const PrivateRoutes = ({ component: Component},props) => {
+  const isAuthentication = useSelector((state) => state.Authentication.defaultUser);
 
-  if (isAuthentication && isAuthentication.isAuthenticated === true) {
-    return <Route path={props.path} element={props.component} />;
+  if (isAuthentication && isAuthentication.isAuthenticated) {
+    return (
+      <Component/>
+    );
   } else {
     return <Navigate to="/login" />;
   }

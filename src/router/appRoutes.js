@@ -1,8 +1,8 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import "../css/mainpage.scss";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,Navigate } from "react-router-dom";
 // import Login from "./components/pages/loginpage";
 // import Register from "../component/register/register";
 // import Users from "../component/users/users";
@@ -16,7 +16,7 @@ import Singerpage from "../components/pages/Singerpage";
 import Top100 from "../components/pages/top100";
 import Profile from "../components/pages/profilepage";
 import HomeRating from "../components/card/Home_ rating";
-import HubPage from "../components/pages/hubPage";
+// import HubPage from "../components/pages/hubPage";
 // import Letclone from "./admin/letclone";
 import LoginPage from "../components/pages/loginPage";
 import RegisterPage from "../components/pages/register";
@@ -28,7 +28,6 @@ import Footer from "../components/layoutbar/Footer";
 // component
 import Col3Layout from "../components/card/col_3_layout";
 import ListCard from "../components/card/ListCard";
-import Authentication from "../components/pages/AuthenticationPage";
 import Rating from "../components/pages/Rating";
 import Card from "../components/card/song_card";
 
@@ -85,6 +84,10 @@ const AppRoutes = ({ playlists }, props) => {
   const top100 = useSelector((state) => state.home.top100);
   const albumHot = useSelector((state) => state.home.albumHot);
   const hNewrelease = useSelector((state) => state.home.hNewrelease);
+
+  // get state from redux
+  const isAuthentication = useSelector((state) => state.Authentication.defaultUser);
+
   return (
     <div className="main_page">
       <>
@@ -96,16 +99,29 @@ const AppRoutes = ({ playlists }, props) => {
             <Route path="/songpage/:id" element={<Songpage />} />
             <Route path="/artists/:id" element={<Singerpage />} />
             <Route path="/rating" element={<Rating />} />
-            {/* <Route path="/profile/*" element={<Profile />} /> */}
             <Route path="/top100" element={<Top100 />} />
             <Route path="/playlist/:id" element={<Playlistpage />} />
-            <Route path="/login" element={<LoginPage />} />
+
+            {/* //authentication */}
+            <Route
+              path="/login"
+              element={
+                isAuthentication &&
+                isAuthentication.isAuthenticated === true ? (
+                  <Navigate to="/" />
+                ) : (
+                  <LoginPage />
+                )
+              }
+            />
             <Route path="/register" element={<RegisterPage />} />
+
+            {/* admin */}
             <Route path="/admin" element={<HomeAdmin />} />
 
             <Route
-              path="/profile"
-              element={<PrivateRoutes component={Profile} />}
+              path="/profile/*"
+              element={<PrivateRoutes component={Profile}/>}
             />
 
             <Route

@@ -16,21 +16,22 @@ import { fetchHome } from "./redux/slide/homeSlice";
 import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
 
 
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "./redux/slide/counterSlice";
+import {  useDispatch } from "react-redux";
+import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
 import { useEffect } from "react";
 function App(props) {
   const dispatch = useDispatch();
-  const newCount = useSelector((state) => {
-    return state.counter.value;
-  });
-  const handelIncrease = () => {
-    dispatch(increment());
-  };
+
+  localStorage.setItem("idSongPlaying",'Z7I9OC70')
+
   useEffect(() => {
     dispatch(fetchHome());
     dispatch(fetchAuthentication());
-
+    if (localStorage.getItem('idSongPlaying')) {
+      dispatch(fetchSongPlaying(localStorage.getItem('idSongPlaying')));
+    } else {
+      console.log('lỗi')
+    }
   }, []);
   useEffect(() => {
     dispatch(fetchSong());
