@@ -3,8 +3,8 @@ import { getSongData } from "../../services/SongService";
 
 export const fetchSong = createAsyncThunk(
   'music/getSongData',
-  async () => {
-    const response = await getSongData("Z7I9OC70")
+  async (id) => {
+    const response = await getSongData(id)
     return response
   },
 )

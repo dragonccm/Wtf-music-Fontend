@@ -128,7 +128,7 @@ const Bottombar = () => {
   }
 
   const arr_playlist = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 'jj']
-  console.log("loi chuaw")
+
   return (
     isPlaying &&
     <div className="main_bottom_bar">

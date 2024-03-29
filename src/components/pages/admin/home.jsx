@@ -21,6 +21,7 @@ const HomeAdmin = () => {
   }, [dispatch]);
 
   const currData = useSelector((state) => state.admin.AdminHome);
+  console.log(currData)
   return (
     <main className="main-content">
       <div className="HomeAdmin">
@@ -35,7 +36,7 @@ const HomeAdmin = () => {
                     className="icon-artist"
                   />
                 </div>
-                <h4 className="text-capitalize mt-4 mb-1">{currData.songListen}</h4>
+                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.songListen}</h4> */}
                 <p className="mb-0 text-capitalize text-body">
                   total Music listen
                 </p>
@@ -51,7 +52,7 @@ const HomeAdmin = () => {
                     className="icon-albums"
                   />
                 </div>
-                <h4 className="text-capitalize mt-4 mb-1">{currData.playlistListen}</h4>
+                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.playlistListen}</h4> */}
                 <p className="mb-0 text-capitalize text-body">
                   total Music playlist
                 </p>
@@ -64,7 +65,7 @@ const HomeAdmin = () => {
                 <div className="admin-circle-box rounded-pill">
                   <FontAwesomeIcon icon={faMusic} className="icon-songs" />
                 </div>
-                <h4 className="text-capitalize mt-4 mb-1">{currData.songCount}</h4>
+                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.songCount}</h4> */}
                 <p className="mb-0 text-capitalize text-body">
                   total Music Songs
                 </p>
@@ -77,7 +78,7 @@ const HomeAdmin = () => {
                 <div className="admin-circle-box rounded-pill">
                   <FontAwesomeIcon icon={faList} className="icon-playlist" />
                 </div>
-                <h4 className="text-capitalize mt-4 mb-1">{currData.playlistCount}</h4>
+                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.playlistCount}</h4> */}
                 <p className="mb-0 text-capitalize text-body">
                   total Music Playlist
                 </p>
@@ -321,12 +322,12 @@ const HomeAdmin = () => {
                   className=" chart-01 d-flex justify-content-center"
                   style={{ minHeight: "195.017px" }}
                 >
-                  <BarChart
+                  {/* <BarChart
                     xAxis={[{ scaleType: 'band', data: ['Song Listen', 'PlayList Listen'] }]}
                     series={[{ data: [currData.songListen, currData.playlistListen] }]}
                     width={500}
                     height={300}
-                  />
+                  /> */}
                 </div>
                 <div className="d-flex align-items-center mb-5">
                   <FontAwesomeIcon

@@ -4,7 +4,7 @@ export const fetchSongPlaying = createAsyncThunk(
   "getSongPlaying",
   async (id) => {
     const response = await getSongData(id);
-    // console.log(response)
+    localStorage.setItem("idSongPlaying",id)
     return response;
   }
 );

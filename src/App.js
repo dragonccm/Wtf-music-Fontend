@@ -22,7 +22,7 @@ import { useEffect } from "react";
 function App(props) {
   const dispatch = useDispatch();
 
-  localStorage.setItem("idSongPlaying",'Z7I9OC70')
+  const latstid=localStorage.getItem("idSongPlaying");
 
   useEffect(() => {
     dispatch(fetchHome());
@@ -34,7 +34,7 @@ function App(props) {
     }
   }, []);
   useEffect(() => {
-    dispatch(fetchSong());
+    dispatch(fetchSong(localStorage.getItem('idSongPlaying')));
   }, []);
 
   const playlistsData = Array.from({ length: 5 }, (_, index) => ({
