@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
-import { getSongData } from "../../services/SongService";
 import "../../css/Songpage.scss";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -8,119 +5,61 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
-
-
-import Recommended from '../card/Recommended'
+import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
+// import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { fetchPageSong } from '../../redux/slide/songPageSlice'
+import { useSelector, useDispatch } from "react-redux";
+// import Recommended from '../card/Recommended'
 const Songpage = () => {
-  const [audioList, setAudioList] = useState([]);
+  // const { id } = useParams();
+  // const [loading, setLoading] = useState(true);
+  // const dispatch = useDispatch();
+
+  // const currSongData = useSelector((state) => state.song.listSong);
+  // const listData = useSelector((state) => state.playlist.playlist.data);
+  // useEffect(() => {
+  //   dispatch(fetchPageSong(id)).then(() => {
+  //     setLoading(false);
+  //     dispatch(fetchPlayList(currSongData.album));
+  //   });
+  // }, [dispatch, id]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  const setlocal = () => {
-    localStorage.setItem("LastSong", id)
-  }
   useEffect(() => {
-    const Recommendeds = Array.from({ length: 100 }, (_, index) => ({
-      id: index,
-      name: `Playlist ${index + 1}`,
-      image: "https://th.bing.com/th/id/OIP.XusXZvUJb2jQFc8QvjBnIwHaL2?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "jisoo",
-      songname: "Flower",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata: "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo"
-    }));
+    dispatch(fetchPageSong(id)).then(() => setLoading(false));
+  }, [dispatch, id]);
 
-    const playlistsData = [
-      {
-        id: 3,
-        name: `Playlist ${3 + 1}`,
-        image: "https://th.bing.com/th/id/OIP.2Taaw3tCXQRTYFNqPYXOdgHaHa?rs=1&pid=ImgDetMain",
-        artists_list: ["Jisso"],
-      },
-      {
-        id: 4,
-        name: `Playlist ${3 + 1}`,
-        image: "https://i.redd.it/3sx2ys0arsv21.jpg",
-        artists_list: ["Jisso"],
-      },
-      {
-        id: 5,
-        name: `Playlist ${3 + 1}`,
-        image: "https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg",
-        artists_list: ["Jisso"],
-      },
-      {
-        id: 6,
-        name: `Playlist ${3 + 1}`,
-        image: "https://i2.wp.com/blackpinkupdate.com/wp-content/uploads/2019/05/1-BLACKPINK-Jennie-Instagram-Update-25-May-2019.jpg?fit=1080%2C1080&ssl=1",
-        artists_list: ["Jisso"],
-      },
-      {
-        id: 7,
-        name: `Playlist ${3 + 1}`,
-        image: "https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg",
-        artists_list: ["Jisso"],
-      },
-    ]
-
-    const element = [
-      {
-        title: '100 Việt',
-        list: playlistsData,
-      },
-      {
-        title: '100 Hàn',
-        list: playlistsData,
-      },
-      {
-        title: '100 POP',
-        list: playlistsData,
-      },
-      {
-        title: '100 Us-Uk',
-        list: playlistsData,
-      },
-    ];
-    const fetchData = async () => {
-      const data = await getSongData(`${id}`);
-      if (data) {
-        const newAudio = {
-          avt: data.img,
-          songname: data.songname,
-          Recommended: Recommendeds,
-          element: element,
-          ar: data.artistsNames,
-          small: data.img,
-        };
-        setAudioList(newAudio);
-      }
-    };
-    fetchData();
-  }, [id]);
-  const hasRecommendedData = audioList && Array.isArray(audioList.Recommended);
-
-
+  const currSongData = useSelector((state) => state.songPage.pageData);
+  console.log(currSongData)
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <section className="songpage_main">
+
       <div className="songpage_list_head">
 
         <div className="songpage_left_head">
-          <img src={audioList.avt} alt="f" />
+          <img src={currSongData.img} alt="f" />
         </div>
 
         <div className="songpage_mid_head">
           <p>PlayList</p>
-          <h1 className="songpage_list_name">{audioList.songname}</h1>
+          <h1 className="songpage_list_name">{currSongData.songname}</h1>
           <p className="songpage_info">
             <div className="songpage_small_avt">
-              <img src={audioList.small} alt="f" />
+              <img src={currSongData.img} alt="f" />
             </div>
-            <div className="songpage_user_name">{audioList.ar}</div>
+            <div className="songpage_user_name">{currSongData.artistsNames}</div>
             .
             <div className="songpage_total_song">41 bài hát,</div>
             <div className="songpage_total_time">2 giờ 15 phút</div>
@@ -131,7 +70,7 @@ const Songpage = () => {
 
       <div className="song_body">
         <div className="song_control">
-          <button className="play_random" onClick={setlocal} >
+          <button className="play_random">
             <FontAwesomeIcon icon={faCirclePlay} />
           </button>
           <button className="like_btn">
@@ -153,13 +92,9 @@ const Songpage = () => {
 
 
         </div>
+        {/* <Recommended datas={listData} type={"Recommended"} describe={'Based on this song'} maxItemsToShow="5" />
+        <Recommended datas={listData} type={"Popular"} describe={'Rap Việt'} maxItemsToShow="5" /> */}
 
-        {hasRecommendedData && (
-          <>
-            <Recommended datas={audioList.Recommended} type={"Recommended"} describe={'Based on this song'} maxItemsToShow="5" />
-            <Recommended datas={audioList.Recommended} type={"Popular"} describe={'Rap Việt'} maxItemsToShow="5" />
-          </>
-        )}
       </div>
     </section>
   )

@@ -15,7 +15,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
     setShowAll(!showAll);
   };
   const validDatas = Array.isArray(datas) ? datas : [];
-  console.log("dụ má có",datas)
+  console.table(datas)
   return (
     <>
       {/* lable */}
