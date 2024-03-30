@@ -21,105 +21,6 @@ const HomeAdmin = () => {
         dispatch(fetchAdminHome());
     }, [dispatch]);
 
-<<<<<<< HEAD
-    const currData = useSelector((state) => state.admin.AdminHome);
-    return (
-        <main className="main-content">
-            <div className="HomeAdmin">
-                {/* data statistical */}
-                <section className="row">
-                    <div className="col">
-                        <div className="card card-box text-center ">
-                            <div className="card-body bg-artist">
-                                <div className="admin-circle-box rounded-pill">
-                                    <FontAwesomeIcon
-                                        icon={faMicrophone}
-                                        className="icon-artist"
-                                    />
-                                </div>
-                                <h4 className="text-capitalize mt-4 mb-1">
-                                    {currData.songListen}
-                                </h4>
-                                <p className="mb-0 text-capitalize text-body">
-                                    total Music listen
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="card card-box text-center">
-                            <div className="card-body bg-albums">
-                                <div className="admin-circle-box rounded-pill">
-                                    <FontAwesomeIcon
-                                        icon={faCompactDisc}
-                                        className="icon-albums"
-                                    />
-                                </div>
-                                <h4 className="text-capitalize mt-4 mb-1">
-                                    {currData.playlistListen}
-                                </h4>
-                                <p className="mb-0 text-capitalize text-body">
-                                    total Music playlist
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="card card-box text-center">
-                            <div className="card-body bg-songs">
-                                <div className="admin-circle-box rounded-pill">
-                                    <FontAwesomeIcon
-                                        icon={faMusic}
-                                        className="icon-songs"
-                                    />
-                                </div>
-                                <h4 className="text-capitalize mt-4 mb-1">
-                                    {currData.songCount}
-                                </h4>
-                                <p className="mb-0 text-capitalize text-body">
-                                    total Music Songs
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="card card-box text-center">
-                            <div className="card-body bg-playlist">
-                                <div className="admin-circle-box rounded-pill">
-                                    <FontAwesomeIcon
-                                        icon={faList}
-                                        className="icon-playlist"
-                                    />
-                                </div>
-                                <h4 className="text-capitalize mt-4 mb-1">
-                                    {currData.playlistCount}
-                                </h4>
-                                <p className="mb-0 text-capitalize text-body">
-                                    total Music Playlist
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col">
-                        <div className="card card-box text-center">
-                            <div className="card-body bg-users">
-                                <div className="admin-circle-box rounded-pill">
-                                    <FontAwesomeIcon
-                                        icon={faCircleUser}
-                                        className="icon-users"
-                                    />
-                                </div>
-                                <h4 className="text-capitalize mt-4 mb-1">
-                                    352
-                                </h4>
-                                <p className="mb-0 text-capitalize text-body">
-                                    total Music Users
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-=======
   const currData = useSelector((state) => state.admin.AdminHome);
   console.log(currData)
   return (
@@ -199,7 +100,6 @@ const HomeAdmin = () => {
             </div>
           </div>
         </section>
->>>>>>> 77fc0d146e1caf9e0d663ed87f9715f76c920d7a
 
                 {/* top data */}
                 <section className="row">
