@@ -84,7 +84,7 @@ const Header = () => {
   }, [searchTerm, debouncedFetchData]);
 
   const handleBlur = () => {
-    setTimeout(() => { setIsVisible(true); }, 200);
+    setTimeout(() => { setIsVisible(true); }, 100000);
   };
   const handleLogoutUser = async() => {
     let data = await getLogout();//clear cookies
@@ -127,7 +127,10 @@ const Header = () => {
         <div className="search_item_song_img">
           <img src={data.thumb} alt={data.name} />
         </div>
+        <div className="">
         <NavLink to={`/songpage/${data.id}`} className="search_item_name">{data.name}</NavLink>
+
+        </div>
       </section>
     );
   };

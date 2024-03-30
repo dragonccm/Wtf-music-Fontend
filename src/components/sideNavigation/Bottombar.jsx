@@ -265,7 +265,7 @@ const Bottombar = () => {
                       <h5>Album</h5>
                       <div className="content">
 
-                        <a href="/album/">{songInfo.infor.album.name}</a>
+                        <a href="/album/">{songInfo.infor.album?songInfo.infor.album.name:''}</a>
                       </div>
                     </div>
                     <div className="item">
