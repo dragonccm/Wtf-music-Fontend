@@ -33,6 +33,8 @@ import Card from "../components/card/song_card";
 
 import ThemeContext from "../lib/Context/ThemeContext";
 import HomeAdmin from "../components/pages/admin/home";
+import UserAdmin from "../components/pages/admin/user";
+import KindMusicAdmin from "../components/pages/admin/kindmusic";
 
 const AppRoutes = ({ playlists }, props) => {
     const { theme } = useContext(ThemeContext);
@@ -124,7 +126,12 @@ const AppRoutes = ({ playlists }, props) => {
                         <Route path="/register" element={<RegisterPage />} />
 
                         {/* admin */}
-                        <Route path="/admin" element={<HomeAdmin />} />
+                        <Route path="/adminhome" element={<HomeAdmin />} />
+                        <Route path="/adminuser" element={<UserAdmin />} />
+                        <Route
+                            path="/adminkindmusic"
+                            element={<KindMusicAdmin />}
+                        />
 
                         <Route
                             path="/profile/*"
