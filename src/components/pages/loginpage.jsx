@@ -5,17 +5,17 @@ import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import "../../css/login_page.scss";
 import logo from "../../img/logo3 (1).png";
 import "../../css/login_page.scss";
-import bg from "../../img/bg_login.jpg";
-import { getLogin } from '../../services/registerService'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { loginer } from '../../redux/slide/AuthenticationSlice'
+import bg from "../../img/bg-login.avif";
+import { getLogin } from "../../services/registerService";
+import { NavLink, useNavigate } from "react-router-dom";
+import { loginer } from "../../redux/slide/AuthenticationSlice";
 
 import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
-    const [valueLogin, setValueLogin] = useState('')
-    const [password, setPassword] = useState('')
-    const [checkRemember, setCheckRemember] = useState(false)
+    const [valueLogin, setValueLogin] = useState("");
+    const [password, setPassword] = useState("");
+    const [checkRemember, setCheckRemember] = useState(false);
     const navigate = useNavigate();
     const defaultValidInput = {
         isValidValueLogin: true,
@@ -30,7 +30,10 @@ const LoginPage = () => {
 
         setObjCheckInput(defaultValidInput);
         if (!valueLogin) {
-            setObjCheckInput({ ...defaultValidInput, isValidValueLogin: false });
+            setObjCheckInput({
+                ...defaultValidInput,
+                isValidValueLogin: false,
+            });
 
             //   toast.error("Please enter your email address or phone number")
             return;
@@ -41,44 +44,48 @@ const LoginPage = () => {
             //   toast.error("Please enter your password")
             return;
         }
-        let response = await getLogin(valueLogin, password, checkRemember)
+        let response = await getLogin(valueLogin, password, checkRemember);
         let serverData = response;
-        console.log(serverData)
+        console.log(serverData);
 
-        if (response && response.EC === '0') {
-
+        if (response && response.EC === "0") {
             let email = response.DT.email;
             let username = response.DT.username;
             let token = response.DT.access_token;
             let data = {
                 isAuthenticated: true,
                 token: token,
-                account: { email, username }
-            }
+                account: { email, username },
+            };
             localStorage.setItem("jwt", token);
-            instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
+            instance.defaults.headers.common[
+                "Authorization"
+            ] = `Bearer ${localStorage.getItem("jwt")}`;
 
-            console.log('ok');
-            dispatch(loginer(data))
+            console.log("ok");
+            dispatch(loginer(data));
             navigate(-1);
         } else {
             //   toast.error(serverData.EM);
-            console.log('chưa đc');
+            console.log("chưa đc");
         }
-    }
+    };
     return (
         <div className="mod">
-            <img className="bg_login" src={bg} alt="" />
             <div className="form-con">
                 <form action="" className="login_form">
-                    <h1>
-                        <a href="/">
-                            <img src={logo} alt="avt"></img>
-                        </a>
-                    </h1>
+                    <div className="heading-logo">
+                        <img src={logo} alt="avt"></img>
+                        <span>Welcome to WtfMusic</span>
+                    </div>
+
                     <input
                         placeholder="Tên đăng nhập hoặc Email"
-                        className={objCheckInput.isValidValueLogin ? "email input_form_text" : "email input_form_text is_invalid"}
+                        className={
+                            objCheckInput.isValidValueLogin
+                                ? "email input_form_text"
+                                : "email input_form_text is_invalid"
+                        }
                         name="email"
                         type="text"
                         value={valueLogin}
@@ -86,7 +93,11 @@ const LoginPage = () => {
                     ></input>
                     <input
                         placeholder="Mật khẩu"
-                        className={objCheckInput.isValidValueLogin ? "pass input_form_text" : "pass input_form_text is_invalid"}
+                        className={
+                            objCheckInput.isValidValueLogin
+                                ? "pass input_form_text"
+                                : "pass input_form_text is_invalid"
+                        }
                         name="pass"
                         type="text"
                         value={password}
@@ -94,10 +105,16 @@ const LoginPage = () => {
                     ></input>
                     <div className="check_box">
                         <div className="remember_login">
-                            <div className="check_btn">
-                                <input id="checked" type="checkbox" onChange={() => setCheckRemember(!checkRemember)} />
-                                <div className="checkmark"></div>
-                            </div>
+                            <label className="check_btn">
+                                <input
+                                    id="checked"
+                                    type="checkbox"
+                                    onChange={() =>
+                                        setCheckRemember(!checkRemember)
+                                    }
+                                />
+                                <div class="checkmark"></div>
+                            </label>
                             <label htmlFor="checked">Ghi Nhớ Đăng Nhập</label>
                         </div>
                         <a className="forgot_pass" href="/">
@@ -105,27 +122,30 @@ const LoginPage = () => {
                         </a>
                     </div>
                     <div className="form_button">
-                        <button className="signin form_btn hhhh" onClick={(e) => handleLogin(e)}>LOGIN</button>
+                        <button
+                            className="signin form_btn hhhh"
+                            onClick={(e) => handleLogin(e)}
+                        >
+                            LOGIN
+                        </button>
                         <p>Or Login with</p>
                         <button className="signin_gg form_btn">
-                            <FontAwesomeIcon icon={faGoogle} /> Google
+                            <FontAwesomeIcon icon={faGoogle} />
+                            <span>Google</span>
                         </button>
                     </div>
                     <div className="change_page_text">
                         Bạn chưa có tài khoản?{" "}
                         <div className="change_page">
-
-                            <NavLink
-                                to="/register"
-                                className='change_page_a'
-                            >
+                            <NavLink to="/register" className="change_page_a">
                                 Đăng ký
                             </NavLink>
                         </div>
                     </div>
                 </form>
             </div>
+            <img className="bg_login" src={bg} alt="" />
         </div>
-    )
-}
-export default LoginPage
+    );
+};
+export default LoginPage;
