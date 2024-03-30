@@ -280,396 +280,208 @@ const Bottombar = () => {
                                     <FontAwesomeIcon icon={faHeart} />
                                 </button>
 
-                                <button
-                                    onClick={openModal}
-                                    className="rhap_main-controls-button rhap_button-clear"
-                                >
-                                    <FontAwesomeIcon icon={faEllipsis} />
-                                </button>
-                                <Modal
-                                    isOpen={modalMenuIsOpen}
-                                    onAfterOpen={afterOpenModal}
-                                    onRequestClose={closeModal}
-                                    // style={customStyles}
-                                    className="Modal"
-                                    overlayClassName="Overlay"
-                                    shouldCloseOnOverlayClick={true}
-                                >
-                                    {/* <button onClick={closeModal}>close</button> */}
-                                    <div className="r_click">
-                                        <div className="r_click_head">
-                                            <div className="r_click_head_img">
-                                                <img
-                                                    src={songInfo.infor.img}
-                                                    alt="f"
-                                                />
-                                            </div>
-                                            <div className="r_click_head_info">
-                                                <div className="name">
-                                                    <a
-                                                        href={
-                                                            "/nghe-si/" +
-                                                            songInfo.infor.alias
-                                                        }
-                                                    >
-                                                        {
-                                                            songInfo.infor
-                                                                .songname
-                                                        }
-                                                    </a>
-                                                </div>
-                                                <div className="more">
-                                                    <div className="more_item">
-                                                        <FontAwesomeIcon
-                                                            icon={faHeart}
-                                                        />
-                                                        {Math.ceil(
-                                                            songInfo.infor
-                                                                .like / 1000
-                                                        ) > 1
-                                                            ? Math.ceil(
-                                                                  songInfo.infor
-                                                                      .like /
-                                                                      1000
-                                                              ) + "k"
-                                                            : songInfo.infor
-                                                                  .like}
-                                                    </div>
-                                                    <div className="more_item">
-                                                        <FontAwesomeIcon
-                                                            icon={
-                                                                faHeadphonesSimple
-                                                            }
-                                                        />
-                                                        {Math.ceil(
-                                                            songInfo.infor
-                                                                .listen / 1000
-                                                        ) > 1
-                                                            ? Math.ceil(
-                                                                  songInfo.infor
-                                                                      .listen /
-                                                                      1000
-                                                              ) + "k"
-                                                            : songInfo.infor
-                                                                  .listen}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="submenu-content">
-                                            <div className="item">
-                                                <h5>Nghệ sĩ</h5>
-                                                <div className="content">
-                                                    {songInfo.infor.artistInfo.map(
-                                                        (artist, index) => (
-                                                            <span key={index}>
-                                                                <a
-                                                                    href={
-                                                                        "/nghe-si/" +
-                                                                        artist.alias
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        artist.name
-                                                                    }
-                                                                </a>
-                                                                {index !==
-                                                                    songInfo
-                                                                        .infor
-                                                                        .artistInfo
-                                                                        .length -
-                                                                        1 &&
-                                                                    ","}
-                                                            </span>
-                                                        )
-                                                    )}
-                                                </div>
-                                            </div>
-                                            <div className="item">
-                                                <h5>Album</h5>
-                                                <div className="content">
-                                                    <a href="/album/">
-                                                        {songInfo.infor.album
-                                                            ? songInfo.infor
-                                                                  .album.name
-                                                            : ""}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div className="item">
-                                                <h5>Sáng tác</h5>
-                                                <div className="content">
-                                                    {
-                                                        <a
-                                                            href={
-                                                                "/nghe-si/" +
-                                                                songInfo.infor
-                                                                    .composers[0]
-                                                                    .alias
-                                                            }
-                                                        >
-                                                            {
-                                                                songInfo.infor
-                                                                    .composers[0]
-                                                                    .name
-                                                            }
-                                                        </a>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="item">
-                                                <h5>Thể loại</h5>
-                                                <div className="content">
-                                                    {
-                                                        <a
-                                                            href={
-                                                                "/nghe-si/" +
-                                                                songInfo.infor
-                                                                    .genres[0]
-                                                                    .alias
-                                                            }
-                                                        >
-                                                            {
-                                                                songInfo.infor
-                                                                    .genres[0]
-                                                                    .name
-                                                            }
-                                                        </a>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="item">
-                                                <h5>Cung cấp bởi</h5>
-                                                <div className="content">
-                                                    <a href="/">
-                                                        Ingrooves Music Group
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="r_click_navigation">
-                                            <div className="item">
-                                                <a
-                                                    href="#"
-                                                    onClick={() =>
-                                                        handleClick()
-                                                    }
-                                                >
-                                                    <FontAwesomeIcon
-                                                        icon={faDownload}
-                                                    />
-                                                    <p>tải xuống</p>
-                                                </a>
-                                            </div>
-                                            <div
-                                                className="item"
-                                                onClick={openModalLyric}
-                                            >
-                                                <ReactSVG
-                                                    beforeInjection={(svg) => {
-                                                        svg.classList.add(
-                                                            "icon_list_nav_item_svg"
-                                                        );
-                                                    }}
-                                                    src={icon_karaoke}
-                                                />
-                                                <p>lời bài hát</p>
-                                            </div>
-                                            <Modal
-                                                isOpen={modalLyricIsOpen}
-                                                onAfterOpen={afterOpenModal}
-                                                onRequestClose={closeModalLyric}
-                                                // style={customStyles}
-                                                className="Modal_lyric"
-                                                overlayClassName="Overlay_lyric"
-                                                shouldCloseOnOverlayClick={true}
-                                            >
-                                                <div className="Modal_lyric_title">
-                                                    haha
-                                                </div>
-                                                <div className="Modal_lyric_ctn">
-                                                    <textarea
-                                                        name=""
-                                                        id=""
-                                                        rows="15"
-                                                        value={haha
-                                                            .map(
-                                                                (sentence) =>
-                                                                    sentence.data
-                                                            )
-                                                            .join("\n")}
-                                                    />
-                                                </div>
-                                                <div className="Modal_lyric_btn">
-                                                    <button
-                                                        onClick={
-                                                            closeModalLyric
-                                                        }
-                                                    >
-                                                        Đóng
-                                                    </button>
-                                                </div>
-                                            </Modal>
-                                            <div className="item">
-                                                <FontAwesomeIcon icon={faBan} />
-                                                <p>chặn</p>
-                                            </div>
-                                        </div>
-                                        <div className="r_click_list">
-                                            <div className="r_click_list_item add-playlist">
-                                                <FontAwesomeIcon
-                                                    icon={faCirclePlus}
-                                                />
-                                                Thêm vào playlist
-                                                <div className="playlist-content">
-                                                    <div className="item">
-                                                        <ReactSVG
-                                                            beforeInjection={(
-                                                                svg
-                                                            ) => {
-                                                                svg.classList.add(
-                                                                    "icon_list_nav_item_svg"
-                                                                );
-                                                            }}
-                                                            src={icon_playlist}
-                                                        />
-                                                        <span>Playlist 1</span>
-                                                    </div>
-                                                    <div className="item">
-                                                        <ReactSVG
-                                                            beforeInjection={(
-                                                                svg
-                                                            ) => {
-                                                                svg.classList.add(
-                                                                    "icon_list_nav_item_svg"
-                                                                );
-                                                            }}
-                                                            src={icon_playlist}
-                                                        />
-                                                        <span>Playlist 1</span>
-                                                    </div>
-                                                    <div className="item">
-                                                        <ReactSVG
-                                                            beforeInjection={(
-                                                                svg
-                                                            ) => {
-                                                                svg.classList.add(
-                                                                    "icon_list_nav_item_svg"
-                                                                );
-                                                            }}
-                                                            src={icon_playlist}
-                                                        />
-                                                        <span>Playlist 1</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div
-                                                className="r_click_list_item"
-                                                onClick={openModalFull}
-                                            >
-                                                <ReactSVG
-                                                    beforeInjection={(svg) => {
-                                                        svg.classList.add(
-                                                            "icon_list_nav_item_svg"
-                                                        );
-                                                    }}
-                                                    src={icon_mic}
-                                                />
-                                                Phát cùng lời bài hát
-                                            </div>
-                                            <Modal
-                                                isOpen={modalFullIsOpen}
-                                                onAfterOpen={afterOpenModal}
-                                                onRequestClose={closeModalFull}
-                                                // style={customStyles}
-                                                className="Modal_playlist"
-                                                overlayClassName={
-                                                    animationActive
-                                                        ? "Overlay_full"
-                                                        : "Overlay_full active"
-                                                }
-                                                shouldCloseOnOverlayClick={
-                                                    false
-                                                }
-                                            >
-                                                {/* <button onClick={closeModal}>close</button> */}
-                                                <div className="playlist_player">
-                                                    <div className="playlist_player_bg">
-                                                        <img
-                                                            src="https://photo-resize-zmp3.zmdcdn.me/w1920_r3x2_jpeg/cover/b/8/0/e/b80e5777c7eec332c882bf79bd692056.jpg"
-                                                            alt="g"
-                                                        />
-                                                    </div>
-                                                    <div className="playlist_player_header">
-                                                        {isFullScreen ? (
-                                                            <button
-                                                                onClick={
-                                                                    handleCloseFullScreen
-                                                                }
-                                                                className="header_btn"
-                                                            >
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faCompress
-                                                                    }
-                                                                />
-                                                            </button>
-                                                        ) : (
-                                                            <button
-                                                                onClick={
-                                                                    handleOpenFullScreen
-                                                                }
-                                                                className="header_btn"
-                                                            >
-                                                                <FontAwesomeIcon
-                                                                    icon={
-                                                                        faExpand
-                                                                    }
-                                                                />
-                                                            </button>
-                                                        )}
-                                                        <button
-                                                            onClick={
-                                                                closeModalFull
-                                                            }
-                                                            className="close_btn header_btn"
-                                                        >
-                                                            <FontAwesomeIcon
-                                                                icon={
-                                                                    faChevronDown
-                                                                }
-                                                            />
-                                                        </button>
-                                                    </div>
-                                                    <div className="playlist_player_body">
-                                                        <div className="body">
-                                                            <div className="avt">
-                                                                <img
-                                                                    src="https://photo-resize-zmp3.zmdcdn.me/w480_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg"
-                                                                    alt="h"
-                                                                />
-                                                            </div>
-                                                            <div className="lyric">
-                                                                <ul className="scroll-content">
-                                                                    {haha.map(
-                                                                        (
-                                                                            sentence
-                                                                        ) => {
-                                                                            return (
-                                                                                <li className="item">
-                                                                                    {
-                                                                                        sentence.data
-                                                                                    }
-                                                                                </li>
-                                                                            );
-                                                                        }
-                                                                    )}
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Modal>
+              <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
+                <FontAwesomeIcon icon={faEllipsis} />
+              </button>
+              <Modal
+                isOpen={modalMenuIsOpen}
+                onAfterOpen={afterOpenModal}
+                onRequestClose={closeModal}
+                // style={customStyles}
+                className="Modal"
+                overlayClassName="Overlay"
+                shouldCloseOnOverlayClick={true}
+
+              >
+                {/* <button onClick={closeModal}>close</button> */}
+                <div className="r_click">
+                  <div className="r_click_head">
+                    <div className="r_click_head_img"><img src={songInfo.infor.img} alt="f" /></div>
+                    <div className="r_click_head_info">
+                      <div className="name"><a href={"/nghe-si/" + songInfo.infor.alias}>{songInfo.infor.songname}</a></div>
+                      <div className="more">
+                        <div className="more_item">
+                          <FontAwesomeIcon icon={faHeart} />
+                          {Math.ceil(songInfo.infor.like / 1000) > 1 ? Math.ceil(songInfo.infor.like / 1000) + 'k' : songInfo.infor.like}
+                        </div>
+                        <div className="more_item">
+                          <FontAwesomeIcon icon={faHeadphonesSimple} />
+                          {Math.ceil(songInfo.infor.listen / 1000) > 1 ? Math.ceil(songInfo.infor.listen / 1000) + 'k' : songInfo.infor.listen}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="submenu-content">
+                    <div className="item">
+                      <h5>Nghệ sĩ</h5>
+                      <div className="content">
+                        {songInfo.infor.artistInfo.map((artist, index) => (
+                          <span key={index}>
+                            <a href={"/nghe-si/" + artist.alias}>{artist.name}</a>
+                            {index !== songInfo.infor.artistInfo.length - 1 && ","}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Album</h5>
+                      <div className="content">
+
+                        <a href="/album/">{songInfo.infor.album?songInfo.infor.album.name:''}</a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Sáng tác</h5>
+                      <div className="content">
+                        {<a href={"/nghe-si/" + songInfo.infor.composers[0].alias} >{songInfo.infor.composers[0].name}</a>}
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Thể loại</h5>
+                      <div className="content">
+                        {<a href={"/nghe-si/" + songInfo.infor.genres[0].alias} >{songInfo.infor.genres[0].name}</a>}
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Cung cấp bởi</h5>
+                      <div className="content">
+                        <a href="/">Ingrooves Music Group</a>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div className="r_click_navigation">
+                    <div className="item">
+
+                      <a href='#' onClick={() => handleClick()}>
+
+                        <FontAwesomeIcon icon={faDownload} />
+                        <p>tải xuống</p>
+                      </a>
+                    </div>
+                    <div className="item" onClick={openModalLyric} >
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_karaoke}
+                      />
+                      <p>lời bài hát</p>
+                    </div>
+                    <Modal
+                      isOpen={modalLyricIsOpen}
+                      onAfterOpen={afterOpenModal}
+                      onRequestClose={closeModalLyric}
+                      // style={customStyles}
+                      className="Modal_lyric"
+                      overlayClassName="Overlay_lyric"
+                      shouldCloseOnOverlayClick={true}
+
+                    >
+                      <div className="Modal_lyric_title">haha</div>
+                      <div className="Modal_lyric_ctn">
+                        <textarea name="" id="" rows='15' value={haha.map((sentence) => sentence.data).join("\n")} />
+                      </div>
+                      <div className="Modal_lyric_btn">
+                        <button onClick={closeModalLyric}>Đóng</button>
+                      </div>
+                    </Modal>
+                    <div className="item">
+                      <FontAwesomeIcon icon={faBan} />
+                      <p>chặn</p>
+                    </div>
+                  </div>
+                  <div className="r_click_list">
+                    <div className="r_click_list_item add-playlist">
+                      <FontAwesomeIcon icon={faCirclePlus} />
+                      Thêm vào playlist
+                      <div className="playlist-content">
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                        <div className="item">
+                          <ReactSVG
+                            beforeInjection={(svg) => {
+                              svg.classList.add("icon_list_nav_item_svg");
+                            }}
+                            src={icon_playlist}
+                          />
+                          <span>Playlist 1</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="r_click_list_item" onClick={openModalFull}>
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_mic}
+                      />
+                      Phát cùng lời bài hát
+                    </div>
+                    <Modal
+                      isOpen={modalFullIsOpen}
+                      onAfterOpen={afterOpenModal}
+                      onRequestClose={closeModalFull}
+                      // style={customStyles}
+                      className="Modal_playlist"
+                      overlayClassName={animationActive ? "Overlay_full" : "Overlay_full active"}
+                      shouldCloseOnOverlayClick={false}
+
+                    >
+                      {/* <button onClick={closeModal}>close</button> */}
+                      <div className="playlist_player">
+                        <div className="playlist_player_bg">
+                          <img src="https://photo-resize-zmp3.zmdcdn.me/w1920_r3x2_jpeg/cover/b/8/0/e/b80e5777c7eec332c882bf79bd692056.jpg" alt="g" />
+
+                        </div>
+                        <div className="playlist_player_header">
+                          {isFullScreen ? (
+                            <button onClick={handleCloseFullScreen} className="header_btn">
+                              <FontAwesomeIcon icon={faCompress} />
+                            </button>
+                          ) : (
+                            <button onClick={handleOpenFullScreen} className="header_btn">
+                              <FontAwesomeIcon icon={faExpand} />
+                            </button>
+                          )}
+                          <button onClick={closeModalFull} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
+
+
+
+                        </div>
+                        <div className="playlist_player_body">
+                          <div className="body">
+                            <div className="avt">
+                              <img src="https://photo-resize-zmp3.zmdcdn.me/w480_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="h" />
+                            </div>
+                            <div className="lyric">
+                              <ul className="scroll-content">
+                             
+                                {haha.map((sentence) => {
+                                  return <li className="item">{sentence.data}</li>;
+                                })}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Modal>
 
                                             <CopyToClipboard text="Fuck you!">
                                                 <div className="r_click_list_item">
