@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { getSongData } from "../../services/SongService";
+import React, { useState, useRef, useEffect } from "react";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Modal from 'react-modal';
 import 'reactjs-popup/dist/index.css';
@@ -17,33 +16,52 @@ import { useSelector } from "react-redux";
 
 Modal.setAppElement('#root');
 const Bottombar = () => {
-  const [currentSong, SetSong] = useState([])
   const [isFullScreen, SetIsFullScreen] = useState(false)
   const [animationActive, setAnimationActive] = useState(true);
   const [animationPlaylistActive, setAnimationPlaylistActive] = useState(true);
-
-
-  const songInfo = useSelector((state) => state.getSongData.inforSong);
+  const audioRef = useRef();
+  let haha = []
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+  console.log(isPlaying)
+  const songInfo = useSelector((state) => state.getSongData.inforSong);
+  console.log(songInfo)
+
+  if (isPlaying && songInfo !== null && songInfo !== undefined && songInfo.infor.lyricsString) {
+    haha = songInfo.infor.lyricsString.map((sentence) => {
+      const startTime = sentence.words[0].startTime;
+      const endTime = sentence.words[sentence.words.length - 1].endTime;
+      const data = sentence.words.map((word) => word.data).join(" ");
+      return { startTime, endTime, data };
+    });
+    console.log('--------' + haha[0].data, haha[0].endTime, haha[0].startTime)
+  }
+  else {
+    console.log('fjdkgddddddddddddđfffffffffffffffffffffffffffffffff')
+  }
 
 
+  const handleClick = async () => {
+    const audioUrl =
+      'https://vnso-pt-14-tf-a128-z3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1711874606~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=d7b5d79538e953dbdd714caed0013b53';
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await getSongData("Z7I9OC70");
-  //     const viprotrack = {
-  //       artistsNames: response.artistsNames,
-  //       songname: response.songname,
-  //       imge: response.img,
-  //       song: response.song,
-  //       lyricsString: response.lyricsString,
-  //     }
+    try {
+      const response = await fetch(audioUrl);
+      const blob = await response.blob();
 
-  //     SetSong(viprotrack)
-  //   }
-  //   fetchData()
-  // }, [])
+      const reader = new FileReader();
+      reader.onload = () => {
+        const a = document.createElement('a');
+        a.href = reader.result;
+        a.download = 'audio.mp3';
+        a.click();
+      };
 
+      reader.readAsDataURL(blob);
+
+    } catch (error) {
+      console.error('Lỗi khi tải xuống:', error);
+    }
+  };
 
 
   const icon_play = <FontAwesomeIcon icon={faCirclePlay} />;
@@ -115,6 +133,8 @@ const Bottombar = () => {
     }
   }
 
+
+
   const handleCloseFullScreen = () => {
     SetIsFullScreen(false);
 
@@ -128,7 +148,50 @@ const Bottombar = () => {
   }
 
   const arr_playlist = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 'jj']
-  console.log("loi chuaw")
+
+
+  const handleListen = (e) => {
+    const currentTime = e.target.currentTime;
+
+
+    for (let i = 0; i < haha.length; i++) {
+      const lyric = haha[i];
+
+      if (currentTime >= (parseFloat(lyric.startTime) / 1000 - 0.1) && currentTime <= (parseFloat(lyric.endTime) / 1000 )) {
+        console.log(lyric.data);
+        const lyricUL = document.querySelectorAll('.scroll-content li');
+        let isFound = false;
+        lyricUL.forEach((item, index) => {
+          if (isFound) {
+            return; // Nếu đã tìm thấy, thoát khỏi vòng lặp
+          }
+          if (item.innerHTML === lyric.data) {
+            item.classList.add('active');
+            if (index > 0) {
+              lyricUL[index-1].classList.add('over');
+              lyricUL[index-1].classList.remove('active');
+            }
+            if (index > 1) {
+              lyricUL[index-1].classList.add('over');
+            lyricUL[index-1].classList.remove('active');
+            lyricUL[index-2].classList.remove('active');
+            lyricUL[index-2].classList.add('over');
+            }
+            isFound = true; // Đ
+          }
+          
+        });
+        // console.log(haha)
+        break; // Dừng vòng lặp khi điều kiện đúng được thoả mãn
+      } else {
+        // console.log(currentTime);
+        // console.log(parseFloat(lyric.startTime)/100000)
+        // console.log(currentTime >= parseFloat(lyric.startTime)/100000)
+      }
+    }
+
+  };
+
   return (
     isPlaying &&
     <div className="main_bottom_bar">
@@ -202,7 +265,7 @@ const Bottombar = () => {
                       <h5>Album</h5>
                       <div className="content">
 
-                        <a href=""></a>
+                        <a href="/album/">{songInfo.infor.album.name}</a>
                       </div>
                     </div>
                     <div className="item">
@@ -227,12 +290,12 @@ const Bottombar = () => {
                   </div>
                   <div className="r_click_navigation">
                     <div className="item">
-                     
-                        <a href={songInfo.infor.song} download="w3logo" onClick={() => alert('Nhấp chuột vào "OK" để tải xuống tệp tin.')}>
+
+                      <a href='#' onClick={() => handleClick()}>
 
                         <FontAwesomeIcon icon={faDownload} />
                         <p>tải xuống</p>
-                        </a>
+                      </a>
                     </div>
                     <div className="item" onClick={openModalLyric} >
                       <ReactSVG
@@ -255,85 +318,7 @@ const Bottombar = () => {
                     >
                       <div className="Modal_lyric_title">haha</div>
                       <div className="Modal_lyric_ctn">
-                        <textarea name="" id="" rows='15'>
-                          Chăn mền tôi đắp
-                          Vẫn còn vương vấn cũ
-                          Sau làn da thắm
-                          Vết thương chưa dứt đủ
-                          Thế nên mình đến lúc này
-                          Biết đâu là quá ngây dại
-                          Những lời yêu dấu
-                          Thốt ra ru êm tôi
-                          Cung đàn anh tấu
-                          Khẽ lay tim bồi hồi
-                          Tôi thấy quên ngày tháng nhạt nhoà
-                          Và tôi đã mơ chuyện của chúng ta
-                          Nhiều lần bên nhau lúc hẹn hò
-                          Còn vài niềm riêng
-                          Bối rối đầy gượng gạo
-                          Tự dày vò không ngơi bao đêm thâu
-                          Giờ tôi muốn anh hiểu hết tâm tình
-                          Để lòng tôi lắng yên
-                          Mình à sao đôi ta
-                          Lại chẳng xuất phát đi chung
-                          Một chuyến ga đời
-                          Đã lỡ viết trước
-                          Câu chuyện yêu không vui
-                          Thứ lỗi cho tôi
-                          Không thể đợi lúc gặp người
-                          Đành hẹn nơi khác nhé
-                          Đừng buồn ôi yêu thương ơi
-                          Vì mình mang đến cho tôi
-                          Hạnh phúc thật nhiều
-                          Sẽ dõi ánh mắt trông theo từ xa
-                          Mong sao tháng năm
-                          Mang tôi đi khỏi
-                          Nỗi khắc khoải tiếc thương
-                          Khi bỏ lỡ danh phận
-                          Sau lời từ khước
-                          Tôi về như lúc trước
-                          Không còn chung bước
-                          Chỉ có thêm đôi vết xước
-                          In vào hình hài cuộc đời
-                          Nhiều khi tôi không thể nói
-                          Điều này đúng hay sai
-                          Tôi lại gai góc giấu đi ưu tư
-                          Để ngăn mình bật khóc
-                          Những chuyện đã qua
-                          Sao phải giữ trong lòng chi nữa
-                          Chắc tôi khiến cho chính tôi
-                          Cứ thêm đớn đau đấy thôi
-                          Mình à sao đôi ta
-                          Lại chẳng xuất phát đi chung
-                          Một chuyến ga đời
-                          Đã lỡ viết trước
-                          Câu chuyện yêu không vui
-                          Thứ lỗi cho tôi
-                          Không thể đợi lúc gặp người
-                          Đành hẹn nơi khác nhé
-                          Đừng buồn ôi yêu thương ơi
-                          Vì mình mang đến cho tôi
-                          Hạnh phúc thật nhiều
-                          Sẽ dõi ánh mắt trông theo từ xa
-                          Mong sao tháng năm mang tôi đi khỏi
-                          Nỗi khắc khoải tiếc thương
-                          Khi bỏ lỡ danh phận
-                          Mình à sao đôi ta
-                          Lại chẳng xuất phát đi chung
-                          Một chuyến ga đời
-                          Đã lỡ viết trước
-                          Câu chuyện yêu không vui
-                          Thứ lỗi cho tôi
-                          Không thể đợi lúc gặp người
-                          Đành hẹn nơi khác nhé
-                          Đừng buồn ôi yêu thương ơi
-                          Vì mình mang đến cho tôi
-                          Hạnh phúc thật nhiều
-                          Sẽ dõi ánh mắt trông theo từ xa
-                          Mong sao tháng năm mang tôi đi khỏi
-                          Nỗi khắc khoải tiếc thương
-                          Khi bỏ lỡ danh phận
-                        </textarea>
+                        <textarea name="" id="" rows='15' value={haha.map((sentence) => sentence.data).join("\n")} />
                       </div>
                       <div className="Modal_lyric_btn">
                         <button onClick={closeModalLyric}>Đóng</button>
@@ -425,11 +410,10 @@ const Bottombar = () => {
                             </div>
                             <div className="lyric">
                               <ul className="scroll-content">
-                                <li className="item over">Có thằng bạn lên Hà Nội bôn ba</li>
-                                <li className="item over">Hai hôm đã cưỡi SH *** hiểu đâu ra</li>
-                                <li className="item active">Nó muốn nghe tao thả mấy câu ca</li>
-                                <li className="item">Nó muốn nghe tao rót</li>
-                                <li className="item">Mấy con flow ra</li>
+                             
+                                {haha.map((sentence) => {
+                                  return <li className="item">{sentence.data}</li>;
+                                })}
                               </ul>
                             </div>
                           </div>
@@ -457,6 +441,18 @@ const Bottombar = () => {
       <div className="player_main">
 
         <AudioPlayer
+          ref={audioRef}
+          onListen={handleListen}
+          onCanPlayThrough={() => {
+            const duration = audioRef.current.audio.current.duration;
+
+            const minutes = Math.floor(duration / 60);
+            const seconds = Math.floor(duration % 60);
+
+            const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            console.log('Duration:', formattedDuration);
+          }}
           showSkipControls='true'
           src={songInfo.infor.song}
           onPlay={e => console.log("onPlay")}

@@ -6,9 +6,6 @@ export const getSongData = async (Songid) => {
       const songDetailResult = await songInfo(Songid);
       const songUrlResult = await songUrl(Songid);
       const songLyricsResult = await songLyric(Songid);
-      console.log("chaodckljv bku.dfghjdfglm;,dfgvhnbm ,l")
-
-      console.log("ly",songDetailResult,"url",songUrlResult,"detail",songLyricsResult)
       const id = Songid;
       const genres = songDetailResult.data.genres.map((genre) => ({
         id: genre.id,
@@ -74,7 +71,6 @@ export const getSongData = async (Songid) => {
         link: song,
       };
       await cloneData(clonedata);
-      console.log("chay toi day rol")
       return {
         id,
         img,

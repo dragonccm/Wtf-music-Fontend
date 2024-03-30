@@ -21,6 +21,7 @@ const HomeAdmin = () => {
         dispatch(fetchAdminHome());
     }, [dispatch]);
 
+<<<<<<< HEAD
     const currData = useSelector((state) => state.admin.AdminHome);
     return (
         <main className="main-content">
@@ -118,6 +119,87 @@ const HomeAdmin = () => {
                         </div>
                     </div>
                 </section>
+=======
+  const currData = useSelector((state) => state.admin.AdminHome);
+  console.log(currData)
+  return (
+    <main className="main-content">
+      <div className="HomeAdmin">
+        {/* data statistical */}
+        <section className="row">
+          <div className="col">
+            <div className="card card-box text-center ">
+              <div className="card-body bg-artist">
+                <div className="admin-circle-box rounded-pill">
+                  <FontAwesomeIcon
+                    icon={faMicrophone}
+                    className="icon-artist"
+                  />
+                </div>
+                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.songListen}</h4> */}
+                <p className="mb-0 text-capitalize text-body">
+                  total Music listen
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="card card-box text-center">
+              <div className="card-body bg-albums">
+                <div className="admin-circle-box rounded-pill">
+                  <FontAwesomeIcon
+                    icon={faCompactDisc}
+                    className="icon-albums"
+                  />
+                </div>
+                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.playlistListen}</h4> */}
+                <p className="mb-0 text-capitalize text-body">
+                  total Music playlist
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="card card-box text-center">
+              <div className="card-body bg-songs">
+                <div className="admin-circle-box rounded-pill">
+                  <FontAwesomeIcon icon={faMusic} className="icon-songs" />
+                </div>
+                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.songCount}</h4> */}
+                <p className="mb-0 text-capitalize text-body">
+                  total Music Songs
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="card card-box text-center">
+              <div className="card-body bg-playlist">
+                <div className="admin-circle-box rounded-pill">
+                  <FontAwesomeIcon icon={faList} className="icon-playlist" />
+                </div>
+                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.playlistCount}</h4> */}
+                <p className="mb-0 text-capitalize text-body">
+                  total Music Playlist
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col">
+            <div className="card card-box text-center">
+              <div className="card-body bg-users">
+                <div className="admin-circle-box rounded-pill">
+                  <FontAwesomeIcon icon={faCircleUser} className="icon-users" />
+                </div>
+                <h4 className="text-capitalize mt-4 mb-1">352</h4>
+                <p className="mb-0 text-capitalize text-body">
+                  total Music Users
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+>>>>>>> 77fc0d146e1caf9e0d663ed87f9715f76c920d7a
 
                 {/* top data */}
                 <section className="row">
@@ -947,7 +1029,506 @@ const HomeAdmin = () => {
                     </div>
                 </section>
             </div>
+<<<<<<< HEAD
         </main>
     );
+=======
+          </div>
+          <div className="col-lg-4">
+            <div style={{ height: "90%" }} className="card">
+              <div className="card-header">
+                <div className="header-title">
+                  <h4 className="card-title text-capitalize">total reviews</h4>
+                </div>
+              </div>
+              <div className="card-body pt-0">
+                <div
+                  id="chart-01"
+                  className=" chart-01 d-flex justify-content-center"
+                  style={{ minHeight: "195.017px" }}
+                >
+                  {/* <BarChart
+                    xAxis={[{ scaleType: 'band', data: ['Song Listen', 'PlayList Listen'] }]}
+                    series={[{ data: [currData.songListen, currData.playlistListen] }]}
+                    width={500}
+                    height={300}
+                  /> */}
+                </div>
+                <div className="d-flex align-items-center mb-5">
+                  <FontAwesomeIcon
+                    icon={faMusic}
+                    className="icon-songs icon_top-reviews me-5"
+                  />
+                  <div style={{ width: "100%" }}>
+                    <div className="d-flex justify-content-between">
+                      <h6 className="mb-2 fs-3 fw-normal">Songs</h6>
+                      <h6 className="text-body fs-3 fw-normal">5,674</h6>
+                    </div>
+                    <div
+                      className="progress bg-soft-info shadow-none w-100"
+                      style={{ height: "6px" }}
+                    >
+                      <div
+                        className="progress-bar bg-soft-info"
+                        data-toggle="progress-bar"
+                        role="progressbar"
+                        aria-valuenow="45"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        style={{ width: "45%", transition: "width 2s ease 0s" }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center mb-5">
+                </div>
+                <div className="d-flex align-items-center">
+                  <FontAwesomeIcon
+                    icon={faList}
+                    className="icon-playlist icon_top-reviews me-5"
+                  />
+                  <div style={{ width: "100%" }}>
+                    <div className="d-flex justify-content-between  ">
+                      <h6 className="mb-2 fs-3 fw-normal">Playlist</h6>
+                      <h6 className="text-body fs-3 fw-normal">5,515</h6>
+                    </div>
+                    <div
+                      className="progress bg-soft-success shadow-none w-100"
+                      style={{ height: "6px" }}
+                    >
+                      <div
+                        className="progress-bar bg-soft-success"
+                        data-toggle="progress-bar"
+                        role="progressbar"
+                        aria-valuenow="23"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        style={{ width: "23%", transition: "width 2s ease 0s" }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* total users */}
+        <section className="row">
+          <div className="col-lg-6">
+            <div style={{ margin: "0", padding: "0 10px" }} className="card">
+              <div className="card-header">
+                <div className="header-title">
+                  <h4 className="card-title text-capitalize">Recent Users</h4>
+                </div>
+              </div>
+              <div className="card-body">
+                <ui className="list-unstyled p-0 m-0">
+                  <li className="mb-4">
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="d-flex align-items-center">
+                        <img
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "100px",
+
+                            borderRadius: "10px",
+                          }}
+                          id="07"
+                          className="img-fluid   avatar-52"
+                          alt="review-img"
+                        />
+                        <div className="ms-5">
+                          <h6 className="text-capitalize fs-3 fw-normal">
+                            Jane Cooper
+                          </h6>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            janecooper@gmail.com
+                          </small>
+                        </div>
+                      </div>
+                      <p
+                        style={{ color: "#aaa", width: "22%" }}
+                        className="mb-0 custom-icon fs-3"
+                      >
+                        12 hours ago
+                      </p>
+                    </div>{" "}
+                  </li>
+                  <li className="mb-4">
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="d-flex align-items-center">
+                        <img
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "100px",
+
+                            borderRadius: "10px",
+                          }}
+                          id="07"
+                          className="img-fluid   avatar-52"
+                          alt="review-img"
+                        />
+                        <div className="ms-5">
+                          <h6 className="text-capitalize fs-3 fw-normal">
+                            wade warren
+                          </h6>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            wadewarren@gmail.com
+                          </small>
+                        </div>
+                      </div>
+                      <p
+                        style={{ color: "#aaa", width: "22%" }}
+                        className="mb-0 custom-icon fs-3"
+                      >
+                        18 hours ago
+                      </p>
+                    </div>{" "}
+                  </li>
+                  <li className="mb-4">
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="d-flex align-items-center">
+                        <img
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "100px",
+
+                            borderRadius: "10px",
+                          }}
+                          id="07"
+                          className="img-fluid   avatar-52"
+                          alt="review-img"
+                        />
+                        <div className="ms-5">
+                          <h6 className="text-capitalize fs-3 fw-normal">
+                            Jacob jones
+                          </h6>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            jacobjones@gmail.com
+                          </small>
+                        </div>
+                      </div>
+                      <p
+                        style={{ color: "#aaa", width: "22%" }}
+                        className="mb-0 custom-icon fs-3"
+                      >
+                        24 hours ago
+                      </p>
+                    </div>{" "}
+                  </li>
+                  <li className="mb-4">
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="d-flex align-items-center">
+                        <img
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "100px",
+
+                            borderRadius: "10px",
+                          }}
+                          id="07"
+                          className="img-fluid   avatar-52"
+                          alt="review-img"
+                        />
+                        <div className="ms-5">
+                          <h6 className="text-capitalize fs-3 fw-normal">
+                            Cody fisher
+                          </h6>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            codyfisher@gmail.com
+                          </small>
+                        </div>
+                      </div>
+                      <p
+                        style={{ color: "#aaa", width: "22%" }}
+                        className="mb-0 custom-icon fs-3"
+                      >
+                        28 hours ago
+                      </p>
+                    </div>{" "}
+                  </li>
+                  <li className="mb-4">
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="d-flex align-items-center">
+                        <img
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "100px",
+
+                            borderRadius: "10px",
+                          }}
+                          id="07"
+                          className="img-fluid   avatar-52"
+                          alt="review-img"
+                        />
+                        <div className="ms-5">
+                          <h6 className="text-capitalize fs-3 fw-normal">
+                            Dianne Russell
+                          </h6>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            diannerussell@gmail.com
+                          </small>
+                        </div>
+                      </div>
+                      <p
+                        style={{ color: "#aaa", width: "22%" }}
+                        className="mb-0 custom-icon fs-3"
+                      >
+                        36 hours ago
+                      </p>
+                    </div>{" "}
+                  </li>
+                  <li>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div className="d-flex align-items-center">
+                        <img
+                          src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                          style={{
+                            width: "100px",
+
+                            borderRadius: "10px",
+                          }}
+                          id="07"
+                          className="img-fluid   avatar-52"
+                          alt="review-img"
+                        />
+                        <div className="ms-5">
+                          <h6 className="text-capitalize fs-3 fw-normal">
+                            loreal kinas
+                          </h6>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            lorealkinas@gmail.com
+                          </small>
+                        </div>
+                      </div>
+                      <p
+                        style={{ color: "#aaa", width: "22%" }}
+                        className="mb-0 custom-icon fs-3"
+                      >
+                        48 hours ago
+                      </p>
+                    </div>{" "}
+                  </li>
+                </ui>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div style={{ margin: "0", padding: "0 10px" }} className="card">
+              <div className="card-header">
+                <div className="header-title">
+                  <h4 className="card-title text-capitalize">total reviews</h4>
+                </div>
+              </div>
+              <div className="card-body">
+                <ui className="list-unstyled p-0 m-0">
+                  <li className="mb-4">
+                    <div className="d-flex">
+                      <img
+                        src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                        style={{
+                          width: "100px",
+
+                          borderRadius: "10px",
+                        }}
+                        id="07"
+                        className="img-fluid   avatar-52"
+                        alt="review-img"
+                      />
+                      <div className="ms-5">
+                        <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
+                          This song captures my emotions and paints my world
+                          with its beautiful melody and heartfelt lyrics. It's
+                          truly special.
+                        </h6>
+                        <div className="d-flex align-items-center justify-content-between">
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            by Alexa Jonas
+                          </small>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize custom-icon fs-3"
+                          >
+                            02 hours ago
+                          </small>
+                        </div>
+                      </div>
+                    </div>{" "}
+                  </li>
+                  <li className="mb-4">
+                    <div className="d-flex">
+                      <img
+                        src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                        style={{
+                          width: "100px",
+
+                          borderRadius: "10px",
+                        }}
+                        id="08"
+                        className="img-fluid   avatar-52"
+                        alt="review-img"
+                      />
+                      <div className="ms-5">
+                        <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
+                          This song captures my emotions and paints my world
+                          with its beautiful melody and heartfelt lyrics. It's
+                          truly special.
+                        </h6>
+                        <div className="d-flex align-items-center justify-content-between">
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            by alex Williams
+                          </small>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize custom-icon fs-3"
+                          >
+                            06 hours ago
+                          </small>
+                        </div>
+                      </div>
+                    </div>{" "}
+                  </li>
+                  <li className="mb-4">
+                    <div className="d-flex">
+                      <img
+                        src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                        style={{
+                          width: "100px",
+
+                          borderRadius: "10px",
+                        }}
+                        id="09"
+                        className="img-fluid   avatar-52"
+                        alt="review-img"
+                      />
+                      <div className="ms-5">
+                        <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
+                          This song captures my emotions and paints my world
+                          with its beautiful melody and heartfelt lyrics. It's
+                          truly special.
+                        </h6>
+                        <div className="d-flex align-items-center justify-content-between">
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            by vibrat sharia
+                          </small>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize custom-icon fs-3"
+                          >
+                            08 hours ago
+                          </small>
+                        </div>
+                      </div>
+                    </div>{" "}
+                  </li>
+                  <li className="mb-4">
+                    <div className="d-flex">
+                      <img
+                        src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                        style={{
+                          width: "100px",
+
+                          borderRadius: "10px",
+                        }}
+                        id="10"
+                        className="img-fluid   avatar-52"
+                        alt="review-img"
+                      />
+                      <div className="ms-5">
+                        <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
+                          This song captures my emotions and paints my world
+                          with its beautiful melody and heartfelt lyrics. It's
+                          truly special.
+                        </h6>
+                        <div className="d-flex align-items-center justify-content-between">
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            by angle pate
+                          </small>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize custom-icon fs-3"
+                          >
+                            12 hours ago
+                          </small>
+                        </div>
+                      </div>
+                    </div>{" "}
+                  </li>
+                  <li className="">
+                    <div className="d-flex">
+                      <img
+                        src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
+                        style={{
+                          width: "100px",
+
+                          borderRadius: "10px",
+                        }}
+                        id="10"
+                        className="img-fluid   avatar-52"
+                        alt="review-img"
+                      />
+                      <div className="ms-5">
+                        <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
+                          This song captures my emotions and paints my world
+                          with its beautiful melody and heartfelt lyrics. It's
+                          truly special.
+                        </h6>
+                        <div className="d-flex align-items-center justify-content-between">
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize fs-4"
+                          >
+                            by vibrat sharia
+                          </small>
+                          <small
+                            style={{ color: "#aaa" }}
+                            className="text-capitalize custom-icon fs-3"
+                          >
+                            09 hours ago
+                          </small>
+                        </div>
+                      </div>
+                    </div>{" "}
+                  </li>
+                </ui>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+>>>>>>> 77fc0d146e1caf9e0d663ed87f9715f76c920d7a
 };
 export default HomeAdmin;
