@@ -574,15 +574,18 @@
 
             .lyric {
                 width: 60%;
-                height: 510px;
+                height: 500px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 overflow-y: auto;
+                scroll-behavior: smooth;
 
                 .scroll-content {
                     font-size: 42px;
                     height: 100%;
+                    padding: 20px;
+                    margin: 0;
 
                     .item {
                         color: #fff;
@@ -594,9 +597,10 @@
                         padding: 20px 0;
                         letter-spacing: -1px;
                         list-style: none;
+                        font-family: Inter,sans-serif;
 
                         &.over {
-                            color: hsla(0, 0%, 100%, .2);
+                            color: hsla(0, 0%, 100%, .5);
                         }
 
                         &.active {

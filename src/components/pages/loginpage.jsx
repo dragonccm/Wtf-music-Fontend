@@ -60,7 +60,7 @@ const LoginPage = () => {
 
             console.log('ok');
             dispatch(loginer(data))
-            navigate(-1);
+            navigate('/');
         } else {
             //   toast.error(serverData.EM);
             console.log('chưa đc');
