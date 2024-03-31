@@ -18,7 +18,7 @@ import Profile from "../components/pages/profilepage";
 import HomeRating from "../components/card/Home_ rating";
 // import HubPage from "../components/pages/hubPage";
 // import Letclone from "./admin/letclone";
-import LoginPage from "../components/pages/loginPage";
+import LoginPage from "../components/pages/loginpage";
 import RegisterPage from "../components/pages/register";
 
 // layout

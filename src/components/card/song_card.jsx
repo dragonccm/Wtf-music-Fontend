@@ -22,8 +22,8 @@ const Card = ({ playlist }) => {
     // const item = "Z6Z8WZWB"
     return (
         <div className="card_container">
-            {slicedData.map((playlist,index) => (
-                <div className="card_item" key={'ola'+index}>
+            {slicedData.map((playlist, index) => (
+                <div className="card_item" key={'ola' + index}>
                     <div className="img_container">
                         <img
                             src={
@@ -54,7 +54,7 @@ const Card = ({ playlist }) => {
                     </div>
 
                     <a href="/songpage" className="playlist_name">
-                        {playlist.sortDescription?playlist.sortDescription:playlist.title}
+                        {playlist.sortDescription ? playlist.sortDescription : playlist.title}
                     </a>
                 </div>
             ))}

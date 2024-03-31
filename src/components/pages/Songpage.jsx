@@ -10,24 +10,11 @@ import { useParams } from 'react-router-dom';
 // import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import { fetchPageSong } from '../../redux/slide/songPageSlice'
 import { useSelector, useDispatch } from "react-redux";
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+
 // import Recommended from '../card/Recommended'
 const Songpage = () => {
-  // const { id } = useParams();
-  // const [loading, setLoading] = useState(true);
-  // const dispatch = useDispatch();
 
-  // const currSongData = useSelector((state) => state.song.listSong);
-  // const listData = useSelector((state) => state.playlist.playlist.data);
-  // useEffect(() => {
-  //   dispatch(fetchPageSong(id)).then(() => {
-  //     setLoading(false);
-  //     dispatch(fetchPlayList(currSongData.album));
-  //   });
-  // }, [dispatch, id]);
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
 
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
@@ -42,7 +29,10 @@ const Songpage = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  const handlePlaying = (e, id) => {
+    e.preventDefault();
+    dispatch(fetchSongPlaying(id));
+  }
   return (
     <section className="songpage_main">
 
@@ -70,7 +60,7 @@ const Songpage = () => {
 
       <div className="song_body">
         <div className="song_control">
-          <button className="play_random">
+          <button className="play_random" onClick={(e)=>handlePlaying(e,id)}>
             <FontAwesomeIcon icon={faCirclePlay} />
           </button>
           <button className="like_btn">

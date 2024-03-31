@@ -39,7 +39,30 @@ const Bottombar = () => {
   const [animationActive, setAnimationActive] = useState(true);
   const [animationPlaylistActive, setAnimationPlaylistActive] =
     useState(true);
-  const audioRef = useRef();
+    const playerRef = useRef();
+    const [isPageLoaded, setIsPageLoaded] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+  
+    useEffect(() => {
+      const audio = playerRef?.current?.audio?.current;
+      
+      // Get the saved time from localStorage
+      const savedTime = parseFloat(localStorage.getItem('duration'));
+      
+      if (isPageLoaded && audio && !isNaN(savedTime)) {
+        setCurrentTime(savedTime);
+        audio.currentTime = savedTime;
+      }
+  
+      setIsPageLoaded(true);
+  
+      // When the component is unmounted, save the current time of the audio player
+      return () => {
+        if (audio) {
+          localStorage.setItem('duration', audio.currentTime);
+        }
+      };
+    }, [isPageLoaded]);
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
   console.log(isPlaying);
@@ -194,23 +217,26 @@ const Bottombar = () => {
   ];
   let intervalId = null
   const handleListen = (e) => {
+    // Xóa bỏ intervalId hiện tại (nếu có)
     clearInterval(intervalId);
-    intervalId = setInterval(function () {
+
+    // Lắng nghe sự kiện timeupdate của đối tượng nghe nhạc
+    e.target.addEventListener('timeupdate', updateTime);
+
+    // Hàm callback để cập nhật lời bài hát
+    function updateTime() {
       const currentTime = e.target.currentTime;
+      localStorage.setItem('duration', currentTime);
+
+      // Xử lý hiển thị lời bài hát theo thời gian hiện tại
       for (let i = 0; i < haha.length; i++) {
         const lyric = haha[i];
 
-        if (
-          currentTime >= parseFloat(lyric.startTime) / 1000 &&
-          currentTime <= parseFloat(lyric.endTime) / 1000
-        ) {
-
+        if (currentTime >= parseFloat(lyric.startTime) / 1000 && currentTime <= parseFloat(lyric.endTime) / 1000) {
           const lyricUL = document.querySelectorAll(".scroll-content li");
           if (lyricUL[i]) {
-
             lyricUL[i].classList.add("active");
             lyricUL[i].scrollIntoView({ behavior: "smooth", block: "center" });
-
 
             if (i > 0) {
               lyricUL[i - 1].classList.add("over");
@@ -223,18 +249,58 @@ const Bottombar = () => {
               lyricUL[i - 2].classList.add("over");
             }
 
-            // console.log(haha)
-            break; // Dừng vòng lặp khi điều kiện đúng được thoả mãn
+            break; // Dừng vòng lặp khi điều kiện được thoả mãn
           }
-        } else {
-          console.log(currentTime);
-          console.log(parseFloat(lyric.startTime) / 1000)
-          // console.log(currentTime >= parseFloat(lyric.startTime)/100000)
         }
       }
-    }, 500);
-
+    }
   };
+
+
+  // ----- sử dụng setInterval ------------------
+  // const handleListen = (e) => {
+  //   clearInterval(intervalId);
+  //   intervalId = setInterval(function () {
+  //     const currentTime = e.target.currentTime;
+  //     localStorage.setItem('duration', currentTime)
+  //     for (let i = 0; i < haha.length; i++) {
+  //       const lyric = haha[i];
+
+  //       if (
+  //         currentTime >= parseFloat(lyric.startTime) / 1000 &&
+  //         currentTime <= parseFloat(lyric.endTime) / 1000
+  //       ) {
+
+  //         const lyricUL = document.querySelectorAll(".scroll-content li");
+  //         if (lyricUL[i]) {
+
+  //           lyricUL[i].classList.add("active");
+  //           lyricUL[i].scrollIntoView({ behavior: "smooth", block: "center" });
+
+
+  //           if (i > 0) {
+  //             lyricUL[i - 1].classList.add("over");
+  //             lyricUL[i - 1].classList.remove("active");
+  //           }
+  //           if (i > 1) {
+  //             lyricUL[i - 1].classList.add("over");
+  //             lyricUL[i - 1].classList.remove("active");
+  //             lyricUL[i - 2].classList.remove("active");
+  //             lyricUL[i - 2].classList.add("over");
+  //           }
+
+  //           // console.log(haha)
+  //           break; // Dừng vòng lặp khi điều kiện đúng được thoả mãn
+  //         }
+  //       } else {
+  //         console.log(currentTime);
+  //         console.log(parseFloat(lyric.startTime) / 1000)
+  //         // console.log(currentTime >= parseFloat(lyric.startTime)/100000)
+  //       }
+  //     }
+  //   }, 500);
+
+  // };
   const handleStop = () => {
     clearInterval(intervalId); // Xóa bỏ gói lệnh setInterval khi dừng phát nhạc
     intervalId = null;
@@ -355,13 +421,9 @@ const Bottombar = () => {
 
                     </div>
                     <div className="r_click_navigation">
-                      <div className="item">
-
-                        <a href='#' onClick={() => handleClick()}>
-
-                          <FontAwesomeIcon icon={faDownload} />
-                          <p>tải xuống</p>
-                        </a>
+                      <div className="item" onClick={() => handleClick()}>
+                        <FontAwesomeIcon icon={faDownload} />
+                        <p>tải xuống</p>
                       </div>
                       <div className="item" onClick={openModalLyric} >
                         <ReactSVG
@@ -472,7 +534,7 @@ const Bottombar = () => {
                           <div className="playlist_player_body">
                             <div className="body">
                               <div className="avt">
-                                <img src="https://photo-resize-zmp3.zmdcdn.me/w480_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg" alt="h" />
+                                <img src={songInfo.infor.img.replace('w240', 'w480')} alt="h" />
                               </div>
                               <div className="lyric">
                                 <ul className="scroll-content">
@@ -504,6 +566,8 @@ const Bottombar = () => {
         </div>
         <div className="player_main">
           <AudioPlayer
+            ref={playerRef}
+            onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
             onListen={handleListen}
             onPause={handleStop}
             showSkipControls="true"
