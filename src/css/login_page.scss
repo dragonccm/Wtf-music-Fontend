@@ -1,7 +1,7 @@
 .mod {
   max-width       : 70%;
   display         : flex;
-  background-color: #fff;
+  background-color: var(--bg-form_login);
   justify-content : center;
   border          : 1px solid #ececec;
   margin          : 50px auto 0;
@@ -42,15 +42,17 @@
   .signup_form {
 
     .heading-logo {
-      display    : flex;
-      align-items: center;
+      display        : flex;
+      align-items    : center;
+      justify-content: center;
+      margin-bottom  : 10px;
 
       img {
         width: 110px;
       }
 
       span {
-        font-size  : x-large;
+        font-size  : large;
         color      : #4c4c4c;
         margin-left: -10px;
       }
@@ -58,13 +60,32 @@
 
   }
 
+  .password,
+  .account {
+    position       : relative;
+    margin-bottom  : 1rem;
+    border         : 1px solid #ececec;
+    display        : flex;
+    align-items    : center;
+    justify-content: space-between;
+
+    svg {
+      font-size: larger;
+      color    : var(--deep-black);
+      position : absolute;
+      right    : 5%;
+      cursor   : pointer;
+    }
+  }
+
   .input_form_text {
-    color        : var(--deep-black);
-    border       : 1px solid #ececec;
-    margin       : 1rem;
-    padding      : 1.5rem;
-    font-size    : 1.5rem;
-    border-radius: 5px;
+    width           : 100%;
+    background-color: var(--bg-white);
+    color           : var(--deep-black);
+    padding         : 1.5rem;
+    border          : none !important;
+    font-size       : 1.5rem;
+    border-radius   : 5px;
   }
 
   .forgot_pass {
@@ -77,6 +98,11 @@
   }
 
   .input_form_text:focus-visible {
+    outline: none !important;
+  }
+
+  .account:focus-visible,
+  .password:focus-visible {
     outline: 1px solid #afafaf;
   }
 
@@ -113,7 +139,7 @@
     align-items: center;
 
     label {
-      color       : #333;
+      color       : var(--text-1);
       margin-right: 5px;
     }
 
@@ -164,7 +190,7 @@
 
           /* Show the checkmark when checked */
           &:after {
-            left         : 0.55em;
+            left         : 0.51em;
             top          : 0.25em;
             width        : 0.35em;
             height       : 0.7em;
@@ -184,16 +210,26 @@
   .form_btn {
     width           : 60%;
     font-size       : large;
-    color           : #555;
-    background-color: #bfd7fa;
+    color           : #111;
+    background-color: #afc7ff;
     padding         : 1rem;
     margin          : 1rem auto;
     border-radius   : 6px;
     transition      : all 0.2s ease-in-out;
+
+    img {
+      width: 35px;
+    }
+  }
+
+  .gg_btn {
+    background-color: #fff !important;
+    border          : 1px solid #dadada;
   }
 
   .form_btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    opacity  : 0.9;
   }
 
   .form_btn:active {
@@ -231,6 +267,7 @@
   .change_page_text {
     display  : flex;
     font-size: 1.5rem;
+    color    : var(--text-1);
     margin   : 1rem auto;
   }
 
@@ -243,7 +280,7 @@
     width         : 100%;
 
     p {
-      color: #4c4c4c;
+      color: var(--text-1);
 
       font-size : 13px;
       margin-top: 20px;

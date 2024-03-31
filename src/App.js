@@ -1,6 +1,5 @@
 import "./App.css";
 import AppRoutes from "./router/appRoutes";
-
 // component
 import RightSidebar from "./components/sideNavigation/RightSidebar";
 import Bottombar from "./components/sideNavigation/Bottombar";
@@ -14,62 +13,60 @@ import { fetchSong } from "./redux/slide/songSlice";
 import { fetchHome } from "./redux/slide/homeSlice";
 import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
 
-
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
 import { useEffect } from "react";
 function App(props) {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(fetchHome());
+        dispatch(fetchAuthentication());
+        if (localStorage.getItem("idSongPlaying")) {
+            dispatch(fetchSongPlaying(localStorage.getItem("idSongPlaying")));
+        } else {
+            console.log("lỗi");
+        }
+    }, []);
+    useEffect(() => {
+        dispatch(fetchSong(localStorage.getItem("idSongPlaying")));
+    }, []);
 
-  useEffect(() => {
-    dispatch(fetchHome());
-    dispatch(fetchAuthentication());
-    if (localStorage.getItem('idSongPlaying')) {
-      dispatch(fetchSongPlaying(localStorage.getItem('idSongPlaying')));
-    } else {
-      console.log('lỗi')
-    }
-  }, []);
-  useEffect(() => {
-    dispatch(fetchSong(localStorage.getItem('idSongPlaying')));
-  }, []);
+    const playlistsData = Array.from({ length: 5 }, (_, index) => ({
+        id: index,
+        name: `Nhạc nghe cho sự ngu dốt ${index + 1}`,
+        image: "",
+        artists_list: ["Jisso", "Jisso", "Jisso", "Jisso", "Jisso"],
+    }));
 
-  const playlistsData = Array.from({ length: 5 }, (_, index) => ({
-    id: index,
-    name: `Nhạc nghe cho sự ngu dốt ${index + 1}`,
-    image: "",
-    artists_list: ["Jisso", "Jisso", "Jisso", "Jisso", "Jisso"],
-  }));
+    const element = Array.from({ length: 5 }, (_, index) => ({
+        title: "BXH nhạc ngu",
+        list: playlistsData,
+    }));
 
-  const element = Array.from({ length: 5 }, (_, index) => ({
-    title: "BXH nhạc ngu",
-    list: playlistsData,
-  }));
-
-  const Mainn = ({ datas }) => (
-    <ThemeProvider>
-      <div className="App">
-        <div className="main_content">
-          <RightSidebar />
-          {/* <Mainpage playlists={datas} /> */}
-          <AppRoutes playlists={datas}/>
-        </div>
-      </div>
-    </ThemeProvider>
-  );
-  return (
-    <>
-      <SongDataProvider>
-        <Router>
-          <Routes>
-            <Route path="/*" element={<Mainn datas={element} />} />
-          </Routes>
-        </Router>
-        <Bottombar music="https://vnso-zn-16-tf-a128-zmp3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1709022776~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=47652769b376607e4f2a481c74636d82" />
-      </SongDataProvider>
-    </>
-  );
+    const Mainn = ({ datas }) => (
+        <ThemeProvider>
+            <div className="App">
+                <div className="main_content">
+                    <RightSidebar />
+                    {/* <Mainpage playlists={datas} /> */}
+                    <AppRoutes playlists={datas} />
+                </div>
+            </div>
+        </ThemeProvider>
+    );
+    return (
+        <>
+            <SongDataProvider>
+                <Router>
+                    <Routes>
+                        <Route path="/*" element={<Mainn datas={element} />} />
+                    </Routes>
+                </Router>
+                <Bottombar music="https://vnso-zn-16-tf-a128-zmp3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1709022776~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=47652769b376607e4f2a481c74636d82" />
+            </SongDataProvider>
+        </>
+    );
 }
 
 export default App;
