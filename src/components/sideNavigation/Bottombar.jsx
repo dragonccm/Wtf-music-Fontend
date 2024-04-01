@@ -39,30 +39,9 @@ const Bottombar = () => {
   const [animationActive, setAnimationActive] = useState(true);
   const [animationPlaylistActive, setAnimationPlaylistActive] =
     useState(true);
-    const playerRef = useRef();
-    const [isPageLoaded, setIsPageLoaded] = useState(false);
-    const [currentTime, setCurrentTime] = useState(0);
-  
-    useEffect(() => {
-      const audio = playerRef?.current?.audio?.current;
-      
-      // Get the saved time from localStorage
-      const savedTime = parseFloat(localStorage.getItem('duration'));
-      
-      if (isPageLoaded && audio && !isNaN(savedTime)) {
-        setCurrentTime(savedTime);
-        audio.currentTime = savedTime;
-      }
-  
-      setIsPageLoaded(true);
-  
-      // When the component is unmounted, save the current time of the audio player
-      return () => {
-        if (audio) {
-          localStorage.setItem('duration', audio.currentTime);
-        }
-      };
-    }, [isPageLoaded]);
+  const playerRef = useRef();
+
+
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
   console.log(isPlaying);
@@ -123,12 +102,25 @@ const Bottombar = () => {
   const [modalPlaylistIsOpen, setPlaylistIsOpen] = React.useState(false);
 
   function openModal() {
-    setMenuIsOpen(true);
+    if (modalMenuIsOpen) {
+      setMenuIsOpen(false);
+    } else {
+      setMenuIsOpen(true);
+    }
   }
   function openModalFull() {
-    setFullIsOpen(true);
-    setAnimationActive(true);
-    setMenuIsOpen(true);
+    if (modalFullIsOpen) {
+      setAnimationActive(false);
+      setTimeout(() => {
+        setMenuIsOpen(false);
+        setFullIsOpen(false);
+      }, 700);
+    } else {
+
+      setFullIsOpen(true);
+      setAnimationActive(true);
+      setMenuIsOpen(true);
+    }
   }
   function openModalLyric() {
     setLyricIsOpen(true);
@@ -149,20 +141,12 @@ const Bottombar = () => {
     // references are now sync'd and can be accessed.
   }
 
-  function closeModal() {
-    setMenuIsOpen(false);
-  }
+
   function closeModalLyric() {
     setLyricIsOpen(false);
   }
 
-  function closeModalFull() {
-    setAnimationActive(false);
-    setTimeout(() => {
-      setMenuIsOpen(false);
-      setFullIsOpen(false);
-    }, 700);
-  }
+
 
   const elem = document.documentElement;
   const handleOpenFullScreen = () => {
@@ -215,6 +199,36 @@ const Bottombar = () => {
     "s",
     "jj",
   ];
+  const [isTimeUpdated, setTimeUpdated] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+  const [loop, setLoop] = useState(false);
+  const handleTimeUpdate = (e) => {
+    if (!isTimeUpdated) {
+      e.target.currentTime = localStorage.getItem('duration');
+      e.target.volume = localStorage.getItem('volume');
+      e.target.loop = localStorage.getItem('loop');
+      setTimeUpdated(true);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      setTimeUpdated(false);
+    };
+  }, []);
+
+  useEffect(() => {
+    const savedVolume = localStorage.getItem('volume');
+    setVolume(savedVolume);
+  }, []);
+
+
+  const handleVolumeChange = () => {
+    setVolume(playerRef.current.audio.current.volume);
+    localStorage.setItem('volume', volume);
+  }; 
+
+
   let intervalId = null
   const handleListen = (e) => {
     // Xóa bỏ intervalId hiện tại (nếu có)
@@ -227,6 +241,9 @@ const Bottombar = () => {
     function updateTime() {
       const currentTime = e.target.currentTime;
       localStorage.setItem('duration', currentTime);
+      setLoop(playerRef.current.audio.current.loop)
+      localStorage.setItem('loop', loop);
+      console.log(playerRef.current.audio.current.loop)
 
       // Xử lý hiển thị lời bài hát theo thời gian hiện tại
       for (let i = 0; i < haha.length; i++) {
@@ -350,13 +367,13 @@ const Bottombar = () => {
                   <FontAwesomeIcon icon={faHeart} />
                 </button>
 
-                <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
+                {!modalFullIsOpen && <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
                   <FontAwesomeIcon icon={faEllipsis} />
-                </button>
+                </button>}
                 <Modal
                   isOpen={modalMenuIsOpen}
                   onAfterOpen={afterOpenModal}
-                  onRequestClose={closeModal}
+                  onRequestClose={openModal}
                   // style={customStyles}
                   className="Modal"
                   overlayClassName="Overlay"
@@ -503,7 +520,7 @@ const Bottombar = () => {
                       <Modal
                         isOpen={modalFullIsOpen}
                         onAfterOpen={afterOpenModal}
-                        onRequestClose={closeModalFull}
+                        onRequestClose={openModalFull}
                         // style={customStyles}
                         className="Modal_playlist"
                         overlayClassName={animationActive ? "Overlay_full" : "Overlay_full active"}
@@ -526,7 +543,7 @@ const Bottombar = () => {
                                 <FontAwesomeIcon icon={faExpand} />
                               </button>
                             )}
-                            <button onClick={closeModalFull} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
+                            <button onClick={openModalFull} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
 
 
 
@@ -567,9 +584,12 @@ const Bottombar = () => {
         <div className="player_main">
           <AudioPlayer
             ref={playerRef}
-            onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
+            volume={volume}
+            loop={loop}
+            onVolumeChange={handleVolumeChange}
             onListen={handleListen}
             onPause={handleStop}
+            onCanPlay={handleTimeUpdate}
             showSkipControls="true"
             src={songInfo.infor.song}
 
@@ -590,6 +610,7 @@ const Bottombar = () => {
               next: icon_next,
               previous: icon_previous,
               pause: icon_pause,
+
             }}
           // other props here
           />
