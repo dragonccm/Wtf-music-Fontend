@@ -1,18 +1,13 @@
-.App {
-  /* background-color: black !important; */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .main_content {
-  justify-content: flex-end;
-  display: flex;
-  overflow-x: hidden;
+  height         : auto;
+  display        : flex;
+  justify-content: end;
+  overflow-x     : hidden;
+  transition     : all ease-in-out 2s;
 }
 
 .App-logo {
-  height: 40vmin;
+  height        : 40vmin;
   pointer-events: none;
 }
 
@@ -24,13 +19,13 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height      : 100vh;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  justify-content : center;
+  font-size       : calc(10px + 2vmin);
+  color           : white;
 }
 
 .App-link {
@@ -47,8 +42,8 @@ a {
 
 @media screen and (max-width:600px) {
   .main_content {
-    flex-direction: column;
-    margin: 0 !important;
+    flex-direction : column;
+    margin         : 0 !important;
     justify-content: flex-start;
 
     margin-bottom: 15rem;

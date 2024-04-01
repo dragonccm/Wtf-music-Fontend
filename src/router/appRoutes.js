@@ -35,6 +35,7 @@ import ThemeContext from "../lib/Context/ThemeContext";
 import HomeAdmin from "../components/pages/admin/home";
 import UserAdmin from "../components/pages/admin/user";
 import KindMusicAdmin from "../components/pages/admin/kindmusic";
+import { height } from "@mui/system";
 
 const AppRoutes = ({ playlists }, props) => {
     const { theme } = useContext(ThemeContext);
@@ -88,152 +89,149 @@ const AppRoutes = ({ playlists }, props) => {
         (state) => state.Authentication.defaultUser
     );
 
+    const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+
     return (
-        <div className="main_page">
-            <>
-                <Header />
-                <section className={`main_page_container ${theme}`}>
-                    <Routes>
-                        <Route
-                            path="/listcard"
-                            element={<ListCard data={playlists} />}
-                        />
-                        <Route
-                            path="/playlistpage"
-                            element={<Playlistpage />}
-                        />
-                        <Route path="/songpage/:id" element={<Songpage />} />
-                        <Route path="/artists/:id" element={<Singerpage />} />
-                        <Route path="/rating" element={<Rating />} />
-                        <Route path="/top100" element={<Top100 />} />
-                        <Route
-                            path="/playlist/:id"
-                            element={<Playlistpage />}
-                        />
+        <div
+            className="main_page"
+            style={{ height: isPlaying ? "calc(100vh - 92px)" : "100vh" }}
+        >
+            <Header />
+            <section className={`main_page_container ${theme}`}>
+                <Routes>
+                    <Route
+                        path="/listcard"
+                        element={<ListCard data={playlists} />}
+                    />
+                    <Route path="/playlistpage" element={<Playlistpage />} />
+                    <Route path="/songpage/:id" element={<Songpage />} />
+                    <Route path="/artists/:id" element={<Singerpage />} />
+                    <Route path="/rating" element={<Rating />} />
+                    <Route path="/top100" element={<Top100 />} />
+                    <Route path="/playlist/:id" element={<Playlistpage />} />
 
-                        {/* //authentication */}
-                        <Route
-                            path="/login"
-                            element={
-                                isAuthentication &&
-                                isAuthentication.isAuthenticated === true ? (
-                                    <Navigate to="/" />
-                                ) : (
-                                    <LoginPage />
-                                )
-                            }
-                        />
-                        <Route path="/register" element={<RegisterPage />} />
+                    {/* //authentication */}
+                    <Route
+                        path="/login"
+                        element={
+                            isAuthentication &&
+                            isAuthentication.isAuthenticated === true ? (
+                                <Navigate to="/" />
+                            ) : (
+                                <LoginPage />
+                            )
+                        }
+                    />
+                    <Route path="/register" element={<RegisterPage />} />
 
-                        {/* admin */}
-                        <Route path="/adminhome" element={<HomeAdmin />} />
-                        <Route path="/adminuser" element={<UserAdmin />} />
-                        <Route
-                            path="/adminkindmusic"
-                            element={<KindMusicAdmin />}
-                        />
+                    {/* admin */}
+                    <Route path="/adminhome" element={<HomeAdmin />} />
+                    <Route path="/adminuser" element={<UserAdmin />} />
+                    <Route
+                        path="/adminkindmusic"
+                        element={<KindMusicAdmin />}
+                    />
 
-                        <Route
-                            path="/profile/*"
-                            element={<PrivateRoutes component={Profile} />}
-                        />
+                    <Route
+                        path="/profile/*"
+                        element={<PrivateRoutes component={Profile} />}
+                    />
 
-                        <Route
-                            path="/*"
-                            element={
-                                <>
-                                    <SliderBar />
-                                    <div className="for_you">
-                                        <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
-                                        <Col3Layout data={newRelease} />
-                                    </div>
-                                    <div className="list_card">
-                                        <h1>Có thể bạn muốn nghe</h1>
-                                        <Card playlist={playlistsData} />
-                                    </div>
-                                    <div className="for_you">
-                                        <h1>Mới phát hành</h1>
-                                        <div className="radio-inputs">
-                                            <label>
-                                                <input
-                                                    className="radio-input "
-                                                    type="radio"
-                                                    name="engine"
-                                                />
-                                                <span className="radio-tile ">
-                                                    <span className="radio-icon">
-                                                        Tất cả
-                                                    </span>
+                    <Route
+                        path="/*"
+                        element={
+                            <>
+                                <SliderBar />
+                                <div className="for_you">
+                                    <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
+                                    <Col3Layout data={newRelease} />
+                                </div>
+                                <div className="list_card">
+                                    <h1>Có thể bạn muốn nghe</h1>
+                                    <Card playlist={playlistsData} />
+                                </div>
+                                <div className="for_you">
+                                    <h1>Mới phát hành</h1>
+                                    <div className="radio-inputs">
+                                        <label>
+                                            <input
+                                                className="radio-input "
+                                                type="radio"
+                                                name="engine"
+                                            />
+                                            <span className="radio-tile ">
+                                                <span className="radio-icon">
+                                                    Tất cả
                                                 </span>
-                                            </label>
+                                            </span>
+                                        </label>
 
-                                            <label>
-                                                <input
-                                                    className="radio-input "
-                                                    type="radio"
-                                                    name="engine"
-                                                />
-                                                <span className="radio-tile ">
-                                                    <span className="radio-icon">
-                                                        Việt Nam
-                                                    </span>
+                                        <label>
+                                            <input
+                                                className="radio-input "
+                                                type="radio"
+                                                name="engine"
+                                            />
+                                            <span className="radio-tile ">
+                                                <span className="radio-icon">
+                                                    Việt Nam
                                                 </span>
-                                            </label>
+                                            </span>
+                                        </label>
 
-                                            <label>
-                                                <input
-                                                    className="radio-input "
-                                                    type="radio"
-                                                    name="engine"
-                                                />
-                                                <span className="radio-tile ">
-                                                    <span className="radio-icon">
-                                                        Quốc tế
-                                                    </span>
+                                        <label>
+                                            <input
+                                                className="radio-input "
+                                                type="radio"
+                                                name="engine"
+                                            />
+                                            <span className="radio-tile ">
+                                                <span className="radio-icon">
+                                                    Quốc tế
                                                 </span>
-                                            </label>
-                                        </div>
+                                            </span>
+                                        </label>
+                                    </div>
 
-                                        <Col3Layout data={newRelease} />
-                                    </div>
-                                    <div className="list_card">
-                                        <h1>Nhạc hot gây bão</h1>
-                                        <Card playlist={songHot} />
-                                    </div>
-                                    <div className="list_card">
-                                        <h1>Remix hay hết sảy</h1>
-                                        <Card playlist={songRemix} />
-                                    </div>
-                                    <div className="list_card">
-                                        <h1>Chill</h1>
-                                        <Card playlist={songChill} />
-                                    </div>
-                                    <div className="list_card">
-                                        <h1>Nhạc buồn tâm trạng</h1>
-                                        <Card playlist={songSad} />
-                                    </div>
-                                    <div className="ratings">
-                                        <h1>BXH nhạc mới</h1>
-                                        <HomeRating data={hNewrelease} />
-                                    </div>
-                                    <div className="list_card">
-                                        <h1>Top 100</h1>
-                                        <Card playlist={top100} />
-                                    </div>
-                                    <div className="list_card">
-                                        <h1>Album hot</h1>
-                                        <Card playlist={albumHot} />
-                                    </div>
-                                </>
-                            }
-                        />
+                                    <Col3Layout data={newRelease} />
+                                </div>
+                                <div className="list_card">
+                                    <h1>Nhạc hot gây bão</h1>
+                                    <Card playlist={songHot} />
+                                </div>
+                                <div className="list_card">
+                                    <h1>Remix hay hết sảy</h1>
+                                    <Card playlist={songRemix} />
+                                </div>
+                                <div className="list_card">
+                                    <h1>Chill</h1>
+                                    <Card playlist={songChill} />
+                                </div>
+                                <div className="list_card">
+                                    <h1>Nhạc buồn tâm trạng</h1>
+                                    <Card playlist={songSad} />
+                                </div>
+                                <div className="ratings">
+                                    <h1>BXH nhạc mới</h1>
+                                    <HomeRating data={hNewrelease} />
+                                </div>
+                                <div className="list_card">
+                                    <h1>Top 100</h1>
+                                    <Card playlist={top100} />
+                                </div>
+                                <div className="list_card">
+                                    <h1>Album hot</h1>
+                                    <Card playlist={albumHot} />
+                                </div>
+                            </>
+                        }
+                    />
 
-                        <Route path="*">404 not found</Route>
-                    </Routes>
-                </section>
+                    <Route path="*">404 not found</Route>
+                </Routes>
+            </section>
 
-                <Footer />
-            </>
+            <Footer />
         </div>
     );
 };

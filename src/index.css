@@ -42,11 +42,6 @@ button {
   color        : #000;
 }
 
-.main_content {
-  height    : 88vh;
-  transition: all ease-in-out 2s;
-}
-
 /* transitions.css */
 .fade-enter {
   opacity: 0;

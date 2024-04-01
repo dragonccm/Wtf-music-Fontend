@@ -49,8 +49,10 @@ function App(props) {
             <div className="App">
                 <div className="main_content">
                     <RightSidebar />
-                    {/* <Mainpage playlists={datas} /> */}
+
                     <AppRoutes playlists={datas} />
+
+                    <Bottombar music="https://vnso-zn-16-tf-a128-zmp3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1709022776~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=47652769b376607e4f2a481c74636d82" />
                 </div>
             </div>
         </ThemeProvider>
@@ -63,7 +65,6 @@ function App(props) {
                         <Route path="/*" element={<Mainn datas={element} />} />
                     </Routes>
                 </Router>
-                <Bottombar music="https://vnso-zn-16-tf-a128-zmp3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1709022776~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=47652769b376607e4f2a481c74636d82" />
             </SongDataProvider>
         </>
     );

@@ -3,79 +3,96 @@
     color: aliceblue;
 } */
 .Footer {
-  font-size: 1.5rem;
+  flex-shrink     : 0;
+  font-size       : 1.5rem;
   background-color: var(--bg-white);
+
   .info_contaier {
-    width: 100%;
-    display: flex;
+    width          : 100%;
+    display        : flex;
     justify-content: space-between;
-    padding: 3rem ;
-    line-height: 3rem;
+    padding        : 3rem;
+    line-height    : 3rem;
   }
+
   .Privacy {
-    margin: 1rem 0;
-    padding: 1rem 0;
+    margin    : 1rem 0;
+    padding   : 1rem 0;
     border-top: 1px solid #a7a7a7;
   }
+
   .Privacy a {
     margin: 0 1rem;
   }
+
   .column_container {
     display: flex;
-    gap: 20px;
+    gap    : 20px;
   }
+
   .column {
-    width: 25%;
-    color: var(--footer-text);
+    width : 25%;
+    color : var(--footer-text);
     margin: 0 1rem;
+
     &.main {
-      width: 30%;
-      text-align: justify;
+      width       : 30%;
+      text-align  : justify;
       margin-right: 150px;
     }
+
     h3 {
-      font-style: italic;
-      font-family: sans-serif;
-      font-size: 20px;
+      font-style   : italic;
+      font-family  : sans-serif;
+      font-size    : 20px;
       margin-bottom: 10px;
     }
+
     .logo {
-      width: 60%;
+      width  : 60%;
       display: block;
-      margin: 0 auto;
+      margin : 0 auto;
+
       img {
         width: 100%;
       }
     }
+
     .content {
       line-height: 1.8;
     }
+
     .pd_phone {
       display: flex;
 
       svg {
         position: relative;
-        top: 6px;
+        top     : 6px;
       }
+
       span {
         padding-left: 4px;
       }
     }
+
     span {
       display: inline-block;
     }
+
     svg {
-      font-size: 20px;
-      color: var(--main-color);
+      font-size    : 20px;
+      color        : var(--main-color);
       padding-right: 10px;
     }
   }
+
   .Social_media a {
     font-size: 3rem;
-    margin: 0 1rem;
-    color: var(--main-color);
+    margin   : 0 1rem;
+    color    : var(--main-color);
   }
 }
+
 @media screen and (max-width: 600px) {
   .Footer {
     display: none;
