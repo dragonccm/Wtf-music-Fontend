@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../../../css/admin/kindMusicAdmin.scss";
+import "../../../css/admin/musicAdmin.scss";
 import Modal from "react-modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTableList } from "@fortawesome/free-solid-svg-icons";
+
 const KindMusicAdmin = () => {
     const [musicKinds, setMusicKinds] = useState([]); // Danh sách thể loại nhạc
     const [selectedKind, setSelectedKind] = useState(null); // Thể loại đang được chọn
@@ -30,13 +35,11 @@ const KindMusicAdmin = () => {
                 id: 1,
                 name: "Pop",
                 description: "Popular music",
-                image: "image1.jpg",
             },
             {
                 id: 2,
                 name: "Rock",
                 description: "Rock music",
-                image: "image2.jpg",
             },
             // thêm dữ liệu giả lập ở đây
         ];
@@ -44,7 +47,7 @@ const KindMusicAdmin = () => {
     };
 
     // Hàm tạo mới thể loại nhạc
-    const createMusicKind = async (name, description, image) => {
+    const createMusicKind = async (name, description) => {
         // Gọi API để tạo mới thể loại nhạc
         // Khi tạo thành công, cập nhật state
     };
@@ -68,7 +71,6 @@ const KindMusicAdmin = () => {
             id: kind.id,
             name: kind.name,
             description: kind.description,
-            image: kind.image,
         });
         setIsEditModalOpen(true);
     };
@@ -99,53 +101,95 @@ const KindMusicAdmin = () => {
     };
 
     return (
-        <div>
-            {/* Hiển thị danh sách thể loại nhạc */}
-            <h2>Danh sách thể loại nhạc</h2>
-            <table className="table">
+        <div className="container px-0 rounded-2 container-admin">
+            <div className="d-flex align-items-center justify-content-between px-4 mt-4 header-admin">
+                {/* Hiển thị danh sách thể loại nhạc */}
+                <h2 className="fw-normal fs-1 mb-4 heading-admin">
+                    <FontAwesomeIcon icon={faTableList} /> Danh sách thể loại
+                </h2>
+                {/* Hiển thị form tạo mới thể loại nhạc */}
+                <div className="d-flex flex-column align-items-end justify-content-center mt-5 actions-admin">
+                    <button
+                        className="btn btn-success fs-4 mb-4 py-2"
+                        onClick={openCreateModal}
+                    >
+                        + Thêm mới thể loại
+                    </button>
+                    <form action="">
+                        <label className="fs-4 me-3" htmlFor="search-kind">
+                            Tìm kiếm:
+                        </label>
+                        <input
+                            id="search-kind"
+                            type="text"
+                            placeholder="Nhập thể loại"
+                            required
+                            className="fs-5 ps-3 py-1 border border-dark-subtle rounded-1"
+                        />
+                    </form>
+                </div>
+            </div>
+            <table className="w-100 fs-4 mt-4 text-justify overflow-x-auto table-admin">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Actions</th>
+                    <tr className="row px-5 py-3">
+                        <th className="col-1 opacity-75">Thứ tự</th>
+                        <th className="col-2 opacity-75">Tên thể loại</th>
+                        <th className="col-7 opacity-75">Mô tả thể loại</th>
+                        <th className="col-2 opacity-75">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
                     {musicKinds.map((kind) => (
-                        <tr key={kind.id}>
-                            <td>{kind.id}</td>
-                            <td>{kind.name}</td>
-                            <td>{kind.description}</td>
-                            <td>
-                                <img src={kind.image} alt={kind.name} />
-                            </td>
-                            <td>
+                        <tr
+                            key={kind.id}
+                            className="row px-5 py-3 align-items-center border-bottom"
+                        >
+                            <td className="col-1">{kind.id}</td>
+                            <td className="col-2">{kind.name}</td>
+                            <td className="col-7">{kind.description}</td>
+                            <td className="col-2">
                                 <button
-                                    className="btn btn-primary"
+                                    className="btn btn-primary fs-4 rounded-circle"
                                     onClick={() => openEditModal(kind)}
                                 >
-                                    Edit
+                                    <FontAwesomeIcon icon={faPen} />
                                 </button>
                                 <button
-                                    className="btn btn-danger"
+                                    className="btn btn-danger fs-4 ms-4 rounded-circle"
                                     onClick={() => deleteMusicKind(kind.id)}
                                 >
-                                    Delete
+                                    <FontAwesomeIcon icon={faTrash} />
                                 </button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
-            {/* Hiển thị form tạo mới thể loại nhạc */}
-            <div>
-                <h2>Tạo mới thể loại nhạc</h2>
-                <button className="btn btn-success" onClick={openCreateModal}>
-                    Create
-                </button>
+            <div className="row align-items-center py-4 pagination-admin">
+                <div className="col-6 description-pagination">
+                    <span className="fs-4 ps-5 opacity-75">
+                        Hiển thị 1 đến 6 trang
+                    </span>
+                </div>
+                <div className="col-6 pagination-numbers">
+                    <ul className="pagination justify-content-end ">
+                        <li className="border">
+                            <a className="d-block fs-4 px-4 py-1 opacity-75">
+                                Previous
+                            </a>
+                        </li>
+                        <li className="border active">
+                            <a className="d-block fs-4 px-4 py-1 opacity-75">
+                                1
+                            </a>
+                        </li>
+                        <li className="border">
+                            <a className="d-block fs-4 px-4 py-1 opacity-75">
+                                Next
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}
@@ -181,17 +225,6 @@ const KindMusicAdmin = () => {
                                 value={editForm.description}
                                 onChange={handleEditFormChange}
                             ></textarea>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="edit-image">Image:</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="edit-image"
-                                name="image"
-                                value={editForm.image}
-                                onChange={handleEditFormChange}
-                            />
                         </div>
                         <button
                             className="btn btn-primary"
@@ -241,17 +274,6 @@ const KindMusicAdmin = () => {
                                 value={createForm.description}
                                 onChange={handleCreateFormChange}
                             ></textarea>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="create-image">Image:</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="create-image"
-                                name="image"
-                                value={createForm.image}
-                                onChange={handleCreateFormChange}
-                            />
                         </div>
                         <button
                             className="btn btn-primary"

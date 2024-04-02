@@ -80,7 +80,7 @@
   }
 
   .bg-body-tertiary {
-    background-color: var(--bg-white);
+    background-color: var(--bg-white) !important;
     border-radius   : 1rem;
     margin-bottom   : 5rem;
   }
@@ -160,7 +160,7 @@
         }
 
         button {
-          background-color: #cfdcfe;
+          background-color: #5498ff;
           width           : 50%;
           margin          : 20px auto;
           padding         : 20px;
@@ -171,7 +171,7 @@
           color           : var(--bg-white);
 
           &:hover {
-            background-color: #5498ff;
+            opacity: 0.8;
           }
         }
 
