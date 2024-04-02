@@ -129,7 +129,7 @@ const Header = () => {
           <img src={data.thumb} alt={data.name} />
         </div>
         <div className="">
-        <NavLink to={`/songpage/${data.id}`} className="search_item_name">{data.name}</NavLink>
+        <NavLink to={`/song/${data.id}`} className="search_item_name">{data.name}</NavLink>
 
         </div>
       </section>

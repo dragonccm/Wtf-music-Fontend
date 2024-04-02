@@ -73,23 +73,37 @@
                 .content_name {
                     font-size: 16px;
                     font-weight: 600;
-                    p{
+                    a{
                         width: 250px;
                         display: block;
-                        font-size: 1.5rem;
+                        font-size: 1.6rem;
                         font-weight: 700;
                         color: var(--footer-text);
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         font-family: Inter, sans-serif;
+                        &:hover {
+                            color: #257eff;
+                        }
                     }
+                  
                 }
 
                 .content_cate {
-                    margin-top: 5px;
-                    font-size: 13px;
-                    opacity: .7;
+                    // margin-top: 5px;
+                    color      : var(--text-2);
+                    a { 
+                        margin-left: 2px;
+                        color      : var(--text-2);
+                        font-size  : 12px;
+                        line-height: 1.3em;
+    
+                        &:hover {
+                            color: #257eff;
+                        }
+    
+                    }
                 }
             }
         }

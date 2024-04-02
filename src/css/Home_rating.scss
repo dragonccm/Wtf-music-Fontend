@@ -80,8 +80,9 @@
                         gap: 40px;
 
                         svg {
-                            font-size: 20px;
+                            font-size: 40px;
                             color: #fff;
+                            opacity: .9;
                         }
 
                         svg.play_icon {
@@ -103,8 +104,20 @@
                 }
 
                 .ratimg_item_content_artist {
-                    font-size: 12px;
                     color: var(--text-2);
+
+                    a {
+                        margin-left: 2px;
+                        font-size: 13px;
+                        color: var(--text-2);
+                        line-height: 1.3em;
+    
+                        &:hover {
+                            color: #257eff;
+                            text-decoration: underline!important;
+                        }
+    
+                    }
                 }
 
                 .ratimg_item_content_b {
