@@ -171,7 +171,7 @@ const KindMusicAdmin = () => {
                         Hiển thị 1 đến 6 trang
                     </span>
                 </div>
-                <div className="col-6 pagination-numbers">
+                <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end ">
                         <li className="border">
                             <a className="d-block fs-4 px-4 py-1 opacity-75">
