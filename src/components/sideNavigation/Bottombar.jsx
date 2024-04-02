@@ -32,6 +32,7 @@ import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg";
 import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root");
 const Bottombar = () => {
@@ -44,10 +45,10 @@ const Bottombar = () => {
 
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
-  console.log("is playing",isPlaying);
+  console.log("is playing", isPlaying);
   const songInfo = useSelector((state) => state.getSongData.inforSong);
-  console.log("is song info",songInfo);
-  
+  console.log("is song info", songInfo);
+
   if (
     isPlaying &&
     songInfo !== null &&
@@ -226,51 +227,15 @@ const Bottombar = () => {
   const handleVolumeChange = () => {
     setVolume(playerRef.current.audio.current.volume);
     localStorage.setItem('volume', volume);
-    
-  }; 
+
+  };
 
 
-  let intervalId = null
+  let oldtime = null
   const handleListen = (e) => {
-    clearInterval(intervalId);
-
-    // Lắng nghe sự kiện timeupdate của đối tượng nghe nhạc
+    // Lắng nghe sự kiện timeupdate của player
     e.target.addEventListener('timeupdate', updateTime);
 
-    // Hàm callback để cập nhật lời bài hát
-    function updateTime() {
-      const currentTime = e.target.currentTime;
-      localStorage.setItem('duration', currentTime);
-      setLoop(playerRef.current.audio.current.loop)
-      localStorage.setItem('loop', loop);
-      console.log(playerRef.current.audio.current.loop)
-
-      // Xử lý hiển thị lời bài hát theo thời gian hiện tại
-      for (let i = 0; i < haha.length; i++) {
-        const lyric = haha[i];
-
-        if (currentTime >= parseFloat(lyric.startTime) / 1000 && currentTime <= parseFloat(lyric.endTime) / 1000) {
-          const lyricUL = document.querySelectorAll(".scroll-content li");
-          if (lyricUL[i]) {
-            lyricUL[i].classList.add("active");
-            lyricUL[i].scrollIntoView({ behavior: "smooth", block: "center" });
-
-            if (i > 0) {
-              lyricUL[i - 1].classList.add("over");
-              lyricUL[i - 1].classList.remove("active");
-            }
-            if (i > 1) {
-              lyricUL[i - 1].classList.add("over");
-              lyricUL[i - 1].classList.remove("active");
-              lyricUL[i - 2].classList.remove("active");
-              lyricUL[i - 2].classList.add("over");
-            }
-
-            break; // Dừng vòng lặp khi điều kiện được thoả mãn
-          }
-        }
-      }
-    }
   };
 
 
@@ -318,9 +283,64 @@ const Bottombar = () => {
   //   }, 500);
 
   // };
-  const handleStop = () => {
-    clearInterval(intervalId); // Xóa bỏ gói lệnh setInterval khi dừng phát nhạc
-    intervalId = null;
+  const handleStop = (e) => {
+    e.target.addEventListener('timeupdate', updateTime);
+  }
+
+
+  // Hàm callback để cập nhật lời bài hát
+  function updateTime(e) {
+    const currentTime = e.target.currentTime;
+    localStorage.setItem('duration', currentTime);
+    // console.log(currentTime);
+    setLoop(playerRef.current.audio.current.loop)
+    localStorage.setItem('loop', loop);
+
+    // Xử lý hiển thị lời bài hát theo thời gian hiện tại
+    const lyricUL = document.querySelectorAll(".scroll-content li");
+    if (lyricUL.length > 0) {
+      for (let i = 0; i < haha.length; i++) {
+        const lyric = haha[i];
+
+        if (currentTime >= parseFloat(lyric.startTime) / 1000 && currentTime <= parseFloat(lyric.endTime) / 1000) {
+          console.log(oldtime, currentTime);
+          if (lyricUL[i]) {
+            lyricUL[i].classList.add("active");
+            lyricUL[i].scrollIntoView({ behavior: "smooth", block: "center" });
+            if (currentTime > oldtime + 1) {
+              console.log('hahahah')
+              for (let j = 0; j < i; j++) {
+                lyricUL[j].classList.remove("active");
+                lyricUL[j].classList.add("over");
+              }
+            }
+            else if (currentTime < oldtime + 1) {
+              console.log('hahahah')
+              for (let j = i + 1; j < haha.length; j++) {
+                lyricUL[j].classList.remove("active");
+                lyricUL[j].classList.remove("over");
+              }
+            }
+            if (i > 0) {
+              lyricUL[i - 1].classList.add("over");
+              lyricUL[i - 1].classList.remove("active");
+            }
+            if (i > 1) {
+              lyricUL[i - 1].classList.remove("active");
+              lyricUL[i - 1].classList.add("over");
+              lyricUL[i - 2].classList.remove("active");
+              lyricUL[i - 2].classList.add("over");
+            }
+            oldtime = currentTime
+
+            break; // Dừng vòng lặp khi điều kiện được thoả mãn
+          } else {
+            console.log('lỗi r')
+          }
+        }
+      }
+    }
+    oldtime = currentTime
   }
   return (
     isPlaying && (
@@ -333,13 +353,10 @@ const Bottombar = () => {
             <div className="name">
               <div className="name_ctn">
                 <h5>
-                  <a
-                    href={
-                      "/nghe-si/" + songInfo.infor.alias
-                    }
-                  >
+                  <NavLink
+                    to={"/song" + songInfo.id}>
                     {songInfo.infor.songname}
-                  </a>
+                  </NavLink>
                 </h5>
                 <div className="artist">
                   {songInfo.infor.artistInfo.map(
@@ -347,7 +364,7 @@ const Bottombar = () => {
                       <span key={index}>
                         <a
                           href={
-                            "/nghe-si/" +
+                            "/artists/" +
                             artist.alias
                           }
                         >
@@ -385,7 +402,7 @@ const Bottombar = () => {
                     <div className="r_click_head">
                       <div className="r_click_head_img"><img src={songInfo.infor.img} alt="f" /></div>
                       <div className="r_click_head_info">
-                        <div className="name"><a href={"/nghe-si/" + songInfo.infor.alias}>{songInfo.infor.songname}</a></div>
+                        <div className="name"><a href={"/artists/" + songInfo.infor.alias}>{songInfo.infor.songname}</a></div>
                         <div className="more">
                           <div className="more_item">
                             <FontAwesomeIcon icon={faHeart} />
@@ -404,7 +421,7 @@ const Bottombar = () => {
                         <div className="content">
                           {songInfo.infor.artistInfo.map((artist, index) => (
                             <span key={index}>
-                              <a href={"/nghe-si/" + artist.alias}>{artist.name}</a>
+                              <a href={"/artists/" + artist.alias}>{artist.name}</a>
                               {index !== songInfo.infor.artistInfo.length - 1 && ","}
                             </span>
                           ))}
@@ -420,13 +437,13 @@ const Bottombar = () => {
                       <div className="item">
                         <h5>Sáng tác</h5>
                         <div className="content">
-                          {<a href={"/nghe-si/" + songInfo.infor.composers[0].alias} >{songInfo.infor.composers[0].name}</a>}
+                          {<a href={"/artists/" + songInfo.infor.composers[0].alias} >{songInfo.infor.composers[0].name}</a>}
                         </div>
                       </div>
                       <div className="item">
                         <h5>Thể loại</h5>
                         <div className="content">
-                          {<a href={"/nghe-si/" + songInfo.infor.genres[0].alias} >{songInfo.infor.genres[0].name}</a>}
+                          {<a href={"/artists/" + songInfo.infor.genres[0].alias} >{songInfo.infor.genres[0].name}</a>}
                         </div>
                       </div>
                       <div className="item">

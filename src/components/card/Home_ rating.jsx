@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick-theme.css";
 import "../../css/Home_rating.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
+
 import { NavLink } from "react-router-dom";
 import moment from 'moment';
 import { useDispatch } from "react-redux";
@@ -60,8 +62,8 @@ const HomeRating = ({ data }) => {
                <img src={item.thumbnailM} alt="f"></img>
                <div className="img_overlay">
                  <div className="img_overlay_group_btn">
-                   <NavLink to="/songpage" onClick={(e)=>handlePlaying(e,item.encodeId)}  className="nav-link list_nav_item">
-                     <FontAwesomeIcon icon={faPlay} />
+                   <NavLink to="/song/Z7I9OC70" onClick={(e)=>handlePlaying(e,item.encodeId)}  className="nav-link list_nav_item">
+                     <FontAwesomeIcon icon={faCirclePlay} />
                    </NavLink>
                  </div>
                </div>
@@ -69,7 +71,26 @@ const HomeRating = ({ data }) => {
              <div className="ratimg_item_content">
                <div className="ratimg_item_content_a">
                   <div className="ratimg_item_content_name">{item.title }</div>
-                  <div className="ratimg_item_content_artist">{item.artistsNames}</div>
+                  <div className="ratimg_item_content_artist">
+                    {item.artists.map(
+                    (artist, index) => (
+                      <span key={index}>
+                        <a
+                          href={
+                            "/artists/" +
+                            artist.alias
+                          }
+                        >
+                          {artist.name}
+                        </a>
+                        {index !==
+                          item.artists
+                            .length -
+                          1 && ","}
+                      </span>
+                    )
+                  )}
+                  </div>
                </div>
                <div className="ratimg_item_content_b">
                  <div className="rating_number">

@@ -44,9 +44,32 @@ const Col3Layout = ({ data }) => {
                 </div>
                 <div className="playlist_item_content">
                   <div className="content_name">
-                    <p>{element.title}</p>
+                  <NavLink
+                    to={"/song/" + element.encodeId}>
+                    {element.title}
+                  </NavLink>
+                    
                   </div>
-                  <div className="content_cate">{element.artistsNames}</div>
+                  <div className="content_cate">
+                    {element.artists.map(
+                    (artist, index) => (
+                      <span key={index}>
+                        <a
+                          href={
+                            "/artists/" +
+                            artist.alias
+                          }
+                        >
+                          {artist.name}
+                        </a>
+                        {index !==
+                         element.artists
+                            .length -
+                          1 && ","}
+                      </span>
+                    )
+                  )}
+                  </div>
                 </div>
               </div>
             ))}
