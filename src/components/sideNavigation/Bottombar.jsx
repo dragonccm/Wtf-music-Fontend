@@ -44,10 +44,10 @@ const Bottombar = () => {
 
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
-  console.log(isPlaying);
+  console.log("is playing",isPlaying);
   const songInfo = useSelector((state) => state.getSongData.inforSong);
-  console.log(songInfo);
-
+  console.log("is song info",songInfo);
+  
   if (
     isPlaying &&
     songInfo !== null &&
@@ -226,12 +226,12 @@ const Bottombar = () => {
   const handleVolumeChange = () => {
     setVolume(playerRef.current.audio.current.volume);
     localStorage.setItem('volume', volume);
+    
   }; 
 
 
   let intervalId = null
   const handleListen = (e) => {
-    // Xóa bỏ intervalId hiện tại (nếu có)
     clearInterval(intervalId);
 
     // Lắng nghe sự kiện timeupdate của đối tượng nghe nhạc

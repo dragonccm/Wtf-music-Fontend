@@ -1,10 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSongData } from "../../services/SongService";
+import { addHisFetch } from "../../services/upDateHService";
+
 export const fetchSongPlaying = createAsyncThunk(
   "getSongPlaying",
   async (id) => {
     const response = await getSongData(id);
-    localStorage.setItem("idSongPlaying",id)
+    await addHisFetch({
+      id: id,
+    })
     return response;
   }
 );
@@ -26,7 +30,7 @@ export const getSongDataSlice = createSlice({
       .addCase(fetchSongPlaying.pending, (state, action) => {
         // Add user to the state array
         state.inforSong = { ...state.inforSong, isLoading: true };
-
+        
       })
       .addCase(fetchSongPlaying.fulfilled, (state, action) => {
         if (action.payload) {
