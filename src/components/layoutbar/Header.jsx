@@ -85,7 +85,7 @@ const Header = () => {
     }, [searchTerm, debouncedFetchData]);
 
   const handleBlur = () => {
-    setTimeout(() => { setIsVisible(true); }, 100000);
+    setTimeout(() => { setIsVisible(true); }, 250);
   };
   const handleLogoutUser = async() => {
     let data = await getLogout();//clear cookies
@@ -219,6 +219,7 @@ const Header = () => {
                     <div className="h_avt_container">
                         {isAuthentication.isAuthenticated === true ? (
                             <Popup
+                                
                                 trigger={
                                     <button className="avt_page">
                                         <img src={logo} alt="profile" />
@@ -256,6 +257,7 @@ const Header = () => {
                                         Đăng xuất
                                     </NavLink>
                                 </div>
+                                <h1>{isAuthentication.account.username}</h1>
                             </Popup>
                         ) : (
                             <div className="group_authentication">
