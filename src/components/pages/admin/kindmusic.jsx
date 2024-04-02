@@ -132,10 +132,10 @@ const KindMusicAdmin = () => {
             <table className="w-100 fs-4 mt-4 text-justify overflow-x-auto table-admin">
                 <thead>
                     <tr className="row px-5 py-3">
-                        <th className="col-1 opacity-75">Thứ tự</th>
-                        <th className="col-2 opacity-75">Tên thể loại</th>
-                        <th className="col-7 opacity-75">Mô tả thể loại</th>
-                        <th className="col-2 opacity-75">Hành động</th>
+                        <th className="col-1">Thứ tự</th>
+                        <th className="col-2">Tên thể loại</th>
+                        <th className="col-7">Mô tả thể loại</th>
+                        <th className="col-2">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -193,33 +193,41 @@ const KindMusicAdmin = () => {
             </div>
 
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}
-            <div overlayClassName="modal-overlay">
+            <div className="updateBtn-form-admin">
                 <Modal
                     isOpen={isEditModalOpen}
                     onRequestClose={closeEditModal}
                     contentLabel="Edit Music Kind"
                     className="modal-kindMusic"
+                    overlayClassName="modal-overlay-1"
                 >
                     {/* Nội dung của pop-up form chỉnh sửa */}
-                    <h2>Chỉnh sửa thông tin thể loại nhạc</h2>
+                    <h2 className="text-center opacity-75 mb-5">
+                        Chỉnh sửa thông tin thể loại nhạc
+                    </h2>
                     <form>
-                        <div className="form-group">
-                            <label htmlFor="edit-name">Name:</label>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-name">
+                                Name:
+                            </label>
                             <input
                                 type="text"
-                                className="form-control"
+                                className="fs-5 form-control"
                                 id="edit-name"
                                 name="name"
                                 value={editForm.name}
                                 onChange={handleEditFormChange}
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="edit-description">
+                        <div className="mb-4 form-group">
+                            <label
+                                className="fs-5 mb-2"
+                                htmlFor="edit-description"
+                            >
                                 Description:
                             </label>
                             <textarea
-                                className="form-control"
+                                className="fs-5 form-control"
                                 id="edit-description"
                                 name="description"
                                 value={editForm.description}
@@ -227,13 +235,13 @@ const KindMusicAdmin = () => {
                             ></textarea>
                         </div>
                         <button
-                            className="btn btn-primary"
+                            className="btn btn-primary fs-5"
                             onClick={updateMusicKind}
                         >
                             Update
                         </button>
                         <button
-                            className="btn btn-secondary"
+                            className="btn btn-secondary ms-3 fs-5"
                             onClick={closeEditModal}
                         >
                             Cancel
@@ -243,32 +251,40 @@ const KindMusicAdmin = () => {
             </div>
 
             {/* Hiển thị pop-up form tạo mới thể loại nhạc */}
-            <div overlayClassName="modal-overlay">
+            <div className="addBtn-form-admin">
                 <Modal
                     isOpen={isCreateModalOpen}
                     onRequestClose={closeCreateModal}
                     contentLabel="Create Music Kind"
                     className="modal-kindMusic"
+                    overlayClassName="modal-overlay-1"
                 >
-                    <h2>Tạo mới thể loại nhạc</h2>
+                    <h2 className="text-center opacity-75 mb-5">
+                        Tạo mới thể loại nhạc
+                    </h2>
                     <form>
-                        <div className="form-group">
-                            <label htmlFor="create-name">Name:</label>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-name">
+                                Name:
+                            </label>
                             <input
                                 type="text"
-                                className="form-control"
+                                className="fs-5 form-control"
                                 id="create-name"
                                 name="name"
                                 value={createForm.name}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="create-description">
+                        <div className="mb-4 form-group">
+                            <label
+                                className="fs-5 mb-2"
+                                htmlFor="create-description"
+                            >
                                 Description:
                             </label>
                             <textarea
-                                className="form-control"
+                                className="fs-5 form-control"
                                 id="create-description"
                                 name="description"
                                 value={createForm.description}
@@ -276,13 +292,13 @@ const KindMusicAdmin = () => {
                             ></textarea>
                         </div>
                         <button
-                            className="btn btn-primary"
+                            className="btn btn-primary fs-5"
                             onClick={createMusicKind}
                         >
                             Create
                         </button>
                         <button
-                            className="btn btn-secondary"
+                            className="btn btn-secondary ms-3 fs-5"
                             onClick={closeCreateModal}
                         >
                             Cancel
