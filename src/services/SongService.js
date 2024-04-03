@@ -7,6 +7,7 @@ export const getSongData = async (Songid) => {
       const songDetailResult = await songInfo(Songid);
       const songUrlResult = await songUrl(Songid);
       const songLyricsResult = await songLyric(Songid);
+      console.log('hahahhhhhhhhhhhhhh/////////////////////////////////////////')
       const id = Songid;
       const genres = songDetailResult.data.genres.map((genre) => ({
         id: genre.id,
@@ -20,11 +21,11 @@ export const getSongData = async (Songid) => {
         name: artist.name,
         alias: artist.alias,
       }));
-      const composers = songDetailResult.data.composers.map((composer) => ({
+      const composers = songDetailResult.data.composers? songDetailResult.data.composers.map((composer) => ({
         id: composer.id,
         name: composer.name,
         alias: composer.alias,
-      }));
+      })) :[];
       const alias = songDetailResult.data?.alias || "Unknown Artist";
       const duration = songDetailResult.data?.duration || "Unknown Artist";
       const distributor =
@@ -71,6 +72,7 @@ export const getSongData = async (Songid) => {
         lyric: Ly,
         link: song,
       };
+      console.log(clonedata);
       await cloneData(clonedata);
       return {
         id,

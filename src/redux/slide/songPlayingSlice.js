@@ -16,6 +16,7 @@ const initialState = {
   isPlaying: false,
   inforSong: {
     isLoading: true,
+    isError: true,
     infor: {},
   },
 };
@@ -29,7 +30,7 @@ export const getSongDataSlice = createSlice({
     builder
       .addCase(fetchSongPlaying.pending, (state, action) => {
         // Add user to the state array
-        state.inforSong = { ...state.inforSong, isLoading: true };
+        state.inforSong = { ...state.inforSong, isLoading: true,isError:false };
         
       })
       .addCase(fetchSongPlaying.fulfilled, (state, action) => {
@@ -53,6 +54,7 @@ export const getSongDataSlice = createSlice({
 
           let data = {
             isLoading: false,
+            isError:false,
             infor: {
               id,
               img,
@@ -72,13 +74,13 @@ export const getSongDataSlice = createSlice({
           state.isPlaying = true;
           localStorage.setItem("idSongPlaying",id)
         } else {
-          state.inforSong = { ...state.inforSong, isLoading: false };
+          state.inforSong = { ...state.inforSong, isLoading: false, isError:true };
           state.isPlaying = false;
 
         }
       })
       .addCase(fetchSongPlaying.rejected, (state, action) => {
-        state.inforSong = { ...state.inforSong, isLoading: false };
+        state.inforSong = { ...state.inforSong, isLoading: false,isError:true  };
         state.isPlaying = false;
 
       });

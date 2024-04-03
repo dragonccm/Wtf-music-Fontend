@@ -10,7 +10,6 @@ import { Routes, Route } from "react-router-dom";
 import ThemeProvider from "./lib/provider/ThemeProvider";
 import SongDataProvider from "./lib/provider/SongDataProvider";
 import { fetchSong } from "./redux/slide/songSlice";
-import { fetchHome } from "./redux/slide/homeSlice";
 import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
 
 import { useDispatch } from "react-redux";
@@ -20,7 +19,6 @@ function App(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchHome());
         dispatch(fetchAuthentication());
         if (localStorage.getItem("idSongPlaying")) {
             dispatch(fetchSongPlaying(localStorage.getItem("idSongPlaying")));
