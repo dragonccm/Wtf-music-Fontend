@@ -45,6 +45,7 @@ const Bottombar = () => {
 
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+ 
   console.log("is playing", isPlaying);
   const songInfo = useSelector((state) => state.getSongData.inforSong);
   console.log("is song info", songInfo);
@@ -224,8 +225,8 @@ const Bottombar = () => {
   }, []);
 
 
-  const handleVolumeChange = () => {
-    setVolume(playerRef.current.audio.current.volume);
+  const handleVolumeChange = (e) => {
+    setVolume(e.target.volume);
     localStorage.setItem('volume', volume);
 
   };
@@ -293,7 +294,7 @@ const Bottombar = () => {
     const currentTime = e.target.currentTime;
     localStorage.setItem('duration', currentTime);
     // console.log(currentTime);
-    setLoop(playerRef.current.audio.current.loop)
+    // setLoop(playerRef.current.audio.current.loop)
     localStorage.setItem('loop', loop);
 
     // Xử lý hiển thị lời bài hát theo thời gian hiện tại
@@ -343,7 +344,7 @@ const Bottombar = () => {
     oldtime = currentTime
   }
   return (
-    isPlaying && (
+    isPlaying && songInfo.isLoading === false && songInfo.isError === false &&  (
       <div className="main_bottom_bar">
         <div className="player_info">
           <div className="player_info_ctn">
@@ -437,7 +438,7 @@ const Bottombar = () => {
                       <div className="item">
                         <h5>Sáng tác</h5>
                         <div className="content">
-                          {<a href={"/artists/" + songInfo.infor.composers[0].alias} >{songInfo.infor.composers[0].name}</a>}
+                          {<a href={"/artists/" + songInfo.infor.composers.length>0?songInfo.infor.composers[0].alias : 'nô'} >{songInfo.infor.composers.length>0?songInfo.infor.composers[0].name:''}</a>}
                         </div>
                       </div>
                       <div className="item">
@@ -573,8 +574,8 @@ const Bottombar = () => {
                               <div className="lyric">
                                 <ul className="scroll-content">
 
-                                  {haha.map((sentence) => {
-                                    return <li className="item">{sentence.data}</li>;
+                                  {haha.map((sentence,index) => {
+                                    return <li className="item" key={'haha'+index}>{sentence.data}</li>;
                                   })}
                                 </ul>
                               </div>
@@ -603,6 +604,7 @@ const Bottombar = () => {
             ref={playerRef}
             volume={volume}
             loop={loop}
+            autoPlay = {isPlaying}
             onVolumeChange={handleVolumeChange}
             onListen={handleListen}
             onPause={handleStop}

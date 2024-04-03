@@ -8,7 +8,7 @@ export const fetchHome = createAsyncThunk("getHome", async () => {
 });
 const initialState = {
   dataHome: [],
-  newRelease: [],
+  newRelease: {},
   songHot: [],
   songRemix: [],
   songChill: [],
@@ -17,8 +17,8 @@ const initialState = {
   albumHot: [],
   hNewrelease: [],
 
-  isLoading: false,
-  isError: false,
+  isLoading: true,
+  isError: true,
 };
 
 export const homeSlice = createSlice({
@@ -35,7 +35,7 @@ export const homeSlice = createSlice({
       })
       .addCase(fetchHome.fulfilled, (state, action) => {
         state.dataHome = action.payload;
-        state.newRelease = state.dataHome.items[2].items.all;
+        state.newRelease = state.dataHome.items[2].items;
         state.songHot = state.dataHome.items[11].items;
         state.songRemix = state.dataHome.items[4].items;
         state.songChill = state.dataHome.items[3].items;

@@ -54,7 +54,7 @@ const Rating = () => {
             {group_rating && group_rating.map((data, index) => {
               return (
                 <>
-                  <div className="week_card_ctn">
+                  <div className="week_card_ctn" key={'ahha'+index}>
                     <h1 className="top_week_title">{group_rating_title[index]}</h1>
                     {data.items.slice(0, 5).map((data, index) => (
                       <div className="week_rating_card" key={'haha' + index}>

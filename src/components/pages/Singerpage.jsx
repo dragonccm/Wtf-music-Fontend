@@ -38,35 +38,8 @@ const Singerpage = () => {
                 <Card playlist={currData.playlist} />
             </div>
             <div className="for_you">
-                <h1>Cùng Nghệ Sĩ</h1>
-                <div className="radio-inputs">
-                    <label>
-                        <input className="radio-input " type="radio" name="engine" />
-                        <span className="radio-tile ">
-                            <span className="radio-icon">
-                                Tất cả
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input className="radio-input " type="radio" name="engine" />
-                        <span className="radio-tile ">
-                            <span className="radio-icon">
-                                Việt Nam
-                            </span>
-                        </span>
-                    </label>
-
-                    <label>
-                        <input className="radio-input " type="radio" name="engine" />
-                        <span className="radio-tile ">
-                            <span className="radio-icon">
-                                Quốc tế
-                            </span>
-                        </span>
-                    </label>
-                </div>
+                <h1>Bài Hát Nổi Bật</h1>
+               
 
                 <Col3Layout data={currData.songFavorite} />
             </div>
