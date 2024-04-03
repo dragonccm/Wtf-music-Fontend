@@ -11,7 +11,8 @@
     left         : 50%;
     transform    : translate(-50%, -50%);
     width        : 400px;
-    background   : rgb(255, 255, 255);
+    background   : var(--bg-white);
+    color        : var(--text-1);
     padding      : 20px;
     border       : 1px solid rgb(204, 204, 204);
     outline      : none;

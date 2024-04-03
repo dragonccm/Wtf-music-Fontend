@@ -1,18 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faM, faMicrophone } from "@fortawesome/free-solid-svg-icons";
+import { faM, faMicrophone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { faCompactDisc } from "@fortawesome/free-solid-svg-icons";
 import { faMusic } from "@fortawesome/free-solid-svg-icons";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { faCircleChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "../../../css/admin/homeAdmin.scss";
+import "../../../css/admin/musicAdmin.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 
 import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
 import { useSelector, useDispatch } from "react-redux";
-// import ProgressBar from 'react-customizable-progressbar'
-import { BarChart } from "@mui/x-charts/BarChart";
+
 const HomeAdmin = () => {
     const dispatch = useDispatch();
 
@@ -36,9 +36,10 @@ const HomeAdmin = () => {
                                         className="icon-artist"
                                     />
                                 </div>
+                                <h4 className="text-capitalize my-2">352</h4>
                                 {/* <h4 className="text-capitalize mt-4 mb-1">{currData.songListen}</h4> */}
                                 <p className="mb-0 text-capitalize text-body">
-                                    total Music listen
+                                    total Music Artist
                                 </p>
                             </div>
                         </div>
@@ -52,9 +53,10 @@ const HomeAdmin = () => {
                                         className="icon-albums"
                                     />
                                 </div>
+                                <h4 className="text-capitalize my-2">352</h4>
                                 {/* <h4 className="text-capitalize mt-4 mb-1">{currData.playlistListen}</h4> */}
                                 <p className="mb-0 text-capitalize text-body">
-                                    total Music playlist
+                                    total Music Albums
                                 </p>
                             </div>
                         </div>
@@ -68,6 +70,7 @@ const HomeAdmin = () => {
                                         className="icon-songs"
                                     />
                                 </div>
+                                <h4 className="text-capitalize my-2">352</h4>
                                 {/* <h4 className="text-capitalize mt-4 mb-1">{currData.songCount}</h4> */}
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Songs
@@ -84,6 +87,7 @@ const HomeAdmin = () => {
                                         className="icon-playlist"
                                     />
                                 </div>
+                                <h4 className="text-capitalize my-2">352</h4>
                                 {/* <h4 className="text-capitalize mt-4 mb-1">{currData.playlistCount}</h4> */}
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Playlist
@@ -100,9 +104,7 @@ const HomeAdmin = () => {
                                         className="icon-users"
                                     />
                                 </div>
-                                <h4 className="text-capitalize mt-4 mb-1">
-                                    352
-                                </h4>
+                                <h4 className="text-capitalize my-2">352</h4>
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Users
                                 </p>
@@ -112,259 +114,178 @@ const HomeAdmin = () => {
                 </section>
 
                 {/* top data */}
-                <section className="row">
-                    <div className="col-lg-8">
-                        <div className="card">
-                            <div className="card-header">
-                                <div className="header-title d-flex align-items-center justify-content-between">
-                                    <h4 className="card-title text-capitalize">
-                                        Top artist
-                                    </h4>
-                                    <a href="#" className="small text-body">
-                                        {"View All "}
-                                        <FontAwesomeIcon
-                                            icon={faCircleChevronDown}
-                                        />
-                                    </a>
-                                </div>
+                <section className="row my-5">
+                    <div className="col-lg-8 py-3 card container-admin">
+                        <div className="card-header">
+                            <div className="header-title">
+                                <h4 className="mb-5 card-title text-capitalize">
+                                    top artist
+                                </h4>
                             </div>
-                            <div className="card-body p-0">
-                                <div className="row align-items-center">
-                                    <div className="col-md-6">
-                                        <div
-                                            className="dataTables_length"
-                                            id="datatable_length"
+                        </div>
+                        <table className="w-100 fs-4 text-justify overflow-x-auto table-admin">
+                            <thead>
+                                <tr className="row p-3">
+                                    <th className="col-1">Thứ tự</th>
+                                    <th className="col-2">Tên nghệ sĩ</th>
+                                    <th className="col-7">Ngày hoạt động</th>
+                                    <th className="col-2">Tổng bài hát</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr className="row fs-4 px-5 py-3 align-items-center border-bottom">
+                                    <td className="col-1">01</td>
+                                    <td className="col-7">
+                                        <h6 class="fs-4 text-capitalize">
+                                            Pete Saraiya
+                                        </h6>
+                                        <p
+                                            class="mb-0 custom-icon"
+                                            style={{ color: "#aaa" }}
                                         >
-                                            <label>
-                                                {"Show "}
-                                                <select
-                                                    name="datatable_length"
-                                                    aria-controls="datatable"
-                                                    className="form-select form-select-sm"
-                                                >
-                                                    <option value="10">
-                                                        10
-                                                    </option>
-                                                    <option value="25">
-                                                        25
-                                                    </option>
-                                                    <option value="50">
-                                                        50
-                                                    </option>
-                                                    <option value="100">
-                                                        100
-                                                    </option>
-                                                </select>
-                                                {" entries"}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div
-                                            id="datatable_filter"
-                                            className="dataTables_filter"
+                                            petesaraiya@demo.com
+                                        </p>
+                                    </td>
+                                    <td className="col-2">Jan 24, 2020</td>
+                                    <td className="col-2">157</td>
+                                </tr>
+                                <tr className="row fs-4 px-5 py-3 align-items-center border-bottom">
+                                    <td className="col-1">01</td>
+                                    <td className="col-7">
+                                        <h6 class="fs-4 text-capitalize">
+                                            Pete Saraiya
+                                        </h6>
+                                        <p
+                                            class="mb-0 custom-icon"
+                                            style={{ color: "#aaa" }}
                                         >
-                                            <label>
-                                                Search:
-                                                <input
-                                                    type="search"
-                                                    className="form-control form-control-sm"
-                                                    placeholder=""
-                                                    aria-controls="datatable"
-                                                />
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="table-responsive my-3">
-                                    <table
-                                        id="datatable"
-                                        className="table mt-0 dataTable no-footer"
-                                        data-toggle="data-table"
-                                        aria-describedby="datatable_info"
-                                    >
-                                        <thead>
-                                            <tr>
-                                                <th
-                                                    className="custom-icon sorting sorting_asc"
-                                                    tabindex="0"
-                                                    aria-controls="datatable"
-                                                    rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="No.: activate to sort column descending"
-                                                    aria-sort="ascending"
-                                                >
-                                                    No.
-                                                </th>
-                                                <th
-                                                    className="custom-icon sorting"
-                                                    tabindex="0"
-                                                    aria-controls="datatable"
-                                                    rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Artist Name: activate to sort column ascending"
-                                                >
-                                                    Artist Name
-                                                </th>
-                                                <th
-                                                    className="custom-icon sorting"
-                                                    tabindex="0"
-                                                    aria-controls="datatable"
-                                                    rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Joining Date: activate to sort column ascending"
-                                                >
-                                                    Joining Date
-                                                </th>
-                                                <th
-                                                    className="custom-icon sorting"
-                                                    tabindex="0"
-                                                    aria-controls="datatable"
-                                                    rowspan="1"
-                                                    colspan="1"
-                                                    aria-label="Total Songs: activate to sort column ascending"
-                                                >
-                                                    Total Songs
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr className="odd">
-                                                <td className="sorting_1">
-                                                    01
-                                                </td>
-                                                <td className="">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        Pete Saraiya
-                                                    </h6>
-                                                    <p className="mb-0 custom-icon">
-                                                        petesaraiya@demo.com
-                                                    </p>
-                                                </td>
-                                                <td>Jan 24, 2020</td>
-                                                <td>157</td>
-                                            </tr>
-                                            <tr className="even">
-                                                <td className="sorting_1">
-                                                    02
-                                                </td>
-                                                <td className="">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        Pete Saraiya
-                                                    </h6>
-                                                    <p className="mb-0 custom-icon">
-                                                        petesaraiya@demo.com
-                                                    </p>
-                                                </td>
-                                                <td>Jan 24, 2020</td>
-                                                <td>157</td>
-                                            </tr>
-                                            <tr className="odd">
-                                                <td className="sorting_1">
-                                                    03
-                                                </td>
-                                                <td className="">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        Pete Saraiya
-                                                    </h6>
-                                                    <p className="mb-0 custom-icon">
-                                                        petesaraiya@demo.com
-                                                    </p>
-                                                </td>
-                                                <td>Jan 24, 2020</td>
-                                                <td>157</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div className="row align-items-center">
-                                    <div className="col-md-6">
-                                        <div
-                                            className="dataTables_info"
-                                            id="datatable_info"
-                                            role="status"
-                                            aria-live="polite"
+                                            petesaraiya@demo.com
+                                        </p>
+                                    </td>
+                                    <td className="col-2">Jan 24, 2020</td>
+                                    <td className="col-2">157</td>
+                                </tr>
+                                <tr className="row fs-4 px-5 py-3 align-items-center border-bottom">
+                                    <td className="col-1">01</td>
+                                    <td className="col-7">
+                                        <h6 class="fs-4 text-capitalize">
+                                            Pete Saraiya
+                                        </h6>
+                                        <p
+                                            class="mb-0 custom-icon"
+                                            style={{ color: "#aaa" }}
                                         >
-                                            Showing 1 to 3 of 3 entries
-                                        </div>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div
-                                            className="dataTables_paginate paging_simple_numbers"
-                                            id="datatable_paginate"
-                                        >
-                                            <ul className="pagination">
-                                                <li
-                                                    className="paginate_button page-item previous disabled"
-                                                    id="datatable_previous"
-                                                >
-                                                    <a
-                                                        aria-controls="datatable"
-                                                        aria-disabled="true"
-                                                        role="link"
-                                                        data-dt-idx="previous"
-                                                        tabindex="0"
-                                                        className="page-link"
-                                                    >
-                                                        Previous
-                                                    </a>
-                                                </li>
-                                                <li className="paginate_button page-item active">
-                                                    <a
-                                                        href="#"
-                                                        aria-controls="datatable"
-                                                        role="link"
-                                                        aria-current="page"
-                                                        data-dt-idx="0"
-                                                        tabindex="0"
-                                                        className="page-link"
-                                                    >
-                                                        1
-                                                    </a>
-                                                </li>
-                                                <li
-                                                    className="paginate_button page-item next disabled"
-                                                    id="datatable_next"
-                                                >
-                                                    <a
-                                                        aria-controls="datatable"
-                                                        aria-disabled="true"
-                                                        role="link"
-                                                        data-dt-idx="next"
-                                                        tabindex="0"
-                                                        className="page-link"
-                                                    >
-                                                        Next
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                            petesaraiya@demo.com
+                                        </p>
+                                    </td>
+                                    <td className="col-2">Jan 24, 2020</td>
+                                    <td className="col-2">157</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div className="row align-items-center py-4 pagination-admin">
+                            <div className="col-6 description-pagination"></div>
+                            <div className="col-6 pe-5 pagination-numbers">
+                                <ul className="pagination justify-content-end ">
+                                    <li className="border">
+                                        <a className="d-block fs-4 px-4 py-1 opacity-75">
+                                            Previous
+                                        </a>
+                                    </li>
+                                    <li className="border active">
+                                        <a className="d-block fs-4 px-4 py-1 opacity-75">
+                                            1
+                                        </a>
+                                    </li>
+                                    <li className="border">
+                                        <a className="d-block fs-4 px-4 py-1 opacity-75">
+                                            Next
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-4">
-                        <div style={{ height: "90%" }} className="card">
+                        <div
+                            style={{ height: "100%" }}
+                            className="card py-3 px-2"
+                        >
                             <div className="card-header">
                                 <div className="header-title">
-                                    <h4 className="card-title text-capitalize">
+                                    <h4 className="mb-5 card-title text-capitalize">
                                         total reviews
                                     </h4>
                                 </div>
                             </div>
                             <div className="card-body pt-0">
-                                <div
-                                    id="chart-01"
-                                    className=" chart-01 d-flex justify-content-center"
-                                    style={{ minHeight: "195.017px" }}
-                                >
-                                    {/* <BarChart
-                    xAxis={[{ scaleType: 'band', data: ['Song Listen', 'PlayList Listen'] }]}
-                    series={[{ data: [currData.songListen, currData.playlistListen] }]}
-                    width={500}
-                    height={300}
-                  /> */}
+                                <div className="d-flex align-items-center mb-5">
+                                    <FontAwesomeIcon
+                                        icon={faMicrophone}
+                                        className="icon-artist icon_top-reviews me-5"
+                                    />
+                                    <div style={{ width: "100%" }}>
+                                        <div className="d-flex justify-content-between  ">
+                                            <h6 className="mb-2 fs-3 fw-normal">
+                                                Artist
+                                            </h6>
+                                            <h6 className="text-body fs-3 fw-normal">
+                                                1,010
+                                            </h6>
+                                        </div>
+                                        <div
+                                            className="progress bg-soft-success shadow-none w-100"
+                                            style={{ height: "6px" }}
+                                        >
+                                            <div
+                                                className="progress-bar bg-soft-success"
+                                                data-toggle="progress-bar"
+                                                role="progressbar"
+                                                aria-valuenow="23"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                style={{
+                                                    width: "21%",
+                                                    transition:
+                                                        "width 2s ease 0s",
+                                                }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="d-flex align-items-center mb-5">
+                                    <FontAwesomeIcon
+                                        icon={faCompactDisc}
+                                        className="icon-albums icon_top-reviews me-5"
+                                    />
+                                    <div style={{ width: "100%" }}>
+                                        <div className="d-flex justify-content-between  ">
+                                            <h6 className="mb-2 fs-3 fw-normal">
+                                                Albums
+                                            </h6>
+                                            <h6 className="text-body fs-3 fw-normal">
+                                                2,231
+                                            </h6>
+                                        </div>
+                                        <div
+                                            className="progress bg-soft-success shadow-none w-100"
+                                            style={{ height: "6px" }}
+                                        >
+                                            <div
+                                                className="progress-bar bg-soft-success"
+                                                data-toggle="progress-bar"
+                                                role="progressbar"
+                                                aria-valuenow="23"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                style={{
+                                                    width: "30%",
+                                                    transition:
+                                                        "width 2s ease 0s",
+                                                }}
+                                            ></div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="d-flex align-items-center mb-5">
                                     <FontAwesomeIcon
@@ -400,8 +321,7 @@ const HomeAdmin = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="d-flex align-items-center mb-5"></div>
-                                <div className="d-flex align-items-center">
+                                <div className="d-flex align-items-center mb-5">
                                     <FontAwesomeIcon
                                         icon={faList}
                                         className="icon-playlist icon_top-reviews me-5"
@@ -412,7 +332,7 @@ const HomeAdmin = () => {
                                                 Playlist
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                5,515
+                                                2,162
                                             </h6>
                                         </div>
                                         <div
@@ -427,7 +347,41 @@ const HomeAdmin = () => {
                                                 aria-valuemin="0"
                                                 aria-valuemax="100"
                                                 style={{
-                                                    width: "23%",
+                                                    width: "27%",
+                                                    transition:
+                                                        "width 2s ease 0s",
+                                                }}
+                                            ></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="d-flex align-items-center">
+                                    <FontAwesomeIcon
+                                        icon={faCircleUser}
+                                        className="icon-playlist icon_top-reviews me-5"
+                                    />
+                                    <div style={{ width: "100%" }}>
+                                        <div className="d-flex justify-content-between  ">
+                                            <h6 className="mb-2 fs-3 fw-normal">
+                                                Users
+                                            </h6>
+                                            <h6 className="text-body fs-3 fw-normal">
+                                                6,718
+                                            </h6>
+                                        </div>
+                                        <div
+                                            className="progress bg-soft-success shadow-none w-100"
+                                            style={{ height: "6px" }}
+                                        >
+                                            <div
+                                                className="progress-bar bg-soft-success"
+                                                data-toggle="progress-bar"
+                                                role="progressbar"
+                                                aria-valuenow="23"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                style={{
+                                                    width: "63%",
                                                     transition:
                                                         "width 2s ease 0s",
                                                 }}
@@ -443,10 +397,7 @@ const HomeAdmin = () => {
                 {/* total users */}
                 <section className="row">
                     <div className="col-lg-6">
-                        <div
-                            style={{ margin: "0", padding: "0 10px" }}
-                            className="card"
-                        >
+                        <div className="card py-3 px-2">
                             <div className="card-header">
                                 <div className="header-title">
                                     <h4 className="card-title text-capitalize">
@@ -461,11 +412,6 @@ const HomeAdmin = () => {
                                             <div className="d-flex align-items-center">
                                                 <img
                                                     src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    style={{
-                                                        width: "100px",
-
-                                                        borderRadius: "10px",
-                                                    }}
                                                     id="07"
                                                     className="img-fluid   avatar-52"
                                                     alt="review-img"
@@ -500,11 +446,6 @@ const HomeAdmin = () => {
                                             <div className="d-flex align-items-center">
                                                 <img
                                                     src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    style={{
-                                                        width: "100px",
-
-                                                        borderRadius: "10px",
-                                                    }}
                                                     id="07"
                                                     className="img-fluid   avatar-52"
                                                     alt="review-img"
@@ -539,11 +480,6 @@ const HomeAdmin = () => {
                                             <div className="d-flex align-items-center">
                                                 <img
                                                     src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    style={{
-                                                        width: "100px",
-
-                                                        borderRadius: "10px",
-                                                    }}
                                                     id="07"
                                                     className="img-fluid   avatar-52"
                                                     alt="review-img"
@@ -578,11 +514,6 @@ const HomeAdmin = () => {
                                             <div className="d-flex align-items-center">
                                                 <img
                                                     src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    style={{
-                                                        width: "100px",
-
-                                                        borderRadius: "10px",
-                                                    }}
                                                     id="07"
                                                     className="img-fluid   avatar-52"
                                                     alt="review-img"
@@ -617,11 +548,6 @@ const HomeAdmin = () => {
                                             <div className="d-flex align-items-center">
                                                 <img
                                                     src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    style={{
-                                                        width: "100px",
-
-                                                        borderRadius: "10px",
-                                                    }}
                                                     id="07"
                                                     className="img-fluid   avatar-52"
                                                     alt="review-img"
@@ -656,11 +582,6 @@ const HomeAdmin = () => {
                                             <div className="d-flex align-items-center">
                                                 <img
                                                     src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    style={{
-                                                        width: "100px",
-
-                                                        borderRadius: "10px",
-                                                    }}
                                                     id="07"
                                                     className="img-fluid   avatar-52"
                                                     alt="review-img"
@@ -695,10 +616,7 @@ const HomeAdmin = () => {
                         </div>
                     </div>
                     <div className="col-lg-6">
-                        <div
-                            style={{ margin: "0", padding: "0 10px" }}
-                            className="card"
-                        >
+                        <div className="card py-3 px-2">
                             <div className="card-header">
                                 <div className="header-title">
                                     <h4 className="card-title text-capitalize">
@@ -712,13 +630,8 @@ const HomeAdmin = () => {
                                         <div className="d-flex">
                                             <img
                                                 src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                style={{
-                                                    width: "100px",
-
-                                                    borderRadius: "10px",
-                                                }}
                                                 id="07"
-                                                className="img-fluid   avatar-52"
+                                                className="img-fluid avatar-52"
                                                 alt="review-img"
                                             />
                                             <div className="ms-5">
@@ -754,11 +667,6 @@ const HomeAdmin = () => {
                                         <div className="d-flex">
                                             <img
                                                 src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                style={{
-                                                    width: "100px",
-
-                                                    borderRadius: "10px",
-                                                }}
                                                 id="08"
                                                 className="img-fluid   avatar-52"
                                                 alt="review-img"
@@ -796,11 +704,6 @@ const HomeAdmin = () => {
                                         <div className="d-flex">
                                             <img
                                                 src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                style={{
-                                                    width: "100px",
-
-                                                    borderRadius: "10px",
-                                                }}
                                                 id="09"
                                                 className="img-fluid   avatar-52"
                                                 alt="review-img"
@@ -838,11 +741,6 @@ const HomeAdmin = () => {
                                         <div className="d-flex">
                                             <img
                                                 src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                style={{
-                                                    width: "100px",
-
-                                                    borderRadius: "10px",
-                                                }}
                                                 id="10"
                                                 className="img-fluid   avatar-52"
                                                 alt="review-img"
@@ -880,11 +778,6 @@ const HomeAdmin = () => {
                                         <div className="d-flex">
                                             <img
                                                 src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                style={{
-                                                    width: "100px",
-
-                                                    borderRadius: "10px",
-                                                }}
                                                 id="10"
                                                 className="img-fluid   avatar-52"
                                                 alt="review-img"

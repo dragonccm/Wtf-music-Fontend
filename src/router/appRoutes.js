@@ -33,8 +33,10 @@ import Card from "../components/card/song_card";
 
 import ThemeContext from "../lib/Context/ThemeContext";
 import HomeAdmin from "../components/pages/admin/home";
-import UserAdmin from "../components/pages/admin/user";
-import KindMusicAdmin from "../components/pages/admin/kindmusic";
+import UsersAdmin from "../components/pages/admin/users";
+import KindsMusicAdmin from "../components/pages/admin/kindsmusic";
+import SingersAdmin from "../components/pages/admin/singers";
+import SongsAdmin from "../components/pages/admin/songs";
 import { height } from "@mui/system";
 
 const AppRoutes = ({ playlists }, props) => {
@@ -126,11 +128,10 @@ const AppRoutes = ({ playlists }, props) => {
 
                     {/* admin */}
                     <Route path="/adminhome" element={<HomeAdmin />} />
-                    <Route path="/adminuser" element={<UserAdmin />} />
-                    <Route
-                        path="/adminkindmusic"
-                        element={<KindMusicAdmin />}
-                    />
+                    <Route path="/adminusers" element={<UsersAdmin />} />
+                    <Route path="/adminkinds" element={<KindsMusicAdmin />} />
+                    <Route path="/adminsingers" element={<SingersAdmin />} />
+                    <Route path="/adminsongs" element={<SongsAdmin />} />
 
                     <Route
                         path="/profile/*"
