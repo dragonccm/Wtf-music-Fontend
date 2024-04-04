@@ -11,7 +11,7 @@ import AdminHomeReducer from './slide/adminHomeSlice'
 import AuthenticationRedecer from './slide/AuthenticationSlice'
 import ArtistReducer from './slide/artistSlice'
 import getSongDataReducer from './slide/songPlayingSlice'
-
+import createplaylistReducer from './slide/createPlayList'
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +25,7 @@ export const store = configureStore({
     admin: AdminHomeReducer,
     Authentication:AuthenticationRedecer,
     Artist: ArtistReducer,
-    getSongData:getSongDataReducer
+    getSongData:getSongDataReducer,
+    createPlayList:createplaylistReducer
   },
 })
