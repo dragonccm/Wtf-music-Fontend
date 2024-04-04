@@ -1,59 +1,65 @@
 // variable background
-$bg-artist: #f7e7ef;
-$bg-albums: #fbf2e5;
-$bg-songs: #e8ecfb;
+$bg-artist  : #f7e7ef;
+$bg-albums  : #fbf2e5;
+$bg-songs   : #e8ecfb;
 $bg-playlist: #e4efec;
-$bg-users: #efe9fb;
+$bg-users   : #efe9fb;
 
 // variable icon svg
-$icon-color-artist: #db2f63;
-$icon-color-albums: #fd9c02;
-$icon-color-songs: #405eda;
+$icon-color-artist  : #db2f63;
+$icon-color-albums  : #fd9c02;
+$icon-color-songs   : #405eda;
 $icon-color-playlist: #1b8142;
-$icon-color-users: #8545dc;
+$icon-color-users   : #8545dc;
 
 .icon-artist {
   color: $icon-color-artist;
 }
+
 .icon-albums {
   color: $icon-color-albums;
 }
+
 .icon-songs {
   color: $icon-color-songs;
 }
+
 .icon-playlist {
   color: $icon-color-playlist;
 }
+
 .icon-users {
   color: $icon-color-users;
 }
 
 .main-content {
   padding-top: 11px;
-  margin: 0 -26px;
+  margin     : 0 -26px;
 
   // data statistical
   .card-box {
-    border: none !important;
+    border    : none !important;
     background: none !important;
 
     .card-body {
       border-radius: 10px;
 
       h4 {
-        font-size: 21px;
+        font-size  : 21px;
         font-weight: 400;
       }
+
       p {
         font-size: 17px;
       }
+
       .admin-circle-box {
-        height: 89px;
-        width: 89px;
-        line-height: 104px;
-        background-color: #fff;
-        display: block;
-        margin: 0 auto;
+        height          : 89px;
+        width           : 89px;
+        line-height     : 104px;
+        background-color: var(--bg-white);
+        display         : block;
+        margin          : 0 auto;
 
         svg {
           font-size: 36px;
@@ -64,183 +70,60 @@ $icon-color-users: #8545dc;
     .bg-artist {
       background-color: $bg-artist;
     }
+
     .bg-albums {
       background-color: $bg-albums;
     }
+
     .bg-songs {
       background-color: $bg-songs;
     }
+
     .bg-playlist {
       background-color: $bg-playlist;
     }
+
     .bg-users {
       background-color: $bg-users;
     }
   }
 
   // Top Artist
+
+  // Total Reviews
   .card {
-    border: none;
-    margin-bottom: 24px;
+    background-color: var(--bg-white);
+    color           : var(--text-1);
 
     .card-header {
-      border: none;
-      background-color: transparent;
-      padding: 16px !important;
 
-      .card-title {
-        font-size: 22px;
-        font-weight: 400;
-      }
-      a {
-        font-size: 16px !important;
-      }
-      a svg {
-        color: #3d3d3d;
-        font-size: 19px;
+      background-color: transparent !important;
+      border          : none !important;
+
+      h4 {
+        font-size: 18px;
       }
     }
 
     .card-body {
-      .dataTables_length {
-        padding-left: 24px;
 
-        label {
-          font-size: 18px;
-          font-weight: 400;
-          text-align: left;
-          white-space: nowrap;
-        }
-        select {
-          width: 80px;
-          font-size: 13px;
-          display: inline-block;
-        }
+      img {
+        width        : 70px;
+        border-radius: 5px;
       }
 
-      .dataTables_filter {
-        padding-right: 24px;
-        margin-bottom: 16px;
-        text-align: right;
-
-        label {
-          font-size: 17px;
-          font-weight: 400;
-          white-space: nowrap;
-          text-align: left;
-        }
-        input {
-          display: inline-block;
-          width: 169px;
-          font-size: 10px;
-          padding: 4px 8px !important;
-          margin-left: 6px;
-        }
+      h4 {
+        color: #333;
       }
 
-      // table
-      .my-3 {
-        margin: 16px 0 !important;
-
-        table.dataTable {
-          clear: both;
-          text-align: center;
-          margin-top: 6px !important;
-          margin-bottom: 6px !important;
-          max-width: none !important;
-          border-collapse: separate !important;
-          border-spacing: 0;
-          overflow: hidden;
-
-          thead,
-          tbody,
-          tfoot,
-          tr,
-          td,
-          th {
-            white-space: nowrap;
-          }
-          thead {
-            tr {
-              th {
-                font-size: 19px;
-                color: #aaa;
-                background-color: #fbfcff;
-              }
-            }
-          }
-
-          tbody {
-            tr {
-              td {
-                vertical-align: middle;
-                font-size: 17px;
-
-                h6,
-                p {
-                  font-size: 17px;
-                  font-weight: 400;
-                }
-                p {
-                  color: #aaa;
-                }
-              }
-            }
-          }
-        }
-        .table > :not(:last-child) > :last-child > * {
-          border-bottom-color: rgba(0, 0, 0, 0);
-        }
-        .table > :not(caption) > * > * {
-          padding: 16px 24px !important;
-        }
-      }
-
-      // pagination
-      .row {
-        .dataTables_info {
-          font-size: 17px;
-          padding-left: 24px;
-          padding-top: unset;
-          margin-bottom: 13px;
-        }
-
-        .dataTables_paginate {
-          padding-right: 24px;
-          margin: 0;
-          white-space: nowrap;
-          text-align: right;
-
-          ul.pagination {
-            margin: 2px 0 13px;
-            white-space: nowrap;
-            -webkit-box-pack: end;
-            -webkit-justify-content: flex-end;
-            -ms-flex-pack: end;
-            justify-content: flex-end;
-
-            li {
-              a {
-                font-size: 17px;
-                padding: 4px 16px !important;
-              }
-            }
-            .page-item.active {
-              .page-link {
-                color: var(--bs-white);
-                background-color: #ff4545;
-                border-color: #ff4545;
-              }
-            }
-          }
-        }
+      h6,
+      p,
+      small {
+        font-size: 16px !important;
       }
     }
   }
-  // Total Reviews
-  .chart-01 {
-    min-height: 210px !important;
-  }
+
   .icon_top-reviews {
     font-size: 2rem;
   }

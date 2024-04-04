@@ -6,44 +6,63 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
 
-const KindMusicAdmin = () => {
-    const [musicKinds, setMusicKinds] = useState([]); // Danh sách thể loại nhạc
-    const [selectedKind, setSelectedKind] = useState(null); // Thể loại đang được chọn
+const SingersAdmin = () => {
+    const [musicSingers, setMusicSingers] = useState([]); // Danh sách thể loại nhạc
+    const [selectedSinger, setSelectedSinger] = useState(null); // Thể loại đang được chọn
     const [editForm, setEditForm] = useState({
         id: "",
-        name: "",
+        avt: "",
+        singerName: "",
+        email: "",
+        song: "",
+        album: "",
         description: "",
-        image: "",
+        date: "",
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
     const [createForm, setCreateForm] = useState({
-        name: "",
+        avt: "",
+        singerName: "",
+        email: "",
+        song: "",
+        album: "",
         description: "",
-        image: "",
+        date: "",
     }); // Thông tin form tạo mới
 
-    // Giả sử chúng ta có một hàm fetchMusicKinds để lấy dữ liệu từ API
+    // Giả sử chúng ta có một hàm fetchMusicSingers để lấy dữ liệu từ API
     useEffect(() => {
-        fetchMusicKinds();
+        fetchMusicSingers();
     }, []);
 
     // Hàm giả lập lấy danh sách thể loại nhạc từ server
-    const fetchMusicKinds = async () => {
+    const fetchMusicSingers = async () => {
         const data = [
             {
-                id: 1,
-                name: "Pop",
-                description: "Popular music",
+                id: "01",
+                avt: "image1.jpg",
+                singerName: "Eliana D’Cruz",
+                email: "eliana@demo.com",
+                song: 68,
+                album: 16,
+                description: "Fuck u",
+                date: "03/04/2024",
             },
             {
-                id: 2,
-                name: "Rock",
-                description: "Rock music",
+                id: "02",
+                avt: "image2.jpg",
+                singerName: "Alex Williams",
+                email: "alex@demo.com",
+                song: 68,
+                album: 16,
+                description: "Fuck u",
+                date: "03/04/2024",
             },
+
             // thêm dữ liệu giả lập ở đây
         ];
-        setMusicKinds(data);
+        setMusicSingers(data);
     };
 
     // Hàm tạo mới thể loại nhạc
@@ -66,11 +85,16 @@ const KindMusicAdmin = () => {
 
     // Hiển thị pop-up form chỉnh sửa
     const openEditModal = (kind) => {
-        setSelectedKind(kind);
+        setSelectedSinger(kind);
         setEditForm({
             id: kind.id,
-            name: kind.name,
+            avt: kind.avt,
+            singerName: kind.singerName,
+            email: kind.email,
+            song: kind.song,
+            album: kind.album,
             description: kind.description,
+            date: kind.date,
         });
         setIsEditModalOpen(true);
     };
@@ -105,7 +129,7 @@ const KindMusicAdmin = () => {
             <div className="d-flex align-items-center justify-content-between px-4 mt-4 header-admin">
                 {/* Hiển thị danh sách thể loại nhạc */}
                 <h2 className="fw-normal fs-1 mb-4 heading-admin">
-                    <FontAwesomeIcon icon={faTableList} /> Danh sách thể loại
+                    <FontAwesomeIcon icon={faTableList} /> Danh sách nhạc sĩ
                 </h2>
                 {/* Hiển thị form tạo mới thể loại nhạc */}
                 <div className="d-flex flex-column align-items-end justify-content-center mt-5 actions-admin">
@@ -113,7 +137,7 @@ const KindMusicAdmin = () => {
                         className="btn btn-success fs-4 mb-4 py-2"
                         onClick={openCreateModal}
                     >
-                        + Thêm mới thể loại
+                        + Thêm mới nhạc sĩ
                     </button>
                     <form action="">
                         <label className="fs-4 me-3" htmlFor="search-kind">
@@ -122,7 +146,7 @@ const KindMusicAdmin = () => {
                         <input
                             id="search-kind"
                             type="text"
-                            placeholder="Nhập thể loại"
+                            placeholder="Nhập nhạc sĩ"
                             required
                             className="fs-5 ps-3 py-1 border border-dark-subtle rounded-1"
                         />
@@ -133,29 +157,35 @@ const KindMusicAdmin = () => {
                 <thead>
                     <tr className="row px-5 py-3">
                         <th className="col-1">Thứ tự</th>
-                        <th className="col-2">Tên thể loại</th>
-                        <th className="col-7">Mô tả thể loại</th>
-                        <th className="col-2">Hành động</th>
+                        <th className="col">Profile</th>
+                        <th className="col">Tên nhạc sĩ</th>
+                        <th className="col">Email</th>
+                        <th className="col-1">Songs</th>
+                        <th className="col-1">Albums</th>
+                        <th className="col">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {musicKinds.map((kind) => (
+                    {musicSingers.map((kind) => (
                         <tr
                             key={kind.id}
                             className="row px-5 py-3 align-items-center border-bottom"
                         >
                             <td className="col-1">{kind.id}</td>
-                            <td className="col-2">{kind.name}</td>
-                            <td className="col-7">{kind.description}</td>
-                            <td className="col-2">
+                            <td className="col">{kind.avt}</td>
+                            <td className="col">{kind.singerName}</td>
+                            <td className="col">{kind.email}</td>
+                            <td className="col-1">{kind.song}</td>
+                            <td className="col-1">{kind.album}</td>
+                            <td className="col">
                                 <button
-                                    className="btn btn-primary fs-4 rounded-circle"
+                                    className="btn btn-primary fs-5 rounded-circle"
                                     onClick={() => openEditModal(kind)}
                                 >
                                     <FontAwesomeIcon icon={faPen} />
                                 </button>
                                 <button
-                                    className="btn btn-danger fs-4 ms-4 rounded-circle"
+                                    className="btn btn-danger fs-5 ms-4 rounded-circle"
                                     onClick={() => deleteMusicKind(kind.id)}
                                 >
                                     <FontAwesomeIcon icon={faTrash} />
@@ -166,11 +196,7 @@ const KindMusicAdmin = () => {
                 </tbody>
             </table>
             <div className="row align-items-center py-4 pagination-admin">
-                <div className="col-6 description-pagination">
-                    <span className="fs-4 ps-5 opacity-75">
-                        Hiển thị 1 đến 6 trang
-                    </span>
-                </div>
+                <div className="col-6 description-pagination"></div>
                 <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end ">
                         <li className="border">
@@ -203,7 +229,7 @@ const KindMusicAdmin = () => {
                 >
                     {/* Nội dung của pop-up form chỉnh sửa */}
                     <h2 className="text-center opacity-75 mb-5">
-                        Chỉnh sửa thông tin thể loại nhạc
+                        Chỉnh sửa thông tin nhạc sĩ
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
@@ -214,8 +240,46 @@ const KindMusicAdmin = () => {
                                 type="text"
                                 className="fs-5 form-control"
                                 id="edit-name"
-                                name="name"
-                                value={editForm.name}
+                                name="singerName"
+                                value={editForm.singerName}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-email">
+                                Email:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-email"
+                                name="email"
+                                value={editForm.email}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-profile">
+                                Old Singer Profile:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-profile"
+                                value={editForm.avt}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                                Date:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-date"
+                                name="date"
+                                value={editForm.date}
                                 onChange={handleEditFormChange}
                             />
                         </div>
@@ -260,7 +324,7 @@ const KindMusicAdmin = () => {
                     overlayClassName="modal-overlay-1"
                 >
                     <h2 className="text-center opacity-75 mb-5">
-                        Tạo mới thể loại nhạc
+                        Tạo mới nhạc sĩ
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
@@ -271,8 +335,50 @@ const KindMusicAdmin = () => {
                                 type="text"
                                 className="fs-5 form-control"
                                 id="create-name"
-                                name="name"
+                                name="singerName"
                                 value={createForm.name}
+                                onChange={handleCreateFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-email">
+                                Email:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="create-email"
+                                name="email"
+                                value={createForm.email}
+                                onChange={handleCreateFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label
+                                className="fs-5 mb-2"
+                                htmlFor="create-profile"
+                            >
+                                Singer Profile:
+                            </label>
+                            <input
+                                type="file"
+                                className="fs-5 form-control"
+                                id="create-profile"
+                                name="profile"
+                                value={createForm.avt}
+                                onChange={handleCreateFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-date">
+                                Date:
+                            </label>
+                            <input
+                                type="date"
+                                className="fs-5 form-control"
+                                id="create-date"
+                                name="date"
+                                value={createForm.date}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
@@ -310,4 +416,4 @@ const KindMusicAdmin = () => {
     );
 };
 
-export default KindMusicAdmin;
+export default SingersAdmin;

@@ -5,20 +5,37 @@ import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 // import SongDataContext from '../../lib/Context/SongContext';
 // import React, { useContext } from 'react';
-
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
+import { postPlayList } from '../../redux/slide/createPlayList'
+import { useSelector, useDispatch } from "react-redux";
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
-    const slicedData = playlist.slice(0, 5);
-    // const { setSongData } = useContext(SongDataContext)
+    const dispatch = useDispatch();
 
-    // const handleChangeData = (data) => {
-    //     setSongData(data);
-    //     localStorage.setItem("LastSong", data)
-    // }
-    // const item = "Z6Z8WZWB"
+    const currData = useSelector((state) => state);
+    console.table(currData)
+    const handleAdd = (id) => {
+        dispatch(postPlayList({
+            playlistname: "BETA",
+            genresid: [
+                "sds"
+            ],
+            artistsId: '',
+            thumbnail: "https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/b/8/5/8/b8584bc83639545a57be947b1cbd35f2.jpg",
+            description: 'thuwr',
+            songid: [
+                id
+            ]
+        }
+        ));
+    }
+
+    const slicedData = playlist.slice(0, 5);
+
     return (
         <div className="card_container">
             {slicedData.map((playlist, index) => (
@@ -35,7 +52,19 @@ const Card = ({ playlist }) => {
                         />
                         <div className="img_overlay">
                             <div className="img_overlay_group_btn">
-                                <FontAwesomeIcon icon={faHeart} />
+                                <Popup trigger={<FontAwesomeIcon icon={faHeart} />} position="left top"
+                                    nested
+                                    closeOnDocumentClick
+                                    mouseLeaveDelay={300}
+                                    mouseEnterDelay={0}
+                                    contentStyle={{ padding: '0', border: 'none' }}
+                                    arrow={false}>
+                                    <div className="menu">
+                                        <button className="menu-item"> item 1</button>
+                                        <button className="menu-item"> item 2</button>
+                                        <button className="menu-item"> item 3</button>
+                                    </div>
+                                </Popup>
                                 {/* <button
                                     onClick={() => handleChangeData(item)}
                                 >

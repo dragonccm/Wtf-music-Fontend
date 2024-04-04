@@ -11,8 +11,9 @@ import { useParams } from 'react-router-dom';
 import { fetchPageSong } from '../../redux/slide/songPageSlice'
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+// import ListCard from "../card/ListCard";
 
-// import Recommended from '../card/Recommended'
+import Card from '../card/song_card'
 const Songpage = () => {
 
 
@@ -33,6 +34,33 @@ const Songpage = () => {
     e.preventDefault();
     dispatch(fetchSongPlaying(id));
   }
+  const usserplaylist = [
+    {
+      id: "jdfhhjf",
+      img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
+      name: "Gone",
+    },
+    {
+      id: "jdfhhjf",
+      img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
+      name: "house",
+    },
+    {
+      id: "jdfhhjf",
+      img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+      name: "Money",
+    },
+    {
+      id: "jdfhhjf",
+      img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+      name: "Money",
+    },
+    {
+      id: "jdfhhjf",
+      img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+      name: "Money",
+    },
+  ];
   return (
     <section className="songpage_main">
 
@@ -60,7 +88,7 @@ const Songpage = () => {
 
       <div className="song_body">
         <div className="song_control">
-          <button className="play_random" onClick={(e)=>handlePlaying(e,id)}>
+          <button className="play_random" onClick={(e) => handlePlaying(e, id)}>
             <FontAwesomeIcon icon={faCirclePlay} />
           </button>
           <button className="like_btn">
@@ -82,8 +110,20 @@ const Songpage = () => {
 
 
         </div>
-        {/* <Recommended datas={listData} type={"Recommended"} describe={'Based on this song'} maxItemsToShow="5" />
-        <Recommended datas={listData} type={"Popular"} describe={'Rap Việt'} maxItemsToShow="5" /> */}
+
+        <div className="r_element">
+          <div className="r_element_item">
+            <h1>bài hát liên quan </h1>
+            <Card playlist={usserplaylist} />
+          </div>
+
+          <div className="r_element_item">
+            <h1>cùng thể loại</h1>
+            <Card playlist={usserplaylist} />
+          </div>
+
+        </div>
+
 
       </div>
     </section>

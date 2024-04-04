@@ -84,67 +84,78 @@ const Header = () => {
         }
     }, [searchTerm, debouncedFetchData]);
 
-  const handleBlur = () => {
-    setTimeout(() => { setIsVisible(true); }, 250);
-  };
-  const handleLogoutUser = async() => {
-    let data = await getLogout();//clear cookies
-    localStorage.removeItem('jwt') // clear local storage
-    instance.defaults.headers.common['Authorization'] = undefined;
-    dispatch(logouter()) //clear user in context
-    if (data && data.EC === '0') {
-      toast.success('Logout successful')
-    } else {
-      toast.error(data.EM)
-    }
-  }
-  const renderData = () => {
-    const groupedResults = searchResults.reduce((obj, result) => {
-      if (obj[result.type]) {
-        obj[result.type].push(result);
-      } else {
-        obj[result.type] = [result];
-      }
-      return obj;
-    }, {});
-  
-    const sortedResults = Object.values(groupedResults).flat();
-  
-    return sortedResults.map((result) => {
-      if (result.type === 1) {
-        return <Songitem key={result.id} data={result} />;
-      } else if (result.type === 4) {
-        return <Artistsitem key={result.aliasName} data={result} />;
-      } else if (result.type === 3) {
-        return <Album key={result.id} data={result} />;
-      }
-      return null;
-    });
-  };
+    const handleBlur = () => {
+        setTimeout(() => {
+            setIsVisible(true);
+        }, 250);
+    };
+    const handleLogoutUser = async () => {
+        let data = await getLogout(); //clear cookies
+        localStorage.removeItem("jwt"); // clear local storage
+        instance.defaults.headers.common["Authorization"] = undefined;
+        dispatch(logouter()); //clear user in context
+        if (data && data.EC === "0") {
+            toast.success("Logout successful");
+        } else {
+            toast.error(data.EM);
+        }
+    };
+    const renderData = () => {
+        const groupedResults = searchResults.reduce((obj, result) => {
+            if (obj[result.type]) {
+                obj[result.type].push(result);
+            } else {
+                obj[result.type] = [result];
+            }
+            return obj;
+        }, {});
 
-  const Songitem = ({ data }) => {
-    return (
-      <section className='search_item_song'>
-        <div className="search_item_song_img">
-          <img src={data.thumb} alt={data.name} />
-        </div>
-        <div className="">
-        <NavLink to={`/song/${data.id}`} className="search_item_name">{data.name}</NavLink>
+        const sortedResults = Object.values(groupedResults).flat();
 
-        </div>
-      </section>
-    );
-  };
-  const Album = ({ data }) => {
-    return (
-      <section className='search_item_song'>
-        <div className="search_item_song_img">
-          <img src={data.thumb} alt={data.name} />
-        </div>
-        <NavLink to={`/playlist/${data.id}`} className="search_item_name">{data.name}</NavLink>
-      </section>
-    );
-  };
+        return sortedResults.map((result) => {
+            if (result.type === 1) {
+                return <Songitem key={result.id} data={result} />;
+            } else if (result.type === 4) {
+                return <Artistsitem key={result.aliasName} data={result} />;
+            } else if (result.type === 3) {
+                return <Album key={result.id} data={result} />;
+            }
+            return null;
+        });
+    };
+
+    const Songitem = ({ data }) => {
+        return (
+            <section className="search_item_song">
+                <div className="search_item_song_img">
+                    <img src={data.thumb} alt={data.name} />
+                </div>
+                <div className="">
+                    <NavLink
+                        to={`/song/${data.id}`}
+                        className="search_item_name"
+                    >
+                        {data.name}
+                    </NavLink>
+                </div>
+            </section>
+        );
+    };
+    const Album = ({ data }) => {
+        return (
+            <section className="search_item_song">
+                <div className="search_item_song_img">
+                    <img src={data.thumb} alt={data.name} />
+                </div>
+                <NavLink
+                    to={`/playlist/${data.id}`}
+                    className="search_item_name"
+                >
+                    {data.name}
+                </NavLink>
+            </section>
+        );
+    };
 
     const Artistsitem = ({ data }) => {
         return (
@@ -219,7 +230,6 @@ const Header = () => {
                     <div className="h_avt_container">
                         {isAuthentication.isAuthenticated === true ? (
                             <Popup
-                                
                                 trigger={
                                     <button className="avt_page">
                                         <img src={logo} alt="profile" />
@@ -257,7 +267,7 @@ const Header = () => {
                                         Đăng xuất
                                     </NavLink>
                                 </div>
-                                <h1>{isAuthentication.account.username}</h1>
+                                {/* <h1>{isAuthentication.account.username}</h1> */}
                             </Popup>
                         ) : (
                             <div className="group_authentication">
