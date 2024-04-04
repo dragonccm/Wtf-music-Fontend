@@ -38,7 +38,7 @@ export const getSongData = async (Songid) => {
 
       const song =
         songUrlResult.data?.[128] ||
-        "https://a128-z3.zmdcdn.me/c0ae0b2f3b725d48e5e9c93c5ee8bdda?authen=exp=1710563102~acl=/c0ae0b2f3b725d48e5e9c93c5ee8bdda/*~hmac=34375752b5df23f3197d3cbd167970c1";
+        "https://a128-z3.zmdcdn.me/c2e3abd902697240cf99ffb93e9e38f3?authen=exp=1712376116~acl=/c2e3abd902697240cf99ffb93e9e38f3/*~hmac=d9866bb2a2216c3ce17a63244b18dde1";
       const Ly = songLyricsResult.data.sentences;
       // const Ly = songLyricsResult.data.sentences.map(sentence =>
       //     sentence.words.map(word => {
