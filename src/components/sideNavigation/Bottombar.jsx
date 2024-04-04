@@ -38,6 +38,7 @@ Modal.setAppElement("#root");
 const Bottombar = () => {
   const [isFullScreen, SetIsFullScreen] = useState(false);
   const [animationActive, setAnimationActive] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const [animationPlaylistActive, setAnimationPlaylistActive] =
     useState(true);
   const playerRef = useRef();

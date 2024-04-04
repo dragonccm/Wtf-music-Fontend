@@ -147,6 +147,7 @@ button {
   --text-2                  : var(--dark-text-2);
   --line-player             : var(--dark-line-player);
   --bg-form_login           : var(--dark-form-login);
+  --arrow_btn_bg           : var(--dark-item-player);
 }
 
 [data-theme="light"] {
@@ -171,6 +172,8 @@ button {
   --text-2                  : var(--light-text-2);
   --line-player             : var(--light-line-player);
   --bg-form_login           : var(--light-line-player);
+  --arrow_btn_bg           : var(--lightmain-color);
+
 }
 
 
