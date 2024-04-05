@@ -7,7 +7,7 @@ export const fetchRating = createAsyncThunk("getRating", async () => {
   return response.data;
 });
 const initialState = {
-  dataRating: [],
+  dataRating: {},
   RTChart_items: [],
   week_vn: [],
   week_us: [],

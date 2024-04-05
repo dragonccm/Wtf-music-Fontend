@@ -31,6 +31,7 @@ import Footer from "../components/layoutbar/Footer";
 import Col3Layout from "../components/card/col_3_layout";
 import ListCard from "../components/card/ListCard";
 import Rating from "../components/pages/Rating";
+import Rating_week from "../components/pages/rating_week";
 import Card from "../components/card/song_card";
 import Release from "../components/card/release";
 
@@ -125,6 +126,7 @@ const AppRoutes = ({ playlists }, props) => {
                     <Route path="/song/:id" element={<Songpage />} />
                     <Route path="/artists/:id" element={<Singerpage />} />
                     <Route path="/rating" element={<Rating />} />
+                    <Route path="/rating_week/:id" exact element={<Rating_week />} />
                     <Route path="/top100" element={<Top100 />} />
                     <Route path="/playlist/:id" element={<Playlistpage />} />
 

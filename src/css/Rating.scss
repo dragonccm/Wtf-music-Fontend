@@ -41,6 +41,7 @@
 
         &:hover {
           background-color: var(--rightsidebar-hover);
+
           .img_overlay {
             display: block !important;
           }
@@ -142,23 +143,38 @@
             justify-content: space-between;
 
             .week_rating_name {
-              color: var(--text-1);
+              font-size: 16px;
+              font-weight: 600;
 
-              span {
+              a {
                 width: 168px;
                 display: block;
-                font-size: 14px;
-                font-weight: 700;
+                font-size: 16px;
                 color: var(--footer-text);
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                font-family: Inter, sans-serif;
+
+                &:hover {
+                  color: #257eff;
+                }
               }
             }
 
             .week_rating_artists {
               color: var(--text-2);
+
+              a {
+                margin-left: 2px;
+                color: var(--text-2);
+                font-size: 13px;
+                line-height: 1.3em;
+
+                &:hover {
+                  color: #257eff;
+                }
+
+              }
             }
           }
 

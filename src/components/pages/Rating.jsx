@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import Recommended from "../card/Recommended";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
@@ -31,7 +31,7 @@ const Rating = () => {
   });
 
   const group_rating = [week_vn, week_us, week_korea]
-  const group_rating_title = ['Việt Nam','US-UK','K-Pop']
+  const group_rating_title = ['Việt Nam', 'US-UK', 'K-Pop']
   console.log(group_rating)
 
   const handlePlaying = (e, id) => {
@@ -49,17 +49,17 @@ const Rating = () => {
             describe={"KPOP"}
             maxItemsToShow="10"
           />
-          <h1 className="week_title">Xếp Hạng Tháng</h1>
+          <h1 className="week_title">Xếp Hạng Tuần</h1>
           <section className="week_rating">
             {group_rating && group_rating.map((data, index) => {
               return (
                 <>
-                  <div className="week_card_ctn" key={'ahha'+index}>
+                  <div className="week_card_ctn" key={'ahha' + index}>
                     <h1 className="top_week_title">{group_rating_title[index]}</h1>
                     {data.items.slice(0, 5).map((data, index) => (
                       <div className="week_rating_card" key={'haha' + index}>
                         <div className="current_rank">
-                          <p>{index}</p>
+                          <p>{index + 1}</p>
                           {data.rakingStatus !== 0 ?
                             (<div className="go_to">
                               {data.rakingStatus > 0 ?
@@ -78,17 +78,37 @@ const Rating = () => {
                           <div className="week_rating_img">
                             <img src={data.thumbnailM} alt="f" />
                             <div className="img_overlay">
-                              <NavLink to={'/'+data.encodeId} onClick={(e)=>handlePlaying(e,data.encodeId)} className="nav-link list_nav_item">
+                              <NavLink to={'/' + data.encodeId} onClick={(e) => handlePlaying(e, data.encodeId)} className="nav-link list_nav_item">
                                 <FontAwesomeIcon className="play_icon" icon={faPlay} />
                               </NavLink>
                             </div>
                           </div>
                           <section>
-                            <div className="week_rating_name"><span>{data.title}</span></div>
+                            <div className="week_rating_name">
+                              <NavLink
+                                to={"/song/" + data.encodeId}>
+                                {data.title}
+                              </NavLink>
+                            </div>
                             <div className="week_rating_artists">
-                              {data.artists.map((artist, artistIndex) => (
-                                <span key={'artist' + artistIndex}>{artist.name}</span>
-                              ))}
+                            {data.artists && data.artists.map(
+                        (artist, index) => (
+                          <span key={index}>
+                            <NavLink 
+                              to={
+                                "/artists/" +
+                                artist.alias
+                              }
+                            >
+                              {artist.name}
+                            </NavLink>
+                            {index !==
+                              data.artists
+                                .length -
+                              1 && ","}
+                          </span>
+                        )
+                      )}
                             </div>
                           </section>
                           <div className="time">
@@ -99,8 +119,13 @@ const Rating = () => {
                       </div>
                     ))}
                     <NavLink
-                      to="/playlist"
-
+                      to={
+                        index === 0
+                          ? '/rating_week/vn'
+                          : index === 1
+                            ? '/rating_week/us-uk'
+                            : 'rating_week/korea'
+                      }
                       className="list_nav_item show_all"
                     >
                       xem tất cả

@@ -65,14 +65,14 @@ const Col3Layout = ({ data }) => {
                       {element.artists && element.artists.map(
                         (artist, index) => (
                           <span key={index}>
-                            <a
+                            <NavLink
                               href={
                                 "/artists/" +
                                 artist.alias
                               }
                             >
                               {artist.name}
-                            </a>
+                            </NavLink>
                             {index !==
                               element.artists
                                 .length -

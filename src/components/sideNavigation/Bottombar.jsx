@@ -47,9 +47,7 @@ const Bottombar = () => {
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
  
-  console.log("is playing", isPlaying);
   const songInfo = useSelector((state) => state.getSongData.inforSong);
-  console.log("is song info", songInfo);
 
   if (
     isPlaying &&
@@ -63,11 +61,7 @@ const Bottombar = () => {
       const data = sentence.words.map((word) => word.data).join(" ");
       return { startTime, endTime, data };
     });
-    console.log(
-      "--------" + haha[0].data,
-      haha[0].endTime,
-      haha[0].startTime
-    );
+
   } else {
     console.log("fjdkgddddddddddddđfffffffffffffffffffffffffffffffff");
   }

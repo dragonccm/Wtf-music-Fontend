@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { NavLink } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import "../../css/recommend.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -56,8 +56,32 @@ const Recommended = ({ datas, type, describe, maxItemsToShow }) => {
                 </div>
               </div>
               <div className="songif">
-                <div className="songname"></div>
-                <div className="songartist">{data.artistsNames}</div>
+                <div className="songname">
+                  <NavLink
+                        to={"/song/" + data.encodeId}>
+                        {data.title}
+                      </NavLink>
+                </div>
+                <div className="songartist">
+                {data.artists && data.artists.map(
+                        (artist, index) => (
+                          <span key={index}>
+                            <NavLink
+                              to={
+                                "/artists/" +
+                                artist.alias
+                              }
+                            >
+                              {artist.name}
+                            </NavLink>
+                            {index !==
+                              data.artists
+                                .length -
+                              1 && ","}
+                          </span>
+                        )
+                      )}
+                  </div>
               </div>
             </div>
             <div className="root_album"></div>
