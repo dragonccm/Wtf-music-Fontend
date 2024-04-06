@@ -1,7 +1,7 @@
 .Header {
-  position        : sticky;
+  position        : fixed;
   top             : 0;
-  width           : calc(100% - 16%);
+  width           : 100%;
   height          : auto;
   background-color: var(--bg-header);
   padding         : 0 60px;
