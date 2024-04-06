@@ -2,7 +2,7 @@ import "../../css/Singerpage.scss";
 import { faCirclePlay, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Col3Layout from "../card/col_3_layout";
-import Card from "../card/song_card";
+import Card from "../card/playlist_card";
 
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';

@@ -1,15 +1,11 @@
 import '../../css/col_3_layout.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+
+import SongCard from './song_card'
 
 
 
 
 const Col3Layout = ({ data }) => {
-  const dispatch = useDispatch();
   const slicedData = data.slice(0, 12);
   // Chia data thành các mảng con có 3 phần tử
   const chunkedData = [];
@@ -20,10 +16,7 @@ const Col3Layout = ({ data }) => {
     chunkedData.push(chunk);
   }
 
-  const handlePlaying = (e, id) => {
-    e.preventDefault();
-    dispatch(fetchSongPlaying(id));
-  }
+
 
   return (
     data && Array.isArray(data) &&
@@ -38,50 +31,11 @@ const Col3Layout = ({ data }) => {
                 thumbnailM: element.thumbnailM || element.img,
                 encodeId: element.encodeId || element.id,
                 title: element.title || element.name,
-
               }
               console.log(element)
               return (
                 <div key={elementIndex} className="col_3_layout_colum_item">
-                  <div className="playlist_item_img">
-                    <img src={element.thumbnailM} alt="Playlist" />
-                    <div className="img_overlay">
-                      <div className="img_overlay_group_btn">
-                        <NavLink to={element.encodeId} onClick={(e) => handlePlaying(e, element.encodeId)} className="nav-link list_nav_item">
-                          <FontAwesomeIcon icon={faPlay} />
-                        </NavLink>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="playlist_item_content">
-                    <div className="content_name">
-                      <NavLink
-                        to={"/song/" + element.encodeId}>
-                        {element.title}
-                      </NavLink>
-
-                    </div>
-                    <div className="content_cate">
-                      {element.artists && element.artists.map(
-                        (artist, index) => (
-                          <span key={index}>
-                            <NavLink
-                              to={
-                                "/artists/" +
-                                artist.alias
-                              }
-                            >
-                              {artist.name}
-                            </NavLink>
-                            {index !==
-                              element.artists
-                                .length -
-                              1 && ","}
-                          </span>
-                        )
-                      )}
-                    </div>
-                  </div>
+                  <SongCard element={ element} />
                 </div>
               )
             })}

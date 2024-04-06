@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 // import ListCard from "../card/ListCard";
 
-import Card from '../card/song_card'
+import Card from '../card/playlist_card'
 const Songpage = () => {
 
 
@@ -71,16 +71,14 @@ const Songpage = () => {
         </div>
 
         <div className="songpage_mid_head">
-          <p>PlayList</p>
+          <h5>Bài hát</h5>
           <h1 className="songpage_list_name">{currSongData.songname}</h1>
           <p className="songpage_info">
-            <div className="songpage_small_avt">
-              <img src={currSongData.img} alt="f" />
-            </div>
-            <div className="songpage_user_name">{currSongData.artistsNames}</div>
-            .
-            <div className="songpage_total_song">41 bài hát,</div>
-            <div className="songpage_total_time">2 giờ 15 phút</div>
+  
+            <div className="songpage_user_name">{currSongData.artistInfo[0].name}</div>
+            
+            <div className="songpage_total_song">{currSongData.like>1000?currSongData.like/1000+'k':currSongData.like} người yêu thích</div>
+            <div className="songpage_total_time">{String(Math.floor(currSongData.duration / 60)).padStart(2, "0") + ':' + String(currSongData.duration % 60).padStart(2, "0")}</div>
           </p>
         </div>
       </div>
@@ -113,12 +111,12 @@ const Songpage = () => {
 
         <div className="r_element">
           <div className="r_element_item">
-            <h1>bài hát liên quan </h1>
+            <h1>Bài hát liên quan </h1>
             <Card playlist={usserplaylist} />
           </div>
 
           <div className="r_element_item">
-            <h1>cùng thể loại</h1>
+            <h1>Cùng thể loại</h1>
             <Card playlist={usserplaylist} />
           </div>
 

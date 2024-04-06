@@ -32,7 +32,7 @@ import Col3Layout from "../components/card/col_3_layout";
 import ListCard from "../components/card/ListCard";
 import Rating from "../components/pages/Rating";
 import Rating_week from "../components/pages/rating_week";
-import Card from "../components/card/song_card";
+import Card from "../components/card/playlist_card";
 import Release from "../components/card/release";
 
 import ThemeContext from "../lib/Context/ThemeContext";

@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../card/song_card";
+import Card from "../card/playlist_card";
 import "../../css/top100.scss";
 
 import { useEffect } from "react";

@@ -11,15 +11,25 @@
     color: #383838;
   }
 
-  .songpage_mid_head h1 {
-    font-size: 6rem;
-    color: #383838;
+  .songpage_mid_head {
+    h5{
+      font-size: 1.5rem;
+      color: var(--text-1);
+    }
+    h1 {
+      font-size: 6rem;
+      color: var(--text-1);
+    }
+    p {
+      font-size: 1.5rem;
+      color: #383838;
+      display: flex;
+      gap: 10px;
+      color: var(--text-1);
+    }
   }
 
-  .songpage_mid_head p {
-    font-size: 1.5rem;
-    color: #383838;
-  }
+
 
   .songpage_left_head {
     width: 23rem;
@@ -89,4 +99,9 @@
     rgb(226, 235, 248) 50%,
     rgb(228, 238, 251) 100%
   );
+  .r_element_item{
+    h1{
+      color: var(--text-1);
+    }
+  }
 }

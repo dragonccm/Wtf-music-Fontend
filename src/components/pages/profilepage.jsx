@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Routes, Route } from "react-router-dom";
 import Recommended from "../card/Recommended";
-import Card from "../card/song_card";
+import Card from "../card/playlist_card";
 
 import "../../css/profile.scss";
 import { useState } from "react";
