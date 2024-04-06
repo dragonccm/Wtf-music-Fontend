@@ -90,6 +90,7 @@ const AppRoutes = ({ playlists }, props) => {
     useEffect(() => {
         console.log(isLoading);
     }, [isLoading]);
+    const banner = useSelector((state) => state.home.banner);
     const newRelease = useSelector((state) => state.home.newRelease);
     const songHot = useSelector((state) => state.home.songHot);
     const songRemix = useSelector((state) => state.home.songRemix);
@@ -160,7 +161,7 @@ const AppRoutes = ({ playlists }, props) => {
                         path="/*"
                         element={
                             <>
-                                <SliderBar />
+                                <SliderBar data={banner} />
 
                                 <div className="for_you">
                                     <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
