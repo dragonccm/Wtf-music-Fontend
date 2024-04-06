@@ -115,7 +115,7 @@ const HomeAdmin = () => {
 
                 {/* top data */}
                 <section className="row my-5">
-                    <div className="col-lg-8 py-3 card container-admin">
+                    <div className="col-lg-8 py-3 card overflow-x-auto container-admin">
                         <div className="card-header">
                             <div className="header-title">
                                 <h4 className="mb-5 card-title text-capitalize">
@@ -123,19 +123,19 @@ const HomeAdmin = () => {
                                 </h4>
                             </div>
                         </div>
-                        <table className="w-100 fs-4 text-justify overflow-x-auto table-admin">
+                        <table className="w-100 fs-4 text-justify table-admin">
                             <thead>
-                                <tr className="row p-3">
-                                    <th className="col-1">Thứ tự</th>
-                                    <th className="col-2">Tên nghệ sĩ</th>
-                                    <th className="col-7">Ngày hoạt động</th>
-                                    <th className="col-2">Tổng bài hát</th>
+                                <tr>
+                                    <th>Thứ tự</th>
+                                    <th>Tên nghệ sĩ</th>
+                                    <th>Ngày hoạt động</th>
+                                    <th>Tổng bài hát</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="row fs-4 px-5 py-3 align-items-center border-bottom">
-                                    <td className="col-1">01</td>
-                                    <td className="col-7">
+                                <tr className="border-bottom">
+                                    <td>01</td>
+                                    <td>
                                         <h6 class="fs-4 text-capitalize">
                                             Pete Saraiya
                                         </h6>
@@ -146,12 +146,12 @@ const HomeAdmin = () => {
                                             petesaraiya@demo.com
                                         </p>
                                     </td>
-                                    <td className="col-2">Jan 24, 2020</td>
-                                    <td className="col-2">157</td>
+                                    <td>Jan 24, 2020</td>
+                                    <td>157</td>
                                 </tr>
-                                <tr className="row fs-4 px-5 py-3 align-items-center border-bottom">
-                                    <td className="col-1">01</td>
-                                    <td className="col-7">
+                                <tr className="border-bottom">
+                                    <td>01</td>
+                                    <td>
                                         <h6 class="fs-4 text-capitalize">
                                             Pete Saraiya
                                         </h6>
@@ -162,12 +162,12 @@ const HomeAdmin = () => {
                                             petesaraiya@demo.com
                                         </p>
                                     </td>
-                                    <td className="col-2">Jan 24, 2020</td>
-                                    <td className="col-2">157</td>
+                                    <td>Jan 24, 2020</td>
+                                    <td>157</td>
                                 </tr>
-                                <tr className="row fs-4 px-5 py-3 align-items-center border-bottom">
-                                    <td className="col-1">01</td>
-                                    <td className="col-7">
+                                <tr className="border-bottom">
+                                    <td>01</td>
+                                    <td>
                                         <h6 class="fs-4 text-capitalize">
                                             Pete Saraiya
                                         </h6>
@@ -178,12 +178,12 @@ const HomeAdmin = () => {
                                             petesaraiya@demo.com
                                         </p>
                                     </td>
-                                    <td className="col-2">Jan 24, 2020</td>
-                                    <td className="col-2">157</td>
+                                    <td>Jan 24, 2020</td>
+                                    <td>157</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="row align-items-center py-4 pagination-admin">
+                        <div className="d-flex py-4 pagination-admin">
                             <div className="col-6 description-pagination"></div>
                             <div className="col-6 pe-5 pagination-numbers">
                                 <ul className="pagination justify-content-end ">

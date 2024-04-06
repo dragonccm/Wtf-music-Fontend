@@ -129,7 +129,7 @@ const SongsAdmin = () => {
     };
 
     return (
-        <div className="container px-0 rounded-2 container-admin">
+        <div className="container px-0 rounded-2 overflow-x-auto container-admin">
             <div className="d-flex align-items-center justify-content-between px-4 mt-4 header-admin">
                 {/* Hiển thị danh sách thể loại nhạc */}
                 <h2 className="fw-normal fs-1 mb-4 heading-admin">
@@ -157,35 +157,32 @@ const SongsAdmin = () => {
                     </form>
                 </div>
             </div>
-            <table className="w-100 fs-4 mt-4 text-justify overflow-x-auto table-admin">
+            <table className="w-100 fs-4 mt-4 text-justify table-admin">
                 <thead>
-                    <tr className="row px-5 py-3">
-                        <th className="col-1">Thứ tự</th>
-                        <th className="col">Image</th>
-                        <th className="col">Song Name</th>
-                        <th className="col">Category</th>
-                        <th className="col">Writer</th>
-                        <th className="col">Singers</th>
-                        <th className="col-1">Listener</th>
-                        <th className="col-1">Reviews</th>
-                        <th className="col">Hành động</th>
+                    <tr>
+                        <th>Thứ tự</th>
+                        <th>Image</th>
+                        <th>Song Name</th>
+                        <th>Category</th>
+                        <th>Writer</th>
+                        <th>Singers</th>
+                        <th>Listener</th>
+                        <th>Reviews</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
                     {musicSongs.map((kind) => (
-                        <tr
-                            key={kind.id}
-                            className="row px-5 py-3 align-items-center border-bottom"
-                        >
-                            <td className="col-1">{kind.id}</td>
-                            <td className="col">{kind.avt}</td>
-                            <td className="col">{kind.song}</td>
-                            <td className="col">{kind.category}</td>
-                            <td className="col">{kind.writer}</td>
-                            <td className="col">{kind.singerName}</td>
-                            <td className="col-1">{kind.listener}</td>
-                            <td className="col-1">{kind.review}</td>
-                            <td className="col text-center">
+                        <tr key={kind.id} className="border-bottom">
+                            <td>{kind.id}</td>
+                            <td>{kind.avt}</td>
+                            <td>{kind.song}</td>
+                            <td>{kind.category}</td>
+                            <td>{kind.writer}</td>
+                            <td>{kind.singerName}</td>
+                            <td>{kind.listener}</td>
+                            <td>{kind.review}</td>
+                            <td>
                                 <button
                                     className="btn btn-primary fs-5 rounded-circle"
                                     onClick={() => openEditModal(kind)}
@@ -193,7 +190,7 @@ const SongsAdmin = () => {
                                     <FontAwesomeIcon icon={faPen} />
                                 </button>
                                 <button
-                                    className="btn btn-danger fs-5 ms-4 rounded-circle"
+                                    className="btn btn-danger fs-5 ms-3 rounded-circle"
                                     onClick={() => deleteMusicKind(kind.id)}
                                 >
                                     <FontAwesomeIcon icon={faTrash} />
@@ -203,7 +200,7 @@ const SongsAdmin = () => {
                     ))}
                 </tbody>
             </table>
-            <div className="row align-items-center py-4 pagination-admin">
+            <div className="d-flex py-4 pagination-admin">
                 <div className="col-6 description-pagination"></div>
                 <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end ">
@@ -370,21 +367,24 @@ const SongsAdmin = () => {
                                 type="text"
                                 className="fs-5 form-control"
                                 id="create-name"
-                                name="singerName"
-                                value={createForm.name}
+                                name="songName"
+                                value={createForm.song}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-email">
-                                Email:
+                            <label
+                                className="fs-5 mb-2"
+                                htmlFor="create-singerName"
+                            >
+                                Singer Name:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
-                                id="create-email"
-                                name="email"
-                                value={createForm.email}
+                                id="create-singerName"
+                                name="singerName"
+                                value={createForm.singerName}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
@@ -396,24 +396,47 @@ const SongsAdmin = () => {
                                 Singer Profile:
                             </label>
                             <input
-                                type="file"
+                                type="text"
                                 className="fs-5 form-control"
                                 id="create-profile"
-                                name="profile"
                                 value={createForm.avt}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-date">
-                                Date:
+                            <label
+                                className="fs-5 mb-2"
+                                htmlFor="create-category"
+                            >
+                                Category:
+                            </label>
+                            <select
+                                className="fs-5 form-control form-select custom-select"
+                                id="create-category"
+                                name="category"
+                                value={createForm.category}
+                                onChange={handleCreateFormChange}
+                            >
+                                {musicSongs.map((item) => (
+                                    <option value={item.category}>
+                                        {item.category}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label
+                                className="fs-5 mb-2"
+                                htmlFor="create-writerName"
+                            >
+                                Writer Name:
                             </label>
                             <input
-                                type="date"
+                                type="text"
                                 className="fs-5 form-control"
-                                id="create-date"
-                                name="date"
-                                value={createForm.date}
+                                id="create-writerName"
+                                name="writerName"
+                                value={createForm.writer}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
@@ -436,7 +459,7 @@ const SongsAdmin = () => {
                             className="btn btn-primary fs-5"
                             onClick={createMusicKind}
                         >
-                            Create
+                            Update
                         </button>
                         <button
                             className="btn btn-secondary ms-3 fs-5"

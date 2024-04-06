@@ -32,12 +32,12 @@ const KindsMusicAdmin = () => {
     const fetchMusicKinds = async () => {
         const data = [
             {
-                id: 1,
+                id: "01",
                 name: "Pop",
                 description: "Popular music",
             },
             {
-                id: 2,
+                id: "02",
                 name: "Rock",
                 description: "Rock music",
             },
@@ -101,7 +101,7 @@ const KindsMusicAdmin = () => {
     };
 
     return (
-        <div className="container px-0 rounded-2 container-admin">
+        <div className="container px-0 rounded-2 overflow-x-auto container-admin">
             <div className="d-flex align-items-center justify-content-between px-4 mt-4 header-admin">
                 {/* Hiển thị danh sách thể loại nhạc */}
                 <h2 className="fw-normal fs-1 mb-4 heading-admin">
@@ -129,25 +129,22 @@ const KindsMusicAdmin = () => {
                     </form>
                 </div>
             </div>
-            <table className="w-100 fs-4 mt-4 text-justify overflow-x-auto table-admin">
+            <table className="w-100 fs-4 mt-4 text-justify table-admin">
                 <thead>
-                    <tr className="row px-5 py-3">
-                        <th className="col-1">Thứ tự</th>
-                        <th className="col-2">Tên thể loại</th>
-                        <th className="col-7">Mô tả thể loại</th>
-                        <th className="col-2">Hành động</th>
+                    <tr>
+                        <th>Thứ tự</th>
+                        <th>Tên thể loại</th>
+                        <th>Mô tả thể loại</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
                     {musicKinds.map((kind) => (
-                        <tr
-                            key={kind.id}
-                            className="row px-5 py-3 align-items-center border-bottom"
-                        >
-                            <td className="col-1">{kind.id}</td>
-                            <td className="col-2">{kind.name}</td>
-                            <td className="col-7">{kind.description}</td>
-                            <td className="col-2">
+                        <tr key={kind.id} className="border-bottom">
+                            <td>{kind.id}</td>
+                            <td>{kind.name}</td>
+                            <td>{kind.description}</td>
+                            <td>
                                 <button
                                     className="btn btn-primary fs-4 rounded-circle"
                                     onClick={() => openEditModal(kind)}
@@ -155,7 +152,7 @@ const KindsMusicAdmin = () => {
                                     <FontAwesomeIcon icon={faPen} />
                                 </button>
                                 <button
-                                    className="btn btn-danger fs-4 ms-4 rounded-circle"
+                                    className="btn btn-danger fs-4 ms-3 rounded-circle"
                                     onClick={() => deleteMusicKind(kind.id)}
                                 >
                                     <FontAwesomeIcon icon={faTrash} />
@@ -165,7 +162,7 @@ const KindsMusicAdmin = () => {
                     ))}
                 </tbody>
             </table>
-            <div className="row align-items-center py-4 pagination-admin">
+            <div className="d-flex py-4 pagination-admin">
                 <div className="col-6 description-pagination"></div>
                 <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end ">
