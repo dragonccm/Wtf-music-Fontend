@@ -66,7 +66,7 @@ const Col3Layout = ({ data }) => {
                         (artist, index) => (
                           <span key={index}>
                             <NavLink
-                              href={
+                              to={
                                 "/artists/" +
                                 artist.alias
                               }

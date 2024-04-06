@@ -1,4 +1,10 @@
 .rating_week{
+  h1{
+    color:var(--text-1);
+    font-size: 45px;
+    text-align: center;
+    padding: 20px;
+  }
     .radio-inputs {
         display            : flex;
         // justify-content: center;
