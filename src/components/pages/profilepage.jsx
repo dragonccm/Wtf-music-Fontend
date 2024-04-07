@@ -12,8 +12,11 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Routes, Route } from "react-router-dom";
+import ProfileMyMusic from "../pages/profileMyMusic";
 import Recommended from "../card/Recommended";
 import Card from "../card/playlist_card";
+
+
 
 import "../../css/profile.scss";
 import { useState } from "react";
@@ -103,245 +106,29 @@ function Profile() {
   };
   const usserplaylist = [
     {
-      id: "jdfhhjf",
-      img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
-      name: "Gone",
+        id: "ZWZB96AI",
+        img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
+        title: "Gone",
     },
     {
-      id: "jdfhhjf",
-      img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
-      name: "house",
+        id: "ZWZB96AI",
+        img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
+        title: "house",
     },
     {
-      id: "jdfhhjf",
-      img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-      name: "Money",
+        id: "ZWZB96AI",
+        img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+        title: "Money",
     },
-  ];
-  const Recommendeds = [
-    {
-      id: "jhfjh",
-      name: `Chuyến Xe Thùng`,
-      image:
-        "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "jisoo",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "kdjfkdj",
-      name: `typaGirls`,
-      image:
-        "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "jshdjshdjs",
-      name: `Pink Venom`,
-      image:
-        "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "859485948",
-      name: `Hard To Love`,
-      image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
-      category: "playlist",
-      songartist: "Rosé",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "987598495",
-      name: ` HOW YOU LIKE THAT`,
-      image:
-        "https://th.bing.com/th/id/R.29b5df9442fe7d7ab67361bb6c354ebf?rik=hnHONhheHbyY9A&pid=ImgRaw&r=0",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: " HOW YOU LIKE THAT",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "jhfjh",
-      name: `Chuyến Xe Thùng`,
-      image:
-        "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "jisoo",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "kdjfkdj",
-      name: `typaGirls`,
-      image:
-        "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "jshdjshdjs",
-      name: `Pink Venom`,
-      image:
-        "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "859485948",
-      name: `Hard To Love`,
-      image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
-      category: "playlist",
-      songartist: "Rosé",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "987598495",
-      name: ` HOW YOU LIKE THAT`,
-      image:
-        "https://th.bing.com/th/id/R.29b5df9442fe7d7ab67361bb6c354ebf?rik=hnHONhheHbyY9A&pid=ImgRaw&r=0",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: " HOW YOU LIKE THAT",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "jhfjh",
-      name: `Chuyến Xe Thùng`,
-      image:
-        "https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "jisoo",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "kdjfkdj",
-      name: `typaGirls`,
-      image:
-        "https://th.bing.com/th/id/OIP.9duyi1x-V3x4rdP1ax7DLQHaHa?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "jshdjshdjs",
-      name: `Pink Venom`,
-      image:
-        "https://th.bing.com/th/id/OIP.h45FTfoat7cj5tmNKzffcgHaHa?rs=1&pid=ImgDetMain",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "859485948",
-      name: `Hard To Love`,
-      image: "https://i.ytimg.com/vi/TfaOe66vRpY/maxresdefault.jpg",
-      category: "playlist",
-      songartist: "Rosé",
-      songname: "chuyến xe thùng",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-    {
-      id: "987598495",
-      name: ` HOW YOU LIKE THAT`,
-      image:
-        "https://th.bing.com/th/id/R.29b5df9442fe7d7ab67361bb6c354ebf?rik=hnHONhheHbyY9A&pid=ImgRaw&r=0",
-      category: "playlist",
-      songartist: "BlackPink",
-      songname: " HOW YOU LIKE THAT",
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    },
-  ];
+];
+  const Myplaylist = ({ datas }) => (
+    <section className="mylist_page">
+        <div className="Recommended_1">Danh Sách Phát Của bạn</div>
+        <div className="list_container">
+            <Card playlist={datas} />
+        </div>
+    </section>
+);
 
   const UserInfo = ({ data }) => (
     <div className="info_card_ctn">
@@ -365,29 +152,13 @@ function Profile() {
       </div>
     </div>
   );
-  const Myplaylist = ({ datas }) => (
-    <section className="mylist_page">
-      <div className="Recommended_1">Danh Sách Phát Của bạn</div>
-      <div className="list_container">
-        <Card playlist={datas} />
-      </div>
-    </section>
-  );
+  
   const History = ({ data }) => (
     <div className="history_ctn">
       <Recommended datas={data} type={"Lịch Sử"} describe={"Đã Xem Gần Đây"} />
     </div>
   );
-  const Likesong = ({ data }) => (
-    <div className="history_ctn">
-      <Recommended
-        datas={data}
-        type={"Bài hát yêu thích"}
-        describe={"Đã Xem Gần Đây"}
-        maxItemsToShow="5"
-      />
-    </div>
-  );
+ 
 
   const Artist = ({ data }) => {
     return <div className="history_ctn">{/* <ListCard data={data} /> */}</div>;
@@ -400,7 +171,7 @@ function Profile() {
           <Navbar.Collapse id="basic-navbar-nav" className="profile_bar">
             <Nav className="me-auto list_nav list_nav_pr">
               <NavLink
-                to="artist"
+                to="mymusic"
                 className="nav-link list_nav_item  list_nav_item_pr"
               >
                 <div className="icon_list_nav_item">
@@ -444,9 +215,9 @@ function Profile() {
         <Routes>
           <Route
             path="/myplaylist"
-            element={<Myplaylist datas={usserplaylist} />}
+            element={<Myplaylist datas={usserplaylist}/>}
           />
-          <Route path="/history" element={<History data={Recommendeds} />} />
+          {/* <Route path="/history" element={<History data={Recommendeds} />} /> */}
           <Route
             path="/setting"
             element={
@@ -510,12 +281,15 @@ function Profile() {
             }
           />
           <Route
-            path="/artist"
+            path="/mymusic"
             element={
-              <div className="like_song">
-                <Likesong data={Recommendeds} />
-                <Myplaylist datas={usserplaylist} />
-              </div>
+              <ProfileMyMusic  type={'mymusic'} />
+            }
+          />
+          <Route
+            path="/history"
+            element={
+              <ProfileMyMusic type={'history'} />
             }
           />
           <Route path="/" element={<Artist data={element} />} />

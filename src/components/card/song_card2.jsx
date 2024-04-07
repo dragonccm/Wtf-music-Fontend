@@ -13,6 +13,7 @@ const SongCard2 = ({ data,rating }) => {
         e.preventDefault();
         dispatch(fetchSongPlaying(id));
     }
+    console.log(data)
     return (
         <div className="song_card2">
             <div className="song_img_ctn">

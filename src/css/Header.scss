@@ -393,66 +393,68 @@
   color          : var(--main-color);
   font-size      : 1.5rem;
   border-radius  : 5px !important;
-}
-
-.menu-item {
-  width           : 100%;
-  color           : var(--main-color);
-  background-color: transparent;
-  text-align      : left;
-  padding         : 10px 20px !important;
-  cursor          : pointer;
-  transition      : background 0.5s ease;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid #999;
+  overflow: hidden;
+  .menu-item {
+    width           : 100%;
+    color           : var(--main-color);
+    background-color: transparent;
+    text-align      : left;
+    padding         : 10px 20px !important;
+    cursor          : pointer;
+    transition      : background 0.5s ease;
+  
+    &:not(:last-child) {
+      border-bottom: 1px solid #999;
+    }
+  
+    &:hover {
+      background-color: var(--rightsidebar-hover) !important;
+      color           : var(--deep-black);
+      border-bottom   : 1px solid #999 !important;
+    }
+  
+    &:last-child:hover {
+      border-bottom: none !important;
+    }
   }
-
-  &:hover {
-    background-color: var(--rightsidebar-hover) !important;
-    color           : var(--deep-black);
-    border-bottom   : 1px solid #999 !important;
+  
+  .menu-item .menu_btn {
+    display: flex;
   }
-
-  &:last-child:hover {
-    border-bottom: none !important;
+  
+  .menu {
+    border-radius: 5px;
+  }
+  
+  .menu_head {
+    width         : 100%;
+    display       : flex;
+    flex-direction: column;
+    background    : #282828;
+    color         : white;
+    padding       : 2rem;
+    font-size     : 1.5rem;
+  }
+  
+  .menu_head-item {
+    cursor          : pointer;
+    background-color: transparent;
+    text-align      : left;
+    padding         : 1rem;
+    border-radius   : 0.4rem;
+  }
+  
+  .menu_head-item:hover {
+    background-color: #3e3e3e !important;
+    border          : none !important;
+  }
+  
+  .menu_head_btn {
+    display: flex;
   }
 }
 
-.menu-item .menu_btn {
-  display: flex;
-}
 
-.menu {
-  border-radius: 5px;
-}
-
-.menu_head {
-  width         : 100%;
-  display       : flex;
-  flex-direction: column;
-  background    : #282828;
-  color         : white;
-  padding       : 2rem;
-  font-size     : 1.5rem;
-}
-
-.menu_head-item {
-  cursor          : pointer;
-  background-color: transparent;
-  text-align      : left;
-  padding         : 1rem;
-  border-radius   : 0.4rem;
-}
-
-.menu_head-item:hover {
-  background-color: #3e3e3e !important;
-  border          : none !important;
-}
-
-.menu_head_btn {
-  display: flex;
-}
 
 .popup-content {
   width        : 170px !important;

@@ -1,0 +1,113 @@
+.like_song {
+    h1 {
+      color: var(--text-1);
+      font-size: 45px;
+      text-align: center;
+      padding: 20px;
+    }
+  
+    .radio-inputs {
+      display: flex;
+      // justify-content: center;
+      align-items: center;
+      max-width: 350px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      margin: 20px 0;
+      gap: 20px;
+      .radio-inputs>* {
+        margin: 6px;
+      }
+    
+      .radio-input:checked+.radio-tile {
+        border-color: #3887ff;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        color: var(--white-color);
+      }
+    
+      .radio-input:checked+.radio-tile:before {
+        transform: scale(1);
+        opacity: 1;
+        background-color: #afc7ff;
+        border-color: #cc39a4;
+      }
+    
+      .radio-input:checked+.radio-tile .radio-icon svg {
+        fill: var(--white-color);
+      }
+    
+      .radio-input:checked+.radio-tile .radio-label {
+        color: var(--white-color);
+      }
+    
+      .radio-input:focus+.radio-tile {
+        background-color: #afc7ff;
+        border-color: var(--white-color);
+        // box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #b5c9fc;
+      }
+    
+      .radio-input:checked+.radio-tile {
+        background-color: var(--bg-radio);
+        border-color: var(--white-color);
+      }
+    
+      .radio-input:focus+.radio-tile:before {
+        transform: scale(1);
+        opacity: 1;
+      }
+    
+      .radio-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 30px;
+        border-radius: 20px;
+        // border: 2px solid #b5bfd9;
+        background-color: #fff;
+        color: #000;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        transition: 0.15s ease;
+        cursor: pointer;
+        position: relative;
+        font-size: 14px;
+      }
+    
+      .radio-input:hover {
+        border-color: #3887ff;
+      }
+    
+      .radio-tile:hover:before {
+        transform: scale(1);
+        opacity: 1;
+      }
+    
+      .radio-label {
+        color: #707070;
+        transition: 0.375s ease;
+        text-align: center;
+        font-size: 13px;
+      }
+    
+      .radio-input {
+        clip: rect(0 0 0 0);
+        -webkit-clip-path: inset(100%);
+        clip-path: inset(100%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+    }
+  
+  
+  
+    .Recommended {
+      display: none;
+    }
+  
+  }

@@ -98,7 +98,7 @@ const Playlistpage = () => {
                 contentStyle={{ padding: "0", border: "none" }}
                 arrow={false}
               >
-                <div className="menu">
+                <div className="menu-plalist">
                   <button className="menu-item"><FontAwesomeIcon icon={faSquarePlus} /> Thêm Vào PlayList</button>
                   <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
                   <button className="menu-item"><FontAwesomeIcon icon={faPlay} /> Phát Tất Cả</button>
