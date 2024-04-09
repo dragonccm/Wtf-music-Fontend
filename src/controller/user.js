@@ -5,7 +5,13 @@ const getUserAccount = () => {
 const UserInfo = () => {
     return axios.get(`/api/getInfor`)
 }
+const EditUserInfo = (infor) => {
+    return axios.post(`/api/editInfor`, {
+        infor
+      })
+}
 export {
     getUserAccount,
-    UserInfo
+    UserInfo,
+    EditUserInfo
 }

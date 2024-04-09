@@ -15,6 +15,7 @@ import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
 import { useDispatch } from "react-redux";
 import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
 import { useEffect } from "react";
+
 function App(props) {
     const dispatch = useDispatch();
 
@@ -64,6 +65,7 @@ function App(props) {
                     </Routes>
                 </Router>
             </SongDataProvider>
+            
         </>
     );
 }

@@ -22,6 +22,9 @@
   input {
     color: white;
   }
+  .is-invalid{
+    border: 1px solid red!important;
+  }
 
   p {
     // color: var(--deep-black);
@@ -64,7 +67,7 @@
   .account {
     position       : relative;
     margin-bottom  : 1rem;
-    border         : 1px solid #ececec;
+    // border         : 1px solid #ececec;
     display        : flex;
     align-items    : center;
     justify-content: space-between;
