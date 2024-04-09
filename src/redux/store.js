@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './slide/counterSlice'
 import songReducer from './slide/songSlice'
 import songPageReducer from './slide/songPageSlice'
-
 import homeReducer from './slide/homeSlice'
+
+import InforUserReducer from './slide/InforUserSlice'
 import top100Reducer from './slide/top100Slice'
 import ratingReducer from './slide/ratingSlice'
 import playlistReducer from './slide/playlistSlice'
@@ -15,7 +15,6 @@ import createplaylistReducer from './slide/createPlayList'
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     song: songReducer,
     songPage:songPageReducer,
     home: homeReducer,
@@ -26,6 +25,7 @@ export const store = configureStore({
     Authentication:AuthenticationRedecer,
     Artist: ArtistReducer,
     getSongData:getSongDataReducer,
-    createPlayList:createplaylistReducer
+    createPlayList: createplaylistReducer,
+    inforUser:InforUserReducer
   },
 })

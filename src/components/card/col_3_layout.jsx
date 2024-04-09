@@ -1,12 +1,7 @@
 import '../../css/col_3_layout.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+
 import SongCard from './song_card'
-import { postPlayList } from '../../redux/slide/createPlayList'
-import { useSelector } from "react-redux";
+
 
 
 
