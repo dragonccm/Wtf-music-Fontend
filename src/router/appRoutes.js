@@ -31,7 +31,8 @@ import Footer from "../components/layoutbar/Footer";
 import Col3Layout from "../components/card/col_3_layout";
 import ListCard from "../components/card/ListCard";
 import Rating from "../components/pages/Rating";
-import Card from "../components/card/song_card";
+import Rating_week from "../components/pages/rating_week";
+import Card from "../components/card/playlist_card";
 import Release from "../components/card/release";
 
 import ThemeContext from "../lib/Context/ThemeContext";
@@ -89,6 +90,7 @@ const AppRoutes = ({ playlists }, props) => {
     useEffect(() => {
         console.log(isLoading);
     }, [isLoading]);
+    const banner = useSelector((state) => state.home.banner);
     const newRelease = useSelector((state) => state.home.newRelease);
     const songHot = useSelector((state) => state.home.songHot);
     const songRemix = useSelector((state) => state.home.songRemix);
@@ -125,6 +127,7 @@ const AppRoutes = ({ playlists }, props) => {
                     <Route path="/song/:id" element={<Songpage />} />
                     <Route path="/artists/:id" element={<Singerpage />} />
                     <Route path="/rating" element={<Rating />} />
+                    <Route path="/rating_week/:id" exact element={<Rating_week />} />
                     <Route path="/top100" element={<Top100 />} />
                     <Route path="/playlist/:id" element={<Playlistpage />} />
 
@@ -158,7 +161,7 @@ const AppRoutes = ({ playlists }, props) => {
                         path="/*"
                         element={
                             <>
-                                <SliderBar />
+                                <SliderBar data={banner} />
 
                                 <div className="for_you">
                                     <h1>Gợi Ý Dành Riêng Cho Bạn</h1>

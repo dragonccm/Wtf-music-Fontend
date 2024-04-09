@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
+import SongCard2 from '../card/song_card2'
 
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 const Playlistpage = () => {
@@ -63,16 +64,11 @@ const Playlistpage = () => {
             <div className="mid_head">
               <h1 className="list_name">{currData.title}</h1>
               <div className="info">
-                <div className="small_avt">
-                  <img
-                    src={currData.thumbnail}
-                    alt="playlist-img"
-                  />
-                </div>
+                
                 <div className="playlist_info_item">
                   <span className="user_name">{currData.artistsNames}</span>
-                  <span className="total_song">, {currData.song.items.lenght} bài hát</span>
-                  <span className="total_time">, 2 giờ 15 phút</span>
+                  <span className="total_song"> {currData.song.total} bài hát</span>
+                  <span className="total_time"> {currData.like>1000?currData.like/1000+'k':currData.like} người yêu thích</span>
                 </div>
               </div>
             </div>
@@ -84,17 +80,17 @@ const Playlistpage = () => {
               <span>Phát Ngẫu Nhiên</span>
             </button>
             <div className="child_btn_gr">
-              <button className="favourite">
+              <button className="favourite playlist_btn">
                 <FontAwesomeIcon icon={regular} />
               </button>
               <Popup
                 trigger={
-                  <button className="menu_btn">
+                  <button className="menu_btn playlist_btn">
                     {" "}
                     <FontAwesomeIcon icon={faEllipsis} />
                   </button>
                 }
-                position="bottom center"
+                position="top center"
                 nested
                 closeOnDocumentClick
                 mouseLeaveDelay={300}
@@ -102,7 +98,7 @@ const Playlistpage = () => {
                 contentStyle={{ padding: "0", border: "none" }}
                 arrow={false}
               >
-                <div className="menu">
+                <div className="menu-plalist">
                   <button className="menu-item"><FontAwesomeIcon icon={faSquarePlus} /> Thêm Vào PlayList</button>
                   <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
                   <button className="menu-item"><FontAwesomeIcon icon={faPlay} /> Phát Tất Cả</button>
@@ -110,7 +106,6 @@ const Playlistpage = () => {
               </Popup>
             </div>
           </div>
-          <div className="total_like">999K người yêu thích</div>
         </div>
 
         <div className="list_body">
@@ -121,37 +116,15 @@ const Playlistpage = () => {
             </span>
           </section>
           <div className="list">
-            {handledata(currData).map((data, index) => (
-              <div className="list_row" key={'haha'+index}>
-                <div className="song_img_ctn" onClick={(e) => handlePlaying(e, data.id)}>
-                  <div className="row_order">
-                    <div className="number">{index + 1}</div>
-                    <div className="hidden_button">
-                      <div
-                        className="nav-link list_nav_item play"
-                      >
-                        <FontAwesomeIcon icon={faPlay} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="song_img">
-                    <img src={data.image} alt="f" />
-                  </div>
-                  <div className="songif">
-                    <div className="songname">{data.songname}</div>
-                    <div className="songartist">{data.songartist}</div>
-                  </div>
-                </div>
-                <div className="root_album">{data.root_album}</div>
-                <div className="foot">
-                  <div className="liked">
-                    <FontAwesomeIcon
-                      icon={data.liked_state ? faHeart : regular}
-                    />
-                  </div>
-                  <div className="time">{data.songname}</div>
-                </div>
-              </div>
+            {currData.song.items.map((data, index) => (
+              <SongCard2
+                data={data}
+                rating={{
+                  israting: true,
+                  index: index
+                }
+                }
+              />
             ))}
           </div>
         </div>

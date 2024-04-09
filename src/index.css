@@ -71,18 +71,15 @@ button {
 
 :root {
 
-  --lightmain-color : #257eff;
-  --lightwhite-color: #fff;
-  --lightfooter-text: #333;
-  --light-text-1    : #000;
-  --light-text-2    : #868585;
-  --lightbg-white   : #ebf1ff;
-  --lightbg-white-1 : #bcd0fe;
-  --lightdeep-black : #000;
-  --lightbackground-color: linear-gradient(180deg,
-      rgb(191, 215, 250) 0%,
-      rgba(235, 241, 255, 1) 42%,
-      rgba(255, 255, 255, 1) 100%);
+  --lightmain-color        : #257eff;
+  --lightwhite-color       : #fff;
+  --lightfooter-text       : #333;
+  --light-text-1           : #000;
+  --light-text-2           : #868585;
+  --lightbg-white          : #ebf1ff;
+  --lightbg-white-1        : #bcd0fe;
+  --lightdeep-black        : #000;
+  --lightbackground-color  : rgb(217, 228, 255) 52%;
   --lightrightsidebar-light: #ebf1ff;
   --lightrightsidebar-item : rgba(255, 255, 255, 0.3);
   --likerightsidebar-hover : rgba(60, 117, 255, 0.34);
@@ -147,7 +144,7 @@ button {
   --text-2                  : var(--dark-text-2);
   --line-player             : var(--dark-line-player);
   --bg-form_login           : var(--dark-form-login);
-  --arrow_btn_bg           : var(--dark-item-player);
+  --arrow_btn_bg            : var(--dark-item-player);
 }
 
 [data-theme="light"] {
@@ -172,7 +169,7 @@ button {
   --text-2                  : var(--light-text-2);
   --line-player             : var(--light-line-player);
   --bg-form_login           : var(--light-line-player);
-  --arrow_btn_bg           : var(--lightmain-color);
+  --arrow_btn_bg            : var(--lightmain-color);
 
 }
 

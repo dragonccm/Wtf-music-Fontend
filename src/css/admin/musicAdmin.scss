@@ -67,10 +67,12 @@
 
         tr {
             --bs-gutter-x: 0;
+            flex-wrap    : nowrap;
 
             th,
             td {
-                color: var(--text-1);
+                color  : var(--text-1);
+                padding: 1rem 1.5rem;
             }
         }
 

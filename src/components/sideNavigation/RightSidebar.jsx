@@ -97,7 +97,7 @@ const RightSidebar = () => {
                                 <span>Top 100</span>
                             </NavLink>
                             <NavLink
-                                to="/profile/artist"
+                                to="/profile/mymusic"
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">

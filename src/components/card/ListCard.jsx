@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./song_card";
+import Card from "./playlist_card";
 import "../../css/list_card.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
