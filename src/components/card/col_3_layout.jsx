@@ -1,10 +1,6 @@
 import '../../css/col_3_layout.scss';
 
 import SongCard from './song_card'
-
-
-
-
 const Col3Layout = ({ data }) => {
   const slicedData = data.slice(0, 12);
   // Chia data thành các mảng con có 3 phần tử
@@ -15,9 +11,6 @@ const Col3Layout = ({ data }) => {
     const chunk = slicedData.slice(i, i + chunkSize);
     chunkedData.push(chunk);
   }
-
-
-
   return (
     data && Array.isArray(data) &&
     <div className="col_3_layout_Container">
