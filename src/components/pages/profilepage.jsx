@@ -8,20 +8,41 @@ import {
   faHistory,
   faGear,
   faHeart,
+  faEye,
+  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Routes, Route } from "react-router-dom";
 import ProfileMyMusic from "../pages/profileMyMusic";
 import Recommended from "../card/Recommended";
 import Card from "../card/playlist_card";
-import ProfileSetting from "./profile_setting";
+
 
 
 import "../../css/profile.scss";
+import { useState } from "react";
 // import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 function Profile() {
+  const [ispass, setIsPass] = useState(true);
+  const [ispassNew, setIsPassNew] = useState(true);
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setNewPass] = useState("");
 
-
-
+  const handleIsPass = () => {
+    if (ispass) {
+      setIsPass(false);
+      console.log("đây là trang profile",ispass);
+    } else {
+      setIsPass(true);
+    }
+  };
+  const handleIsPassNew = () => {
+    if (ispassNew) {
+      setIsPassNew(false);
+      console.log("đây là trang profile new",ispassNew);
+    } else {
+      setIsPassNew(true);
+    }
+  };
 
   const playlistsData = [
     {
@@ -76,7 +97,13 @@ function Profile() {
     },
   ];
 
-
+  const userdata = {
+    avt: "https://i.redd.it/ykbmzd7rlyq01.jpg",
+    name: "Dragonccm",
+    email: "dragonccm@gmail.com",
+    date: "10/02/2003",
+    pass: "long20%long555",
+  };
   const usserplaylist = [
     {
         id: "ZWZB96AI",
@@ -103,7 +130,28 @@ function Profile() {
     </section>
 );
 
- 
+  const UserInfo = ({ data }) => (
+    <div className="info_card_ctn">
+      <h2 className="profile_details">Profile details</h2>
+      <div className="avt_container">
+        <img src={data.avt} alt="f" />
+      </div>
+      <div className="info_card">
+        <div className="info_card_item">
+          <label>Tên: </label>
+          <p>{userdata.name}</p>
+        </div>
+        <div className="info_card_item">
+          <label>Email: </label>
+          <p>{userdata.email}</p>
+        </div>
+        <div className="info_card_item">
+          <label>Ngày Sinh: </label>
+          <p>{userdata.date}</p>
+        </div>
+      </div>
+    </div>
+  );
   
   const History = ({ data }) => (
     <div className="history_ctn">
@@ -173,7 +221,63 @@ function Profile() {
           <Route
             path="/setting"
             element={
-            <ProfileSetting/>
+              <>
+                <div className="setting_ctn profile_page">
+                  <UserInfo data={userdata} />
+                  <div className="change_pass">
+                    <h1>Thay đổi mật khẩu</h1>
+                    <form action="">
+                      <div className="input_group">
+                        <label htmlhtmlFor="old_pass">Mật khẩu hiện tại</label>
+                        <div className="input_group_pass">
+                          <input
+                            id="old_pass"
+                            type={ispass ? "password" : "text"}
+                            value={oldPass}
+                            onChange={(event) => setOldPass(event.target.value)}
+                          />
+                          {ispass ? (
+                            <FontAwesomeIcon
+                              icon={faEyeSlash}
+                              onClick={handleIsPass}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faEye}
+                              onClick={handleIsPass}
+                            />
+                          )}
+                        </div>
+                      </div>
+                      <div className="input_group">
+                        <label htmlhtmlFor="new_pass">Mật khẩu mới</label>
+                        <div className="input_group_pass">
+                          <input
+                            id="new_pass"
+                            type={ispassNew ? "password" : "text"}
+                            value={newPass}
+                            onChange={(event) => setNewPass(event.target.value)}
+                          />
+                          {ispassNew ? (
+                            <FontAwesomeIcon
+                              icon={faEyeSlash}
+                              onClick={handleIsPassNew}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              icon={faEye}
+                              onClick={handleIsPassNew}
+                            />
+                          )}
+                        </div>
+                      </div>
+                      <div className="input_group">
+                        <button className="list_nav_item">Thay đổi</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </>
             }
           />
           <Route
