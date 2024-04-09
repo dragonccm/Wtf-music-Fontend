@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 
 const Col3Layout = ({ data }) => {
   const slicedData = data.slice(0, 12);
-  const currName = useSelector((state) => state.Authentication.defaultUser.account.username);
   // Chia data thành các mảng con có 3 phần tử
   const chunkedData = [];
   const chunkSize = 4;
@@ -22,22 +21,7 @@ const Col3Layout = ({ data }) => {
     chunkedData.push(chunk);
   }
 
-  const handlePlaying = (e, id) => {
-    e.preventDefault();
-    dispatch(fetchSongPlaying(id));
-    dispatch(postPlayList({
-      playlistname: currName,
-      genresid: [
-      ],
-      artistsId: currName,
-      thumbnail: "",
-      description: '',
-      songid: [
-          id
-      ]
-  }
-  ));
-  }
+
 
   return (
     data && Array.isArray(data) &&
