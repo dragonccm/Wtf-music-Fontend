@@ -96,7 +96,7 @@ function Profile() {
 ];
   const Myplaylist = ({ datas }) => (
     <section className="mylist_page">
-        <div className="Recommended_1">Danh Sách Phát Của bạn</div>
+        <div className="Recommended_1">Danh Sách Phát Của Bạn</div>
         <div className="list_container">
             <Card playlist={datas} />
         </div>
