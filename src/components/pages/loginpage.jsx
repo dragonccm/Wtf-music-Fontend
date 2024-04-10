@@ -78,8 +78,7 @@ const LoginPage = () => {
             navigate("/");
         } else {
             //   toast.error(serverData.EM);
-            toast.error("Chưa được");
-            console.log("chưa đc");
+            toast.error("Tài khoản hoặc mật khẩu không đúng !!");
         }
     };
     return (

@@ -1,0 +1,151 @@
+.profile_page {
+    display: flex;
+    padding: 0 20px;
+
+    .change_pass {
+      position      : relative;
+      width         : 50%;
+      display       : flex;
+      flex-direction: column;
+      align-items   : center;
+      padding-left  : 30px;
+
+      &::before {
+        content         : "";
+        display         : block;
+        position        : absolute;
+        left            : 0;
+        top             : 25%;
+        width           : 1px;
+        height          : 50%;
+        background-color: #fff;
+      }
+
+      h1 {
+        color     : var(--deep-black);
+        margin-top: 50px;
+        font-size : xx-large;
+      }
+
+      
+    }
+    form {
+        width          : 100%;
+        height         : 100%;
+        display        : flex;
+        flex-direction : column;
+        justify-content: center;
+      }
+
+      .input_group {
+        display       : flex;
+        flex-direction: column;
+        gap           : 10px;
+        margin-top    : 20px;
+
+        label {
+          font-size: 16px;
+          color    : var(--text-1);
+        }
+
+        .input_group_pass {
+          position: relative;
+
+          svg {
+            position : absolute;
+            top      : 35%;
+            right    : 3%;
+            font-size: 15px;
+          }
+        }
+      }
+
+      button {
+        background-color: #5498ff;
+        width           : 50%;
+        margin          : 20px auto;
+        padding         : 20px;
+        font-size       : 18px;
+        display         : flex;
+        justify-content : center;
+        box-shadow      : inset 1px 1px 0.12px rgba(255, 255, 255, 0.4);
+        color           : var(--bg-white);
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      input {
+        width           : 100%;
+        padding         : 12px 18px;
+        font-size       : 16px;
+        font-family     : inherit;
+        box-shadow      : 0 0 0 1px #b9ceff;
+        border          : none;
+        border-radius   : 25px;
+        background-color: #fff;
+        transition      : all 0.3s;
+        color           : #3e3e3e;
+      }
+
+      input::placeholder {
+        color    : #82b0fb;
+        font-size: 14px;
+      }
+
+      input:focus {
+        outline   : none;
+        box-shadow: 0 0 10px 1px #346ffa;
+        border    : none;
+        transition: all 0.3s;
+      }
+
+
+
+      .avt_container2{
+        img{
+
+          width: 20rem;
+          height: 20rem;
+          object-fit   : contain;
+        overflow     : hidden;
+        }
+      }
+
+      .avt-container{
+        width        : 20rem;
+        
+        overflow     : hidden;
+        border-radius: 1rem;
+        height: 20rem;
+        // margin       : 3rem auto;
+        position: relative;
+        &:hover  .avt_group{
+          display: block ;
+        }
+        .avt-img{
+          width: 100%;
+          object-fit   : cover;
+          z-index: 1;
+          position: absolute;
+          
+          
+        }
+        .avt_group{
+          position: absolute;
+          width: 200px;
+          height: 200px;
+          background: rgb(0, 0, 0);
+          opacity: .7;
+          z-index: 3;
+          display: none;
+  
+          p{
+            position: absolute;
+            bottom: 0;
+            color: #fff;
+          }
+        }
+      }
+  }

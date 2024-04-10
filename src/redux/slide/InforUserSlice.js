@@ -1,8 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { UserInfo } from "../../controller/user";
+import { UserInfo,EditUserInfo } from "../../controller/user";
 
 export const getInforUser = createAsyncThunk("getInforUser", async () => {
     const response = await UserInfo();
+    return response
+});
+export const editInforUser = createAsyncThunk("editInforUser", async (infor) => {
+    const response = await EditUserInfo(infor);
     return response
 });
 const initialState = {
@@ -12,7 +16,7 @@ const initialState = {
 };
 
 export const InforUserslice = createSlice({
-    name: "newplaylist",
+    name: "Infor",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -27,6 +31,20 @@ export const InforUserslice = createSlice({
                 state.isError = false;
             })
             .addCase(getInforUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+            })
+            
+            .addCase(editInforUser.pending, (state, action) => {
+                state.isLoading = true;
+                state.isError = false;
+            })
+            .addCase(editInforUser.fulfilled, (state, action) => {
+                state.userInfor = action.payload;
+                state.isLoading = false;
+                state.isError = false;
+            })
+            .addCase(editInforUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
             });
