@@ -5,9 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faTableList } from "@fortawesome/free-solid-svg-icons";
-
+import { fetchAdminSong } from '../../../redux/slide/adminSongSlice'
+import { useSelector, useDispatch } from "react-redux";
 const SongsAdmin = () => {
-    const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+// Danh sách thể loại nhạc
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
     const [editForm, setEditForm] = useState({
         id: "",
@@ -34,40 +37,16 @@ const SongsAdmin = () => {
     }); // Thông tin form tạo mới
 
     // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
+    const musicSongs = useSelector((state) => state.adminsong.AdminSong)
     useEffect(() => {
-        fetchMusicSongs();
-    }, []);
+        dispatch(fetchAdminSong()).then(() => setLoading(false));
+    }, [dispatch]);
+    // Hàm giả lập lấy danh sách thể loại nhạc từ server\
 
-    // Hàm giả lập lấy danh sách thể loại nhạc từ server
-    const fetchMusicSongs = async () => {
-        const data = [
-            {
-                id: "01",
-                avt: "image1.jpg",
-                song: "Heart Is Beating",
-                category: "Romantic Song",
-                writer: "Edyta Gorniak",
-                singerName: "Jhone Steben",
-                listener: "4.6k",
-                review: "12",
-                description: "vữ vị trời",
-            },
-            {
-                id: "02",
-                avt: "image2.jpg",
-                song: "My Lovely Dad",
-                category: "Jack 5 củ Song",
-                writer: "Norman Jonas",
-                singerName: "Attilio Marci",
-                listener: "2.4k",
-                review: "--",
-                description: "vữ vị trời",
-            },
-            // thêm dữ liệu giả lập ở đây
-        ];
-        setMusicSongs(data);
-    };
-
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    
     // Hàm tạo mới thể loại nhạc
     const createMusicKind = async (name, description) => {
         // Gọi API để tạo mới thể loại nhạc
@@ -130,6 +109,7 @@ const SongsAdmin = () => {
 
     return (
         <div className="container px-0 rounded-2 overflow-x-auto container-admin">
+
             <div className="d-flex align-items-center justify-content-between px-4 mt-4 header-admin">
                 {/* Hiển thị danh sách thể loại nhạc */}
                 <h2 className="fw-normal fs-1 mb-4 heading-admin">
@@ -412,13 +392,13 @@ const SongsAdmin = () => {
                             </label>
                             <select
                                 className="fs-5 form-control form-select custom-select"
-                                id="create-category"
+                                id="edit-category"
                                 name="category"
-                                value={createForm.category}
-                                onChange={handleCreateFormChange}
+                                value={editForm.category}
+                                onChange={handleEditFormChange}
                             >
                                 {musicSongs.map((item) => (
-                                    <option value={item.category}>
+                                    <option key={item.id} value={item.category}>
                                         {item.category}
                                     </option>
                                 ))}
