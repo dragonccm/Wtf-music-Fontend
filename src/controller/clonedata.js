@@ -1,7 +1,7 @@
 import axios from "../setup/axios";
 
 const cloneData = async (data) => {
-    console.log('hahahahah=====================================================')
+    console.log("clone data",data);
      await axios.post(`/api/clone`, {
         data:data
     }, {
@@ -9,6 +9,7 @@ const cloneData = async (data) => {
             'Content-Type': 'application/json'
         }
     });
+
 }
 
 export {

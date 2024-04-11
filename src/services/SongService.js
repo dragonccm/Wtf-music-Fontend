@@ -59,7 +59,7 @@ export const getSongData = async (Songid) => {
       // ).join('\n');
       const clonedata = {
         id: id,
-        name: songname,
+        songname: songname,
         thumbnail: img,
         alias: alias,
         artists: artistInfo,
@@ -72,7 +72,6 @@ export const getSongData = async (Songid) => {
         lyric: Ly,
         link: song,
       };
-      console.log(clonedata);
       await cloneData(clonedata);
       return {
         id,

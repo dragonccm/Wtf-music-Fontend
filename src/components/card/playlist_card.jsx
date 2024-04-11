@@ -17,7 +17,6 @@ const Card = ({ playlist }) => {
     const dispatch = useDispatch();
 
     const currData = useSelector((state) => state);
-    console.table(currData)
     const handleAdd = (id) => {
         dispatch(postPlayList({
             playlistname: "BETA",

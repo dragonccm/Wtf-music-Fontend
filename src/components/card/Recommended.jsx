@@ -13,7 +13,6 @@ const Recommended = ({ datas, type, describe, maxItemsToShow,israting }) => {
     setShowAll(!showAll);
   };
   const validDatas = Array.isArray(datas) ? datas : [];
-  console.log("dụ má có", datas)
 
   return (
     <>

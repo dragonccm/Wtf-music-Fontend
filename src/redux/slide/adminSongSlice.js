@@ -8,9 +8,9 @@ export const fetchAdminSong = createAsyncThunk("admin/adminGetSong", async () =>
             id: "1",
             avt: data.thumbnail,
             song: data.songname,
-            category: data.genresid[0],
-            writer: data.artistsId,
-            singerName: data.artistsId[0],
+            category: data.genresid.join(', '),
+            writer: data.artistsId.join(', '),
+            singerName: data.artistsId.join(', '),
             listener: data.listen,
             review: data.like,
             description: ""
