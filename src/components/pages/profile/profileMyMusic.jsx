@@ -1,7 +1,7 @@
-import Recommended from "../card/Recommended";
-import Card from "../card/playlist_card";
+import Recommended from "../../card/Recommended";
+import Card from "../../card/playlist_card";
 import { useState } from "react";
-import '../../css/profileMyMusic.scss'
+import '../../../css/profileMyMusic.scss'
 
 
 const ProfileMyMusic = ({type}) => {

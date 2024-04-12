@@ -16,7 +16,7 @@ import Playlistpage from "../components/pages/Playlistpage";
 import Songpage from "../components/pages/Songpage";
 import Singerpage from "../components/pages/Singerpage";
 import Top100 from "../components/pages/top100";
-import Profile from "../components/pages/profilepage";
+import Profile from "../components/pages/profile/profilepage";
 import HomeRating from "../components/card/Home_ rating";
 // import HubPage from "../components/pages/hubPage";
 // import Letclone from "./admin/letclone";
