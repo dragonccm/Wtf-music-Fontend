@@ -42,7 +42,7 @@ const SongsAdmin = () => {
         dispatch(fetchAdminSong()).then(() => setLoading(false));
     }, [dispatch]);
     // Hàm giả lập lấy danh sách thể loại nhạc từ server\
-
+    console.log(musicSongs)
     if (loading) {
         return <div>Loading...</div>;
     }

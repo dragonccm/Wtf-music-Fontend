@@ -14,6 +14,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, israting }) => {
     const validDatas = Array.isArray(datas) ? datas : [];
     console.log("dụ má có", datas);
 
+<<<<<<< HEAD
     return (
         <>
             {/* lable */}
@@ -57,5 +58,57 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, israting }) => {
             )}
         </>
     );
+=======
+  const toggleShowAll = () => {
+    setShowAll(!showAll);
+  };
+  const validDatas = Array.isArray(datas) ? datas : [];
+
+  return (
+    <>
+      {/* lable */}
+      <h1 className="Recommended">
+        <i className="animation"></i>
+        {type}
+        <i className="animation"></i>
+      </h1>
+      <p className="Recommended_1">{describe}</p>
+      {/* lable */}
+      <div className="full_list">
+      {validDatas
+        .slice(0, showAll ? validDatas.length : maxItemsToShow)
+        .map((data, index) => (
+          israting===true ?
+            <SongCard2
+              data={data}
+              rating={{
+                israting: true,
+                index: index
+              }
+              }
+            /> :
+            <SongCard2
+              data={data}
+              rating={{
+                israting: true,
+                index: index
+              }
+              }
+            /> 
+            
+       
+        ))}
+      </div>
+      {validDatas.length > maxItemsToShow && !showAll && (
+        <div className="list_row list_row_btn ">
+          <button className="refresh" onClick={toggleShowAll}>
+            Xem tất cả
+            <FontAwesomeIcon icon={faCaretDown} />
+          </button>
+        </div>
+      )}
+    </>
+  );
+>>>>>>> 79d9e490064f4365e7641807b81154ddf9ec864a
 };
 export default Recommended;

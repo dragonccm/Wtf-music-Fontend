@@ -23,7 +23,6 @@ const Playlistpage = () => {
   }, [dispatch]);
 
   const currData = useSelector((state) => state.playlist.playlist.data);
-  console.log(currData)
   if (!currData || !currData.song || !Array.isArray(currData.song.items)) {
     // console.error('currData is not properly formatted:', currData);
     return <div className="main_banner">Loading...</div>;

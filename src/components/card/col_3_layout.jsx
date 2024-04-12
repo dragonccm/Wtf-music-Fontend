@@ -32,7 +32,6 @@ const Col3Layout = ({ data }) => {
                 encodeId: element.encodeId || element.id,
                 title: element.title || element.name,
               }
-              console.log(element)
               return (
                 <div key={elementIndex} className="col_3_layout_colum_item">
                   <SongCard element={ element} />
