@@ -6,7 +6,6 @@ import { NavLink } from "react-router-dom";
 import '../../css/songcard.scss';
 
 const SongCard = ({ element }) => {
-    console.log(element)
     const dispatch = useDispatch();
     const handlePlaying = (e, id) => {
         e.preventDefault();
