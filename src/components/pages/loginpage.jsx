@@ -11,8 +11,7 @@ import "../../css/login_page.scss";
 import bg from "../../img/bg-login.avif";
 import { getLogin } from "../../services/registerService";
 import { NavLink, useNavigate } from "react-router-dom";
-import { loginer } from "../../redux/slide/AuthenticationSlice";
-
+import { loginer,fetchAuthentication } from "../../redux/slide/AuthenticationSlice";
 import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
@@ -75,6 +74,7 @@ const LoginPage = () => {
 
             console.log("ok");
             dispatch(loginer(data));
+            dispatch(fetchAuthentication());
             navigate("/");
         } else {
             //   toast.error(serverData.EM);

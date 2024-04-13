@@ -1,7 +1,7 @@
 .main_content {
   height         : auto;
   display        : flex;
-  justify-content: end;
+  justify-content: flex-end;
   overflow-x     : hidden;
   transition     : all ease-in-out 2s;
 }

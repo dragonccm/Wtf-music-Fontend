@@ -1,0 +1,10 @@
+-Danh sách phát của tôi :
++ Tự tạo riêng của cá nhân\
++ Nếu thêm 1 playlist có sẵn váo thì khong có quyền xoá bài nhạc
+
+-Player:
++Phần danh sách phát chưa làm xong
++Chưa đi tới lui
++chưa trộn bài
++ những bài vip không nghe được
+ 

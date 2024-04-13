@@ -10,7 +10,6 @@ import icon_Category from "../../img/music-library-svgrepo-com.svg";
 import icon_top from "../../img/music-upload-svgrepo-com.svg";
 import icon_libary from "../../img/music-folder-svgrepo-com.svg";
 import logo from "../../img/logo3 (1).png";
-import Mascot from "./mascot_animation";
 import { useSelector } from "react-redux";
 import "../../css/RightSidebar.scss";
 
@@ -23,7 +22,7 @@ const RightSidebar = () => {
         >
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
-                    <Navbar.Brand href="/" className="logo-name">
+                    <Navbar.Brand as={NavLink} to="/" className="logo-name">
                         <img
                             src={logo}
                             className="d-inline-block align-top"
