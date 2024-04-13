@@ -16,7 +16,7 @@ import "../../css/card.scss";
 const Card = ({ playlist }) => {
     const dispatch = useDispatch();
 
-    const currData = useSelector((state) => state);
+    const currData = useSelector((state) => state.playlist.playlist.data);
     const handleAdd = (id) => {
         dispatch(postPlayList({
             playlistname: "BETA",
