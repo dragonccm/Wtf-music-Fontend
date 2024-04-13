@@ -1,13 +1,11 @@
 import { songInfo, songUrl, songLyric } from "../controller/firstfetch";
-import { cloneData } from "../controller/clonedata";
 export const getSongData = async (Songid) => {
   if (Songid) {
     try {
-  
+
       const songDetailResult = await songInfo(Songid);
       const songUrlResult = await songUrl(Songid);
       const songLyricsResult = await songLyric(Songid);
-      console.log('hahahhhhhhhhhhhhhh/////////////////////////////////////////')
       const id = Songid;
       const genres = songDetailResult.data.genres.map((genre) => ({
         id: genre.id,
@@ -40,39 +38,6 @@ export const getSongData = async (Songid) => {
         songUrlResult.data?.[128] ||
         "https://a128-z3.zmdcdn.me/c2e3abd902697240cf99ffb93e9e38f3?authen=exp=1712376116~acl=/c2e3abd902697240cf99ffb93e9e38f3/*~hmac=d9866bb2a2216c3ce17a63244b18dde1";
       const Ly = songLyricsResult.data.sentences;
-      // const Ly = songLyricsResult.data.sentences.map(sentence =>
-      //     sentence.words.map(word => {
-      //         const endTime = parseInt(word.endTime, 10);
-      //         const startTime = parseInt(word.startTime, 10);
-      //         const formatTime = milliseconds => {
-      //             const totalSeconds = Math.floor(milliseconds / 1000);
-      //             const minutes = Math.floor(totalSeconds / 60);
-      //             const seconds = totalSeconds % 60;
-      //             return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-      //         };
-      //         const formattedStartTime = formatTime(startTime);
-      //         const logMessage = `[${formattedStartTime}.${(endTime - startTime / 100)
-      //             .toString()
-      //             .substring(0, 2)}]${word.data},`;
-      //         return logMessage;
-      //     }).join('\n')
-      // ).join('\n');
-      const clonedata = {
-        id: id,
-        songname: songname,
-        thumbnail: img,
-        alias: alias,
-        artists: artistInfo,
-        composers: composers,
-        duration: duration,
-        distributor: distributor,
-        genres: genres,
-        like: like,
-        listen: listen,
-        lyric: Ly,
-        link: song,
-      };
-      await cloneData(clonedata);
       return {
         id,
         img,
