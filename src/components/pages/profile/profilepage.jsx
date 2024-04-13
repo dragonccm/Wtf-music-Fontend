@@ -10,13 +10,13 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import { Routes, Route } from "react-router-dom";
-import ProfileMyMusic from "../pages/profileMyMusic";
-import Recommended from "../card/Recommended";
-import Card from "../card/playlist_card";
-import ProfileSetting from "./profile_setting";
+import ProfileMyMusic from "./profileMyMusic";
+import Recommended from "../../card/Recommended";
+import Card from "../../card/playlist_card";
+import ProfileSetting from "./Profile-setting/profile_setting";
 
 
-import "../../css/profile.scss";
+import "../../../css/profile.scss";
 // import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 function Profile() {
 
