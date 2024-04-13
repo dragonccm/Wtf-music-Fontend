@@ -44,7 +44,10 @@ const RegisterPage = () => {
                 toast.error('Email đã được sử dụng')
             } else if (response && response.EM === 'A user created successfully'){
                 toast.success('Tạo tài khoản thành công')
-                // navigate("/login");
+                setTimeout(() => {
+                    
+                    navigate("/login");
+                },2000)
             }
         }
         console.log("hahahahahahh");

@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast, ToastContainer } from "react-toastify";
+import { getLogout } from "../../../../services/registerService";
+import { logouter } from "../../../../redux/slide/AuthenticationSlice";
+import { useDispatch } from "react-redux";
+import instance from "../../../../setup/axios";
 
 import {
     faEye,
@@ -33,6 +37,7 @@ const ProfileChangePass = () => {
             setIsPassNew(true);
         }
     };
+    const dispatch = useDispatch();
 
     const handleChangePass = async (e) => {
         e.preventDefault();
@@ -42,6 +47,17 @@ const ProfileChangePass = () => {
             if (response && response.EC === "0") {
                 console.log("ok");
                 toast.success('Đã cập nhật mật khẩu thành công !')
+                setTimeout(async() => {
+                    let data = await getLogout(); //clear cookies
+                    localStorage.removeItem("jwt"); // clear local storage
+                    instance.defaults.headers.common["Authorization"] = undefined;
+                    dispatch(logouter()); //clear user in context
+                    if (data && data.EC === "0") {
+                        toast.success("Logout successful");
+                    } else {
+                        toast.error(data.EM);
+                    }
+                }, 2000)
             } else if (response && response.EM === 'Bạn đã sai mật khẩu!') {
                 toast.error(response.EM);
                 // setObjCheckInput({ ...defaultValidInput, isValidPass: false });

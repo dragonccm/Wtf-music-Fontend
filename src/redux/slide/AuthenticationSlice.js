@@ -4,7 +4,7 @@ export const fetchAuthentication = createAsyncThunk(
   "getAuthentication",
   async () => {
     const response = await getUserAccount();
-    // console.log(response)
+    console.log(response)
     return response;
   }
 );
@@ -46,11 +46,12 @@ export const authenticationSlice = createSlice({
           let groupWithRoles = action.payload.DT.groupWithRoles;
           let email = action.payload.DT.email;
           let username = action.payload.DT.username;
+          let avt = action.payload.DT.avt;
           let token = action.payload.DT.access_token;
           let data = {
             isAuthenticated: true,
             token: token,
-            account: { groupWithRoles, email, username },
+            account: { groupWithRoles, email, username,avt },
             isLoading: false,
           };
           state.defaultUser = data;

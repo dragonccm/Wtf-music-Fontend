@@ -29,6 +29,7 @@ const Header = () => {
     const isAuthentication = useSelector(
         (state) => state.Authentication.defaultUser
     );
+   
     console.log(isAuthentication);
 
     const handleSearchData = useCallback((event) => {
@@ -232,7 +233,11 @@ const Header = () => {
                             <Popup
                                 trigger={
                                     <button className="avt_page">
-                                        <img src={logo} alt="profile" />
+                                        {isAuthentication.account.avt ?
+                                            <img src={'data:image/png;base64,' + isAuthentication.account.avt} alt="profile" /> :
+                                            <img src={logo} alt="profile" />    
+                                    }
+                                        
                                     </button>
                                 }
                                 position="bottom right"
