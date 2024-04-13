@@ -8,12 +8,13 @@ import { faCircleChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "../../../css/admin/homeAdmin.scss";
 import "../../../css/admin/musicAdmin.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import { getAllId, pushSong } from "../../../services/setupService"
 import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
 import { useSelector, useDispatch } from "react-redux";
-
+import React from "react";
 const HomeAdmin = () => {
+    // const [id, setid] = useState(null)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,7 +22,29 @@ const HomeAdmin = () => {
     }, [dispatch]);
 
     const currData = useSelector((state) => state.admin.AdminHome);
-    console.log(currData);
+
+    // useEffect(() => {
+    //     const run = async () => {
+    //         setid(await getAllId())
+    //     }
+    //     run()
+    // }, []);
+    // useEffect(() => {
+    //     const run = async () => {
+    //         if (id) {
+    //             const idList = id
+    //             for (const id of idList.songId) {
+    //                 for (const s of id.songid) {
+    //                     await pushSong(s);
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     run()
+    // }, [id]);
+    // if (!id) {
+    //     return <div className="main_banner">Loading...</div>;
+    // }
     return (
         <main className="main-content">
             <div className="HomeAdmin">
