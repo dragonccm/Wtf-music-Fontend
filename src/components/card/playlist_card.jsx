@@ -51,19 +51,7 @@ const Card = ({ playlist }) => {
                         />
                         <div className="img_overlay">
                             <div className="img_overlay_group_btn">
-                                <Popup trigger={<FontAwesomeIcon icon={faHeart} />} position="left top"
-                                    nested
-                                    closeOnDocumentClick
-                                    mouseLeaveDelay={300}
-                                    mouseEnterDelay={0}
-                                    contentStyle={{ padding: '0', border: 'none' }}
-                                    arrow={false}>
-                                    <div className="menu">
-                                        <button className="menu-item"> item 1</button>
-                                        <button className="menu-item"> item 2</button>
-                                        <button className="menu-item"> item 3</button>
-                                    </div>
-                                </Popup>
+                                <FontAwesomeIcon icon={faHeart} onClick={()=>handleAdd(playlist.encodeId)}/>
                                 {/* <button
                                     onClick={() => handleChangeData(item)}
                                 >
