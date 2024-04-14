@@ -19,7 +19,7 @@ export const searchFetch = async (searchData) => {
                     ...baseData,
                     name: suggestion.title,
                     thumb: suggestion.thumb,
-                    artists: suggestion.artists ? suggestion.artists.map(artist => artist.name).join(', ') : 'Không xác định',
+                    artists: suggestion.artists ? suggestion.artists : 'Không xác định',
                 };
             } else if (suggestion.type === 4) {
                 

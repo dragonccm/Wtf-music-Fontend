@@ -4,6 +4,7 @@ import '../../css/rating_week.scss'
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRating } from "../../redux/slide/ratingSlice";
 import { useParams } from 'react-router-dom';
+import Loading from "../sideNavigation/mascot_animation";
 const Rating_week = () => {
 
     let { id } = useParams();
@@ -26,7 +27,7 @@ const Rating_week = () => {
     }); 
     if (Object.keys(dataRating).length === 0 ||  dataRating.weekChart === "null" || dataRating.weekChart === "undefined") {
       
-        return <div className="main_banner">Loading...</div>;
+        return <div className="main_banner"><Loading/></div>;
         
     }
     console.log('oooooooooooooooooooooooooooooooooooo')

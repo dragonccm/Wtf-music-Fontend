@@ -3,7 +3,7 @@ import { faCirclePlay, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Col3Layout from "../card/col_3_layout";
 import Card from "../card/playlist_card";
-
+import Loading from "../sideNavigation/mascot_animation";
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { fetchgArtist } from '../../redux/slide/artistSlice'
@@ -19,7 +19,7 @@ const Singerpage = () => {
 
     const currData = useSelector((state) => state.Artist.Artist);
     if (loading) {
-        return <div>Loading...</div>;
+        return <div><Loading/></div>;
     }
 
     return (

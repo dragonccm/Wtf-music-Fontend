@@ -17,7 +17,7 @@ import { getLogout } from "../../services/registerService";
 import { logouter } from "../../redux/slide/AuthenticationSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
+import SongCard from "../card/song_card";
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -29,7 +29,7 @@ const Header = () => {
     const isAuthentication = useSelector(
         (state) => state.Authentication.defaultUser
     );
-   
+
     console.log(isAuthentication);
 
     const handleSearchData = useCallback((event) => {
@@ -88,7 +88,7 @@ const Header = () => {
     const handleBlur = () => {
         setTimeout(() => {
             setIsVisible(true);
-        }, 250);
+        }, 111250);
     };
     const handleLogoutUser = async () => {
         let data = await getLogout(); //clear cookies
@@ -112,7 +112,7 @@ const Header = () => {
         }, {});
 
         const sortedResults = Object.values(groupedResults).flat();
-
+        console.log(sortedResults);
         return sortedResults.map((result) => {
             if (result.type === 1) {
                 return <Songitem key={result.id} data={result} />;
@@ -127,50 +127,61 @@ const Header = () => {
 
     const Songitem = ({ data }) => {
         return (
-            <section className="search_item_song">
-                <div className="search_item_song_img">
-                    <img src={data.thumb} alt={data.name} />
-                </div>
-                <div className="">
-                    <NavLink
-                        to={`/song/${data.id}`}
-                        className="search_item_name"
-                    >
-                        {data.name}
-                    </NavLink>
-                </div>
-            </section>
+            <NavLink
+                to={`/song/${data.id}`} className='search_item_name'>
+
+                <SongCard element={data} />
+                {/* <section className="search_item_song">
+                    <div className="search_item_song_img">
+                        <img src={data.thumb} alt={data.name} />
+                    </div>
+                    <div className="search_item_name">
+                        <p >{data.name} </p>
+                    </div>
+                </section> */}
+            </NavLink>
         );
     };
     const Album = ({ data }) => {
         return (
-            <section className="search_item_song">
-                <div className="search_item_song_img">
+            <NavLink
+                    to={`/playlist/${data.id}`} className="search_item_album">
+                <div className="search_item_album_img">
                     <img src={data.thumb} alt={data.name} />
                 </div>
-                <NavLink
+                <div className="search_item_album_main">
+                <p
                     to={`/playlist/${data.id}`}
                     className="search_item_name"
                 >
                     {data.name}
+                    </p>
+                    <p>Album</p>
+               </div>
                 </NavLink>
-            </section>
         );
     };
 
     const Artistsitem = ({ data }) => {
         return (
-            <section className="search_item_artists">
+            <NavLink
+                to={`/artists/${data.aliasName}`}
+                className="search_item_artists"
+            >
+
                 <div className="search_item_artists_img">
                     <img src={data.avatar} alt={data.name} />
                 </div>
-                <NavLink
-                    to={`/artists/${data.aliasName}`}
-                    className="search_item_name"
-                >
-                    {data.name}
-                </NavLink>
-            </section>
+                <div className="search_item_artists_main">
+                    <p
+                        className="search_item_name"
+                    >
+                        {data.name}
+                    </p>
+                    <p>Nghệ sĩ</p>
+                </div>
+
+            </NavLink>
         );
     };
 
@@ -235,9 +246,9 @@ const Header = () => {
                                     <button className="avt_page">
                                         {isAuthentication.account.avt ?
                                             <img src={'data:image/png;base64,' + isAuthentication.account.avt} alt="profile" /> :
-                                            <img src={logo} alt="profile" />    
-                                    }
-                                        
+                                            <img src={logo} alt="profile" />
+                                        }
+
                                     </button>
                                 }
                                 position="bottom right"

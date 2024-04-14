@@ -3,6 +3,7 @@ import ImageUploader from "./uploadImage";
 import { toast, ToastContainer } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { getInforUser, editInforUser } from "../../../../redux/slide/InforUserSlice";
+import Loading from "../../../sideNavigation/mascot_animation";
 const Profile_edit = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -40,7 +41,7 @@ const Profile_edit = () => {
         return state.inforUser.isLoading;
     });
     if ((Object.keys(infor).length === 0 && !isLoading) || !infor.DT) {
-        return <div className="main_banner">Loading...</div>;
+        return <div className="main_banner"><Loading/></div>;
     }
 
     const handleEdit = () => {

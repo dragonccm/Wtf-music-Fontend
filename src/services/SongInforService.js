@@ -1,12 +1,10 @@
-import { songInfo, songUrl, songLyric } from "../controller/firstfetch";
-export const getSongData = async (Songid) => {
+import { songInfo } from "../controller/firstfetch";
+export const getSongInfor = async (Songid) => {
   console.log('okkkkkkkkkkkkkkkkkkkkkkkkkk'+Songid);
   if (Songid) {
     try {
 
       const songDetailResult = await songInfo(Songid);
-      const songUrlResult = await songUrl(Songid);
-      const songLyricsResult = await songLyric(Songid);
       const id = Songid;
       console.log(id)
       const genres = songDetailResult.data.genres?songDetailResult.data.genres.map((genre) => ({
@@ -35,21 +33,16 @@ export const getSongData = async (Songid) => {
         songDetailResult.data?.thumbnailM ||
         "https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg";
 
-      const song =
-        songUrlResult.data?.[128] ||
-        "https://a128-z3.zmdcdn.me/c2e3abd902697240cf99ffb93e9e38f3?authen=exp=1712376116~acl=/c2e3abd902697240cf99ffb93e9e38f3/*~hmac=d9866bb2a2216c3ce17a63244b18dde1";
-      const Ly = songLyricsResult.data.sentences;
+     
       return {
         id,
         img,
         songname,
         artistInfo,
         alias,
-        song,
         listen,
         like,
         duration,
-        lyricsString: Ly,
         composers,
         genres
       };

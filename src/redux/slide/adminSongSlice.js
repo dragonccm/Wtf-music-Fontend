@@ -3,21 +3,23 @@ import { adminGetSong } from "../../services/adminSongService";
 
 export const fetchAdminSong = createAsyncThunk("admin/adminGetSong", async () => {
     const response = await adminGetSong();
-    const final = response.map((data) => {
-        const cu = {
-            id: "1",
-            avt: data.thumbnail,
-            song: data.songname,
-            category: data.genresid.join(', '),
-            writer: data.artistsId.join(', '),
-            singerName: data.artistsId.join(', '),
-            listener: data.listen,
-            review: data.like,
-            description: ""
-        }
-        return cu
-    });
-    return final
+    console.log(response)
+    // const final = response.map((data) => {
+    //     const cu = {
+    //         id: "1",
+    //         avt: data.thumbnail,
+    //         song: data.songname,
+    //         category: data.genresid.join(', '),
+    //         writer: data.artistsId.join(', '),
+    //         singerName: data.artistsId.join(', '),
+    //         listener: data.listen,
+    //         review: data.like,
+    //         description: ""
+    //     }
+    //     console.log(cu);
+    //     return cu
+    // });
+    return response
 });
 const initialState = {
     AdminSong: {},

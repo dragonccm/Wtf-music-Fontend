@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../card/playlist_card";
 import "../../css/top100.scss";
-
+import Loading from "../sideNavigation/mascot_animation";
 import { useEffect } from "react";
 import { fetchTop100 } from '../../redux/slide/top100Slice'
 import { useSelector, useDispatch } from "react-redux";
@@ -17,7 +17,7 @@ const Top100 = () => {
   if (!Array.isArray(currData)) {
     
     console.error('currData is not an array:', currData);
-    return <div className="main_banner">Loading...</div>; 
+    return <div className="main_banner"><Loading/></div>; 
   }
   const dataHandle = (data) => {
     return data.map((con) => ({

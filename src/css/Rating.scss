@@ -28,7 +28,7 @@
       border-radius: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1rem;
       width: 36.5rem;
       color: var(--footer-text);
 
@@ -97,6 +97,7 @@
           display: flex;
           gap: 1rem;
           flex: 3;
+          align-items: center;
 
           .week_rating_img {
             width: 4rem;
@@ -145,6 +146,7 @@
             .week_rating_name {
               font-size: 16px;
               font-weight: 600;
+              line-height: 18px;
 
               a {
                 width: 168px;
@@ -163,7 +165,15 @@
 
             .week_rating_artists {
               color: var(--text-2);
+              width: 168px;
+              display: block;
+              font-size: 16px;
+              line-height: 18px;
 
+              color: var(--footer-text);
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
               a {
                 margin-left: 2px;
                 color: var(--text-2);

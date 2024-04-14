@@ -12,6 +12,7 @@ import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 import SongCard2 from '../card/song_card2'
+import Loading from "../sideNavigation/mascot_animation";
 
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 const Playlistpage = () => {
@@ -25,7 +26,7 @@ const Playlistpage = () => {
   const currData = useSelector((state) => state.playlist.playlist.data);
   if (!currData || !currData.song || !Array.isArray(currData.song.items)) {
     // console.error('currData is not properly formatted:', currData);
-    return <div className="main_banner">Loading...</div>;
+    return <div className="main_banner"><Loading/></div>;
   }
   function handledata(data) {
     return data.song.items.map((con) => ({

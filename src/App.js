@@ -27,9 +27,9 @@ function App(props) {
             console.log("lỗi");
         }
     }, []);
-    useEffect(() => {
-        dispatch(fetchSong(localStorage.getItem("idSongPlaying")));
-    }, []);
+    // useEffect(() => {
+    //     dispatch(fetchSong(localStorage.getItem("idSongPlaying")));
+    // }, []);
 
     const playlistsData = Array.from({ length: 5 }, (_, index) => ({
         id: index,

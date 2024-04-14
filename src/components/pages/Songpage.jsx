@@ -12,23 +12,24 @@ import { fetchPageSong } from '../../redux/slide/songPageSlice'
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 // import ListCard from "../card/ListCard";
-
+import Loading from "../sideNavigation/mascot_animation";
 import Card from '../card/playlist_card'
 const Songpage = () => {
 
 
   const { id } = useParams();
-  const [loading, setLoading] = useState(true);
+  console.log('hahahahhahahahhahaha'+id)
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPageSong(id)).then(() => setLoading(false));
-  }, [dispatch, id]);
+    dispatch(fetchPageSong(id));
+  }, [id]);
 
   const currSongData = useSelector((state) => state.songPage.pageData);
+  const isLoading = useSelector((state) => state.songPage.isLoading);
   console.log(currSongData)
-  if (loading) {
-    return <div>Loading...</div>;
+  if (isLoading || !currSongData|| !Object.keys(currSongData).length > 0 || !currSongData.img) {
+    return <div><Loading/></div>;
   }
   const handlePlaying = (e, id) => {
     e.preventDefault();

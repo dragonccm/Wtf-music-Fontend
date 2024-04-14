@@ -4,10 +4,9 @@
 
     .change_pass {
       position      : relative;
-      width         : 50%;
+      width         : 100%;
       display       : flex;
       flex-direction: column;
-      padding-left  : 30px;
 
      
 
@@ -32,11 +31,13 @@
         }
         .main{
           display: flex;
-          padding: 0 40px;
+          padding: 0 100px;
           gap: 40px;
           margin-top: 20px;
+          flex-direction: row-reverse;
           .avt_main{
-            width: 30%;
+            width: 40%;
+            height: fit-content;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -47,6 +48,7 @@
               overflow     : hidden;
               border-radius: 50%;
               position: relative;
+              top: 50px;
               border: 1px solid var(--text-1);
       
               &:hover  .avt_group{
@@ -140,7 +142,8 @@
         }
       }
       form {
-        width          : 100%;
+        padding: 0 100px;
+        width          : 62%;
         height         : 100%;
         display        : flex;
         flex-direction : column;

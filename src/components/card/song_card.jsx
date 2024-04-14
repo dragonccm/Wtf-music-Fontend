@@ -26,8 +26,8 @@ const SongCard = ({ element }) => {
                   <div className="playlist_item_content">
                     <div className="content_name">
                       <NavLink
-                        to={"/song/" + element.encodeId}>
-                        {element.title}
+                        to={"/song/" + (element.encodeId ? element.encodeId :element.id)}>
+                        {element.title?element.title:element.name}
                       </NavLink>
 
                     </div>
