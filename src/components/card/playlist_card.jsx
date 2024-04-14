@@ -16,14 +16,15 @@ import "../../css/card.scss";
 const Card = ({ playlist }) => {
     const dispatch = useDispatch();
 
-    const currData = useSelector((state) => state.playlist.playlist.data);
+    const currData = useSelector((state) => state.infoUser);
+    console.log(currData);
     const handleAdd = (id) => {
         dispatch(postPlayList({
             playlistname: "BETA",
             genresid: [
                 "sds"
             ],
-            artistsId: '',
+            artistsId: [],
             thumbnail: "https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/b/8/5/8/b8584bc83639545a57be947b1cbd35f2.jpg",
             description: 'thuwr',
             songid: [
