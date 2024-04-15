@@ -133,7 +133,7 @@ const RightSidebar = () => {
                   )}
                 </Nav> */}
                     </Navbar.Collapse>
-                    <div className="nav_bot_playlist">
+                    {/* <div className="nav_bot_playlist">
                         <div className="playlist_item">
                             <div className="playlist_item_img">
                                 <img
@@ -176,7 +176,7 @@ const RightSidebar = () => {
                                 <div className="content_cate">Nghệ sĩ</div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </Container>
             </Navbar>
             {/* <Mascot /> */}
