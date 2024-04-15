@@ -197,17 +197,17 @@ const SingersAdmin = () => {
                 <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end ">
                         <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75">
+                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
                                 Previous
                             </a>
                         </li>
                         <li className="border active">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75">
+                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
                                 1
                             </a>
                         </li>
                         <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75">
+                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
                                 Next
                             </a>
                         </li>
