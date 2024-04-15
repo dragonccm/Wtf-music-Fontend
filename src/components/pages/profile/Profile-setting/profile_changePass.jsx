@@ -45,7 +45,7 @@ const ProfileChangePass = () => {
         if (check) {
             let response = await changePass(oldPass, newPass);
             if (response && response.EC === "0") {
-                console.log("ok");
+                // console.log("ok");
                 toast.success('Đã cập nhật mật khẩu thành công !')
                 setTimeout(async() => {
                     let data = await getLogout(); //clear cookies

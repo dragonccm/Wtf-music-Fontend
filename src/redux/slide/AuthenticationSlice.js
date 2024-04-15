@@ -4,7 +4,6 @@ export const fetchAuthentication = createAsyncThunk(
   "getAuthentication",
   async () => {
     const response = await getUserAccount();
-    console.log(response)
     return response;
   }
 );

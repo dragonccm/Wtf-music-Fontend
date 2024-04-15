@@ -1,6 +1,6 @@
 import { songInfo, songUrl, songLyric } from "../controller/firstfetch";
 export const getSongData = async (Songid) => {
-  console.log('okkkkkkkkkkkkkkkkkkkkkkkkkk'+Songid);
+  // console.log('okkkkkkkkkkkkkkkkkkkkkkkkkk'+Songid);
   if (Songid) {
     try {
 
@@ -8,7 +8,7 @@ export const getSongData = async (Songid) => {
       const songUrlResult = await songUrl(Songid);
       const songLyricsResult = await songLyric(Songid);
       const id = Songid;
-      console.log(id)
+      // console.log(id)
       const genres = songDetailResult.data.genres?songDetailResult.data.genres.map((genre) => ({
         id: genre.id,
         name: genre.name,

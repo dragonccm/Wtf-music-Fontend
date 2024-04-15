@@ -159,11 +159,11 @@ const HomeAdmin = () => {
                                 <tr className="border-bottom">
                                     <td>01</td>
                                     <td>
-                                        <h6 class="fs-4 text-capitalize">
+                                        <h6 className="fs-4 text-capitalize">
                                             Pete Saraiya
                                         </h6>
                                         <p
-                                            class="mb-0 custom-icon"
+                                            className="mb-0 custom-icon"
                                             style={{ color: "#aaa" }}
                                         >
                                             petesaraiya@demo.com
@@ -175,11 +175,11 @@ const HomeAdmin = () => {
                                 <tr className="border-bottom">
                                     <td>01</td>
                                     <td>
-                                        <h6 class="fs-4 text-capitalize">
+                                        <h6 className="fs-4 text-capitalize">
                                             Pete Saraiya
                                         </h6>
                                         <p
-                                            class="mb-0 custom-icon"
+                                            className="mb-0 custom-icon"
                                             style={{ color: "#aaa" }}
                                         >
                                             petesaraiya@demo.com
@@ -191,11 +191,11 @@ const HomeAdmin = () => {
                                 <tr className="border-bottom">
                                     <td>01</td>
                                     <td>
-                                        <h6 class="fs-4 text-capitalize">
+                                        <h6 className="fs-4 text-capitalize">
                                             Pete Saraiya
                                         </h6>
                                         <p
-                                            class="mb-0 custom-icon"
+                                            className="mb-0 custom-icon"
                                             style={{ color: "#aaa" }}
                                         >
                                             petesaraiya@demo.com

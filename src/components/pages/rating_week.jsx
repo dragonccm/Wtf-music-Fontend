@@ -11,16 +11,16 @@ const Rating_week = () => {
     const [area, setArea] = useState(id)
 
     const handleChange = (e) => {
-        console.log(e.target.value); // In ra giá trị của radio button được chọn
+        // console.log(e.target.value); // In ra giá trị của radio button được chọn
         setArea(e.target.value)
     }
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchRating());
-        console.log('oooooooooooooooooooooooooooooooooooo')
-        console.log(dataRating)
-        console.log(dataRating.weekChart)
+        // console.log('oooooooooooooooooooooooooooooooooooo')
+        // console.log(dataRating)
+        // console.log(dataRating.weekChart)
     }, [dispatch]);
     const dataRating = useSelector((state) => {
       return state.rating.dataRating;
@@ -30,9 +30,9 @@ const Rating_week = () => {
         return <div className="main_banner"><Loading/></div>;
         
     }
-    console.log('oooooooooooooooooooooooooooooooooooo')
-        console.log(dataRating)
-        console.log(dataRating.weekChart)
+    // console.log('oooooooooooooooooooooooooooooooooooo')
+    //     console.log(dataRating)
+    //     console.log(dataRating.weekChart)
 
     return (
         <div className="rating_week">

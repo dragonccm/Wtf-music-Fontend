@@ -35,7 +35,7 @@ const RegisterPage = () => {
         let check = isValid();
         if (check) {
             let response = await getRegister(email, password, username);
-            console.log(response);
+            // console.log(response);
             if (response && response.EM === 'the Username already exists') {
                 setObjCheckInput({ ...defaultValidInput, isValidUser: false });
                 toast.error('Tài khoản đã được sử dụng')

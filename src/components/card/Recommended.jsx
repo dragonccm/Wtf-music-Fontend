@@ -26,25 +26,14 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, israting }) => {
         {validDatas
           .slice(0, showAll ? validDatas.length : maxItemsToShow)
           .map((data, index) => (
-            israting === true ?
-              <SongCard2
-                data={data}
-                rating={{
-                  israting: true,
-                  index: index
-                }
-                }
-              /> :
-              <SongCard2
-                data={data}
-                rating={{
-                  israting: true,
-                  index: index
-                }
-                }
-              />
-
-
+            <SongCard2
+              key={index} // Thêm key ở đây
+              data={data}
+              rating={{
+                israting: israting,
+                index: index
+              }}
+            />
           ))}
       </div>
       {validDatas.length > maxItemsToShow && !showAll && (

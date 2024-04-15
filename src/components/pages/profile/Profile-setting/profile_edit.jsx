@@ -45,8 +45,8 @@ const Profile_edit = () => {
     }
 
     const handleEdit = () => {
-        console.log(birthday)
-        console.log(file)
+        // console.log(birthday)
+        // console.log(file)
         if (file !== 'data:image/png;base64,' + infor.DT.avt) {
 
             dispatch(editInforUser({ email, birthday, file }));

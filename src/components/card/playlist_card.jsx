@@ -17,9 +17,9 @@ const Card = ({ playlist }) => {
     const dispatch = useDispatch();
 
     const currData = useSelector((state) => state.inforUser);
-    if(currData){
-        console.log("cardd",currData.userInfo);
-    }
+    // if(currData){
+    //     console.log("cardd",currData.userInfo);
+    // }
     const handleAdd = (id) => {
         dispatch(postPlayList({
             playlistname: "BETA",

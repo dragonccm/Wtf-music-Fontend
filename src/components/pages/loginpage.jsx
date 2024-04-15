@@ -56,7 +56,7 @@ const LoginPage = () => {
         }
         let response = await getLogin(valueLogin, password, checkRemember);
         let serverData = response;
-        console.log(serverData);
+        // console.log(serverData);
 
         if (response && response.EC === "0") {
             let email = response.DT.email;
@@ -72,7 +72,7 @@ const LoginPage = () => {
                 "Authorization"
             ] = `Bearer ${localStorage.getItem("jwt")}`;
 
-            console.log("ok");
+            // console.log("ok");
             dispatch(loginer(data));
             dispatch(fetchAuthentication());
             navigate("/");
@@ -144,7 +144,7 @@ const LoginPage = () => {
                                             setCheckRemember(!checkRemember)
                                         }
                                     />
-                                    <div class="checkmark"></div>
+                                    <div className="checkmark"></div>
                                 </label>
                                 <label htmlFor="checked">
                                     Ghi Nhớ Đăng Nhập

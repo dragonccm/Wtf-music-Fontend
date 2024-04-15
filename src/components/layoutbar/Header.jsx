@@ -30,13 +30,16 @@ const Header = () => {
         (state) => state.Authentication.defaultUser
     );
 
-    console.log(isAuthentication);
 
     const handleSearchData = useCallback((event) => {
         setSearchTerm(event.target.value);
         if (event.target.value.trim() === "") {
             setIsVisible(true);
         }
+    }, []);
+
+    const handleFocus = useCallback((event) => {
+            setIsVisible(true);
     }, []);
 
     // Assuming that 'debounce' does not require any state or props, we can define it outside the component
@@ -112,7 +115,6 @@ const Header = () => {
         }, {});
 
         const sortedResults = Object.values(groupedResults).flat();
-        console.log(sortedResults);
         return sortedResults.map((result) => {
             if (result.type === 1) {
                 return <Songitem key={result.id} data={result} />;
@@ -199,7 +201,7 @@ const Header = () => {
                         placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
                         required=""
                         onChange={handleSearchData}
-                        onFocus={handleSearchData}
+                        onFocus={debouncedFetchData}
                         onBlur={() => handleBlur()}
                     />
                     <button className="search_btn" onClick={debouncedFetchData}>

@@ -18,7 +18,7 @@ const Songpage = () => {
 
 
   const { id } = useParams();
-  console.log('hahahahhahahahhahaha'+id)
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +27,6 @@ const Songpage = () => {
 
   const currSongData = useSelector((state) => state.songPage.pageData);
   const isLoading = useSelector((state) => state.songPage.isLoading);
-  console.log(currSongData)
   if (isLoading || !currSongData|| !Object.keys(currSongData).length > 0 || !currSongData.img) {
     return <div><Loading/></div>;
   }

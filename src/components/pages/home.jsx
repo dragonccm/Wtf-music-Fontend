@@ -59,9 +59,9 @@ const HomePage = () => {
     ];
 
     const isLoading = useSelector((state) => state.home.isLoading);
-    useEffect(() => {
-        console.log(isLoading);
-    }, [isLoading]);
+    // useEffect(() => {
+    //     console.log(isLoading);
+    // }, [isLoading]);
     if (isLoading === true) {
         console.error("currData is not an array:", newRelease);
         return <div className="main_banner"><Loading/></div>;

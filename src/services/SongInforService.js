@@ -1,12 +1,12 @@
 import { songInfo } from "../controller/firstfetch";
 export const getSongInfor = async (Songid) => {
-  console.log('okkkkkkkkkkkkkkkkkkkkkkkkkk'+Songid);
+  // console.log('okkkkkkkkkkkkkkkkkkkkkkkkkk'+Songid);
   if (Songid) {
     try {
 
       const songDetailResult = await songInfo(Songid);
       const id = Songid;
-      console.log(id)
+      // console.log(id)
       const genres = songDetailResult.data.genres?songDetailResult.data.genres.map((genre) => ({
         id: genre.id,
         name: genre.name,

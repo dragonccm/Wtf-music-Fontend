@@ -131,7 +131,7 @@ const ProfileMyMusic = ({type}) => {
     const [area, setArea] = useState('song')
 
     const handleChange = (e) => {
-        console.log(e.target.value); // In ra giá trị của radio button được chọn
+        // console.log(e.target.value); // In ra giá trị của radio button được chọn
         setArea(e.target.value)
     }
     return (

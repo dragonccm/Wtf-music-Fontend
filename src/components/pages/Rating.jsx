@@ -32,7 +32,7 @@ const Rating = () => {
 
   const group_rating = [week_vn, week_us, week_korea]
   const group_rating_title = ['Việt Nam', 'US-UK', 'K-Pop']
-  console.log(group_rating)
+  // console.log(group_rating)
 
   const handlePlaying = (e, id) => {
     e.preventDefault();

@@ -63,7 +63,7 @@ const Bottombar = () => {
     });
 
   } else {
-    console.log("fjdkgddddddddddddđfffffffffffffffffffffffffffffffff");
+    console.log("BOTTOM BAR PLAYING NULLL");
   }
 
   const handleClick = async () => {
@@ -299,19 +299,19 @@ const Bottombar = () => {
         const lyric = haha[i];
 
         if (currentTime >= parseFloat(lyric.startTime) / 1000 && currentTime <= parseFloat(lyric.endTime) / 1000) {
-          console.log(oldtime, currentTime);
+          // console.log(oldtime, currentTime);
           if (lyricUL[i]) {
             lyricUL[i].classList.add("active");
             lyricUL[i].scrollIntoView({ behavior: "smooth", block: "center" });
             if (currentTime > oldtime + 1) {
-              console.log('hahahah')
+              // console.log('hahahah')
               for (let j = 0; j < i; j++) {
                 lyricUL[j].classList.remove("active");
                 lyricUL[j].classList.add("over");
               }
             }
             else if (currentTime < oldtime + 1) {
-              console.log('hahahah')
+              // console.log('hahahah')
               for (let j = i + 1; j < haha.length; j++) {
                 lyricUL[j].classList.remove("active");
                 lyricUL[j].classList.remove("over");

@@ -5,7 +5,6 @@ export const fetchPageSong = createAsyncThunk(
   'music/getSongData',
   async (id) => {
     const response = await getSongInfor(id)
-    console.log(response)
     return response
   },
 )

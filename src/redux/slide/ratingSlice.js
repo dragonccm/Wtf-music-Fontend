@@ -3,7 +3,6 @@ import { getRatingData } from "../../services/ratingService";
 
 export const fetchRating = createAsyncThunk("getRating", async () => {
   const response = await getRatingData();
-  console.log(response);
   return response.data;
 });
 const initialState = {

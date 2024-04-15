@@ -45,7 +45,7 @@ export const searchFetch = async (searchData) => {
             
             return baseData;
         });
-        console.log("SAER SD")
+        // console.log("SAER SD")
 
         return { result: results };
 
