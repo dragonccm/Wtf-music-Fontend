@@ -88,7 +88,7 @@ const Header = () => {
     const handleBlur = () => {
         setTimeout(() => {
             setIsVisible(true);
-        }, 111250);
+        },250);
     };
     const handleLogoutUser = async () => {
         let data = await getLogout(); //clear cookies
@@ -199,6 +199,7 @@ const Header = () => {
                         placeholder="Tìm kiếm bài hát, nghệ sĩ, lời bài hát,.."
                         required=""
                         onChange={handleSearchData}
+                        onFocus={handleSearchData}
                         onBlur={() => handleBlur()}
                     />
                     <button className="search_btn" onClick={debouncedFetchData}>
