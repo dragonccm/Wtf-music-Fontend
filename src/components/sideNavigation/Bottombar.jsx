@@ -49,6 +49,7 @@ const Bottombar = () => {
  
   const songInfo = useSelector((state) => state.getSongData.inforSong);
 
+// xử lí lyrics
   if (
     isPlaying &&
     songInfo !== null &&
@@ -66,9 +67,10 @@ const Bottombar = () => {
     console.log("BOTTOM BAR PLAYING NULLL");
   }
 
-  const handleClick = async () => {
-    const audioUrl =
-      "https://vnso-pt-14-tf-a128-z3.zmdcdn.me/12fb41f934c32cb856933163a2bad73b?authen=exp=1711874606~acl=/12fb41f934c32cb856933163a2bad73b/*~hmac=d7b5d79538e953dbdd714caed0013b53";
+
+  // download nhạc 
+  const handleDownload = async () => {
+    const audioUrl = songInfo.infor.song;
 
     try {
       const response = await fetch(audioUrl);
@@ -88,6 +90,7 @@ const Bottombar = () => {
     }
   };
 
+  // Thay icon trong player
   const icon_play = <FontAwesomeIcon icon={faCirclePlay} />;
   const icon_next = <FontAwesomeIcon icon={faForwardStep} />;
   const icon_previous = <FontAwesomeIcon icon={faBackwardStep} />;
@@ -451,7 +454,7 @@ const Bottombar = () => {
 
                     </div>
                     <div className="r_click_navigation">
-                      <div className="item" onClick={() => handleClick()}>
+                      <div className="item" onClick={() => handleDownload()}>
                         <FontAwesomeIcon icon={faDownload} />
                         <p>tải xuống</p>
                       </div>
