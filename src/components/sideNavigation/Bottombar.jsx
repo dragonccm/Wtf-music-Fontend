@@ -50,7 +50,7 @@ const Bottombar = () => {
 
   const songInfo = useSelector((state) => state.getSongData.inforSong);
 
-// xử lí lyrics
+  // xử lí lyrics
   if (
     isPlaying &&
     songInfo !== null &&
@@ -99,6 +99,7 @@ const Bottombar = () => {
 
   const [modalMenuIsOpen, setMenuIsOpen] = React.useState(false);
   const [modalFullIsOpen, setFullIsOpen] = React.useState(false);
+  const [modalTimeIsOpen, setTimeIsOpen] = React.useState(false);
   const [modalLyricIsOpen, setLyricIsOpen] = React.useState(false);
   const [modalPlaylistIsOpen, setPlaylistIsOpen] = React.useState(false);
 
@@ -113,18 +114,26 @@ const Bottombar = () => {
     if (modalFullIsOpen) {
       setAnimationActive(false);
       setTimeout(() => {
-        setMenuIsOpen(false);
         setFullIsOpen(false);
+        setMenuIsOpen(false);
+
       }, 700);
     } else {
 
       setFullIsOpen(true);
       setAnimationActive(true);
-      setMenuIsOpen(true);
     }
   }
   function openModalLyric() {
     setLyricIsOpen(true);
+  }
+  function openModalTime() {
+    console.log('kakakakakak')
+    setTimeIsOpen(true);
+  }
+  function closeModalTime() {
+    console.log('kakakakakak')
+    setTimeIsOpen(false);
   }
   function openModalPlaylist() {
     if (modalPlaylistIsOpen) {
@@ -148,7 +157,7 @@ const Bottombar = () => {
   }
 
 
-
+  //full màn hình
   const elem = document.documentElement;
   const handleOpenFullScreen = () => {
     SetIsFullScreen(true);
@@ -178,6 +187,7 @@ const Bottombar = () => {
     }
   };
 
+  // danh sách playlist 
   const arr_playlist = [
     "a",
     "b",
@@ -203,11 +213,14 @@ const Bottombar = () => {
   const [isTimeUpdated, setTimeUpdated] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [loop, setLoop] = useState(false);
+
+
+
   const handleTimeUpdate = (e) => {
     if (!isTimeUpdated) {
       e.target.currentTime = localStorage.getItem('duration');
       e.target.volume = localStorage.getItem('volume');
-      e.target.loop = localStorage.getItem('loop');
+      // e.target.loop = localStorage.getItem('loop');
       setTimeUpdated(true);
     }
   };
@@ -219,8 +232,9 @@ const Bottombar = () => {
   }, []);
 
   useEffect(() => {
-    const savedVolume = localStorage.getItem('volume');
+    const savedVolume = localStorage.getItem('volume') ? localStorage.getItem('volume') : '50';
     setVolume(savedVolume);
+    setLoop(localStorage.getItem('loop') ? JSON.parse(localStorage.getItem('loop')) : false)
   }, []);
 
 
@@ -230,59 +244,14 @@ const Bottombar = () => {
 
   };
 
-
+  //   karaoke
   let oldtime = null
   const handleListen = (e) => {
     // Lắng nghe sự kiện timeupdate của player
     e.target.addEventListener('timeupdate', updateTime);
 
+
   };
-
-
-  // ----- sử dụng setInterval ------------------
-  // const handleListen = (e) => {
-  //   clearInterval(intervalId);
-  //   intervalId = setInterval(function () {
-  //     const currentTime = e.target.currentTime;
-  //     localStorage.setItem('duration', currentTime)
-  //     for (let i = 0; i < haha.length; i++) {
-  //       const lyric = haha[i];
-
-  //       if (
-  //         currentTime >= parseFloat(lyric.startTime) / 1000 &&
-  //         currentTime <= parseFloat(lyric.endTime) / 1000
-  //       ) {
-
-  //         const lyricUL = document.querySelectorAll(".scroll-content li");
-  //         if (lyricUL[i]) {
-
-  //           lyricUL[i].classList.add("active");
-  //           lyricUL[i].scrollIntoView({ behavior: "smooth", block: "center" });
-
-
-  //           if (i > 0) {
-  //             lyricUL[i - 1].classList.add("over");
-  //             lyricUL[i - 1].classList.remove("active");
-  //           }
-  //           if (i > 1) {
-  //             lyricUL[i - 1].classList.add("over");
-  //             lyricUL[i - 1].classList.remove("active");
-  //             lyricUL[i - 2].classList.remove("active");
-  //             lyricUL[i - 2].classList.add("over");
-  //           }
-
-  //           // console.log(haha)
-  //           break; // Dừng vòng lặp khi điều kiện đúng được thoả mãn
-  //         }
-  //       } else {
-  //         console.log(currentTime);
-  //         console.log(parseFloat(lyric.startTime) / 1000)
-  //         // console.log(currentTime >= parseFloat(lyric.startTime)/100000)
-  //       }
-  //     }
-  //   }, 500);
-
-  // };
   const handleStop = (e) => {
     e.target.addEventListener('timeupdate', updateTime);
   }
@@ -293,7 +262,7 @@ const Bottombar = () => {
     const currentTime = e.target.currentTime;
     localStorage.setItem('duration', currentTime);
     // console.log(currentTime);
-    // setLoop(playerRef.current.audio.current.loop)
+    setLoop(e.target.loop)
     localStorage.setItem('loop', loop);
 
     // Xử lý hiển thị lời bài hát theo thời gian hiện tại
@@ -342,10 +311,12 @@ const Bottombar = () => {
     }
     oldtime = currentTime
   }
+
+
   return (
     isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
-      <div className="main_bottom_bar">
-        <div className="player_info">
+      <div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justify-content': 'center' } : { 'background': 'var(--bg-player)', 'justify-content': 'unset' }}>
+        {!modalFullIsOpen && <div className="player_info"  >
           <div className="player_info_ctn">
             <div className="img">
               <img src={songInfo.infor.img} alt="f" />
@@ -385,9 +356,9 @@ const Bottombar = () => {
                   <FontAwesomeIcon icon={faHeart} />
                 </button>
 
-                {!modalFullIsOpen && <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
+                <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
                   <FontAwesomeIcon icon={faEllipsis} />
-                </button>}
+                </button>
                 <Modal
                   isOpen={modalMenuIsOpen}
                   onAfterOpen={afterOpenModal}
@@ -535,54 +506,7 @@ const Bottombar = () => {
                         />
                         Phát cùng lời bài hát
                       </div>
-                      <Modal
-                        isOpen={modalFullIsOpen}
-                        onAfterOpen={afterOpenModal}
-                        onRequestClose={openModalFull}
-                        // style={customStyles}
-                        className="Modal_playlist"
-                        overlayClassName={animationActive ? "Overlay_full" : "Overlay_full active"}
-                        shouldCloseOnOverlayClick={false}
 
-                      >
-                        {/* <button onClick={closeModal}>close</button> */}
-                        <div className="playlist_player">
-                          <div className="playlist_player_bg">
-                            <img src="https://photo-resize-zmp3.zmdcdn.me/w1920_r3x2_jpeg/cover/b/8/0/e/b80e5777c7eec332c882bf79bd692056.jpg" alt="g" />
-
-                          </div>
-                          <div className="playlist_player_header">
-                            {isFullScreen ? (
-                              <button onClick={handleCloseFullScreen} className="header_btn">
-                                <FontAwesomeIcon icon={faCompress} />
-                              </button>
-                            ) : (
-                              <button onClick={handleOpenFullScreen} className="header_btn">
-                                <FontAwesomeIcon icon={faExpand} />
-                              </button>
-                            )}
-                            <button onClick={openModalFull} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
-
-
-
-                          </div>
-                          <div className="playlist_player_body">
-                            <div className="body">
-                              <div className="avt">
-                                <img src={songInfo.infor.img.replace('w240', 'w480')} alt="h" />
-                              </div>
-                              <div className="lyric">
-                                <ul className="scroll-content">
-
-                                  {haha.map((sentence, index) => {
-                                    return <li className="item" key={'haha' + index}>{sentence.data}</li>;
-                                  })}
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </Modal>
 
                       <CopyToClipboard text="Fuck you!">
                         <div className="r_click_list_item">
@@ -598,7 +522,7 @@ const Bottombar = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>}
 
         <div className="player_main">
           <AudioPlayer
@@ -635,7 +559,7 @@ const Bottombar = () => {
           // other props here
           />
         </div>
-        <div className="player_more">
+        {!modalFullIsOpen && <div className="player_more">
           <div className="player_more_1">
             <button
               className="rhap_button-clear rhap_main-controls-button btn_more"
@@ -678,7 +602,7 @@ const Bottombar = () => {
           >
             <div className="Modal_playlist_header">
               <h3>Danh sách phát</h3>
-              <div className="time">
+              <div className="time" onClick={()=>openModalTime()}>
                 <FontAwesomeIcon icon={faClock} />
               </div>
             </div>
@@ -776,7 +700,72 @@ const Bottombar = () => {
             <button onClick={openModalPlaylist}>Đóng</button>
           </div> */}
           </Modal>
-        </div>
+        </div>}
+        <Modal
+          isOpen={modalFullIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={openModalFull}
+          // style={customStyles}
+          className="Modal_playlist"
+          overlayClassName={animationActive ? "Overlay_full" : "Overlay_full active"}
+          shouldCloseOnOverlayClick={false}
+
+        >
+          {/* <button onClick={closeModal}>close</button> */}
+          <div className="playlist_player">
+            <div className="playlist_player_bg">
+              <img src="https://photo-resize-zmp3.zmdcdn.me/w1920_r3x2_jpeg/cover/b/8/0/e/b80e5777c7eec332c882bf79bd692056.jpg" alt="g" />
+
+            </div>
+            <div className="playlist_player_header">
+              {isFullScreen ? (
+                <button onClick={handleCloseFullScreen} className="header_btn">
+                  <FontAwesomeIcon icon={faCompress} />
+                </button>
+              ) : (
+                <button onClick={handleOpenFullScreen} className="header_btn">
+                  <FontAwesomeIcon icon={faExpand} />
+                </button>
+              )}
+              <button onClick={openModalFull} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
+
+
+
+            </div>
+            <div className="playlist_player_body">
+              <div className="body">
+                <div className="avt">
+                  <img src={songInfo.infor.img.replace('w240', 'w480')} alt="h" />
+                </div>
+                <div className="lyric">
+                  <ul className="scroll-content">
+
+                    {haha.map((sentence, index) => {
+                      return <li className="item" key={'haha' + index}>{sentence.data}</li>;
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal>
+
+        <Modal
+          isOpen={modalTimeIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={openModalFull}
+          // style={customStyles}
+          className="Modal_time"
+          overlayClassName= "Overlay_time"
+          shouldCloseOnOverlayClick={false}
+
+        >
+          <div className="timeout">
+            haha
+            <button onClick={closeModalTime}>close</button>
+            <input type="time" value="13:30"/>
+          </div>
+        </Modal>
       </div>
     )
   );
