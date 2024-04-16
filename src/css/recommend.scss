@@ -122,6 +122,9 @@
 /* row css */
 
 @media screen and (max-width: 600px) {
+  .Recommended {
+    font-size: 2.2rem;
+  }
   .list_row {
     .added_time {
       display: none;

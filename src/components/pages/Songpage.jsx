@@ -2,10 +2,10 @@ import "../../css/Songpage.scss";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
+import { faCirclePlay, faShare } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import React, { useEffect, useState } from "react";
+import { faHeart,faSquarePlus,faPlay,faLink } from '@fortawesome/free-solid-svg-icons'
+import React, { useEffect } from "react";
 import { useParams } from 'react-router-dom';
 // import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import { fetchPageSong } from '../../redux/slide/songPageSlice'
@@ -92,18 +92,18 @@ const Songpage = () => {
           <button className="like_btn">
             <FontAwesomeIcon icon={faHeart} />
           </button>
-          <Popup trigger={<button className="menu_btn">  <FontAwesomeIcon icon={faEllipsis} /></button>} position="left top"
+          <Popup trigger={<button className="menu_btn">  <FontAwesomeIcon icon={faEllipsis} /></button>} position="right top"
             nested
             closeOnDocumentClick
             mouseLeaveDelay={300}
             mouseEnterDelay={0}
             contentStyle={{ padding: '0', border: 'none' }}
             arrow={false}>
-            <div className="menu">
-              <button className="menu-item"> item 1</button>
-              <button className="menu-item"> item 2</button>
-              <button className="menu-item"> item 3</button>
-            </div>
+            <div className="menu-plalist">
+                  <button className="menu-item"><FontAwesomeIcon icon={faSquarePlus} /> Thêm Vào PlayList</button>
+                  <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
+                  <button className="menu-item"><FontAwesomeIcon icon={faShare} /> Chia Sẽ</button>
+                </div>
           </Popup>
 
 

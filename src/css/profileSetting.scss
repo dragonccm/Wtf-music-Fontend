@@ -1,170 +1,210 @@
 .profile_page {
-    // display: flex;
-    padding: 0 20px;
+  // display: flex;
+  padding: 0 20px;
 
-    .change_pass {
-      position      : relative;
-      width         : 100%;
-      display       : flex;
-      flex-direction: column;
+  .change_pass {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 
-     
 
-      h1 {
-        color     : var(--deep-black);
-        margin-top: 50px;
-        font-size : 30px;
-      }
 
-      
+    h1 {
+      color: var(--deep-black);
+      margin-top: 50px;
+      font-size: 30px;
     }
-    
-      .info_card_ctn {
-        display        : flex;
-        flex-direction : column;
+
+
+  }
+
+  .info_card_ctn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .profile_details {
+      color: var(--deep-black);
+      font-size: 30px;
+      margin-top: 25px;
+    }
+
+    .main {
+      display: flex;
+      padding: 0 100px;
+      gap: 40px;
+      margin-top: 20px;
+      flex-direction: row-reverse;
+
+      .avt_main {
+        width: 40%;
+        height: fit-content;
+        display: flex;
         justify-content: center;
-    
-        .profile_details {
-          color     : var(--deep-black);
-          font-size : 30px;
-          margin-top: 25px;
-        }
-        .main{
-          display: flex;
-          padding: 0 100px;
-          gap: 40px;
-          margin-top: 20px;
-          flex-direction: row-reverse;
-          .avt_main{
-            width: 40%;
-            height: fit-content;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            .avt-container{
-            
-              width        : 25rem;
-              height: 25rem;
-              overflow     : hidden;
-              border-radius: 50%;
-              position: relative;
-              top: 50px;
-              border: 1px solid var(--text-1);
-      
-              &:hover  .avt_group{
-                display: block ;
-              }
-              .avt-img{
-                width: 100%;
-                object-fit   : cover;
-                z-index: 1;
-                position: absolute;
-                
-                
-              }
-              .avt_group{
-                position: absolute;
-                width: 25rem;
-                height: 25rem;
-                background: rgb(0, 0, 0);
-                opacity: .7;
-                z-index: 3;
-                display: none;
-        
-                svg{
-                  position: absolute;
-                  top: 50%;
-                  left: 50%;
-                  color: #fff;
-                  font-size: 35px;
-                  transform: translate(-50%,-50%);
-                }
-              }
+        align-items: center;
+
+        .avt-container {
+
+          width: 25rem;
+          height: 25rem;
+          overflow: hidden;
+          border-radius: 50%;
+          position: relative;
+          top: 50px;
+          border: 1px solid var(--text-1);
+
+          &:hover .avt_group {
+            display: block;
+          }
+
+          .avt-img {
+            width: 100%;
+            object-fit: cover;
+            z-index: 1;
+            position: absolute;
+
+
+          }
+
+          .avt_group {
+            position: absolute;
+            width: 25rem;
+            height: 25rem;
+            background: rgb(0, 0, 0);
+            opacity: .7;
+            z-index: 3;
+            display: none;
+
+            svg {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              color: #fff;
+              font-size: 35px;
+              transform: translate(-50%, -50%);
             }
           }
-          .info_card {
-            width         : 60%;
-            display       : flex;
-            flex-direction: column;
-            padding       : 0 30px 30px 0;
-            
-           
-          }
         }
       }
 
-      .input_group {
-        display       : flex;
+      .info_card {
+        width: 60%;
+        display: flex;
         flex-direction: column;
-        gap           : 10px;
-        margin-top    : 20px;
+        padding: 0 30px 30px 0;
 
-        label {
-          font-size: 16px;
-          color    : var(--text-1);
-        }
-        input {
-          width           : 100%;
-          padding         : 12px 18px;
-          font-size       : 16px;
-          font-family     : inherit;
-          box-shadow      : 0 0 0 1px #b9ceff;
-          border          : none;
-          border-radius   : 25px;
-          background-color: #fff;
-          transition      : all 0.3s;
-          color           : #3e3e3e;
-          &.is-invalid{
-            border: 2px solid red;
-          }
-        }
-  
-        input::placeholder {
-          color    : #82b0fb;
-          font-size: 14px;
-        }
-  
-        input:focus {
-          outline   : none;
-          box-shadow: 0 0 10px 1px #346ffa;
-          border    : none;
-          transition: all 0.3s;
-        }
-        .input_group_pass {
-          position: relative;
 
-          svg {
-            position : absolute;
-            top      : 35%;
-            right    : 3%;
-            font-size: 15px;
-          }
-        }
       }
-      form {
-        padding: 0 100px;
-        width          : 62%;
-        height         : 100%;
-        display        : flex;
-        flex-direction : column;
-        justify-content: center;
-      }
-
-     
-      button {
-        background-color: #5498ff;
-        width           : 50%;
-        margin          : 20px auto;
-        padding         : 20px;
-        font-size       : 18px;
-        display         : flex;
-        justify-content : center;
-        box-shadow      : inset 1px 1px 0.12px rgba(255, 255, 255, 0.4);
-        color           : var(--bg-white);
-        border-radius: 5px;
-
-        &:hover {
-          opacity: 0.8;
-        }
-      }
+    }
   }
+
+  .input_group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+
+    label {
+      font-size: 16px;
+      color: var(--text-1);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 18px;
+      font-size: 16px;
+      font-family: inherit;
+      box-shadow: 0 0 0 1px #b9ceff;
+      border: none;
+      border-radius: 25px;
+      background-color: #fff;
+      transition: all 0.3s;
+      color: #3e3e3e;
+
+      &.is-invalid {
+        border: 2px solid red;
+      }
+    }
+
+    input::placeholder {
+      color: #82b0fb;
+      font-size: 14px;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 10px 1px #346ffa;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .input_group_pass {
+      position: relative;
+
+      svg {
+        position: absolute;
+        top: 35%;
+        right: 3%;
+        font-size: 15px;
+      }
+    }
+  }
+
+  form {
+    padding: 0 100px;
+    width: 62%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+
+  button {
+    background-color: #5498ff;
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4);
+    color: var(--bg-white);
+    border-radius: 5px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile_page { 
+    .info_card_ctn {
+      .main {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        .avt_main{
+          width: 90%;
+          .avt-container{
+            top: 0;
+            .avt-img{
+              height: 100%;
+            }
+          }
+        }
+        .info_card{
+          width: 100%;
+          padding: 0;
+        }
+      }
+    }
+    form {
+      padding: 0;
+      width: 100%;
+    }
+  }
+
+}
