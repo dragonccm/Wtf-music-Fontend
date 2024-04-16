@@ -58,7 +58,7 @@ const Rating = () => {
                   {data.items.slice(0, 5).map((data, innerIndex) => (
                     <div className="week_rating_card" key={'haha' + innerIndex}>
                       <div className="current_rank">
-                        <p>{index + 1}</p>
+                        <p>{innerIndex + 1}</p>
                         {data.rakingStatus !== 0 ?
                           (<div className="go_to">
                             {data.rakingStatus > 0 ?

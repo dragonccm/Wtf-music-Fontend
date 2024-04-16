@@ -15,23 +15,15 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
     const dispatch = useDispatch();
-
-    const currData = useSelector((state) => state.inforUser);
-    // if(currData){
-    //     console.log("cardd",currData.userInfo);
-    // }
+    const currData = useSelector((state) => state.Authentication);
     const handleAdd = (id) => {
+        let username
+        if (currData) {
+            username = currData.defaultUser.account.username;
+        }
         dispatch(postPlayList({
-            playlistname: "BETA",
-            genresid: [
-                "sds"
-            ],
-            artistsId: [],
-            thumbnail: "https://photo-resize-zmp3.zmdcdn.me/w320_r1x1_jpeg/cover/b/8/5/8/b8584bc83639545a57be947b1cbd35f2.jpg",
-            description: 'thuwr',
-            songid: [
-                id
-            ]
+            user: username,
+            playlist: id
         }
         ));
     }
@@ -54,7 +46,7 @@ const Card = ({ playlist }) => {
                         />
                         <div className="img_overlay">
                             <div className="img_overlay_group_btn">
-                                <FontAwesomeIcon icon={faHeart} onClick={()=>handleAdd(playlist.encodeId)}/>
+                                <FontAwesomeIcon icon={faHeart} onClick={() => handleAdd(playlist.encodeId)} />
                                 {/* <button
                                     onClick={() => handleChangeData(item)}
                                 >

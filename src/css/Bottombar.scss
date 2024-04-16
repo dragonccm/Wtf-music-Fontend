@@ -815,11 +815,18 @@
 
 
 
+                            &.active{
+                                display: block !important;
+                                display: flex !important;
+                                flex-direction: column;
+                                justify-content: flex-end;
+                                align-items: center;
+                                padding-bottom: 3px;
+                            }
                             svg {
                                 font-size: 16px;
                                 color    : #fff;
                             }
-
 
                         }
                     }
@@ -859,5 +866,43 @@
                 }
             }
         }
+    }
+}
+@media screen and (max-width: 600px) {
+    .rhap_main{
+        .rhap_progress-section {
+            display: none;
+        }
+    }
+    .main_bottom_bar{
+        position: fixed;
+        bottom: 5.5rem;
+        height: auto;
+        flex-direction: column;
+        width: 100%;
+        padding: 0 10px;
+        .player_info{
+            width: 100%;
+            .player_info_ctn{
+                .name{
+                    padding: 0;
+                }
+                .img{
+                    width: 50px;
+                    height: 50px;
+                    img{
+                        border-radius: 50%;
+                    }
+                }
+            } 
+        }
+        .player_main{
+            width: 100%;
+            display: none;
+        }
+        .player_more{
+            display: none;
+        }
+
     }
 }

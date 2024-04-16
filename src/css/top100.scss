@@ -37,3 +37,16 @@
     margin: 2rem 0 4rem;
   }
 }
+@media screen and (max-width: 600px) {
+  .top100_main {
+    .main_banner{
+      height: 15rem;
+      span{
+        letter-spacing: 23px;
+      }
+      svg{
+        width: 30rem;
+      }
+    }
+  }
+}

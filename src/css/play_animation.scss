@@ -1,0 +1,110 @@
+.playing {
+
+
+    .playing {
+        width: 10rem;
+    }
+
+    // .playing:after {
+    //     content: "Now Playing.";
+    //     display: block;
+    //     width: 100%;
+    //     margin-top: 10px;
+    // }
+
+    .now.playing {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        opacity: 0.7;
+        .bar {
+            display: inline-block;
+            position: relative;
+            margin-right: 1px;
+            width: 7px;
+            height: 1px;
+            overflow: hidden;
+            background: linear-gradient(to bottom, var(--main-color), #54abfd);
+            color: transparent;
+            animation-name: pulse;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+
+        }
+    }
+
+    .paused.playing {
+        .bar {
+            animation-iteration-count: 1;
+        }
+    }
+
+    .paused.playing:after {
+        content: "Paused (Lame)"
+    }
+
+    .n1 {
+        animation-delay: 0.5s;
+    }
+
+    .n2 {
+        animation-delay: 0.2s;
+    }
+
+    .n3 {
+        animation-delay: 2.3s;
+    }
+
+    .n4 {
+        animation-delay: 0.9s;
+    }
+
+    .n5 {
+        animation-delay: 2.3s;
+    }
+
+    .n6 {
+        animation-delay: 1.3s;
+    }
+
+    .n7 {
+        animation-delay: 3.1s;
+    }
+
+    .n8 {
+        animation-delay: 1.9s;
+    }
+
+    @keyframes pulse {
+        0% {
+            height: 1px;
+            margin-top: 0;
+        }
+
+        10% {
+            height: 25px;
+            margin-top: -25px;
+        }
+
+        50% {
+            height: 5px;
+            margin-top: -5px;
+        }
+
+        60% {
+            height: 15px;
+            margin-top: -15px;
+        }
+
+        80% {
+            height: 35px;
+            margin-top: -35px;
+        }
+
+        100% {
+            height: 1px;
+            margin-top: 0;
+        }
+    }
+
+}

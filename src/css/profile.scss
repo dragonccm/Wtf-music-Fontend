@@ -159,7 +159,21 @@
 }
 
 @media screen and (max-width: 600px) {
-  .profile_container {
+  .collapse:not(.show){
+    display: block !important;
+  }
+  .profile_container { 
+    .mylist_page{
+      padding: 30px 15px;
+      align-items: center;
+      width: 100% !important;
+    }
+    .profile_bar{
+       .list_nav_pr{
+        display: flex;
+        flex-direction: row;
+       }
+      }
     .profile_content {
       padding: 0;
       margin : 0;
@@ -170,6 +184,7 @@
         .collapse {
           .navbar-nav {
             .list_nav_item_pr {
+              
               span {
                 display: none !important;
               }
@@ -186,5 +201,37 @@
         }
       }
     }
+
+    .profile_content{
+      .list_container{
+        .card_container{
+          overflow: unset;
+          flex-wrap: wrap;
+          .card_item{
+            width: 40%;
+            height: auto;
+          }
+        }
+      }
+      .like_song{
+        .history_ctn{
+          .full_list{
+            .song_card2{
+              padding: 10px 0;
+              .song_img{
+                margin: 0 1rem;
+              }
+              .song_img_ctn{
+                .row_order{
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
+
+
 }

@@ -33,6 +33,7 @@ import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg";
 import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import Play_animation from "../../components/card/play_animation"
 
 Modal.setAppElement("#root");
 const Bottombar = () => {
@@ -46,7 +47,7 @@ const Bottombar = () => {
 
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
- 
+
   const songInfo = useSelector((state) => state.getSongData.inforSong);
 
   if (
@@ -339,13 +340,14 @@ const Bottombar = () => {
     oldtime = currentTime
   }
   return (
-    isPlaying && songInfo.isLoading === false && songInfo.isError === false &&  (
+    isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
       <div className="main_bottom_bar">
         <div className="player_info">
           <div className="player_info_ctn">
             <div className="img">
               <img src={songInfo.infor.img} alt="f" />
             </div>
+
             <div className="name">
               <div className="name_ctn">
                 <h5>
@@ -433,7 +435,7 @@ const Bottombar = () => {
                       <div className="item">
                         <h5>Sáng tác</h5>
                         <div className="content">
-                          {<a href={"/artists/" + songInfo.infor.composers.length>0?songInfo.infor.composers[0].alias : 'nô'} >{songInfo.infor.composers.length>0?songInfo.infor.composers[0].name:''}</a>}
+                          {<a href={"/artists/" + songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'nô'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : ''}</a>}
                         </div>
                       </div>
                       <div className="item">
@@ -569,8 +571,8 @@ const Bottombar = () => {
                               <div className="lyric">
                                 <ul className="scroll-content">
 
-                                  {haha.map((sentence,index) => {
-                                    return <li className="item" key={'haha'+index}>{sentence.data}</li>;
+                                  {haha.map((sentence, index) => {
+                                    return <li className="item" key={'haha' + index}>{sentence.data}</li>;
                                   })}
                                 </ul>
                               </div>
@@ -594,12 +596,13 @@ const Bottombar = () => {
             </div>
           </div>
         </div>
+
         <div className="player_main">
           <AudioPlayer
             ref={playerRef}
             volume={volume}
             loop={loop}
-            autoPlay = {isPlaying}
+            autoPlay={isPlaying}
             onVolumeChange={handleVolumeChange}
             onListen={handleListen}
             onPause={handleStop}
@@ -690,14 +693,15 @@ const Bottombar = () => {
                             src="https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg"
                             alt="avt"
                           />
-                          <div className="img_overlay">
+                          <div className="img_overlay active">
                             <div className="img_overlay_group_btn">
-                              <div className="nav-link list_nav_item">
-                                <FontAwesomeIcon
+                              <div className="nav-link list_nav_item ">
+                                {/* <FontAwesomeIcon
                                   icon={
                                     faPlay
                                   }
-                                />
+                                /> */}
+                                <Play_animation />
                               </div>
                             </div>
                           </div>

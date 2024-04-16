@@ -20,6 +20,7 @@
 .card_container {
   display: flex;
   gap: 30px;
+
 }
 .playlist_name {
   width: 200px;
@@ -46,5 +47,8 @@
 @media screen and (max-width: 600px) {
   .card_container {
     overflow-x: auto;
+    .card_item{
+      width: 50%;
+    }
   }
 }
