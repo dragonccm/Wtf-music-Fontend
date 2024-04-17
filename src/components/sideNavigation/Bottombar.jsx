@@ -838,8 +838,6 @@ const Bottombar = () => {
               <div class="time-picker">
                 <div class="time-input">
                   <div class="control"><input class="input is-primary" type="text" value="02" />
-                  </div>
-                  <span class="label">giờ</span>
                   <div class="time-options">
                     <div class="option">00 giờ</div>
                     <div class="option">01 giờ</div>
@@ -850,6 +848,8 @@ const Bottombar = () => {
                     <div class="option">09 giờ</div><div class="option">10 giờ</div>
                     <div class="option">11 giờ</div><div class="option">12 giờ</div>
                   </div>
+                  </div>
+                  <span class="label">giờ</span>
                 </div>
                 <div class="dot">:</div>
                 <div class="time-input">
