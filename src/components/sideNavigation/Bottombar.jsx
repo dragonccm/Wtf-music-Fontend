@@ -40,9 +40,71 @@ const Bottombar = () => {
   const [isFullScreen, SetIsFullScreen] = useState(false);
   const [animationActive, setAnimationActive] = useState(true);
   const [playing, setPlaying] = useState(false);
-  const [animationPlaylistActive, setAnimationPlaylistActive] =
-    useState(true);
+
+  const [timer, setTimer] = useState(0)
+  const [outTime, setOutTime] = useState(0)
+  const [isActive, setIsActive] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+  const countRef = useRef(null)
+  const [animationPlaylistActive, setAnimationPlaylistActive] = useState(true);
   const playerRef = useRef();
+  const handleStart = () => {
+    setIsActive(true)
+    setIsPaused(true)
+    countRef.current = setInterval(() => {
+      setTimer((timer) => timer + 1)
+    }, 1000)
+  }
+  useEffect(() => {
+    console.log(timer);
+    console.log(outTime);
+    if (timer === Number(outTime)) {
+      handlePause()
+      setPlaying(false)
+      if (playerRef.current && playerRef.current.audio.current) {
+        playerRef.current.audio.current.pause();
+      }
+
+    }
+  }, [timer, outTime]);
+  const handlePause = () => {
+    clearInterval(countRef.current)
+    setIsPaused(false)
+  }
+  const handleResume = () => {
+    setIsPaused(true)
+    countRef.current = setInterval(() => {
+      setTimer((timer) => timer + 1)
+      console.log(timer + 1)
+    }, 1000)
+  }
+  const handleReset = () => {
+    clearInterval(countRef.current)
+    setIsActive(false)
+    setIsPaused(false)
+    setTimer(0)
+  }
+  const getSeconds = `0${(timer % 60)}`.slice(-2)
+
+  const minutes = `${Math.floor(timer / 60)}`
+  const getMinutes = `0${minutes % 60}`.slice(-2)
+
+  const getHours = `0${Math.floor(timer / 3600)}`.slice(-2)
+  const formatTime = () => {
+    const getSeconds = `0${(timer % 60)}`.slice(-2)
+    const minutes = `${Math.floor(timer / 60)}`
+    const getMinutes = `0${minutes % 60}`.slice(-2)
+    const getHours = `0${Math.floor(timer / 3600)}`.slice(-2)
+
+    return `${getHours} : ${getMinutes} : ${getSeconds}`
+  }
+  const handleStopTimeChange = (event) => {
+    setOutTime(event.target.value);
+    console.log(outTime);
+    // clearTimeout(countdownTimeout); // Dừng hẹn giờ hiện tại
+    // setStopTime(newStopTime);
+  };
+
 
 
   let haha = [];
@@ -529,7 +591,8 @@ const Bottombar = () => {
             ref={playerRef}
             volume={volume}
             loop={loop}
-            autoPlay={isPlaying}
+            // autoPlay={isPlaying}
+            autoPlay={playing}
             onVolumeChange={handleVolumeChange}
             onListen={handleListen}
             onPause={handleStop}
@@ -602,7 +665,7 @@ const Bottombar = () => {
           >
             <div className="Modal_playlist_header">
               <h3>Danh sách phát</h3>
-              <div className="time" onClick={()=>openModalTime()}>
+              <div className="time" onClick={() => openModalTime()}>
                 <FontAwesomeIcon icon={faClock} />
               </div>
             </div>
@@ -756,14 +819,65 @@ const Bottombar = () => {
           onRequestClose={openModalFull}
           // style={customStyles}
           className="Modal_time"
-          overlayClassName= "Overlay_time"
+          overlayClassName="Overlay_time"
           shouldCloseOnOverlayClick={false}
 
         >
           <div className="timeout">
             haha
             <button onClick={closeModalTime}>close</button>
-            <input type="time" value="13:30"/>
+            <div className='stopwatch-card'>
+              <input
+                type="number"
+                min="1"
+                max="60"
+                step="1"
+                value={outTime}
+                onChange={handleStopTimeChange}
+              />
+              <div class="time-picker">
+                <div class="time-input">
+                  <div class="control"><input class="input is-primary" type="text" value="02" />
+                  </div>
+                  <span class="label">giờ</span>
+                  <div class="time-options">
+                    <div class="option">00 giờ</div>
+                    <div class="option">01 giờ</div>
+                    <div class="option active">02 giờ</div>
+                    <div class="option">03 giờ</div><div class="option">04 giờ</div>
+                    <div class="option">05 giờ</div><div class="option">06 giờ</div>
+                    <div class="option">07 giờ</div><div class="option">08 giờ</div>
+                    <div class="option">09 giờ</div><div class="option">10 giờ</div>
+                    <div class="option">11 giờ</div><div class="option">12 giờ</div>
+                  </div>
+                </div>
+                <div class="dot">:</div>
+                <div class="time-input">
+                  <div class="control"><input class="input is-primary" type="text" value="00" />
+                  </div><span class="label">phút</span>
+                  <div class="time-options"><div class="option active">00 phút</div>
+                    <div class="option">05 phút</div>
+                    <div class="option">10 phút</div><div class="option">15 phút</div>
+                    <div class="option">20 phút</div><div class="option">25 phút</div>
+                    <div class="option">30 phút</div><div class="option">35 phút</div>
+                    <div class="option">40 phút</div><div class="option">45 phút</div>
+                    <div class="option">50 phút</div><div class="option">55 phút</div>
+                  </div>
+                </div>
+              </div>
+              <div className='buttons'>
+                {
+                  !isActive && !isPaused ?
+                    <button onClick={handleStart}>Start</button>
+                    : (
+                      isPaused ? <button onClick={handlePause}>Pause</button> :
+                        <button onClick={handleResume}>Resume</button>
+                    )
+                }
+                <button onClick={handleReset} disabled={!isActive}>Reset</button>
+                <button onClick={handleStart} >OK</button>
+              </div>
+            </div>
           </div>
         </Modal>
       </div>
