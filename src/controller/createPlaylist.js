@@ -1,7 +1,7 @@
 // controller/SongController.js
 import axios from "../setup/axios";
-const addPlayList = async (data) => {
-    await axios.post(`/api/addnewplaylist`, {
+const createplaylist = async (data) => {
+    await axios.post(`/api/createplaylist`, {
         data:data
     }, {
         headers: {
@@ -10,5 +10,5 @@ const addPlayList = async (data) => {
     });
 }
 export {
-    addPlayList
+    createplaylist
 }

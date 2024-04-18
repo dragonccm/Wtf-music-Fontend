@@ -1,32 +1,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addPlayListService } from "../../services/addPlaylistService";
+import { createplaylistService } from "../../services/createplaylistService";
 
-export const postPlayList = createAsyncThunk("newplaylist/createplaylist", async (data) => {
-    const response = await addPlayListService(data);
+export const createPl = createAsyncThunk("newPlaylist/createPlaylist", async (data) => {
+    const response = await createplaylistService(data);
     return response
 });
 const initialState = {
-    newplaylist: {},
+    newPlaylist: {},
     isLoading: false,
     isError: false,
 };
 
-export const createplaylistslice = createSlice({
-    name: "newplaylist",
+export const creataPlSlice = createSlice({
+    name: "newPlaylist",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(postPlayList.pending, (state, action) => {
+            .addCase(createPl.pending, (state, action) => {
                 state.isLoading = true;
                 state.isError = false;
             })
-            .addCase(postPlayList.fulfilled, (state, action) => {
-                state.newplaylist = action.payload;
+            .addCase(createPl.fulfilled, (state, action) => {
+                state.newPlaylist = action.payload;
                 state.isLoading = false;
                 state.isError = false;
             })
-            .addCase(postPlayList.rejected, (state, action) => {
+            .addCase(createPl.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
             });
@@ -35,4 +35,4 @@ export const createplaylistslice = createSlice({
 
 // Action creators are generated for each case reducer function
 
-export default createplaylistslice.reducer;
+export default creataPlSlice.reducer;

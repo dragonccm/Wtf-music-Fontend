@@ -10,7 +10,7 @@ import 'reactjs-popup/dist/index.css';
 
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
-import { postPlayList } from '../../redux/slide/createPlayList'
+import { postLike } from '../../redux/slide/addLikeSlice'
 import { useSelector, useDispatch } from "react-redux";
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
@@ -21,7 +21,7 @@ const Card = ({ playlist }) => {
         if (currData) {
             username = currData.defaultUser.account.username;
         }
-        dispatch(postPlayList({
+        dispatch(postLike({
             user: username,
             playlist: id
         }

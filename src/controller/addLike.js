@@ -1,7 +1,7 @@
 // controller/SongController.js
 import axios from "../setup/axios";
-const addLikes = async (data) => {
-    await axios.post(`/api/addLikes`, {
+const addLike = async (data) => {
+    await axios.post(`/api/addlike`, {
         data:data
     }, {
         headers: {
@@ -10,5 +10,5 @@ const addLikes = async (data) => {
     });
 }
 export {
-    addLikes
+    addLike
 }

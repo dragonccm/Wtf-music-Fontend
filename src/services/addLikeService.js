@@ -1,7 +1,7 @@
-import { addLikes } from '../controller/addLikes';
-const addLikesService = async (data) => {
+import { addLike } from "../controller/addLike"
+const addLikeService = async (data) => {
     try {
-        const datas = await addLikes(data)
+        const datas = await addLike(data)
         return datas
     } catch (error) {
         console.error("Error loading adminHome data:", error);
@@ -10,5 +10,5 @@ const addLikesService = async (data) => {
 }; 
 
 export {
-    addLikesService
+    addLikeService
 }

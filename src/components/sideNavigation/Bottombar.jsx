@@ -7,6 +7,11 @@ import "react-h5-audio-player/lib/styles.css";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createPl } from '../../redux/slide/createplaylistSlice'
+import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+
 import {
   faPlay,
   faEllipsis,
@@ -31,12 +36,14 @@ import {
 import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg";
 import icon_mic from "../../img/karaoke-svgrepo-com.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Play_animation from "../../components/card/play_animation"
 
 Modal.setAppElement("#root");
 const Bottombar = () => {
+  const [playlistName, setPlaylistName] = useState('');
+
   const [isFullScreen, SetIsFullScreen] = useState(false);
   const [animationActive, setAnimationActive] = useState(true);
   const [playing, setPlaying] = useState(false);
@@ -48,6 +55,8 @@ const Bottombar = () => {
   const countRef = useRef(null)
   const [animationPlaylistActive, setAnimationPlaylistActive] = useState(true);
   const playerRef = useRef();
+  const dispatch = useDispatch();
+
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   const minutesOptions = Array.from({ length: 60 }, (_, i) => i + 1);
   const secondsOptions = Array.from({ length: 60 }, (_, i) => i + 1);
@@ -355,8 +364,8 @@ const Bottombar = () => {
 
   const handleTimeUpdate = (e) => {
     if (!isTimeUpdated) {
-      e.target.currentTime = localStorage.getItem('duration');
-      e.target.volume = localStorage.getItem('volume');
+      e.target.currentTime = localStorage.getItem('duration') || 0;
+      e.target.volume = localStorage.getItem('volume') || 0.5;
       // e.target.loop = localStorage.getItem('loop');
       setTimeUpdated(true);
     }
@@ -449,7 +458,42 @@ const Bottombar = () => {
     oldtime = currentTime
   }
 
+  // create playlist 
+  const [loading, setLoading] = useState(true);
 
+  const currData = useSelector((state) => state.Authentication);
+  const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
+  const usernames = currData.defaultUser.account.username;
+  useEffect(() => {
+    dispatch(getUserPl({
+      userId: usernames,
+    })).then(() => setLoading(false));
+  }, [dispatch])
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+
+    let username = '';
+    if (currData) {
+      username = currData.defaultUser.account.username;
+    }
+
+    dispatch(createPl({
+      user: username,
+      playlistname: playlistName
+    }));
+
+    // Reset form input
+    setPlaylistName('');
+  }
+  const handleInputChange = (e) => {
+    setPlaylistName(e.target.value);
+  }
+
+
+  if (loading) {
+    return <div>load</div>;
+  }
   return (
     isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
       <div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justify-content': 'center' } : { 'background': 'var(--bg-player)', 'justify-content': 'unset' }}>
@@ -601,7 +645,7 @@ const Bottombar = () => {
                       </div>
                     </div>
                     <div className="r_click_list">
-                      <div className="r_click_list_item add-playlist">
+                      {/* <div className="r_click_list_item add-playlist" >
                         <FontAwesomeIcon icon={faCirclePlus} />
                         Thêm vào playlist
                         <div className="playlist-content">
@@ -614,26 +658,55 @@ const Bottombar = () => {
                             />
                             <span>Playlist 1</span>
                           </div>
-                          <div className="item">
-                            <ReactSVG
-                              beforeInjection={(svg) => {
-                                svg.classList.add("icon_list_nav_item_svg");
-                              }}
-                              src={icon_playlist}
-                            />
-                            <span>Playlist 1</span>
-                          </div>
-                          <div className="item">
-                            <ReactSVG
-                              beforeInjection={(svg) => {
-                                svg.classList.add("icon_list_nav_item_svg");
-                              }}
-                              src={icon_playlist}
-                            />
-                            <span>Playlist 1</span>
-                          </div>
                         </div>
-                      </div>
+                      </div> */}
+
+                      <Popup
+                        trigger={
+                          <div className="r_click_list_item add-playlist" >
+                            <FontAwesomeIcon icon={faCirclePlus} />
+                            Thêm vào playlist
+                          </div>
+                        }
+                        position="right top"
+                        on="hover"
+                        closeOnDocumentClick
+                        mouseLeaveDelay={300}
+                        mouseEnterDelay={0}
+                        contentStyle={{ padding: "0", border: "none" }}
+                        arrow={false}
+                      >
+                        <div className="menu-plalist">
+                          {/* {loading ? (<button className="menu-item">chưa có </button>) : (userPlaylist.map((data) => <button className="menu-item">{data.playlistname}</button>))} */}
+
+                          <Popup
+                            trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
+                            modal
+                            nested
+                          >
+                            {close => (
+                              <div className="modal-body">
+                                <form onSubmit={handleCreate}>
+                                  <div className="mb-3">
+                                    <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      id="exampleInputEmail1"
+                                      aria-describedby="emailHelp"
+                                      value={playlistName}
+                                      onChange={handleInputChange}
+                                    />
+                                  </div>
+                                  <button type="submit" className="btn btn-primary">Submit</button>
+                                </form>
+                              </div>
+                            )}
+                          </Popup>
+
+
+                        </div>
+                      </Popup>
                       <div className="r_click_list_item" onClick={openModalFull}>
                         <ReactSVG
                           beforeInjection={(svg) => {
@@ -909,6 +982,20 @@ const Bottombar = () => {
                 step="1"
                 value={outTime}
                 onChange={handleStopTimeChange}
+              />
+              <div class="time-picker">
+                <div class="time-input">
+                  <div class="control"><input class="input is-primary" type="text" value="02" />
+                    <div class="time-options">
+                      <div class="option">00 giờ</div>
+                      <div class="option">01 giờ</div>
+                      <div class="option active">02 giờ</div>
+                      <div class="option">03 giờ</div><div class="option">04 giờ</div>
+                      <div class="option">05 giờ</div><div class="option">06 giờ</div>
+                      <div class="option">07 giờ</div><div class="option">08 giờ</div>
+                      <div class="option">09 giờ</div><div class="option">10 giờ</div>
+                      <div class="option">11 giờ</div><div class="option">12 giờ</div>
+                    </div>
               /> */}
               <div class="time-picker" >
                 <div class="time-input" onClick={()=>setIsActiveHours(true)}>

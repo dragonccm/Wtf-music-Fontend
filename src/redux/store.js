@@ -11,7 +11,9 @@ import AdminHomeReducer from './slide/adminHomeSlice'
 import AuthenticationRedecer from './slide/AuthenticationSlice'
 import ArtistReducer from './slide/artistSlice'
 import getSongDataReducer from './slide/songPlayingSlice'
-import createplaylistReducer from './slide/createPlayList'
+import addLikeReducer from './slide/addLikeSlice'
+import creataPlReducer from './slide/addLikeSlice'
+import getUserPlReducer from './slide/getUserPlaylistSlice'
 import AdminSongReducer from './slide/adminSongSlice'
 
 export const store = configureStore({
@@ -26,8 +28,10 @@ export const store = configureStore({
     Authentication:AuthenticationRedecer,
     Artist: ArtistReducer,
     getSongData:getSongDataReducer,
-    createPlayList: createplaylistReducer,
+    addLike: addLikeReducer,
     inforUser:InforUserReducer,
-    adminsong:AdminSongReducer
+    adminsong:AdminSongReducer,
+    creataPl:creataPlReducer,
+    getUserPl:getUserPlReducer
   },
 })
