@@ -475,10 +475,31 @@
                 height: 18px;
                 fill: var(--text-1);
             }
+            
         }
     }
 }
-
+#popup-root{
+    .popup-content {
+        background-color: transparent;
+        border: none;
+        .modal-body{
+            form{
+                padding: 3rem;
+                border-radius: 1rem;
+                width: 40rem;
+                height: 20rem;
+                background-color: var(--bg-white);
+                .mb-3{
+                    .form-label{
+                        color: var(--footer-text);
+                        font-size: 3rem;
+                    }
+                }
+            }
+        }
+    }
+}
 .Overlay {
     position: fixed;
     inset: 0px;

@@ -91,7 +91,7 @@ const Playlistpage = () => {
                   </button>
                 }
                 position="top center"
-                nested
+                on="hover"
                 closeOnDocumentClick
                 mouseLeaveDelay={300}
                 mouseEnterDelay={0}
