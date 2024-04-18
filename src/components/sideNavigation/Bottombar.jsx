@@ -57,30 +57,30 @@ const Bottombar = () => {
   const [isActivehours, setIsActiveHours] = useState(false)
   const [isActiveminutes, setIsActiveMinutes] = useState(false)
   const [isActivesecond, setIsActiveSecond] = useState(false)
-  const handleStart = () => {
+  const handleStart = (a) => {
+    console.log('Start time')
     setIsActive(true)
     setIsPaused(true)
     let currTime
-    if (localStorage.getItem('timeout')) {
-       currTime =localStorage.getItem('timeout')
-    } else {
-      
-      currTime = Number(hours)*60*60 + Number(minutes)*60 + Number(second)
-    }
-    setOutTime(currTime)
-    countRef.current = setInterval(() => {
-      setTimer((timer) => timer + 1)
-    }, 1000)
+    if (a === 'new') {
+       currTime = Number(hours)*60*60 + Number(minutes)*60 + Number(second)
+      setOutTime(currTime)
+    } 
+    if (currTime !== 0) {
+      countRef.current = setInterval(() => {
+        setTimer((timer) => timer + 1)
+      }, 1000)
+   }
   }
   useEffect(() => {
     console.log(timer);
     console.log(outTime);
-    if (Number(outTime) - Number(timer) !== 0) {
+    if (Number(outTime) - Number(timer) > 0 ) {
       
       localStorage.setItem('timeout',  Number(outTime) - Number(timer) )
     }
 
-    if (timer === Number(outTime)) {
+    if (Number(timer) === Number(outTime)) {
       console.log('ooooooooooo')
       handlePause()
       setPlaying(false)
@@ -94,8 +94,11 @@ const Bottombar = () => {
     }
   }, [timer, outTime]);
   useEffect(() => {
-    if (localStorage.getItem('timeout')) {
-      setOutTime(localStorage.getItem('timeout'))
+    if (Number(localStorage.getItem('timeout')) > 0) {
+      console.log('Timeout : ' + Number(localStorage.getItem('timeout')))
+      const timeout = Number(localStorage.getItem('timeout'))
+      setOutTime(timeout)
+      console.log(outTime)
       handleStart()
     }
    },[])
@@ -116,6 +119,7 @@ const Bottombar = () => {
     setIsActive(false)
     setIsPaused(false)
     setTimer(0)
+    setOutTime(0)
     setHours(0)
     setMinutes(0)
     setSecond(0)
@@ -129,6 +133,16 @@ const Bottombar = () => {
     // clearTimeout(countdownTimeout); // Dừng hẹn giờ hiện tại
     // setStopTime(newStopTime);
   };
+
+
+  const formatTime = () => {
+    const getSeconds = `0${((Number(outTime) - Number(timer)) % 60)}`.slice(-2)
+    const minutes = `${Math.floor((Number(outTime) - Number(timer)) / 60)}`
+    const getMinutes = `0${minutes % 60}`.slice(-2)
+    const getHours = `0${Math.floor((Number(outTime) - Number(timer)) / 3600)}`.slice(-2)
+
+    return `${getHours} : ${getMinutes} : ${getSeconds}`
+  }
 
   const handleSetHours = (e) => {
     if (parseInt(e.target.value) > 12) {
@@ -958,6 +972,7 @@ const Bottombar = () => {
 
                 </div>
               </div>
+              <p>{formatTime()}</p>
               <div className='buttons'>
                 {/* {
                   !isActive && !isPaused ?
@@ -968,7 +983,7 @@ const Bottombar = () => {
                     )
                 }*/}
                 <button onClick={()=>handleReset()} disabled={!isActive}>Reset</button> 
-                <button onClick={()=>handleStart()} >Lưu</button>
+                <button onClick={()=>handleStart('new')} >Lưu</button>
               </div>
             <button onClick={closeModalTime}>Huỷ</button>
 
