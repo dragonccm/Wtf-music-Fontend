@@ -882,55 +882,69 @@
     .Modal_time {
         position: absolute;
         top: 50%;
-        right: 10%;
+        right: 24%;
         transform: translate(-50%, -50%);
         background-color: var(--bg-player);
-        width: 300px;
+        width: 400px;
         height: 300px;
         padding: 10px;
+        border-radius: 10px;
 
         .timeout {
+            height: -webkit-fill-available;
+            h3{
+                text-align: center;
+                color: var(--text-1);
+                margin: 20px 0;
+            }
             p {
                 font-size: 28px;
             }
 
             .stopwatch-card {
-                position: absolute;
                 text-align: center;
-                background-color: white;
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-                width: 325px;
+              
                 height: 130px;
-                top: 110px;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                
             }
 
-            button {
+            button{
                 outline: none;
-                background: transparent;
-                border: 1px solid blue;
-                padding: 5px 10px;
-                border-radius: 7px;
-                color: blue;
-                cursor: pointer;
-            }
+                    background: transparent;
+                    border: 1px solid blue;
+                    padding: 5px 80px;
+                    border-radius: 20px;
+                    font-size: 16px;
 
+                    color: blue;
+                    cursor: pointer;
+            }
             .buttons {
                 display: flex;
                 justify-content: space-evenly;
                 width: 150px;
-                margin: 0 auto;
-                margin-top: 5px;
+                margin: 20px auto;
+                button {
+                    outline: none;
+                    background: transparent;
+                    border: 1px solid blue;
+                    background-color: #257eff;
+                    padding: 5px 80px;
+                    color: #fff;
+                    font-size: 16px;
+                    cursor: pointer;
+                    border-radius: 20px;
+                }
             }
 
             .time-picker {
                 display: flex;
                 justify-content: space-around;
+                align-items: center;
                 padding: 15px 19px 20px 20px;
                 border-radius: 8px;
                 background-color: hsl(0deg 0% 100% / 10%);
-
+                color: #fff;
                 .time-input {
                     display: flex;
                     align-items: center;
@@ -946,6 +960,7 @@
 
                         input {
                             border: none;
+                            outline: none;
                             font-size: 34px;
                             padding: 0;
                             height: 40px;
@@ -957,13 +972,13 @@
                             align-items: center;
                             box-shadow: none;
                             display: inline-flex;
-
-                            &:focus {
-                                ~.time-options{
-                                    display: block;
-                                }
-
+                            color: #fff;
+                            background-color: transparent;
+                            &::-webkit-outer-spin-button, &::-webkit-inner-spin-button{
+                                -webkit-appearance: none;
+                                margin: 0;
                             }
+                         
                         }
                     }
 
@@ -974,8 +989,8 @@
                     .time-options {
                         display: none;
                         position: absolute;
-                        width: 100%;
-                        height: 125px;
+                        width: 150%;
+                        height: 145px;
                         box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
                         top: calc(100% + 8px);
                         background-color: #203d65;
@@ -983,11 +998,19 @@
                         z-index: 1;
                         border-radius: 5px;
                         text-align: center;
+                        font-size: 16px;
+                        &.active{
+                            display: block;
+                        }
                         .option{
                             padding: 6px 0;
                             cursor: default;
                             &:hover{
                                 background-color: hsl(0deg 0% 100% / 10%);
+                            }
+                            &.active{
+                                background-color: hsl(0deg 0% 100% / 10%);
+
                             }
                         }
                     }

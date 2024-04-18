@@ -48,9 +48,26 @@ const Bottombar = () => {
   const countRef = useRef(null)
   const [animationPlaylistActive, setAnimationPlaylistActive] = useState(true);
   const playerRef = useRef();
+  const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  const minutesOptions = Array.from({ length: 60 }, (_, i) => i + 1);
+  const secondsOptions = Array.from({ length: 60 }, (_, i) => i + 1);
+  const [hours, setHours] = useState(0)
+  const [minutes, setMinutes] = useState(0)
+  const [second, setSecond] = useState(0)
+  const [isActivehours, setIsActiveHours] = useState(false)
+  const [isActiveminutes, setIsActiveMinutes] = useState(false)
+  const [isActivesecond, setIsActiveSecond] = useState(false)
   const handleStart = () => {
     setIsActive(true)
     setIsPaused(true)
+    let currTime
+    if (localStorage.getItem('timeout')) {
+       currTime =localStorage.getItem('timeout')
+    } else {
+      
+      currTime = Number(hours)*60*60 + Number(minutes)*60 + Number(second)
+    }
+    setOutTime(currTime)
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1)
     }, 1000)
@@ -58,15 +75,30 @@ const Bottombar = () => {
   useEffect(() => {
     console.log(timer);
     console.log(outTime);
+    if (Number(outTime) - Number(timer) !== 0) {
+      
+      localStorage.setItem('timeout',  Number(outTime) - Number(timer) )
+    }
+
     if (timer === Number(outTime)) {
+      console.log('ooooooooooo')
       handlePause()
       setPlaying(false)
+      handleReset()
       if (playerRef.current && playerRef.current.audio.current) {
         playerRef.current.audio.current.pause();
+        setOutTime(0)
+        localStorage.removeItem('timeout');
       }
 
     }
   }, [timer, outTime]);
+  useEffect(() => {
+    if (localStorage.getItem('timeout')) {
+      setOutTime(localStorage.getItem('timeout'))
+      handleStart()
+    }
+   },[])
   const handlePause = () => {
     clearInterval(countRef.current)
     setIsPaused(false)
@@ -79,31 +111,60 @@ const Bottombar = () => {
     }, 1000)
   }
   const handleReset = () => {
+    console.log('hahahah')
     clearInterval(countRef.current)
     setIsActive(false)
     setIsPaused(false)
     setTimer(0)
+    setHours(0)
+    setMinutes(0)
+    setSecond(0)
   }
-  const getSeconds = `0${(timer % 60)}`.slice(-2)
 
-  const minutes = `${Math.floor(timer / 60)}`
-  const getMinutes = `0${minutes % 60}`.slice(-2)
 
-  const getHours = `0${Math.floor(timer / 3600)}`.slice(-2)
-  const formatTime = () => {
-    const getSeconds = `0${(timer % 60)}`.slice(-2)
-    const minutes = `${Math.floor(timer / 60)}`
-    const getMinutes = `0${minutes % 60}`.slice(-2)
-    const getHours = `0${Math.floor(timer / 3600)}`.slice(-2)
 
-    return `${getHours} : ${getMinutes} : ${getSeconds}`
-  }
   const handleStopTimeChange = (event) => {
     setOutTime(event.target.value);
     console.log(outTime);
     // clearTimeout(countdownTimeout); // Dừng hẹn giờ hiện tại
     // setStopTime(newStopTime);
   };
+
+  const handleSetHours = (e) => {
+    if (parseInt(e.target.value) > 12) {
+      setHours(12)
+    } else {
+      
+      setHours(e.target.value)
+    }
+  }
+  const handleSetMinutes = (e) => {
+    if (parseInt(e.target.value) > 60) {
+      setMinutes(60)
+    } else {
+      setMinutes(e.target.value)
+    }
+  }
+  const handleSetSeconds = (e) => {
+    if (parseInt(e.target.value) > 60) {
+      setSecond(60)
+    } else {
+      setSecond(e.target.value)
+    }
+  }
+  const handleHideTime = () => {
+    
+    if (isActivehours === true) {
+      setIsActiveHours(false);
+    }
+
+    if (isActiveminutes === true) {
+      setIsActiveMinutes(false);
+    }
+    if (isActivesecond === true) {
+      setIsActiveSecond(false);
+    }
+  }
 
 
 
@@ -821,62 +882,96 @@ const Bottombar = () => {
           className="Modal_time"
           overlayClassName="Overlay_time"
           shouldCloseOnOverlayClick={false}
-
         >
-          <div className="timeout">
-            haha
-            <button onClick={closeModalTime}>close</button>
+          <div className="timeout"
+          onClick={()=>handleHideTime()}
+          >
+            <h3>Chọn giờ dừng phát nhạc</h3>
             <div className='stopwatch-card'>
-              <input
+              {/* <input
                 type="number"
                 min="1"
                 max="60"
                 step="1"
                 value={outTime}
                 onChange={handleStopTimeChange}
-              />
-              <div class="time-picker">
-                <div class="time-input">
-                  <div class="control"><input class="input is-primary" type="text" value="02" />
-                  <div class="time-options">
-                    <div class="option">00 giờ</div>
-                    <div class="option">01 giờ</div>
-                    <div class="option active">02 giờ</div>
-                    <div class="option">03 giờ</div><div class="option">04 giờ</div>
-                    <div class="option">05 giờ</div><div class="option">06 giờ</div>
-                    <div class="option">07 giờ</div><div class="option">08 giờ</div>
-                    <div class="option">09 giờ</div><div class="option">10 giờ</div>
-                    <div class="option">11 giờ</div><div class="option">12 giờ</div>
-                  </div>
+              /> */}
+              <div class="time-picker" >
+                <div class="time-input" onClick={()=>setIsActiveHours(true)}>
+                  <div class="control"><input class="input is-primary" type="number"
+                    min="1"
+                    max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
+                    <div className={`time-options ${isActivehours === true ? 'active' : ''}`}>
+                      {hoursOptions.map((option, index) => (
+                        <div
+                          key={index}
+                          className={`option ${option === 0 ? 'active' : ''}`}
+                          onClick={() => {setHours(option); setIsActiveHours(false)}}
+                        >
+                          {option.toString().padStart(2, '0')} giờ
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <span class="label">giờ</span>
                 </div>
                 <div class="dot">:</div>
-                <div class="time-input">
-                  <div class="control"><input class="input is-primary" type="text" value="00" />
-                  </div><span class="label">phút</span>
-                  <div class="time-options"><div class="option active">00 phút</div>
-                    <div class="option">05 phút</div>
-                    <div class="option">10 phút</div><div class="option">15 phút</div>
-                    <div class="option">20 phút</div><div class="option">25 phút</div>
-                    <div class="option">30 phút</div><div class="option">35 phút</div>
-                    <div class="option">40 phút</div><div class="option">45 phút</div>
-                    <div class="option">50 phút</div><div class="option">55 phút</div>
+                <div class="time-input" onClick={()=>setIsActiveMinutes(true)}>
+                  <div class="control">
+                    <input class="input is-primary" type="number"
+                    min="0"
+                    max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
+                    <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
+                      {minutesOptions.map((option, index) => (
+                        <div
+                          key={index}
+                          className={`option ${option === 0 ? 'active' : ''}`}
+                          onClick={() => {setMinutes(option); setIsActiveMinutes(false)}}
+                        >
+                          {option.toString().padStart(2, '0')} phút
+                        </div>
+                      ))}
+                    </div>
                   </div>
+                  <span class="label">phút</span>
+
+                </div>
+                <div class="dot">:</div>
+                <div class="time-input" onClick={()=>setIsActiveSecond(true)}>
+                  <div class="control">
+                    <input class="input is-primary" type="number"
+                    min="0"
+                    max="60" value={second.toString().padStart(2, '0') } onChange={(e) => handleSetSeconds(e)} />
+                    <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
+                      {secondsOptions.map((option, index) => (
+                        <div
+                          key={index}
+                          className={`option ${option === 0 ? 'active' : ''}`}
+                          onClick={() => { setSecond(option); setIsActiveSecond(false)}}
+                        >
+                          {option.toString().padStart(2, '0')} giây
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <span class="label">giây</span>
+
                 </div>
               </div>
               <div className='buttons'>
-                {
+                {/* {
                   !isActive && !isPaused ?
                     <button onClick={handleStart}>Start</button>
                     : (
                       isPaused ? <button onClick={handlePause}>Pause</button> :
                         <button onClick={handleResume}>Resume</button>
                     )
-                }
-                <button onClick={handleReset} disabled={!isActive}>Reset</button>
-                <button onClick={handleStart} >OK</button>
+                }*/}
+                <button onClick={()=>handleReset()} disabled={!isActive}>Reset</button> 
+                <button onClick={()=>handleStart()} >Lưu</button>
               </div>
+            <button onClick={closeModalTime}>Huỷ</button>
+
             </div>
           </div>
         </Modal>
