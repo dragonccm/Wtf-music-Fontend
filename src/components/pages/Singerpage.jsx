@@ -29,7 +29,7 @@ const Singerpage = () => {
                     <img src={currData.img} alt="f" />
                 </div>
                 <div className="artists_if_ctn">
-                    <h1 className="artists_name">{currData.name} <FontAwesomeIcon icon={faCirclePlay} /></h1>
+                    <h1 className="artists_name">{currData.name}</h1>
                     <p className="follower">{currData.totalFollow} người quan tâm <FontAwesomeIcon icon={faUser} /></p>
                 </div>
             </section>
