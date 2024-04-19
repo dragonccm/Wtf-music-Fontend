@@ -9,6 +9,8 @@ import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPl } from '../../redux/slide/createplaylistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
+
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 
@@ -26,6 +28,7 @@ import {
   faChevronDown,
   faCompress,
   faExpand,
+  faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart,
@@ -72,21 +75,21 @@ const Bottombar = () => {
     setIsPaused(true)
     let currTime
     if (a === 'new') {
-       currTime = Number(hours)*60*60 + Number(minutes)*60 + Number(second)
+      currTime = Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(second)
       setOutTime(currTime)
-    } 
+    }
     if (currTime !== 0) {
       countRef.current = setInterval(() => {
         setTimer((timer) => timer + 1)
       }, 1000)
-   }
+    }
   }
   useEffect(() => {
     console.log(timer);
     console.log(outTime);
-    if (Number(outTime) - Number(timer) > 0 ) {
-      
-      localStorage.setItem('timeout',  Number(outTime) - Number(timer) )
+    if (Number(outTime) - Number(timer) > 0) {
+
+      localStorage.setItem('timeout', Number(outTime) - Number(timer))
     }
 
     if (Number(timer) === Number(outTime)) {
@@ -110,7 +113,7 @@ const Bottombar = () => {
       console.log(outTime)
       handleStart()
     }
-   },[])
+  }, [])
   const handlePause = () => {
     clearInterval(countRef.current)
     setIsPaused(false)
@@ -157,7 +160,7 @@ const Bottombar = () => {
     if (parseInt(e.target.value) > 12) {
       setHours(12)
     } else {
-      
+
       setHours(e.target.value)
     }
   }
@@ -176,7 +179,7 @@ const Bottombar = () => {
     }
   }
   const handleHideTime = () => {
-    
+
     if (isActivehours === true) {
       setIsActiveHours(false);
     }
@@ -459,17 +462,40 @@ const Bottombar = () => {
   }
 
   // create playlist 
-  const [loading, setLoading] = useState(true);
+  const [clickedButtons, setClickedButtons] = useState([]);
 
   const currData = useSelector((state) => state.Authentication);
-  const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
   const usernames = currData.defaultUser.account.username;
+  const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
   useEffect(() => {
-    dispatch(getUserPl({
-      userId: usernames,
-    })).then(() => setLoading(false));
-  }, [dispatch])
+    if (usernames) {
+      dispatch(getUserPl({ userId: usernames }));
+    }
+  }, [dispatch, usernames])
 
+
+  const handlePushSong = (playlistId, songId) => {
+    let username = '';
+    if (currData) {
+      username = currData.defaultUser.account.username;
+    }
+    dispatch(adSongToPl({
+      userId: username,
+      playlistId: playlistId,
+      songId: [songId]
+    }))
+    
+    const updatedClickedButtons = [...clickedButtons];
+    
+    updatedClickedButtons[playlistId] = true;
+    setClickedButtons(updatedClickedButtons);
+    setTimeout(() => {
+      resetButton();
+    }, 2000);
+  }
+  const resetButton = () => {
+    setClickedButtons([]); 
+  };
   const handleCreate = (e) => {
     e.preventDefault();
 
@@ -489,10 +515,10 @@ const Bottombar = () => {
   const handleInputChange = (e) => {
     setPlaylistName(e.target.value);
   }
-
-
-  if (loading) {
-    return <div>load</div>;
+  if (!userPlaylist) {
+    return (
+      <div className="load">skfjfjk</div>
+    )
   }
   return (
     isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
@@ -676,8 +702,31 @@ const Bottombar = () => {
                         contentStyle={{ padding: "0", border: "none" }}
                         arrow={false}
                       >
-                        <div className="menu-plalist">
-                          {/* {loading ? (<button className="menu-item">chưa có </button>) : (userPlaylist.map((data) => <button className="menu-item">{data.playlistname}</button>))} */}
+                        {close => (<div className="menu-plalist">
+                          {!userPlaylist ? (
+                            <button className="menu-item">chưa có PlayList</button>
+                          ) : (
+                            userPlaylist.map((data) =>
+                              clickedButtons[data.playlistId] ? (
+                                <button
+                                  className="menu-item"
+                                  key={data.playlistId}
+                                >
+                                  Thêm Thành Công
+                                  <FontAwesomeIcon icon={faCircleCheck} />
+                                  {()=>close()}
+                                </button>
+                              ) : (
+                                <button
+                                  className="menu-item"
+                                  key={data.playlistId}
+                                  onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
+                                >
+                                  {data.playlistname}
+                                </button>
+                              )
+                            )
+                          )}
 
                           <Popup
                             trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
@@ -698,14 +747,12 @@ const Bottombar = () => {
                                       onChange={handleInputChange}
                                     />
                                   </div>
-                                  <button type="submit" className="btn btn-primary">Submit</button>
                                 </form>
                               </div>
                             )}
                           </Popup>
-
-
-                        </div>
+                        </div>)
+                        }
                       </Popup>
                       <div className="r_click_list_item" onClick={openModalFull}>
                         <ReactSVG
@@ -971,7 +1018,7 @@ const Bottombar = () => {
           shouldCloseOnOverlayClick={false}
         >
           <div className="timeout"
-          onClick={()=>handleHideTime()}
+            onClick={() => handleHideTime()}
           >
             <h3>Chọn giờ dừng phát nhạc</h3>
             <div className='stopwatch-card'>
@@ -998,7 +1045,7 @@ const Bottombar = () => {
                     </div>
               /> */}
               <div class="time-picker" >
-                <div class="time-input" onClick={()=>setIsActiveHours(true)}>
+                <div class="time-input" onClick={() => setIsActiveHours(true)}>
                   <div class="control"><input class="input is-primary" type="number"
                     min="1"
                     max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
@@ -1007,7 +1054,7 @@ const Bottombar = () => {
                         <div
                           key={index}
                           className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => {setHours(option); setIsActiveHours(false)}}
+                          onClick={() => { setHours(option); setIsActiveHours(false) }}
                         >
                           {option.toString().padStart(2, '0')} giờ
                         </div>
@@ -1017,17 +1064,17 @@ const Bottombar = () => {
                   <span class="label">giờ</span>
                 </div>
                 <div class="dot">:</div>
-                <div class="time-input" onClick={()=>setIsActiveMinutes(true)}>
+                <div class="time-input" onClick={() => setIsActiveMinutes(true)}>
                   <div class="control">
                     <input class="input is-primary" type="number"
-                    min="0"
-                    max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
+                      min="0"
+                      max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
                     <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
                       {minutesOptions.map((option, index) => (
                         <div
                           key={index}
                           className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => {setMinutes(option); setIsActiveMinutes(false)}}
+                          onClick={() => { setMinutes(option); setIsActiveMinutes(false) }}
                         >
                           {option.toString().padStart(2, '0')} phút
                         </div>
@@ -1038,17 +1085,17 @@ const Bottombar = () => {
 
                 </div>
                 <div class="dot">:</div>
-                <div class="time-input" onClick={()=>setIsActiveSecond(true)}>
+                <div class="time-input" onClick={() => setIsActiveSecond(true)}>
                   <div class="control">
                     <input class="input is-primary" type="number"
-                    min="0"
-                    max="60" value={second.toString().padStart(2, '0') } onChange={(e) => handleSetSeconds(e)} />
+                      min="0"
+                      max="60" value={second.toString().padStart(2, '0')} onChange={(e) => handleSetSeconds(e)} />
                     <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
                       {secondsOptions.map((option, index) => (
                         <div
                           key={index}
                           className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => { setSecond(option); setIsActiveSecond(false)}}
+                          onClick={() => { setSecond(option); setIsActiveSecond(false) }}
                         >
                           {option.toString().padStart(2, '0')} giây
                         </div>
@@ -1069,10 +1116,10 @@ const Bottombar = () => {
                         <button onClick={handleResume}>Resume</button>
                     )
                 }*/}
-                <button onClick={()=>handleReset()} disabled={!isActive}>Reset</button> 
-                <button onClick={()=>handleStart('new')} >Lưu</button>
+                <button onClick={() => handleReset()} disabled={!isActive}>Reset</button>
+                <button onClick={() => handleStart('new')} >Lưu</button>
               </div>
-            <button onClick={closeModalTime}>Huỷ</button>
+              <button onClick={closeModalTime}>Huỷ</button>
 
             </div>
           </div>
