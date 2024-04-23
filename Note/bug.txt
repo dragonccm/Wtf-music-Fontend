@@ -7,4 +7,14 @@
 +Chưa đi tới lui
 +chưa trộn bài
 + những bài vip không nghe được
+
+-----danh sách phát:
++TH 1: đang phát 1 playlist 
+user play 1 playlist
+nếu ở chế độ không random:
+-phát từ đầu tới cuối
+nếu ở chế độ random:
+-tạo danh sách phát random
+phát từ đầu dến cuối
+
  

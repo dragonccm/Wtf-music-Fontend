@@ -35,13 +35,13 @@ const Profile_edit = () => {
             if (infor.EM === 'updated successfully') {
                 toast.success('Cập nhật thông tin thành công')
             }
-        } 
+        }
     }, [infor])
     const isLoading = useSelector((state) => {
         return state.inforUser.isLoading;
     });
     if ((Object.keys(infor).length === 0 && !isLoading) || !infor.DT) {
-        return <div className="main_banner"><Loading/></div>;
+        return <div className="main_banner"><Loading /></div>;
     }
 
     const handleEdit = () => {
@@ -62,15 +62,15 @@ const Profile_edit = () => {
 
                 <div className="main">
                     <div className="avt_main">
-                    <div className="avt-container">
-                        {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
-                        <ImageUploader onUpload={handleUpload} />
-                    </div>
+                        <div className="avt-container">
+                            {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
+                            <ImageUploader onUpload={handleUpload} />
+                        </div>
                     </div>
                     <div className="info_card">
 
                         <div className="input_group">
-                            <label htmlhtmlfor ="username">Tên tài khoản:</label>
+                            <label htmlhtmlfor="username">Tên tài khoản:</label>
                             <div className="input_group_pass">
                                 <input
                                     id="username"
@@ -83,7 +83,7 @@ const Profile_edit = () => {
 
                         </div>
                         <div className="input_group">
-                            <label htmlhtmlfor ="email">Email:</label>
+                            <label htmlhtmlfor="email">Email:</label>
                             <div className="input_group_pass">
                                 <input
                                     id="email"
@@ -98,7 +98,7 @@ const Profile_edit = () => {
 
                         </div>
                         <div className="input_group">
-                            <label htmlhtmlfor ="birthday">Sinh nhật</label>
+                            <label htmlhtmlfor="birthday">Sinh nhật</label>
                             <div className="input_group_pass">
                                 <input
                                     id="birthday"

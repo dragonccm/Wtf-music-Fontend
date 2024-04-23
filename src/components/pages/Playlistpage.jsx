@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../css/Detailed_list.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -9,45 +9,47 @@ import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
 // redux
 import { useEffect } from "react";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 import SongCard2 from '../card/song_card2'
 import Loading from "../sideNavigation/mascot_animation";
 
-import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+import { playlistroute } from "../../controller/playlist";
 const Playlistpage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  const [playlist, setPlaylist] = useState([])
+  const dataf = useSelector((state) => state.playlist.playlist.data);
+  
   useEffect(() => {
-    dispatch(fetchPlayList(id));
-  }, [dispatch]);
+    // dispatch(fetchPlayList(id));
+    fecthPlaylist()
+  }, []);
+  const fecthPlaylist = async () => {
+    
+    let response = await playlistroute(id);
+    if (response && response.data) {
+      console.log(response.data)
+      setPlaylist(response.data)
+    }
+  }
 
-  const currData = useSelector((state) => state.playlist.playlist.data);
-  if (!currData || !currData.song || !Array.isArray(currData.song.items)) {
+  // const currData = useSelector((state) => state.playlist.playlist.data);
+  if (!playlist || !playlist.song || !Array.isArray(playlist.song.items)) {
     // console.error('currData is not properly formatted:', currData);
     return <div className="main_banner"><Loading/></div>;
   }
-  function handledata(data) {
-    return data.song.items.map((con) => ({
-      id: con.encodeId,
-      name: con.title,
-      image: con.thumbnailM,
-      category: "playlist",
-      songartist: con.artistsNames,
-      songname: con.title,
-      addedday: "11 thg 11, 2021",
-      liked_state: false,
-      songdata:
-        "https://aac.saavncdn.com/533/a4d723b40272bd6bbcb4263c61af847a_320.mp4",
-      total: "3:00",
-      root_album: "Solo",
-    }));;
-  }
-  const handlePlaying = (e, id) => {
-    e.preventDefault();
-    dispatch(fetchSongPlaying(id));
-  }
+
+  
+
+
+  const handlePlayPlaylist = () => {
+    dispatch(fetchPlayList(id));
+    dispatch(fetchSongPlaying(playlist.song.items[0].encodeId))
+    localStorage.setItem('playlistID',id)
+  };
 
 
   return (
@@ -57,25 +59,25 @@ const Playlistpage = () => {
           <div className="list_info_ctn">
             <div className="left_head">
               <img
-                src={currData.thumbnailM}
+                src={playlist.thumbnailM}
                 alt="f"
               />
             </div>
             <div className="mid_head">
-              <h1 className="list_name">{currData.title}</h1>
+              <h1 className="list_name">{playlist.title}</h1>
               <div className="info">
                 
                 <div className="playlist_info_item">
-                  <span className="user_name">{currData.artistsNames}</span>
-                  <span className="total_song"> {currData.song.total} bài hát</span>
-                  <span className="total_time"> {currData.like>1000?currData.like/1000+'k':currData.like} người yêu thích</span>
+                  <span className="user_name">{playlist.artistsNames}</span>
+                  <span className="total_song"> {playlist.song.total} bài hát</span>
+                  <span className="total_time"> {playlist.like>1000?playlist.like/1000+'k':playlist.like} người yêu thích</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="control">
-            <button className="play_random">
+            <button className="play_random" onClick={()=>handlePlayPlaylist()} >
               <FontAwesomeIcon icon={faPlay} />
               <span>Phát Ngẫu Nhiên</span>
             </button>
@@ -112,11 +114,11 @@ const Playlistpage = () => {
           <section className="description">
             <p>Lời tựa</p>
             <span>
-              {currData.sortDescription}
+              {playlist.sortDescription}
             </span>
           </section>
           <div className="list">
-            {currData.song.items.map((data, index) => (
+            {playlist.song.items.map((data, index) => (
               <SongCard2
                 data={data}
                 rating={{

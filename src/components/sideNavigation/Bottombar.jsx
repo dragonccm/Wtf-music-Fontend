@@ -9,9 +9,13 @@ import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPl } from '../../redux/slide/createplaylistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+import { increment, decrement } from '../../redux/slide/songPlayingSlice'
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+import { fetchPlayList } from '../../redux/slide/playlistSlice'
+
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-
+import SongCard from "../card/song_card";
 import {
   faPlay,
   faEllipsis,
@@ -72,21 +76,21 @@ const Bottombar = () => {
     setIsPaused(true)
     let currTime
     if (a === 'new') {
-       currTime = Number(hours)*60*60 + Number(minutes)*60 + Number(second)
+      currTime = Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(second)
       setOutTime(currTime)
-    } 
+    }
     if (currTime !== 0) {
       countRef.current = setInterval(() => {
         setTimer((timer) => timer + 1)
       }, 1000)
-   }
+    }
   }
   useEffect(() => {
     console.log(timer);
     console.log(outTime);
-    if (Number(outTime) - Number(timer) > 0 ) {
-      
-      localStorage.setItem('timeout',  Number(outTime) - Number(timer) )
+    if (Number(outTime) - Number(timer) > 0) {
+
+      localStorage.setItem('timeout', Number(outTime) - Number(timer))
     }
 
     if (Number(timer) === Number(outTime)) {
@@ -110,7 +114,7 @@ const Bottombar = () => {
       console.log(outTime)
       handleStart()
     }
-   },[])
+  }, [])
   const handlePause = () => {
     clearInterval(countRef.current)
     setIsPaused(false)
@@ -157,7 +161,7 @@ const Bottombar = () => {
     if (parseInt(e.target.value) > 12) {
       setHours(12)
     } else {
-      
+
       setHours(e.target.value)
     }
   }
@@ -176,7 +180,7 @@ const Bottombar = () => {
     }
   }
   const handleHideTime = () => {
-    
+
     if (isActivehours === true) {
       setIsActiveHours(false);
     }
@@ -189,13 +193,28 @@ const Bottombar = () => {
     }
   }
 
+  //playlist
+  useEffect(() => {
+    if (localStorage.getItem('playlistID')) {
+      dispatch(fetchPlayList(localStorage.getItem('playlistID')));
+    }
+  }, [])
+  const dataf = useSelector((state) => state.playlist.playlist.data);
+
+
 
 
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
   const songInfo = useSelector((state) => state.getSongData.inforSong);
+  const currentMusicIndex = useSelector((state) => state.getSongData.currentMusicIndex);
+  // const [currentMusicIndex,setCurrentMusicIndex] = useState(0)
+  useEffect(() => {
+    console.log(currentMusicIndex);
+      dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
 
+  }, [currentMusicIndex]);
   // xử lí lyrics
   if (
     isPlaying &&
@@ -494,158 +513,182 @@ const Bottombar = () => {
   if (loading) {
     return <div>load</div>;
   }
+
+
+  const handleClickNext = () => {
+    if (Number(currentMusicIndex) < dataf.song.items.length - 1) {
+      dispatch(increment())
+      console.log(currentMusicIndex);
+      // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+    } else {
+      alert('Không có')
+    }
+  }
+  const handleClickPrevious = () => {
+    if (currentMusicIndex > 0) {
+      dispatch(decrement())
+      console.log(currentMusicIndex);
+      // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+    } else {
+      alert('Không có')
+    }
+
+  }
+
+
+ 
   return (
-    isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
-      <div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justify-content': 'center' } : { 'background': 'var(--bg-player)', 'justify-content': 'unset' }}>
-        {!modalFullIsOpen && <div className="player_info"  >
-          <div className="player_info_ctn">
-            <div className="img">
-              <img src={songInfo.infor.img} alt="f" />
-            </div>
+    // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
+    (<div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justify-content': 'center' } : { 'background': 'var(--bg-player)', 'justify-content': 'unset' }}>
+      {!modalFullIsOpen && <div className="player_info"  >
+        {isPlaying && songInfo.isLoading === false && songInfo.isError === false && <div className="player_info_ctn">
+          <div className="img">
+            <img src={songInfo.infor.img} alt="f" />
+          </div>
 
-            <div className="name">
-              <div className="name_ctn">
-                <h5>
-                  <NavLink
-                    to={"/song" + songInfo.id}>
-                    {songInfo.infor.songname}
-                  </NavLink>
-                </h5>
-                <div className="artist">
-                  {songInfo.infor.artistInfo.map(
-                    (artist, index) => (
-                      <span key={index}>
-                        <a
-                          href={
-                            "/artists/" +
-                            artist.alias
-                          }
-                        >
-                          {artist.name}
-                        </a>
-                        {index !==
-                          songInfo.infor.artistInfo
-                            .length -
-                          1 && ","}
-                      </span>
-                    )
-                  )}
-                </div>
-              </div>
-              <div className="more">
-                <button className="rhap_main-controls-button rhap_button-clear">
-                  <FontAwesomeIcon icon={faHeart} />
-                </button>
-
-                <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
-                  <FontAwesomeIcon icon={faEllipsis} />
-                </button>
-                <Modal
-                  isOpen={modalMenuIsOpen}
-                  onAfterOpen={afterOpenModal}
-                  onRequestClose={openModal}
-                  // style={customStyles}
-                  className="Modal"
-                  overlayClassName="Overlay"
-                  shouldCloseOnOverlayClick={true}
-
-                >
-                  {/* <button onClick={closeModal}>close</button> */}
-                  <div className="r_click">
-                    <div className="r_click_head">
-                      <div className="r_click_head_img"><img src={songInfo.infor.img} alt="f" /></div>
-                      <div className="r_click_head_info">
-                        <div className="name"><a href={"/artists/" + songInfo.infor.alias}>{songInfo.infor.songname}</a></div>
-                        <div className="more">
-                          <div className="more_item">
-                            <FontAwesomeIcon icon={faHeart} />
-                            {Math.ceil(songInfo.infor.like / 1000) > 1 ? Math.ceil(songInfo.infor.like / 1000) + 'k' : songInfo.infor.like}
-                          </div>
-                          <div className="more_item">
-                            <FontAwesomeIcon icon={faHeadphonesSimple} />
-                            {Math.ceil(songInfo.infor.listen / 1000) > 1 ? Math.ceil(songInfo.infor.listen / 1000) + 'k' : songInfo.infor.listen}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="submenu-content">
-                      <div className="item">
-                        <h5>Nghệ sĩ</h5>
-                        <div className="content">
-                          {songInfo.infor.artistInfo.map((artist, index) => (
-                            <span key={index}>
-                              <a href={"/artists/" + artist.alias}>{artist.name}</a>
-                              {index !== songInfo.infor.artistInfo.length - 1 && ","}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="item">
-                        <h5>Album</h5>
-                        <div className="content">
-
-                          <a href="/album/">{songInfo.infor.album ? songInfo.infor.album.name : ''}</a>
-                        </div>
-                      </div>
-                      <div className="item">
-                        <h5>Sáng tác</h5>
-                        <div className="content">
-                          {<a href={"/artists/" + songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'nô'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : ''}</a>}
-                        </div>
-                      </div>
-                      <div className="item">
-                        <h5>Thể loại</h5>
-                        <div className="content">
-                          {<a href={"/artists/" + songInfo.infor.genres[0].alias} >{songInfo.infor.genres[0].name}</a>}
-                        </div>
-                      </div>
-                      <div className="item">
-                        <h5>Cung cấp bởi</h5>
-                        <div className="content">
-                          <a href="/">Ingrooves Music Group</a>
-                        </div>
-                      </div>
-
-                    </div>
-                    <div className="r_click_navigation">
-                      <div className="item" onClick={() => handleDownload()}>
-                        <FontAwesomeIcon icon={faDownload} />
-                        <p>tải xuống</p>
-                      </div>
-                      <div className="item" onClick={openModalLyric} >
-                        <ReactSVG
-                          beforeInjection={(svg) => {
-                            svg.classList.add("icon_list_nav_item_svg");
-                          }}
-                          src={icon_karaoke}
-                        />
-                        <p>lời bài hát</p>
-                      </div>
-                      <Modal
-                        isOpen={modalLyricIsOpen}
-                        onAfterOpen={afterOpenModal}
-                        onRequestClose={closeModalLyric}
-                        // style={customStyles}
-                        className="Modal_lyric"
-                        overlayClassName="Overlay_lyric"
-                        shouldCloseOnOverlayClick={true}
-
+          <div className="name">
+            <div className="name_ctn">
+              <h5>
+                <NavLink
+                  to={"/song/" + songInfo.infor.id}>
+                  {songInfo.infor.songname}
+                </NavLink>
+              </h5>
+              <div className="artist">
+                {songInfo.infor.artistInfo.map(
+                  (artist, index) => (
+                    <span key={index}>
+                      <a
+                        href={
+                          "/artists/" +
+                          artist.alias
+                        }
                       >
-                        <div className="Modal_lyric_title">haha</div>
-                        <div className="Modal_lyric_ctn">
-                          <textarea name="" id="" rows='15' value={haha.map((sentence) => sentence.data).join("\n")} />
+                        {artist.name}
+                      </a>
+                      {index !==
+                        songInfo.infor.artistInfo
+                          .length -
+                        1 && ","}
+                    </span>
+                  )
+                )}
+              </div>
+            </div>
+            <div className="more">
+              <button className="rhap_main-controls-button rhap_button-clear">
+                <FontAwesomeIcon icon={faHeart} />
+              </button>
+
+              <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
+                <FontAwesomeIcon icon={faEllipsis} />
+              </button>
+              <Modal
+                isOpen={modalMenuIsOpen}
+                onAfterOpen={afterOpenModal}
+                onRequestClose={openModal}
+                // style={customStyles}
+                className="Modal"
+                overlayClassName="Overlay"
+                shouldCloseOnOverlayClick={true}
+
+              >
+                {/* <button onClick={closeModal}>close</button> */}
+                <div className="r_click">
+                  <div className="r_click_head">
+                    <div className="r_click_head_img"><img src={songInfo.infor.img} alt="f" /></div>
+                    <div className="r_click_head_info">
+                      <div className="name"><a href={"/artists/" + songInfo.infor.alias}>{songInfo.infor.songname}</a></div>
+                      <div className="more">
+                        <div className="more_item">
+                          <FontAwesomeIcon icon={faHeart} />
+                          {Math.ceil(songInfo.infor.like / 1000) > 1 ? Math.ceil(songInfo.infor.like / 1000) + 'k' : songInfo.infor.like}
                         </div>
-                        <div className="Modal_lyric_btn">
-                          <button onClick={closeModalLyric}>Đóng</button>
+                        <div className="more_item">
+                          <FontAwesomeIcon icon={faHeadphonesSimple} />
+                          {Math.ceil(songInfo.infor.listen / 1000) > 1 ? Math.ceil(songInfo.infor.listen / 1000) + 'k' : songInfo.infor.listen}
                         </div>
-                      </Modal>
-                      <div className="item">
-                        <FontAwesomeIcon icon={faBan} />
-                        <p>chặn</p>
                       </div>
                     </div>
-                    <div className="r_click_list">
-                      {/* <div className="r_click_list_item add-playlist" >
+                  </div>
+                  <div className="submenu-content">
+                    <div className="item">
+                      <h5>Nghệ sĩ</h5>
+                      <div className="content">
+                        {songInfo.infor.artistInfo.map((artist, index) => (
+                          <span key={index}>
+                            <a href={"/artists/" + artist.alias}>{artist.name}</a>
+                            {index !== songInfo.infor.artistInfo.length - 1 && ","}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Album</h5>
+                      <div className="content">
+
+                        <a href="/album/">{songInfo.infor.album ? songInfo.infor.album.name : ''}</a>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Sáng tác</h5>
+                      <div className="content">
+                        {<a href={"/artists/" + songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'nô'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : ''}</a>}
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Thể loại</h5>
+                      <div className="content">
+                        {<a href={"/artists/" + songInfo.infor.genres[0].alias} >{songInfo.infor.genres[0].name}</a>}
+                      </div>
+                    </div>
+                    <div className="item">
+                      <h5>Cung cấp bởi</h5>
+                      <div className="content">
+                        <a href="/">Ingrooves Music Group</a>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div className="r_click_navigation">
+                    <div className="item" onClick={() => handleDownload()}>
+                      <FontAwesomeIcon icon={faDownload} />
+                      <p>tải xuống</p>
+                    </div>
+                    <div className="item" onClick={openModalLyric} >
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_karaoke}
+                      />
+                      <p>lời bài hát</p>
+                    </div>
+                    <Modal
+                      isOpen={modalLyricIsOpen}
+                      onAfterOpen={afterOpenModal}
+                      onRequestClose={closeModalLyric}
+                      // style={customStyles}
+                      className="Modal_lyric"
+                      overlayClassName="Overlay_lyric"
+                      shouldCloseOnOverlayClick={true}
+
+                    >
+                      <div className="Modal_lyric_title">haha</div>
+                      <div className="Modal_lyric_ctn">
+                        <textarea name="" id="" rows='15' value={haha.map((sentence) => sentence.data).join("\n")} />
+                      </div>
+                      <div className="Modal_lyric_btn">
+                        <button onClick={closeModalLyric}>Đóng</button>
+                      </div>
+                    </Modal>
+                    <div className="item">
+                      <FontAwesomeIcon icon={faBan} />
+                      <p>chặn</p>
+                    </div>
+                  </div>
+                  <div className="r_click_list">
+                    {/* <div className="r_click_list_item add-playlist" >
                         <FontAwesomeIcon icon={faCirclePlus} />
                         Thêm vào playlist
                         <div className="playlist-content">
@@ -661,321 +704,337 @@ const Bottombar = () => {
                         </div>
                       </div> */}
 
-                      <Popup
-                        trigger={
-                          <div className="r_click_list_item add-playlist" >
-                            <FontAwesomeIcon icon={faCirclePlus} />
-                            Thêm vào playlist
-                          </div>
-                        }
-                        position="right top"
-                        on="hover"
-                        closeOnDocumentClick
-                        mouseLeaveDelay={300}
-                        mouseEnterDelay={0}
-                        contentStyle={{ padding: "0", border: "none" }}
-                        arrow={false}
-                      >
-                        <div className="menu-plalist">
-                          {/* {loading ? (<button className="menu-item">chưa có </button>) : (userPlaylist.map((data) => <button className="menu-item">{data.playlistname}</button>))} */}
-
-                          <Popup
-                            trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
-                            modal
-                            nested
-                          >
-                            {close => (
-                              <div className="modal-body">
-                                <form onSubmit={handleCreate}>
-                                  <div className="mb-3">
-                                    <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id="exampleInputEmail1"
-                                      aria-describedby="emailHelp"
-                                      value={playlistName}
-                                      onChange={handleInputChange}
-                                    />
-                                  </div>
-                                  <button type="submit" className="btn btn-primary">Submit</button>
-                                </form>
-                              </div>
-                            )}
-                          </Popup>
-
-
+                    <Popup
+                      trigger={
+                        <div className="r_click_list_item add-playlist" >
+                          <FontAwesomeIcon icon={faCirclePlus} />
+                          Thêm vào playlist
                         </div>
-                      </Popup>
-                      <div className="r_click_list_item" onClick={openModalFull}>
-                        <ReactSVG
-                          beforeInjection={(svg) => {
-                            svg.classList.add("icon_list_nav_item_svg");
-                          }}
-                          src={icon_mic}
-                        />
-                        Phát cùng lời bài hát
+                      }
+                      position="right top"
+                      on="hover"
+                      closeOnDocumentClick
+                      mouseLeaveDelay={300}
+                      mouseEnterDelay={0}
+                      contentStyle={{ padding: "0", border: "none" }}
+                      arrow={false}
+                    >
+                      <div className="menu-plalist">
+                        {/* {loading ? (<button className="menu-item">chưa có </button>) : (userPlaylist.map((data) => <button className="menu-item">{data.playlistname}</button>))} */}
+
+                        <Popup
+                          trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
+                          modal
+                          nested
+                        >
+                          {close => (
+                            <div className="modal-body">
+                              <form onSubmit={handleCreate}>
+                                <div className="mb-3">
+                                  <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    value={playlistName}
+                                    onChange={handleInputChange}
+                                  />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Submit</button>
+                              </form>
+                            </div>
+                          )}
+                        </Popup>
+
+
                       </div>
-
-
-                      <CopyToClipboard text="Fuck you!">
-                        <div className="r_click_list_item">
-                          <FontAwesomeIcon
-                            icon={faLink}
-                          />
-                          Sao chép link
-                        </div>
-                      </CopyToClipboard>
+                    </Popup>
+                    <div className="r_click_list_item" onClick={openModalFull}>
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_mic}
+                      />
+                      Phát cùng lời bài hát
                     </div>
+
+
+                    <CopyToClipboard text="Fuck you!">
+                      <div className="r_click_list_item">
+                        <FontAwesomeIcon
+                          icon={faLink}
+                        />
+                        Sao chép link
+                      </div>
+                    </CopyToClipboard>
                   </div>
-                </Modal>
-              </div>
+                </div>
+              </Modal>
+              <button onClick={handleClickPrevious } className="rhap_main-controls-button rhap_button-clear">
+                <FontAwesomeIcon icon={faEllipsis} />
+              </button>
+              <button onClick={handleClickNext  } className="rhap_main-controls-button rhap_button-clear">
+                <FontAwesomeIcon icon={faEllipsis} />
+              </button>
             </div>
           </div>
         </div>}
+      </div>}
 
-        <div className="player_main">
-          <AudioPlayer
-            ref={playerRef}
-            volume={volume}
-            loop={loop}
-            // autoPlay={isPlaying}
-            autoPlay={playing}
-            onVolumeChange={handleVolumeChange}
-            onListen={handleListen}
-            onPause={handleStop}
-            onCanPlay={handleTimeUpdate}
-            showSkipControls="true"
-            src={songInfo.infor.song}
+      <div className="player_main">
+        <AudioPlayer
+          ref={playerRef}
+          volume={volume}
+          loop={loop}
+          // autoPlay={isPlaying}
+          autoPlay={playing}
+          onVolumeChange={handleVolumeChange}
+          onListen={handleListen}
+          onPause={handleStop}
+          onCanPlay={handleTimeUpdate}
+          showSkipControls="true"
+          src={songInfo.infor.song}
+          onClickPrevious={handleClickPrevious}
+          onClickNext={handleClickNext}
 
-            customProgressBarSection={[
-              RHAP_UI.CURRENT_TIME,
-              RHAP_UI.PROGRESS_BAR,
-              RHAP_UI.CURRENT_LEFT_TIME,
-              RHAP_UI.VOLUME,
-            ]}
-            layout="stacked-reverse"
-            customVolumeControls={[
-              <button className="rhap_button-clear">
-                <FontAwesomeIcon icon={faShuffle} />
-              </button>,
-            ]}
-            customIcons={{
-              play: icon_play,
-              next: icon_next,
-              previous: icon_previous,
-              pause: icon_pause,
+          customProgressBarSection={[
+            RHAP_UI.CURRENT_TIME,
+            RHAP_UI.PROGRESS_BAR,
+            RHAP_UI.CURRENT_LEFT_TIME,
+            RHAP_UI.VOLUME,
+          ]}
+          layout="stacked-reverse"
+          customVolumeControls={[
+            <button className="rhap_button-clear">
+              <FontAwesomeIcon icon={faShuffle} />
+            </button>,
+          ]}
+          customIcons={{
+            play: icon_play,
+            next: icon_next,
+            previous: icon_previous,
+            pause: icon_pause,
 
-            }}
-          // other props here
-          />
-        </div>
-        {!modalFullIsOpen && <div className="player_more">
-          <div className="player_more_1">
-            <button
-              className="rhap_button-clear rhap_main-controls-button btn_more"
-              onClick={openModalFull}
-            >
-              <ReactSVG
-                beforeInjection={(svg) => {
-                  svg.classList.add("icon_list_nav_item_svg");
-                }}
-                src={icon_karaoke}
-              />
-            </button>
-            {/* <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={handlePIP}>
-            <FontAwesomeIcon icon={faWindowRestore} />
-          </button> */}
-          </div>
+          }}
+        // other props here
+        />
+      </div>
+      {!modalFullIsOpen && <div className="player_more">
+        <div className="player_more_1">
           <button
-            className="rhap_button-clear rhap_main-controls-button btn_more playlist_btn"
-            onClick={openModalPlaylist}
+            className="rhap_button-clear rhap_main-controls-button btn_more"
+            onClick={openModalFull}
           >
             <ReactSVG
               beforeInjection={(svg) => {
                 svg.classList.add("icon_list_nav_item_svg");
               }}
-              src={icon_playlist}
+              src={icon_karaoke}
             />
           </button>
-          <Modal
-            isOpen={modalPlaylistIsOpen}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={openModalPlaylist}
-            // style={customStyles}
-            className="Modal_playlist"
-            overlayClassName={
-              animationPlaylistActive
-                ? "Overlay_playlist"
-                : "Overlay_playlist active"
-            }
-            shouldCloseOnOverlayClick={true}
-          >
-            <div className="Modal_playlist_header">
-              <h3>Danh sách phát</h3>
-              <div className="time" onClick={() => openModalTime()}>
-                <FontAwesomeIcon icon={faClock} />
-              </div>
-            </div>
-            <div className="Modal_playlist_ctn">
-              <div className="playlist">
-                {arr_playlist.map((item, index) => {
-                  if (index === 4) {
-                    return (
-                      <div
-                        className="item active"
-                        key={"oik" + index}
-                      >
-                        <div className="img">
-                          <img
-                            src="https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg"
-                            alt="avt"
-                          />
-                          <div className="img_overlay active">
-                            <div className="img_overlay_group_btn">
-                              <div className="nav-link list_nav_item ">
-                                {/* <FontAwesomeIcon
-                                  icon={
-                                    faPlay
-                                  }
-                                /> */}
-                                <Play_animation />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="content">
-                          <div className="name">
-                            <span>TETVOVEN</span>
-                          </div>
-                          <div className="artist">
-                            <span>
-                              Wxrdie, Andree Right
-                              Hand
-                            </span>
-                          </div>
-                        </div>
-                        <div className="love">
-                          <FontAwesomeIcon
-                            icon={faHeart}
-                          />
-                        </div>
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div
-                        className="item"
-                        key={"oik" + index}
-                      >
-                        <div className="img">
-                          <img
-                            src="https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg"
-                            alt="avt"
-                          />
-                          <div className="img_overlay">
-                            <div className="img_overlay_group_btn">
-                              <div className="nav-link list_nav_item">
-                                <FontAwesomeIcon
-                                  icon={
-                                    faPlay
-                                  }
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="content">
-                          <div className="name">
-                            <span>TETVOVEN</span>
-                          </div>
-                          <div className="artist">
-                            <span>
-                              Wxrdie, Andree Right
-                              Hand
-                            </span>
-                          </div>
-                        </div>
-                        <div className="love">
-                          <FontAwesomeIcon
-                            icon={faHeart}
-                          />
-                        </div>
-                      </div>
-                    );
-                  }
-                })}
-              </div>
-            </div>
-            {/* <div className="Modal_playlist_btn">
-            <button onClick={openModalPlaylist}>Đóng</button>
-          </div> */}
-          </Modal>
-        </div>}
+          {/* <button className="rhap_button-clear rhap_main-controls-button btn_more" onClick={handlePIP}>
+            <FontAwesomeIcon icon={faWindowRestore} />
+          </button> */}
+        </div>
+        <button
+          className="rhap_button-clear rhap_main-controls-button btn_more playlist_btn"
+          onClick={openModalPlaylist}
+        >
+          <ReactSVG
+            beforeInjection={(svg) => {
+              svg.classList.add("icon_list_nav_item_svg");
+            }}
+            src={icon_playlist}
+          />
+        </button>
         <Modal
-          isOpen={modalFullIsOpen}
+          isOpen={modalPlaylistIsOpen}
           onAfterOpen={afterOpenModal}
-          onRequestClose={openModalFull}
+          onRequestClose={openModalPlaylist}
           // style={customStyles}
           className="Modal_playlist"
-          overlayClassName={animationActive ? "Overlay_full" : "Overlay_full active"}
-          shouldCloseOnOverlayClick={false}
-
+          overlayClassName={
+            animationPlaylistActive
+              ? "Overlay_playlist"
+              : "Overlay_playlist active"
+          }
+          shouldCloseOnOverlayClick={true}
         >
-          {/* <button onClick={closeModal}>close</button> */}
-          <div className="playlist_player">
-            <div className="playlist_player_bg">
-              <img src="https://photo-resize-zmp3.zmdcdn.me/w1920_r3x2_jpeg/cover/b/8/0/e/b80e5777c7eec332c882bf79bd692056.jpg" alt="g" />
-
-            </div>
-            <div className="playlist_player_header">
-              {isFullScreen ? (
-                <button onClick={handleCloseFullScreen} className="header_btn">
-                  <FontAwesomeIcon icon={faCompress} />
-                </button>
-              ) : (
-                <button onClick={handleOpenFullScreen} className="header_btn">
-                  <FontAwesomeIcon icon={faExpand} />
-                </button>
-              )}
-              <button onClick={openModalFull} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
-
-
-
-            </div>
-            <div className="playlist_player_body">
-              <div className="body">
-                <div className="avt">
-                  <img src={songInfo.infor.img.replace('w240', 'w480')} alt="h" />
-                </div>
-                <div className="lyric">
-                  <ul className="scroll-content">
-
-                    {haha.map((sentence, index) => {
-                      return <li className="item" key={'haha' + index}>{sentence.data}</li>;
-                    })}
-                  </ul>
-                </div>
-              </div>
+          <div className="Modal_playlist_header">
+            <h3>Danh sách phát</h3>
+            <div className="time" onClick={() => openModalTime()}>
+              <FontAwesomeIcon icon={faClock} />
             </div>
           </div>
+          <div className="Modal_playlist_ctn">
+            <div className="playlist">
+              {dataf && dataf.song.items.map((item, index) => {
+                return item.encodeId === songInfo.infor.id ?
+                <div className="list_song active">
+                  <SongCard element={item} className={'active'} />
+                  </div>
+                  :
+                  <div className="list_song">
+                  <SongCard element={item} className={'active'} />
+                </div>
+                // if (index === 4) {
+                //   return (
+                //     <div
+                //       className="item active"
+                //       key={"oik" + index}
+                //     >
+                //       <div className="img">
+                //         <img
+                //           src={item.thumbnailM}
+                //           alt="avt"
+                //         />
+                //         <div className="img_overlay active">
+                //           <div className="img_overlay_group_btn">
+                //             <div className="nav-link list_nav_item ">
+                //               {/* <FontAwesomeIcon
+                //                 icon={
+                //                   faPlay
+                //                 }
+                //               /> */}
+                //               <Play_animation />
+                //             </div>
+                //           </div>
+                //         </div>
+                //       </div>
+                //       <div className="content">
+                //         <div className="name">
+                //           <span>{item.title}</span>
+                //         </div>
+                //         <div className="artist">
+                //           <span>
+                //             Wxrdie, Andree Right
+                //             Hand
+                //           </span>
+                //         </div>
+                //       </div>
+                //       <div className="love">
+                //         <FontAwesomeIcon
+                //           icon={faHeart}
+                //         />
+                //       </div>
+                //     </div>
+                //   );
+                // } else {
+                //   return (
+                //     <div
+                //       className="item"
+                //       key={"oik" + index}
+                //     >
+                //       <div className="img">
+                //         <img
+                //           src="https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg"
+                //           alt="avt"
+                //         />
+                //         <div className="img_overlay">
+                //           <div className="img_overlay_group_btn">
+                //             <div className="nav-link list_nav_item">
+                //               <FontAwesomeIcon
+                //                 icon={
+                //                   faPlay
+                //                 }
+                //               />
+                //             </div>
+                //           </div>
+                //         </div>
+                //       </div>
+                //       <div className="content">
+                //         <div className="name">
+                //           <span>TETVOVEN</span>
+                //         </div>
+                //         <div className="artist">
+                //           <span>
+                //             Wxrdie, Andree Right
+                //             Hand
+                //           </span>
+                //         </div>
+                //       </div>
+                //       <div className="love">
+                //         <FontAwesomeIcon
+                //           icon={faHeart}
+                //         />
+                //       </div>
+                //     </div>
+                //   );
+                // }
+              })}
+            </div>
+          </div>
+          {/* <div className="Modal_playlist_btn">
+            <button onClick={openModalPlaylist}>Đóng</button>
+          </div> */}
         </Modal>
+      </div>}
+      <Modal
+        isOpen={modalFullIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={openModalFull}
+        // style={customStyles}
+        className="Modal_playlist"
+        overlayClassName={animationActive ? "Overlay_full" : "Overlay_full active"}
+        shouldCloseOnOverlayClick={false}
 
-        <Modal
-          isOpen={modalTimeIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={openModalFull}
-          // style={customStyles}
-          className="Modal_time"
-          overlayClassName="Overlay_time"
-          shouldCloseOnOverlayClick={false}
+      >
+        {/* <button onClick={closeModal}>close</button> */}
+        <div className="playlist_player">
+          <div className="playlist_player_bg">
+            <img src="https://photo-resize-zmp3.zmdcdn.me/w1920_r3x2_jpeg/cover/b/8/0/e/b80e5777c7eec332c882bf79bd692056.jpg" alt="g" />
+
+          </div>
+          <div className="playlist_player_header">
+            {isFullScreen ? (
+              <button onClick={handleCloseFullScreen} className="header_btn">
+                <FontAwesomeIcon icon={faCompress} />
+              </button>
+            ) : (
+              <button onClick={handleOpenFullScreen} className="header_btn">
+                <FontAwesomeIcon icon={faExpand} />
+              </button>
+            )}
+            <button onClick={openModalFull} className="close_btn header_btn"><FontAwesomeIcon icon={faChevronDown} /></button>
+
+
+
+          </div>
+          {isPlaying && songInfo.isLoading === false && songInfo.isError === false && <div className="playlist_player_body">
+            <div className="body">
+              <div className="avt">
+                <img src={songInfo.infor.img.replace('w240', 'w480')} alt="h" />
+              </div>
+              <div className="lyric">
+                <ul className="scroll-content">
+
+                  {haha.map((sentence, index) => {
+                    return <li className="item" key={'haha' + index}>{sentence.data}</li>;
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>}
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={modalTimeIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={openModalFull}
+        // style={customStyles}
+        className="Modal_time"
+        overlayClassName="Overlay_time"
+        shouldCloseOnOverlayClick={false}
+      >
+        <div className="timeout"
+          onClick={() => handleHideTime()}
         >
-          <div className="timeout"
-          onClick={()=>handleHideTime()}
-          >
-            <h3>Chọn giờ dừng phát nhạc</h3>
-            <div className='stopwatch-card'>
-              {/* <input
+          <h3>Chọn giờ dừng phát nhạc</h3>
+          <div className='stopwatch-card'>
+            {/* <input
                 type="number"
                 min="1"
                 max="60"
@@ -997,71 +1056,71 @@ const Bottombar = () => {
                       <div class="option">11 giờ</div><div class="option">12 giờ</div>
                     </div>
               /> */}
-              <div class="time-picker" >
-                <div class="time-input" onClick={()=>setIsActiveHours(true)}>
-                  <div class="control"><input class="input is-primary" type="number"
-                    min="1"
-                    max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
-                    <div className={`time-options ${isActivehours === true ? 'active' : ''}`}>
-                      {hoursOptions.map((option, index) => (
-                        <div
-                          key={index}
-                          className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => {setHours(option); setIsActiveHours(false)}}
-                        >
-                          {option.toString().padStart(2, '0')} giờ
-                        </div>
-                      ))}
-                    </div>
+            <div class="time-picker" >
+              <div class="time-input" onClick={() => setIsActiveHours(true)}>
+                <div class="control"><input class="input is-primary" type="number"
+                  min="1"
+                  max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
+                  <div className={`time-options ${isActivehours === true ? 'active' : ''}`}>
+                    {hoursOptions.map((option, index) => (
+                      <div
+                        key={index}
+                        className={`option ${option === 0 ? 'active' : ''}`}
+                        onClick={() => { setHours(option); setIsActiveHours(false) }}
+                      >
+                        {option.toString().padStart(2, '0')} giờ
+                      </div>
+                    ))}
                   </div>
-                  <span class="label">giờ</span>
                 </div>
-                <div class="dot">:</div>
-                <div class="time-input" onClick={()=>setIsActiveMinutes(true)}>
-                  <div class="control">
-                    <input class="input is-primary" type="number"
+                <span class="label">giờ</span>
+              </div>
+              <div class="dot">:</div>
+              <div class="time-input" onClick={() => setIsActiveMinutes(true)}>
+                <div class="control">
+                  <input class="input is-primary" type="number"
                     min="0"
                     max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
-                    <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
-                      {minutesOptions.map((option, index) => (
-                        <div
-                          key={index}
-                          className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => {setMinutes(option); setIsActiveMinutes(false)}}
-                        >
-                          {option.toString().padStart(2, '0')} phút
-                        </div>
-                      ))}
-                    </div>
+                  <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
+                    {minutesOptions.map((option, index) => (
+                      <div
+                        key={index}
+                        className={`option ${option === 0 ? 'active' : ''}`}
+                        onClick={() => { setMinutes(option); setIsActiveMinutes(false) }}
+                      >
+                        {option.toString().padStart(2, '0')} phút
+                      </div>
+                    ))}
                   </div>
-                  <span class="label">phút</span>
-
                 </div>
-                <div class="dot">:</div>
-                <div class="time-input" onClick={()=>setIsActiveSecond(true)}>
-                  <div class="control">
-                    <input class="input is-primary" type="number"
-                    min="0"
-                    max="60" value={second.toString().padStart(2, '0') } onChange={(e) => handleSetSeconds(e)} />
-                    <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
-                      {secondsOptions.map((option, index) => (
-                        <div
-                          key={index}
-                          className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => { setSecond(option); setIsActiveSecond(false)}}
-                        >
-                          {option.toString().padStart(2, '0')} giây
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <span class="label">giây</span>
+                <span class="label">phút</span>
 
-                </div>
               </div>
-              <p>{formatTime()}</p>
-              <div className='buttons'>
-                {/* {
+              <div class="dot">:</div>
+              <div class="time-input" onClick={() => setIsActiveSecond(true)}>
+                <div class="control">
+                  <input class="input is-primary" type="number"
+                    min="0"
+                    max="60" value={second.toString().padStart(2, '0')} onChange={(e) => handleSetSeconds(e)} />
+                  <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
+                    {secondsOptions.map((option, index) => (
+                      <div
+                        key={index}
+                        className={`option ${option === 0 ? 'active' : ''}`}
+                        onClick={() => { setSecond(option); setIsActiveSecond(false) }}
+                      >
+                        {option.toString().padStart(2, '0')} giây
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <span class="label">giây</span>
+
+              </div>
+            </div>
+            <p>{formatTime()}</p>
+            <div className='buttons'>
+              {/* {
                   !isActive && !isPaused ?
                     <button onClick={handleStart}>Start</button>
                     : (
@@ -1069,15 +1128,15 @@ const Bottombar = () => {
                         <button onClick={handleResume}>Resume</button>
                     )
                 }*/}
-                <button onClick={()=>handleReset()} disabled={!isActive}>Reset</button> 
-                <button onClick={()=>handleStart('new')} >Lưu</button>
-              </div>
+              <button onClick={() => handleReset()} disabled={!isActive}>Reset</button>
+              <button onClick={() => handleStart('new')} >Lưu</button>
+            </div>
             <button onClick={closeModalTime}>Huỷ</button>
 
-            </div>
           </div>
-        </Modal>
-      </div>
+        </div>
+      </Modal>
+    </div>
     )
   );
 };

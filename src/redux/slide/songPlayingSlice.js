@@ -14,6 +14,7 @@ export const fetchSongPlaying = createAsyncThunk(
 );
 const initialState = {
   isPlaying: false,
+  currentMusicIndex:0,
   inforSong: {
     isLoading: true,
     isError: true,
@@ -24,7 +25,14 @@ const initialState = {
 export const getSongDataSlice = createSlice({
   name: "getSongPlaying",
   initialState,
-  reducers: {},
+  reducers: {
+    increment: (state) => {
+      state.currentMusicIndex += 1
+    },
+    decrement: (state) => {
+        state.currentMusicIndex -= 1
+    },
+  },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder
@@ -88,5 +96,6 @@ export const getSongDataSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
+export const { decrement, increment} = getSongDataSlice.actions
 
 export default getSongDataSlice.reducer;
