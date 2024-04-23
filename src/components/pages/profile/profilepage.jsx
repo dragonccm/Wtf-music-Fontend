@@ -14,13 +14,29 @@ import ProfileMyMusic from "./profileMyMusic";
 import Recommended from "../../card/Recommended";
 import Card from "../../card/playlist_card";
 import ProfileSetting from "./Profile-setting/profile_setting";
+import React, { useEffect,useState } from "react";
+import { getUserPl } from '../../../redux/slide/getUserPlaylistSlice'
+import { useSelector, useDispatch } from "react-redux";
 
+
+import Loading from "../../sideNavigation/mascot_animation";
 
 import "../../../css/profile.scss";
 // import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+
+
+
 function Profile() {
-
-
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const currData = useSelector((state) => state.Authentication);
+  const usernames = currData.defaultUser.account.username;
+  const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
+  useEffect(() => {
+    if (usernames) {
+      dispatch(getUserPl({ userId: usernames })).then(() => setLoading(false));
+    }
+  }, [dispatch, usernames])
 
 
   const playlistsData = [
@@ -75,47 +91,47 @@ function Profile() {
       list: playlistsData,
     },
   ];
-
-
   const usserplaylist = [
     {
-        id: "ZWZB96AI",
-        img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
-        title: "Gone",
+      id: "ZWZB96AI",
+      img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
+      title: "Gone",
     },
     {
-        id: "ZWZB96AI",
-        img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
-        title: "house",
+      id: "ZWZB96AI",
+      img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
+      title: "house",
     },
     {
-        id: "ZWZB96AI",
-        img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-        title: "Money",
+      id: "ZWZB96AI",
+      img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+      title: "Money",
     },
-];
+  ];
   const Myplaylist = ({ datas }) => (
     <section className="mylist_page">
-        <div className="Recommended_1">Danh Sách Phát Của bạn</div>
-        <div className="list_container">
-            <Card playlist={datas} />
-        </div>
+      <div className="Recommended_1">Danh Sách Phát Của bạn</div>
+      <div className="list_container">
+        <Card playlist={datas} />
+      </div>
     </section>
-);
+  );
 
- 
-  
+
+
   const History = ({ data }) => (
     <div className="history_ctn">
       <Recommended datas={data} type={"Lịch Sử"} describe={"Đã Xem Gần Đây"} />
     </div>
   );
- 
+
 
   const Artist = ({ data }) => {
     return <div className="history_ctn">{/* <ListCard data={data} /> */}</div>;
   };
-
+  if (loading) {
+    return <div><Loading /></div>;
+  }
   return (
     <div className="profile_container">
       <Navbar expand="lg" className="bg-body-tertiary">
@@ -167,19 +183,19 @@ function Profile() {
         <Routes>
           <Route
             path="/myplaylist"
-            element={<Myplaylist datas={usserplaylist}/>}
+            element={!userPlaylist ? (<Myplaylist datas={usserplaylist} />) :(<Myplaylist datas={userPlaylist} />)}
           />
           {/* <Route path="/history" element={<History data={Recommendeds} />} /> */}
           <Route
             path="/setting"
             element={
-            <ProfileSetting/>
+              <ProfileSetting />
             }
           />
           <Route
             path="/mymusic"
             element={
-              <ProfileMyMusic  type={'mymusic'} />
+              <ProfileMyMusic type={'mymusic'} />
             }
           />
           <Route

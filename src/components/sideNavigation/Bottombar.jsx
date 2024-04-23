@@ -9,10 +9,10 @@ import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPl } from '../../redux/slide/createplaylistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
 import { increment, decrement } from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
-
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import SongCard from "../card/song_card";
@@ -30,6 +30,7 @@ import {
   faChevronDown,
   faCompress,
   faExpand,
+  faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart,
@@ -478,17 +479,40 @@ const Bottombar = () => {
   }
 
   // create playlist 
-  const [loading, setLoading] = useState(true);
+  const [clickedButtons, setClickedButtons] = useState([]);
 
   const currData = useSelector((state) => state.Authentication);
-  const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
   const usernames = currData.defaultUser.account.username;
+  const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
   useEffect(() => {
-    dispatch(getUserPl({
-      userId: usernames,
-    })).then(() => setLoading(false));
-  }, [dispatch])
+    if (usernames) {
+      dispatch(getUserPl({ userId: usernames }));
+    }
+  }, [dispatch, usernames])
 
+
+  const handlePushSong = (playlistId, songId) => {
+    let username = '';
+    if (currData) {
+      username = currData.defaultUser.account.username;
+    }
+    dispatch(adSongToPl({
+      userId: username,
+      playlistId: playlistId,
+      songId: [songId]
+    }))
+    
+    const updatedClickedButtons = [...clickedButtons];
+    
+    updatedClickedButtons[playlistId] = true;
+    setClickedButtons(updatedClickedButtons);
+    setTimeout(() => {
+      resetButton();
+    }, 2000);
+  }
+  const resetButton = () => {
+    setClickedButtons([]); 
+  };
   const handleCreate = (e) => {
     e.preventDefault();
 
@@ -508,35 +532,11 @@ const Bottombar = () => {
   const handleInputChange = (e) => {
     setPlaylistName(e.target.value);
   }
-
-
-  if (loading) {
-    return <div>load</div>;
+  if (!userPlaylist) {
+    return (
+      <div className="load">skfjfjk</div>
+    )
   }
-
-
-  const handleClickNext = () => {
-    if (Number(currentMusicIndex) < dataf.song.items.length - 1) {
-      dispatch(increment())
-      console.log(currentMusicIndex);
-      // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
-    } else {
-      alert('Không có')
-    }
-  }
-  const handleClickPrevious = () => {
-    if (currentMusicIndex > 0) {
-      dispatch(decrement())
-      console.log(currentMusicIndex);
-      // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
-    } else {
-      alert('Không có')
-    }
-
-  }
-
-
- 
   return (
     // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
     (<div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justify-content': 'center' } : { 'background': 'var(--bg-player)', 'justify-content': 'unset' }}>
@@ -704,61 +704,82 @@ const Bottombar = () => {
                         </div>
                       </div> */}
 
-                    <Popup
-                      trigger={
-                        <div className="r_click_list_item add-playlist" >
-                          <FontAwesomeIcon icon={faCirclePlus} />
-                          Thêm vào playlist
-                        </div>
-                      }
-                      position="right top"
-                      on="hover"
-                      closeOnDocumentClick
-                      mouseLeaveDelay={300}
-                      mouseEnterDelay={0}
-                      contentStyle={{ padding: "0", border: "none" }}
-                      arrow={false}
-                    >
-                      <div className="menu-plalist">
-                        {/* {loading ? (<button className="menu-item">chưa có </button>) : (userPlaylist.map((data) => <button className="menu-item">{data.playlistname}</button>))} */}
-
-                        <Popup
-                          trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
-                          modal
-                          nested
-                        >
-                          {close => (
-                            <div className="modal-body">
-                              <form onSubmit={handleCreate}>
-                                <div className="mb-3">
-                                  <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
-                                    value={playlistName}
-                                    onChange={handleInputChange}
-                                  />
-                                </div>
-                                <button type="submit" className="btn btn-primary">Submit</button>
-                              </form>
-                            </div>
+                      <Popup
+                        trigger={
+                          <div className="r_click_list_item add-playlist" >
+                            <FontAwesomeIcon icon={faCirclePlus} />
+                            Thêm vào playlist
+                          </div>
+                        }
+                        position="right top"
+                        on="hover"
+                        closeOnDocumentClick
+                        mouseLeaveDelay={300}
+                        mouseEnterDelay={0}
+                        contentStyle={{ padding: "0", border: "none" }}
+                        arrow={false}
+                      >
+                        {close => (<div className="menu-plalist">
+                          {!userPlaylist ? (
+                            <button className="menu-item">chưa có PlayList</button>
+                          ) : (
+                            userPlaylist.map((data) =>
+                              clickedButtons[data.playlistId] ? (
+                                <button
+                                  className="menu-item"
+                                  key={data.playlistId}
+                                >
+                                  Thêm Thành Công
+                                  <FontAwesomeIcon icon={faCircleCheck} />
+                                  {()=>close()}
+                                </button>
+                              ) : (
+                                <button
+                                  className="menu-item"
+                                  key={data.playlistId}
+                                  onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
+                                >
+                                  {data.playlistname}
+                                </button>
+                              )
+                            )
                           )}
-                        </Popup>
 
-
+                          <Popup
+                            trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
+                            modal
+                            nested
+                          >
+                            {close => (
+                              <div className="modal-body">
+                                <form onSubmit={handleCreate}>
+                                  <div className="mb-3">
+                                    <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      id="exampleInputEmail1"
+                                      aria-describedby="emailHelp"
+                                      value={playlistName}
+                                      onChange={handleInputChange}
+                                    />
+                                  </div>
+                                </form>
+                              </div>
+                            )}
+                          </Popup>
+                        </div>)
+                        }
+                      </Popup>
+                      <div className="r_click_list_item" onClick={openModalFull}>
+                        <ReactSVG
+                          beforeInjection={(svg) => {
+                            svg.classList.add("icon_list_nav_item_svg");
+                          }}
+                          src={icon_mic}
+                        />
+                        Phát cùng lời bài hát
                       </div>
-                    </Popup>
-                    <div className="r_click_list_item" onClick={openModalFull}>
-                      <ReactSVG
-                        beforeInjection={(svg) => {
-                          svg.classList.add("icon_list_nav_item_svg");
-                        }}
-                        src={icon_mic}
-                      />
-                      Phát cùng lời bài hát
-                    </div>
 
 
                     <CopyToClipboard text="Fuck you!">
@@ -1020,21 +1041,21 @@ const Bottombar = () => {
         </div>
       </Modal>
 
-      <Modal
-        isOpen={modalTimeIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={openModalFull}
-        // style={customStyles}
-        className="Modal_time"
-        overlayClassName="Overlay_time"
-        shouldCloseOnOverlayClick={false}
-      >
-        <div className="timeout"
-          onClick={() => handleHideTime()}
+        <Modal
+          isOpen={modalTimeIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={openModalFull}
+          // style={customStyles}
+          className="Modal_time"
+          overlayClassName="Overlay_time"
+          shouldCloseOnOverlayClick={false}
         >
-          <h3>Chọn giờ dừng phát nhạc</h3>
-          <div className='stopwatch-card'>
-            {/* <input
+          <div className="timeout"
+            onClick={() => handleHideTime()}
+          >
+            <h3>Chọn giờ dừng phát nhạc</h3>
+            <div className='stopwatch-card'>
+              {/* <input
                 type="number"
                 min="1"
                 max="60"
@@ -1056,65 +1077,65 @@ const Bottombar = () => {
                       <div class="option">11 giờ</div><div class="option">12 giờ</div>
                     </div>
               /> */}
-            <div class="time-picker" >
-              <div class="time-input" onClick={() => setIsActiveHours(true)}>
-                <div class="control"><input class="input is-primary" type="number"
-                  min="1"
-                  max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
-                  <div className={`time-options ${isActivehours === true ? 'active' : ''}`}>
-                    {hoursOptions.map((option, index) => (
-                      <div
-                        key={index}
-                        className={`option ${option === 0 ? 'active' : ''}`}
-                        onClick={() => { setHours(option); setIsActiveHours(false) }}
-                      >
-                        {option.toString().padStart(2, '0')} giờ
-                      </div>
-                    ))}
+              <div class="time-picker" >
+                <div class="time-input" onClick={() => setIsActiveHours(true)}>
+                  <div class="control"><input class="input is-primary" type="number"
+                    min="1"
+                    max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
+                    <div className={`time-options ${isActivehours === true ? 'active' : ''}`}>
+                      {hoursOptions.map((option, index) => (
+                        <div
+                          key={index}
+                          className={`option ${option === 0 ? 'active' : ''}`}
+                          onClick={() => { setHours(option); setIsActiveHours(false) }}
+                        >
+                          {option.toString().padStart(2, '0')} giờ
+                        </div>
+                      ))}
+                    </div>
                   </div>
+                  <span class="label">giờ</span>
                 </div>
-                <span class="label">giờ</span>
-              </div>
-              <div class="dot">:</div>
-              <div class="time-input" onClick={() => setIsActiveMinutes(true)}>
-                <div class="control">
-                  <input class="input is-primary" type="number"
-                    min="0"
-                    max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
-                  <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
-                    {minutesOptions.map((option, index) => (
-                      <div
-                        key={index}
-                        className={`option ${option === 0 ? 'active' : ''}`}
-                        onClick={() => { setMinutes(option); setIsActiveMinutes(false) }}
-                      >
-                        {option.toString().padStart(2, '0')} phút
-                      </div>
-                    ))}
+                <div class="dot">:</div>
+                <div class="time-input" onClick={() => setIsActiveMinutes(true)}>
+                  <div class="control">
+                    <input class="input is-primary" type="number"
+                      min="0"
+                      max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
+                    <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
+                      {minutesOptions.map((option, index) => (
+                        <div
+                          key={index}
+                          className={`option ${option === 0 ? 'active' : ''}`}
+                          onClick={() => { setMinutes(option); setIsActiveMinutes(false) }}
+                        >
+                          {option.toString().padStart(2, '0')} phút
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <span class="label">phút</span>
+                  <span class="label">phút</span>
 
-              </div>
-              <div class="dot">:</div>
-              <div class="time-input" onClick={() => setIsActiveSecond(true)}>
-                <div class="control">
-                  <input class="input is-primary" type="number"
-                    min="0"
-                    max="60" value={second.toString().padStart(2, '0')} onChange={(e) => handleSetSeconds(e)} />
-                  <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
-                    {secondsOptions.map((option, index) => (
-                      <div
-                        key={index}
-                        className={`option ${option === 0 ? 'active' : ''}`}
-                        onClick={() => { setSecond(option); setIsActiveSecond(false) }}
-                      >
-                        {option.toString().padStart(2, '0')} giây
-                      </div>
-                    ))}
-                  </div>
                 </div>
-                <span class="label">giây</span>
+                <div class="dot">:</div>
+                <div class="time-input" onClick={() => setIsActiveSecond(true)}>
+                  <div class="control">
+                    <input class="input is-primary" type="number"
+                      min="0"
+                      max="60" value={second.toString().padStart(2, '0')} onChange={(e) => handleSetSeconds(e)} />
+                    <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
+                      {secondsOptions.map((option, index) => (
+                        <div
+                          key={index}
+                          className={`option ${option === 0 ? 'active' : ''}`}
+                          onClick={() => { setSecond(option); setIsActiveSecond(false) }}
+                        >
+                          {option.toString().padStart(2, '0')} giây
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <span class="label">giây</span>
 
               </div>
             </div>
@@ -1128,10 +1149,10 @@ const Bottombar = () => {
                         <button onClick={handleResume}>Resume</button>
                     )
                 }*/}
-              <button onClick={() => handleReset()} disabled={!isActive}>Reset</button>
-              <button onClick={() => handleStart('new')} >Lưu</button>
-            </div>
-            <button onClick={closeModalTime}>Huỷ</button>
+                <button onClick={() => handleReset()} disabled={!isActive}>Reset</button>
+                <button onClick={() => handleStart('new')} >Lưu</button>
+              </div>
+              <button onClick={closeModalTime}>Huỷ</button>
 
           </div>
         </div>

@@ -12,9 +12,29 @@ import icon_libary from "../../img/music-folder-svgrepo-com.svg";
 import logo from "../../img/logo3 (1).png";
 import { useSelector } from "react-redux";
 import "../../css/RightSidebar.scss";
+import { useEffect, useState } from "react";
+import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+import { useDispatch } from "react-redux";
+
 
 const RightSidebar = () => {
+    const dispatch = useDispatch();
+    const [userlist, setuserlist] = useState(null)
+    const currData = useSelector((state) => state.Authentication);
+    const usernames = currData.defaultUser.account.username;
+    const userplaylist = useSelector((state) => state.getUserPl.userPlaylist);
+    useEffect(() => {
+        if (usernames) {
+            dispatch(getUserPl({ userId: usernames }));
+        }
+    }, [dispatch, currData])
+
+    useEffect(() => {
+        setuserlist(userplaylist)
+    }, [userplaylist])
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+
+
     return (
         <div
             className="rightsidebar"
@@ -134,48 +154,49 @@ const RightSidebar = () => {
                 </Nav> */}
                     </Navbar.Collapse>
                     <div className="nav_bot_playlist">
-                        <div className="playlist_item">
-                            <div className="playlist_item_img">
-                                <img
-                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                    alt="f"
-                                />
-                            </div>
-                            <div className="playlist_item_content">
-                                <div className="content_name">
-                                    <p>Rose</p>
-                                </div>
-                                <div className="content_cate">Nghệ sĩ</div>
-                            </div>
-                        </div>
-                        <div className="playlist_item">
-                            <div className="playlist_item_img">
-                                <img
-                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                    alt="f"
-                                />
-                            </div>
-                            <div className="playlist_item_content">
-                                <div className="content_name">
-                                    <p>Rose</p>
-                                </div>
-                                <div className="content_cate">Nghệ sĩ</div>
-                            </div>
-                        </div>
-                        <div className="playlist_item">
-                            <div className="playlist_item_img">
-                                <img
-                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                    alt="f"
-                                />
-                            </div>
-                            <div className="playlist_item_content">
-                                <div className="content_name">
-                                    <p>Rose</p>
-                                </div>
-                                <div className="content_cate">Nghệ sĩ</div>
-                            </div>
-                        </div>
+                {/* cái này có nav link  */}
+                        {/* {userlist === null ? (
+                            <h1>false</h1>
+                        ) : (
+                            Object.keys(userlist).map((key) => (
+                                <NavLink to={'/playlist/' + userlist[key].playlistId} className="nav-link list_nav_item" key={key}>
+                                    <div className="playlist_item">
+                                        <div className="playlist_item_img">
+                                            <img src={userlist[key].thumbnail} alt="f" />
+                                        </div>
+                                        <div className="playlist_item_content">
+                                            <div className="content_name">
+                                                <p>{userlist[key].playlistname}</p>
+                                            </div>
+                                            <div className="content_cate">Nghệ sĩ</div>
+                                        </div>
+                                    </div>
+                                </NavLink>
+                            ))
+                        )} */}
+                {/* cái này thì del */}
+
+                        {userlist === null ? (
+                            <h1>false</h1>
+                        ) : (
+                            Object.keys(userlist).map((key) => (
+                               
+                                    <div className="playlist_item">
+                                        <div className="playlist_item_img">
+                                            <img src={userlist[key].thumbnail} alt="f" />
+                                        </div>
+                                        <div className="playlist_item_content">
+                                            <div className="content_name">
+                                                <p>{userlist[key].playlistname}</p>
+                                            </div>
+                                            <div className="content_cate">Nghệ sĩ</div>
+                                        </div>
+                                    </div>
+                            ))
+                        )}
+
+
+
                     </div>
                 </Container>
             </Navbar>
