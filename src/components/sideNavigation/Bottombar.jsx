@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPl } from '../../redux/slide/createplaylistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
-import { increment, decrement } from '../../redux/slide/songPlayingSlice'
+import { increment, decrement ,update} from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import Popup from "reactjs-popup";
@@ -202,7 +202,29 @@ const Bottombar = () => {
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist.data);
 
+  const handleClickNext = () => {
+    if (Number(currentMusicIndex) < dataf.song.items.length - 1) {
+      dispatch(increment())
+      console.log(currentMusicIndex);
+      // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+    } else {
+      alert('Không có')
+    }
+  }
+  const handleClickPrevious = () => {
+    if (currentMusicIndex > 0) {
+      dispatch(decrement())
+      console.log(currentMusicIndex);
+      // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+    } else {
+      alert('Không có')
+    }
 
+  }
+  const handleClickNow = (index) => {
+    console.log(index)
+    dispatch(update(index))
+  }
 
 
   let haha = [];
@@ -212,8 +234,10 @@ const Bottombar = () => {
   const currentMusicIndex = useSelector((state) => state.getSongData.currentMusicIndex);
   // const [currentMusicIndex,setCurrentMusicIndex] = useState(0)
   useEffect(() => {
-    console.log(currentMusicIndex);
-      dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+    if (dataf) {
+      console.log(currentMusicIndex);
+    dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+}
 
   }, [currentMusicIndex]);
   // xử lí lyrics
@@ -501,9 +525,9 @@ const Bottombar = () => {
       playlistId: playlistId,
       songId: [songId]
     }))
-    
+
     const updatedClickedButtons = [...clickedButtons];
-    
+
     updatedClickedButtons[playlistId] = true;
     setClickedButtons(updatedClickedButtons);
     setTimeout(() => {
@@ -511,11 +535,12 @@ const Bottombar = () => {
     }, 2000);
   }
   const resetButton = () => {
-    setClickedButtons([]); 
+    setClickedButtons([]);
   };
   const handleCreate = (e) => {
     e.preventDefault();
 
+    
     let username = '';
     if (currData) {
       username = currData.defaultUser.account.username;
@@ -539,7 +564,7 @@ const Bottombar = () => {
   }
   return (
     // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
-    (<div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justify-content': 'center' } : { 'background': 'var(--bg-player)', 'justify-content': 'unset' }}>
+    (<div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justifyContent': 'center' } : { 'background': 'var(--bg-player)', 'justifyContent': 'unset' }}>
       {!modalFullIsOpen && <div className="player_info"  >
         {isPlaying && songInfo.isLoading === false && songInfo.isError === false && <div className="player_info_ctn">
           <div className="img">
@@ -704,82 +729,82 @@ const Bottombar = () => {
                         </div>
                       </div> */}
 
-                      <Popup
-                        trigger={
-                          <div className="r_click_list_item add-playlist" >
-                            <FontAwesomeIcon icon={faCirclePlus} />
-                            Thêm vào playlist
-                          </div>
-                        }
-                        position="right top"
-                        on="hover"
-                        closeOnDocumentClick
-                        mouseLeaveDelay={300}
-                        mouseEnterDelay={0}
-                        contentStyle={{ padding: "0", border: "none" }}
-                        arrow={false}
-                      >
-                        {close => (<div className="menu-plalist">
-                          {!userPlaylist ? (
-                            <button className="menu-item">chưa có PlayList</button>
-                          ) : (
-                            userPlaylist.map((data) =>
-                              clickedButtons[data.playlistId] ? (
-                                <button
-                                  className="menu-item"
-                                  key={data.playlistId}
-                                >
-                                  Thêm Thành Công
-                                  <FontAwesomeIcon icon={faCircleCheck} />
-                                  {()=>close()}
-                                </button>
-                              ) : (
-                                <button
-                                  className="menu-item"
-                                  key={data.playlistId}
-                                  onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
-                                >
-                                  {data.playlistname}
-                                </button>
-                              )
+                    <Popup
+                      trigger={
+                        <div className="r_click_list_item add-playlist" >
+                          <FontAwesomeIcon icon={faCirclePlus} />
+                          Thêm vào playlist
+                        </div>
+                      }
+                      position="right top"
+                      on="hover"
+                      closeOnDocumentClick
+                      mouseLeaveDelay={300}
+                      mouseEnterDelay={0}
+                      contentStyle={{ padding: "0", border: "none" }}
+                      arrow={false}
+                    >
+                      {close => (<div className="menu-plalist">
+                        {userPlaylist.length <1 ? (
+                          <button className="menu-item">chưa có PlayList</button>
+                        ) : (
+                          userPlaylist.map((data) =>
+                            clickedButtons[data.playlistId] ? (
+                              <button
+                                className="menu-item"
+                                key={data.playlistId}
+                              >
+                                Thêm Thành Công
+                                <FontAwesomeIcon icon={faCircleCheck} />
+                                {() => close()}
+                              </button>
+                            ) : (
+                              <button
+                                className="menu-item"
+                                key={data.playlistId}
+                                onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
+                              >
+                                {data.playlistname}
+                              </button>
                             )
-                          )}
+                          )
+                        )}
 
-                          <Popup
-                            trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
-                            modal
-                            nested
-                          >
-                            {close => (
-                              <div className="modal-body">
-                                <form onSubmit={handleCreate}>
-                                  <div className="mb-3">
-                                    <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id="exampleInputEmail1"
-                                      aria-describedby="emailHelp"
-                                      value={playlistName}
-                                      onChange={handleInputChange}
-                                    />
-                                  </div>
-                                </form>
-                              </div>
-                            )}
-                          </Popup>
-                        </div>)
-                        }
-                      </Popup>
-                      <div className="r_click_list_item" onClick={openModalFull}>
-                        <ReactSVG
-                          beforeInjection={(svg) => {
-                            svg.classList.add("icon_list_nav_item_svg");
-                          }}
-                          src={icon_mic}
-                        />
-                        Phát cùng lời bài hát
-                      </div>
+                        <Popup
+                          trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
+                          modal
+                          nested
+                        >
+                          {close => (
+                            <div className="modal-body">
+                              <form onSubmit={handleCreate}>
+                                <div className="mb-3">
+                                  <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    value={playlistName}
+                                    onChange={handleInputChange}
+                                  />
+                                </div>
+                              </form>
+                            </div>
+                          )}
+                        </Popup>
+                      </div>)
+                      }
+                    </Popup>
+                    <div className="r_click_list_item" onClick={openModalFull}>
+                      <ReactSVG
+                        beforeInjection={(svg) => {
+                          svg.classList.add("icon_list_nav_item_svg");
+                        }}
+                        src={icon_mic}
+                      />
+                      Phát cùng lời bài hát
+                    </div>
 
 
                     <CopyToClipboard text="Fuck you!">
@@ -793,12 +818,7 @@ const Bottombar = () => {
                   </div>
                 </div>
               </Modal>
-              <button onClick={handleClickPrevious } className="rhap_main-controls-button rhap_button-clear">
-                <FontAwesomeIcon icon={faEllipsis} />
-              </button>
-              <button onClick={handleClickNext  } className="rhap_main-controls-button rhap_button-clear">
-                <FontAwesomeIcon icon={faEllipsis} />
-              </button>
+           
             </div>
           </div>
         </div>}
@@ -893,97 +913,14 @@ const Bottombar = () => {
             <div className="playlist">
               {dataf && dataf.song.items.map((item, index) => {
                 return item.encodeId === songInfo.infor.id ?
-                <div className="list_song active">
-                  <SongCard element={item} className={'active'} />
-                  </div>
+                <div className="list_song active" onClick={()=>handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
+                <SongCard element={item} className={'active'} />
+              </div>
                   :
-                  <div className="list_song">
-                  <SongCard element={item} className={'active'} />
-                </div>
-                // if (index === 4) {
-                //   return (
-                //     <div
-                //       className="item active"
-                //       key={"oik" + index}
-                //     >
-                //       <div className="img">
-                //         <img
-                //           src={item.thumbnailM}
-                //           alt="avt"
-                //         />
-                //         <div className="img_overlay active">
-                //           <div className="img_overlay_group_btn">
-                //             <div className="nav-link list_nav_item ">
-                //               {/* <FontAwesomeIcon
-                //                 icon={
-                //                   faPlay
-                //                 }
-                //               /> */}
-                //               <Play_animation />
-                //             </div>
-                //           </div>
-                //         </div>
-                //       </div>
-                //       <div className="content">
-                //         <div className="name">
-                //           <span>{item.title}</span>
-                //         </div>
-                //         <div className="artist">
-                //           <span>
-                //             Wxrdie, Andree Right
-                //             Hand
-                //           </span>
-                //         </div>
-                //       </div>
-                //       <div className="love">
-                //         <FontAwesomeIcon
-                //           icon={faHeart}
-                //         />
-                //       </div>
-                //     </div>
-                //   );
-                // } else {
-                //   return (
-                //     <div
-                //       className="item"
-                //       key={"oik" + index}
-                //     >
-                //       <div className="img">
-                //         <img
-                //           src="https://photo-resize-zmp3.zmdcdn.me/w240_r1x1_jpeg/cover/4/5/4/3/4543a3bc0d30b933ea9baf87df054241.jpg"
-                //           alt="avt"
-                //         />
-                //         <div className="img_overlay">
-                //           <div className="img_overlay_group_btn">
-                //             <div className="nav-link list_nav_item">
-                //               <FontAwesomeIcon
-                //                 icon={
-                //                   faPlay
-                //                 }
-                //               />
-                //             </div>
-                //           </div>
-                //         </div>
-                //       </div>
-                //       <div className="content">
-                //         <div className="name">
-                //           <span>TETVOVEN</span>
-                //         </div>
-                //         <div className="artist">
-                //           <span>
-                //             Wxrdie, Andree Right
-                //             Hand
-                //           </span>
-                //         </div>
-                //       </div>
-                //       <div className="love">
-                //         <FontAwesomeIcon
-                //           icon={faHeart}
-                //         />
-                //       </div>
-                //     </div>
-                //   );
-                // }
+                  <div className="list_song" onClick={()=>handleClickNow(index)}>
+                    <SongCard element={item} className={'active'} />
+                  </div>
+    
               })}
             </div>
           </div>
@@ -1041,21 +978,21 @@ const Bottombar = () => {
         </div>
       </Modal>
 
-        <Modal
-          isOpen={modalTimeIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={openModalFull}
-          // style={customStyles}
-          className="Modal_time"
-          overlayClassName="Overlay_time"
-          shouldCloseOnOverlayClick={false}
+      <Modal
+        isOpen={modalTimeIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={openModalFull}
+        // style={customStyles}
+        className="Modal_time"
+        overlayClassName="Overlay_time"
+        shouldCloseOnOverlayClick={false}
+      >
+        <div className="timeout"
+          onClick={() => handleHideTime()}
         >
-          <div className="timeout"
-            onClick={() => handleHideTime()}
-          >
-            <h3>Chọn giờ dừng phát nhạc</h3>
-            <div className='stopwatch-card'>
-              {/* <input
+          <h3>Chọn giờ dừng phát nhạc</h3>
+          <div className='stopwatch-card'>
+            {/* <input
                 type="number"
                 min="1"
                 max="60"
@@ -1077,65 +1014,65 @@ const Bottombar = () => {
                       <div class="option">11 giờ</div><div class="option">12 giờ</div>
                     </div>
               /> */}
-              <div class="time-picker" >
-                <div class="time-input" onClick={() => setIsActiveHours(true)}>
-                  <div class="control"><input class="input is-primary" type="number"
-                    min="1"
-                    max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
-                    <div className={`time-options ${isActivehours === true ? 'active' : ''}`}>
-                      {hoursOptions.map((option, index) => (
-                        <div
-                          key={index}
-                          className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => { setHours(option); setIsActiveHours(false) }}
-                        >
-                          {option.toString().padStart(2, '0')} giờ
-                        </div>
-                      ))}
-                    </div>
+            <div class="time-picker" >
+              <div class="time-input" onClick={() => setIsActiveHours(true)}>
+                <div class="control"><input class="input is-primary" type="number"
+                  min="1"
+                  max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
+                  <div className={`time-options ${isActivehours === true ? 'active' : ''}`}>
+                    {hoursOptions.map((option, index) => (
+                      <div
+                        key={index}
+                        className={`option ${option === 0 ? 'active' : ''}`}
+                        onClick={() => { setHours(option); setIsActiveHours(false) }}
+                      >
+                        {option.toString().padStart(2, '0')} giờ
+                      </div>
+                    ))}
                   </div>
-                  <span class="label">giờ</span>
                 </div>
-                <div class="dot">:</div>
-                <div class="time-input" onClick={() => setIsActiveMinutes(true)}>
-                  <div class="control">
-                    <input class="input is-primary" type="number"
-                      min="0"
-                      max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
-                    <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
-                      {minutesOptions.map((option, index) => (
-                        <div
-                          key={index}
-                          className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => { setMinutes(option); setIsActiveMinutes(false) }}
-                        >
-                          {option.toString().padStart(2, '0')} phút
-                        </div>
-                      ))}
-                    </div>
+                <span class="label">giờ</span>
+              </div>
+              <div class="dot">:</div>
+              <div class="time-input" onClick={() => setIsActiveMinutes(true)}>
+                <div class="control">
+                  <input class="input is-primary" type="number"
+                    min="0"
+                    max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
+                  <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
+                    {minutesOptions.map((option, index) => (
+                      <div
+                        key={index}
+                        className={`option ${option === 0 ? 'active' : ''}`}
+                        onClick={() => { setMinutes(option); setIsActiveMinutes(false) }}
+                      >
+                        {option.toString().padStart(2, '0')} phút
+                      </div>
+                    ))}
                   </div>
-                  <span class="label">phút</span>
+                </div>
+                <span class="label">phút</span>
 
-                </div>
-                <div class="dot">:</div>
-                <div class="time-input" onClick={() => setIsActiveSecond(true)}>
-                  <div class="control">
-                    <input class="input is-primary" type="number"
-                      min="0"
-                      max="60" value={second.toString().padStart(2, '0')} onChange={(e) => handleSetSeconds(e)} />
-                    <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
-                      {secondsOptions.map((option, index) => (
-                        <div
-                          key={index}
-                          className={`option ${option === 0 ? 'active' : ''}`}
-                          onClick={() => { setSecond(option); setIsActiveSecond(false) }}
-                        >
-                          {option.toString().padStart(2, '0')} giây
-                        </div>
-                      ))}
-                    </div>
+              </div>
+              <div class="dot">:</div>
+              <div class="time-input" onClick={() => setIsActiveSecond(true)}>
+                <div class="control">
+                  <input class="input is-primary" type="number"
+                    min="0"
+                    max="60" value={second.toString().padStart(2, '0')} onChange={(e) => handleSetSeconds(e)} />
+                  <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
+                    {secondsOptions.map((option, index) => (
+                      <div
+                        key={index}
+                        className={`option ${option === 0 ? 'active' : ''}`}
+                        onClick={() => { setSecond(option); setIsActiveSecond(false) }}
+                      >
+                        {option.toString().padStart(2, '0')} giây
+                      </div>
+                    ))}
                   </div>
-                  <span class="label">giây</span>
+                </div>
+                <span class="label">giây</span>
 
               </div>
             </div>
@@ -1149,10 +1086,10 @@ const Bottombar = () => {
                         <button onClick={handleResume}>Resume</button>
                     )
                 }*/}
-                <button onClick={() => handleReset()} disabled={!isActive}>Reset</button>
-                <button onClick={() => handleStart('new')} >Lưu</button>
-              </div>
-              <button onClick={closeModalTime}>Huỷ</button>
+              <button onClick={() => handleReset()} disabled={!isActive}>Reset</button>
+              <button onClick={() => handleStart('new')} >Lưu</button>
+            </div>
+            <button onClick={closeModalTime}>Huỷ</button>
 
           </div>
         </div>

@@ -32,6 +32,9 @@ export const getSongDataSlice = createSlice({
     decrement: (state) => {
         state.currentMusicIndex -= 1
     },
+    update: (state,index) => {
+      state.currentMusicIndex = index.payload
+  },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -96,6 +99,6 @@ export const getSongDataSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { decrement, increment} = getSongDataSlice.actions
+export const { decrement, increment,update} = getSongDataSlice.actions
 
 export default getSongDataSlice.reducer;

@@ -6,7 +6,7 @@ export const getUserPl = createAsyncThunk("userPlaylist/getUserPlaylist", async 
     return response
 });
 const initialState = {
-    userPlaylist: {},
+    userPlaylist: [],
     isLoading: false,
     isError: false,
 };
