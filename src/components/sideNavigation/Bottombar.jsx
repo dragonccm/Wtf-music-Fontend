@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPl } from '../../redux/slide/createplaylistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
-import { increment, decrement ,update} from '../../redux/slide/songPlayingSlice'
+import { increment, decrement, update } from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import Popup from "reactjs-popup";
@@ -31,6 +31,8 @@ import {
   faCompress,
   faExpand,
   faCircleCheck,
+  faEllipsisVertical,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart,
@@ -236,8 +238,8 @@ const Bottombar = () => {
   useEffect(() => {
     if (dataf) {
       console.log(currentMusicIndex);
-    dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
-}
+      dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+    }
 
   }, [currentMusicIndex]);
   // xử lí lyrics
@@ -540,7 +542,7 @@ const Bottombar = () => {
   const handleCreate = (e) => {
     e.preventDefault();
 
-    
+
     let username = '';
     if (currData) {
       username = currData.defaultUser.account.username;
@@ -745,7 +747,7 @@ const Bottombar = () => {
                       arrow={false}
                     >
                       {close => (<div className="menu-plalist">
-                        {userPlaylist.length <1 ? (
+                        {userPlaylist.length < 1 ? (
                           <button className="menu-item">chưa có PlayList</button>
                         ) : (
                           userPlaylist.map((data) =>
@@ -818,7 +820,7 @@ const Bottombar = () => {
                   </div>
                 </div>
               </Modal>
-           
+
             </div>
           </div>
         </div>}
@@ -905,22 +907,52 @@ const Bottombar = () => {
         >
           <div className="Modal_playlist_header">
             <h3>Danh sách phát</h3>
+            <div style={{display:'flex',gap:'10px'}}>
             <div className="time" onClick={() => openModalTime()}>
               <FontAwesomeIcon icon={faClock} />
+            </div>
+            <Popup
+              trigger={
+                <div className="time">
+              <FontAwesomeIcon icon={faEllipsisVertical} />
+            </div>
+              }
+              position="bottom right"
+              on="click"
+              closeOnDocumentClick
+              mouseLeaveDelay={300}
+              mouseEnterDelay={0}
+              contentStyle={{ padding: "0", border: "none" }}
+              arrow={false}
+            >
+              {close => (
+                <div className="menu-plalist">
+                  {
+                      <>
+                        <button className="menu-item"> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
+                    <button className="menu-item"><FontAwesomeIcon icon={faDownload} />chưa có PlayList</button>
+                    <button className="menu-item">chưa có PlayList</button>
+                      </>
+                  }
+
+
+                </div>)
+              }
+            </Popup>
             </div>
           </div>
           <div className="Modal_playlist_ctn">
             <div className="playlist">
               {dataf && dataf.song.items.map((item, index) => {
                 return item.encodeId === songInfo.infor.id ?
-                <div className="list_song active" onClick={()=>handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
-                <SongCard element={item} className={'active'} />
-              </div>
-                  :
-                  <div className="list_song" onClick={()=>handleClickNow(index)}>
+                  <div className="list_song active" onClick={() => handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
                     <SongCard element={item} className={'active'} />
                   </div>
-    
+                  :
+                  <div className="list_song" onClick={() => handleClickNow(index)}>
+                    <SongCard element={item} className={'active'} />
+                  </div>
+
               })}
             </div>
           </div>

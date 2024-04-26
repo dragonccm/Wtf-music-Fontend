@@ -26,7 +26,7 @@ const Profile_edit = () => {
     useEffect(() => {
         if (infor && infor.DT) {
             setEmail(infor.DT.email)
-            if (infor.DT.avt) setImageUrl('data:image/png;base64,' + infor.DT.avt)
+            if (infor.DT.avt) setImageUrl(infor.DT.avt)
             if (infor.DT.birthday) {
                 const date = new Date(infor.DT.birthday);
                 const formattedDate = date.toISOString().split('T')[0];

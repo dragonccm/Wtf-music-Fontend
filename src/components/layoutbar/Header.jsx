@@ -248,7 +248,7 @@ const Header = () => {
                                 trigger={
                                     <button className="avt_page">
                                         {isAuthentication.account.avt ?
-                                            <img src={'data:image/png;base64,' + isAuthentication.account.avt} alt="profile" /> :
+                                            <img src={ isAuthentication.account.avt} alt="profile" /> :
                                             <img src={logo} alt="profile" />
                                         }
 
