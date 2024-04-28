@@ -14,7 +14,21 @@ const initialState = {
 export const Playlistslice = createSlice({
     name: "playlist",
     initialState,
-    reducers: {},
+    reducers: {
+        banSongs: (state, id) => {
+            console.log(id)
+            state.playlist = {
+                ...state.playlist,
+                data: {
+                  ...state.playlist.data,
+                  song: {
+                    ...state.playlist.data.song,
+                    items: state.playlist.data.song.items.filter(item => item.encodeId !== `${id.payload}`)
+                  }
+                }
+              };
+          },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchPlayList.pending, (state, action) => {
@@ -32,6 +46,7 @@ export const Playlistslice = createSlice({
             });
     },
 });
+export const { banSongs} = Playlistslice.actions
 
 // Action creators are generated for each case reducer function
 

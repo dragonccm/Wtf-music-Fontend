@@ -12,7 +12,7 @@ import icon_libary from "../../img/music-folder-svgrepo-com.svg";
 import logo from "../../img/logo3 (1).png";
 import { useSelector } from "react-redux";
 import "../../css/RightSidebar.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useLocation } from "react";
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { useDispatch } from "react-redux";
 
@@ -35,6 +35,9 @@ const RightSidebar = () => {
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
 
+    const isActive = (_, { pathname }) => {
+      return pathname.startsWith('/profile');
+    };
     return (
         <div
             className="rightsidebar"
@@ -117,6 +120,7 @@ const RightSidebar = () => {
                             </NavLink>
                             <NavLink
                                 to="/profile/mymusic"
+                                isActive={isActive}
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">
@@ -179,9 +183,9 @@ const RightSidebar = () => {
                         {userlist === null ? (
                             <h1>false</h1>
                         ) : (
-                            Object.keys(userlist).map((key) => (
+                            Object.keys(userlist).map((key,index) => (
                                
-                                    <div className="playlist_item">
+                                    <div className="playlist_item" key={'hahaha'+index}>
                                         <div className="playlist_item_img">
                                             <img src={userlist[key].thumbnail} alt="f" />
                                         </div>

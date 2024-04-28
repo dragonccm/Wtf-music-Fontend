@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Modal from "react-modal";
+import { toast, ToastContainer } from "react-toastify";
+
 import "reactjs-popup/dist/index.css";
 import "../../css/Bottombar.scss";
 import "react-h5-audio-player/lib/styles.css";
@@ -12,7 +14,8 @@ import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
 import { increment, decrement, update } from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
-import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { fetchPlayList,banSongs } from '../../redux/slide/playlistSlice'
+import { banSong } from "../../controller/user";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import SongCard from "../card/song_card";
@@ -201,6 +204,10 @@ const Bottombar = () => {
     if (localStorage.getItem('playlistID')) {
       dispatch(fetchPlayList(localStorage.getItem('playlistID')));
     }
+    if (localStorage.getItem('currentMusicIndex')) {
+    dispatch(update(+localStorage.getItem('currentMusicIndex')))
+      
+    }
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist.data);
 
@@ -227,6 +234,10 @@ const Bottombar = () => {
     console.log(index)
     dispatch(update(index))
   }
+  const handleEnd = () => {
+    console.log('end')
+    handleClickNext()
+  }
 
 
   let haha = [];
@@ -239,6 +250,7 @@ const Bottombar = () => {
     if (dataf) {
       console.log(currentMusicIndex);
       dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+      localStorage.setItem('currentMusicIndex', currentMusicIndex)
     }
 
   }, [currentMusicIndex]);
@@ -273,7 +285,7 @@ const Bottombar = () => {
       reader.onload = () => {
         const a = document.createElement("a");
         a.href = reader.result;
-        a.download = "audio.mp3";
+        a.download = songInfo.infor.alias+".mp3";
         a.click();
       };
 
@@ -282,6 +294,20 @@ const Bottombar = () => {
       console.error("Lỗi khi tải xuống:", error);
     }
   };
+
+
+  //cấm nhạc
+  const handleBanSong = async() => {
+    let response = await banSong(songInfo.infor.id);
+            if (response && response.EC === "0") {
+              toast.success(response.EM)
+              handleClickNext()
+              console.log(songInfo.infor.id)
+              dispatch(banSongs(songInfo.infor.id))
+            } else if (response && response.EC !== '0') {
+                toast.error(response.EM);
+            }
+  }
 
   // Thay icon trong player
   const icon_play = <FontAwesomeIcon icon={faCirclePlay} />;
@@ -380,28 +406,7 @@ const Bottombar = () => {
   };
 
   // danh sách playlist 
-  const arr_playlist = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "jj",
-  ];
+
   const [isTimeUpdated, setTimeUpdated] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [loop, setLoop] = useState(false);
@@ -585,14 +590,14 @@ const Bottombar = () => {
                 {songInfo.infor.artistInfo.map(
                   (artist, index) => (
                     <span key={index}>
-                      <a
-                        href={
+                      <NavLink
+                        to={
                           "/artists/" +
                           artist.alias
                         }
                       >
                         {artist.name}
-                      </a>
+                      </NavLink>
                       {index !==
                         songInfo.infor.artistInfo
                           .length -
@@ -644,7 +649,7 @@ const Bottombar = () => {
                       <div className="content">
                         {songInfo.infor.artistInfo.map((artist, index) => (
                           <span key={index}>
-                            <a href={"/artists/" + artist.alias}>{artist.name}</a>
+                            <NavLink to={"/artists/" + artist.alias}>{artist.name}</NavLink>
                             {index !== songInfo.infor.artistInfo.length - 1 && ","}
                           </span>
                         ))}
@@ -660,7 +665,7 @@ const Bottombar = () => {
                     <div className="item">
                       <h5>Sáng tác</h5>
                       <div className="content">
-                        {<a href={"/artists/" + songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'nô'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : ''}</a>}
+                        {<a href={"/artists/" + songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'Jack-J97'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : 'Jack-J97'}</a>}
                       </div>
                     </div>
                     <div className="item">
@@ -709,7 +714,7 @@ const Bottombar = () => {
                         <button onClick={closeModalLyric}>Đóng</button>
                       </div>
                     </Modal>
-                    <div className="item">
+                    <div className="item" onClick={()=>handleBanSong()}>
                       <FontAwesomeIcon icon={faBan} />
                       <p>chặn</p>
                     </div>
@@ -841,6 +846,7 @@ const Bottombar = () => {
           src={songInfo.infor.song}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
+          onEnded={handleEnd}
 
           customProgressBarSection={[
             RHAP_UI.CURRENT_TIME,
@@ -945,7 +951,7 @@ const Bottombar = () => {
             <div className="playlist">
               {dataf && dataf.song.items.map((item, index) => {
                 return item.encodeId === songInfo.infor.id ?
-                  <div className="list_song active" onClick={() => handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
+                  <div className="list_song active" key={'hahaha'+index} onClick={() => handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
                     <SongCard element={item} className={'active'} />
                   </div>
                   :
@@ -1126,6 +1132,19 @@ const Bottombar = () => {
           </div>
         </div>
       </Modal>
+      <ToastContainer
+                style={{ fontSize: "16px" }}
+                position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
     </div>
     )
   );

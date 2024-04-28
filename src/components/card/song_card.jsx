@@ -17,7 +17,7 @@ const SongCard = ({ element }) => {
                     <img src={element.thumbnailM?element.thumbnailM:element.thumb} alt="Playlist" />
                     <div className="img_overlay">
                       <div className="img_overlay_group_btn">
-                        <NavLink to={element.encodeId} onClick={(e) => handlePlaying(e, element.encodeId)} className="nav-link list_nav_item">
+                        <NavLink to={element.encodeId} onClick={(e) => handlePlaying(e, element.encodeId ? element.encodeId :element.id)} className="nav-link list_nav_item">
                           <FontAwesomeIcon icon={faPlay} />
                         </NavLink>
                       </div>
@@ -38,7 +38,7 @@ const SongCard = ({ element }) => {
                             <NavLink
                               to={
                                 "/artists/" +
-                                artist.alias
+                                (artist.alias?artist.alias:artist.aliasName)
                               }
                             >
                               {artist.name}
