@@ -14,7 +14,7 @@ import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
 import { increment, decrement, update } from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
-import { fetchPlayList,banSongs } from '../../redux/slide/playlistSlice'
+import { fetchPlayList, banSongs, randomSongs,updatePlaylist } from '../../redux/slide/playlistSlice'
 import { banSong } from "../../controller/user";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -57,6 +57,7 @@ const Bottombar = () => {
   const [isFullScreen, SetIsFullScreen] = useState(false);
   const [animationActive, setAnimationActive] = useState(true);
   const [playing, setPlaying] = useState(false);
+  const [isRandom, setIsRandom] = useState(localStorage.getItem('isRandom').length>0 ?JSON.parse(localStorage.getItem('isRandom')):false);
 
   const [timer, setTimer] = useState(0)
   const [outTime, setOutTime] = useState(0)
@@ -100,7 +101,6 @@ const Bottombar = () => {
     }
 
     if (Number(timer) === Number(outTime)) {
-      console.log('ooooooooooo')
       handlePause()
       setPlaying(false)
       handleReset()
@@ -133,7 +133,6 @@ const Bottombar = () => {
     }, 1000)
   }
   const handleReset = () => {
-    console.log('hahahah')
     clearInterval(countRef.current)
     setIsActive(false)
     setIsPaused(false)
@@ -201,13 +200,22 @@ const Bottombar = () => {
 
   //playlist
   useEffect(() => {
-    if (localStorage.getItem('playlistID')) {
-      dispatch(fetchPlayList(localStorage.getItem('playlistID')));
-    }
-    if (localStorage.getItem('currentMusicIndex')) {
-    dispatch(update(+localStorage.getItem('currentMusicIndex')))
-      
-    }
+    const fetchData = async () => {
+      if (localStorage.getItem('playlistID')) {
+        await dispatch(fetchPlayList(localStorage.getItem('playlistID')));
+      }
+  
+      if (localStorage.getItem('playlistRandom') && isRandom === true) {
+        await dispatch(updatePlaylist());
+      }
+  
+      if (localStorage.getItem('currentMusicIndex')) {
+        await dispatch(update(+localStorage.getItem('currentMusicIndex')));
+      }
+    };
+  
+    fetchData();
+   
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist.data);
 
@@ -238,7 +246,34 @@ const Bottombar = () => {
     console.log('end')
     handleClickNext()
   }
+  const handleRandom = () => {
+    if (!isRandom) {
+      setIsRandom(true)
+      localStorage.setItem('isRandom', true)
+      console.log(isRandom)
+      dispatch(randomSongs())
 
+    } else {
+      setIsRandom(false)
+      localStorage.setItem('isRandom', false)
+      console.log(isRandom)
+      dispatch(fetchPlayList(localStorage.getItem('playlistID')));
+      console.log(dataf.song.items[0]);
+    }
+
+
+  }
+  useEffect(() => {
+    // Cập nhật giá trị mới cho dataf khi state.playlist.playlist.data thay đổi
+    if (dataf!==undefined) {
+      for (let i = 0; i < dataf.song.items.length; i++) {
+        if (dataf.song.items[i].encodeId === songInfo.infor.id) {
+          console.log(i)
+          dispatch(update(i))
+        }
+      }
+    }
+  }, [dataf]);
 
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
@@ -248,7 +283,6 @@ const Bottombar = () => {
   // const [currentMusicIndex,setCurrentMusicIndex] = useState(0)
   useEffect(() => {
     if (dataf) {
-      console.log(currentMusicIndex);
       dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
       localStorage.setItem('currentMusicIndex', currentMusicIndex)
     }
@@ -269,7 +303,7 @@ const Bottombar = () => {
     });
 
   } else {
-    console.log("BOTTOM BAR PLAYING NULLL");
+    // console.log("BOTTOM BAR PLAYING NULLL");
   }
 
 
@@ -285,7 +319,7 @@ const Bottombar = () => {
       reader.onload = () => {
         const a = document.createElement("a");
         a.href = reader.result;
-        a.download = songInfo.infor.alias+".mp3";
+        a.download = songInfo.infor.alias + ".mp3";
         a.click();
       };
 
@@ -297,16 +331,16 @@ const Bottombar = () => {
 
 
   //cấm nhạc
-  const handleBanSong = async() => {
+  const handleBanSong = async () => {
     let response = await banSong(songInfo.infor.id);
-            if (response && response.EC === "0") {
-              toast.success(response.EM)
-              handleClickNext()
-              console.log(songInfo.infor.id)
-              dispatch(banSongs(songInfo.infor.id))
-            } else if (response && response.EC !== '0') {
-                toast.error(response.EM);
-            }
+    if (response && response.EC === "0") {
+      toast.success(response.EM)
+      handleClickNext()
+      console.log(songInfo.infor.id)
+      dispatch(banSongs(songInfo.infor.id))
+    } else if (response && response.EC !== '0') {
+      toast.error(response.EM);
+    }
   }
 
   // Thay icon trong player
@@ -408,7 +442,7 @@ const Bottombar = () => {
   // danh sách playlist 
 
   const [isTimeUpdated, setTimeUpdated] = useState(false);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(localStorage.getItem('volume')?JSON.parse(localStorage.getItem('volume')):0.5);
   const [loop, setLoop] = useState(false);
 
 
@@ -416,8 +450,8 @@ const Bottombar = () => {
   const handleTimeUpdate = (e) => {
     if (!isTimeUpdated) {
       e.target.currentTime = localStorage.getItem('duration') || 0;
-      e.target.volume = localStorage.getItem('volume') || 0.5;
-      // e.target.loop = localStorage.getItem('loop');
+      e.target.volume = localStorage.getItem('volume') || 0.9;
+      e.target.loop = (JSON.parse(localStorage.getItem('loop')));
       setTimeUpdated(true);
     }
   };
@@ -428,18 +462,17 @@ const Bottombar = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const savedVolume = localStorage.getItem('volume') ? localStorage.getItem('volume') : '50';
-    setVolume(savedVolume);
-    setLoop(localStorage.getItem('loop') ? JSON.parse(localStorage.getItem('loop')) : false)
-  }, []);
+
 
 
   const handleVolumeChange = (e) => {
     setVolume(e.target.volume);
-    localStorage.setItem('volume', volume);
 
   };
+  useEffect(() => {
+    localStorage.setItem('volume', volume);
+  }, [volume]);
+
 
   //   karaoke
   let oldtime = null
@@ -714,7 +747,7 @@ const Bottombar = () => {
                         <button onClick={closeModalLyric}>Đóng</button>
                       </div>
                     </Modal>
-                    <div className="item" onClick={()=>handleBanSong()}>
+                    <div className="item" onClick={() => handleBanSong()}>
                       <FontAwesomeIcon icon={faBan} />
                       <p>chặn</p>
                     </div>
@@ -838,7 +871,7 @@ const Bottombar = () => {
           loop={loop}
           // autoPlay={isPlaying}
           autoPlay={playing}
-          onVolumeChange={handleVolumeChange}
+          onVolumeChange={(e)=>handleVolumeChange(e)}
           onListen={handleListen}
           onPause={handleStop}
           onCanPlay={handleTimeUpdate}
@@ -856,7 +889,7 @@ const Bottombar = () => {
           ]}
           layout="stacked-reverse"
           customVolumeControls={[
-            <button className="rhap_button-clear">
+            <button className={isRandom === true ? "rhap_button-clear rhap_random" : "rhap_button-clear"} onClick={() => handleRandom()}>
               <FontAwesomeIcon icon={faShuffle} />
             </button>,
           ]}
@@ -913,49 +946,49 @@ const Bottombar = () => {
         >
           <div className="Modal_playlist_header">
             <h3>Danh sách phát</h3>
-            <div style={{display:'flex',gap:'10px'}}>
-            <div className="time" onClick={() => openModalTime()}>
-              <FontAwesomeIcon icon={faClock} />
-            </div>
-            <Popup
-              trigger={
-                <div className="time">
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-            </div>
-              }
-              position="bottom right"
-              on="click"
-              closeOnDocumentClick
-              mouseLeaveDelay={300}
-              mouseEnterDelay={0}
-              contentStyle={{ padding: "0", border: "none" }}
-              arrow={false}
-            >
-              {close => (
-                <div className="menu-plalist">
-                  {
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <div className="time" onClick={() => openModalTime()}>
+                <FontAwesomeIcon icon={faClock} />
+              </div>
+              <Popup
+                trigger={
+                  <div className="time">
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                  </div>
+                }
+                position="bottom right"
+                on="click"
+                closeOnDocumentClick
+                mouseLeaveDelay={300}
+                mouseEnterDelay={0}
+                contentStyle={{ padding: "0", border: "none" }}
+                arrow={false}
+              >
+                {close => (
+                  <div className="menu-plalist">
+                    {
                       <>
                         <button className="menu-item"> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
-                    <button className="menu-item"><FontAwesomeIcon icon={faDownload} />chưa có PlayList</button>
-                    <button className="menu-item">chưa có PlayList</button>
+                        <button className="menu-item"><FontAwesomeIcon icon={faDownload} />chưa có PlayList</button>
+                        <button className="menu-item">chưa có PlayList</button>
                       </>
-                  }
+                    }
 
 
-                </div>)
-              }
-            </Popup>
+                  </div>)
+                }
+              </Popup>
             </div>
           </div>
           <div className="Modal_playlist_ctn">
             <div className="playlist">
               {dataf && dataf.song.items.map((item, index) => {
                 return item.encodeId === songInfo.infor.id ?
-                  <div className="list_song active" key={'hahaha'+index} onClick={() => handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
+                  <div className="list_song active" key={'hahaha' + index} onClick={() => handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
                     <SongCard element={item} className={'active'} />
                   </div>
                   :
-                  <div className="list_song" onClick={() => handleClickNow(index)}>
+                  <div className="list_song" key={'hahaha' + index} onClick={() => handleClickNow(index)}>
                     <SongCard element={item} className={'active'} />
                   </div>
 
@@ -1133,18 +1166,18 @@ const Bottombar = () => {
         </div>
       </Modal>
       <ToastContainer
-                style={{ fontSize: "16px" }}
-                position="top-right"
-                autoClose={1000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-            />
+        style={{ fontSize: "16px" }}
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
     )
   );

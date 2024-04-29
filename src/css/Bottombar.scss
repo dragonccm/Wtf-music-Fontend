@@ -17,6 +17,12 @@
         align-items: center;
         justify-content: center;
 
+        &.rhap_random {
+            svg {
+                color: #257eff;
+            }
+        }
+
         &.playlist_btn {
             border-radius: 10px;
             margin-left: 20px;
@@ -148,6 +154,15 @@
             background-color: unset !important;
             box-shadow: unset !important;
 
+            &.rhap_loop--on {
+                .rhap_additional-controls {
+                    svg {
+                        color: #257eff;
+
+                    }
+                }
+            }
+
             .rhap_time {
                 color: var(--text-1);
             }
@@ -195,6 +210,7 @@
                     width: 35px;
                     height: 35px;
                 }
+
 
                 .rhap_volume-controls {
                     svg {
@@ -475,23 +491,26 @@
                 height: 18px;
                 fill: var(--text-1);
             }
-            
+
         }
     }
 }
-#popup-root{
+
+#popup-root {
     .popup-content {
         background-color: transparent;
         border: none;
-        .modal-body{
-            form{
+
+        .modal-body {
+            form {
                 padding: 3rem;
                 border-radius: 1rem;
                 width: 40rem;
                 height: 20rem;
                 background-color: var(--bg-white);
-                .mb-3{
-                    .form-label{
+
+                .mb-3 {
+                    .form-label {
                         color: var(--footer-text);
                         font-size: 3rem;
                     }
@@ -500,6 +519,7 @@
         }
     }
 }
+
 .Overlay {
     position: fixed;
     inset: 0px;
@@ -769,7 +789,7 @@
             .time {
                 padding: 8px;
                 width: 30px;
-    height: 30px;
+                height: 30px;
                 background-color: #97969663;
                 border-radius: 50%;
                 display: flex;
@@ -792,30 +812,36 @@
                 overflow-y: scroll;
                 height: 95%;
                 padding-right: 5px;
-                .list_song{
-                    &.active{
-                        .song_card{
+
+                .list_song {
+                    &.active {
+                        .song_card {
                             background-color: #257eff;
                         }
                     }
-                    .song_card{
+
+                    .song_card {
                         gap: 10px;
                         margin: 0;
                         background-color: transparent;
+
                         &:hover {
                             background-color: var(--bg-white-1);
                             cursor: pointer;
                         }
+
                         &.active {
                             position: sticky;
                             top: 0;
                             background-color: #257eff;
                             z-index: 9;
                         }
-                        .playlist_item_img{
+
+                        .playlist_item_img {
                             width: 40px;
                             height: 40px;
-                            .img_overlay{
+
+                            .img_overlay {
                                 &.active {
                                     display: block !important;
                                     display: flex !important;
@@ -824,16 +850,17 @@
                                     align-items: center;
                                     padding-bottom: 3px;
                                 }
-    
+
                                 svg {
                                     font-size: 16px;
                                     color: #fff;
                                 }
                             }
                         }
-                        .playlist_item_content{
-                            .content_name{
-                                a{
+
+                        .playlist_item_content {
+                            .content_name {
+                                a {
                                     font-size: 14px;
                                 }
                             }
@@ -964,38 +991,42 @@
 
         .timeout {
             height: -webkit-fill-available;
-            h3{
+
+            h3 {
                 text-align: center;
                 color: var(--text-1);
                 margin: 20px 0;
             }
+
             p {
                 font-size: 28px;
             }
 
             .stopwatch-card {
                 text-align: center;
-              
+
                 height: 130px;
-                
+
             }
 
-            button{
+            button {
                 outline: none;
-                    background: transparent;
-                    border: 1px solid blue;
-                    padding: 5px 80px;
-                    border-radius: 20px;
-                    font-size: 16px;
+                background: transparent;
+                border: 1px solid blue;
+                padding: 5px 80px;
+                border-radius: 20px;
+                font-size: 16px;
 
-                    color: blue;
-                    cursor: pointer;
+                color: blue;
+                cursor: pointer;
             }
+
             .buttons {
                 display: flex;
                 justify-content: space-evenly;
                 width: 150px;
                 margin: 20px auto;
+
                 button {
                     outline: none;
                     background: transparent;
@@ -1017,6 +1048,7 @@
                 border-radius: 8px;
                 background-color: hsl(0deg 0% 100% / 10%);
                 color: #fff;
+
                 .time-input {
                     display: flex;
                     align-items: center;
@@ -1046,11 +1078,13 @@
                             display: inline-flex;
                             color: #fff;
                             background-color: transparent;
-                            &::-webkit-outer-spin-button, &::-webkit-inner-spin-button{
+
+                            &::-webkit-outer-spin-button,
+                            &::-webkit-inner-spin-button {
                                 -webkit-appearance: none;
                                 margin: 0;
                             }
-                         
+
                         }
                     }
 
@@ -1071,16 +1105,20 @@
                         border-radius: 5px;
                         text-align: center;
                         font-size: 16px;
-                        &.active{
+
+                        &.active {
                             display: block;
                         }
-                        .option{
+
+                        .option {
                             padding: 6px 0;
                             cursor: default;
-                            &:hover{
+
+                            &:hover {
                                 background-color: hsl(0deg 0% 100% / 10%);
                             }
-                            &.active{
+
+                            &.active {
                                 background-color: hsl(0deg 0% 100% / 10%);
 
                             }
