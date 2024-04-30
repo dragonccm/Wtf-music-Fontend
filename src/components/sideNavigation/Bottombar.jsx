@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPl } from '../../redux/slide/createplaylistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
-import { increment, decrement, update } from '../../redux/slide/songPlayingSlice'
+import { increment, decrement, update ,reset} from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList, banSongs, randomSongs,updatePlaylist } from '../../redux/slide/playlistSlice'
 import { banSong } from "../../controller/user";
@@ -57,7 +57,7 @@ const Bottombar = () => {
   const [isFullScreen, SetIsFullScreen] = useState(false);
   const [animationActive, setAnimationActive] = useState(true);
   const [playing, setPlaying] = useState(false);
-  const [isRandom, setIsRandom] = useState(localStorage.getItem('isRandom').length>0 ?JSON.parse(localStorage.getItem('isRandom')):false);
+  const [isRandom, setIsRandom] = useState(localStorage.getItem('isRandom') ?JSON.parse(localStorage.getItem('isRandom')):false);
 
   const [timer, setTimer] = useState(0)
   const [outTime, setOutTime] = useState(0)
@@ -223,6 +223,10 @@ const Bottombar = () => {
     if (Number(currentMusicIndex) < dataf.song.items.length - 1) {
       dispatch(increment())
       console.log(currentMusicIndex);
+      if (dataf && isPlaying) {
+        dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex+1].encodeId))
+        localStorage.setItem('currentMusicIndex', currentMusicIndex+1)
+      }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     } else {
       alert('Không có')
@@ -232,6 +236,10 @@ const Bottombar = () => {
     if (currentMusicIndex > 0) {
       dispatch(decrement())
       console.log(currentMusicIndex);
+      if (dataf && isPlaying) {
+        dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex-1].encodeId))
+        localStorage.setItem('currentMusicIndex', currentMusicIndex-1)
+      }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     } else {
       alert('Không có')
@@ -250,18 +258,26 @@ const Bottombar = () => {
     if (!isRandom) {
       setIsRandom(true)
       localStorage.setItem('isRandom', true)
-      console.log(isRandom)
       dispatch(randomSongs())
 
     } else {
       setIsRandom(false)
       localStorage.setItem('isRandom', false)
-      console.log(isRandom)
       dispatch(fetchPlayList(localStorage.getItem('playlistID')));
-      console.log(dataf.song.items[0]);
     }
 
 
+  }
+  const handleRemovePlaylist = () => {
+    localStorage.removeItem('idSongPlaying');
+    localStorage.removeItem('currentMusicIndex');
+    localStorage.removeItem('playlistID');
+    localStorage.removeItem('duration');
+    localStorage.removeItem('playlistRandom');
+    localStorage.removeItem('isRandom');
+    setIsRandom(false)
+
+  dispatch(reset())
   }
   useEffect(() => {
     // Cập nhật giá trị mới cho dataf khi state.playlist.playlist.data thay đổi
@@ -281,13 +297,13 @@ const Bottombar = () => {
   const songInfo = useSelector((state) => state.getSongData.inforSong);
   const currentMusicIndex = useSelector((state) => state.getSongData.currentMusicIndex);
   // const [currentMusicIndex,setCurrentMusicIndex] = useState(0)
-  useEffect(() => {
-    if (dataf) {
-      dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
-      localStorage.setItem('currentMusicIndex', currentMusicIndex)
-    }
+  // useEffect(() => {
+  //   if (dataf && isPlaying) {
+  //     dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
+  //     localStorage.setItem('currentMusicIndex', currentMusicIndex)
+  //   }
 
-  }, [currentMusicIndex]);
+  // }, [currentMusicIndex]);
   // xử lí lyrics
   if (
     isPlaying &&
@@ -604,7 +620,7 @@ const Bottombar = () => {
   }
   return (
     // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
-    (<div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justifyContent': 'center' } : { 'background': 'var(--bg-player)', 'justifyContent': 'unset' }}>
+    (isPlaying && <div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justifyContent': 'center' } : { 'background': 'var(--bg-player)', 'justifyContent': 'unset' }}>
       {!modalFullIsOpen && <div className="player_info"  >
         {isPlaying && songInfo.isLoading === false && songInfo.isError === false && <div className="player_info_ctn">
           <div className="img">
@@ -968,7 +984,7 @@ const Bottombar = () => {
                   <div className="menu-plalist">
                     {
                       <>
-                        <button className="menu-item"> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
+                        <button className="menu-item" onClick={()=>{handleRemovePlaylist()}}> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
                         <button className="menu-item"><FontAwesomeIcon icon={faDownload} />chưa có PlayList</button>
                         <button className="menu-item">chưa có PlayList</button>
                       </>

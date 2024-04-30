@@ -11,6 +11,10 @@ import 'reactjs-popup/dist/index.css';
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import { postLike } from '../../redux/slide/addLikeSlice'
+import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import React, { useState, useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import "../../css/card.scss";
 const Card = ({ playlist }) => {
@@ -30,6 +34,22 @@ const Card = ({ playlist }) => {
 
     const slicedData = playlist.slice(0, 5);
 
+    // useEffect(() => {
+    //     if (dataf) {
+    //         dispatch(fetchSongPlaying(dataf.song.items[0].encodeId))
+    //     }
+    // }, [dataf]);
+
+    const dataf = useSelector((state) => state.playlist.playlist.data);
+    const handlePlayPlaylist = (e, id) => {
+        e.preventDefault();
+        dispatch(fetchPlayList(id));
+
+        if (dataf.encodeId === id) {
+            dispatch(fetchSongPlaying(dataf.song.items[0].encodeId))
+        }
+        localStorage.setItem('playlistID', id)
+    };
     return (
         <div className="card_container">
             {slicedData.map((playlist, index) => playlist._id ?
@@ -45,28 +65,23 @@ const Card = ({ playlist }) => {
                                 alt="f"
                                 className="img"
                             />
-                            <div className="img_overlay">
+                            <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
                                 <div className="img_overlay_group_btn">
                                     <FontAwesomeIcon icon={faHeart} onClick={() => handleAdd(playlist.playlistId)} />
-                                    {/* <button
-                                    onClick={() => handleChangeData(item)}
-                                >
-                                    <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-                                </button> */}
-                                    <NavLink
-                                        to={`/playlist/${playlist.playlistId}`}
+                                    <div
                                         className="nav-link list_nav_item"
+                                        onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
                                     >
                                         <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-                                    </NavLink>
+                                    </div>
                                     <FontAwesomeIcon icon={faShare} />
                                 </div>
-                            </div>
+                            </NavLink>
                         </div>
 
-                        <a href="/songpage" className="playlist_name">
-                            {playlist.sortDescription ? playlist.sortDescription : playlist.title}
-                        </a>
+                        <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
+                            {playlist.playlistname}
+                        </NavLink>
                     </div>
                 ) : (
                     <div className="card_item" key={'ola' + index}>
@@ -80,28 +95,24 @@ const Card = ({ playlist }) => {
                                 alt="f"
                                 className="img"
                             />
-                            <div className="img_overlay">
+                            <NavLink to={`/playlist/${playlist.encodeId}`} className="img_overlay">
                                 <div className="img_overlay_group_btn">
                                     <FontAwesomeIcon icon={faHeart} onClick={() => handleAdd(playlist.encodeId)} />
-                                    {/* <button
-                                    onClick={() => handleChangeData(item)}
-                                >
-                                    <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-                                </button> */}
-                                    <NavLink
-                                        to={`/playlist/${playlist.encodeId}`}
+
+                                    <div
                                         className="nav-link list_nav_item"
+                                        onClick={(e) => handlePlayPlaylist(e, playlist.encodeId)}
                                     >
                                         <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-                                    </NavLink>
+                                    </div>
                                     <FontAwesomeIcon icon={faShare} />
                                 </div>
-                            </div>
+                            </NavLink>
                         </div>
 
-                        <a href="/songpage" className="playlist_name">
+                        <NavLink to={`/playlist/${playlist.encodeId}`} className="playlist_name">
                             {playlist.sortDescription ? playlist.sortDescription : playlist.title}
-                        </a>
+                        </NavLink>
                     </div>
                 ))}
         </div>
