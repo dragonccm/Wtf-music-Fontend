@@ -21,7 +21,6 @@ const Playlistpage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [playlist, setPlaylist] = useState([])
-  const dataf = useSelector((state) => state.playlist.playlist.data);
   
   useEffect(() => {
     // dispatch(fetchPlayList(id));

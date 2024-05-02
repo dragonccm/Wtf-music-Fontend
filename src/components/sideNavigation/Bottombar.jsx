@@ -532,8 +532,10 @@ const Bottombar = () => {
             else if (currentTime < oldtime + 1) {
               // console.log('hahahah')
               for (let j = i + 1; j < haha.length; j++) {
-                lyricUL[j].classList.remove("active");
-                lyricUL[j].classList.remove("over");
+                  if (lyricUL[j]) {
+                  lyricUL[j].classList.remove("active");
+                  lyricUL[j].classList.remove("over");
+                }
               }
             }
             if (i > 0) {

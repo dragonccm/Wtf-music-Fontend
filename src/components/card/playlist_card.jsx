@@ -13,6 +13,8 @@ import 'reactjs-popup/dist/index.css';
 import { postLike } from '../../redux/slide/addLikeSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { playlistroute } from "../../controller/playlist";
+
 import React, { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -33,22 +35,18 @@ const Card = ({ playlist }) => {
     }
 
     const slicedData = playlist.slice(0, 5);
+    const [newplaylist, setNewPlaylist] = useState([])
 
-    // useEffect(() => {
-    //     if (dataf) {
-    //         dispatch(fetchSongPlaying(dataf.song.items[0].encodeId))
-    //     }
-    // }, [dataf]);
-
-    const dataf = useSelector((state) => state.playlist.playlist.data);
-    const handlePlayPlaylist = (e, id) => {
+    const handlePlayPlaylist = async(e, id) => {
         e.preventDefault();
         dispatch(fetchPlayList(id));
-
-        if (dataf.encodeId === id) {
-            dispatch(fetchSongPlaying(dataf.song.items[0].encodeId))
+        let response = await playlistroute(id);
+        if (response && response.data) {
+            console.log(response.data)
+            setNewPlaylist(response.data)
+            dispatch(fetchSongPlaying(response.data.song.items[0].encodeId))
+            localStorage.setItem('playlistID',id) 
         }
-        localStorage.setItem('playlistID', id)
     };
     return (
         <div className="card_container">
