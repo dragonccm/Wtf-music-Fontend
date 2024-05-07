@@ -13,7 +13,7 @@ import { getAllId, pushSong } from "../../../services/setupService"
 import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-import {postss} from "../../../services/postService"   
+import { postss } from "../../../services/postService"
 const HomeAdmin = () => {
     const [id, setid] = useState(null)
     const [result, setresult] = useState([])
@@ -38,20 +38,22 @@ const HomeAdmin = () => {
             if (id) {
                 const idList = id
                 for (const id of idList.songId) {
-                   const res =  await pushSong(id);
-                   setresult(res)
+                    const res = await pushSong(id);
+                    setresult(res)
                 }
             }
         }
         run()
     }, [id]);
 
-    const eee = result.map(async(data)=>{
-        return await postss(data)
-    })
-    
-    
-    console.log("sdsds",eee)
+
+    if (result.length > 0) {
+        const eee = result.map(async (data) => {
+            return await postss(data)
+        })
+        console.log("sdsds", eee)
+    }
+
 
     return (
         <main className="main-content">
