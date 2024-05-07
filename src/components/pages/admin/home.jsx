@@ -15,44 +15,44 @@ import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { postss } from "../../../services/postService"
 const HomeAdmin = () => {
-    const [id, setid] = useState(null)
-    const [result, setresult] = useState([])
+    // const [id, setid] = useState(null)
+    // const [result, setresult] = useState([])
 
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchAdminHome());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(fetchAdminHome());
+    // }, [dispatch]);
 
-    const currData = useSelector((state) => state.admin.AdminHome);
+    // const currData = useSelector((state) => state.admin.AdminHome);
 
-    useEffect(() => {
-        const run = async () => {
-            setid(await getAllId())
-        }
-        run()
-    }, []);
-    useEffect(() => {
-        const run = async () => {
-            if (id) {
-                const idList = id
-                for (const id of idList.songId) {
-                    const res = await pushSong(id);
-                    setresult(res)
-                }
-            }
-        }
-        run()
-    }, [id]);
+    // useEffect(() => {
+    //     const run = async () => {
+    //         setid(await getAllId())
+    //     }
+    //     run()
+    // }, []);
+    // useEffect(() => {
+    //     const run = async () => {
+    //         if (id) {
+    //             const idList = id
+    //             for (const id of idList.songId) {
+    //                 const res = await pushSong(id);
+    //                 setresult(res)
+    //             }
+    //         }
+    //     }
+    //     run()
+    // }, [id]);
 
 
-    if (result.length > 0) {
-        const eee = result.map(async (data) => {
-            return await postss(data)
-        })
-        console.log("sdsds", eee)
-    }
+    // if (result.length > 0) {
+    //     const eee = result.map(async (data) => {
+    //         return await postss(data)
+    //     })
+    //     console.log("sdsds", eee)
+    // }
 
 
     return (

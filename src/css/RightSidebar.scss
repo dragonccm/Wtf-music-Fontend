@@ -221,7 +221,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    max-height: 30rem;
+    overflow: auto;
     .playlist_item {
       width: 90%;
       display: flex;

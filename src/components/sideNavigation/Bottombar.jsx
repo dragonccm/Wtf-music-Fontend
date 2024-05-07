@@ -12,9 +12,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createPl } from '../../redux/slide/createplaylistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
-import { increment, decrement, update ,reset} from '../../redux/slide/songPlayingSlice'
+import { increment, decrement, update, reset } from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
-import { fetchPlayList, banSongs, randomSongs,updatePlaylist } from '../../redux/slide/playlistSlice'
+import { fetchPlayList, banSongs, randomSongs, updatePlaylist } from '../../redux/slide/playlistSlice'
 import { banSong } from "../../controller/user";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -57,7 +57,7 @@ const Bottombar = () => {
   const [isFullScreen, SetIsFullScreen] = useState(false);
   const [animationActive, setAnimationActive] = useState(true);
   const [playing, setPlaying] = useState(false);
-  const [isRandom, setIsRandom] = useState(localStorage.getItem('isRandom') ?JSON.parse(localStorage.getItem('isRandom')):false);
+  const [isRandom, setIsRandom] = useState(localStorage.getItem('isRandom') ? JSON.parse(localStorage.getItem('isRandom')) : false);
 
   const [timer, setTimer] = useState(0)
   const [outTime, setOutTime] = useState(0)
@@ -204,18 +204,18 @@ const Bottombar = () => {
       if (localStorage.getItem('playlistID')) {
         await dispatch(fetchPlayList(localStorage.getItem('playlistID')));
       }
-  
+
       if (localStorage.getItem('playlistRandom') && isRandom === true) {
         await dispatch(updatePlaylist());
       }
-  
+
       if (localStorage.getItem('currentMusicIndex')) {
         await dispatch(update(+localStorage.getItem('currentMusicIndex')));
       }
     };
-  
+
     fetchData();
-   
+
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist.data);
 
@@ -224,8 +224,8 @@ const Bottombar = () => {
       dispatch(increment())
       console.log(currentMusicIndex);
       if (dataf && isPlaying) {
-        dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex+1].encodeId))
-        localStorage.setItem('currentMusicIndex', currentMusicIndex+1)
+        dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex + 1].encodeId))
+        localStorage.setItem('currentMusicIndex', currentMusicIndex + 1)
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     } else {
@@ -237,8 +237,8 @@ const Bottombar = () => {
       dispatch(decrement())
       console.log(currentMusicIndex);
       if (dataf && isPlaying) {
-        dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex-1].encodeId))
-        localStorage.setItem('currentMusicIndex', currentMusicIndex-1)
+        dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex - 1].encodeId))
+        localStorage.setItem('currentMusicIndex', currentMusicIndex - 1)
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     } else {
@@ -277,11 +277,11 @@ const Bottombar = () => {
     localStorage.removeItem('isRandom');
     setIsRandom(false)
 
-  dispatch(reset())
+    dispatch(reset())
   }
   useEffect(() => {
     // Cập nhật giá trị mới cho dataf khi state.playlist.playlist.data thay đổi
-    if (dataf!==undefined) {
+    if (dataf !== undefined) {
       for (let i = 0; i < dataf.song.items.length; i++) {
         if (dataf.song.items[i].encodeId === songInfo.infor.id) {
           console.log(i)
@@ -458,7 +458,7 @@ const Bottombar = () => {
   // danh sách playlist 
 
   const [isTimeUpdated, setTimeUpdated] = useState(false);
-  const [volume, setVolume] = useState(localStorage.getItem('volume')?JSON.parse(localStorage.getItem('volume')):0.5);
+  const [volume, setVolume] = useState(localStorage.getItem('volume') ? JSON.parse(localStorage.getItem('volume')) : 0.5);
   const [loop, setLoop] = useState(false);
 
 
@@ -532,7 +532,7 @@ const Bottombar = () => {
             else if (currentTime < oldtime + 1) {
               // console.log('hahahah')
               for (let j = i + 1; j < haha.length; j++) {
-                  if (lyricUL[j]) {
+                if (lyricUL[j]) {
                   lyricUL[j].classList.remove("active");
                   lyricUL[j].classList.remove("over");
                 }
@@ -588,9 +588,9 @@ const Bottombar = () => {
 
     updatedClickedButtons[playlistId] = true;
     setClickedButtons(updatedClickedButtons);
-    setTimeout(() => {
-      resetButton();
-    }, 2000);
+    // setTimeout(() => {
+    //   resetButton();
+    // }, 2000);
   }
   const resetButton = () => {
     setClickedButtons([]);
@@ -771,21 +771,6 @@ const Bottombar = () => {
                     </div>
                   </div>
                   <div className="r_click_list">
-                    {/* <div className="r_click_list_item add-playlist" >
-                        <FontAwesomeIcon icon={faCirclePlus} />
-                        Thêm vào playlist
-                        <div className="playlist-content">
-                          <div className="item">
-                            <ReactSVG
-                              beforeInjection={(svg) => {
-                                svg.classList.add("icon_list_nav_item_svg");
-                              }}
-                              src={icon_playlist}
-                            />
-                            <span>Playlist 1</span>
-                          </div>
-                        </div>
-                      </div> */}
 
                     <Popup
                       trigger={
@@ -801,6 +786,7 @@ const Bottombar = () => {
                       mouseEnterDelay={0}
                       contentStyle={{ padding: "0", border: "none" }}
                       arrow={false}
+                      nested
                     >
                       {close => (<div className="menu-plalist">
                         {userPlaylist.length < 1 ? (
@@ -817,35 +803,38 @@ const Bottombar = () => {
                                 {() => close()}
                               </button>
                             ) : (
-                              <button
-                                className="menu-item"
-                                key={data.playlistId}
-                                onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
-                              >
-                                {data.playlistname}
-                              </button>
+                              data.songid.includes(songInfo.infor.id) ? (
+                                <p className="menu-item">{data.playlistname}  <FontAwesomeIcon icon={faCircleCheck} /></p>
+                              ) : (
+                                <button
+                                  className="menu-item"
+                                  key={data.playlistId}
+                                  onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
+                                >
+                                  {data.playlistname}
+                                </button>
+                              )
                             )
                           )
                         )}
 
                         <Popup
                           trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
-                          modal
+                          position="right bottom"
                           nested
                         >
                           {close => (
                             <div className="modal-body">
                               <form onSubmit={handleCreate}>
-                                <div className="mb-3">
-                                  <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
+                                <div className="gid-gr">
+                                  <label htmlFor="add-playlist-input" className="add-playlist-label">Hãy Nhập Tên PlayList</label>
                                   <input
                                     type="text"
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
                                     value={playlistName}
                                     onChange={handleInputChange}
+                                    className="add-playlist-input"
                                   />
+                                  <button className="add-playlist-btn" type="submit">tạo mới</button>
                                 </div>
                               </form>
                             </div>
@@ -889,7 +878,7 @@ const Bottombar = () => {
           loop={loop}
           // autoPlay={isPlaying}
           autoPlay={playing}
-          onVolumeChange={(e)=>handleVolumeChange(e)}
+          onVolumeChange={(e) => handleVolumeChange(e)}
           onListen={handleListen}
           onPause={handleStop}
           onCanPlay={handleTimeUpdate}
@@ -986,7 +975,7 @@ const Bottombar = () => {
                   <div className="menu-plalist">
                     {
                       <>
-                        <button className="menu-item" onClick={()=>{handleRemovePlaylist()}}> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
+                        <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
                         <button className="menu-item"><FontAwesomeIcon icon={faDownload} />chưa có PlayList</button>
                         <button className="menu-item">chưa có PlayList</button>
                       </>
