@@ -47,10 +47,13 @@ export const authenticationSlice = createSlice({
           let username = action.payload.DT.username;
           let avt = action.payload.DT.avt;
           let token = action.payload.DT.access_token;
+          let myPlayLists = action.payload.DT.myPlayLists;
+          let likedSongs = action.payload.DT.likedSongs;
+          let likedPlayLists = action.payload.DT.likedPlayLists;
           let data = {
             isAuthenticated: true,
             token: token,
-            account: { groupWithRoles, email, username,avt },
+            account: { groupWithRoles, email, username,avt,myPlayLists,likedSongs,likedPlayLists },
             isLoading: false,
           };
           state.defaultUser = data;

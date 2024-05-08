@@ -35,7 +35,8 @@ import {
   faExpand,
   faCircleCheck,
   faEllipsisVertical,
-  faTrash
+  faTrash,
+  faHeartCrack
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart,
@@ -49,6 +50,7 @@ import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Play_animation from "../../components/card/play_animation"
+import { postLike } from '../../redux/slide/addLikeSlice'
 
 Modal.setAppElement("#root");
 const Bottombar = () => {
@@ -620,6 +622,22 @@ const Bottombar = () => {
       <div className="load">skfjfjk</div>
     )
   }
+
+
+  const mysong=currData.defaultUser.account.likedSongs
+  const handleAdd = (id) => {
+    let username
+    if (currData) {
+      username = currData.defaultUser.account.username;
+    }
+    dispatch(postLike({
+      type:"song",
+      user: username,
+      id: id
+    }
+    ));
+  }
+
   return (
     // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
     (isPlaying && <div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justifyContent': 'center' } : { 'background': 'var(--bg-player)', 'justifyContent': 'unset' }}>
@@ -659,8 +677,10 @@ const Bottombar = () => {
               </div>
             </div>
             <div className="more">
-              <button className="rhap_main-controls-button rhap_button-clear">
-                <FontAwesomeIcon icon={faHeart} />
+
+              <button className="rhap_main-controls-button rhap_button-clear" onClick={()=>handleAdd(songInfo.infor.id)}>
+                {mysong.includes(songInfo.infor.id) ? (<FontAwesomeIcon icon={faHeart} />) :(<FontAwesomeIcon icon={faHeartCrack} />)}
+                
               </button>
 
               <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">

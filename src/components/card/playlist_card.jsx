@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
+import { faHeartCrack as faHeartr } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
+import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+
 import { faShare } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 // import SongDataContext from '../../lib/Context/SongContext';
 // import React, { useContext } from 'react';
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
@@ -28,8 +30,9 @@ const Card = ({ playlist }) => {
             username = currData.defaultUser.account.username;
         }
         dispatch(postLike({
+            type: "playlist",
             user: username,
-            playlist: id
+            id: id
         }
         ));
     }
@@ -37,7 +40,7 @@ const Card = ({ playlist }) => {
     const slicedData = playlist.slice(0, 5);
     const [newplaylist, setNewPlaylist] = useState([])
 
-    const handlePlayPlaylist = async(e, id) => {
+    const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
         dispatch(fetchPlayList(id));
         let response = await playlistroute(id);
@@ -45,9 +48,13 @@ const Card = ({ playlist }) => {
             console.log(response.data)
             setNewPlaylist(response.data)
             dispatch(fetchSongPlaying(response.data.song.items[0].encodeId))
-            localStorage.setItem('playlistID',id) 
+            localStorage.setItem('playlistID', id)
         }
     };
+    const mysong = currData.defaultUser.account.likedPlayLists
+    if(!mysong){
+        return <h1>loadig</h1>
+    }
     return (
         <div className="card_container">
             {slicedData.map((playlist, index) => playlist._id ?
@@ -63,21 +70,24 @@ const Card = ({ playlist }) => {
                                 alt="f"
                                 className="img"
                             />
-                            <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
+                            <div className="img_overlay">
                                 <div className="img_overlay_group_btn">
-                                    <FontAwesomeIcon icon={faHeart} onClick={() => handleAdd(playlist.playlistId)} />
+                                    {mysong.includes(playlist.encodeId) ? (<FontAwesomeIcon icon={faHeart}  />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)}
+
                                     <div
                                         className="nav-link list_nav_item"
-                                        onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
+                                        onClick={(e) => handlePlayPlaylist(e, playlist.encodeId)}
                                     >
-                                        <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+                                        <NavLink to={`/playlist/${playlist.encodeId}`}>
+                                            <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+                                        </NavLink>
                                     </div>
                                     <FontAwesomeIcon icon={faShare} />
                                 </div>
-                            </NavLink>
+                            </div>
                         </div>
 
-                        <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
+                        <NavLink to={`/playlist/${playlist.encodeId}`} className="playlist_name">
                             {playlist.playlistname}
                         </NavLink>
                     </div>
@@ -93,19 +103,21 @@ const Card = ({ playlist }) => {
                                 alt="f"
                                 className="img"
                             />
-                            <NavLink to={`/playlist/${playlist.encodeId}`} className="img_overlay">
+                            <div className="img_overlay">
                                 <div className="img_overlay_group_btn">
-                                    <FontAwesomeIcon icon={faHeart} onClick={() => handleAdd(playlist.encodeId)} />
+                                    {mysong.includes(playlist.encodeId) ? (<FontAwesomeIcon icon={faHeart}  />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)}
 
                                     <div
                                         className="nav-link list_nav_item"
                                         onClick={(e) => handlePlayPlaylist(e, playlist.encodeId)}
                                     >
-                                        <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+                                        <NavLink to={`/playlist/${playlist.encodeId}`}>
+                                            <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+                                        </NavLink>
                                     </div>
                                     <FontAwesomeIcon icon={faShare} />
                                 </div>
-                            </NavLink>
+                            </div>
                         </div>
 
                         <NavLink to={`/playlist/${playlist.encodeId}`} className="playlist_name">

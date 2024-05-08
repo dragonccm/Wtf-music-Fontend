@@ -5,7 +5,7 @@ import "reactjs-popup/dist/index.css";
 import { NavLink } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faSquarePlus, faPlay, faLink, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
+import { faHeartCrack as regular } from "@fortawesome/free-solid-svg-icons";
 // redux
 import { useEffect } from "react";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
@@ -15,19 +15,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 import SongCard2 from '../card/song_card2'
 import Loading from "../sideNavigation/mascot_animation";
+import { postLike } from '../../redux/slide/addLikeSlice'
 
 import { playlistroute } from "../../controller/playlist";
 const Playlistpage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [playlist, setPlaylist] = useState([])
-  
+  const currData = useSelector((state) => state.Authentication);
+
   useEffect(() => {
     // dispatch(fetchPlayList(id));
     fecthPlaylist()
   }, []);
   const fecthPlaylist = async () => {
-    
+
     let response = await playlistroute(id);
     if (response && response.data) {
       console.log(response.data)
@@ -38,19 +40,33 @@ const Playlistpage = () => {
   // const currData = useSelector((state) => state.playlist.playlist.data);
   if (!playlist || !playlist.song || !Array.isArray(playlist.song.items)) {
     // console.error('currData is not properly formatted:', currData);
-    return <div className="main_banner"><Loading/></div>;
+    return <div className="main_banner"><Loading /></div>;
   }
 
-  
 
+  const handleAdd = (id) => {
+    let username
+    if (currData) {
+      username = currData.defaultUser.account.username;
+    }
+    dispatch(postLike({
+      type: "playlist",
+      user: username,
+      id: id
+    }
+    ));
+  }
 
   const handlePlayPlaylist = () => {
     dispatch(fetchPlayList(id));
     dispatch(fetchSongPlaying(playlist.song.items[0].encodeId))
-    localStorage.setItem('playlistID',id)
+    localStorage.setItem('playlistID', id)
   };
 
-
+  const mysong = currData.defaultUser.account.likedPlayLists
+  if (!mysong) {
+    return <h1>loadig</h1>
+  }
   return (
     <section className="detailed_list">
       <div className="list_father">
@@ -65,25 +81,37 @@ const Playlistpage = () => {
             <div className="mid_head">
               <h1 className="list_name">{playlist.title}</h1>
               <div className="info">
-                
+
                 <div className="playlist_info_item">
                   <span className="user_name">{playlist.artistsNames}</span>
                   <span className="total_song"> {playlist.song.total} bài hát</span>
-                  <span className="total_time"> {playlist.like>1000?playlist.like/1000+'k':playlist.like} người yêu thích</span>
+                  <span className="total_time"> {playlist.like > 1000 ? playlist.like / 1000 + 'k' : playlist.like} người yêu thích</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="control">
-            <button className="play_random" onClick={()=>handlePlayPlaylist()} >
+            <button className="play_random" onClick={() => handlePlayPlaylist()} >
               <FontAwesomeIcon icon={faPlay} />
               <span>Phát Ngẫu Nhiên</span>
             </button>
             <div className="child_btn_gr">
-              <button className="favourite playlist_btn">
-                <FontAwesomeIcon icon={regular} />
-              </button>
+              {mysong.includes(playlist.song.items[0].encodeId) ?
+                (
+                  <button className="favourite playlist_btn">
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+
+                )
+                :
+                (
+                  <button className="favourite playlist_btn">
+                    <FontAwesomeIcon icon={regular} onClick={() => handleAdd(playlist.song.items[0].encodeId)} />
+                  </button>
+                )
+              }
+
               <Popup
                 trigger={
                   <button className="menu_btn playlist_btn">
