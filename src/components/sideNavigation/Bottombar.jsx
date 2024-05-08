@@ -512,7 +512,6 @@ const Bottombar = () => {
    
   }, [songInfo]);
   let gaga = songInfo.infor.lyricsString;
-  console.log(songInfo.infor.lyricsString)
   // xử lí lyrics
   const handle_lyrics = () => {
 
@@ -532,14 +531,13 @@ const Bottombar = () => {
 
 
     } else {
-      console.log("BOTTOM BAR PLAYING NULLL");
+      // console.log("BOTTOM BAR PLAYING NULLL");
     }
   }
   handle_lyrics()
   useEffect(() => {
     gaga = songInfo.infor.lyricsString;
     handle_lyrics()
-    console.log(haha)
   }, [songInfo])
   // Hàm callback để cập nhật lời bài hát
   function updateTime(e) {
@@ -671,9 +669,7 @@ const Bottombar = () => {
   const mysong=currData.defaultUser.account.likedSongs
   const handleAdd = (id) => {
     let username
-    if (currData) {
-      username = currData.defaultUser.account.username;
-    }
+    
     dispatch(postLike({
       type:"song",
       user: username,
