@@ -17,4 +17,11 @@ nếu ở chế độ random:
 -tạo danh sách phát random
 phát từ đầu dến cuối
 
++Nếu phát 1 bài ở ngoài :
+-Tạo danh sách nhạc liên quan từ server
+
++ Nếu phát 1 bài thuộc danh sách phát 
+-Lấy danh sách đó.
+=> Play 1 bài nhạc tại trang /playlist
+
  
