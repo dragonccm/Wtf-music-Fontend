@@ -35,7 +35,8 @@ import {
   faExpand,
   faCircleCheck,
   faEllipsisVertical,
-  faTrash
+  faTrash,
+  faHeartCrack
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart,
@@ -49,6 +50,7 @@ import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Play_animation from "../../components/card/play_animation"
+import { postLike } from '../../redux/slide/addLikeSlice'
 
 Modal.setAppElement("#root");
 const Bottombar = () => {
@@ -204,16 +206,20 @@ const Bottombar = () => {
         await dispatch(fetchPlayList(localStorage.getItem('playlistID')));
       }
 
+
       if (localStorage.getItem('playlistRandom') && isRandom === true) {
         await dispatch(updatePlaylist());
       }
+
 
       if (localStorage.getItem('currentMusicIndex')) {
         await dispatch(update(+localStorage.getItem('currentMusicIndex')));
       }
     };
 
+
     fetchData();
+
 
   }, [])
 
@@ -628,9 +634,9 @@ const Bottombar = () => {
 
     updatedClickedButtons[playlistId] = true;
     setClickedButtons(updatedClickedButtons);
-    setTimeout(() => {
-      resetButton();
-    }, 2000);
+    // setTimeout(() => {
+    //   resetButton();
+    // }, 2000);
   }
   const resetButton = () => {
     setClickedButtons([]);
@@ -660,6 +666,22 @@ const Bottombar = () => {
       <div className="load">skfjfjk</div>
     )
   }
+
+
+  const mysong=currData.defaultUser.account.likedSongs
+  const handleAdd = (id) => {
+    let username
+    if (currData) {
+      username = currData.defaultUser.account.username;
+    }
+    dispatch(postLike({
+      type:"song",
+      user: username,
+      id: id
+    }
+    ));
+  }
+
   return (
     // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
     (isPlaying && <div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justifyContent': 'center' } : { 'background': 'var(--bg-player)', 'justifyContent': 'unset' }}>
@@ -699,8 +721,10 @@ const Bottombar = () => {
               </div>
             </div>
             <div className="more">
-              <button className="rhap_main-controls-button rhap_button-clear">
-                <FontAwesomeIcon icon={faHeart} />
+
+              <button className="rhap_main-controls-button rhap_button-clear" onClick={()=>handleAdd(songInfo.infor.id)}>
+                {mysong.includes(songInfo.infor.id) ? (<FontAwesomeIcon icon={faHeart} />) :(<FontAwesomeIcon icon={faHeartCrack} />)}
+                
               </button>
 
               <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
@@ -811,21 +835,6 @@ const Bottombar = () => {
                     </div>
                   </div>
                   <div className="r_click_list">
-                    {/* <div className="r_click_list_item add-playlist" >
-                        <FontAwesomeIcon icon={faCirclePlus} />
-                        Thêm vào playlist
-                        <div className="playlist-content">
-                          <div className="item">
-                            <ReactSVG
-                              beforeInjection={(svg) => {
-                                svg.classList.add("icon_list_nav_item_svg");
-                              }}
-                              src={icon_playlist}
-                            />
-                            <span>Playlist 1</span>
-                          </div>
-                        </div>
-                      </div> */}
 
                     <Popup
                       trigger={
@@ -841,6 +850,7 @@ const Bottombar = () => {
                       mouseEnterDelay={0}
                       contentStyle={{ padding: "0", border: "none" }}
                       arrow={false}
+                      nested
                     >
                       {close => (<div className="menu-plalist">
                         {userPlaylist.length < 1 ? (
@@ -857,35 +867,38 @@ const Bottombar = () => {
                                 {() => close()}
                               </button>
                             ) : (
-                              <button
-                                className="menu-item"
-                                key={data.playlistId}
-                                onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
-                              >
-                                {data.playlistname}
-                              </button>
+                              data.songid.includes(songInfo.infor.id) ? (
+                                <p className="menu-item">{data.playlistname}  <FontAwesomeIcon icon={faCircleCheck} /></p>
+                              ) : (
+                                <button
+                                  className="menu-item"
+                                  key={data.playlistId}
+                                  onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
+                                >
+                                  {data.playlistname}
+                                </button>
+                              )
                             )
                           )
                         )}
 
                         <Popup
                           trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
-                          modal
+                          position="right bottom"
                           nested
                         >
                           {close => (
                             <div className="modal-body">
                               <form onSubmit={handleCreate}>
-                                <div className="mb-3">
-                                  <label htmlFor="exampleInputEmail1" className="form-label">Hãy Nhập Tên PlayList</label>
+                                <div className="gid-gr">
+                                  <label htmlFor="add-playlist-input" className="add-playlist-label">Hãy Nhập Tên PlayList</label>
                                   <input
                                     type="text"
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
                                     value={playlistName}
                                     onChange={handleInputChange}
+                                    className="add-playlist-input"
                                   />
+                                  <button className="add-playlist-btn" type="submit">tạo mới</button>
                                 </div>
                               </form>
                             </div>
@@ -930,7 +943,7 @@ const Bottombar = () => {
           // autoPlay={isPlaying}
           autoPlay={playing}
           onVolumeChange={(e) => handleVolumeChange(e)}
-          // onListen={handleListen}
+          onListen={handleListen}
           onPause={handleStop}
           onCanPlay={handleTimeUpdate}
           showSkipControls="true"
@@ -1026,6 +1039,7 @@ const Bottombar = () => {
                   <div className="menu-plalist">
                     {
                       <>
+                        <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
                         <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
                         <button className="menu-item"><FontAwesomeIcon icon={faDownload} />chưa có PlayList</button>
                         <button className="menu-item">chưa có PlayList</button>

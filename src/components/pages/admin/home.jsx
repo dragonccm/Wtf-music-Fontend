@@ -13,15 +13,19 @@ import { getAllId, pushSong } from "../../../services/setupService"
 import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
+import { postss } from "../../../services/postService"
 const HomeAdmin = () => {
     // const [id, setid] = useState(null)
-    const dispatch = useDispatch();
+    // const [result, setresult] = useState([])
 
-    useEffect(() => {
-        dispatch(fetchAdminHome());
-    }, [dispatch]);
 
-    const currData = useSelector((state) => state.admin.AdminHome);
+    // const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //     dispatch(fetchAdminHome());
+    // }, [dispatch]);
+
+    // const currData = useSelector((state) => state.admin.AdminHome);
 
     // useEffect(() => {
     //     const run = async () => {
@@ -34,17 +38,23 @@ const HomeAdmin = () => {
     //         if (id) {
     //             const idList = id
     //             for (const id of idList.songId) {
-    //                 for (const s of id.songid) {
-    //                     await pushSong(s);
-    //                 }
+    //                 const res = await pushSong(id);
+    //                 setresult(res)
     //             }
     //         }
     //     }
     //     run()
     // }, [id]);
-    // if (!id) {
-    //     return <div className="main_banner">Loading...</div>;
+
+
+    // if (result.length > 0) {
+    //     const eee = result.map(async (data) => {
+    //         return await postss(data)
+    //     })
+    //     console.log("sdsds", eee)
     // }
+
+
     return (
         <main className="main-content">
             <div className="HomeAdmin">
