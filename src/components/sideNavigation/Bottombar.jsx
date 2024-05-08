@@ -668,11 +668,9 @@ const Bottombar = () => {
 
   const mysong=currData.defaultUser.account.likedSongs
   const handleAdd = (id) => {
-    let username
     
     dispatch(postLike({
       type:"song",
-      user: username,
       id: id
     }
     ));
