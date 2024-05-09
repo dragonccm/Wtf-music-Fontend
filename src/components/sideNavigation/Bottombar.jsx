@@ -624,14 +624,14 @@ const Bottombar = () => {
   }
 
 
-  const mysong=currData.defaultUser.account.likedSongs
+  const mysong = currData.defaultUser.account.likedSongs
   const handleAdd = (id) => {
     let username
     if (currData) {
       username = currData.defaultUser.account.username;
     }
     dispatch(postLike({
-      type:"song",
+      type: "song",
       user: username,
       id: id
     }
@@ -677,11 +677,25 @@ const Bottombar = () => {
               </div>
             </div>
             <div className="more">
+              {mysong ? (
+                mysong.includes(songInfo.infor.id) ? (
+                  <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd(songInfo.infor.id)}>
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                ) : (
+                  <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd(songInfo.infor.id)}>
+                    <FontAwesomeIcon icon={faHeartCrack} />
+                  </button>
+                )
+              ) : (
+                <NavLink to={`/login`}>
+                  <button className="rhap_main-controls-button rhap_button-clear">
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                </NavLink>
 
-              <button className="rhap_main-controls-button rhap_button-clear" onClick={()=>handleAdd(songInfo.infor.id)}>
-                {mysong.includes(songInfo.infor.id) ? (<FontAwesomeIcon icon={faHeart} />) :(<FontAwesomeIcon icon={faHeartCrack} />)}
-                
-              </button>
+              )}
+
 
               <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
                 <FontAwesomeIcon icon={faEllipsis} />
