@@ -51,10 +51,16 @@ const Card = ({ playlist }) => {
             localStorage.setItem('playlistID', id)
         }
     };
-    const mysong = currData.defaultUser.account.likedPlayLists
-    if(!mysong){
-        return <h1>loadig</h1>
+    const isAuthenticated = currData.defaultUser.isAuthenticated
+    let mysong
+    if (isAuthenticated) {
+        mysong = currData.defaultUser.account.likedSongs
+    } else {
+        mysong = null
     }
+    // if (!mysong) {
+    //     return <h1>loadig</h1>
+    // }
     return (
         <div className="card_container">
             {slicedData.map((playlist, index) => playlist._id ?
@@ -72,7 +78,7 @@ const Card = ({ playlist }) => {
                             />
                             <div className="img_overlay">
                                 <div className="img_overlay_group_btn">
-                                    {mysong.includes(playlist.encodeId) ? (<FontAwesomeIcon icon={faHeart}  />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)}
+                                    {mysong.includes(playlist.encodeId) ? (<FontAwesomeIcon icon={faHeart} />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)}
 
                                     <div
                                         className="nav-link list_nav_item"
@@ -105,7 +111,7 @@ const Card = ({ playlist }) => {
                             />
                             <div className="img_overlay">
                                 <div className="img_overlay_group_btn">
-                                    {mysong.includes(playlist.encodeId) ? (<FontAwesomeIcon icon={faHeart}  />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)}
+                                    {mysong && mysong.includes(playlist.encodeId) ? (<FontAwesomeIcon icon={faHeart} />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)}
 
                                     <div
                                         className="nav-link list_nav_item"
