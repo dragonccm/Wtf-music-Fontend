@@ -665,8 +665,13 @@ const Bottombar = () => {
     )
   }
 
-
-  const mysong=currData.defaultUser.account.likedSongs
+const isAuthenticated = currData.defaultUser.isAuthenticated
+  let mysong
+  if (isAuthenticated) {
+    mysong=currData.defaultUser.account.likedSongs
+  } else {
+    mysong = null
+  }
   const handleAdd = (id) => {
     
     dispatch(postLike({
@@ -717,8 +722,7 @@ const Bottombar = () => {
             <div className="more">
 
               <button className="rhap_main-controls-button rhap_button-clear" onClick={()=>handleAdd(songInfo.infor.id)}>
-                {mysong.includes(songInfo.infor.id) ? (<FontAwesomeIcon icon={faHeart} />) :(<FontAwesomeIcon icon={faHeartCrack} />)}
-                
+                {mysong && mysong.includes(songInfo.infor.id) ? (<FontAwesomeIcon icon={faHeart} />) :(<FontAwesomeIcon icon={faHeartCrack} />)}
               </button>
 
               <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
