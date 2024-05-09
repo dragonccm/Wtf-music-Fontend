@@ -26,32 +26,32 @@ const Singerpage = () => {
         <section className="main_artists">
             <section className="main_artists_head">
                 <div className="artists_avt_ctn">
-                    <img src={currData.img} alt="f" />
+                    <img src={currData.avt} alt="f" />
                 </div>
                 <div className="artists_if_ctn">
-                    <h1 className="artists_name">{currData.name}</h1>
+                    <h1 className="artists_name">{currData.artistsName}</h1>
                     <p className="follower">{currData.totalFollow} người quan tâm <FontAwesomeIcon icon={faUser} /></p>
                 </div>
             </section>
             <div className="list_card">
                 <h1>PlayList</h1>
-                <Card playlist={currData.playlist} />
+                {/* <Card playlist={currData.playlistId} /> */}
             </div>
             <div className="for_you">
                 <h1>Bài Hát Nổi Bật</h1>
                
 
-                <Col3Layout data={currData.songFavorite} />
+                {/* <Col3Layout data={currData.songListId} /> */}
             </div>
             <div className="list_card">
                 <h1>Xuất Hiện Trong...</h1>
-                <Card playlist={currData.playlist} />
+                {/* <Card playlist={currData.playlist} /> */}
             </div>
 
-            <h1 className="for_artist_lable">VỀ {currData.name}</h1>
+            <h1 className="for_artist_lable">VỀ {currData.artistsName}</h1>
             <section className="for_artists_ctn">
                 <div className="for_artist_avt_ctn">
-                    <img src={currData.img} alt="f" />
+                    <img src={currData.avt} alt="f" />
                 </div>
                 <div className="for_artist_if_ctn">
                 <p className="for_artist_name" dangerouslySetInnerHTML={{__html: currData.biography.replace(/<br>/g, "<br/>")}}></p>
