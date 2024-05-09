@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../css/Detailed_list.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { NavLink } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faSquarePlus, faPlay, faLink, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeartCrack as regular } from "@fortawesome/free-solid-svg-icons";
@@ -64,9 +64,6 @@ const Playlistpage = () => {
   };
 
   const mysong = currData.defaultUser.account.likedPlayLists
-  if (!mysong) {
-    return <h1>loadig</h1>
-  }
   return (
     <section className="detailed_list">
       <div className="list_father">
@@ -97,20 +94,22 @@ const Playlistpage = () => {
               <span>Phát Ngẫu Nhiên</span>
             </button>
             <div className="child_btn_gr">
-              {mysong.includes(playlist.song.items[0].encodeId) ?
-                (
+              {mysong ? (
+                mysong.includes(playlist.song.items[0].encodeId) ?
+                  (<button className="favourite playlist_btn">
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>) :
+                  (<button className="favourite playlist_btn">
+                    <FontAwesomeIcon icon={regular} onClick={() => handleAdd(playlist.song.items[0].encodeId)} />
+                  </button>)
+              ) : (
+                <NavLink to={`/login`}>
                   <button className="favourite playlist_btn">
                     <FontAwesomeIcon icon={faHeart} />
                   </button>
+                </NavLink>
+              )}
 
-                )
-                :
-                (
-                  <button className="favourite playlist_btn">
-                    <FontAwesomeIcon icon={regular} onClick={() => handleAdd(playlist.song.items[0].encodeId)} />
-                  </button>
-                )
-              }
 
               <Popup
                 trigger={
