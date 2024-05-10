@@ -15,7 +15,8 @@ import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
 import { useDispatch } from "react-redux";
 import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
 import { useEffect } from "react";
-
+// import { ThemeProvider, createTheme } from '@mui/material/styles';
+// import CssBaseline from '@mui/material/CssBaseline';
 function App(props) {
     const dispatch = useDispatch();
 

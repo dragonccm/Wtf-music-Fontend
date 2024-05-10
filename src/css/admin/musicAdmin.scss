@@ -21,6 +21,13 @@
     z-index      : 10;
 }
 
+.MuiDataGrid-root{
+    font-size: 15px !important;
+}
+.MuiDataGrid-row{
+    color: aliceblue !important;
+}
+
 .container-admin {
     background-color: var(--bg-form_login);
 
