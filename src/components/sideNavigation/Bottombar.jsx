@@ -64,10 +64,10 @@ const Bottombar = () => {
   const [timer, setTimer] = useState(0)
   const [outTime, setOutTime] = useState(0)
   const [isActive, setIsActive] = useState(false)
-  // const [isPaused, setIsPaused] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const countRef = useRef(null)
   const [animationPlaylistActive, setAnimationPlaylistActive] = useState(true);
-  const playerRef = useRef(null);
+  const playerRef = useRef();
   const dispatch = useDispatch();
 
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -79,12 +79,10 @@ const Bottombar = () => {
   const [isActivehours, setIsActiveHours] = useState(false)
   const [isActiveminutes, setIsActiveMinutes] = useState(false)
   const [isActivesecond, setIsActiveSecond] = useState(false)
-
-  // Bắt đầu hẹn giờ dừng nhạc.
   const handleStart = (a) => {
     console.log('Start time')
     setIsActive(true)
-    // setIsPaused(true)
+    setIsPaused(true)
     let currTime
     if (a === 'new') {
       currTime = Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(second)
@@ -96,12 +94,6 @@ const Bottombar = () => {
       }, 1000)
     }
   }
-
-  // timer: Thời gian đã chạy từ lúc bắt đầu hẹn giờ
-  // outTime: Tổng thời gian sẽ dừng nhạc
-  // timeout: Thời gian còn lại
-
-  // Chạy mỗi khi timer, outTime để xử lí dừng nhạc
   useEffect(() => {
     console.log(timer);
     console.log(outTime);
@@ -122,29 +114,30 @@ const Bottombar = () => {
 
     }
   }, [timer, outTime]);
-
-  //kiểm tra thời gian còn lại dc lưu trên máy, để tiếp tục hẹn giờ
   useEffect(() => {
     if (Number(localStorage.getItem('timeout')) > 0) {
       console.log('Timeout : ' + Number(localStorage.getItem('timeout')))
       const timeout = Number(localStorage.getItem('timeout'))
       setOutTime(timeout)
       console.log(outTime)
-      // handleStart()
+      handleStart()
     }
   }, [])
-
-  // xử lí dừng timeout
   const handlePause = () => {
     clearInterval(countRef.current)
-    // setIsPaused(false)
+    setIsPaused(false)
   }
-
-  // reset timeout
+  const handleResume = () => {
+    setIsPaused(true)
+    countRef.current = setInterval(() => {
+      setTimer((timer) => timer + 1)
+      console.log(timer + 1)
+    }, 1000)
+  }
   const handleReset = () => {
     clearInterval(countRef.current)
     setIsActive(false)
-    // setIsPaused(false)
+    setIsPaused(false)
     setTimer(0)
     setOutTime(0)
     setHours(0)
@@ -153,7 +146,15 @@ const Bottombar = () => {
   }
 
 
-  //formatTime
+
+  const handleStopTimeChange = (event) => {
+    setOutTime(event.target.value);
+    console.log(outTime);
+    // clearTimeout(countdownTimeout); // Dừng hẹn giờ hiện tại
+    // setStopTime(newStopTime);
+  };
+
+
   const formatTime = () => {
     const getSeconds = `0${((Number(outTime) - Number(timer)) % 60)}`.slice(-2)
     const minutes = `${Math.floor((Number(outTime) - Number(timer)) / 60)}`
@@ -206,24 +207,19 @@ const Bottombar = () => {
         await dispatch(fetchPlayList(localStorage.getItem('playlistID')));
       }
 
-
       if (localStorage.getItem('playlistRandom') && isRandom === true) {
         await dispatch(updatePlaylist());
       }
-
 
       if (localStorage.getItem('currentMusicIndex')) {
         await dispatch(update(+localStorage.getItem('currentMusicIndex')));
       }
     };
 
-
     fetchData();
 
-
   }, [])
-
-
+  const dataf = useSelector((state) => state.playlist.playlist.data);
 
   const handleClickNext = () => {
     if (Number(currentMusicIndex) < dataf.song.items.length - 1) {
@@ -252,31 +248,28 @@ const Bottombar = () => {
     }
 
   }
-  // phát 1 bài bất kì trong danh sách
   const handleClickNow = (index) => {
     console.log(index)
     dispatch(update(index))
   }
-
-  //xử lí khi hêt s1 bài
   const handleEnd = () => {
     console.log('end')
     handleClickNext()
   }
-
-  // Xáo trộn danh sách 
   const handleRandom = () => {
     if (!isRandom) {
       setIsRandom(true)
       localStorage.setItem('isRandom', true)
       dispatch(randomSongs())
+
     } else {
       setIsRandom(false)
       localStorage.setItem('isRandom', false)
       dispatch(fetchPlayList(localStorage.getItem('playlistID')));
     }
+
+
   }
-  //xử lí xoá danh sách
   const handleRemovePlaylist = () => {
     localStorage.removeItem('idSongPlaying');
     localStorage.removeItem('currentMusicIndex');
@@ -285,13 +278,11 @@ const Bottombar = () => {
     localStorage.removeItem('playlistRandom');
     localStorage.removeItem('isRandom');
     setIsRandom(false)
+
     dispatch(reset())
   }
-
-  const dataf = useSelector((state) => state.playlist.playlist.data);
-
   useEffect(() => {
-    // Cập nhật giá trị mới cho da                                                                                                        taf khi state.playlist.playlist.data thay đổi
+    // Cập nhật giá trị mới cho dataf khi state.playlist.playlist.data thay đổi
     if (dataf !== undefined) {
       for (let i = 0; i < dataf.song.items.length; i++) {
         if (dataf.song.items[i].encodeId === songInfo.infor.id) {
@@ -315,9 +306,23 @@ const Bottombar = () => {
   //   }
 
   // }, [currentMusicIndex]);
+  // xử lí lyrics
+  if (
+    isPlaying &&
+    songInfo !== null &&
+    songInfo !== undefined &&
+    songInfo.infor.lyricsString
+  ) {
+    haha = songInfo.infor.lyricsString.map((sentence) => {
+      const startTime = sentence.words[0].startTime;
+      const endTime = sentence.words[sentence.words.length - 1].endTime;
+      const data = sentence.words.map((word) => word.data).join(" ");
+      return { startTime, endTime, data };
+    });
 
-
-
+  } else {
+    // console.log("BOTTOM BAR PLAYING NULLL");
+  }
 
 
   // download nhạc 
@@ -459,7 +464,7 @@ const Bottombar = () => {
   const [loop, setLoop] = useState(false);
 
 
-  //các thông số
+
   const handleTimeUpdate = (e) => {
     if (!isTimeUpdated) {
       e.target.currentTime = localStorage.getItem('duration') || 0;
@@ -477,10 +482,9 @@ const Bottombar = () => {
 
 
 
-  // volume
+
   const handleVolumeChange = (e) => {
     setVolume(e.target.volume);
-    // playerRef.current.audio.current.pause()
 
   };
   useEffect(() => {
@@ -493,52 +497,14 @@ const Bottombar = () => {
   const handleListen = (e) => {
     // Lắng nghe sự kiện timeupdate của player
     e.target.addEventListener('timeupdate', updateTime);
+
+
   };
   const handleStop = (e) => {
-    e.target.removeEventListener('timeupdate', updateTime);
+    e.target.addEventListener('timeupdate', updateTime);
   }
-  useEffect(() => {
-    if (playerRef.current && playerRef.current.audio && playerRef.current.audio.current ) {
-      const audioElement = playerRef.current.audio.current;
-      
-  
-      audioElement.addEventListener('timeupdate', updateTime);
-  
-      return () => {
-        audioElement.removeEventListener('timeupdate', updateTime);
-      };
-    }
-  
-   
-  }, [songInfo]);
-  let gaga = songInfo.infor.lyricsString;
-  // xử lí lyrics
-  const handle_lyrics = () => {
-
-    if (
-      isPlaying &&
-      songInfo !== null &&
-      songInfo !== undefined &&
-      songInfo.infor.lyricsString
-    ) {
-      haha = gaga.map((sentence) => {
-        // haha = songInfo.infor.lyricsString.map((sentence) => {
-        const startTime = sentence.words[0].startTime;
-        const endTime = sentence.words[sentence.words.length - 1].endTime;
-        const data = sentence.words.map((word) => word.data).join(" ");
-        return { startTime, endTime, data };
-      });
 
 
-    } else {
-      // console.log("BOTTOM BAR PLAYING NULLL");
-    }
-  }
-  handle_lyrics()
-  useEffect(() => {
-    gaga = songInfo.infor.lyricsString;
-    handle_lyrics()
-  }, [songInfo])
   // Hàm callback để cập nhật lời bài hát
   function updateTime(e) {
     const currentTime = e.target.currentTime;
@@ -554,23 +520,19 @@ const Bottombar = () => {
         const lyric = haha[i];
 
         if (currentTime >= parseFloat(lyric.startTime) / 1000 && currentTime <= parseFloat(lyric.endTime) / 1000) {
-          console.log(oldtime, currentTime);
-          // console.log((lyric.startTime) / 1000, (lyric.endTime) / 1000);
-          // console.log(lyricUL[i])
-          // console.log(lyric)
-          if (lyricUL[i] && !lyricUL[i].classList.contains("active")) {
-            // console.log(lyricUL[i])
+          // console.log(oldtime, currentTime);
+          if (lyricUL[i]) {
             lyricUL[i].classList.add("active");
             lyricUL[i].scrollIntoView({ behavior: "smooth", block: "center" });
-            if (currentTime > oldtime) {
+            if (currentTime > oldtime + 1) {
+              // console.log('hahahah')
               for (let j = 0; j < i; j++) {
-                console.log(lyricUL[i])
                 lyricUL[j].classList.remove("active");
                 lyricUL[j].classList.add("over");
               }
             }
-            else if (currentTime < oldtime ) {
-              console.log('hohohoh')
+            else if (currentTime < oldtime + 1) {
+              // console.log('hahahah')
               for (let j = i + 1; j < haha.length; j++) {
                 if (lyricUL[j]) {
                   lyricUL[j].classList.remove("active");
@@ -578,7 +540,6 @@ const Bottombar = () => {
                 }
               }
             }
-
             if (i > 0) {
               lyricUL[i - 1].classList.add("over");
               lyricUL[i - 1].classList.remove("active");
@@ -595,9 +556,6 @@ const Bottombar = () => {
           } else {
             console.log('lỗi r')
           }
-        }
-        else {
-          console.log('lỗi mr')
         }
       }
     }
@@ -659,23 +617,23 @@ const Bottombar = () => {
   const handleInputChange = (e) => {
     setPlaylistName(e.target.value);
   }
+  
   if (!userPlaylist) {
     return (
       <div className="load">skfjfjk</div>
     )
   }
 
-const isAuthenticated = currData.defaultUser.isAuthenticated
-  let mysong
-  if (isAuthenticated) {
-    mysong=currData.defaultUser.account.likedSongs
-  } else {
-    mysong = null
-  }
+
+  const mysong = currData.defaultUser.account.likedSongs
   const handleAdd = (id) => {
-    
+    let username
+    if (currData) {
+      username = currData.defaultUser.account.username;
+    }
     dispatch(postLike({
-      type:"song",
+      type: "song",
+      user: username,
       id: id
     }
     ));
@@ -720,10 +678,25 @@ const isAuthenticated = currData.defaultUser.isAuthenticated
               </div>
             </div>
             <div className="more">
+              {mysong ? (
+                mysong.includes(songInfo.infor.id) ? (
+                  <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd(songInfo.infor.id)}>
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                ) : (
+                  <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd(songInfo.infor.id)}>
+                    <FontAwesomeIcon icon={faHeartCrack} />
+                  </button>
+                )
+              ) : (
+                <NavLink to={`/login`}>
+                  <button className="rhap_main-controls-button rhap_button-clear">
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                </NavLink>
 
-              <button className="rhap_main-controls-button rhap_button-clear" onClick={()=>handleAdd(songInfo.infor.id)}>
-                {mysong && mysong.includes(songInfo.infor.id) ? (<FontAwesomeIcon icon={faHeart} />) :(<FontAwesomeIcon icon={faHeartCrack} />)}
-              </button>
+              )}
+
 
               <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
                 <FontAwesomeIcon icon={faEllipsis} />
@@ -1038,7 +1011,6 @@ const isAuthenticated = currData.defaultUser.isAuthenticated
                     {
                       <>
                         <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
-                        <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
                         <button className="menu-item"><FontAwesomeIcon icon={faDownload} />chưa có PlayList</button>
                         <button className="menu-item">chưa có PlayList</button>
                       </>
@@ -1133,7 +1105,28 @@ const isAuthenticated = currData.defaultUser.isAuthenticated
         >
           <h3>Chọn giờ dừng phát nhạc</h3>
           <div className='stopwatch-card'>
-
+            {/* <input
+                type="number"
+                min="1"
+                max="60"
+                step="1"
+                value={outTime}
+                onChange={handleStopTimeChange}
+              />
+              <div class="time-picker">
+                <div class="time-input">
+                  <div class="control"><input class="input is-primary" type="text" value="02" />
+                    <div class="time-options">
+                      <div class="option">00 giờ</div>
+                      <div class="option">01 giờ</div>
+                      <div class="option active">02 giờ</div>
+                      <div class="option">03 giờ</div><div class="option">04 giờ</div>
+                      <div class="option">05 giờ</div><div class="option">06 giờ</div>
+                      <div class="option">07 giờ</div><div class="option">08 giờ</div>
+                      <div class="option">09 giờ</div><div class="option">10 giờ</div>
+                      <div class="option">11 giờ</div><div class="option">12 giờ</div>
+                    </div>
+              /> */}
             <div class="time-picker" >
               <div class="time-input" onClick={() => setIsActiveHours(true)}>
                 <div class="control"><input class="input is-primary" type="number"
@@ -1198,7 +1191,14 @@ const isAuthenticated = currData.defaultUser.isAuthenticated
             </div>
             <p>{formatTime()}</p>
             <div className='buttons'>
-
+              {/* {
+                  !isActive && !isPaused ?
+                    <button onClick={handleStart}>Start</button>
+                    : (
+                      isPaused ? <button onClick={handlePause}>Pause</button> :
+                        <button onClick={handleResume}>Resume</button>
+                    )
+                }*/}
               <button onClick={() => handleReset()} disabled={!isActive}>Reset</button>
               <button onClick={() => handleStart('new')} >Lưu</button>
             </div>

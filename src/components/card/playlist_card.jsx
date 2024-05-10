@@ -51,16 +51,7 @@ const Card = ({ playlist }) => {
             localStorage.setItem('playlistID', id)
         }
     };
-    const isAuthenticated = currData.defaultUser.isAuthenticated
-    let mysong
-    if (isAuthenticated) {
-        mysong = currData.defaultUser.account.likedSongs
-    } else {
-        mysong = null
-    }
-    // if (!mysong) {
-    //     return <h1>loadig</h1>
-    // }
+    const mysong = currData.defaultUser.account.likedPlayLists
     return (
         <div className="card_container">
             {slicedData.map((playlist, index) => playlist._id ?
@@ -78,7 +69,17 @@ const Card = ({ playlist }) => {
                             />
                             <div className="img_overlay">
                                 <div className="img_overlay_group_btn">
-                                    {mysong.includes(playlist.encodeId) ? (<FontAwesomeIcon icon={faHeart} />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)}
+                                    {mysong ?
+                                        (
+                                            mysong.includes(playlist.encodeId) ?
+                                                (<FontAwesomeIcon icon={faHeart} />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)
+                                        ) : (
+                                            <NavLink to={`/login`}>
+                                                <FontAwesomeIcon icon={faHeartr} />
+                                            </NavLink>
+                                        )
+                                    }
+
 
                                     <div
                                         className="nav-link list_nav_item"
@@ -111,7 +112,19 @@ const Card = ({ playlist }) => {
                             />
                             <div className="img_overlay">
                                 <div className="img_overlay_group_btn">
-                                    {mysong && mysong.includes(playlist.encodeId) ? (<FontAwesomeIcon icon={faHeart} />) : (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)}
+                                    {mysong ?
+                                        (
+                                            mysong.includes(playlist.encodeId) ?
+                                                (<FontAwesomeIcon icon={faHeart} onClick={() => handleAdd(playlist.encodeId)} />)
+                                                :
+                                                (<FontAwesomeIcon icon={faHeartr} onClick={() => handleAdd(playlist.encodeId)} />)
+                                        )
+                                        : (
+                                            <NavLink to={`/login`}>
+                                                <FontAwesomeIcon icon={faHeartr} />
+                                            </NavLink>
+                                        )
+                                    }
 
                                     <div
                                         className="nav-link list_nav_item"
