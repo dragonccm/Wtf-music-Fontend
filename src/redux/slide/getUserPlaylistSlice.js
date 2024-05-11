@@ -22,7 +22,7 @@ export const getUserPlSlice = createSlice({
                 state.isError = false;
             })
             .addCase(getUserPl.fulfilled, (state, action) => {
-                state.userPlaylist = action.payload;
+                state.userPlaylist = action.payload.DT;
                 state.isLoading = false;
                 state.isError = false;
             })

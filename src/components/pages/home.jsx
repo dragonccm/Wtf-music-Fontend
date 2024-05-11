@@ -63,7 +63,6 @@ const HomePage = () => {
     //     console.log(isLoading);
     // }, [isLoading]);
     if (isLoading === true) {
-        console.error("currData is not an array:", newRelease);
         return <div className="main_banner"><Loading/></div>;
     }
     return (

@@ -20,16 +20,8 @@ import "../../css/card.scss";
 const Card = ({ playlist }) => {
     const dispatch = useDispatch();
     const currData = useSelector((state) => state.Authentication);
-    const handleAdd = (id) => {
-        let username
-        if (currData) {
-            username = currData.defaultUser.account.username;
-        }
-
-    }
-
+ 
     const slicedData = playlist.slice(0, 5);
-    const [newplaylist, setNewPlaylist] = useState([])
 
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
@@ -37,7 +29,6 @@ const Card = ({ playlist }) => {
         let response = await playlistroute(id);
         if (response && response.data) {
             console.log(response.data)
-            setNewPlaylist(response.data)
             dispatch(fetchSongPlaying(response.data.song.items[0].encodeId))
             localStorage.setItem('playlistID', id)
         }
@@ -98,7 +89,7 @@ const Card = ({ playlist }) => {
                             />
                             <NavLink to={`/playlist/${playlist.encodeId}`} className="img_overlay">
                                 <div className="img_overlay">
-                                    <div className="img_overlay_group_btn">
+                                    <div className="img_overlay_group_btn" onClick={(e)=>e.preventDefault()}>
                                         <Like_heart id={playlist.encodeId} type={'playlist'} />
 
                                         <div

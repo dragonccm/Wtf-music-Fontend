@@ -1,7 +1,7 @@
 // controller/SongController.js
 import axios from "../setup/axios";
 const adSongToPlaylist = async (data) => {
-    await axios.post(`/api/updatetoplaylist`, {
+    await axios.post(`/api/addtoplaylist`, {
         data:data
     }, {
         headers: {

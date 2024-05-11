@@ -3,7 +3,6 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Modal from "react-modal";
 import { toast, ToastContainer } from "react-toastify";
 
-import "reactjs-popup/dist/index.css";
 import "../../css/Bottombar.scss";
 import "react-h5-audio-player/lib/styles.css";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
@@ -20,6 +19,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import SongCard from "../card/song_card";
 import Like_heart from "../card/like";
+import CreatePlaylist from "../card/createPlaylist";
 import {
   faPlay,
   faEllipsis,
@@ -95,8 +95,8 @@ const Bottombar = () => {
     }
   }
   useEffect(() => {
-    console.log(timer);
-    console.log(outTime);
+    // console.log(timer);
+    // console.log(outTime);
     if (Number(outTime) - Number(timer) > 0) {
 
       localStorage.setItem('timeout', Number(outTime) - Number(timer))
@@ -286,7 +286,6 @@ const Bottombar = () => {
     if (dataf !== undefined) {
       for (let i = 0; i < dataf.song.items.length; i++) {
         if (dataf.song.items[i].encodeId === songInfo.infor.id) {
-          console.log(i)
           dispatch(update(i))
           break;
         }
@@ -311,9 +310,8 @@ const Bottombar = () => {
   useEffect(() => {
     if (dataf!== undefined) {
       for (let i = 0; i < dataf.song.items.length; i++) {
-        console.log(dataf.song.items[i].encodeId,songInfo.infor.id)
+        // console.log(dataf.song.items[i].encodeId,songInfo.infor.id)
         if (dataf.song.items[i].encodeId === songInfo.infor.id) {
-          console.log(i)
           dispatch(update(i))
           break;
         } else {
@@ -813,7 +811,7 @@ const Bottombar = () => {
                   </div>
                   <div className="r_click_list">
 
-                    <Popup
+                    {/* <Popup
                       trigger={
                         <div className="r_click_list_item add-playlist" >
                           <FontAwesomeIcon icon={faCirclePlus} />
@@ -883,7 +881,8 @@ const Bottombar = () => {
                         </Popup>
                       </div>)
                       }
-                    </Popup>
+                    </Popup> */}
+                    <CreatePlaylist songInfo={ songInfo} />
                     <div className="r_click_list_item" onClick={openModalFull}>
                       <ReactSVG
                         beforeInjection={(svg) => {
