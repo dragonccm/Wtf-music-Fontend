@@ -84,10 +84,10 @@ const AppRoutes = (props) => {
               path="/profile/*"
               element={<PrivateRoutes component={Profile} />}
             />
-{/* 
+
             <Route path="/*" element={<HomePage />} />
 
-            <Route path="*">404 not found</Route> */}
+            <Route path="*">404 not found</Route>
           </Routes>
         </section>
 

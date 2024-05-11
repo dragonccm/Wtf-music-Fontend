@@ -5,12 +5,7 @@ import { useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 import PrivateRoutes from "./privateRoutes";
 // page
-import HomePage from "../components/pages/home";
-import Playlistpage from "../components/pages/Playlistpage";
-import Songpage from "../components/pages/Songpage";
-import Singerpage from "../components/pages/Singerpage";
-import Top100 from "../components/pages/top100";
-import Profile from "../components/pages/profile/profilepage";
+
 import LoginPage from "../components/pages/loginpage";
 import RegisterPage from "../components/pages/register";
 
@@ -22,16 +17,14 @@ import Bottombar from "../components/sideNavigation/Bottombar";
 
 // component
 
-import ListCard from "../components/card/ListCard";
-import Rating from "../components/pages/Rating";
-import Rating_week from "../components/pages/rating_week";
+
 
 import ThemeContext from "../lib/Context/ThemeContext";
 import HomeAdmin from "../components/pages/admin/home";
 import UsersAdmin from "../components/pages/admin/users";
 import KindsMusicAdmin from "../components/pages/admin/kindsmusic";
 import SingersAdmin from "../components/pages/admin/singers";
-import SongsAdmin from "../components/pages/admin/songs";
+// import SongsAdmin from "../components/pages/admin/songs";
 // import { height } from "@mui/system";
 
 const AdminRoutes = (props) => {
@@ -77,7 +70,7 @@ const AdminRoutes = (props) => {
             <Route path="/adminusers" element={<UsersAdmin />} />
             <Route path="/adminkinds" element={<KindsMusicAdmin />} />
             <Route path="/adminsingers" element={<SingersAdmin />} />
-            <Route path="/adminsongs" element={<SongsAdmin />} />
+            {/* <Route path="/adminsongs" element={<SongsAdmin />} /> */}
 
            
 
