@@ -1,7 +1,7 @@
 import { adminHome } from '../controller/adminHome';
-const adminService = async () => {
+const adminService = async (id) => {
     try {
-        const datas = await adminHome()
+        const datas = await adminHome(id)
         return datas
     } catch (error) {
         console.error("Error loading adminHome data:", error);
