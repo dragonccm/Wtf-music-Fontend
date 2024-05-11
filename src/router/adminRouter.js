@@ -35,62 +35,19 @@ import SongsAdmin from "../components/pages/admin/songs";
 // import { height } from "@mui/system";
 
 const AdminRoutes = (props) => {
-  const { theme } = useContext(ThemeContext);
-  useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
-  }, [theme]);
+    const { theme } = useContext(ThemeContext);
+    useEffect(() => {
+        document.body.setAttribute("data-theme", theme);
+    }, [theme]);
 
-  // get state from redux
-  const isAuthentication = useSelector(
-    (state) => state.Authentication.defaultUser
-  );
+    // get state from redux
+    const isAuthentication = useSelector(
+        (state) => state.Authentication.defaultUser
+    );
 
-  const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+    const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
-  return (
-    <>
-      <RightSidebar />
-      <div
-        className="main_page"
-        style={{ height: isPlaying ? "calc(100vh - 92px)" : "100vh" }}>
-        <Header />
-        <section className={`main_page_container ${theme}`}>
-          <Routes>
-            
-
-            {/* //authentication */}
-            <Route
-              path="/login"
-              element={
-                isAuthentication &&
-                isAuthentication.isAuthenticated === true ? (
-                  <Navigate to="/" />
-                ) : (
-                  <LoginPage />
-                )
-              }
-            />
-            <Route path="/register" element={<RegisterPage />} />
-
-            {/* admin */}
-            <Route path="/adminhome" element={<HomeAdmin />} />
-            <Route path="/adminusers" element={<UsersAdmin />} />
-            <Route path="/adminkinds" element={<KindsMusicAdmin />} />
-            <Route path="/adminsingers" element={<SingersAdmin />} />
-            <Route path="/adminsongs" element={<SongsAdmin />} />
-
-           
-
-            <Route path="/*" element={<HomeAdmin/>} />
-
-            {/* <Route path="/admin"  element={<HomeAdmin/>}/> */}
-          </Routes>
-        </section>
-
-        <Footer />
-      </div>
-    </>
-  );
+    return <></>;
 };
 
 export default AdminRoutes;
