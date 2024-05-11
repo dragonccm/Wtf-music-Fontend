@@ -38,7 +38,51 @@ const AdminRoutes = (props) => {
 
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
-    return <></>;
+    return (
+        <div style={{ height: "100vh" }} className="main_content">
+            <RightSidebar />
+            <div
+                className="main_page"
+                style={{ height: isPlaying ? "calc(100vh - 92px)" : "100%" }}
+            >
+                <Header />
+                <section className={`main_page_container ${theme}`}>
+                    <Routes>
+                        {/* //authentication */}
+                        <Route
+                            path="/login"
+                            element={
+                                isAuthentication &&
+                                isAuthentication.isAuthenticated === true ? (
+                                    <Navigate to="/" />
+                                ) : (
+                                    <LoginPage />
+                                )
+                            }
+                        />
+                        <Route path="/register" element={<RegisterPage />} />
+
+                        {/* admin */}
+                        <Route path="/adminhome" element={<HomeAdmin />} />
+                        <Route path="/adminusers" element={<UsersAdmin />} />
+                        <Route
+                            path="/adminkinds"
+                            element={<KindsMusicAdmin />}
+                        />
+                        <Route
+                            path="/adminsingers"
+                            element={<SingersAdmin />}
+                        />
+                        {/* <Route path="/adminsongs" element={<SongsAdmin />} /> */}
+
+                        <Route path="/*" element={<HomeAdmin />} />
+
+                        {/* <Route path="/admin"  element={<HomeAdmin/>}/> */}
+                    </Routes>
+                </section>
+            </div>
+        </div>
+    );
 };
 
 export default AdminRoutes;

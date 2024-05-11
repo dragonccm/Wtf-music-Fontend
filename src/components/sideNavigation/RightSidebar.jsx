@@ -12,14 +12,13 @@ import icon_libary from "../../img/music-folder-svgrepo-com.svg";
 import logo from "../../img/logo3 (1).png";
 import { useSelector } from "react-redux";
 import "../../css/RightSidebar.scss";
-import { useEffect, useState,useLocation } from "react";
-import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+import { useEffect, useState, useLocation } from "react";
+import { getUserPl } from "../../redux/slide/getUserPlaylistSlice";
 import { useDispatch } from "react-redux";
-
 
 const RightSidebar = () => {
     const dispatch = useDispatch();
-    const [userlist, setuserlist] = useState(null)
+    const [userlist, setuserlist] = useState(null);
     const currData = useSelector((state) => state.Authentication);
     const usernames = currData.defaultUser.account.username;
     const userplaylist = useSelector((state) => state.getUserPl.userPlaylist);
@@ -27,21 +26,20 @@ const RightSidebar = () => {
         if (usernames) {
             dispatch(getUserPl({ userId: usernames }));
         }
-    }, [dispatch, currData])
+    }, [dispatch, currData]);
 
     useEffect(() => {
-        setuserlist(userplaylist)
-    }, [userplaylist])
+        setuserlist(userplaylist);
+    }, [userplaylist]);
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
-
     const isActive = (_, { pathname }) => {
-      return pathname.startsWith('/profile');
+        return pathname.startsWith("/profile");
     };
     return (
         <div
             className="rightsidebar"
-            style={{ height: isPlaying ? "calc(100vh - 92px)" : "100vh" }}
+            style={{ height: isPlaying ? "calc(100vh - 92px)" : "100%" }}
         >
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
@@ -158,7 +156,7 @@ const RightSidebar = () => {
                 </Nav> */}
                     </Navbar.Collapse>
                     <div className="nav_bot_playlist">
-                {/* cái này có nav link  */}
+                        {/* cái này có nav link  */}
                         {/* {userlist === null ? (
                             <h1>false</h1>
                         ) : (
@@ -178,29 +176,33 @@ const RightSidebar = () => {
                                 </NavLink>
                             ))
                         )} */}
-                {/* cái này thì del */}
+                        {/* cái này thì del */}
 
                         {userlist === null ? (
                             <h1>false</h1>
                         ) : (
-                            Object.keys(userlist).map((key,index) => (
-                               
-                                    <div className="playlist_item" key={'hahaha'+index}>
-                                        <div className="playlist_item_img">
-                                            <img src={userlist[key].thumbnail} alt="f" />
+                            Object.keys(userlist).map((key, index) => (
+                                <div
+                                    className="playlist_item"
+                                    key={"hahaha" + index}
+                                >
+                                    <div className="playlist_item_img">
+                                        <img
+                                            src={userlist[key].thumbnail}
+                                            alt="f"
+                                        />
+                                    </div>
+                                    <div className="playlist_item_content">
+                                        <div className="content_name">
+                                            <p>{userlist[key].playlistname}</p>
                                         </div>
-                                        <div className="playlist_item_content">
-                                            <div className="content_name">
-                                                <p>{userlist[key].playlistname}</p>
-                                            </div>
-                                            <div className="content_cate">Nghệ sĩ</div>
+                                        <div className="content_cate">
+                                            Nghệ sĩ
                                         </div>
                                     </div>
+                                </div>
                             ))
                         )}
-
-
-
                     </div>
                 </Container>
             </Navbar>

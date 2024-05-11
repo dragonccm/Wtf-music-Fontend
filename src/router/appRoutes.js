@@ -35,67 +35,76 @@ import SongsAdmin from "../components/pages/admin/songs";
 // import { height } from "@mui/system";
 
 const AppRoutes = (props) => {
-  const { theme } = useContext(ThemeContext);
-  useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
-  }, [theme]);
+    const { theme } = useContext(ThemeContext);
+    useEffect(() => {
+        document.body.setAttribute("data-theme", theme);
+    }, [theme]);
 
-  // get state from redux
-  const isAuthentication = useSelector(
-    (state) => state.Authentication.defaultUser
-  );
+    // get state from redux
+    const isAuthentication = useSelector(
+        (state) => state.Authentication.defaultUser
+    );
 
-  const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+    const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
-  return (
-    <>
-      <RightSidebar />
-      <div
-        className="main_page"
-        style={{ height: isPlaying ? "calc(100vh - 92px)" : "100vh" }}>
-        <Header />
-        <section className={`main_page_container ${theme}`}>
-          <Routes>
-            <Route path="/playlistpage" element={<Playlistpage />} />
-            <Route path="/song/:id" element={<Songpage />} />
-            <Route path="/artists/:id" element={<Singerpage />} />
-            <Route path="/rating" element={<Rating />} />
-            <Route path="/rating_week/:id" exact element={<Rating_week />} />
-            <Route path="/top100" element={<Top100 />} />
-            <Route path="/playlist/:id" element={<Playlistpage />} />
+    return (
+        <>
+            <RightSidebar />
+            <div
+                className="main_page"
+                style={{ height: isPlaying ? "calc(100vh - 92px)" : "100%" }}
+            >
+                <Header />
+                <section className={`main_page_container ${theme}`}>
+                    <Routes>
+                        <Route
+                            path="/playlistpage"
+                            element={<Playlistpage />}
+                        />
+                        <Route path="/song/:id" element={<Songpage />} />
+                        <Route path="/artists/:id" element={<Singerpage />} />
+                        <Route path="/rating" element={<Rating />} />
+                        <Route
+                            path="/rating_week/:id"
+                            exact
+                            element={<Rating_week />}
+                        />
+                        <Route path="/top100" element={<Top100 />} />
+                        <Route
+                            path="/playlist/:id"
+                            element={<Playlistpage />}
+                        />
 
-            {/* //authentication */}
-            <Route
-              path="/login"
-              element={
-                isAuthentication &&
-                isAuthentication.isAuthenticated === true ? (
-                  <Navigate to="/" />
-                ) : (
-                  <LoginPage />
-                )
-              }
-            />
-            <Route path="/register" element={<RegisterPage />} />
+                        {/* //authentication */}
+                        <Route
+                            path="/login"
+                            element={
+                                isAuthentication &&
+                                isAuthentication.isAuthenticated === true ? (
+                                    <Navigate to="/" />
+                                ) : (
+                                    <LoginPage />
+                                )
+                            }
+                        />
+                        <Route path="/register" element={<RegisterPage />} />
 
-        
+                        <Route
+                            path="/profile/*"
+                            element={<PrivateRoutes component={Profile} />}
+                        />
 
-            <Route
-              path="/profile/*"
-              element={<PrivateRoutes component={Profile} />}
-            />
+                        <Route path="/*" element={<HomePage />} />
 
-            <Route path="/*" element={<HomePage />} />
+                        <Route path="*">404 not found</Route>
+                    </Routes>
+                </section>
 
-            <Route path="*">404 not found</Route>
-          </Routes>
-        </section>
-
-        <Footer />
-      </div>
-      <Bottombar />
-    </>
-  );
+                <Footer />
+            </div>
+            <Bottombar />
+        </>
+    );
 };
 
 export default AppRoutes;
