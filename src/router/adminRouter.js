@@ -34,7 +34,7 @@ import SingersAdmin from "../components/pages/admin/singers";
 import SongsAdmin from "../components/pages/admin/songs";
 // import { height } from "@mui/system";
 
-const AppRoutes = (props) => {
+const AdminRoutes = (props) => {
   const { theme } = useContext(ThemeContext);
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
@@ -56,13 +56,7 @@ const AppRoutes = (props) => {
         <Header />
         <section className={`main_page_container ${theme}`}>
           <Routes>
-            <Route path="/playlistpage" element={<Playlistpage />} />
-            <Route path="/song/:id" element={<Songpage />} />
-            <Route path="/artists/:id" element={<Singerpage />} />
-            <Route path="/rating" element={<Rating />} />
-            <Route path="/rating_week/:id" exact element={<Rating_week />} />
-            <Route path="/top100" element={<Top100 />} />
-            <Route path="/playlist/:id" element={<Playlistpage />} />
+            
 
             {/* //authentication */}
             <Route
@@ -78,24 +72,25 @@ const AppRoutes = (props) => {
             />
             <Route path="/register" element={<RegisterPage />} />
 
-        
+            {/* admin */}
+            <Route path="/adminhome" element={<HomeAdmin />} />
+            <Route path="/adminusers" element={<UsersAdmin />} />
+            <Route path="/adminkinds" element={<KindsMusicAdmin />} />
+            <Route path="/adminsingers" element={<SingersAdmin />} />
+            <Route path="/adminsongs" element={<SongsAdmin />} />
 
-            <Route
-              path="/profile/*"
-              element={<PrivateRoutes component={Profile} />}
-            />
-{/* 
-            <Route path="/*" element={<HomePage />} />
+           
 
-            <Route path="*">404 not found</Route> */}
+            <Route path="/*" element={<HomeAdmin/>} />
+
+            {/* <Route path="/admin"  element={<HomeAdmin/>}/> */}
           </Routes>
         </section>
 
         <Footer />
       </div>
-      <Bottombar />
     </>
   );
 };
 
-export default AppRoutes;
+export default AdminRoutes;

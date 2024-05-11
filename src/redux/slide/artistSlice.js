@@ -3,6 +3,7 @@ import { getArtist } from "../../services/artistsService";
 
 export const fetchgArtist = createAsyncThunk("Artist/getArtist", async (id) => {
     const response = await getArtist(id);
+    console.log(response);
     const handleData = (data) => {
         if (data && data.sections && data.sections[1] && data.sections[1].items) {
             return {
@@ -27,7 +28,7 @@ export const fetchgArtist = createAsyncThunk("Artist/getArtist", async (id) => {
             return {}; // Trả về giá trị rỗng nếu không có dữ liệu
         }
     };
-    const curr = handleData(response.data)
+    const curr = handleData(response)
     return curr;
 });
 const initialState = {

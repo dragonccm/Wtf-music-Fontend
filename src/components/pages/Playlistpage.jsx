@@ -2,20 +2,17 @@ import React, { useState } from "react";
 import "../../css/Detailed_list.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faSquarePlus, faPlay, faLink, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faHeartCrack as regular } from "@fortawesome/free-solid-svg-icons";
 // redux
 import { useEffect } from "react";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
-import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
-
+import { fetchSongPlaying,update } from "../../redux/slide/songPlayingSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 import SongCard2 from '../card/song_card2'
 import Loading from "../sideNavigation/mascot_animation";
-import { postLike } from '../../redux/slide/addLikeSlice'
+import Like_heart from "../card/like";
 
 import { playlistroute } from "../../controller/playlist";
 const Playlistpage = () => {
@@ -49,17 +46,13 @@ const Playlistpage = () => {
     if (currData) {
       username = currData.defaultUser.account.username;
     }
-    dispatch(postLike({
-      type: "playlist",
-      user: username,
-      id: id
-    }
-    ));
+  
   }
 
   const handlePlayPlaylist = () => {
     dispatch(fetchPlayList(id));
     dispatch(fetchSongPlaying(playlist.song.items[0].encodeId))
+    dispatch(update(0))
     localStorage.setItem('playlistID', id)
   };
 
@@ -94,21 +87,7 @@ const Playlistpage = () => {
               <span>Phát Ngẫu Nhiên</span>
             </button>
             <div className="child_btn_gr">
-              {mysong ? (
-                mysong.includes(playlist.song.items[0].encodeId) ?
-                  (<button className="favourite playlist_btn">
-                    <FontAwesomeIcon icon={faHeart} />
-                  </button>) :
-                  (<button className="favourite playlist_btn">
-                    <FontAwesomeIcon icon={regular} onClick={() => handleAdd(playlist.song.items[0].encodeId)} />
-                  </button>)
-              ) : (
-                <NavLink to={`/login`}>
-                  <button className="favourite playlist_btn">
-                    <FontAwesomeIcon icon={faHeart} />
-                  </button>
-                </NavLink>
-              )}
+            <Like_heart id={playlist.encodeId} type={'playlist'} />
 
 
               <Popup
@@ -145,7 +124,7 @@ const Playlistpage = () => {
           </section>
           <div className="list">
             {playlist.song.items.map((data, index) => (
-              <SongCard2
+              <SongCard2 
                 data={data}
                 rating={{
                   israting: true,

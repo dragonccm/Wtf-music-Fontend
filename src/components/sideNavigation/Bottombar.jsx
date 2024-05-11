@@ -19,6 +19,7 @@ import { banSong } from "../../controller/user";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import SongCard from "../card/song_card";
+import Like_heart from "../card/like";
 import {
   faPlay,
   faEllipsis,
@@ -50,7 +51,6 @@ import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Play_animation from "../../components/card/play_animation"
-import { postLike } from '../../redux/slide/addLikeSlice'
 
 Modal.setAppElement("#root");
 const Bottombar = () => {
@@ -288,6 +288,7 @@ const Bottombar = () => {
         if (dataf.song.items[i].encodeId === songInfo.infor.id) {
           console.log(i)
           dispatch(update(i))
+          break;
         }
       }
     }
@@ -307,6 +308,22 @@ const Bottombar = () => {
 
   // }, [currentMusicIndex]);
   // xử lí lyrics
+  useEffect(() => {
+    if (dataf!== undefined) {
+      for (let i = 0; i < dataf.song.items.length; i++) {
+        console.log(dataf.song.items[i].encodeId,songInfo.infor.id)
+        if (dataf.song.items[i].encodeId === songInfo.infor.id) {
+          console.log(i)
+          dispatch(update(i))
+          break;
+        } else {
+          dispatch(update(0))
+        
+        }
+      }
+    }
+
+  }, [songInfo,dataf]);
   if (
     isPlaying &&
     songInfo !== null &&
@@ -625,19 +642,7 @@ const Bottombar = () => {
   }
 
 
-  const mysong = currData.defaultUser.account.likedSongs
-  const handleAdd = (id) => {
-    let username
-    if (currData) {
-      username = currData.defaultUser.account.username;
-    }
-    dispatch(postLike({
-      type: "song",
-      user: username,
-      id: id
-    }
-    ));
-  }
+ 
 
   return (
     // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
@@ -678,7 +683,7 @@ const Bottombar = () => {
               </div>
             </div>
             <div className="more">
-              {mysong ? (
+              {/* {mysong ? (
                 mysong.includes(songInfo.infor.id) ? (
                   <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd(songInfo.infor.id)}>
                     <FontAwesomeIcon icon={faHeart} />
@@ -695,7 +700,8 @@ const Bottombar = () => {
                   </button>
                 </NavLink>
 
-              )}
+              )} */}
+              <Like_heart id={ songInfo.infor.id} type={'song'} />
 
 
               <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
@@ -1030,7 +1036,7 @@ const Bottombar = () => {
                     <SongCard element={item} className={'active'} />
                   </div>
                   :
-                  <div className="list_song" key={'hahaha' + index} onClick={() => handleClickNow(index)}>
+                  <div className="list_song" key={'hahaha' + index} >
                     <SongCard element={item} className={'active'} />
                   </div>
 

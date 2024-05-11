@@ -18,8 +18,9 @@ const Singerpage = () => {
     }, [dispatch, id]);
 
     const currData = useSelector((state) => state.Artist.Artist);
+    console.log(currData);
     if (loading) {
-        return <div><Loading/></div>;
+        return <div><Loading /></div>;
     }
 
     return (
@@ -39,7 +40,7 @@ const Singerpage = () => {
             </div>
             <div className="for_you">
                 <h1>Bài Hát Nổi Bật</h1>
-               
+
 
                 <Col3Layout data={currData.songFavorite} />
             </div>
@@ -54,8 +55,8 @@ const Singerpage = () => {
                     <img src={currData.img} alt="f" />
                 </div>
                 <div className="for_artist_if_ctn">
-                <p className="for_artist_name" dangerouslySetInnerHTML={{__html: currData.biography.replace(/<br>/g, "<br/>")}}></p>
-                    <p className="follower">{currData.totalFollow.toLocaleString()} người quan tâm</p>
+                    <p className="for_artist_name" dangerouslySetInnerHTML={currData.biography ? { __html: currData.biography.replace(/<br>/g, "<br/>") }:''}></p>
+                    <p className="follower">{currData.totalFollow ? currData.totalFollow.toLocaleString():''} người quan tâm</p>
                 </div>
             </section>
         </section>
