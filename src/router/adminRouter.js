@@ -17,8 +17,6 @@ import Bottombar from "../components/sideNavigation/Bottombar";
 
 // component
 
-
-
 import ThemeContext from "../lib/Context/ThemeContext";
 import HomeAdmin from "../components/pages/admin/home";
 import UsersAdmin from "../components/pages/admin/users";
@@ -40,54 +38,7 @@ const AdminRoutes = (props) => {
 
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
-<<<<<<< HEAD
     return <></>;
-=======
-  return (
-    <>
-      <RightSidebar />
-      <div
-        className="main_page"
-        style={{ height: isPlaying ? "calc(100vh - 92px)" : "100vh" }}>
-        <Header />
-        <section className={`main_page_container ${theme}`}>
-          <Routes>
-            
-
-            {/* //authentication */}
-            <Route
-              path="/login"
-              element={
-                isAuthentication &&
-                isAuthentication.isAuthenticated === true ? (
-                  <Navigate to="/" />
-                ) : (
-                  <LoginPage />
-                )
-              }
-            />
-            <Route path="/register" element={<RegisterPage />} />
-
-            {/* admin */}
-            <Route path="/adminhome" element={<HomeAdmin />} />
-            <Route path="/adminusers" element={<UsersAdmin />} />
-            <Route path="/adminkinds" element={<KindsMusicAdmin />} />
-            <Route path="/adminsingers" element={<SingersAdmin />} />
-            {/* <Route path="/adminsongs" element={<SongsAdmin />} /> */}
-
-           
-
-            <Route path="/*" element={<HomeAdmin/>} />
-
-            {/* <Route path="/admin"  element={<HomeAdmin/>}/> */}
-          </Routes>
-        </section>
-
-        <Footer />
-      </div>
-    </>
-  );
->>>>>>> 7e80460cc5bb97752ff7b7d0a666b56d52581294
 };
 
 export default AdminRoutes;
