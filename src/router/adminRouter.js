@@ -17,8 +17,6 @@ import Bottombar from "../components/sideNavigation/Bottombar";
 
 // component
 
-
-
 import ThemeContext from "../lib/Context/ThemeContext";
 import HomeAdmin from "../components/pages/admin/home";
 import UsersAdmin from "../components/pages/admin/users";
@@ -28,62 +26,57 @@ import SingersAdmin from "../components/pages/admin/singers";
 // import { height } from "@mui/system";
 
 const AdminRoutes = (props) => {
-  const { theme } = useContext(ThemeContext);
-  useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
-  }, [theme]);
+    const { theme } = useContext(ThemeContext);
+    useEffect(() => {
+        document.body.setAttribute("data-theme", theme);
+    }, [theme]);
 
-  // get state from redux
-  const isAuthentication = useSelector(
-    (state) => state.Authentication.defaultUser
-  );
+    // get state from redux
+    const isAuthentication = useSelector(
+        (state) => state.Authentication.defaultUser
+    );
 
-  const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+    return (
+        <div style={{ height: "100vh" }} className="main_content">
+            <RightSidebar />
+            <div className="main_page">
+                <Header />
+                <section className={`main_page_container ${theme}`}>
+                    <Routes>
+                        {/* //authentication */}
+                        <Route
+                            path="/login"
+                            element={
+                                isAuthentication &&
+                                isAuthentication.isAuthenticated === true ? (
+                                    <Navigate to="/" />
+                                ) : (
+                                    <LoginPage />
+                                )
+                            }
+                        />
+                        <Route path="/register" element={<RegisterPage />} />
 
-  return (
-    <>
-      <RightSidebar />
-      <div
-        className="main_page"
-        style={{ height: isPlaying ? "calc(100vh - 92px)" : "100vh" }}>
-        <Header />
-        <section className={`main_page_container ${theme}`}>
-          <Routes>
-            
+                        {/* admin */}
+                        <Route path="/adminusers" element={<UsersAdmin />} />
+                        <Route
+                            path="/adminkinds"
+                            element={<KindsMusicAdmin />}
+                        />
+                        <Route
+                            path="/adminsingers"
+                            element={<SingersAdmin />}
+                        />
+                        {/* <Route path="/adminsongs" element={<SongsAdmin />} /> */}
 
-            {/* //authentication */}
-            <Route
-              path="/login"
-              element={
-                isAuthentication &&
-                isAuthentication.isAuthenticated === true ? (
-                  <Navigate to="/" />
-                ) : (
-                  <LoginPage />
-                )
-              }
-            />
-            <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/*" element={<HomeAdmin />} />
 
-            {/* admin */}
-            <Route path="/adminhome" element={<HomeAdmin />} />
-            <Route path="/adminusers" element={<UsersAdmin />} />
-            <Route path="/adminkinds" element={<KindsMusicAdmin />} />
-            <Route path="/adminsingers" element={<SingersAdmin />} />
-            {/* <Route path="/adminsongs" element={<SongsAdmin />} /> */}
-
-           
-
-            <Route path="/*" element={<HomeAdmin/>} />
-
-            {/* <Route path="/admin"  element={<HomeAdmin/>}/> */}
-          </Routes>
-        </section>
-
-        <Footer />
-      </div>
-    </>
-  );
+                        {/* <Route path="/admin"  element={<HomeAdmin/>}/> */}
+                    </Routes>
+                </section>
+            </div>
+        </div>
+    );
 };
 
 export default AdminRoutes;
