@@ -36,15 +36,10 @@ const AdminRoutes = (props) => {
         (state) => state.Authentication.defaultUser
     );
 
-    const isPlaying = useSelector((state) => state.getSongData.isPlaying);
-
     return (
         <div style={{ height: "100vh" }} className="main_content">
             <RightSidebar />
-            <div
-                className="main_page"
-                style={{ height: isPlaying ? "calc(100vh - 92px)" : "100%" }}
-            >
+            <div className="main_page">
                 <Header />
                 <section className={`main_page_container ${theme}`}>
                     <Routes>
@@ -63,7 +58,6 @@ const AdminRoutes = (props) => {
                         <Route path="/register" element={<RegisterPage />} />
 
                         {/* admin */}
-                        <Route path="/adminhome" element={<HomeAdmin />} />
                         <Route path="/adminusers" element={<UsersAdmin />} />
                         <Route
                             path="/adminkinds"
