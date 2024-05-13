@@ -1,0 +1,19 @@
+.navigationbar {
+    &::before {
+        content            : "";
+        position           : absolute;
+        top                : 0;
+        left               : 0;
+        right              : 0;
+        bottom             : 0;
+        background-image   : url('../../img/bg-sidebar.jpg');
+        /* Đường dẫn đến hình ảnh của bạn */
+        background-size    : cover;
+        background-position: center;
+        opacity            : 0.2;
+        filter             : brightness(1.3);
+        /* Điều chỉnh độ mờ của hình ảnh */
+        z-index            : -1;
+        /* Đảm bảo nằm dưới các phần tử bên trong */
+    }
+}
