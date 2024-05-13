@@ -1,9 +1,7 @@
 import "./App.css";
 import AppRoutes from "./router/appRoutes";
 import AdminRoutes from "./router/adminRouter";
-// component
-import RightSidebar from "./components/sideNavigation/RightSidebar";
-import Bottombar from "./components/sideNavigation/Bottombar";
+
 // react route
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";

@@ -7,12 +7,13 @@ import { faEllipsis, faSquarePlus, faPlay, faLink, faHeart } from "@fortawesome/
 // redux
 import { useEffect } from "react";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
-import { fetchSongPlaying,update } from "../../redux/slide/songPlayingSlice";
+import { fetchSongPlaying, update } from "../../redux/slide/songPlayingSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 import SongCard2 from '../card/song_card2'
 import Loading from "../sideNavigation/mascot_animation";
 import Like_heart from "../card/like";
+import CreatePlaylist from "../card/createPlaylist";
 
 import { playlistroute } from "../../controller/playlist";
 const Playlistpage = () => {
@@ -46,7 +47,7 @@ const Playlistpage = () => {
     if (currData) {
       username = currData.defaultUser.account.username;
     }
-  
+
   }
 
   const handlePlayPlaylist = () => {
@@ -87,7 +88,7 @@ const Playlistpage = () => {
               <span>Phát Ngẫu Nhiên</span>
             </button>
             <div className="child_btn_gr">
-            <Like_heart id={playlist.encodeId} type={'playlist'} />
+              <Like_heart id={playlist.encodeId} type={'playlist'} />
 
 
               <Popup
@@ -98,15 +99,20 @@ const Playlistpage = () => {
                   </button>
                 }
                 position="top center"
-                on="hover"
+                on="click"
                 closeOnDocumentClick
                 mouseLeaveDelay={300}
                 mouseEnterDelay={0}
                 contentStyle={{ padding: "0", border: "none" }}
                 arrow={false}
+                nested
               >
                 <div className="menu-plalist">
-                  <button className="menu-item"><FontAwesomeIcon icon={faSquarePlus} /> Thêm Vào PlayList</button>
+                  <button className="menu-item" onClick={(e) => e.preventDefault()}><CreatePlaylist
+                    idSongs={playlist.song.items.map((item) => {
+                      return item.encodeId
+                    })}  /></button>
+
                   <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
                   <button className="menu-item"><FontAwesomeIcon icon={faPlay} /> Phát Tất Cả</button>
                 </div>
@@ -124,7 +130,7 @@ const Playlistpage = () => {
           </section>
           <div className="list">
             {playlist.song.items.map((data, index) => (
-              <SongCard2 
+              <SongCard2
                 data={data}
                 rating={{
                   israting: true,
