@@ -4,19 +4,20 @@ import Nav from "react-bootstrap/Nav";
 import { ReactSVG } from "react-svg";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
-import iconHome from "../../img/music-house-fill-svgrepo-com.svg";
-import icon_Rating from "../../img/music-player-audio-bars-svgrepo-com.svg";
-import icon_Category from "../../img/music-library-svgrepo-com.svg";
-import icon_top from "../../img/music-upload-svgrepo-com.svg";
-import icon_libary from "../../img/music-folder-svgrepo-com.svg";
+import icon_Home from "../../img/music-house-fill-svgrepo-com.svg";
+import icon_Category from "../../img/category-admin.svg";
+import icon_Writer from "../../img/writer-admin.svg";
+import icon_Singer from "../../img/singer-admin.svg";
+import icon_Music from "../../img/play-music-admin.svg";
 import logo from "../../img/logo3 (1).png";
 import { useSelector } from "react-redux";
+import "../../css/admin/NavigationBar.scss";
 import "../../css/RightSidebar.scss";
 import { useEffect, useState, useLocation } from "react";
 import { getUserPl } from "../../redux/slide/getUserPlaylistSlice";
 import { useDispatch } from "react-redux";
 
-const RightSidebar = () => {
+const NavigationBar = () => {
     const dispatch = useDispatch();
     const [userlist, setuserlist] = useState(null);
     const currData = useSelector((state) => state.Authentication);
@@ -31,16 +32,12 @@ const RightSidebar = () => {
     useEffect(() => {
         setuserlist(userplaylist);
     }, [userplaylist]);
-    const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
     const isActive = (_, { pathname }) => {
         return pathname.startsWith("/profile");
     };
     return (
-        <div
-            className="rightsidebar"
-            style={{ height: isPlaying ? "calc(100vh - 92px)" : "100%" }}
-        >
+        <div className="h-100 rightsidebar">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container style={{ padding: "0" }}>
                     <Navbar.Brand as={NavLink} to="/" className="logo-name">
@@ -63,10 +60,10 @@ const RightSidebar = () => {
                                                 "icon_list_nav_item_svg"
                                             );
                                         }}
-                                        src={iconHome}
+                                        src={icon_Home}
                                     />
                                 </div>
-                                <span>Trang chủ</span>
+                                <span>Dashboard</span>
                             </NavLink>
                             <NavLink
                                 to="/rating"
@@ -79,10 +76,10 @@ const RightSidebar = () => {
                                                 "icon_list_nav_item_svg"
                                             );
                                         }}
-                                        src={icon_Rating}
+                                        src={icon_Category}
                                     />
                                 </div>
-                                <span>Bảng xếp hạng</span>
+                                <span>Category</span>
                             </NavLink>
                             <NavLink
                                 to="/hub"
@@ -95,10 +92,10 @@ const RightSidebar = () => {
                                                 "icon_list_nav_item_svg"
                                             );
                                         }}
-                                        src={icon_Category}
+                                        src={icon_Writer}
                                     />
                                 </div>
-                                <span>Chủ đề & thể loại</span>
+                                <span>Writer</span>
                             </NavLink>
                             <NavLink
                                 to="/top100"
@@ -111,10 +108,10 @@ const RightSidebar = () => {
                                                 "icon_list_nav_item_svg"
                                             );
                                         }}
-                                        src={icon_top}
+                                        src={icon_Singer}
                                     />
                                 </div>
-                                <span>Top 100</span>
+                                <span>Singer</span>
                             </NavLink>
                             <NavLink
                                 to="/profile/mymusic"
@@ -128,10 +125,10 @@ const RightSidebar = () => {
                                                 "icon_list_nav_item_svg"
                                             );
                                         }}
-                                        src={icon_libary}
+                                        src={icon_Music}
                                     />
                                 </div>
-                                <span>Thư viện</span>
+                                <span>Music</span>
                             </NavLink>
                         </Nav>
                         {/* <Nav>   
@@ -210,4 +207,4 @@ const RightSidebar = () => {
         </div>
     );
 };
-export default RightSidebar;
+export default NavigationBar;
