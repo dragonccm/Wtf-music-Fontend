@@ -12,7 +12,7 @@ import RegisterPage from "../components/pages/register";
 // layout
 import Header from "../components/layoutbar/Header";
 import Footer from "../components/layoutbar/Footer";
-import RightSidebar from "../components/sideNavigation/RightSidebar";
+import NavigationBar from "../components/sideNavigation/NavigationBar";
 import Bottombar from "../components/sideNavigation/Bottombar";
 
 // component
@@ -38,7 +38,7 @@ const AdminRoutes = (props) => {
 
     return (
         <div style={{ height: "100vh" }} className="main_content">
-            <RightSidebar />
+            <NavigationBar />
             <div className="main_page">
                 <Header />
                 <section className={`main_page_container ${theme}`}>
