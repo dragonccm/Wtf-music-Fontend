@@ -5,17 +5,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCirclePlus, faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import { createPl } from '../../redux/slide/createplaylistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { useSelector, useDispatch } from "react-redux";
-import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
+import { adSongToPlaylist } from '../../controller/adSongToPlaylist'
+import { createplaylist } from '../../controller/createPlaylist'
 
-const CreatePlaylist = ({songInfo}) => {
+
+const CreatePlaylist = ({ idSongs ,type}) => {
     const dispatch = useDispatch()
     const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
     console.log(userPlaylist)
     const [clickedButtons, setClickedButtons] = useState([]);
-  const [playlistName, setPlaylistName] = useState('');
+    const [playlistName, setPlaylistName] = useState('');
 
     const isAuthenticated = useSelector((state) => state.Authentication.defaultUser.isAuthenticated);
     useEffect(() => {
@@ -29,31 +30,32 @@ const CreatePlaylist = ({songInfo}) => {
             <div className="load">skfjfjk</div>
         )
     }
-    const handlePushSong = (playlistId, songId) => {
-        
-        dispatch(adSongToPl({
+    const handlePushSong = async (playlistId) => {
+        const response = await adSongToPlaylist({
             playlistId: playlistId,
-            songId: [songId]
-        }))
-
-        const updatedClickedButtons = [...clickedButtons];
-
-        updatedClickedButtons[playlistId] = true;
-        setClickedButtons(updatedClickedButtons);
-        // setTimeout(() => {
-        //   resetButton();
-        // }, 2000);
+            songId: idSongs
+        })
+        console.log(response)
+        if (response.EC === '0') {
+            dispatch(getUserPl());
+            alert('success')
+        }
     }
-    const resetButton = () => {
-        setClickedButtons([]);
-    };
-    const handleCreate = (e) => {
+   
+    const handleCreate = async(e) => {
         e.preventDefault();
 
-        dispatch(createPl({
+        const response = await createplaylist({
             playlistname: playlistName
-        }));
-
+        })
+        console.log(response)
+        if (response.EC === '0') {
+            dispatch(getUserPl());
+            alert('success')
+        } else {
+            alert('lỗi')
+            
+        }
         // Reset form input
         setPlaylistName('');
     }
@@ -68,12 +70,12 @@ const CreatePlaylist = ({songInfo}) => {
                     Thêm vào playlist
                 </div>
             }
-            position="right top"
+            position={type? 'left top':'right top'}
             on="hover"
             closeOnDocumentClick
             mouseLeaveDelay={300}
             mouseEnterDelay={0}
-            contentStyle={{ padding: "0", border: "none" }}
+            contentStyle={{ padding: "0", border: "none"}}
             arrow={false}
             nested
         >
@@ -83,34 +85,22 @@ const CreatePlaylist = ({songInfo}) => {
                         <button className="menu-item">chưa có PlayList</button>
                     ) : (
                         userPlaylist.map((data) =>
-                            clickedButtons[data.playlistId] ? (
-                                <button
-                                    className="menu-item"
-                                    key={data.playlistId}
-                                >
-                                    Thêm Thành Công
-                                    <FontAwesomeIcon icon={faCircleCheck} />
-                                    {() => close()}
-                                </button>
-                            ) : (
-                                data.songid.includes(songInfo.infor.id) ? (
-                                    <p  key={data.playlistId} className="menu-item">{data.playlistname}  <FontAwesomeIcon icon={faCircleCheck} /></p>
-                                ) : (
+                             (
                                     <button
                                         className="menu-item"
                                         key={data.playlistId}
-                                        onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
+                                        onClick={() => handlePushSong(data.playlistId)}
                                     >
                                         {data.playlistname}
                                     </button>
                                 )
-                            )
+                            
                         )
                     )}
 
                     <Popup
                         trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
-                        position="right bottom"
+                        position={type? 'left bottom':'right bottom'}
                         nested
                     >
                         {close => (

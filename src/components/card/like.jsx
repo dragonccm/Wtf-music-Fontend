@@ -9,6 +9,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addLike, unLike } from "../../controller/addLike";
+import { fetchAuthentication } from "../../redux/slide/AuthenticationSlice";
 
 const Like_heart = ({ id,type }) => {
     const dispatch = useDispatch()
@@ -46,6 +47,7 @@ const Like_heart = ({ id,type }) => {
                     // console.log(response)
                     // alert(response.EM)
                     setLiked(false)
+                    dispatch(fetchAuthentication());
 
                 } else if (response && response.EC !== '0') {
                     // toast.error(response.EM);
@@ -61,7 +63,7 @@ const Like_heart = ({ id,type }) => {
                     // toast.success(response.EM)
                     // alert(response.EM)
                     setLiked(true)
-
+                    dispatch(fetchAuthentication());
                 } else if (response && response.EC !== '0') {
                     // toast.error(response.EM);
                     alert(response.EM)

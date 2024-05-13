@@ -8,9 +8,6 @@ import "react-h5-audio-player/lib/styles.css";
 import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createPl } from '../../redux/slide/createplaylistSlice'
-import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
-import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice'
 import { increment, decrement, update, reset } from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList, banSongs, randomSongs, updatePlaylist } from '../../redux/slide/playlistSlice'
@@ -284,6 +281,10 @@ const Bottombar = () => {
   useEffect(() => {
     // Cập nhật giá trị mới cho dataf khi state.playlist.playlist.data thay đổi
     if (dataf !== undefined) {
+      const lol = dataf.song.items.map((item, index) => {
+        return item.encodeId
+      })
+      console.log(lol)
       for (let i = 0; i < dataf.song.items.length; i++) {
         if (dataf.song.items[i].encodeId === songInfo.infor.id) {
           dispatch(update(i))
@@ -308,7 +309,16 @@ const Bottombar = () => {
   // }, [currentMusicIndex]);
   // xử lí lyrics
   useEffect(() => {
-    if (dataf!== undefined) {
+    if (songInfo.songInfo) {
+      haha = songInfo.infor.lyricsString.map((sentence) => {
+        const startTime = sentence.words[0].startTime;
+        const endTime = sentence.words[sentence.words.length - 1].endTime;
+        const data = sentence.words.map((word) => word.data).join(" ");
+        return { startTime, endTime, data };
+      });
+    }
+    if (dataf !== undefined) {
+
       for (let i = 0; i < dataf.song.items.length; i++) {
         // console.log(dataf.song.items[i].encodeId,songInfo.infor.id)
         if (dataf.song.items[i].encodeId === songInfo.infor.id) {
@@ -316,12 +326,11 @@ const Bottombar = () => {
           break;
         } else {
           dispatch(update(0))
-        
         }
       }
     }
 
-  }, [songInfo,dataf]);
+  }, [songInfo, dataf]);
   if (
     isPlaying &&
     songInfo !== null &&
@@ -509,19 +518,25 @@ const Bottombar = () => {
 
   //   karaoke
   let oldtime = null
+  let oldUpdateTimeFunc;
   const handleListen = (e) => {
-    // Lắng nghe sự kiện timeupdate của player
-    e.target.addEventListener('timeupdate', updateTime);
-
-
+    // Lưu tham chiếu đến hàm updateTime hiện tại
+    
+    updateTime(e)
+    console.log('addd');
   };
+  
   const handleStop = (e) => {
-    e.target.addEventListener('timeupdate', updateTime);
-  }
+    // Xóa event listener cho sự kiện timeupdate
+    e.target.removeEventListener('timeupdate', oldUpdateTimeFunc);
+    console.log('xoá');
+  };
+  
 
 
-  // Hàm callback để cập nhật lời bài hát
   function updateTime(e) {
+    console.log('llll');
+
     const currentTime = e.target.currentTime;
     localStorage.setItem('duration', currentTime);
     // console.log(currentTime);
@@ -536,6 +551,10 @@ const Bottombar = () => {
 
         if (currentTime >= parseFloat(lyric.startTime) / 1000 && currentTime <= parseFloat(lyric.endTime) / 1000) {
           // console.log(oldtime, currentTime);
+          // console.log(parseFloat(lyric.startTime) / 1000, parseFloat(lyric.endTime) / 1000);
+          // console.log(lyric.data);
+          console.log(songInfo.infor.alias);
+
           if (lyricUL[i]) {
             lyricUL[i].classList.add("active");
             lyricUL[i].scrollIntoView({ behavior: "smooth", block: "center" });
@@ -577,70 +596,10 @@ const Bottombar = () => {
     oldtime = currentTime
   }
 
-  // create playlist 
-  const [clickedButtons, setClickedButtons] = useState([]);
-
-  const currData = useSelector((state) => state.Authentication);
-  const usernames = currData.defaultUser.account.username;
-  const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
-  useEffect(() => {
-    if (usernames) {
-      dispatch(getUserPl({ userId: usernames }));
-    }
-  }, [dispatch, usernames])
 
 
-  const handlePushSong = (playlistId, songId) => {
-    let username = '';
-    if (currData) {
-      username = currData.defaultUser.account.username;
-    }
-    dispatch(adSongToPl({
-      userId: username,
-      playlistId: playlistId,
-      songId: [songId]
-    }))
-
-    const updatedClickedButtons = [...clickedButtons];
-
-    updatedClickedButtons[playlistId] = true;
-    setClickedButtons(updatedClickedButtons);
-    // setTimeout(() => {
-    //   resetButton();
-    // }, 2000);
-  }
-  const resetButton = () => {
-    setClickedButtons([]);
-  };
-  const handleCreate = (e) => {
-    e.preventDefault();
 
 
-    let username = '';
-    if (currData) {
-      username = currData.defaultUser.account.username;
-    }
-
-    dispatch(createPl({
-      user: username,
-      playlistname: playlistName
-    }));
-
-    // Reset form input
-    setPlaylistName('');
-  }
-  const handleInputChange = (e) => {
-    setPlaylistName(e.target.value);
-  }
-  
-  if (!userPlaylist) {
-    return (
-      <div className="load">skfjfjk</div>
-    )
-  }
-
-
- 
 
   return (
     // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
@@ -699,7 +658,7 @@ const Bottombar = () => {
                 </NavLink>
 
               )} */}
-              <Like_heart id={ songInfo.infor.id} type={'song'} />
+              <Like_heart id={songInfo.infor.id} type={'song'} />
 
 
               <button onClick={openModal} className="rhap_main-controls-button rhap_button-clear">
@@ -882,7 +841,7 @@ const Bottombar = () => {
                       </div>)
                       }
                     </Popup> */}
-                    <CreatePlaylist songInfo={ songInfo} />
+                    <CreatePlaylist idSongs={[songInfo.infor.id]} />
                     <div className="r_click_list_item" onClick={openModalFull}>
                       <ReactSVG
                         beforeInjection={(svg) => {
@@ -919,7 +878,7 @@ const Bottombar = () => {
           // autoPlay={isPlaying}
           autoPlay={playing}
           onVolumeChange={(e) => handleVolumeChange(e)}
-          onListen={handleListen}
+          onListen={(e) => handleListen(e)}
           onPause={handleStop}
           onCanPlay={handleTimeUpdate}
           showSkipControls="true"
@@ -1010,14 +969,20 @@ const Bottombar = () => {
                 mouseEnterDelay={0}
                 contentStyle={{ padding: "0", border: "none" }}
                 arrow={false}
+                nested
+
               >
                 {close => (
                   <div className="menu-plalist">
                     {
                       <>
-                        <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />chưa có PlayList</button>
-                        <button className="menu-item"><FontAwesomeIcon icon={faDownload} />chưa có PlayList</button>
-                        <button className="menu-item">chưa có PlayList</button>
+                        <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />Xoá danh sách phát</button>
+                        <button className="menu-item"><FontAwesomeIcon icon={faDownload} />Tải danh sách phát</button>
+                        <button className="menu-item" onClick={(e) => e.preventDefault()}><CreatePlaylist
+                          idSongs={dataf.song.items.map((item) => {
+                            return item.encodeId
+                          })} type={'right'} /></button>
+
                       </>
                     }
 

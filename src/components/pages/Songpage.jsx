@@ -4,7 +4,7 @@ import 'reactjs-popup/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay, faShare } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import { faHeart,faSquarePlus,faPlay,faLink } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faSquarePlus, faPlay, faLink } from '@fortawesome/free-solid-svg-icons'
 import React, { useEffect } from "react";
 import { useParams } from 'react-router-dom';
 // import { fetchPlayList } from '../../redux/slide/playlistSlice'
@@ -14,6 +14,9 @@ import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 // import ListCard from "../card/ListCard";
 import Loading from "../sideNavigation/mascot_animation";
 import Card from '../card/playlist_card'
+import CreatePlaylist from "../card/createPlaylist";
+import Like_heart from "../card/like";
+
 const Songpage = () => {
 
 
@@ -27,8 +30,8 @@ const Songpage = () => {
 
   const currSongData = useSelector((state) => state.songPage.pageData);
   const isLoading = useSelector((state) => state.songPage.isLoading);
-  if (isLoading || !currSongData|| !Object.keys(currSongData).length > 0 || !currSongData.img) {
-    return <div><Loading/></div>;
+  if (isLoading || !currSongData || !Object.keys(currSongData).length > 0 || !currSongData.img) {
+    return <div><Loading /></div>;
   }
   const handlePlaying = (e, id) => {
     e.preventDefault();
@@ -74,10 +77,10 @@ const Songpage = () => {
           <h5>Bài hát</h5>
           <h1 className="songpage_list_name">{currSongData.songname}</h1>
           <p className="songpage_info">
-  
+
             <div className="songpage_user_name">{currSongData.artistInfo[0].name}</div>
-            
-            <div className="songpage_total_song">{currSongData.like>1000?currSongData.like/1000+'k':currSongData.like} người yêu thích</div>
+
+            <div className="songpage_total_song">{currSongData.like > 1000 ? currSongData.like / 1000 + 'k' : currSongData.like} người yêu thích</div>
             <div className="songpage_total_time">{String(Math.floor(currSongData.duration / 60)).padStart(2, "0") + ':' + String(currSongData.duration % 60).padStart(2, "0")}</div>
           </p>
         </div>
@@ -89,9 +92,7 @@ const Songpage = () => {
           <button className="play_random" onClick={(e) => handlePlaying(e, id)}>
             <FontAwesomeIcon icon={faCirclePlay} />
           </button>
-          <button className="like_btn">
-            <FontAwesomeIcon icon={faHeart} />
-          </button>
+          <Like_heart id={id} type={'song'} />
           <Popup trigger={<button className="menu_btn">  <FontAwesomeIcon icon={faEllipsis} /></button>} position="right top"
             nested
             closeOnDocumentClick
@@ -99,11 +100,13 @@ const Songpage = () => {
             mouseEnterDelay={0}
             contentStyle={{ padding: '0', border: 'none' }}
             arrow={false}>
+
             <div className="menu-plalist">
-                  <button className="menu-item"><FontAwesomeIcon icon={faSquarePlus} /> Thêm Vào PlayList</button>
-                  <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
-                  <button className="menu-item"><FontAwesomeIcon icon={faShare} /> Chia Sẽ</button>
-                </div>
+              <button className="menu-item" onClick={(e) => e.preventDefault()}><CreatePlaylist
+                idSongs={[id]} /></button>
+              <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
+              <button className="menu-item"><FontAwesomeIcon icon={faShare} /> Chia Sẽ</button>
+            </div>
           </Popup>
 
 
