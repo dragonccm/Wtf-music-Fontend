@@ -31,15 +31,13 @@ function App(props) {
     //     dispatch(fetchSong(localStorage.getItem("idSongPlaying")));
     // }, []);
 
-
-
     const Mainn = () => (
         <ThemeProvider>
             <div className="App">
                 <div className="main_content">
                     {/* <RightSidebar /> */}
 
-                    <AppRoutes  />
+                    <AppRoutes />
 
                     {/* <Bottombar  /> */}
                 </div>
@@ -51,12 +49,11 @@ function App(props) {
             <SongDataProvider>
                 <Router>
                     <Routes>
-                        <Route path="/admin/*" element={<AdminRoutes/>} />
-                        <Route path="/*" element={<Mainn/>} />
+                        <Route path="/admin/*" element={<AdminRoutes />} />
+                        <Route path="/*" element={<Mainn />} />
                     </Routes>
                 </Router>
             </SongDataProvider>
-            
         </>
     );
 }

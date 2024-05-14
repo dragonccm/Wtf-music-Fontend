@@ -27,11 +27,6 @@ import Rating from "../components/pages/Rating";
 import Rating_week from "../components/pages/rating_week";
 
 import ThemeContext from "../lib/Context/ThemeContext";
-import HomeAdmin from "../components/pages/admin/home";
-import UsersAdmin from "../components/pages/admin/users";
-import KindsMusicAdmin from "../components/pages/admin/kindsmusic";
-import SingersAdmin from "../components/pages/admin/singers";
-import SongsAdmin from "../components/pages/admin/songs";
 // import { height } from "@mui/system";
 
 const AppRoutes = (props) => {

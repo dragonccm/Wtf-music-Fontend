@@ -9,15 +9,14 @@ import "../../../css/admin/homeAdmin.scss";
 import "../../../css/admin/musicAdmin.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
-import { getAllId, pushSong } from "../../../services/setupService"
+import { getAllId, pushSong } from "../../../services/setupService";
 import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-import { postss } from "../../../services/postService"
+import { postss } from "../../../services/postService";
 const HomeAdmin = () => {
     // const [id, setid] = useState(null)
     // const [result, setresult] = useState([])
-
 
     // const dispatch = useDispatch();
 
@@ -46,14 +45,12 @@ const HomeAdmin = () => {
     //     run()
     // }, [id]);
 
-
     // if (result.length > 0) {
     //     const eee = result.map(async (data) => {
     //         return await postss(data)
     //     })
     //     console.log("sdsds", eee)
     // }
-
 
     return (
         <main className="main-content">
@@ -149,11 +146,27 @@ const HomeAdmin = () => {
                 {/* top data */}
                 <section className="row my-5">
                     <div className="col-lg-8 py-3 card overflow-x-auto container-admin">
-                        <div className="card-header">
-                            <div className="header-title">
-                                <h4 className="mb-5 card-title text-capitalize">
+                        <div className="row mb-5 card-header">
+                            <div className="col-lg-6 header-title">
+                                <h4 className="card-title text-capitalize">
                                     top artist
                                 </h4>
+                            </div>
+                            <div class="col-lg-6">
+                                <div
+                                    id="datatable_filter"
+                                    class="text-end dataTables_filter"
+                                >
+                                    <label className="fs-4">
+                                        Search:
+                                        <input
+                                            type="search"
+                                            class="fs-5 form-control form-control-sm"
+                                            placeholder=""
+                                            aria-controls="datatable"
+                                        />
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <table className="w-100 fs-4 text-justify table-admin">
@@ -221,17 +234,26 @@ const HomeAdmin = () => {
                             <div className="col-6 pe-5 pagination-numbers">
                                 <ul className="pagination justify-content-end ">
                                     <li className="border">
-                                        <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
+                                        <a
+                                            className="d-block fs-4 px-4 py-1 opacity-75"
+                                            href="#"
+                                        >
                                             Previous
                                         </a>
                                     </li>
                                     <li className="border active">
-                                        <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
+                                        <a
+                                            className="d-block fs-4 px-4 py-1 opacity-75"
+                                            href="#"
+                                        >
                                             1
                                         </a>
                                     </li>
                                     <li className="border">
-                                        <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
+                                        <a
+                                            className="d-block fs-4 px-4 py-1 opacity-75"
+                                            href="#"
+                                        >
                                             Next
                                         </a>
                                     </li>

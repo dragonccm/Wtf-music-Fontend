@@ -20,8 +20,9 @@ import Bottombar from "../components/sideNavigation/Bottombar";
 import ThemeContext from "../lib/Context/ThemeContext";
 import HomeAdmin from "../components/pages/admin/home";
 import UsersAdmin from "../components/pages/admin/users";
-import KindsMusicAdmin from "../components/pages/admin/kindsmusic";
 import SingersAdmin from "../components/pages/admin/singers";
+import WritersAdmin from "../components/pages/admin/writers";
+import CategorysAdmin from "../components/pages/admin/categorys";
 // import SongsAdmin from "../components/pages/admin/songs";
 // import { height } from "@mui/system";
 
@@ -58,20 +59,15 @@ const AdminRoutes = (props) => {
                         <Route path="/register" element={<RegisterPage />} />
 
                         {/* admin */}
-                        <Route path="/adminusers" element={<UsersAdmin />} />
-                        <Route
-                            path="/adminkinds"
-                            element={<KindsMusicAdmin />}
-                        />
-                        <Route
-                            path="/adminsingers"
-                            element={<SingersAdmin />}
-                        />
-                        {/* <Route path="/adminsongs" element={<SongsAdmin />} /> */}
+                        <Route path="/category" element={<CategorysAdmin />} />
+                        <Route path="/user" element={<UsersAdmin />} />
+                        <Route path="/singer" element={<SingersAdmin />} />
+                        <Route path="/writer" element={<WritersAdmin />} />
+                        {/* <Route path="/song" element={<SongsAdmin />} /> */}
 
                         <Route path="/*" element={<HomeAdmin />} />
 
-                        {/* <Route path="/admin"  element={<HomeAdmin/>}/> */}
+                        {/* <Route path="/admin" element={<HomeAdmin />} /> */}
                     </Routes>
                 </section>
             </div>

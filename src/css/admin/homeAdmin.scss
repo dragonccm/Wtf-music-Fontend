@@ -89,6 +89,23 @@ $icon-color-users   : #8545dc;
   }
 
   // Top Artist
+  .card-header {
+    .dataTables_filter {
+      input {
+        margin-left: .5em;
+        display    : inline-block;
+        width      : auto;
+      }
+    }
+  }
+
+  .table-admin {
+    .border-bottom {
+      h6 {
+        font-weight: 400;
+      }
+    }
+  }
 
   // Total Reviews
   .card {

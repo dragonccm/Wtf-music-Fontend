@@ -40,7 +40,11 @@ const NavigationBar = () => {
         <div className="h-100 rightsidebar navigationbar">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container style={{ padding: "0" }}>
-                    <Navbar.Brand as={NavLink} to="/" className="logo-name">
+                    <Navbar.Brand
+                        as={NavLink}
+                        to="/admin"
+                        className="logo-name"
+                    >
                         <img
                             src={logo}
                             className="d-inline-block align-top"
@@ -52,7 +56,10 @@ const NavigationBar = () => {
                         className="rs_bottom_bar"
                     >
                         <Nav className="me-auto list_nav">
-                            <NavLink to="/" className="nav-link list_nav_item">
+                            <NavLink
+                                to="/admin/dashboard"
+                                className="nav-link list_nav_item"
+                            >
                                 <div className="icon_list_nav_item">
                                     <ReactSVG
                                         beforeInjection={(svg) => {
@@ -66,7 +73,7 @@ const NavigationBar = () => {
                                 <span>Dashboard</span>
                             </NavLink>
                             <NavLink
-                                to="/rating"
+                                to="/admin/category"
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">
@@ -98,7 +105,7 @@ const NavigationBar = () => {
                                 <span>Writer</span>
                             </NavLink>
                             <NavLink
-                                to="/top100"
+                                to="/admin/singer"
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">
@@ -114,7 +121,7 @@ const NavigationBar = () => {
                                 <span>Singer</span>
                             </NavLink>
                             <NavLink
-                                to="/profile/mymusic"
+                                to="/admin/song"
                                 isActive={isActive}
                                 className="nav-link list_nav_item"
                             >
