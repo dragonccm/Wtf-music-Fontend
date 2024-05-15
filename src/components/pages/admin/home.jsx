@@ -145,8 +145,8 @@ const HomeAdmin = () => {
 
                 {/* top data */}
                 <section className="row my-5">
-                    <div className="col-lg-8 py-3 card overflow-x-auto container-admin">
-                        <div className="row mb-5 card-header">
+                    <div className="col-lg-8 py-3 card container-admin">
+                        <div className="row py-5 card-header">
                             <div className="col-lg-6 header-title">
                                 <h4 className="card-title text-capitalize">
                                     top artist
@@ -169,7 +169,10 @@ const HomeAdmin = () => {
                                 </div>
                             </div>
                         </div>
-                        <table className="w-100 fs-4 text-justify table-admin">
+                        <table
+                            style={{ border: "none" }}
+                            className="w-100 fs-4 text-justify table-admin"
+                        >
                             <thead>
                                 <tr>
                                     <th>Thứ tự</th>
@@ -179,7 +182,7 @@ const HomeAdmin = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="border-bottom">
+                                <tr>
                                     <td>01</td>
                                     <td>
                                         <h6 className="fs-4 text-capitalize">
@@ -195,7 +198,7 @@ const HomeAdmin = () => {
                                     <td>Jan 24, 2020</td>
                                     <td>157</td>
                                 </tr>
-                                <tr className="border-bottom">
+                                <tr>
                                     <td>01</td>
                                     <td>
                                         <h6 className="fs-4 text-capitalize">
@@ -211,7 +214,7 @@ const HomeAdmin = () => {
                                     <td>Jan 24, 2020</td>
                                     <td>157</td>
                                 </tr>
-                                <tr className="border-bottom">
+                                <tr>
                                     <td>01</td>
                                     <td>
                                         <h6 className="fs-4 text-capitalize">
@@ -264,7 +267,7 @@ const HomeAdmin = () => {
                     <div className="col-lg-4">
                         <div
                             style={{ height: "100%" }}
-                            className="card py-3 px-2"
+                            className="card py-3 px-2 container-admin"
                         >
                             <div className="card-header">
                                 <div className="header-title">

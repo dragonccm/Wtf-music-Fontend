@@ -237,7 +237,7 @@ const SingersAdmin = () => {
                 >
                     {/* Nội dung của pop-up form chỉnh sửa */}
                     <h2 className="text-center opacity-75 mb-5">
-                        Chỉnh sửa thông tin nhạc sĩ
+                        Chỉnh sửa thông tin ca sĩ
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
@@ -332,7 +332,7 @@ const SingersAdmin = () => {
                     overlayClassName="modal-overlay-1"
                 >
                     <h2 className="text-center opacity-75 mb-5">
-                        Tạo mới nhạc sĩ
+                        Tạo mới ca sĩ
                     </h2>
                     <form>
                         <div className="mb-4 form-group">

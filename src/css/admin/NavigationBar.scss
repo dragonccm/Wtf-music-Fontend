@@ -18,4 +18,11 @@
         z-index            : -1;
         /* Đảm bảo nằm dưới các phần tử bên trong */
     }
+
+    .list_nav_item:hover {
+        background: #2e72f04d;
+        box-shadow: unset;
+        transform : scale(95%);
+        transition: all 0.2s ease-in-out;
+    }
 }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../../../css/admin/musicAdmin.scss";
 import Modal from "react-modal";
+import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faTableList } from "@fortawesome/free-solid-svg-icons";
 
 const CategorysAdmin = () => {
     const [musicKinds, setMusicKinds] = useState([]); // Danh sách thể loại nhạc
@@ -101,67 +101,69 @@ const CategorysAdmin = () => {
     };
 
     return (
-        <div className="container px-0 rounded-2 overflow-x-auto container-admin">
-            <div className="d-flex align-items-center justify-content-between px-4 mt-4 header-admin">
-                {/* Hiển thị danh sách thể loại nhạc */}
-                <h2 className="fw-normal fs-1 mb-4 heading-admin">
-                    <FontAwesomeIcon icon={faTableList} /> Danh sách thể loại
+        <div className="container overflow-x-auto container-admin">
+            <div className="text-center container-img">
+                <img style={{ width: "12%" }} src={logo} alt="logo" />
+            </div>
+            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
+                <h2 className="fw-normal fs-1 heading-admin">
+                    Danh sách thể loại
                 </h2>
-                {/* Hiển thị form tạo mới thể loại nhạc */}
-                <div className="d-flex flex-column align-items-end justify-content-center mt-5 actions-admin">
-                    <button
-                        className="btn btn-success fs-4 mb-4 py-2"
-                        onClick={openCreateModal}
-                    >
-                        + Thêm mới thể loại
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button className="btn fs-4 py-2" onClick={openCreateModal}>
+                        Thêm mới thể loại
                     </button>
-                    <form action="">
-                        <label className="fs-4 me-3" htmlFor="search-kind">
-                            Tìm kiếm:
-                        </label>
-                        <input
-                            id="search-kind"
-                            type="text"
-                            placeholder="Nhập thể loại"
-                            required
-                            className="fs-5 ps-3 py-1 border border-dark-subtle rounded-1"
-                        />
-                    </form>
                 </div>
             </div>
-            <table className="w-100 fs-4 mt-4 text-justify table-admin">
-                <thead>
-                    <tr>
-                        <th>Thứ tự</th>
-                        <th>Tên thể loại</th>
-                        <th>Mô tả thể loại</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {musicKinds.map((kind) => (
-                        <tr key={kind.id} className="border-bottom">
-                            <td>{kind.id}</td>
-                            <td>{kind.name}</td>
-                            <td>{kind.description}</td>
-                            <td>
-                                <button
-                                    className="btn btn-primary fs-4 rounded-circle"
-                                    onClick={() => openEditModal(kind)}
-                                >
-                                    <FontAwesomeIcon icon={faPen} />
-                                </button>
-                                <button
-                                    className="btn btn-danger fs-4 ms-3 rounded-circle"
-                                    onClick={() => deleteMusicKind(kind.id)}
-                                >
-                                    <FontAwesomeIcon icon={faTrash} />
-                                </button>
-                            </td>
+            <div className="px-4 event-admin">
+                <form action="">
+                    <label className="fs-3 me-3" htmlFor="search-kind">
+                        Tìm kiếm:
+                    </label>
+                    <input
+                        id="search-kind"
+                        type="text"
+                        placeholder="Nhập thể loại"
+                        required
+                        className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
+                    />
+                </form>
+            </div>
+            <div className="px-4">
+                <table className="w-100 fs-3 text-justify table-admin">
+                    <thead>
+                        <tr>
+                            <th>Thứ tự</th>
+                            <th>Tên thể loại</th>
+                            <th>Mô tả thể loại</th>
+                            <th>Hành động</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {musicKinds.map((kind) => (
+                            <tr key={kind.id}>
+                                <td>{kind.id}</td>
+                                <td>{kind.name}</td>
+                                <td>{kind.description}</td>
+                                <td>
+                                    <button
+                                        className="btn btn-primary fs-5"
+                                        onClick={() => openEditModal(kind)}
+                                    >
+                                        <FontAwesomeIcon icon={faPen} />
+                                    </button>
+                                    <button
+                                        className="btn btn-danger-custom fs-5 ms-3"
+                                        onClick={() => deleteMusicKind(kind.id)}
+                                    >
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <div className="d-flex py-4 pagination-admin">
                 <div className="col-6 description-pagination"></div>
                 <div className="col-6 pe-5 pagination-numbers">

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../../../css/admin/musicAdmin.scss";
 import Modal from "react-modal";
+import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { faTableList } from "@fortawesome/free-solid-svg-icons";
 
 const UsersAdmin = () => {
     const [musicUsers, setMusicUsers] = useState([]); // Danh sách thể loại nhạc
@@ -59,75 +59,87 @@ const UsersAdmin = () => {
     };
 
     return (
-        <div className="container pt-2 px-0 rounded-2 overflow-x-auto container-admin">
-            <div className="d-flex align-items-center justify-content-between px-4 mt-4 header-admin">
-                {/* Hiển thị danh sách thể loại nhạc */}
-                <h2 className="fw-normal fs-1 mb-4 heading-admin">
-                    <FontAwesomeIcon icon={faTableList} /> Danh sách người dùng
-                </h2>
-                {/* Hiển thị form tạo mới thể loại nhạc */}
-                <div className="d-flex flex-column align-items-end justify-content-center mt-5 actions-admin">
-                    <form action="">
-                        <label className="fs-4 me-3" htmlFor="search-kind">
-                            Tìm kiếm:
-                        </label>
-                        <input
-                            id="search-kind"
-                            type="text"
-                            placeholder="Nhập người dùng"
-                            required
-                            className="fs-5 ps-3 py-1 border border-dark-subtle rounded-1"
-                        />
-                    </form>
-                </div>
+        <div className="container overflow-x-auto container-admin">
+            <div className="text-center container-img">
+                <img style={{ width: "12%" }} src={logo} alt="logo" />
             </div>
-            <table className="w-100 fs-4 mt-4 text-justify table-admin">
-                <thead>
-                    <tr>
-                        <th>Profile</th>
-                        <th>Tên</th>
-                        <th>Tài khoản</th>
-                        <th>Email</th>
-                        <th>Vai trò</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {musicUsers.map((kind) => (
-                        <tr key={kind.id} className="border-bottom">
-                            <td>{kind.avt}</td>
-                            <td>{kind.name}</td>
-                            <td>{kind.userAccount}</td>
-                            <td>{kind.email}</td>
-                            <td>{kind.role}</td>
-                            <td>
-                                <button
-                                    className="btn btn-danger fs-5 rounded-circle"
-                                    onClick={() => deleteMusicKind(kind.id)}
-                                >
-                                    <FontAwesomeIcon icon={faTrash} />
-                                </button>
-                            </td>
+            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
+                <h2 className="fw-normal fs-1 heading-admin">
+                    Danh sách người dùng
+                </h2>
+            </div>
+            <div className="px-4 event-admin">
+                <form action="">
+                    <label className="fs-3 me-3" htmlFor="search-kind">
+                        Tìm kiếm:
+                    </label>
+                    <input
+                        id="search-kind"
+                        type="text"
+                        placeholder="Nhập thể loại"
+                        required
+                        className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
+                    />
+                </form>
+            </div>
+            <div className="px-4">
+                <table className="w-100 fs-3 text-justify table-admin">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Tên</th>
+                            <th>Tài khoản</th>
+                            <th>Email</th>
+                            <th>Vai trò</th>
+                            <th>Hành động</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {musicUsers.map((kind) => (
+                            <tr key={kind.id}>
+                                <td>{kind.avt}</td>
+                                <td>{kind.name}</td>
+                                <td>{kind.userAccount}</td>
+                                <td>{kind.email}</td>
+                                <td>{kind.role}</td>
+                                <td>
+                                    <button
+                                        className="btn btn-danger-custom fs-5 ms-3"
+                                        onClick={() => deleteMusicKind(kind.id)}
+                                    >
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <div className="d-flex py-4 pagination-admin">
                 <div className="col-6 description-pagination"></div>
                 <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end ">
                         <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                            >
                                 Previous
                             </a>
                         </li>
                         <li className="border active">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                            >
                                 1
                             </a>
                         </li>
                         <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                            >
                                 Next
                             </a>
                         </li>
