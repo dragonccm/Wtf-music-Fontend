@@ -10,14 +10,11 @@ import LoginPage from "../components/pages/loginpage";
 import RegisterPage from "../components/pages/register";
 
 // layout
-import Header from "../components/layoutbar/Header";
-import Footer from "../components/layoutbar/Footer";
+import Header_Admin from "../components/layoutbar/Header_Admin";
 import NavigationBar from "../components/sideNavigation/NavigationBar";
-import Bottombar from "../components/sideNavigation/Bottombar";
 
 // component
 
-import ThemeContext from "../lib/Context/ThemeContext";
 import HomeAdmin from "../components/pages/admin/home";
 import UsersAdmin from "../components/pages/admin/users";
 import SingersAdmin from "../components/pages/admin/singers";
@@ -27,11 +24,6 @@ import CategorysAdmin from "../components/pages/admin/categorys";
 // import { height } from "@mui/system";
 
 const AdminRoutes = (props) => {
-    const { theme } = useContext(ThemeContext);
-    useEffect(() => {
-        document.body.setAttribute("data-theme", theme);
-    }, [theme]);
-
     // get state from redux
     const isAuthentication = useSelector(
         (state) => state.Authentication.defaultUser
@@ -41,8 +33,13 @@ const AdminRoutes = (props) => {
         <div style={{ height: "100vh" }} className="main_content">
             <NavigationBar />
             <div className="main_page">
-                <Header />
-                <section className={`main_page_container ${theme}`}>
+                <Header_Admin />
+                <section
+                    style={{
+                        paddingTop: "120px",
+                    }}
+                    className="main_page_container bg-white"
+                >
                     <Routes>
                         {/* //authentication */}
                         <Route

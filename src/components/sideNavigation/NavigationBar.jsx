@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import icon_Home from "../../img/music-house-fill-svgrepo-com.svg";
 import icon_Category from "../../img/category-admin.svg";
 import icon_Writer from "../../img/writer-admin.svg";
+import icon_User from "../../img/user-admin.svg";
 import icon_Singer from "../../img/singer-admin.svg";
 import icon_Music from "../../img/play-music-admin.svg";
 import logo from "../../img/logo3 (1).png";
@@ -70,7 +71,7 @@ const NavigationBar = () => {
                                         src={icon_Home}
                                     />
                                 </div>
-                                <span>Dashboard</span>
+                                <span>Trang chủ</span>
                             </NavLink>
                             <NavLink
                                 to="/admin/category"
@@ -86,10 +87,10 @@ const NavigationBar = () => {
                                         src={icon_Category}
                                     />
                                 </div>
-                                <span>Category</span>
+                                <span>Thể loại</span>
                             </NavLink>
                             <NavLink
-                                to="/hub"
+                                to="/admin/writer"
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">
@@ -102,7 +103,7 @@ const NavigationBar = () => {
                                         src={icon_Writer}
                                     />
                                 </div>
-                                <span>Writer</span>
+                                <span>Nhạc sĩ</span>
                             </NavLink>
                             <NavLink
                                 to="/admin/singer"
@@ -118,7 +119,7 @@ const NavigationBar = () => {
                                         src={icon_Singer}
                                     />
                                 </div>
-                                <span>Singer</span>
+                                <span>Ca sĩ</span>
                             </NavLink>
                             <NavLink
                                 to="/admin/song"
@@ -135,7 +136,24 @@ const NavigationBar = () => {
                                         src={icon_Music}
                                     />
                                 </div>
-                                <span>Music</span>
+                                <span>Bài hát</span>
+                            </NavLink>
+                            <NavLink
+                                to="/admin/user"
+                                isActive={isActive}
+                                className="nav-link list_nav_item"
+                            >
+                                <div className="icon_list_nav_item">
+                                    <ReactSVG
+                                        beforeInjection={(svg) => {
+                                            svg.classList.add(
+                                                "icon_list_nav_item_svg"
+                                            );
+                                        }}
+                                        src={icon_User}
+                                    />
+                                </div>
+                                <span>Người dùng</span>
                             </NavLink>
                         </Nav>
                         {/* <Nav>   

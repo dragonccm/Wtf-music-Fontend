@@ -12,6 +12,10 @@
     background   : var(--background-color) !important;
   }
 
+  .bg-white {
+    background-color: #fff !important;
+  }
+
   .for_you {
     h1 {
       margin: 30px 0;
@@ -139,6 +143,7 @@
     width      : 100%;
     margin-left: 0 !important;
     padding-top: 10rem;
+
     .main_page_container {
       padding: 1rem;
     }

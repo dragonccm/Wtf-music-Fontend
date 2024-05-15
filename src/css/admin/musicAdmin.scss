@@ -11,8 +11,8 @@
     left         : 50%;
     transform    : translate(-50%, -50%);
     width        : 400px;
-    background   : var(--bg-white);
-    color        : var(--text-1);
+    background   : #fff;
+    color        : #333;
     padding      : 20px;
     border       : 1px solid rgb(204, 204, 204);
     outline      : none;
@@ -21,23 +21,65 @@
     z-index      : 10;
 }
 
-.MuiDataGrid-root{
+.MuiDataGrid-root {
     font-size: 15px !important;
 }
-.MuiDataGrid-row{
+
+.MuiDataGrid-row {
     color: aliceblue !important;
 }
 
 .container-admin {
-    background-color: var(--bg-form_login);
+    position           : relative;
+    padding            : 0 !important;
+    // background-color: #f8f8f866;
+    max-width          : 100% !important;
+    border-radius      : 15px !important;
+    box-shadow         : 0px 4px 16px rgb(116 166 255 / 80%) !important;
+    z-index            : 1;
+
+    &::after {
+        content            : "";
+        position           : absolute;
+        top                : 0;
+        left               : 0;
+        right              : 0;
+        bottom             : 0;
+        background-image   : url('../../img/bg-sidebar.jpg');
+        background-size    : contain;
+        background-position: center;
+        opacity            : 0.15;
+        filter             : brightness(1.85);
+        z-index            : -1;
+    }
 
     .header-admin {
+        padding      : 16px 0;
+        border-bottom: 1px solid #cccccc;
 
         .heading-admin {
-            color: var(--text-1);
+            border-radius: 20px;
+            padding      : 10px 20px;
+            color        : #333 !important;
+            font-weight  : 400 !important;
+            box-shadow   : 0px 4px 14px rgba(0, 0, 0, 0.25) !important;
         }
 
         .actions-admin {
+            .btn {
+                border-radius   : 16px !important;
+                font-size       : medium !important;
+                padding         : 6px 16px !important;
+                background-color: #0b5fd0 !important;
+                color           : #fff !important;
+                border-color    : #0b5fd0 !important;
+                transition      : all 0.1s ease-in-out;
+
+                &:hover {
+                    opacity: 0.95;
+                    scale  : 1.05;
+                }
+            }
 
             label {
                 color: var(--text-1);
@@ -56,19 +98,39 @@
         }
     }
 
+    .event-admin {
+        text-align: right;
+        padding   : 20px 0;
+
+        input {
+            outline      : 0;
+            padding      : 4px 4px 4px 10px !important;
+            border-radius: 10px !important;
+            transition   : all 0.1s linear;
+
+            &:focus-visible {
+                border    : 1px solid var(--bg-header) !important;
+                box-shadow: 0px 1px 8px rgb(116 166 255 / 80%) !important;
+            }
+        }
+    }
+
     .table-admin {
+        border: 1px solid #cbcbcb;
 
         thead {
             tr {
                 th {
-                    opacity: 0.9;
+                    font-weight: 500;
                 }
             }
         }
 
         tbody {
             tr {
-                border-color: #f2f2f2;
+                td {
+                    color: #333 !important;
+                }
             }
         }
 
@@ -78,8 +140,28 @@
 
             th,
             td {
-                color  : var(--text-1);
-                padding: 1rem 1.5rem;
+                padding   : 16px 0 16px 16px;
+                border-top: 1px solid #cbcbcb;
+            }
+
+            td {
+                button.btn-primary {
+                    background-color: #0b5fd0 !important;
+                }
+
+                button.btn-danger-custom {
+                    color           : #fff;
+                    background-color: #eb0000 !important;
+                }
+
+                button {
+                    transition: all 0.1s linear;
+
+                    &:hover {
+                        opacity: 0.8 !important;
+                        scale  : 1.1;
+                    }
+                }
             }
         }
 
@@ -99,7 +181,7 @@
 
             ul {
                 li {
-                    border-color: #d8e2fa !important;
+                    border-color: #0b5fd0 !important;
                     cursor      : pointer;
 
                     &.active {
