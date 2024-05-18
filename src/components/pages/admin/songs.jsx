@@ -157,26 +157,32 @@ const SongAdmin = () => {
                 </div>
             </div>
             <div className="px-4 event-admin">
-                <form action="">
+                <div class="card">
                     <label className="fs-3 me-3" htmlFor="search-kind">
                         Tìm kiếm:
                     </label>
-                    <input
-                        id="search-kind"
-                        type="text"
-                        placeholder="Nhập ca sĩ"
-                        required
-                        className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
-                        onChange={handleserch}
-                    />
+                    <div class="input-box">
+                        <input
+                            id="search-kind"
+                            type="text"
+                            placeholder="Nhập ca sĩ"
+                            required
+                            className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
+                            onChange={handleserch}
+                        />
+                    </div>
+
                     {search.artists && (
-                        <p>
-                            {search.artists.map((data) => (
-                                <h1>{data.artistsName}</h1>
-                            ))}
-                        </p>
+                        <div class="list border-bottom">
+                            <i class="fa fa-fire"></i>
+                            <div class="d-flex flex-column ml-3">
+                                {search.artists.map((data) => (
+                                    <h3>{data.artistsName}</h3>
+                                ))}
+                            </div>
+                        </div>
                     )}
-                </form>
+                </div>
             </div>
             <div className="px-4">
                 <table className="w-100 fs-3 text-justify table-admin">
