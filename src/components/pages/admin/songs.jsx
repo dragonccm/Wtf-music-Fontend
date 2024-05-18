@@ -422,7 +422,7 @@
 //                     page={page}
 //                     onPageChange={handleChangePage}
 //                     onRowsPerPageChange={handleChangeRowsPerPage}
-                    
+
 //                 />
 //             </Paper>
 //             <FormControlLabel
@@ -432,3 +432,225 @@
 //         </Box>
 //     );
 // }
+import React from 'react';
+import { useState } from 'react';
+
+import { Table } from 'antd';
+const columns = [
+    {
+        title: 'songname',
+        dataIndex: 'name',
+    },
+    {
+        title: 'genresid',
+        dataIndex: 'chinese',
+        sorter: {
+            compare: (a, b) => a.chinese - b.chinese,
+            multiple: 3,
+        },
+    },
+    {
+        title: 'like',
+        dataIndex: 'math',
+        sorter: {
+            compare: (a, b) => a.math - b.math,
+            multiple: 2,
+        },
+    },
+    {
+        title: 'listen',
+        dataIndex: 'english',
+        sorter: {
+            compare: (a, b) => a.english - b.english,
+            multiple: 1,
+        },
+    },
+    {
+        title: 'thumbnail',
+        dataIndex: 'english',
+        sorter: {
+            compare: (a, b) => a.english - b.english,
+            multiple: 1,
+        },
+    },
+];
+const data = [
+    {
+        key: '1',
+        name: 'John Brown',
+        chinese: 98,
+        math: 60,
+        english: 70,
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        chinese: 98,
+        math: 66,
+        english: 89,
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        chinese: 98,
+        math: 90,
+        english: 70,
+    },
+    {
+        key: '4',
+        name: 'Jim Red',
+        chinese: 88,
+        math: 99,
+        english: 89,
+    },
+    {
+        key: '1',
+        name: 'John Brown',
+        chinese: 98,
+        math: 60,
+        english: 70,
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        chinese: 98,
+        math: 66,
+        english: 89,
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        chinese: 98,
+        math: 90,
+        english: 70,
+    },
+    {
+        key: '4',
+        name: 'Jim Red',
+        chinese: 88,
+        math: 99,
+        english: 89,
+    }, {
+        key: '1',
+        name: 'John Brown',
+        chinese: 98,
+        math: 60,
+        english: 70,
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        chinese: 98,
+        math: 66,
+        english: 89,
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        chinese: 98,
+        math: 90,
+        english: 70,
+    },
+    {
+        key: '4',
+        name: 'Jim Red',
+        chinese: 88,
+        math: 99,
+        english: 89,
+    }, {
+        key: '1',
+        name: 'John Brown',
+        chinese: 98,
+        math: 60,
+        english: 70,
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        chinese: 98,
+        math: 66,
+        english: 89,
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        chinese: 98,
+        math: 90,
+        english: 70,
+    },
+    {
+        key: '4',
+        name: 'Jim Red',
+        chinese: 88,
+        math: 99,
+        english: 89,
+    }, {
+        key: '1',
+        name: 'John Brown',
+        chinese: 98,
+        math: 60,
+        english: 70,
+    },
+    {
+        key: '2',
+        name: 'Jim Green',
+        chinese: 98,
+        math: 66,
+        english: 89,
+    },
+    {
+        key: '3',
+        name: 'Joe Black',
+        chinese: 98,
+        math: 90,
+        english: 70,
+    },
+    {
+        key: '4',
+        name: 'Jim Red',
+        chinese: 88,
+        math: 99,
+        english: 89,
+    },
+];
+
+const Page = () => {
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const start = () => {
+        setLoading(true);
+        // ajax request after empty completing
+        setTimeout(() => {
+            setSelectedRowKeys([]);
+            setLoading(false);
+        }, 1000);
+    };
+    const onSelectChange = (newSelectedRowKeys, pagination, filters, sorter, extra) => {
+        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+        setSelectedRowKeys(newSelectedRowKeys);
+    };
+    const onChange = (pagination, filters, sorter, extra) => {
+        console.log('params', pagination, filters, sorter, extra);
+    };
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: onSelectChange,
+    };
+    const hasSelected = selectedRowKeys.length > 0;
+    return (
+        <div>
+            <button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+                Reload
+            </button>
+            <span
+                style={{
+                    marginLeft: 8,
+                }}
+            >
+                {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+            </span>
+            <Table rowSelection={rowSelection} columns={columns} dataSource={data} onChange={onChange} />;
+        </div>
+    )
+}
+export default Page;

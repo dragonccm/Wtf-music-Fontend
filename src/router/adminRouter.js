@@ -20,7 +20,7 @@ import UsersAdmin from "../components/pages/admin/users";
 import SingersAdmin from "../components/pages/admin/singers";
 import WritersAdmin from "../components/pages/admin/writers";
 import CategorysAdmin from "../components/pages/admin/categorys";
-// import SongsAdmin from "../components/pages/admin/songs";
+import SongsAdmin from "../components/pages/admin/songs";
 // import { height } from "@mui/system";
 
 const AdminRoutes = (props) => {
@@ -60,7 +60,7 @@ const AdminRoutes = (props) => {
                         <Route path="/user" element={<UsersAdmin />} />
                         <Route path="/singer" element={<SingersAdmin />} />
                         <Route path="/writer" element={<WritersAdmin />} />
-                        {/* <Route path="/song" element={<SongsAdmin />} /> */}
+                        <Route path="/song" element={<SongsAdmin />} />
 
                         <Route path="/*" element={<HomeAdmin />} />
 
