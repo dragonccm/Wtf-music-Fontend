@@ -55,17 +55,18 @@ const SingersAdmin = () => {
     useEffect(() => {
         fetchMusicSongs();
     }, []);
-
-
+    useEffect(() => {
+        fetchMusicSongs();
+    }, [currentPage]);
 
     const fetchMusicSongs = async () => {
         try {
-            const response = await adminGetArtist(parseInt((currentPage - 1) * itemsPerPage));
-            if(response.handleData) {
-                setMusicSongs(response.handledata);
-                setmaxpage(response.maxPage);
-                console.log(response.handleData)
-            }
+            // Chuyển logic tính limit và page vào đây
+            const offset = (currentPage - 1) * itemsPerPage;
+            const response = await adminGetArtist(offset, itemsPerPage);
+            setMusicSongs(response.handleData);
+            setmaxpage(response.maxPage);
+            console.log(response.handleData)
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -146,8 +147,7 @@ const SingersAdmin = () => {
         }
     };
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
-
-    console.log("song",musicSongs)
+    console.log("cặt",musicSongs)
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
@@ -196,7 +196,7 @@ const SingersAdmin = () => {
 
                     <tbody>
 
-                        {musicSongs ? musicSongs.map((kind) => (
+                        {musicSongs.map((kind) => (
                             <tr key={kind.id}>
                                 <td>{kind.id}</td>
                                 <td>{kind.artistsName}</td>
@@ -220,7 +220,7 @@ const SingersAdmin = () => {
                                     </button>
                                 </td>
                             </tr>
-                        )) : <h1>dell</h1>}
+                        ))}
                     </tbody>
                 </table>
             </div>

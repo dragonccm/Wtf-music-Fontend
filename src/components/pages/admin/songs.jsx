@@ -61,7 +61,6 @@ const SongAdmin = () => {
             const response = await adminGetSong(parseInt((currentPage - 1) * itemsPerPage));
             setMusicSongs(response.handledata);
             setmaxpage(response.maxPage)
-            
         } catch (error) {
             console.error('Error fetching data:', error);
         }
