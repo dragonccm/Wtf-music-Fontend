@@ -1,656 +1,400 @@
-
-// import ReactDOM from 'react-dom';
-// import "../../../css/admin/musicAdmin.scss";
-// import { adminGetSong } from "../../../services/adminSongService"
-// import * as React from 'react';
-// import PropTypes from 'prop-types';
-// import { alpha } from '@mui/material/styles';
-// import Box from '@mui/material/Box';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-// import TablePagination from '@mui/material/TablePagination';
-// import TableRow from '@mui/material/TableRow';
-// import TableSortLabel from '@mui/material/TableSortLabel';
-// import Toolbar from '@mui/material/Toolbar';
-// import Typography from '@mui/material/Typography';
-// import Paper from '@mui/material/Paper';
-// import Checkbox from '@mui/material/Checkbox';
-// import IconButton from '@mui/material/IconButton';
-// import Tooltip from '@mui/material/Tooltip';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Switch from '@mui/material/Switch';
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import FilterListIcon from '@mui/icons-material/FilterList';
-// import { visuallyHidden } from '@mui/utils';
-
-// function createData(id, songname, genresid, like, listen, thumbnail) {
-//     return {
-//         id,
-//         songname,
-//         genresid,
-//         like,
-//         listen,
-//         thumbnail,
-//     };
-// }
+import React, { useState, useEffect } from "react";
+import "../../../css/admin/musicAdmin.scss";
+import Modal from "react-modal";
+import logo from "../../../img/logo3 (1).png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { adminGetSong } from "../../../services/adminSongService"
 
 
-// function descendingComparator(a, b, orderBy) {
-//     if (b[orderBy] < a[orderBy]) {
-//         return -1;
-//     }
-//     if (b[orderBy] > a[orderBy]) {
-//         return 1;
-//     }
-//     return 0;
-// }
+const SongAdmin = () => {
+    const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
+    const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
+    const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
+    const [editForm, setEditForm] = useState({
+        id: "",
+        songname: "",
+        thumbnail: "",
+        artists: "",
+        genresid: "",
+        like: "",
+        listen: "",
 
-// function getComparator(order, orderBy) {
-//     return order === 'desc'
-//         ? (a, b) => descendingComparator(a, b, orderBy)
-//         : (a, b) => -descendingComparator(a, b, orderBy);
-// }
-
-// function stableSort(array, comparator) {
-//     const stabilizedThis = array.map((el, index) => [el, index]);
-//     stabilizedThis.sort((a, b) => {
-//         const order = comparator(a[0], b[0]);
-//         if (order !== 0) {
-//             return order;
-//         }
-//         return a[1] - b[1];
-//     });
-//     return stabilizedThis.map((el) => el[0]);
-// }
-
-// const headCells = [
-//     {
-//         id: 'songname',
-//         numeric: false,
-//         disablePadding: true,
-//         label: 'songname',
-//     },
-//     {
-//         id: 'genresid',
-//         numeric: true,
-//         disablePadding: false,
-//         label: 'genresid',
-//     },
-//     {
-//         id: 'like',
-//         numeric: true,
-//         disablePadding: false,
-//         label: 'like ',
-//     },
-//     {
-//         id: 'listen',
-//         numeric: true,
-//         disablePadding: false,
-//         label: 'listen',
-//     },
-//     {
-//         id: 'thumbnail',
-//         numeric: true,
-//         disablePadding: false,
-//         label: 'thumbnail',
-//     },
-// ];
-
-// const rows = [
-// ];
-// function EnhancedTableHead(props) {
-//     const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-//         props;
-//     const createSortHandler = (property) => (event) => {
-//         onRequestSort(event, property);
-//     };
-
-//     return (
-//         <TableHead>
-//             <TableRow>
-//                 <TableCell
-//                     sx={{ fontSize: "2rem" }} padding="checkbox">
-//                     <Checkbox
-//                         color="primary"
-//                         indeterminate={numSelected > 0 && numSelected < rowCount}
-//                         checked={rowCount > 0 && numSelected === rowCount}
-//                         onChange={onSelectAllClick}
-//                         inputProps={{
-//                             'aria-label': 'select all desserts',
-//                         }}
-//                     />
-//                 </TableCell>
-//                 {headCells.map((headCell) => (
-//                     <TableCell
-//                         sx={{ fontSize: "2rem" }}
-//                         key={headCell.id}
-//                         align={headCell.numeric ? 'right' : 'left'}
-//                         padding={headCell.disablePadding ? 'none' : 'normal'}
-//                         sortDirection={orderBy === headCell.id ? order : false}
-//                     >
-//                         <TableSortLabel
-//                             active={orderBy === headCell.id}
-//                             direction={orderBy === headCell.id ? order : 'asc'}
-//                             onClick={createSortHandler(headCell.id)}
-//                         >
-//                             {headCell.label}
-//                             {orderBy === headCell.id ? (
-//                                 <Box component="span" sx={visuallyHidden}>
-//                                     {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-//                                 </Box>
-//                             ) : null}
-//                         </TableSortLabel>
-//                     </TableCell>
-//                 ))}
-//             </TableRow>
-//         </TableHead>
-//     );
-// }
-
-// EnhancedTableHead.propTypes = {
-//     numSelected: PropTypes.number.isRequired,
-//     onRequestSort: PropTypes.func.isRequired,
-//     onSelectAllClick: PropTypes.func.isRequired,
-//     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-//     orderBy: PropTypes.string.isRequired,
-//     rowCount: PropTypes.number.isRequired,
-// };
-
-// function EnhancedTableToolbar(props) {
-//     const { numSelected } = props;
-
-//     return (
-//         <Toolbar
-//             sx={{
-//                 pl: { sm: 2 },
-//                 pr: { xs: 1, sm: 1 },
-//                 ...(numSelected > 0 && {
-//                     bgcolor: (theme) =>
-//                         alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-//                 }),
-//             }}
-//         >
-//             {numSelected > 0 ? (
-//                 <Typography
-//                     sx={{ flex: '1 1 100%' }}
-//                     color="inherit"
-//                     variant="subtitle1"
-//                     component="div"
-//                 >
-//                     {numSelected} selected
-//                 </Typography>
-//             ) : (
-//                 <Typography
-//                     sx={{ flex: '1 1 100%', fontSize: '2rem' }}
-//                     variant="h6"
-//                     id="tableTitle"
-//                     component="div"
-//                 >
-//                     Nutrition
-//                 </Typography>
-//             )}
-
-//             {numSelected > 0 ? (
-//                 <Tooltip title="Delete">
-//                     <IconButton>
-//                         <DeleteIcon />
-//                     </IconButton>
-//                 </Tooltip>
-//             ) : (
-//                 <Tooltip title="Filter list">
-//                     <IconButton>
-//                         <FilterListIcon />
-//                     </IconButton>
-//                 </Tooltip>
-//             )}
-//         </Toolbar>
-//     );
-// }
-
-// EnhancedTableToolbar.propTypes = {
-//     numSelected: PropTypes.number.isRequired,
-// };
-
-// export default function EnhancedTable() {
-//     const [order, setOrder] = React.useState('asc');
-//     const [orderBy, setOrderBy] = React.useState('calories');
-//     const [selected, setSelected] = React.useState([]);
-//     const [page, setPage] = React.useState(0);
-//     const [dense, setDense] = React.useState(false);
-//     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-//     const [data, setData] = React.useState([]);
-//     const [currpage, setcurrpage] = React.useState(0);
-
-
-//     const handleRequestSort = (event, property) => {
-//         const isAsc = orderBy === property && order === 'asc';
-//         setOrder(isAsc ? 'desc' : 'asc');
-//         setOrderBy(property);
-//     };
-
-//     const handleSelectAllClick = (event) => {
-//         if (event.target.checked) {
-//             const newSelected = rows.map((n) => n.id);
-//             setSelected(newSelected);
-//             return;
-//         }
-//         setSelected([]);
-//     };
-
-//     const handleClick = (event, id) => {
-//         const selectedIndex = selected.indexOf(id);
-//         let newSelected = [];
-
-//         if (selectedIndex === -1) {
-//             newSelected = newSelected.concat(selected, id);
-//         } else if (selectedIndex === 0) {
-//             newSelected = newSelected.concat(selected.slice(1));
-//         } else if (selectedIndex === selected.length - 1) {
-//             newSelected = newSelected.concat(selected.slice(0, -1));
-//         } else if (selectedIndex > 0) {
-//             newSelected = newSelected.concat(
-//                 selected.slice(0, selectedIndex),
-//                 selected.slice(selectedIndex + 1),
-//             );
-//         }
-//         setSelected(newSelected);
-//     };
-
-//     const handleChangePage = (event, newPage) => {
-//         setPage(newPage);
-//         if (page === 0) {
-//             data.forEach(element => {
-//                 rows.push(
-//                     createData(
-//                         element.id,
-//                         element.songname,
-//                         JSON.stringify(element.genresid),
-//                         element.like,
-//                         element.listen,
-//                         element.thumbnail
-//                     ),
-//                 )
-//             });
-//             setcurrpage(11)
-//         }
-//         if (rows.length / 5 - 2 == page || rows.length / 10 - 2 == page||rows.length / 25 - 2 == page) {
-//             fetchData();
-//         }
-//     };
-
-//     const handleChangeRowsPerPage = (event) => {
-//         setRowsPerPage(parseInt(event.target.value, 10));
-//         setPage(0);
-//     };
-
-//     const handleChangeDense = (event) => {
-//         setDense(event.target.checked);
-//     };
-
-//     const isSelected = (id) => selected.indexOf(id) !== -1;
-
-//     // Avoid a layout jump when reaching the last page with empty rows.
-//     const emptyRows =
-//         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-//     const visibleRows = React.useMemo(
-//         () =>
-//             stableSort(rows, getComparator(order, orderBy)).slice(
-//                 page * rowsPerPage,
-//                 page * rowsPerPage + rowsPerPage,
-//             ),
-//         [order, orderBy, page, rowsPerPage],
-//     );
-
-
-
-
-//     React.useEffect(() => {
-//         fetchData();
-//     }, []);
-
-//     React.useEffect(() => {
-//         data.forEach(element => {
-//             rows.push(
-//                 createData(
-//                     element.id,
-//                     element.songname,
-//                     JSON.stringify(element.genresid),
-//                     element.like,
-//                     element.listen,
-//                     element.thumbnail
-//                 ),
-//             )
-//         });
-//         setcurrpage(currpage + 11)
-//     }, [data]);
-
-//     const fetchData = async () => {
-//         try {
-//             const response = await adminGetSong(10);
-//             console.log("data tươi", response)
-//             setData(response);
-//         } catch (error) {
-//             console.error('Error fetching data:', error);
-//         }
-//     };
-
-
-//     if (rows.length<2) {
-//         return <h1>loading...</h1>
-//     }
-//     return (
-//         <Box sx={{ width: '100%' }}>
-//             <Paper sx={{ width: '100%', mb: 2 }}>
-//                 <EnhancedTableToolbar numSelected={selected.length} />
-//                 <TableContainer>
-//                     <Table
-//                         sx={{ minWidth: 750 }}
-//                         aria-labelledby="tableTitle"
-//                         size={dense ? 'small' : 'medium'}
-//                     >
-//                         <EnhancedTableHead
-//                             numSelected={selected.length}
-//                             order={order}
-//                             orderBy={orderBy}
-//                             onSelectAllClick={handleSelectAllClick}
-//                             onRequestSort={handleRequestSort}
-//                             rowCount={rows.length}
-
-//                         />
-//                         <TableBody >
-//                             {visibleRows.map((row, index) => {
-//                                 const isItemSelected = isSelected(row.id);
-//                                 const labelId = `enhanced-table-checkbox-${index}`;
-
-//                                 return (
-//                                     <TableRow
-//                                         hover
-//                                         onClick={(event) => handleClick(event, row.id)}
-//                                         role="checkbox"
-//                                         aria-checked={isItemSelected}
-//                                         tabIndex={-1}
-//                                         key={row.id}
-//                                         selected={isItemSelected}
-//                                         sx={{ cursor: 'pointer', fontSize: '2rem' }}
-//                                     >
-//                                         <TableCell sx={{ fontSize: "1.5rem" }} padding="checkbox">
-//                                             <Checkbox
-//                                                 color="primary"
-//                                                 checked={isItemSelected}
-//                                                 inputProps={{
-//                                                     'aria-labelledby': labelId,
-//                                                 }}
-//                                             />
-//                                         </TableCell>
-//                                         <TableCell sx={{ fontSize: "1.5rem" }}
-//                                             component="th"
-//                                             id={labelId}
-//                                             scope="row"
-//                                             padding="none"
-
-//                                         >
-//                                             {row.songname}
-//                                         </TableCell>
-//                                         <TableCell sx={{ fontSize: "1.5rem" }} align="right">{row.genresid}</TableCell>
-//                                         <TableCell sx={{ fontSize: "1.5rem" }} align="right">{row.like}</TableCell>
-//                                         <TableCell sx={{ fontSize: "1.5rem" }} align="right">{row.listen}</TableCell>
-//                                         <TableCell sx={{ fontSize: "1.5rem" }} align="right">{row.thumbnail}</TableCell>
-//                                     </TableRow>
-//                                 );
-//                             })}
-//                             {emptyRows > 0 && (
-//                                 <TableRow
-//                                     style={{
-//                                         height: (dense ? 33 : 53) * emptyRows,
-//                                     }}
-//                                 >
-//                                     <TableCell colSpan={6} />
-//                                 </TableRow>
-//                             )}
-//                         </TableBody>
-//                     </Table>
-//                 </TableContainer>
-//                 <TablePagination
-//                     rowsPerPageOptions={[5, 10, 25]}
-//                     component="div"
-//                     count={rows.length}
-//                     rowsPerPage={rowsPerPage}
-//                     page={page}
-//                     onPageChange={handleChangePage}
-//                     onRowsPerPageChange={handleChangeRowsPerPage}
-
-//                 />
-//             </Paper>
-//             <FormControlLabel
-//                 control={<Switch checked={dense} onChange={handleChangeDense} />}
-//                 label="Dense padding"
-//             />
-//         </Box>
-//     );
-// }
-import React from 'react';
-import { useState } from 'react';
-
-import { Table } from 'antd';
-const columns = [
-    {
-        title: 'songname',
-        dataIndex: 'name',
-    },
-    {
-        title: 'genresid',
-        dataIndex: 'chinese',
-        sorter: {
-            compare: (a, b) => a.chinese - b.chinese,
-            multiple: 3,
-        },
-    },
-    {
-        title: 'like',
-        dataIndex: 'math',
-        sorter: {
-            compare: (a, b) => a.math - b.math,
-            multiple: 2,
-        },
-    },
-    {
-        title: 'listen',
-        dataIndex: 'english',
-        sorter: {
-            compare: (a, b) => a.english - b.english,
-            multiple: 1,
-        },
-    },
-    {
-        title: 'thumbnail',
-        dataIndex: 'english',
-        sorter: {
-            compare: (a, b) => a.english - b.english,
-            multiple: 1,
-        },
-    },
-];
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        chinese: 98,
-        math: 60,
-        english: 70,
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        chinese: 98,
-        math: 66,
-        english: 89,
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        chinese: 98,
-        math: 90,
-        english: 70,
-    },
-    {
-        key: '4',
-        name: 'Jim Red',
-        chinese: 88,
-        math: 99,
-        english: 89,
-    },
-    {
-        key: '1',
-        name: 'John Brown',
-        chinese: 98,
-        math: 60,
-        english: 70,
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        chinese: 98,
-        math: 66,
-        english: 89,
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        chinese: 98,
-        math: 90,
-        english: 70,
-    },
-    {
-        key: '4',
-        name: 'Jim Red',
-        chinese: 88,
-        math: 99,
-        english: 89,
-    }, {
-        key: '1',
-        name: 'John Brown',
-        chinese: 98,
-        math: 60,
-        english: 70,
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        chinese: 98,
-        math: 66,
-        english: 89,
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        chinese: 98,
-        math: 90,
-        english: 70,
-    },
-    {
-        key: '4',
-        name: 'Jim Red',
-        chinese: 88,
-        math: 99,
-        english: 89,
-    }, {
-        key: '1',
-        name: 'John Brown',
-        chinese: 98,
-        math: 60,
-        english: 70,
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        chinese: 98,
-        math: 66,
-        english: 89,
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        chinese: 98,
-        math: 90,
-        english: 70,
-    },
-    {
-        key: '4',
-        name: 'Jim Red',
-        chinese: 88,
-        math: 99,
-        english: 89,
-    }, {
-        key: '1',
-        name: 'John Brown',
-        chinese: 98,
-        math: 60,
-        english: 70,
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        chinese: 98,
-        math: 66,
-        english: 89,
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        chinese: 98,
-        math: 90,
-        english: 70,
-    },
-    {
-        key: '4',
-        name: 'Jim Red',
-        chinese: 88,
-        math: 99,
-        english: 89,
-    },
-];
-
-const Page = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const start = () => {
-        setLoading(true);
-        // ajax request after empty completing
-        setTimeout(() => {
-            setSelectedRowKeys([]);
-            setLoading(false);
-        }, 1000);
+    }); // Thông tin form chỉnh sửa
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
+    const [createForm, setCreateForm] = useState({
+        songname: "",
+        thumbnail: "",
+        artists: "",
+        genresid: "",
+    }); // Thông tin form tạo mới
+    const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+    const handlePageChange = (pageNum) => {
+        if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
+            return; // Không thực hiện cập nhật nếu số trang không hợp lệ
+        }
+        setCurrentPage(pageNum);
+        fetchMusicSongs();
     };
-    const onSelectChange = (newSelectedRowKeys, pagination, filters, sorter, extra) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
+    const itemsPerPage = 20; // Số mục trên mỗi trang
+    // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
+    useEffect(() => {
+        fetchMusicSongs();
+    }, []);
+    // Hàm giả lập lấy danh sách thể loại nhạc từ server
+    const fetchMusicSongs = async () => {
+        try {
+            const response = await adminGetSong(parseInt((currentPage - 1) * itemsPerPage));
+            console.log(response);
+            setMusicSongs(response.handledata);
+            setmaxpage(response.maxPage)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
-    const onChange = (pagination, filters, sorter, extra) => {
-        console.log('params', pagination, filters, sorter, extra);
+    // Hàm tạo mới thể loại nhạc
+    const createMusicKind = async (name, description) => {
+        // Gọi API để tạo mới thể loại nhạc
+        // Khi tạo thành công, cập nhật state
     };
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
+
+    // Hàm chỉnh sửa thông tin thể loại nhạc
+    const updateMusicKind = async () => {
+        // Gọi API để chỉnh sửa thông tin thể loại nhạc
+        // Khi chỉnh sửa thành công, cập nhật state
     };
-    const hasSelected = selectedRowKeys.length > 0;
+
+    // Hàm xóa thể loại nhạc
+    const deleteMusicKind = async (id) => {
+        // Gọi API để xóa thể loại nhạc
+        // Khi xóa thành công, cập nhật state
+    };
+
+    // Hiển thị pop-up form chỉnh sửa
+    const openEditModal = (kind) => {
+        setSelectedSong(kind);
+        setEditForm({
+            songname: kind.songname,
+            thumbnail: kind.thumbnail,
+            artists: kind.artists,
+            genresid: kind.genresid,
+
+        });
+        setIsEditModalOpen(true);
+    };
+
+    // Đóng pop-up form chỉnh sửa
+    const closeEditModal = () => {
+        setIsEditModalOpen(false);
+    };
+
+    // Hiển thị pop-up form tạo mới
+    const openCreateModal = () => {
+        setIsCreateModalOpen(true);
+    };
+
+    // Đóng pop-up form tạo mới
+    const closeCreateModal = () => {
+        setIsCreateModalOpen(false);
+    };
+
+    // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
+    const handleEditFormChange = (e) => {
+        setEditForm({ ...editForm, [e.target.name]: e.target.value });
+    };
+
+    // Xử lý sự kiện thay đổi giá trị trong form tạo mới
+    const handleCreateFormChange = (e) => {
+        setCreateForm({ ...createForm, [e.target.name]: e.target.value });
+    };
+    const totalPages = Math.ceil(maxpage / itemsPerPage)-5;
     return (
-        <div>
-            <button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
-                Reload
-            </button>
-            <span
-                style={{
-                    marginLeft: 8,
-                }}
-            >
-                {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
-            </span>
-            <Table rowSelection={rowSelection} columns={columns} dataSource={data} onChange={onChange} />;
+        <div className="container overflow-x-auto container-admin">
+            <div className="text-center container-img">
+                <img style={{ width: "12%" }} src={logo} alt="logo" />
+            </div>
+            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
+                <h2 className="fw-normal fs-1 heading-admin" >
+                    Danh sách ca sĩ
+                </h2>
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button className="btn fs-4 py-2" onClick={openCreateModal}>
+                        Thêm mới ca sĩ
+                    </button>
+                </div>
+            </div>
+            <div className="px-4 event-admin">
+                <form action="">
+                    <label className="fs-3 me-3" htmlFor="search-kind">
+                        Tìm kiếm:
+                    </label>
+                    <input
+                        id="search-kind"
+                        type="text"
+                        placeholder="Nhập ca sĩ"
+                        required
+                        className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
+                    />
+                </form>
+            </div>
+            <div className="px-4">
+                <table className="w-100 fs-3 text-justify table-admin">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Hình Ảnh</th>
+                            <th>Nghệ Sĩ</th>
+                            <th>Thể Loại</th>
+                            <th>Lượt Like</th>
+                            <th>Lượt Nghe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {musicSongs.map((kind) => (
+                            <tr key={kind.id}>
+                                <td>{kind.id}</td>
+                                <td>{kind.songname}</td>
+                                <td className="td_img"> <img src={kind.thumbnail} alt={kind.songname} /> </td>
+                                <td>{kind.artists?.map(artist => artist && artist.artistsName ? artist.artistsName : "").join(", ")}</td>
+                                <td>{kind.genresid?.map(genre => genre && genre.genrename ? genre.genrename : "").join(", ")}</td>
+                                <td>{kind.like}</td>
+                                <td>{kind.listen}</td>
+                                <td>
+                                    <button
+                                        className="btn btn-primary fs-5"
+                                        onClick={() => openEditModal(kind)}
+                                    >
+                                        <FontAwesomeIcon icon={faPen} />
+                                    </button>
+                                    <button
+                                        className="btn btn-danger-custom fs-5 ms-3"
+                                        onClick={() => deleteMusicKind(kind.id)}
+                                    >
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <div className="d-flex py-4 pagination-admin">
+                <div className="col-6 description-pagination">
+                    Hiển thị {(currentPage - 1) * itemsPerPage + 1} -{" "}
+                    {Math.min(currentPage * itemsPerPage, maxpage)} trong {maxpage} bài hát
+                </div>
+                <div className="col-6 pe-5 pagination-numbers">
+                    <ul className="pagination justify-content-end">
+                        <li className="border">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </a>
+                        </li>
+                        <li className="border">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                                onClick={() => handlePageChange(1)}
+                            >
+                                First
+                            </a>
+                        </li>
+                        <li className="border">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </a>
+                        </li>
+                        <li className="border">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                                onClick={() => handlePageChange(totalPages - 5)}
+                            >
+                                Last
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}
+            <div className="updateBtn-form-admin">
+                <Modal
+                    isOpen={isEditModalOpen}
+                    onRequestClose={closeEditModal}
+                    contentLabel="Edit Music Kind"
+                    className="modal-kindMusic"
+                    overlayClassName="modal-overlay-1"
+                >
+                    {/* Nội dung của pop-up form chỉnh sửa */}
+                    <h2 className="text-center opacity-75 mb-5">
+                        Chỉnh sửa thông tin ca sĩ
+                    </h2>
+                    <form>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-name">
+                                Name:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-name"
+                                name="SongName"
+                                value={editForm.SongName}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-email">
+                                Email:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-email"
+                                name="email"
+                                value={editForm.email}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-profile">
+                                Old Song Profile:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-profile"
+                                value={editForm.avt}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                                Date:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-date"
+                                name="date"
+                                value={editForm.date}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <button
+                            className="btn btn-primary fs-5"
+                            onClick={updateMusicKind}
+                        >
+                            Update
+                        </button>
+                        <button
+                            className="btn btn-secondary ms-3 fs-5"
+                            onClick={closeEditModal}
+                        >
+                            Cancel
+                        </button>
+                    </form>
+                </Modal>
+            </div>
+
+            {/* Hiển thị pop-up form tạo mới thể loại nhạc */}
+            <div className="addBtn-form-admin">
+                <Modal
+                    isOpen={isCreateModalOpen}
+                    onRequestClose={closeCreateModal}
+                    contentLabel="Create Music Kind"
+                    className="modal-kindMusic"
+                    overlayClassName="modal-overlay-1"
+                >
+                    <h2 className="text-center opacity-75 mb-5">
+                        Tạo mới ca sĩ
+                    </h2>
+                    <form>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-name">
+                                songname:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="create-name"
+                                name="SongName"
+                                value={createForm.songname}
+                                onChange={handleCreateFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-email">
+                                thumbnail:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="create-email"
+                                name="email"
+                                value={createForm.thumbnail}
+                                onChange={handleCreateFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-date">
+                                artists:
+                            </label>
+                            <input
+                                type="date"
+                                className="fs-5 form-control"
+                                id="create-date"
+                                name="date"
+                                value={createForm.artists}
+                                onChange={handleCreateFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label
+                                className="fs-5 mb-2"
+                                htmlFor="create-description"
+                            >
+                                genresid:
+                            </label>
+                            <textarea
+                                className="fs-5 form-control"
+                                id="create-description"
+                                name="description"
+                                value={createForm.genresid}
+                                onChange={handleCreateFormChange}
+                            ></textarea>
+                        </div>
+                        <button
+                            className="btn btn-primary fs-5"
+                            onClick={createMusicKind}
+                        >
+                            Create
+                        </button>
+                        <button
+                            className="btn btn-secondary ms-3 fs-5"
+                            onClick={closeCreateModal}
+                        >
+                            Cancel
+                        </button>
+                    </form>
+                </Modal>
+            </div>
         </div>
-    )
-}
-export default Page;
+    );
+};
+
+export default SongAdmin;
