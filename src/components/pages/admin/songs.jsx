@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import "../../../css/admin/musicAdmin.scss";
 import Modal from "react-modal";
@@ -6,6 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { adminGetSong } from "../../../services/adminSongService"
+import {
+    updateSong,
+    deleteSong,
+    createSong
+} from "../../../services/restSongService"
+import { adminSearchS } from "../../../services/adminSearchSongService"
+
 
 
 const SongAdmin = () => {
@@ -20,17 +28,21 @@ const SongAdmin = () => {
         genresid: "",
         like: "",
         listen: "",
-
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
     const [createForm, setCreateForm] = useState({
+        id: "",
         songname: "",
         thumbnail: "",
         artists: "",
         genresid: "",
+        like: "",
+        listen: "",
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+    const [search, setSearch] = useState({}); // Trang hiện tại
+
     const handlePageChange = (pageNum) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
             return; // Không thực hiện cập nhật nếu số trang không hợp lệ
@@ -47,9 +59,15 @@ const SongAdmin = () => {
     const fetchMusicSongs = async () => {
         try {
             const response = await adminGetSong(parseInt((currentPage - 1) * itemsPerPage));
-            console.log(response);
             setMusicSongs(response.handledata);
             setmaxpage(response.maxPage)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const updateMusicSongs = async (data) => {
+        try {
+            await updateSong(data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -64,6 +82,7 @@ const SongAdmin = () => {
     const updateMusicKind = async () => {
         // Gọi API để chỉnh sửa thông tin thể loại nhạc
         // Khi chỉnh sửa thành công, cập nhật state
+        updateMusicSongs(editForm)
     };
 
     // Hàm xóa thể loại nhạc
@@ -76,11 +95,13 @@ const SongAdmin = () => {
     const openEditModal = (kind) => {
         setSelectedSong(kind);
         setEditForm({
+            id: kind.id,
             songname: kind.songname,
             thumbnail: kind.thumbnail,
             artists: kind.artists,
             genresid: kind.genresid,
-
+            like: kind.like,
+            listen: kind.listen,
         });
         setIsEditModalOpen(true);
     };
@@ -101,15 +122,25 @@ const SongAdmin = () => {
     };
 
     // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
-    const handleEditFormChange = (e) => {
-        setEditForm({ ...editForm, [e.target.name]: e.target.value });
+    const handleEditFormChange = async (e) => {
+        const { name, value } = e.target;
+        setEditForm({ ...editForm, [name]: value });
     };
 
-    // Xử lý sự kiện thay đổi giá trị trong form tạo mới
     const handleCreateFormChange = (e) => {
-        setCreateForm({ ...createForm, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setCreateForm({ ...createForm, [name]: value });
     };
-    const totalPages = Math.ceil(maxpage / itemsPerPage)-5;
+    const handleserch = async (e) => {
+        try {
+            const ser = await adminSearchS(e.target.value);
+            setSearch(ser);
+            console.log(ser)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
@@ -136,7 +167,15 @@ const SongAdmin = () => {
                         placeholder="Nhập ca sĩ"
                         required
                         className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
+                        onChange={handleserch}
                     />
+                    {search.artists && (
+                        <p>
+                            {search.artists.map((data) => (
+                                <h1>{data.artistsName}</h1>
+                            ))}
+                        </p>
+                    )}
                 </form>
             </div>
             <div className="px-4">
@@ -246,55 +285,98 @@ const SongAdmin = () => {
                     <form>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-name">
-                                Name:
+                                id:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="edit-name"
-                                name="SongName"
-                                value={editForm.SongName}
+                                name="id"
+                                placeholder={editForm.id}
                                 onChange={handleEditFormChange}
+                                readOnly
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-email">
-                                Email:
+                                songname:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="edit-email"
-                                name="email"
-                                value={editForm.email}
+                                name="songname"
+                                placeholder={editForm.songname}
                                 onChange={handleEditFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-profile">
-                                Old Song Profile:
+                                thumbnail:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
-                                id="edit-profile"
-                                value={editForm.avt}
+                                id="thumbnail"
+                                placeholder={editForm.thumbnail}
                                 onChange={handleEditFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-date">
-                                Date:
+                                artists:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="edit-date"
-                                name="date"
-                                value={editForm.date}
+                                name="artists"
+                                placeholder={editForm.artists}
                                 onChange={handleEditFormChange}
                             />
                         </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                                genresid:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-date"
+                                name="genresid"
+                                placeholder={editForm.genresid}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                                like:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-date"
+                                name="like"
+                                placeholder={editForm.like}
+                                onChange={handleEditFormChange}
+                                readOnly
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                                listen:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-date"
+                                name="listen"
+                                placeholder={editForm.listen}
+                                onChange={handleEditFormChange}
+                                readOnly
+                            />
+                        </div>
+
                         <button
                             className="btn btn-primary fs-5"
                             onClick={updateMusicKind}
