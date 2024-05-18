@@ -61,6 +61,7 @@ const SongAdmin = () => {
             const response = await adminGetSong(parseInt((currentPage - 1) * itemsPerPage));
             setMusicSongs(response.handledata);
             setmaxpage(response.maxPage)
+            
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -135,7 +136,7 @@ const SongAdmin = () => {
         try {
             const ser = await adminSearchS(e.target.value);
             setSearch(ser);
-            console.log(ser)
+            setMusicSongs(ser);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -172,16 +173,6 @@ const SongAdmin = () => {
                         />
                     </div>
 
-                    {search.artists && (
-                        <div class="list border-bottom">
-                            <i class="fa fa-fire"></i>
-                            <div class="d-flex flex-column ml-3">
-                                {search.artists.map((data) => (
-                                    <h3>{data.artistsName}</h3>
-                                ))}
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
             <div className="px-4">

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import "../../../css/admin/musicAdmin.scss";
 import Modal from "react-modal";
@@ -5,66 +6,77 @@ import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { adminGetArtist } from "../../../services/adminSingerService"
+import {
+    updateSong,
+    deleteSong,
+    createSong
+} from "../../../services/restSongService"
+import { adminSearchS } from "../../../services/adminSearchSongService"
+
+
 
 const SingersAdmin = () => {
-    const [musicSingers, setMusicSingers] = useState([]); // Danh sách thể loại nhạc
-    const [selectedSinger, setSelectedSinger] = useState(null); // Thể loại đang được chọn
+    const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
+    const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
+    const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
     const [editForm, setEditForm] = useState({
         id: "",
         avt: "",
-        singerName: "",
-        email: "",
-        song: "",
-        album: "",
-        description: "",
-        date: "",
+        artistsName: "",
+        alias: "",
+        totalFollow: "",
+        songListId: [],
+        playListId: [],
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
     const [createForm, setCreateForm] = useState({
+        id: "",
         avt: "",
-        singerName: "",
-        email: "",
-        song: "",
-        album: "",
-        description: "",
-        date: "",
+        artistsName: "",
+        alias: "",
+        totalFollow: "",
+        songListId: [],
+        playListId: [],
     }); // Thông tin form tạo mới
+    const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
+    const [search, setSearch] = useState({}); // Trang hiện tại
 
-    // Giả sử chúng ta có một hàm fetchMusicSingers để lấy dữ liệu từ API
+    const handlePageChange = (pageNum) => {
+        if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
+            return; // Không thực hiện cập nhật nếu số trang không hợp lệ
+        }
+        setCurrentPage(pageNum);
+        fetchMusicSongs();
+    };
+    const itemsPerPage = 20; // Số mục trên mỗi trang
+    // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
     useEffect(() => {
-        fetchMusicSingers();
+        fetchMusicSongs();
     }, []);
 
-    // Hàm giả lập lấy danh sách thể loại nhạc từ server
-    const fetchMusicSingers = async () => {
-        const data = [
-            {
-                id: "01",
-                avt: "image1.jpg",
-                singerName: "Eliana D’Cruz",
-                email: "eliana@demo.com",
-                song: 68,
-                album: 16,
-                description: "Fuck u",
-                date: "03/04/2024",
-            },
-            {
-                id: "02",
-                avt: "image2.jpg",
-                singerName: "Alex Williams",
-                email: "alex@demo.com",
-                song: 68,
-                album: 16,
-                description: "Fuck u",
-                date: "03/04/2024",
-            },
 
-            // thêm dữ liệu giả lập ở đây
-        ];
-        setMusicSingers(data);
+
+    const fetchMusicSongs = async () => {
+        try {
+            const response = await adminGetArtist(parseInt((currentPage - 1) * itemsPerPage));
+            if(response.handleData) {
+                setMusicSongs(response.handledata);
+                setmaxpage(response.maxPage);
+                console.log(response.handleData)
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     };
-
+    const updateMusicSongs = async (data) => {
+        try {
+            await updateSong(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     // Hàm tạo mới thể loại nhạc
     const createMusicKind = async (name, description) => {
         // Gọi API để tạo mới thể loại nhạc
@@ -75,6 +87,7 @@ const SingersAdmin = () => {
     const updateMusicKind = async () => {
         // Gọi API để chỉnh sửa thông tin thể loại nhạc
         // Khi chỉnh sửa thành công, cập nhật state
+        updateMusicSongs(editForm)
     };
 
     // Hàm xóa thể loại nhạc
@@ -85,16 +98,15 @@ const SingersAdmin = () => {
 
     // Hiển thị pop-up form chỉnh sửa
     const openEditModal = (kind) => {
-        setSelectedSinger(kind);
+        setSelectedSong(kind);
         setEditForm({
             id: kind.id,
             avt: kind.avt,
-            singerName: kind.singerName,
-            email: kind.email,
-            song: kind.song,
-            album: kind.album,
-            description: kind.description,
-            date: kind.date,
+            artistsName: kind.artistsName,
+            alias: kind.alias,
+            totalFollow: kind.totalFollow,
+            songListId: kind.songListId,
+            playListId: kind.playListId,
         });
         setIsEditModalOpen(true);
     };
@@ -115,22 +127,34 @@ const SingersAdmin = () => {
     };
 
     // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
-    const handleEditFormChange = (e) => {
-        setEditForm({ ...editForm, [e.target.name]: e.target.value });
+    const handleEditFormChange = async (e) => {
+        const { name, value } = e.target;
+        setEditForm({ ...editForm, [name]: value });
     };
 
-    // Xử lý sự kiện thay đổi giá trị trong form tạo mới
     const handleCreateFormChange = (e) => {
-        setCreateForm({ ...createForm, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setCreateForm({ ...createForm, [name]: value });
     };
+    const handleserch = async (e) => {
+        try {
+            const ser = await adminSearchS(e.target.value);
+            setSearch(ser);
+            setMusicSongs(ser);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
 
+    console.log("song",musicSongs)
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
                 <img style={{ width: "12%" }} src={logo} alt="logo" />
             </div>
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
-                <h2 className="fw-normal fs-1 heading-admin">
+                <h2 className="fw-normal fs-1 heading-admin" >
                     Danh sách ca sĩ
                 </h2>
                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
@@ -140,41 +164,47 @@ const SingersAdmin = () => {
                 </div>
             </div>
             <div className="px-4 event-admin">
-                <form action="">
+                <div class="card">
                     <label className="fs-3 me-3" htmlFor="search-kind">
                         Tìm kiếm:
                     </label>
-                    <input
-                        id="search-kind"
-                        type="text"
-                        placeholder="Nhập ca sĩ"
-                        required
-                        className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
-                    />
-                </form>
+                    <div class="input-box">
+                        <input
+                            id="search-kind"
+                            type="text"
+                            placeholder="Nhập ca sĩ"
+                            required
+                            className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
+                            onChange={handleserch}
+                        />
+                    </div>
+                </div>
             </div>
             <div className="px-4">
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
                         <tr>
-                            <th>Thứ tự</th>
-                            <th>Hình ảnh</th>
+                            <th>ID</th>
                             <th>Tên</th>
-                            <th>Email</th>
-                            <th>Bài hát</th>
-                            <th>Bộ sưu tập</th>
-                            <th>Hành động</th>
+                            <th>Hình Ảnh</th>
+                            <th>Baì Nhạc</th>
+                            <th>PlayList</th>
+                            <th>alias</th>
+                            <th>Lượt theo dõi</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        {musicSingers.map((kind) => (
+
+                        {musicSongs ? musicSongs.map((kind) => (
                             <tr key={kind.id}>
                                 <td>{kind.id}</td>
-                                <td>{kind.avt}</td>
-                                <td>{kind.singerName}</td>
-                                <td>{kind.email}</td>
-                                <td>{kind.song}</td>
-                                <td>{kind.album}</td>
+                                <td>{kind.artistsName}</td>
+                                <td className="td_img"> <img src={kind.avt} alt={kind.artistsName} /> </td>
+                                <td>{kind.songListId?.map(artist => artist && artist.songname ? artist.songname : "").join(", ")}</td>
+                                <td>{kind.playListId?.map(genre => genre).join(", ")}</td>
+                                <td>{kind.alias}</td>
+                                <td>{kind.totalFollow}</td>
                                 <td>
                                     <button
                                         className="btn btn-primary fs-5"
@@ -190,36 +220,53 @@ const SingersAdmin = () => {
                                     </button>
                                 </td>
                             </tr>
-                        ))}
+                        )) : <h1>dell</h1>}
                     </tbody>
                 </table>
             </div>
             <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 description-pagination"></div>
+                <div className="col-6 description-pagination">
+                    Hiển thị {(currentPage - 1) * itemsPerPage + 1} -{" "}
+                    {Math.min(currentPage * itemsPerPage, maxpage)} trong {maxpage} bài hát
+                </div>
                 <div className="col-6 pe-5 pagination-numbers">
-                    <ul className="pagination justify-content-end ">
+                    <ul className="pagination justify-content-end">
                         <li className="border">
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
                             >
                                 Previous
                             </a>
                         </li>
-                        <li className="border active">
+                        <li className="border">
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
+                                onClick={() => handlePageChange(1)}
                             >
-                                1
+                                First
                             </a>
                         </li>
                         <li className="border">
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
                             >
                                 Next
+                            </a>
+                        </li>
+                        <li className="border">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                                onClick={() => handlePageChange(totalPages - 5)}
+                            >
+                                Last
                             </a>
                         </li>
                     </ul>
@@ -242,70 +289,98 @@ const SingersAdmin = () => {
                     <form>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-name">
-                                Name:
+                                id:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="edit-name"
-                                name="singerName"
-                                value={editForm.singerName}
+                                name="id"
+                                placeholder={editForm.id}
                                 onChange={handleEditFormChange}
+                                readOnly
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-email">
-                                Email:
+                                avt:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="edit-email"
-                                name="email"
-                                value={editForm.email}
+                                name="songname"
+                                placeholder={editForm.avt}
                                 onChange={handleEditFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-profile">
-                                Old Singer Profile:
+                                artistsName:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
-                                id="edit-profile"
-                                value={editForm.avt}
+                                id="thumbnail"
+                                placeholder={editForm.artistsName}
                                 onChange={handleEditFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-date">
-                                Date:
+                                alias:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="edit-date"
-                                name="date"
-                                value={editForm.date}
+                                name="artists"
+                                placeholder={editForm.alias}
                                 onChange={handleEditFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label
-                                className="fs-5 mb-2"
-                                htmlFor="edit-description"
-                            >
-                                Description:
+                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                                totalFollow:
                             </label>
-                            <textarea
+                            <input
+                                type="text"
                                 className="fs-5 form-control"
-                                id="edit-description"
-                                name="description"
-                                value={editForm.description}
+                                id="edit-date"
+                                name="genresid"
+                                placeholder={editForm.totalFollow}
                                 onChange={handleEditFormChange}
-                            ></textarea>
+                            />
                         </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                                songListId:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-date"
+                                name="like"
+                                placeholder={editForm.songListId}
+                                onChange={handleEditFormChange}
+                                readOnly
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                                playListId:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="edit-date"
+                                name="listen"
+                                placeholder={editForm.playListId}
+                                onChange={handleEditFormChange}
+                                readOnly
+                            />
+                        </div>
+
                         <button
                             className="btn btn-primary fs-5"
                             onClick={updateMusicKind}
@@ -337,73 +412,42 @@ const SingersAdmin = () => {
                     <form>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="create-name">
-                                Name:
+                                artistsName:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="create-name"
-                                name="singerName"
-                                value={createForm.name}
+                                name="artistsName"
+                                value={createForm.artistsName}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="create-email">
-                                Email:
+                                avt:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="create-email"
                                 name="email"
-                                value={createForm.email}
-                                onChange={handleCreateFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label
-                                className="fs-5 mb-2"
-                                htmlFor="create-profile"
-                            >
-                                Singer Profile:
-                            </label>
-                            <input
-                                type="file"
-                                className="fs-5 form-control"
-                                id="create-profile"
-                                name="profile"
                                 value={createForm.avt}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="create-date">
-                                Date:
+                                alias:
                             </label>
                             <input
                                 type="date"
                                 className="fs-5 form-control"
                                 id="create-date"
                                 name="date"
-                                value={createForm.date}
+                                value={createForm.alias}
                                 onChange={handleCreateFormChange}
                             />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label
-                                className="fs-5 mb-2"
-                                htmlFor="create-description"
-                            >
-                                Description:
-                            </label>
-                            <textarea
-                                className="fs-5 form-control"
-                                id="create-description"
-                                name="description"
-                                value={createForm.description}
-                                onChange={handleCreateFormChange}
-                            ></textarea>
                         </div>
                         <button
                             className="btn btn-primary fs-5"
