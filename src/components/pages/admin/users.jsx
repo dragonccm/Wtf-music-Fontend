@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { adminGetUsers } from "../../../services/adminGetUserService"
+import { getPlaylist } from "../../../services/playlistService"
 import {
     updateSong,
     deleteSong,
@@ -21,28 +22,28 @@ const SongAdmin = () => {
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
     const [editForm, setEditForm] = useState({
-        id:"",
-        username:"",
-        birthday:"",
-        avt:"",
-        email:"",
-        likedPlayLists:"",
-        likedSongs:"",
-        myPlayLists:"",
-        banSongs:"",
+        id: "",
+        username: "",
+        birthday: "",
+        avt: "",
+        email: "",
+        likedPlayLists: "",
+        likedSongs: "",
+        myPlayLists: "",
+        banSongs: "",
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
     const [createForm, setCreateForm] = useState({
-        id:"",
-        username:"",
-        birthday:"",
-        avt:"",
-        email:"",
-        likedPlayLists:"",
-        likedSongs:"",
-        myPlayLists:"",
-        banSongs:"",
+        id: "",
+        username: "",
+        birthday: "",
+        avt: "",
+        email: "",
+        likedPlayLists: "",
+        likedSongs: "",
+        myPlayLists: "",
+        banSongs: "",
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState({}); // Trang hiện tại
@@ -63,11 +64,29 @@ const SongAdmin = () => {
     const fetchMusicSongs = async () => {
         try {
             const response = await adminGetUsers(parseInt((currentPage - 1) * itemsPerPage));
-            setMusicSongs(response.DT.handledata);
-            setmaxpage(response.maxPage)
-        } catch (error) {
+            const handledata = await Promise.all(
+                response.DT.handledata.map(async (plid) => {
+                    if (plid.likedPlayLists.length > 0) {
+                        console.log("la arr",plid.likedPlayLists)
+                        return Promise.all(plid.likedPlayLists.map(async (id) => {
+                            const f = await getPlaylist(id) 
+                            if(f.err===0){
+                                console.log(f)
+                                return f.data.title;
+                            }else{
+                                return null
+                            }
+                        }));
+                    } else {
+                        return plid;
+                    }
+                })
+            );
+            setMusicSongs(handledata);
+            setmaxpage(response.maxPage);
+          } catch (error) {
             console.error('Error fetching data:', error);
-        }
+          }
     };
     const updateMusicSongs = async (data) => {
         try {
