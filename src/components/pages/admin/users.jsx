@@ -71,7 +71,7 @@ const SongAdmin = () => {
                         return Promise.all(plid.likedPlayLists.map(async (id) => {
                             const f = await getPlaylist(id) 
                             if(f.err===0){
-                                console.log(f)
+                                console.log(f.data.title)
                                 return f.data.title;
                             }else{
                                 return null
