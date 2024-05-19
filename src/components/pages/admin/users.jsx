@@ -8,6 +8,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { adminGetUsers } from "../../../services/adminGetUserService"
 import { getPlaylist } from "../../../services/playlistService"
+import { getSongData } from "../../../services/SongService"
 import {
     updateSong,
     deleteSong,
@@ -63,31 +64,41 @@ const SongAdmin = () => {
     // Hàm giả lập lấy danh sách thể loại nhạc từ server
     const fetchMusicSongs = async () => {
         try {
-            const response = await adminGetUsers(parseInt((currentPage - 1) * itemsPerPage));
-            const handledata = await Promise.all(
-                response.DT.handledata.map(async (plid) => {
-                    if (plid.likedPlayLists.length > 0) {
-                        console.log("la arr",plid.likedPlayLists)
-                        return Promise.all(plid.likedPlayLists.map(async (id) => {
-                            const f = await getPlaylist(id) 
-                            if(f.err===0){
-                                console.log(f.data.title)
-                                return f.data.title;
-                            }else{
-                                return null
-                            }
-                        }));
-                    } else {
-                        return plid;
-                    }
+          const response = await adminGetUsers(parseInt((currentPage - 1) * itemsPerPage));
+          const handledata = await Promise.all(
+            response.DT.handledata.map(async (userData) => {
+              const playlists = await Promise.all(
+                userData.likedPlayLists.map(async (playlistId) => {
+                  const playlist = await getPlaylist(playlistId);
+                  if (playlist.err === 0) {
+                    
+                    return playlist.data.title;
+                  } else {
+                    return null;
+                  }
                 })
-            );
-            setMusicSongs(handledata);
-            setmaxpage(response.maxPage);
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
-    };
+              );
+              const songs = await Promise.all(
+                userData.likedSongs.map(async (songId) => {
+                  const song = await getSongData(songId);
+                  if (song.err === 0) {
+                    return song.data.songname;
+                  } else {
+                    return null;
+                  }
+                })
+              );
+              console.log("dddd", { ...userData, likedPlayLists: playlists, likedSongs: songs });
+
+              return { ...userData, likedPlayLists: playlists, likedSongs: songs };
+            })
+          );
+          setMusicSongs(handledata);
+          setmaxpage(response.maxPage);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
     const updateMusicSongs = async (data) => {
         try {
             await updateSong(data);
@@ -159,8 +170,8 @@ const SongAdmin = () => {
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setSearch(ser);
-            setMusicSongs(ser);
+            setSearch(ser.DT.User);
+            setMusicSongs(ser.DT.User);
         } catch (error) {
             console.error('Error fetching data:', error);
         }

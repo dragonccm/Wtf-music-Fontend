@@ -134,8 +134,8 @@ const SongAdmin = () => {
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setSearch(ser);
-            setMusicSongs(ser);
+            setSearch(ser.DT.songs);
+            setMusicSongs(ser.DT.songs);
         } catch (error) {
             console.error('Error fetching data:', error);
         }

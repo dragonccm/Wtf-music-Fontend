@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { adminService } from "../../services/adminService";
+import { adminHomeService } from "../../services/adminHomeService";
 
-export const fetchAdminHome = createAsyncThunk("admin/adminService", async () => {
-    const response = await adminService();
+export const fetchAdminHome = createAsyncThunk("admin/adminHomeService", async () => {
+    const response = await adminHomeService();
     return response
 });
 const initialState = {

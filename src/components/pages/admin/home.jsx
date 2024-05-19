@@ -10,21 +10,19 @@ import "../../../css/admin/musicAdmin.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { getAllId, pushSong } from "../../../services/setupService";
+import { adminHomeService } from "../../../services/adminHomeService";
 import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { postss } from "../../../services/postService";
+import Loading from "../../sideNavigation/mascot_animation";
+import { adminGetArtist } from "../../../services/adminSingerService"
+import { adminGetUsers } from "../../../services/adminGetUserService"
+
 const HomeAdmin = () => {
     // const [id, setid] = useState(null)
     // const [result, setresult] = useState([])
 
-    // const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     dispatch(fetchAdminHome());
-    // }, [dispatch]);
-
-    // const currData = useSelector((state) => state.admin.AdminHome);
 
     // useEffect(() => {
     //     const run = async () => {
@@ -51,7 +49,42 @@ const HomeAdmin = () => {
     //     })
     //     console.log("sdsds", eee)
     // }
+    const [musicSongs, setMusicSongs] = useState([]);
+    const [Artists, setArtists] = useState([]);
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        dispatch(fetchAdminHome())
+            .then(() => {
+                setIsLoading(false); // Cập nhật isLoading thành false khi dữ liệu đã được tải xong
+            })
+            .catch((error) => {
+                // Xử lý lỗi khi tải dữ liệu không thành công
+                console.error('Error fetching data:', error);
+                setIsLoading(false); // Cập nhật isLoading thành false để ngừng hiển thị trạng thái chờ
+            });
+    }, [dispatch]);
+    useEffect(() => {
+        fetchMusicSongs();
+    }, []);
+    // Hàm giả lập lấy danh sách thể loại nhạc từ server
+    const fetchMusicSongs = async () => {
+        try {
+            const response = await adminGetUsers(5);
+            const Artistresponse = await adminGetArtist(5);
+            setMusicSongs(response.DT.handledata);
+            setArtists(Artistresponse.handleData);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
+    const currData = useSelector((state) => state.admin.AdminHome.DT);
+
+    if (isLoading) {
+        return <div><Loading /></div>; // Hiển thị trạng thái chờ khi isLoading là true
+    }
+    console.log(Artists)
     return (
         <main className="main-content">
             <div className="HomeAdmin">
@@ -66,15 +99,15 @@ const HomeAdmin = () => {
                                         className="icon-artist"
                                     />
                                 </div>
-                                <h4 className="text-capitalize my-2">352</h4>
-                                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.songListen}</h4> */}
+
+                                <h4 className="text-capitalize mt-4 mb-1">{currData.ar}</h4>
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Artist
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div className="col">
+                    {/* <div className="col">
                         <div className="card card-box text-center">
                             <div className="card-body bg-albums">
                                 <div className="admin-circle-box rounded-pill">
@@ -83,14 +116,14 @@ const HomeAdmin = () => {
                                         className="icon-albums"
                                     />
                                 </div>
-                                <h4 className="text-capitalize my-2">352</h4>
-                                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.playlistListen}</h4> */}
+                                
+                                <h4 className="text-capitalize mt-4 mb-1">{currData.Playlist}</h4>
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Albums
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="col">
                         <div className="card card-box text-center">
                             <div className="card-body bg-songs">
@@ -100,8 +133,8 @@ const HomeAdmin = () => {
                                         className="icon-songs"
                                     />
                                 </div>
-                                <h4 className="text-capitalize my-2">352</h4>
-                                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.songCount}</h4> */}
+
+                                <h4 className="text-capitalize mt-4 mb-1">{currData.songs}</h4>
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Songs
                                 </p>
@@ -117,8 +150,8 @@ const HomeAdmin = () => {
                                         className="icon-playlist"
                                     />
                                 </div>
-                                <h4 className="text-capitalize my-2">352</h4>
-                                {/* <h4 className="text-capitalize mt-4 mb-1">{currData.playlistCount}</h4> */}
+
+                                <h4 className="text-capitalize mt-4 mb-1">{currData.Playlist}</h4>
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Playlist
                                 </p>
@@ -134,7 +167,8 @@ const HomeAdmin = () => {
                                         className="icon-users"
                                     />
                                 </div>
-                                <h4 className="text-capitalize my-2">352</h4>
+                                <h4 className="text-capitalize mt-4 mb-1">{currData.User}</h4>
+
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Users
                                 </p>
@@ -179,57 +213,30 @@ const HomeAdmin = () => {
                                     <th>Tên nghệ sĩ</th>
                                     <th>Ngày hoạt động</th>
                                     <th>Tổng bài hát</th>
+                                    <th>lượt theo dõi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>01</td>
-                                    <td>
-                                        <h6 className="fs-4 text-capitalize">
-                                            Pete Saraiya
-                                        </h6>
-                                        <p
-                                            className="mb-0 custom-icon"
-                                            style={{ color: "#aaa" }}
-                                        >
-                                            petesaraiya@demo.com
-                                        </p>
-                                    </td>
-                                    <td>Jan 24, 2020</td>
-                                    <td>157</td>
-                                </tr>
-                                <tr>
-                                    <td>01</td>
-                                    <td>
-                                        <h6 className="fs-4 text-capitalize">
-                                            Pete Saraiya
-                                        </h6>
-                                        <p
-                                            className="mb-0 custom-icon"
-                                            style={{ color: "#aaa" }}
-                                        >
-                                            petesaraiya@demo.com
-                                        </p>
-                                    </td>
-                                    <td>Jan 24, 2020</td>
-                                    <td>157</td>
-                                </tr>
-                                <tr>
-                                    <td>01</td>
-                                    <td>
-                                        <h6 className="fs-4 text-capitalize">
-                                            Pete Saraiya
-                                        </h6>
-                                        <p
-                                            className="mb-0 custom-icon"
-                                            style={{ color: "#aaa" }}
-                                        >
-                                            petesaraiya@demo.com
-                                        </p>
-                                    </td>
-                                    <td>Jan 24, 2020</td>
-                                    <td>157</td>
-                                </tr>
+                                {Artists && Artists.map((data) => (
+                                    <tr>
+                                        <td>{data.id}</td>
+                                        <td>
+                                            <h6 className="fs-4 text-capitalize">
+                                                {data.artistsName}
+                                            </h6>
+                                            <p
+                                                className="mb-0 custom-icon"
+                                                style={{ color: "#aaa" }}
+                                            >
+                                                {data.alias}
+                                            </p>
+                                        </td>
+                                        <td>{data.createdAt}</td>
+                                        <td>{data.songListId.length}</td>
+                                        <td>{data.totalFollow.toLocaleString()}</td>
+                                    </tr>
+                                ))}
+
                             </tbody>
                         </table>
                         <div className="d-flex py-4 pagination-admin">
@@ -288,7 +295,7 @@ const HomeAdmin = () => {
                                                 Artist
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                1,010
+                                                {currData.ar}
                                             </h6>
                                         </div>
                                         <div
@@ -313,40 +320,6 @@ const HomeAdmin = () => {
                                 </div>
                                 <div className="d-flex align-items-center mb-5">
                                     <FontAwesomeIcon
-                                        icon={faCompactDisc}
-                                        className="icon-albums icon_top-reviews me-5"
-                                    />
-                                    <div style={{ width: "100%" }}>
-                                        <div className="d-flex justify-content-between  ">
-                                            <h6 className="mb-2 fs-3 fw-normal">
-                                                Albums
-                                            </h6>
-                                            <h6 className="text-body fs-3 fw-normal">
-                                                2,231
-                                            </h6>
-                                        </div>
-                                        <div
-                                            className="progress bg-soft-success shadow-none w-100"
-                                            style={{ height: "6px" }}
-                                        >
-                                            <div
-                                                className="progress-bar bg-soft-success"
-                                                data-toggle="progress-bar"
-                                                role="progressbar"
-                                                aria-valuenow="23"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100"
-                                                style={{
-                                                    width: "30%",
-                                                    transition:
-                                                        "width 2s ease 0s",
-                                                }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex align-items-center mb-5">
-                                    <FontAwesomeIcon
                                         icon={faMusic}
                                         className="icon-songs icon_top-reviews me-5"
                                     />
@@ -356,7 +329,7 @@ const HomeAdmin = () => {
                                                 Songs
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                5,674
+                                                {currData.songs}
                                             </h6>
                                         </div>
                                         <div
@@ -390,7 +363,7 @@ const HomeAdmin = () => {
                                                 Playlist
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                2,162
+                                                {currData.Playlist}
                                             </h6>
                                         </div>
                                         <div
@@ -424,7 +397,7 @@ const HomeAdmin = () => {
                                                 Users
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                6,718
+                                                {currData.User}
                                             </h6>
                                         </div>
                                         <div
@@ -465,210 +438,43 @@ const HomeAdmin = () => {
                             </div>
                             <div className="card-body">
                                 <ui className="list-unstyled p-0 m-0">
-                                    <li className="mb-4">
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <div className="d-flex align-items-center">
-                                                <img
-                                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    id="07"
-                                                    className="img-fluid   avatar-52"
-                                                    alt="review-img"
-                                                />
-                                                <div className="ms-5">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        Jane Cooper
-                                                    </h6>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        janecooper@gmail.com
-                                                    </small>
+                                    {musicSongs.map((data) => (
+                                        <li className="mb-4">
+                                            <div className="d-flex align-items-center justify-content-between">
+                                                <div className="d-flex align-items-center">
+                                                    <img
+                                                        src={data.avt}
+                                                        id="07"
+                                                        className="img-fluid   avatar-52"
+                                                        alt="review-img"
+                                                    />
+                                                    <div className="ms-5">
+                                                        <h6 className="text-capitalize fs-3 fw-normal">
+                                                            {data.user}
+                                                        </h6>
+                                                        <small
+                                                            style={{
+                                                                color: "#aaa",
+                                                            }}
+                                                            className="text-capitalize fs-4"
+                                                        >
+                                                            {data.email}
+                                                        </small>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <p
-                                                style={{
-                                                    color: "#aaa",
-                                                    width: "22%",
-                                                }}
-                                                className="mb-0 custom-icon fs-3"
-                                            >
-                                                12 hours ago
-                                            </p>
-                                        </div>{" "}
-                                    </li>
-                                    <li className="mb-4">
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <div className="d-flex align-items-center">
-                                                <img
-                                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    id="07"
-                                                    className="img-fluid   avatar-52"
-                                                    alt="review-img"
-                                                />
-                                                <div className="ms-5">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        wade warren
-                                                    </h6>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        wadewarren@gmail.com
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <p
-                                                style={{
-                                                    color: "#aaa",
-                                                    width: "22%",
-                                                }}
-                                                className="mb-0 custom-icon fs-3"
-                                            >
-                                                18 hours ago
-                                            </p>
-                                        </div>{" "}
-                                    </li>
-                                    <li className="mb-4">
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <div className="d-flex align-items-center">
-                                                <img
-                                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    id="07"
-                                                    className="img-fluid   avatar-52"
-                                                    alt="review-img"
-                                                />
-                                                <div className="ms-5">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        Jacob jones
-                                                    </h6>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        jacobjones@gmail.com
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <p
-                                                style={{
-                                                    color: "#aaa",
-                                                    width: "22%",
-                                                }}
-                                                className="mb-0 custom-icon fs-3"
-                                            >
-                                                24 hours ago
-                                            </p>
-                                        </div>{" "}
-                                    </li>
-                                    <li className="mb-4">
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <div className="d-flex align-items-center">
-                                                <img
-                                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    id="07"
-                                                    className="img-fluid   avatar-52"
-                                                    alt="review-img"
-                                                />
-                                                <div className="ms-5">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        Cody fisher
-                                                    </h6>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        codyfisher@gmail.com
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <p
-                                                style={{
-                                                    color: "#aaa",
-                                                    width: "22%",
-                                                }}
-                                                className="mb-0 custom-icon fs-3"
-                                            >
-                                                28 hours ago
-                                            </p>
-                                        </div>{" "}
-                                    </li>
-                                    <li className="mb-4">
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <div className="d-flex align-items-center">
-                                                <img
-                                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    id="07"
-                                                    className="img-fluid   avatar-52"
-                                                    alt="review-img"
-                                                />
-                                                <div className="ms-5">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        Dianne Russell
-                                                    </h6>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        diannerussell@gmail.com
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <p
-                                                style={{
-                                                    color: "#aaa",
-                                                    width: "22%",
-                                                }}
-                                                className="mb-0 custom-icon fs-3"
-                                            >
-                                                36 hours ago
-                                            </p>
-                                        </div>{" "}
-                                    </li>
-                                    <li>
-                                        <div className="d-flex align-items-center justify-content-between">
-                                            <div className="d-flex align-items-center">
-                                                <img
-                                                    src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                    id="07"
-                                                    className="img-fluid   avatar-52"
-                                                    alt="review-img"
-                                                />
-                                                <div className="ms-5">
-                                                    <h6 className="text-capitalize fs-3 fw-normal">
-                                                        loreal kinas
-                                                    </h6>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        lorealkinas@gmail.com
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <p
-                                                style={{
-                                                    color: "#aaa",
-                                                    width: "22%",
-                                                }}
-                                                className="mb-0 custom-icon fs-3"
-                                            >
-                                                48 hours ago
-                                            </p>
-                                        </div>{" "}
-                                    </li>
+                                                <p
+                                                    style={{
+                                                        color: "#aaa",
+                                                        width: "22%",
+                                                    }}
+                                                    className="mb-0 custom-icon fs-3"
+                                                >
+                                                    {data.createdAt}
+                                                </p>
+                                            </div>{" "}
+                                        </li>
+                                    ))}
+
                                 </ui>
                             </div>
                         </div>

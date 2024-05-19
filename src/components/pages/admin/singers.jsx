@@ -16,7 +16,7 @@ import { adminSearchS } from "../../../services/adminSearchSongService"
 
 
 
-const SingersAdmin = () => {
+const SingersAdmin = ()=> {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
@@ -140,14 +140,13 @@ const SingersAdmin = () => {
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setSearch(ser);
-            setMusicSongs(ser);
+            setSearch(ser.DT.ar);
+            setMusicSongs(ser.DT.ar);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
-    console.log("cặt",musicSongs)
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
