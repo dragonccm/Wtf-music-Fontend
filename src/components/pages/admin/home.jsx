@@ -8,16 +8,16 @@ import { faCircleChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "../../../css/admin/homeAdmin.scss";
 import "../../../css/admin/musicAdmin.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
-import { getAllId, pushSong } from "../../../services/setupService";
-import { adminHomeService } from "../../../services/adminHomeService";
-import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
+// import { getAllId, pushSong } from "../../../services/setupService";
+// import { postss } from "../../../services/postService";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-import { postss } from "../../../services/postService";
+import { useEffect, useState } from "react";
 import Loading from "../../sideNavigation/mascot_animation";
+import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
 import { adminGetArtist } from "../../../services/adminSingerService"
 import { adminGetUsers } from "../../../services/adminGetUserService"
+import { adminGetSong } from "../../../services/adminSongService"
 
 const HomeAdmin = () => {
     // const [id, setid] = useState(null)
@@ -49,6 +49,7 @@ const HomeAdmin = () => {
     //     })
     //     console.log("sdsds", eee)
     // }
+    const [user, setuser] = useState([]);
     const [musicSongs, setMusicSongs] = useState([]);
     const [Artists, setArtists] = useState([]);
     const dispatch = useDispatch();
@@ -70,9 +71,11 @@ const HomeAdmin = () => {
     // Hàm giả lập lấy danh sách thể loại nhạc từ server
     const fetchMusicSongs = async () => {
         try {
-            const response = await adminGetUsers(5);
-            const Artistresponse = await adminGetArtist(5);
-            setMusicSongs(response.DT.handledata);
+            const response = await adminGetUsers(0);
+            const Artistresponse = await adminGetArtist(0);
+            const songsresponse = await adminGetSong(0);
+            setMusicSongs(songsresponse.handledata);
+            setuser(response.DT.handledata);
             setArtists(Artistresponse.handleData);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -438,7 +441,7 @@ const HomeAdmin = () => {
                             </div>
                             <div className="card-body">
                                 <ui className="list-unstyled p-0 m-0">
-                                    {musicSongs.map((data) => (
+                                    {user.map((data) => (
                                         <li className="mb-4">
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div className="d-flex align-items-center">
@@ -490,191 +493,41 @@ const HomeAdmin = () => {
                             </div>
                             <div className="card-body">
                                 <ui className="list-unstyled p-0 m-0">
-                                    <li className="mb-4">
-                                        <div className="d-flex">
-                                            <img
-                                                src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                id="07"
-                                                className="img-fluid avatar-52"
-                                                alt="review-img"
-                                            />
-                                            <div className="ms-5">
-                                                <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
-                                                    This song captures my
-                                                    emotions and paints my world
-                                                    with its beautiful melody
-                                                    and heartfelt lyrics. It's
-                                                    truly special.
-                                                </h6>
-                                                <div className="d-flex align-items-center justify-content-between">
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        by Alexa Jonas
-                                                    </small>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize custom-icon fs-3"
-                                                    >
-                                                        02 hours ago
-                                                    </small>
+                                    {musicSongs.map((data) => (
+                                        <li className="mb-4">
+                                            <div className="d-flex">
+                                                <img
+                                                    src={data.thumbnail}
+                                                    id="07"
+                                                    className="img-fluid avatar-52"
+                                                    alt="review-img"
+                                                />
+                                                <div className="ms-5">
+                                                    <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
+                                                       {data.songname}
+                                                    </h6>
+                                                    <div className="d-flex align-items-center justify-content-between">
+                                                        <small
+                                                            style={{
+                                                                color: "#aaa",
+                                                            }}
+                                                            className="text-capitalize fs-4"
+                                                        >
+                                                            {data.alias}
+                                                        </small>
+                                                        <small
+                                                            style={{
+                                                                color: "#aaa",
+                                                            }}
+                                                            className="text-capitalize custom-icon fs-3"
+                                                        >
+                                                           {data.createdAt}
+                                                        </small>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>{" "}
-                                    </li>
-                                    <li className="mb-4">
-                                        <div className="d-flex">
-                                            <img
-                                                src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                id="08"
-                                                className="img-fluid   avatar-52"
-                                                alt="review-img"
-                                            />
-                                            <div className="ms-5">
-                                                <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
-                                                    This song captures my
-                                                    emotions and paints my world
-                                                    with its beautiful melody
-                                                    and heartfelt lyrics. It's
-                                                    truly special.
-                                                </h6>
-                                                <div className="d-flex align-items-center justify-content-between">
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        by alex Williams
-                                                    </small>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize custom-icon fs-3"
-                                                    >
-                                                        06 hours ago
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>{" "}
-                                    </li>
-                                    <li className="mb-4">
-                                        <div className="d-flex">
-                                            <img
-                                                src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                id="09"
-                                                className="img-fluid   avatar-52"
-                                                alt="review-img"
-                                            />
-                                            <div className="ms-5">
-                                                <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
-                                                    This song captures my
-                                                    emotions and paints my world
-                                                    with its beautiful melody
-                                                    and heartfelt lyrics. It's
-                                                    truly special.
-                                                </h6>
-                                                <div className="d-flex align-items-center justify-content-between">
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        by vibrat sharia
-                                                    </small>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize custom-icon fs-3"
-                                                    >
-                                                        08 hours ago
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>{" "}
-                                    </li>
-                                    <li className="mb-4">
-                                        <div className="d-flex">
-                                            <img
-                                                src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                id="10"
-                                                className="img-fluid   avatar-52"
-                                                alt="review-img"
-                                            />
-                                            <div className="ms-5">
-                                                <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
-                                                    This song captures my
-                                                    emotions and paints my world
-                                                    with its beautiful melody
-                                                    and heartfelt lyrics. It's
-                                                    truly special.
-                                                </h6>
-                                                <div className="d-flex align-items-center justify-content-between">
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        by angle pate
-                                                    </small>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize custom-icon fs-3"
-                                                    >
-                                                        12 hours ago
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>{" "}
-                                    </li>
-                                    <li className="">
-                                        <div className="d-flex">
-                                            <img
-                                                src="https://media.baoquangninh.vn/upload/image/202307/medium/2100199_5fc049b4e26927b1f8e9720acdec299c.jpg"
-                                                id="10"
-                                                className="img-fluid   avatar-52"
-                                                alt="review-img"
-                                            />
-                                            <div className="ms-5">
-                                                <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
-                                                    This song captures my
-                                                    emotions and paints my world
-                                                    with its beautiful melody
-                                                    and heartfelt lyrics. It's
-                                                    truly special.
-                                                </h6>
-                                                <div className="d-flex align-items-center justify-content-between">
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize fs-4"
-                                                    >
-                                                        by vibrat sharia
-                                                    </small>
-                                                    <small
-                                                        style={{
-                                                            color: "#aaa",
-                                                        }}
-                                                        className="text-capitalize custom-icon fs-3"
-                                                    >
-                                                        09 hours ago
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>{" "}
-                                    </li>
+                                            </div>{" "}
+                                        </li>
+                                    ))}
                                 </ui>
                             </div>
                         </div>
