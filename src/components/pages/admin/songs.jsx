@@ -72,6 +72,13 @@ const SongAdmin = () => {
             console.error('Error fetching data:', error);
         }
     };
+    const deleteMusicSongs = async (data) => {
+        try {
+            await deleteSong(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     // Hàm tạo mới thể loại nhạc
     const createMusicKind = async (name, description) => {
         // Gọi API để tạo mới thể loại nhạc
@@ -87,8 +94,7 @@ const SongAdmin = () => {
 
     // Hàm xóa thể loại nhạc
     const deleteMusicKind = async (id) => {
-        // Gọi API để xóa thể loại nhạc
-        // Khi xóa thành công, cập nhật state
+        deleteMusicSongs(id)
     };
 
     // Hiển thị pop-up form chỉnh sửa
