@@ -14,6 +14,7 @@ import SongCard2 from '../card/song_card2'
 import Loading from "../sideNavigation/mascot_animation";
 import Like_heart from "../card/like";
 import CreatePlaylist from "../card/createPlaylist";
+import Play_animation from "../card/play_animation"
 
 import { playlistroute } from "../../controller/playlist";
 const Playlistpage = () => {
@@ -21,6 +22,8 @@ const Playlistpage = () => {
   const dispatch = useDispatch();
   const [playlist, setPlaylist] = useState([])
   const currData = useSelector((state) => state.Authentication);
+  const nowPlaylist = useSelector((state) => state.playlist );
+
 
   useEffect(() => {
     // dispatch(fetchPlayList(id));
@@ -68,6 +71,11 @@ const Playlistpage = () => {
                 src={playlist.thumbnailM}
                 alt="f"
               />
+              {playlist.encodeId == nowPlaylist.playlist.data.encodeId ?
+               <Play_animation />
+                :
+                <div>{ nowPlaylist.playlist.data.encodeId}</div>
+            }
             </div>
             <div className="mid_head">
               <h1 className="list_name">{playlist.title}</h1>
@@ -133,9 +141,15 @@ const Playlistpage = () => {
               <SongCard2
                 data={data}
                 rating={{
-                  israting: true,
+                  israting: false,
                   index: index
                 }
+                }
+                onPlaylist={{
+                  idPlaylist: playlist.encodeId,
+                  isPlay : true
+                }
+                 
                 }
               />
             ))}

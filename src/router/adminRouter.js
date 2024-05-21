@@ -22,12 +22,17 @@ import WritersAdmin from "../components/pages/admin/writers";
 import CategorysAdmin from "../components/pages/admin/categorys";
 import SongsAdmin from "../components/pages/admin/songs";
 // import { height } from "@mui/system";
+import ThemeContext from "../lib/Context/ThemeContext";
 
 const AdminRoutes = (props) => {
     // get state from redux
     const isAuthentication = useSelector(
         (state) => state.Authentication.defaultUser
     );
+    const { theme } = useContext(ThemeContext);
+    useEffect(() => {
+        document.body.setAttribute("data-theme", theme);
+    }, [theme]);
 
     return (
         <div style={{ height: "100vh" }} className="main_content">

@@ -30,7 +30,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, israting }) => {
               key={index} // Thêm key ở đây
               data={data}
               rating={{
-                israting: israting,
+                israting: true,
                 index: index
               }}
             />
