@@ -262,18 +262,17 @@
 
 @media screen and (max-width: 600px) {
   .rightsidebar {
-    position        : fixed;
-    bottom          : 0;
-    width           : 100%;
-    align-items     : center;
-    height          : 6rem !important;
-    z-index         : 9;
-    background-color: transparent !important;
+    position   : fixed;
+    bottom     : 0;
+    width      : 100%;
+    align-items: center;
+    height     : 6rem !important;
+    z-index    : 9;
 
     .bg-body-tertiary {
       .container {
         .navbar-collapse {
-          background-color: rgba(255, 255, 255, 0.619);
+          // background-color: rgba(255, 255, 255, 0.619);
         }
       }
     }
