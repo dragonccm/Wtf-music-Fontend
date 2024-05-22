@@ -111,6 +111,12 @@
     .left_head {
       width : 30rem;
       height: 30rem;
+      position: relative;
+
+      .playing .now.playing{
+        align-items: center;
+        background-color: unset !important;
+      }
     }
 
     .left_head img {

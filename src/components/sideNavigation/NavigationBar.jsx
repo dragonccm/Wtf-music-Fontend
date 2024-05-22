@@ -38,7 +38,7 @@ const NavigationBar = () => {
         return pathname.startsWith("/profile");
     };
     return (
-        <div className="h-100 rightsidebar navigationbar">
+        <div className="h-100  navigationbar">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container style={{ padding: "0" }}>
                     <Navbar.Brand

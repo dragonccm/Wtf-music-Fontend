@@ -1,36 +1,58 @@
-import { useDispatch } from "react-redux";
-import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay,faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faHeart, faMusic } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from "react-router-dom";
 import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchSongPlaying, update } from "../../redux/slide/songPlayingSlice";
+import { fetchPlayList } from '../../redux/slide/playlistSlice'
 
 import '../../css/song_card2.scss';
+import Play_animation from "./play_animation"
 
-const SongCard2 = ({ data,rating }) => {
+const SongCard2 = ({ data, rating, onPlaylist }) => {
     const dispatch = useDispatch();
+    const idPlaylistNow = useSelector((state) => state.playlist.playlist.data.encodeId);
     const handlePlaying = (e, id) => {
+        if (onPlaylist.isPlay) {
+            console.log(idPlaylistNow)
+            console.log(onPlaylist.idPlaylist)
+            if (idPlaylistNow !== onPlaylist.idPlaylist) {
+                dispatch(fetchPlayList(onPlaylist.idPlaylist));
+                dispatch(update(rating.index))
+                localStorage.setItem('playlistID', onPlaylist.idPlaylist)
+            }
+
+        }
         e.preventDefault();
         dispatch(fetchSongPlaying(id));
     }
+    const songInfo = useSelector((state) => state.getSongData.inforSong);
+
     return (
         <div className="song_card2">
             <div className="song_img_ctn">
-                <div className="row_order">
-                    <div className="number">{rating.index + 1}</div>
+                {rating.israting ?
+                    <div className="row_order">
+                        <div className="number">{rating.index + 1}</div>
+                    </div>
+                    :
+                    <div className="icon_start"><FontAwesomeIcon icon={faMusic} /></div>
+                }
 
-                </div>
                 <div className="song_img">
                     <img src={data.thumbnailM} alt="f" />
-                    <div className="img_overlay">
-                        <NavLink
-                            to={'/' + data.encodeId}
-                            onClick={(e) => handlePlaying(e, data.encodeId)}
-                            className="nav-link list_nav_item"
-                        >
-                            <FontAwesomeIcon icon={faPlay} />
-                        </NavLink>
-                    </div>
+                    {data.encodeId === songInfo.infor.id ?
+                        <Play_animation />
+                        :
+
+                        <div className="img_overlay">
+                            <div className="img_overlay_group_btn">
+                                <NavLink to={data.encodeId} onClick={(e) => handlePlaying(e, data.encodeId ? data.encodeId : data.id)} className="nav-link list_nav_item">
+                                    <FontAwesomeIcon icon={faPlay} />
+                                </NavLink>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div className="songif">
                     <div className="songname">
