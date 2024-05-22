@@ -3,11 +3,8 @@ import "../css/mainpage.scss";
 import { useSelector } from "react-redux";
 
 import { Routes, Route, Navigate } from "react-router-dom";
-import PrivateRoutes from "./privateRoutes";
 // page
 
-import LoginPage from "../components/pages/loginpage";
-import RegisterPage from "../components/pages/register";
 
 // layout
 import Header_Admin from "../components/layoutbar/Header_Admin";
@@ -25,56 +22,41 @@ import SongsAdmin from "../components/pages/admin/songs";
 import ThemeContext from "../lib/Context/ThemeContext";
 
 const AdminRoutes = (props) => {
-    // get state from redux
-    const isAuthentication = useSelector(
-        (state) => state.Authentication.defaultUser
-    );
-    const { theme } = useContext(ThemeContext);
-    useEffect(() => {
-        document.body.setAttribute("data-theme", theme);
-    }, [theme]);
+  // get state from redux
+  const isAuthentication = useSelector(
+    (state) => state.Authentication.defaultUser.isAuthenticated
+  );
+  const isAdmin = useSelector(
+    (state) => state.Authentication.defaultUser.account.isAdmin
+  );
+  const { theme } = useContext(ThemeContext);
+  useEffect(() => {
+    document.body.setAttribute("data-theme", theme);
+  }, [theme]);
 
-    return (
-        <div style={{ height: "100vh" }} className="main_content">
-            <NavigationBar />
-            <div className="main_page">
-                <Header_Admin />
-                <section
-                    style={{
-                        paddingTop: "120px",
-                    }}
-                    className="main_page_container bg-white"
-                >
-                    <Routes>
-                        {/* //authentication */}
-                        <Route
-                            path="/login"
-                            element={
-                                isAuthentication &&
-                                isAuthentication.isAuthenticated === true ? (
-                                    <Navigate to="/" />
-                                ) : (
-                                    <LoginPage />
-                                )
-                            }
-                        />
-                        <Route path="/register" element={<RegisterPage />} />
+  return (
+    <div style={{ height: "100vh" }} className="main_content">
+      <NavigationBar />
+      <div className="main_page">
+        <Header_Admin />
+        <section
+          style={{
+            paddingTop: "120px",
+          }}
+          className="main_page_container bg-white">
+            <Routes>
+              <Route path="/category" element={<CategorysAdmin />} />
+              <Route path="/user" element={<UsersAdmin />} />
+              <Route path="/singer" element={<SingersAdmin />} />
+              <Route path="/writer" element={<WritersAdmin />} />
+              <Route path="/song" element={<SongsAdmin />} />
 
-                        {/* admin */}
-                        <Route path="/category" element={<CategorysAdmin />} />
-                        <Route path="/user" element={<UsersAdmin />} />
-                        <Route path="/singer" element={<SingersAdmin />} />
-                        <Route path="/writer" element={<WritersAdmin />} />
-                        <Route path="/song" element={<SongsAdmin />} />
-
-                        <Route path="/*" element={<HomeAdmin />} />
-
-                        {/* <Route path="/admin" element={<HomeAdmin />} /> */}
-                    </Routes>
-                </section>
-            </div>
-        </div>
-    );
+              <Route path="/*" element={<HomeAdmin />} />
+            </Routes>
+        </section>
+      </div>
+    </div>
+  );
 };
 
 export default AdminRoutes;
