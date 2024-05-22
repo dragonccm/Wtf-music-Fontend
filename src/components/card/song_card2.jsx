@@ -11,8 +11,9 @@ import Play_animation from "./play_animation"
 
 const SongCard2 = ({ data, rating, onPlaylist }) => {
     const dispatch = useDispatch();
-    const idPlaylistNow = useSelector((state) => state.playlist.playlist.data.encodeId);
-    const handlePlaying = (e, id) => {
+    const  Playlist= useSelector((state) => state.playlist.playlist.data); 
+    const idPlaylistNow = Playlist && Playlist.encodeId
+    const handlePlaying =  (e, id) => {
         if (onPlaylist.isPlay) {
             console.log(idPlaylistNow)
             console.log(onPlaylist.idPlaylist)
