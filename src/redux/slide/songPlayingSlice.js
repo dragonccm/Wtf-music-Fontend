@@ -8,6 +8,7 @@ export const fetchSongPlaying = createAsyncThunk(
     const response = await getSongData(id);
     await addHisFetch({
       id: id,
+      type:"song"
     })
     return response;
   }

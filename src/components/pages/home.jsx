@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { fetchHome } from "../../redux/slide/homeSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,12 +9,29 @@ import Card from "../../components/card/playlist_card";
 import Release from "../../components/card/release";
 import HomeRating from "../../components/card/Home_ rating";
 import Loading from "../sideNavigation/mascot_animation";
+import {getHistory} from"../../controller/history"
 
 const HomePage = () => {
     const dispatch = useDispatch();
+    const [playlistsData,setPlaylistsData] = useState([])
     useEffect(() => {
         dispatch(fetchHome());
     }, []);
+    useEffect(() => {
+        // dispatch(fetchPlayList(id));
+        fecthPlaylist()
+      }, []);
+      const fecthPlaylist = async () => {
+    
+        let response = await getHistory();
+        if (response && response.DT) {
+          console.log(response.DT)
+          setPlaylistsData(response.DT)
+            console.log(playlistsData)
+        } else {
+            console.log('No Playlists')
+        }
+      }
     const banner = useSelector((state) => state.home.banner);
     const newRelease = useSelector((state) => state.home.newRelease);
     const songHot = useSelector((state) => state.home.songHot);
@@ -25,38 +42,7 @@ const HomePage = () => {
     const albumHot = useSelector((state) => state.home.albumHot);
     const hNewrelease = useSelector((state) => state.home.hNewrelease);
 
-    const playlistsData = [
-        {
-            id: 1,
-            name: `Playlist ${3 + 1}`,
-            image: "https://th.bing.com/th/id/OIP.2Taaw3tCXQRTYFNqPYXOdgHaHa?rs=1&pid=ImgDetMain",
-            artists_list: ["Jisso"],
-        },
-        {
-            id: 3,
-            name: `Playlist ${3 + 1}`,
-            image: "https://i.redd.it/3sx2ys0arsv21.jpg",
-            artists_list: ["Jisso"],
-        },
-        {
-            id: 4,
-            name: `Playlist ${3 + 1}`,
-            image: "https://www.allkpop.com/upload/2021/01/content/070658/1610020733-20210107-rose.jpg",
-            artists_list: ["Jisso"],
-        },
-        {
-            id: 5,
-            name: `Playlist ${3 + 1}`,
-            image: "https://i2.wp.com/blackpinkupdate.com/wp-content/uploads/2019/05/1-BLACKPINK-Jennie-Instagram-Update-25-May-2019.jpg?fit=1080%2C1080&ssl=1",
-            artists_list: ["Jisso"],
-        },
-        {
-            id: 6,
-            name: `Playlist ${3 + 1}`,
-            image: "https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg",
-            artists_list: ["Jisso"],
-        },
-    ];
+   
 
     const isLoading = useSelector((state) => state.home.isLoading);
     // useEffect(() => {
@@ -75,7 +61,7 @@ const HomePage = () => {
             </div>
 
             <div className="list_card">
-                <h1>Có thể bạn muốn nghe</h1>
+                <h1>Nghe Gần Đây</h1>
                 <Card playlist={playlistsData} />
             </div>
             <div className="for_you">
