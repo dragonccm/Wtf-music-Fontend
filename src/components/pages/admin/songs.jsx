@@ -14,6 +14,7 @@ import {
 } from "../../../services/restSongService"
 import { adminSearchS } from "../../../services/adminSearchSongService"
 
+import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage"
 
 
 const SongAdmin = () => {
@@ -26,29 +27,40 @@ const SongAdmin = () => {
         thumbnail: "",
         artists: "",
         genresid: "",
+        songLink: "",
         like: "",
         listen: "",
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
+    const [isGenreModalOpen, setIsGenreModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
+    const [isArModalOpen, setIsArModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
     const [createForm, setCreateForm] = useState({
-        id: "",
         songname: "",
         thumbnail: "",
         artists: "",
         genresid: "",
-        like: "",
-        listen: "",
+        songLink: "",
+        lyric: "",
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-    const [search, setSearch] = useState({}); // Trang hiện tại
-
+    const [search, setSearch] = useState([]); // Trang hiện tại
+    const [searchGenre, setSearchGenre] = useState([]); // Trang hiện tại
+    const [searchAr, setSearchAr] = useState([]); // Trang hiện tại
+    const [editSongGenre, seteditSongGenre] = useState([]); // Trang hiện tại
+    const [editAr, seteditAr] = useState([]); // Trang hiện tại
+    const [imageUrl, setImageUrl] = useState('');
+    const [file, setFile] = useState(null);
     const handlePageChange = (pageNum) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
             return; // Không thực hiện cập nhật nếu số trang không hợp lệ
         }
         setCurrentPage(pageNum);
         fetchMusicSongs();
+    };
+    const handleUpload = (file) => {
+        setFile(file);
+        setImageUrl(URL.createObjectURL(file));
     };
     const itemsPerPage = 20; // Số mục trên mỗi trang
     // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
@@ -67,7 +79,18 @@ const SongAdmin = () => {
     };
     const updateMusicSongs = async (data) => {
         try {
+            data.genresid = editSongGenre;
+            data.artists = editAr;
+            data.thumbnail = imageUrl;
             await updateSong(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const createMusicSongs = async (data) => {
+        alert(JSON.stringify(data))
+        try {
+            await createSong(data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -80,9 +103,8 @@ const SongAdmin = () => {
         }
     };
     // Hàm tạo mới thể loại nhạc
-    const createMusicKind = async (name, description) => {
-        // Gọi API để tạo mới thể loại nhạc
-        // Khi tạo thành công, cập nhật state
+    const createMusicKind = async () => {
+        createMusicSongs(createForm)
     };
 
     // Hàm chỉnh sửa thông tin thể loại nhạc
@@ -106,10 +128,18 @@ const SongAdmin = () => {
             thumbnail: kind.thumbnail,
             artists: kind.artists,
             genresid: kind.genresid,
-            like: kind.like,
-            listen: kind.listen,
         });
         setIsEditModalOpen(true);
+    };
+
+
+    const openGenreModal = (e,kind) => {
+        e.preventDefault();
+        setIsGenreModalOpen(true);
+    };
+    const openArModal = (e,kind) => {
+        e.preventDefault();
+        setIsArModalOpen(true);
     };
 
     // Đóng pop-up form chỉnh sửa
@@ -117,8 +147,25 @@ const SongAdmin = () => {
         setIsEditModalOpen(false);
     };
 
+    const closeGenreModal = () => {
+        setIsGenreModalOpen(false);
+    };
+    const closeArModal = () => {
+        setIsArModalOpen(false);
+    };
+
     // Hiển thị pop-up form tạo mới
-    const openCreateModal = () => {
+    const openCreateModal = (kind) => {
+        setSelectedSong(kind);
+        setCreateForm({
+
+            songname: kind.songname,
+            thumbnail: kind.thumbnail,
+            artists: kind.artists,
+            genresid: kind.genresid,
+            songLink: kind.songLink,
+            lyric: kind.lyric,
+        });
         setIsCreateModalOpen(true);
     };
 
@@ -130,20 +177,59 @@ const SongAdmin = () => {
     // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
     const handleEditFormChange = async (e) => {
         const { name, value } = e.target;
-        setEditForm({ ...editForm, [name]: value });
+        console.log({ ...editForm, [name]: value, artists: editAr, genresid: editSongGenre })
+        setEditForm({ ...editForm, [name]: value, artists: editAr, genresid: editSongGenre });
     };
 
     const handleCreateFormChange = (e) => {
         const { name, value } = e.target;
+        console.log({ ...createForm, [name]: value })
         setCreateForm({ ...createForm, [name]: value });
     };
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setSearch(ser.DT.songs);
             setMusicSongs(ser.DT.songs);
         } catch (error) {
             console.error('Error fetching data:', error);
+        }
+    };
+    const handarleserch = async (e) => {
+        try {
+            const ser = await adminSearchS(e.target.value);
+            setSearchAr(ser.DT.ar);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const handgenreleserch = async (e) => {
+        try {
+            const ser = await adminSearchS(e.target.value);
+            setSearchGenre(ser.DT.genre);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const handleAddGenreTag = (e, id) => {
+        e.preventDefault();
+        if (!editSongGenre.includes(id)) {
+            const newEditSongGenre = [...editSongGenre];
+            newEditSongGenre.push(id);
+            seteditSongGenre(newEditSongGenre);
+        }
+        else {
+            alert("id đã tồn tại")
+        }
+    };
+    const handleAddArTag = (e, id) => {
+        e.preventDefault();
+        if (!editAr.includes(id)) {
+            const neweditAr = [...editAr];
+            neweditAr.push(id);
+            seteditAr(neweditAr);
+        }
+        else {
+            alert("id đã tồn tại")
         }
     };
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
@@ -282,7 +368,7 @@ const SongAdmin = () => {
                 >
                     {/* Nội dung của pop-up form chỉnh sửa */}
                     <h2 className="text-center opacity-75 mb-5">
-                        Chỉnh sửa thông tin ca sĩ
+                        Chỉnh sửa thông tin bài nhạc
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
@@ -308,7 +394,7 @@ const SongAdmin = () => {
                                 className="fs-5 form-control"
                                 id="edit-email"
                                 name="songname"
-                                placeholder={editForm.songname}
+                                value={editForm.songname}
                                 onChange={handleEditFormChange}
                             />
                         </div>
@@ -316,39 +402,105 @@ const SongAdmin = () => {
                             <label className="fs-5 mb-2" htmlFor="edit-profile">
                                 thumbnail:
                             </label>
-                            <input
-                                type="text"
+                            {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
+
+                            <ImageUploader onUpload={handleUpload} />
+                            {/* <input
+                                type="file"
                                 className="fs-5 form-control"
                                 id="thumbnail"
-                                placeholder={editForm.thumbnail}
+                                value={editForm.thumbnail}
+                                onChange={handleEditFormChange}
+                            /> */}
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="edit-profile">
+                                songLink:
+                            </label>
+                            <input
+                                type="file"
+                                className="fs-5 form-control"
+                                id="songLink"
+                                value={editForm.songLink}
                                 onChange={handleEditFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
-                                artists:
+                            <label className="fs-5 mb-2" htmlFor="create-date">
+                                nghệ sĩ:
                             </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="edit-date"
-                                name="artists"
-                                placeholder={editForm.artists}
-                                onChange={handleEditFormChange}
-                            />
+                            <button
+                                className="btn btn-outline-primary btn-lg"
+                                onClick={(e) => openArModal(e,editForm)}
+                            > chọn nghệ sĩ</button>
+                            <div class="row align-items-start">
+                                <p>{editAr}</p>
+                                <Modal
+                                    isOpen={isArModalOpen}
+                                    onRequestClose={closeArModal}
+                                    contentLabel="Edit Music Kind"
+                                    className="modal-kindMusic"
+                                    overlayClassName="modal-overlay-1"
+                                >
+                                    <input
+                                        type="text"
+                                        className="fs-5 form-control col"
+                                        id="create-date"
+                                        name="artists"
+                                        // value={createForm.artists}
+                                        onChange={handarleserch}
+                                    />
+                                    <p>{editAr}</p>
+                                    <div className="d-flex flex-wrap align-content-start gap-3">
+                                        {searchAr ?
+                                            searchAr.map((data) =>
+                                                <p value={data.id}>
+                                                    <button onClick={(e) => handleAddArTag(e, data.id)} className="btn btn-outline-primary btn-lg">{data.artistsName}</button>
+                                                </p>
+                                            )
+                                            :
+                                            <option value="sds">undefine</option>
+                                        }
+                                    </div>
+                                </Modal>
+                            </div>
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
-                                genresid:
+                            <label className="fs-5 mb-2 m-3" htmlFor="create-email">
+                                thể loại:
                             </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="edit-date"
-                                name="genresid"
-                                placeholder={editForm.genresid}
-                                onChange={handleEditFormChange}
-                            />
+
+                            <button
+                                className="btn btn-outline-primary btn-lg"
+                                onClick={(e) => openGenreModal(e,editForm)}
+                            > chọn thể loại</button>
+                            <Modal
+                                isOpen={isGenreModalOpen}
+                                onRequestClose={closeGenreModal}
+                                contentLabel="Edit Music Kind"
+                                className="modal-kindMusic"
+                                overlayClassName="modal-overlay-1"
+                            >
+                                <input
+                                    type="text"
+                                    className="fs-5 form-control col"
+                                    id="create-date"
+                                    // value={createForm.genresid}
+                                    onChange={handgenreleserch}
+                                />
+                                <p>{editSongGenre}</p>
+                                <div className="d-flex flex-wrap align-content-start gap-3">
+                                    {searchGenre ?
+                                        searchGenre.map((data) => <p value={data.genreId}><button onClick={(e) => handleAddGenreTag(e, data.genreId)} className="btn btn-outline-primary btn-lg">{data.genrename}</button></p>)
+                                        :
+                                        <p value="sds">
+                                            none
+                                        </p>
+                                    }
+                                </div>
+                            </Modal>
+                            <p>{editSongGenre}</p>
+
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-date">
@@ -359,7 +511,7 @@ const SongAdmin = () => {
                                 className="fs-5 form-control"
                                 id="edit-date"
                                 name="like"
-                                placeholder={editForm.like}
+                                value={editForm.like}
                                 onChange={handleEditFormChange}
                                 readOnly
                             />
@@ -373,7 +525,7 @@ const SongAdmin = () => {
                                 className="fs-5 form-control"
                                 id="edit-date"
                                 name="listen"
-                                placeholder={editForm.listen}
+                                value={editForm.listen}
                                 onChange={handleEditFormChange}
                                 readOnly
                             />
@@ -395,6 +547,22 @@ const SongAdmin = () => {
                 </Modal>
             </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             {/* Hiển thị pop-up form tạo mới thể loại nhạc */}
             <div className="addBtn-form-admin">
                 <Modal
@@ -405,60 +573,97 @@ const SongAdmin = () => {
                     overlayClassName="modal-overlay-1"
                 >
                     <h2 className="text-center opacity-75 mb-5">
-                        Tạo mới ca sĩ
+                        Tạo mới bài hát
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="create-name">
-                                songname:
+                                tên bài hát:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="create-name"
-                                name="SongName"
-                                value={createForm.songname}
+                                name="songname"
+                                // value={createForm.songname}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="create-email">
-                                thumbnail:
+                                hình ảnh:
                             </label>
                             <input
-                                type="text"
+                                type="file"
                                 className="fs-5 form-control"
                                 id="create-email"
-                                name="email"
-                                value={createForm.thumbnail}
+                                name="thumbnail"
+                                // value={createForm.thumbnail}
+                                onChange={handleCreateFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-email">
+                                file nhạc:
+                            </label>
+                            <input
+                                type="url"
+                                className="fs-5 form-control"
+                                id="create-email"
+                                name="songLink"
+                                // value={createForm.thumbnail}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="create-date">
-                                artists:
+                                nghệ sĩ:
                             </label>
-                            <input
-                                type="date"
-                                className="fs-5 form-control"
-                                id="create-date"
-                                name="date"
-                                value={createForm.artists}
-                                onChange={handleCreateFormChange}
-                            />
+                            <div class="row align-items-start">
+                                <input
+                                    type="text"
+                                    className="fs-5 form-control col"
+                                    id="create-date"
+                                    name="artists"
+                                    // value={createForm.artists}
+                                    onChange={handarleserch}
+                                />
+                                <select value={createForm.artists} class="form-select col" aria-label="Default select example" name="artists" onChange={handleCreateFormChange}>
+                                    {searchAr ?
+                                        searchAr.map((data) => <option value={data.id}>{data.artistsName}</option>)
+                                        :
+                                        <option value="sds">undefine</option>}
+                                </select>
+                            </div>
                         </div>
                         <div className="mb-4 form-group">
-                            <label
-                                className="fs-5 mb-2"
-                                htmlFor="create-description"
-                            >
-                                genresid:
+                            <label className="fs-5 mb-2" htmlFor="create-email">
+                                thể loại:
+                            </label>
+                            <div class="row align-items-start">
+                                <input
+                                    type="text"
+                                    className="fs-5 form-control col"
+                                    id="create-date"
+                                    // value={createForm.genresid}
+                                    onChange={handgenreleserch}
+                                />
+                                <select value={createForm.genresid} class="form-select col" aria-label="Default select example" name="genresid" onChange={handleCreateFormChange}>
+                                    {searchGenre ?
+                                        searchGenre.map((data) => <option value={data.genreId}>{data.genrename}</option>)
+                                        :
+                                        <option value="sds">undefine</option>}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-email">
+                                lyric:
                             </label>
                             <textarea
                                 className="fs-5 form-control"
                                 id="create-description"
-                                name="description"
-                                value={createForm.genresid}
+                                name="lyric"
                                 onChange={handleCreateFormChange}
                             ></textarea>
                         </div>
@@ -476,6 +681,21 @@ const SongAdmin = () => {
                         </button>
                     </form>
                 </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </div>
         </div>
     );

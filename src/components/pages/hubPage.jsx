@@ -1,5 +1,3 @@
-import Recommended from "../card/Recommended";
-import Card from "../card/playlist_card";
 
 import "../../css/hubpage.scss";
 const HubPage = () => {

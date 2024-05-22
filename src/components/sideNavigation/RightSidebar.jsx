@@ -84,7 +84,7 @@ const RightSidebar = () => {
                                 </div>
                                 <span>Bảng xếp hạng</span>
                             </NavLink>
-                            <NavLink
+                            {/* <NavLink
                                 to="/hub"
                                 className="nav-link list_nav_item"
                             >
@@ -99,7 +99,7 @@ const RightSidebar = () => {
                                     />
                                 </div>
                                 <span>Chủ đề & thể loại</span>
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink
                                 to="/top100"
                                 className="nav-link list_nav_item"

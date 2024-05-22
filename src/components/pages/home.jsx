@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { fetchHome } from "../../redux/slide/homeSlice";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SliderBar from "../../components/card/Slider_bar";
 
 import Col3Layout from "../../components/card/col_3_layout";
@@ -63,53 +63,53 @@ const HomePage = () => {
     //     console.log(isLoading);
     // }, [isLoading]);
     if (isLoading === true) {
-        return <div className="main_banner"><Loading/></div>;
+        return <div className="main_banner"><Loading /></div>;
     }
     return (
         <>
-                                <SliderBar data={banner} />
+            <SliderBar data={banner} />
 
-                                <div className="for_you">
-                                    <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
-                                    <Col3Layout data={newRelease.all} />
-                                </div>
+            <div className="for_you">
+                <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
+                <Col3Layout data={newRelease.all} />
+            </div>
 
-                                <div className="list_card">
-                                    <h1>Có thể bạn muốn nghe</h1>
-                                    <Card playlist={playlistsData} />
-                                </div>
-                                <div className="for_you">
-                                    <Release data={newRelease} />
-                                </div>
-                                <div className="list_card">
-                                    <h1>Nhạc hot gây bão</h1>
-                                    <Card playlist={songHot} />
-                                </div>
-                                <div className="list_card">
-                                    <h1>Remix hay hết sảy</h1>
-                                    <Card playlist={songRemix} />
-                                </div>
-                                <div className="list_card">
-                                    <h1>Chill</h1>
-                                    <Card playlist={songChill} />
-                                </div>
-                                <div className="list_card">
-                                    <h1>Nhạc buồn tâm trạng</h1>
-                                    <Card playlist={songSad} />
-                                </div>
-                                <div className="ratings">
-                                    <h1>BXH nhạc mới</h1>
-                                    <HomeRating data={hNewrelease} />
-                                </div>
-                                <div className="list_card">
-                                    <h1>Top 100</h1>
-                                    <Card playlist={top100} />
-                                </div>
-                                <div className="list_card">
-                                    <h1>Album hot</h1>
-                                    <Card playlist={albumHot} />
-                                </div>
-                            </>
+            <div className="list_card">
+                <h1>Có thể bạn muốn nghe</h1>
+                <Card playlist={playlistsData} />
+            </div>
+            <div className="for_you">
+                <Release data={newRelease} />
+            </div>
+            <div className="list_card">
+                <h1>Nhạc hot gây bão</h1>
+                <Card playlist={songHot} />
+            </div>
+            <div className="list_card">
+                <h1>Remix hay hết sảy</h1>
+                <Card playlist={songRemix} />
+            </div>
+            <div className="list_card">
+                <h1>Chill</h1>
+                <Card playlist={songChill} />
+            </div>
+            <div className="list_card">
+                <h1>Nhạc buồn tâm trạng</h1>
+                <Card playlist={songSad} />
+            </div>
+            <div className="ratings">
+                <h1>BXH nhạc mới</h1>
+                <HomeRating data={hNewrelease} />
+            </div>
+            <div className="list_card">
+                <h1>Top 100</h1>
+                <Card playlist={top100} />
+            </div>
+            <div className="list_card">
+                <h1>Album hot</h1>
+                <Card playlist={albumHot} />
+            </div>
+        </>
     )
 }
 export default HomePage

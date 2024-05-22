@@ -15,6 +15,7 @@ import creataPlReducer from './slide/createplaylistSlice'
 import getUserPlReducer from './slide/getUserPlaylistSlice'
 import AdminSongReducer from './slide/adminSongSlice'
 import adSongToPlReducer from './slide/adSongToPlaylistSlice'
+import getUserLikedSongsReducer from './slide/getUserLikedSongs'
 
 
 export const store = configureStore({
@@ -33,6 +34,7 @@ export const store = configureStore({
     adminsong:AdminSongReducer,
     creataPl:creataPlReducer,
     getUserPl:getUserPlReducer,
-    adSongToPl:adSongToPlReducer
+    adSongToPl:adSongToPlReducer,
+    ulikedSongs:getUserLikedSongsReducer
   },
 })
