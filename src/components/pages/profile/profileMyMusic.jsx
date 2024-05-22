@@ -1,10 +1,39 @@
 import Recommended from "../../card/Recommended";
 import Card from "../../card/playlist_card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../../../css/profileMyMusic.scss'
+import { useSelector, useDispatch } from "react-redux";
+import { getInforUser } from "../../../redux/slide/InforUserSlice";
+import { getSongData } from "../../../services/SongService";
 
+import Loading from "../../sideNavigation/mascot_animation";
 
-const ProfileMyMusic = ({type}) => {
+const ProfileMyMusic = ({ type }) => {
+    const [area, setArea] = useState('song')
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getInforUser());
+    }, [dispatch]);
+    const infor = useSelector((state) => {
+        return state.inforUser.userInfor;
+    });
+    useEffect(() => {
+        if (infor && infor.DT) {
+            const getSongData = async () => {
+                const data = await Promise.all(
+                    infor.DT.likedSongs.map(async (info) => {
+                        return await getSongData(info);
+                    })
+                );
+                console.log(data);
+            }
+    
+            getSongData();
+        }
+    }, [infor])
+       
+    
+
     const Recommendeds = [
         {
             encodeId: "Z7ZE00BE",
@@ -110,25 +139,26 @@ const ProfileMyMusic = ({type}) => {
             title: "Money",
         },
     ];
+
+
     const Likesong = ({ data }) => (
         <div className="history_ctn">
             <Recommended
                 datas={data}
-                type={type=='mymusic'?"Bài hát yêu thích":'Bài hát đã nghe'}
-                describe={type=='mymusic'?"Bài hát yêu thích":'Bài hát đã nghe'}
+                type={type == 'mymusic' ? "Bài hát yêu thích" : 'Bài hát đã nghe'}
+                describe={type == 'mymusic' ? "Bài hát yêu thích" : 'Bài hát đã nghe'}
                 maxItemsToShow="5"
             />
         </div>
     );
     const Myplaylist = ({ datas }) => (
         <section className="mylist_page">
-            <div className="Recommended_1">{type=='mymusic'?"Playlist-Album yêu thích":'Playlist-Album đã nghe'}</div>
+            <div className="Recommended_1">{type == 'mymusic' ? "Playlist-Album yêu thích" : 'Playlist-Album đã nghe'}</div>
             <div className="list_container">
                 <Card playlist={datas} />
             </div>
         </section>
     );
-    const [area, setArea] = useState('song')
 
     const handleChange = (e) => {
         // console.log(e.target.value); // In ra giá trị của radio button được chọn
@@ -170,9 +200,9 @@ const ProfileMyMusic = ({type}) => {
                     </span>
                 </label>
             </div>
-            {area === 'song'?<Likesong data={Recommendeds} />: <Myplaylist datas={usserplaylist} />}
-            
-           
+            {area === 'song' ? <Likesong data={Recommendeds} /> : <Myplaylist datas={usserplaylist} />}
+
+
         </div>
     )
 }

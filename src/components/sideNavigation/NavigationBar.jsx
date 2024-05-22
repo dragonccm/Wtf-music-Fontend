@@ -89,7 +89,7 @@ const NavigationBar = () => {
                                 </div>
                                 <span>Thể loại</span>
                             </NavLink>
-                            <NavLink
+                            {/* <NavLink
                                 to="/admin/writer"
                                 className="nav-link list_nav_item"
                             >
@@ -104,7 +104,7 @@ const NavigationBar = () => {
                                     />
                                 </div>
                                 <span>Nhạc sĩ</span>
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink
                                 to="/admin/singer"
                                 className="nav-link list_nav_item"
