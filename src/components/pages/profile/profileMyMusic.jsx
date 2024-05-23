@@ -13,16 +13,43 @@ const ProfileMyMusic = ({ type }) => {
         dispatch(getUserLikedSong());
     }, [dispatch]);
     const likedSong = useSelector((state) => {
-        return state.ulikedSongs.userlikedSongs;
+        return state.ulikedSongs.userlikedSongs.songs;
+    });
+    const likedplaylist = useSelector((state) => {
+        return state.ulikedSongs.userlikedSongs.playlist;
     });
 
     if (!Array.isArray(likedSong)) {
-        return <><Loading/></>
+        return <><Loading /></>
     }
+    const neww = likedSong.map((data) => {
+        if (data && data.id) {
+            return {
+                playlistId: data.id,
+                title: data.songname,
+                thumbnailM: data.thumbnail ? data.thumbnail :"https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
+                songname: data.songname
+            }
+        }
+    })
 
+    const list = likedplaylist.map((data) => {
+        if (data && data.playlistId) {
+            return {
+                id: data.playlistId,
+                title: data.playlistname,
+                img: data.thumbnail ? data.thumbnail :"https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
+            }
+        }
+    })
     const Likesong = ({ data }) => (
         <div className="history_ctn">
-          
+            <Recommended
+                datas={data}
+                type={type == 'mymusic' ? "Bài hát yêu thích" : 'Bài hát đã nghe'}
+                describe={type == 'mymusic' ? "Bài hát yêu thích" : 'Bài hát đã nghe'}
+                maxItemsToShow="5"
+            />
         </div>
     );
     const Myplaylist = ({ datas }) => (
@@ -33,10 +60,13 @@ const ProfileMyMusic = ({ type }) => {
             </div>
         </section>
     );
+
     const handleChange = (e) => {
         // console.log(e.target.value); // In ra giá trị của radio button được chọn
         setArea(e.target.value)
     }
+
+
 
     return (
         <div className="like_song">
@@ -74,7 +104,7 @@ const ProfileMyMusic = ({ type }) => {
                     </span>
                 </label>
             </div>
-            {area === 'song' ? <Likesong data={likedSong} /> : <Myplaylist datas={likedSong} />}
+            {area === 'song' ? <Likesong data={neww} /> : <Myplaylist datas={list} />}
 
 
         </div>

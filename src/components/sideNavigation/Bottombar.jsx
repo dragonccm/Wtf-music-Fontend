@@ -217,7 +217,7 @@ const Bottombar = () => {
 
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist.data);
-
+  console.table(dataf)
   const handleClickNext = () => {
     if (Number(currentMusicIndex) < dataf.song.items.length - 1) {
       dispatch(increment())
@@ -335,6 +335,7 @@ const Bottombar = () => {
     isPlaying &&
     songInfo !== null &&
     songInfo !== undefined &&
+    songInfo.infor&&
     songInfo.infor.lyricsString
   ) {
     haha = songInfo.infor.lyricsString.map((sentence) => {
@@ -978,10 +979,7 @@ const Bottombar = () => {
                       <>
                         <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />Xoá danh sách phát</button>
                         <button className="menu-item"><FontAwesomeIcon icon={faDownload} />Tải danh sách phát</button>
-                        <button className="menu-item" onClick={(e) => e.preventDefault()}><CreatePlaylist
-                          idSongs={dataf.song.items.map((item) => {
-                            return item.encodeId
-                          })} type={'right'} /></button>
+                        <button className="menu-item" onClick={(e) => e.preventDefault()}>j</button>
 
                       </>
                     }

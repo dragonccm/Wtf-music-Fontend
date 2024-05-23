@@ -8,15 +8,17 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { adminGetGenres } from "../../../services/adminGenresService"
 import {
-    updateSong,
-    deleteSong,
-    createSong
-} from "../../../services/restSongService"
+    updateGenre,
+    deleteGenre,
+    createGenre
+} from "../../../services/restGenreService"
 import { adminSearchS } from "../../../services/adminSearchSongService"
+import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage"
 
 
 
 const SongAdmin = () => {
+
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
@@ -24,23 +26,21 @@ const SongAdmin = () => {
         genreId: "",
         genrename: "",
         thumbnail: "",
-        playListId: "",
-        listen: "",
-
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
     const [createForm, setCreateForm] = useState({
-        genreId: "",
         genrename: "",
         thumbnail: "",
-        playListId: "",
-        listen: "",
-
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState({}); // Trang hiện tại
-
+    const [imageUrl, setImageUrl] = useState('');
+    const [file, setFile] = useState(null);
+    const handleUpload = (file) => {
+        setFile(file);
+        setImageUrl(URL.createObjectURL(file));
+    };
     const handlePageChange = (pageNum) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
             return; // Không thực hiện cập nhật nếu số trang không hợp lệ
@@ -64,22 +64,30 @@ const SongAdmin = () => {
         }
     };
     const updateMusicSongs = async (data) => {
+        data.thumbnail = imageUrl
+        alert('Update music',editForm)
         try {
-            await updateSong(data);
+            await updateGenre(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const createMusicSongs = async (data) => {
+        data.thumbnail = imageUrl
+        try {
+            await createGenre(data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
     // Hàm tạo mới thể loại nhạc
-    const createMusicKind = async (name, description) => {
-        // Gọi API để tạo mới thể loại nhạc
-        // Khi tạo thành công, cập nhật state
+    const createMusicKind = async (e) => {
+        e.preventDefault();
+        createMusicSongs(createForm)
     };
 
     // Hàm chỉnh sửa thông tin thể loại nhạc
     const updateMusicKind = async () => {
-        // Gọi API để chỉnh sửa thông tin thể loại nhạc
-        // Khi chỉnh sửa thành công, cập nhật state
         updateMusicSongs(editForm)
     };
 
@@ -96,8 +104,6 @@ const SongAdmin = () => {
             genreId: kind.genreId,
             genrename: kind.genrename,
             thumbnail: kind.thumbnail,
-            playListId: kind.playListId,
-            listen: kind.listen,
         });
         setIsEditModalOpen(true);
     };
@@ -125,8 +131,11 @@ const SongAdmin = () => {
 
     const handleCreateFormChange = (e) => {
         const { name, value } = e.target;
+        console.log({ ...createForm, [name]: value })
         setCreateForm({ ...createForm, [name]: value });
     };
+
+
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
@@ -268,7 +277,7 @@ const SongAdmin = () => {
                 >
                     {/* Nội dung của pop-up form chỉnh sửa */}
                     <h2 className="text-center opacity-75 mb-5">
-                        Chỉnh sửa thông tin ca sĩ
+                        Chỉnh sửa thông tin thể loại
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
@@ -280,21 +289,21 @@ const SongAdmin = () => {
                                 className="fs-5 form-control"
                                 id="edit-name"
                                 name="id"
-                                placeholder={editForm.id}
+                                placeholder={editForm.genreId}
                                 onChange={handleEditFormChange}
                                 readOnly
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="edit-email">
-                                songname:
+                                tên thể loại:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="edit-email"
                                 name="songname"
-                                placeholder={editForm.songname}
+                                placeholder={editForm.genrename}
                                 onChange={handleEditFormChange}
                             />
                         </div>
@@ -302,67 +311,10 @@ const SongAdmin = () => {
                             <label className="fs-5 mb-2" htmlFor="edit-profile">
                                 thumbnail:
                             </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="thumbnail"
-                                placeholder={editForm.thumbnail}
-                                onChange={handleEditFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
-                                artists:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="edit-date"
-                                name="artists"
-                                placeholder={editForm.artists}
-                                onChange={handleEditFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
-                                genresid:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="edit-date"
-                                name="genresid"
-                                placeholder={editForm.genresid}
-                                onChange={handleEditFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
-                                like:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="edit-date"
-                                name="like"
-                                placeholder={editForm.like}
-                                onChange={handleEditFormChange}
-                                readOnly
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
-                                listen:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="edit-date"
-                                name="listen"
-                                placeholder={editForm.listen}
-                                onChange={handleEditFormChange}
-                                readOnly
-                            />
+                            {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
+
+                            <ImageUploader onUpload={handleUpload} />
+
                         </div>
 
                         <button
@@ -391,66 +343,41 @@ const SongAdmin = () => {
                     overlayClassName="modal-overlay-1"
                 >
                     <h2 className="text-center opacity-75 mb-5">
-                        Tạo mới ca sĩ
+                        Tạo mới Thể loại
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="create-name">
-                                songname:
+                                Tên Thể loại:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
                                 id="create-name"
-                                name="SongName"
-                                value={createForm.songname}
+                                name="genrename"
+                                value={createForm.genrename}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-email">
+                            <label className="fs-5 mb-2" htmlFor="edit-profile">
                                 thumbnail:
                             </label>
-                            <input
-                                type="text"
+                            {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
+
+                            <ImageUploader onUpload={handleUpload} />
+                            {/* <input
+                                type="file"
                                 className="fs-5 form-control"
-                                id="create-email"
-                                name="email"
-                                value={createForm.thumbnail}
-                                onChange={handleCreateFormChange}
-                            />
+                                id="thumbnail"
+                                value={editForm.thumbnail}
+                                onChange={handleEditFormChange}
+                            /> */}
                         </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-date">
-                                artists:
-                            </label>
-                            <input
-                                type="date"
-                                className="fs-5 form-control"
-                                id="create-date"
-                                name="date"
-                                value={createForm.artists}
-                                onChange={handleCreateFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label
-                                className="fs-5 mb-2"
-                                htmlFor="create-description"
-                            >
-                                genresid:
-                            </label>
-                            <textarea
-                                className="fs-5 form-control"
-                                id="create-description"
-                                name="description"
-                                value={createForm.genresid}
-                                onChange={handleCreateFormChange}
-                            ></textarea>
-                        </div>
+
                         <button
                             className="btn btn-primary fs-5"
-                            onClick={createMusicKind}
+                            onClick={(e) => createMusicKind(e)}
                         >
                             Create
                         </button>

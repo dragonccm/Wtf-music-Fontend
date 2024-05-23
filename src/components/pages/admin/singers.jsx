@@ -8,15 +8,21 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { adminGetArtist } from "../../../services/adminSingerService"
 import {
-    updateSong,
-    deleteSong,
-    createSong
-} from "../../../services/restSongService"
+    updateArtists,
+    deleteArtists,
+    createArtists
+} from "../../../services/restArtistsService"
 import { adminSearchS } from "../../../services/adminSearchSongService"
+import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage"
 
 
 
-const SingersAdmin = ()=> {
+const SingersAdmin = () => {
+    const [imageUrl, setImageUrl] = useState('');
+    const [searchGenre, setSearchGenre] = useState([]); // Trang hiện tại
+    const [searchAr, setSearchAr] = useState([]); // Trang hiện tại
+    const [file, setFile] = useState(null);
+    const [loading, setloading] = useState(false)
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
@@ -24,7 +30,8 @@ const SingersAdmin = ()=> {
         id: "",
         avt: "",
         artistsName: "",
-        alias: "",
+        avt: "",
+        realName: "",
         totalFollow: "",
         songListId: [],
         playListId: [],
@@ -32,23 +39,28 @@ const SingersAdmin = ()=> {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
     const [createForm, setCreateForm] = useState({
-        id: "",
         avt: "",
         artistsName: "",
-        alias: "",
+        avt: "",
+        realName: "",
         totalFollow: "",
         songListId: [],
         playListId: [],
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-    const [search, setSearch] = useState({}); // Trang hiện tại
-
+    const [search, setSearch] = useState({});
+    // Trang hiện tại
+    const handleUpload = (file) => {
+        setFile(file);
+        setImageUrl(URL.createObjectURL(file));
+    };
     const handlePageChange = (pageNum) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
             return; // Không thực hiện cập nhật nếu số trang không hợp lệ
         }
         setCurrentPage(pageNum);
         fetchMusicSongs();
+        setloading(true);
     };
     const itemsPerPage = 20; // Số mục trên mỗi trang
     // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
@@ -60,20 +72,24 @@ const SingersAdmin = ()=> {
     }, [currentPage]);
 
     const fetchMusicSongs = async () => {
-        try {
-            // Chuyển logic tính limit và page vào đây
-            const offset = (currentPage - 1) * itemsPerPage;
-            const response = await adminGetArtist(offset, itemsPerPage);
-            setMusicSongs(response.handleData);
-            setmaxpage(response.maxPage);
-            console.log(response.handleData)
-        } catch (error) {
-            console.error('Error fetching data:', error);
+        if (loading == false) {
+            try {
+                // Chuyển logic tính limit và page vào đây
+                const offset = (currentPage - 1) * itemsPerPage;
+                const response = await adminGetArtist(offset, itemsPerPage);
+                if (response) {
+                    setMusicSongs(response.handleData);
+                    setmaxpage(response.maxPage);
+                    setloading(false);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         }
     };
     const updateMusicSongs = async (data) => {
         try {
-            await updateSong(data);
+            await updateArtists(data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -104,7 +120,8 @@ const SingersAdmin = ()=> {
             id: kind.id,
             avt: kind.avt,
             artistsName: kind.artistsName,
-            alias: kind.alias,
+            avt: kind.avt,
+            realName: kind.realName,
             totalFollow: kind.totalFollow,
             songListId: kind.songListId,
             playListId: kind.playListId,
@@ -142,6 +159,22 @@ const SingersAdmin = ()=> {
             const ser = await adminSearchS(e.target.value);
             setSearch(ser.DT.ar);
             setMusicSongs(ser.DT.ar);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const handarleserch = async (e) => {
+        try {
+            const ser = await adminSearchS(e.target.value);
+            setSearchAr(ser.DT.ar);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const handgenreleserch = async (e) => {
+        try {
+            const ser = await adminSearchS(e.target.value);
+            setSearchGenre(ser.DT.genre);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -406,12 +439,12 @@ const SingersAdmin = ()=> {
                     overlayClassName="modal-overlay-1"
                 >
                     <h2 className="text-center opacity-75 mb-5">
-                        Tạo mới ca sĩ
+                        Tạo mới Nghệ Sĩ
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2" htmlFor="create-name">
-                                artistsName:
+                                Tên Nghệ Sĩ:
                             </label>
                             <input
                                 type="text"
@@ -423,30 +456,101 @@ const SingersAdmin = ()=> {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-email">
-                                avt:
+                            <label className="fs-5 mb-2" htmlFor="create-name">
+                                Mô tả:
                             </label>
                             <input
                                 type="text"
                                 className="fs-5 form-control"
-                                id="create-email"
-                                name="email"
-                                value={createForm.avt}
+                                id="create-name"
+                                name="biography"
+                                value={createForm.biography}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-date">
-                                alias:
+                            <label className="fs-5 mb-2" htmlFor="edit-profile">
+                                thumbnail:
+                            </label>
+                            {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
+
+                            <ImageUploader onUpload={handleUpload} />
+                            {/* <input
+                                type="file"
+                                className="fs-5 form-control"
+                                id="thumbnail"
+                                value={editForm.thumbnail}
+                                onChange={handleEditFormChange}
+                            /> */}
+                        </div>
+
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-name">
+                                sinh nhât:
                             </label>
                             <input
                                 type="date"
                                 className="fs-5 form-control"
-                                id="create-date"
-                                name="date"
-                                value={createForm.alias}
+                                id="create-name"
+                                name="birthday"
+                                value={createForm.birthday}
                                 onChange={handleCreateFormChange}
                             />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-name">
+                                tên thật:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-5 form-control"
+                                id="create-name"
+                                name="realName"
+                                value={createForm.realName}
+                                onChange={handleCreateFormChange}
+                            />
+                        </div>
+
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-date">
+                                nghệ sĩ:
+                            </label>
+                            <div class="row align-items-start">
+                                <input
+                                    type="text"
+                                    className="fs-5 form-control col"
+                                    id="create-date"
+                                    name="artists"
+                                    // value={createForm.artists}
+                                    onChange={handarleserch}
+                                />
+                                <select value={createForm.artists} class="form-select col" aria-label="Default select example" name="artists" onChange={handleCreateFormChange}>
+                                    {searchAr ?
+                                        searchAr.map((data) => <option value={data.id}>{data.artistsName}</option>)
+                                        :
+                                        <option value="sds">undefine</option>}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-5 mb-2" htmlFor="create-email">
+                                thể loại:
+                            </label>
+                            <div class="row align-items-start">
+                                <input
+                                    type="text"
+                                    className="fs-5 form-control col"
+                                    id="create-date"
+                                    // value={createForm.genresid}
+                                    onChange={handgenreleserch}
+                                />
+                                <select value={createForm.genresid} class="form-select col" aria-label="Default select example" name="genresid" onChange={handleCreateFormChange}>
+                                    {searchGenre ?
+                                        searchGenre.map((data) => <option value={data.genreId}>{data.genrename}</option>)
+                                        :
+                                        <option value="sds">undefine</option>}
+                                </select>
+                            </div>
                         </div>
                         <button
                             className="btn btn-primary fs-5"

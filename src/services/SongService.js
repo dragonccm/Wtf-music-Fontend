@@ -44,7 +44,7 @@ export const getSongData = async (Songid) => {
         const jj = await cloneSongsService(
           {
             id: id,
-            img: img,
+            thumbnail: img,
             songname: songname,
             artistInfo: artistInfo,
             alias: alias,
