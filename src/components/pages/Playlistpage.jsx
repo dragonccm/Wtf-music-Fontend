@@ -15,6 +15,7 @@ import Loading from "../sideNavigation/mascot_animation";
 import Like_heart from "../card/like";
 import CreatePlaylist from "../card/createPlaylist";
 import Play_animation from "../card/play_animation"
+import { addHisFetch } from "../../services/upDateHService";
 
 import { playlistroute } from "../../controller/playlist";
 const Playlistpage = () => {
@@ -53,11 +54,15 @@ const Playlistpage = () => {
 
   }
 
-  const handlePlayPlaylist = () => {
+  const handlePlayPlaylist = async() => {
     dispatch(fetchPlayList(id));
     dispatch(fetchSongPlaying(playlist.song.items[0].encodeId))
     dispatch(update(0))
     localStorage.setItem('playlistID', id)
+    await addHisFetch({
+      id: id,
+      type:"playlist",
+    })
   };
 
   const mysong = currData.defaultUser.account.likedPlayLists

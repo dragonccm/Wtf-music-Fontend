@@ -19,8 +19,16 @@ const addNewH = async(data) => {
        }
    });
 }
+const getHistory = async() => {
+    return await axios.get(`/api/getHistory`, {
+       headers: {
+           'Content-Type': 'application/json'
+       }
+   });
+}
 
 export {
     updateH,
-    addNewH
+    addNewH,
+    getHistory
 }

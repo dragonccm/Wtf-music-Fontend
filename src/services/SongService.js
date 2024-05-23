@@ -41,25 +41,25 @@ export const getSongData = async (Songid) => {
           songUrlResult.data?.[128] ||
           "https://a128-z3.zmdcdn.me/c2e3abd902697240cf99ffb93e9e38f3?authen=exp=1712376116~acl=/c2e3abd902697240cf99ffb93e9e38f3/*~hmac=d9866bb2a2216c3ce17a63244b18dde1";
         const Ly = songLyricsResult.data.sentences;
-        const jj = await cloneSongsService(
-          {
-            id: id,
-            thumbnail: img,
-            songname: songname,
-            artistInfo: artistInfo,
-            alias: alias,
-            song: song,
-            listen: listen,
-            like: like,
-            duration: duration,
-            lyricsString: Ly,
-            composers: composers,
-            genres: [
-              "IWZ9Z097",
-              "IWZ9Z09F"
-            ],
-          })
-        console.log(jj)
+        // const jj = await cloneSongsService(
+        //   {
+        //     id: id,
+        //     img: img,
+        //     songname: songname,
+        //     artists: artistInfo,
+        //     alias: alias,
+        //     songLink: song,
+        //     listen: listen,
+        //     like: like,
+        //     duration: duration,
+        //     lyric: Ly,
+        //     genresid: [
+        //       "IWZ9Z097",
+        //       "IWZ9Z09F",
+        //       "IWZ9Z086"
+        //     ],
+        //   })
+        // console.log(jj)
         return {
           id,
           img,
