@@ -43,13 +43,13 @@ const SongAdmin = () => {
         songLink: "",
         lyric: "",
     }); // Thông tin form tạo mới
+    const [imageUrl, setImageUrl] = useState('');
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState([]); // Trang hiện tại
     const [searchGenre, setSearchGenre] = useState([]); // Trang hiện tại
     const [searchAr, setSearchAr] = useState([]); // Trang hiện tại
     const [editSongGenre, seteditSongGenre] = useState([]); // Trang hiện tại
     const [editAr, seteditAr] = useState([]); // Trang hiện tại
-    const [imageUrl, setImageUrl] = useState('');
     const [file, setFile] = useState(null);
     const handlePageChange = (pageNum) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
@@ -491,7 +491,7 @@ const SongAdmin = () => {
                                 <p>{editSongGenre}</p>
                                 <div className="d-flex flex-wrap align-content-start gap-3">
                                     {searchGenre ?
-                                        searchGenre.map((data) => <p value={data.genreId}><button onClick={(e) => handleAddGenreTag(e, data.genreId)} className="btn btn-outline-primary btn-lg">{data.genrename}</button></p>)
+                                        searchGenre.map((data) => <p value={data.genreId}><button onClick={(e) => handleAddGenreTag(e, data.genreId)} className="btn btn-outline-primary btn-lg">{data.playlistname}</button></p>)
                                         :
                                         <p value="sds">
                                             none

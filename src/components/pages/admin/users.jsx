@@ -34,18 +34,6 @@ const SongAdmin = () => {
         banSongs: "",
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
-    const [createForm, setCreateForm] = useState({
-        id: "",
-        username: "",
-        birthday: "",
-        avt: "",
-        email: "",
-        likedPlayLists: "",
-        likedSongs: "",
-        myPlayLists: "",
-        banSongs: "",
-    }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState({}); // Trang hiện tại
 
@@ -106,12 +94,6 @@ const SongAdmin = () => {
             console.error('Error fetching data:', error);
         }
     };
-    // Hàm tạo mới thể loại nhạc
-    const createMusicKind = async (name, description) => {
-        // Gọi API để tạo mới thể loại nhạc
-        // Khi tạo thành công, cập nhật state
-    };
-
     // Hàm chỉnh sửa thông tin thể loại nhạc
     const updateMusicKind = async () => {
         // Gọi API để chỉnh sửa thông tin thể loại nhạc
@@ -147,15 +129,6 @@ const SongAdmin = () => {
         setIsEditModalOpen(false);
     };
 
-    // Hiển thị pop-up form tạo mới
-    const openCreateModal = () => {
-        setIsCreateModalOpen(true);
-    };
-
-    // Đóng pop-up form tạo mới
-    const closeCreateModal = () => {
-        setIsCreateModalOpen(false);
-    };
 
     // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
     const handleEditFormChange = async (e) => {
@@ -163,10 +136,6 @@ const SongAdmin = () => {
         setEditForm({ ...editForm, [name]: value });
     };
 
-    const handleCreateFormChange = (e) => {
-        const { name, value } = e.target;
-        setCreateForm({ ...createForm, [name]: value });
-    };
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
@@ -186,11 +155,6 @@ const SongAdmin = () => {
                 <h2 className="fw-normal fs-1 heading-admin" >
                     Danh sách ca sĩ
                 </h2>
-                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
-                    <button className="btn fs-4 py-2" onClick={openCreateModal}>
-                        Thêm mới ca sĩ
-                    </button>
-                </div>
             </div>
             <div className="px-4 event-admin">
                 <div class="card">
@@ -422,89 +386,6 @@ const SongAdmin = () => {
                         <button
                             className="btn btn-secondary ms-3 fs-5"
                             onClick={closeEditModal}
-                        >
-                            Cancel
-                        </button>
-                    </form>
-                </Modal>
-            </div>
-
-            {/* Hiển thị pop-up form tạo mới thể loại nhạc */}
-            <div className="addBtn-form-admin">
-                <Modal
-                    isOpen={isCreateModalOpen}
-                    onRequestClose={closeCreateModal}
-                    contentLabel="Create Music Kind"
-                    className="modal-kindMusic"
-                    overlayClassName="modal-overlay-1"
-                >
-                    <h2 className="text-center opacity-75 mb-5">
-                        Tạo mới ca sĩ
-                    </h2>
-                    <form>
-                        <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-name">
-                                songname:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="create-name"
-                                name="SongName"
-                                value={createForm.songname}
-                                onChange={handleCreateFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-email">
-                                thumbnail:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-5 form-control"
-                                id="create-email"
-                                name="email"
-                                value={createForm.thumbnail}
-                                onChange={handleCreateFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-date">
-                                artists:
-                            </label>
-                            <input
-                                type="date"
-                                className="fs-5 form-control"
-                                id="create-date"
-                                name="date"
-                                value={createForm.artists}
-                                onChange={handleCreateFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label
-                                className="fs-5 mb-2"
-                                htmlFor="create-description"
-                            >
-                                genresid:
-                            </label>
-                            <textarea
-                                className="fs-5 form-control"
-                                id="create-description"
-                                name="description"
-                                value={createForm.genresid}
-                                onChange={handleCreateFormChange}
-                            ></textarea>
-                        </div>
-                        <button
-                            className="btn btn-primary fs-5"
-                            onClick={createMusicKind}
-                        >
-                            Create
-                        </button>
-                        <button
-                            className="btn btn-secondary ms-3 fs-5"
-                            onClick={closeCreateModal}
                         >
                             Cancel
                         </button>
