@@ -10,7 +10,7 @@
     top          : 50%;
     left         : 50%;
     transform    : translate(-50%, -50%);
-    width        : 400px;
+    width        : 500px;
     background   : #fff;
     color        : #333;
     padding      : 20px;
@@ -100,7 +100,12 @@
 
     .event-admin {
         text-align: right;
-        padding   : 20px 0;
+
+        .card {
+            flex-direction : row !important;
+            border         : 0 !important;
+            justify-content: end;
+        }
 
         input {
             outline      : 0;
@@ -128,15 +133,26 @@
 
         tbody {
             tr {
+                .td_img {
+                    width    : 10% !important;
+                    max-width: 100%;
+                }
+
                 td {
-                    color: #333 !important;
-                    max-width: 15rem;
-                    max-height: 15rem;
-                    img{
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-max-height: 200px;
+                    font-size    : smaller;
+                    color        : #333 !important;
+                    max-width    : 15rem;
+                    max-height   : 15rem;
+                    overflow-wrap: break-word;
+                    /* Chia từ khi văn bản không thể trên một dòng */
+                    word-break   : break-all;
+                    /* Chia dòng ngay cả khi từ không thể đặt trên dòng mới */
+                    hyphens      : auto;
+                    /* Chèn dấu gạch ngang khi cần thiết */
+
+                    img {
+                        width        : 50%;
+                        border-radius: 10%;
                     }
                 }
             }
@@ -170,10 +186,11 @@ max-height: 200px;
                         scale  : 1.1;
                     }
                 }
-                .td_img{
 
-                    img{
-                        background-color: transparent !important; 
+                .td_img {
+
+                    img {
+                        background-color: transparent !important;
                     }
                 }
             }
@@ -194,6 +211,14 @@ max-height: 200px;
         .pagination-numbers {
 
             ul {
+                .border {
+                    transition: all 0.1s linear;
+
+                    &:hover {
+                        scale: 1.1;
+                    }
+                }
+
                 li {
                     border-color: #0b5fd0 !important;
                     cursor      : pointer;

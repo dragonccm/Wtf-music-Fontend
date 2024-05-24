@@ -6,25 +6,24 @@ import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { adminGetArtist } from "../../../services/adminSingerService"
+import { adminGetArtist } from "../../../services/adminSingerService";
 import {
     updateArtists,
     deleteArtists,
-    createArtists
-} from "../../../services/restArtistsService"
-import { adminSearchS } from "../../../services/adminSearchSongService"
-import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage"
+    createArtists,
+} from "../../../services/restArtistsService";
+import { adminSearchS } from "../../../services/adminSearchSongService";
+import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 
-
-const SingersAdmin = () => {
+const SingerAdmin = () => {
     const [editPlaylistArray, seteditPlaylistArray] = useState([]);
     const [editSongArray, seteditSongArray] = useState([]);
     const [searchPalylist, setsearchPalylist] = useState([]);
     const [searchSong, setSearchSong] = useState([]);
 
-    const [imageUrl, setImageUrl] = useState('');
+    const [imageUrl, setImageUrl] = useState("");
     const [file, setFile] = useState(null);
-    const [loading, setloading] = useState(false)
+    const [loading, setloading] = useState(false);
     const [musicSongs, setMusicSongs] = useState([]);
     const [maxpage, setmaxpage] = useState(0);
 
@@ -48,8 +47,8 @@ const SingersAdmin = () => {
         avt: "",
         artistsName: "",
         realName: "",
-        biography:"",
-        birthday:"",
+        biography: "",
+        birthday: "",
         songListId: [],
         playListId: [],
     });
@@ -87,7 +86,7 @@ const SingersAdmin = () => {
                     setloading(false);
                 }
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error("Error fetching data:", error);
             }
         }
     };
@@ -95,7 +94,7 @@ const SingersAdmin = () => {
         try {
             await updateArtists(data);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
         }
     };
     const createMusicSongs = async (data) => {
@@ -106,20 +105,20 @@ const SingersAdmin = () => {
         try {
             await createArtists(data);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
         }
     };
     // Hàm tạo mới thể loại nhạc
     const createMusicKind = async (e) => {
-        e.preventDefault()
-        createMusicSongs(createForm)
+        e.preventDefault();
+        createMusicSongs(createForm);
     };
 
     // Hàm chỉnh sửa thông tin thể loại nhạc
     const updateMusicKind = async () => {
         // Gọi API để chỉnh sửa thông tin thể loại nhạc
         // Khi chỉnh sửa thành công, cập nhật state
-        updateMusicSongs(editForm)
+        updateMusicSongs(editForm);
     };
 
     // Hàm xóa thể loại nhạc
@@ -143,8 +142,6 @@ const SingersAdmin = () => {
         });
         setIsEditModalOpen(true);
     };
-
-
 
     const openPlaylistModal = (e, kind) => {
         e.preventDefault();
@@ -185,27 +182,22 @@ const SingersAdmin = () => {
         setCreateForm({ ...createForm, [name]: value });
     };
 
-
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
             setSearch(ser.DT.ar);
             setMusicSongs(ser.DT.ar);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
         }
     };
-
-
-
-
 
     const handPlaylistsearch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
             setsearchPalylist(ser.DT.Playlist);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
         }
     };
     const handleAddPlaylistTag = (e, id) => {
@@ -214,19 +206,17 @@ const SingersAdmin = () => {
             const neweditPlaylistArray = [...editPlaylistArray];
             neweditPlaylistArray.push(id);
             seteditPlaylistArray(neweditPlaylistArray);
-        }
-        else {
-            alert("id đã tồn tại")
+        } else {
+            alert("id đã tồn tại");
         }
     };
-
 
     const handSongsearch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
             setSearchSong(ser.DT.songs);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
         }
     };
     const handleAddSongTag = (e, id) => {
@@ -235,14 +225,10 @@ const SingersAdmin = () => {
             const neweditSongArray = [...editSongArray];
             neweditSongArray.push(id);
             seteditSongArray(neweditSongArray);
-        }
-        else {
-            alert("id đã tồn tại")
+        } else {
+            alert("id đã tồn tại");
         }
     };
-
-
-
 
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
@@ -251,7 +237,7 @@ const SingersAdmin = () => {
                 <img style={{ width: "12%" }} src={logo} alt="logo" />
             </div>
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
-                <h2 className="fw-normal fs-1 heading-admin" >
+                <h2 className="fw-normal fs-1 heading-admin">
                     Danh sách ca sĩ
                 </h2>
                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
@@ -260,7 +246,7 @@ const SingersAdmin = () => {
                     </button>
                 </div>
             </div>
-            <div className="px-4 event-admin">
+            <div className="px-4 py-5 event-admin">
                 <div class="card">
                     <label className="fs-3 me-3" htmlFor="search-kind">
                         Tìm kiếm:
@@ -292,14 +278,31 @@ const SingersAdmin = () => {
                     </thead>
 
                     <tbody>
-
                         {musicSongs.map((kind) => (
                             <tr key={kind.id}>
                                 <td>{kind.id}</td>
                                 <td>{kind.artistsName}</td>
-                                <td className="td_img"> <img src={kind.avt} alt={kind.artistsName} /> </td>
-                                <td>{kind.songListId?.map(artist => artist && artist.songname ? artist.songname : "").join(", ")}</td>
-                                <td>{kind.playListId?.map(genre => genre).join(", ")}</td>
+                                <td className="td_img">
+                                    {" "}
+                                    <img
+                                        src={kind.avt}
+                                        alt={kind.artistsName}
+                                    />{" "}
+                                </td>
+                                <td>
+                                    {kind.songListId
+                                        ?.map((artist) =>
+                                            artist && artist.songname
+                                                ? artist.songname
+                                                : ""
+                                        )
+                                        .join(", ")}
+                                </td>
+                                <td>
+                                    {kind.playListId
+                                        ?.map((genre) => genre)
+                                        .join(", ")}
+                                </td>
                                 <td>{kind.alias}</td>
                                 <td>{kind.totalFollow}</td>
                                 <td>
@@ -322,22 +325,19 @@ const SingersAdmin = () => {
                 </table>
             </div>
             <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 description-pagination">
-                    Hiển thị {(currentPage - 1) * itemsPerPage + 1} -{" "}
-                    {Math.min(currentPage * itemsPerPage, maxpage)} trong {maxpage} bài hát
+                <div className="col-6 ps-5 description-pagination">
+                    <div style={{ fontSize: "medium" }}>
+                        Hiển thị{" "}
+                        <span style={{ color: "red" }}>
+                            {(currentPage - 1) * itemsPerPage + 1} -{" "}
+                            {Math.min(currentPage * itemsPerPage, maxpage)}
+                        </span>{" "}
+                        trong <span style={{ color: "red" }}>{maxpage}</span> ca
+                        sĩ
+                    </div>
                 </div>
                 <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end">
-                        <li className="border">
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() => handlePageChange(currentPage - 1)}
-                                disabled={currentPage === 1}
-                            >
-                                Previous
-                            </a>
-                        </li>
                         <li className="border">
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
@@ -351,7 +351,21 @@ const SingersAdmin = () => {
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
-                                onClick={() => handlePageChange(currentPage + 1)}
+                                onClick={() =>
+                                    handlePageChange(currentPage - 1)
+                                }
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </a>
+                        </li>
+                        <li className="border">
+                            <a
+                                className="d-block fs-4 px-4 py-1 opacity-75"
+                                href="#"
+                                onClick={() =>
+                                    handlePageChange(currentPage + 1)
+                                }
                                 disabled={currentPage === totalPages}
                             >
                                 Next
@@ -380,17 +394,17 @@ const SingersAdmin = () => {
                     overlayClassName="modal-overlay-1"
                 >
                     {/* Nội dung của pop-up form chỉnh sửa */}
-                    <h2 className="text-center opacity-75 mb-5">
-                        Chỉnh sửa thông tin ca sĩ
+                    <h2 className="text-center opacity-75 mb-5 fs-2">
+                        Chỉnh sửa thông tin Ca sĩ
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-name">
+                            <label className="fs-4 mb-2" htmlFor="edit-name">
                                 id:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="edit-name"
                                 name="id"
                                 placeholder={editForm.id}
@@ -399,12 +413,12 @@ const SingersAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-email">
+                            <label className="fs-4 mb-2" htmlFor="edit-email">
                                 avt:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="edit-email"
                                 name="songname"
                                 placeholder={editForm.avt}
@@ -412,24 +426,24 @@ const SingersAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-profile">
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
                                 artistsName:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="thumbnail"
                                 placeholder={editForm.artistsName}
                                 onChange={handleEditFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                            <label className="fs-4 mb-2" htmlFor="edit-date">
                                 alias:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="edit-date"
                                 name="artists"
                                 placeholder={editForm.alias}
@@ -437,12 +451,12 @@ const SingersAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                            <label className="fs-4 mb-2" htmlFor="edit-date">
                                 totalFollow:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="edit-date"
                                 name="genresid"
                                 placeholder={editForm.totalFollow}
@@ -450,12 +464,12 @@ const SingersAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                            <label className="fs-4 mb-2" htmlFor="edit-date">
                                 songListId:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="edit-date"
                                 name="like"
                                 placeholder={editForm.songListId}
@@ -464,12 +478,12 @@ const SingersAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-date">
+                            <label className="fs-4 mb-2" htmlFor="edit-date">
                                 playListId:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="edit-date"
                                 name="listen"
                                 placeholder={editForm.playListId}
@@ -478,18 +492,20 @@ const SingersAdmin = () => {
                             />
                         </div>
 
-                        <button
-                            className="btn btn-primary fs-5"
-                            onClick={updateMusicKind}
-                        >
-                            Update
-                        </button>
-                        <button
-                            className="btn btn-secondary ms-3 fs-5"
-                            onClick={closeEditModal}
-                        >
-                            Cancel
-                        </button>
+                        <div className="text-end form-group">
+                            <button
+                                className="px-4 py-2 btn btn-primary fs-4"
+                                onClick={updateMusicKind}
+                            >
+                                Cập nhật
+                            </button>
+                            <button
+                                className="px-4 py-2 btn btn-secondary ms-3 fs-4"
+                                onClick={closeEditModal}
+                            >
+                                Hủy bỏ
+                            </button>
+                        </div>
                     </form>
                 </Modal>
             </div>
@@ -503,17 +519,17 @@ const SingersAdmin = () => {
                     className="modal-kindMusic"
                     overlayClassName="modal-overlay-1"
                 >
-                    <h2 className="text-center opacity-75 mb-5">
-                        Tạo mới Nghệ Sĩ
+                    <h2 className="text-center opacity-75 mb-5 fs-2">
+                        Tạo mới Ca sĩ
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-name">
+                            <label className="fs-4 mb-2" htmlFor="create-name">
                                 Tên Nghệ Sĩ:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="create-name"
                                 name="artistsName"
                                 value={createForm.artistsName}
@@ -521,12 +537,12 @@ const SingersAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-name">
+                            <label className="fs-4 mb-2" htmlFor="create-name">
                                 Mô tả:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="create-name"
                                 name="biography"
                                 value={createForm.biography}
@@ -534,20 +550,26 @@ const SingersAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="edit-profile">
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
                                 thumbnail:
                             </label>
-                            {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
+                            {imageUrl && (
+                                <img
+                                    src={imageUrl}
+                                    className="avt-img"
+                                    alt="Uploaded"
+                                />
+                            )}
                             <ImageUploader onUpload={handleUpload} />
                         </div>
 
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-name">
+                            <label className="fs-4 mb-2" htmlFor="create-name">
                                 sinh nhât:
                             </label>
                             <input
                                 type="date"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="create-name"
                                 name="birthday"
                                 value={createForm.birthday}
@@ -555,12 +577,12 @@ const SingersAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2" htmlFor="create-name">
+                            <label className="fs-4 mb-2" htmlFor="create-name">
                                 tên thật:
                             </label>
                             <input
                                 type="text"
-                                className="fs-5 form-control"
+                                className="fs-4 form-control"
                                 id="create-name"
                                 name="realName"
                                 value={createForm.realName}
@@ -569,14 +591,21 @@ const SingersAdmin = () => {
                         </div>
 
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2 m-3" htmlFor="create-email">
+                            <label
+                                style={{ width: "11%" }}
+                                className="fs-4 mb-2 me-3"
+                                htmlFor="create-email"
+                            >
                                 Nhạc:
                             </label>
 
                             <button
                                 className="btn btn-outline-primary btn-lg"
                                 onClick={(e) => openSongModal(e, editForm)}
-                            > chọn Nhạc</button>
+                            >
+                                {" "}
+                                chọn Nhạc
+                            </button>
                             <Modal
                                 isOpen={isSongModalOpen}
                                 onRequestClose={closeSongModal}
@@ -586,34 +615,55 @@ const SingersAdmin = () => {
                             >
                                 <input
                                     type="text"
-                                    className="fs-5 form-control col"
+                                    className="fs-4 form-control col"
                                     id="create-date"
                                     // value={createForm.genresid}
                                     onChange={handSongsearch}
                                 />
                                 <p>{editSongArray}</p>
-                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
-                                    {searchSong ?
-                                        searchSong.map((data) => <p value={data.id}><button onClick={(e) => handleAddSongTag(e, data.id)} className="btn btn-outline-primary btn-lg">{data.songname}</button></p>)
-                                        :
-                                        <p value="sds">
-                                            none
-                                        </p>
-                                    }
+                                <div
+                                    style={{ height: "20rem" }}
+                                    className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
+                                >
+                                    {searchSong ? (
+                                        searchSong.map((data) => (
+                                            <p value={data.id}>
+                                                <button
+                                                    onClick={(e) =>
+                                                        handleAddSongTag(
+                                                            e,
+                                                            data.id
+                                                        )
+                                                    }
+                                                    className="btn btn-outline-primary btn-lg"
+                                                >
+                                                    {data.songname}
+                                                </button>
+                                            </p>
+                                        ))
+                                    ) : (
+                                        <p value="sds">none</p>
+                                    )}
                                 </div>
                             </Modal>
                             <p>{editSongArray}</p>
-
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-5 mb-2 m-3" htmlFor="create-email">
+                            <label
+                                style={{ width: "11%" }}
+                                className="fs-4 mb-2 me-3"
+                                htmlFor="create-email"
+                            >
                                 Playlist:
                             </label>
 
                             <button
                                 className="btn btn-outline-primary btn-lg"
                                 onClick={(e) => openPlaylistModal(e, editForm)}
-                            > chọn playlist</button>
+                            >
+                                {" "}
+                                chọn playlist
+                            </button>
                             <Modal
                                 isOpen={isPlaylistModalOpen}
                                 onRequestClose={closePlaylistModal}
@@ -623,37 +673,53 @@ const SingersAdmin = () => {
                             >
                                 <input
                                     type="text"
-                                    className="fs-5 form-control col"
+                                    className="fs-4 form-control col"
                                     id="create-date"
                                     // value={createForm.genresid}
                                     onChange={handPlaylistsearch}
                                 />
                                 <p>{editPlaylistArray}</p>
-                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
-                                    {searchPalylist ?
-                                        searchPalylist.map((data) => <p value={data.playlistId}><button onClick={(e) => handleAddPlaylistTag(e, data.playlistId)} className="btn btn-outline-primary btn-lg">{data.playlistname}</button></p>)
-                                        :
-                                        <p value="sds">
-                                            none
-                                        </p>
-                                    }
+                                <div
+                                    style={{ height: "20rem" }}
+                                    className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
+                                >
+                                    {searchPalylist ? (
+                                        searchPalylist.map((data) => (
+                                            <p value={data.playlistId}>
+                                                <button
+                                                    onClick={(e) =>
+                                                        handleAddPlaylistTag(
+                                                            e,
+                                                            data.playlistId
+                                                        )
+                                                    }
+                                                    className="btn btn-outline-primary btn-lg"
+                                                >
+                                                    {data.playlistname}
+                                                </button>
+                                            </p>
+                                        ))
+                                    ) : (
+                                        <p value="sds">none</p>
+                                    )}
                                 </div>
                             </Modal>
                             <p>{editPlaylistArray}</p>
-
                         </div>
-                        <button
-                            className="btn btn-primary fs-5"
-                            onClick={(e)=>createMusicKind(e)}
-                        >
-                            Create
-                        </button>
-                        <button
-                            className="btn btn-secondary ms-3 fs-5"
-                            onClick={closeCreateModal}
-                        >
-                            Cancel
-                        </button>
+                        <div className="text-end form-group">
+                            <button
+                                className="px-4 py-2 btn btn-primary fs-4"
+                                onClick={(e) => createMusicKind(e)}
+                            >
+                                Tạo
+                            </button>
+                            <button
+                                className="px-4 py-2 btn btn-secondary ms-3 fs-4"
+                                onClick={closeCreateModal}
+                            >
+                                Hủy bỏ
+                            </button>
+                        </div>
                     </form>
                 </Modal>
             </div>
@@ -661,4 +727,4 @@ const SingersAdmin = () => {
     );
 };
 
-export default SingersAdmin;
+export default SingerAdmin;
