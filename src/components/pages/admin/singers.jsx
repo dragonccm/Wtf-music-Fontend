@@ -19,41 +19,41 @@ import ImageUploader from "../../../components/pages/profile/Profile-setting/upl
 const SingersAdmin = () => {
     const [editPlaylistArray, seteditPlaylistArray] = useState([]);
     const [editSongArray, seteditSongArray] = useState([]);
-    const [searchGenre, setSearchGenre] = useState([]); 
-    const [searchSong, setSearchSong] = useState([]); 
+    const [searchPalylist, setsearchPalylist] = useState([]);
+    const [searchSong, setSearchSong] = useState([]);
 
     const [imageUrl, setImageUrl] = useState('');
     const [file, setFile] = useState(null);
     const [loading, setloading] = useState(false)
     const [musicSongs, setMusicSongs] = useState([]);
     const [maxpage, setmaxpage] = useState(0);
-    
+
     const [selectedSong, setSelectedSong] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState({});
-    const [isGenreModalOpen, setIsGenreModalOpen] = useState(false);
+    const [isSongModalOpen, setIsSongModalOpen] = useState(false);
+    const [isPlaylistModalOpen, setIsPlaylistModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [editForm, setEditForm] = useState({
         id: "",
         avt: "",
         artistsName: "",
-        avt: "",
         realName: "",
         totalFollow: "",
         songListId: [],
         playListId: [],
-    }); 
+    });
     const [createForm, setCreateForm] = useState({
         avt: "",
         artistsName: "",
-        avt: "",
         realName: "",
-        totalFollow: "",
+        biography:"",
+        birthday:"",
         songListId: [],
         playListId: [],
-    }); 
-    
+    });
+
     const handleUpload = (file) => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
@@ -92,18 +92,27 @@ const SingersAdmin = () => {
         }
     };
     const updateMusicSongs = async (data) => {
-        data.genresid = editPlaylistArray;
-        data.thumbnail = imageUrl;
         try {
             await updateArtists(data);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
+    const createMusicSongs = async (data) => {
+        data.avt = imageUrl;
+        data.songListId = editSongArray;
+        data.playListId = editPlaylistArray;
+        console.table(data);
+        try {
+            await createArtists(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     // Hàm tạo mới thể loại nhạc
-    const createMusicKind = async (name, description) => {
-        // Gọi API để tạo mới thể loại nhạc
-        // Khi tạo thành công, cập nhật state
+    const createMusicKind = async (e) => {
+        e.preventDefault()
+        createMusicSongs(createForm)
     };
 
     // Hàm chỉnh sửa thông tin thể loại nhạc
@@ -137,9 +146,13 @@ const SingersAdmin = () => {
 
 
 
-    const openGenreModal = (e,kind) => {
+    const openPlaylistModal = (e, kind) => {
         e.preventDefault();
-        setIsGenreModalOpen(true);
+        setIsPlaylistModalOpen(true);
+    };
+    const openSongModal = (e, kind) => {
+        e.preventDefault();
+        setIsSongModalOpen(true);
     };
     // Đóng pop-up form chỉnh sửa
     const closeEditModal = () => {
@@ -155,8 +168,11 @@ const SingersAdmin = () => {
     const closeCreateModal = () => {
         setIsCreateModalOpen(false);
     };
-    const closeGenreModal = () => {
-        setIsGenreModalOpen(false);
+    const closeSongModal = () => {
+        setIsSongModalOpen(false);
+    };
+    const closePlaylistModal = () => {
+        setIsPlaylistModalOpen(false);
     };
     // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
     const handleEditFormChange = async (e) => {
@@ -179,10 +195,15 @@ const SingersAdmin = () => {
             console.error('Error fetching data:', error);
         }
     };
+
+
+
+
+
     const handPlaylistsearch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setSearchGenre(ser.DT.Playlist);
+            setsearchPalylist(ser.DT.Playlist);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -200,12 +221,10 @@ const SingersAdmin = () => {
     };
 
 
-
-
     const handSongsearch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setSearchGenre(ser.DT.Song);
+            setSearchSong(ser.DT.songs);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -551,16 +570,16 @@ const SingersAdmin = () => {
 
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2 m-3" htmlFor="create-email">
-                                thể loại:
+                                Nhạc:
                             </label>
 
                             <button
                                 className="btn btn-outline-primary btn-lg"
-                                onClick={(e) => openGenreModal(e, editForm)}
-                            > chọn thể loại</button>
+                                onClick={(e) => openSongModal(e, editForm)}
+                            > chọn Nhạc</button>
                             <Modal
-                                isOpen={isGenreModalOpen}
-                                onRequestClose={closeGenreModal}
+                                isOpen={isSongModalOpen}
+                                onRequestClose={closeSongModal}
                                 contentLabel="Edit Music Kind"
                                 className="modal-kindMusic"
                                 overlayClassName="modal-overlay-1"
@@ -570,12 +589,12 @@ const SingersAdmin = () => {
                                     className="fs-5 form-control col"
                                     id="create-date"
                                     // value={createForm.genresid}
-                                    onChange={handPlaylistsearch}
+                                    onChange={handSongsearch}
                                 />
-                                <p>{editPlaylistArray}</p>
-                                <div className="d-flex flex-wrap align-content-start gap-3">
-                                    {searchGenre ?
-                                        searchGenre.map((data) => <p value={data.playlistId}><button onClick={(e) => handleAddPlaylistTag(e, data.playlistId)} className="btn btn-outline-primary btn-lg">{data.playlistname}</button></p>)
+                                <p>{editSongArray}</p>
+                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                    {searchSong ?
+                                        searchSong.map((data) => <p value={data.id}><button onClick={(e) => handleAddSongTag(e, data.id)} className="btn btn-outline-primary btn-lg">{data.songname}</button></p>)
                                         :
                                         <p value="sds">
                                             none
@@ -583,21 +602,21 @@ const SingersAdmin = () => {
                                     }
                                 </div>
                             </Modal>
-                            <p>{editPlaylistArray}</p>
+                            <p>{editSongArray}</p>
 
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-5 mb-2 m-3" htmlFor="create-email">
-                                thể loại:
+                                Playlist:
                             </label>
 
                             <button
                                 className="btn btn-outline-primary btn-lg"
-                                onClick={(e) => openGenreModal(e, editForm)}
-                            > chọn thể loại</button>
+                                onClick={(e) => openPlaylistModal(e, editForm)}
+                            > chọn playlist</button>
                             <Modal
-                                isOpen={isGenreModalOpen}
-                                onRequestClose={closeGenreModal}
+                                isOpen={isPlaylistModalOpen}
+                                onRequestClose={closePlaylistModal}
                                 contentLabel="Edit Music Kind"
                                 className="modal-kindMusic"
                                 overlayClassName="modal-overlay-1"
@@ -610,9 +629,9 @@ const SingersAdmin = () => {
                                     onChange={handPlaylistsearch}
                                 />
                                 <p>{editPlaylistArray}</p>
-                                <div className="d-flex flex-wrap align-content-start gap-3">
-                                    {searchGenre ?
-                                        searchGenre.map((data) => <p value={data.playlistId}><button onClick={(e) => handleAddPlaylistTag(e, data.playlistId)} className="btn btn-outline-primary btn-lg">{data.playlistname}</button></p>)
+                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                    {searchPalylist ?
+                                        searchPalylist.map((data) => <p value={data.playlistId}><button onClick={(e) => handleAddPlaylistTag(e, data.playlistId)} className="btn btn-outline-primary btn-lg">{data.playlistname}</button></p>)
                                         :
                                         <p value="sds">
                                             none
@@ -625,7 +644,7 @@ const SingersAdmin = () => {
                         </div>
                         <button
                             className="btn btn-primary fs-5"
-                            onClick={createMusicKind}
+                            onClick={(e)=>createMusicKind(e)}
                         >
                             Create
                         </button>

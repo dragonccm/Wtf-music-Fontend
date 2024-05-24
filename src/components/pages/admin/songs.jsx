@@ -13,14 +13,15 @@ import {
     createSong
 } from "../../../services/restSongService"
 import { adminSearchS } from "../../../services/adminSearchSongService"
-
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage"
 
 
 const SongAdmin = () => {
-    const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
-    const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
+    const [file, setFile] = useState(null);
+    const [imageUrl, setImageUrl] = useState('');
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
+    const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
+    // các state edit
     const [editForm, setEditForm] = useState({
         id: "",
         songname: "",
@@ -30,11 +31,7 @@ const SongAdmin = () => {
         songLink: "",
         like: "",
         listen: "",
-    }); // Thông tin form chỉnh sửa
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
-    const [isGenreModalOpen, setIsGenreModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
-    const [isArModalOpen, setIsArModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
+    }); 
     const [createForm, setCreateForm] = useState({
         songname: "",
         thumbnail: "",
@@ -42,18 +39,27 @@ const SongAdmin = () => {
         genresid: "",
         songLink: "",
         lyric: "",
-    }); // Thông tin form tạo mới
-    const [imageUrl, setImageUrl] = useState('');
-    const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-    const [search, setSearch] = useState([]); // Trang hiện tại
-    const [searchGenre, setSearchGenre] = useState([]); // Trang hiện tại
-    const [searchAr, setSearchAr] = useState([]); // Trang hiện tại
-    const [editSongGenre, seteditSongGenre] = useState([]); // Trang hiện tại
-    const [editAr, seteditAr] = useState([]); // Trang hiện tại
-    const [file, setFile] = useState(null);
+    }); 
+    const [editSongGenre, seteditSongGenre] = useState([]); 
+    const [editAr, seteditAr] = useState([]); 
+    // phân trang
+    const [currentPage, setCurrentPage] = useState(1); 
+    const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
+    // tìm kiếm
+    const [search, setSearch] = useState([]); 
+    const [searchGenre, setSearchGenre] = useState([]); 
+    const [searchAr, setSearchAr] = useState([]); 
+    // quản lý modal
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false); 
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); 
+    const [isGenreModalOpen, setIsGenreModalOpen] = useState(false); 
+    const [isArModalOpen, setIsArModalOpen] = useState(false); 
+
+
+
     const handlePageChange = (pageNum) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
-            return; // Không thực hiện cập nhật nếu số trang không hợp lệ
+            return; 
         }
         setCurrentPage(pageNum);
         fetchMusicSongs();
@@ -62,12 +68,12 @@ const SongAdmin = () => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
     };
-    const itemsPerPage = 20; // Số mục trên mỗi trang
-    // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
+    const itemsPerPage = 20; 
+    
     useEffect(() => {
         fetchMusicSongs();
     }, []);
-    // Hàm giả lập lấy danh sách thể loại nhạc từ server
+    
     const fetchMusicSongs = async () => {
         try {
             const response = await adminGetSong(parseInt((currentPage - 1) * itemsPerPage));
@@ -102,24 +108,19 @@ const SongAdmin = () => {
             console.error('Error fetching data:', error);
         }
     };
-    // Hàm tạo mới thể loại nhạc
+
+
+
     const createMusicKind = async () => {
         createMusicSongs(createForm)
     };
-
-    // Hàm chỉnh sửa thông tin thể loại nhạc
     const updateMusicKind = async () => {
-        // Gọi API để chỉnh sửa thông tin thể loại nhạc
-        // Khi chỉnh sửa thành công, cập nhật state
         updateMusicSongs(editForm)
     };
-
-    // Hàm xóa thể loại nhạc
     const deleteMusicKind = async (id) => {
         deleteMusicSongs(id)
     };
 
-    // Hiển thị pop-up form chỉnh sửa
     const openEditModal = (kind) => {
         setSelectedSong(kind);
         setEditForm({
@@ -131,8 +132,6 @@ const SongAdmin = () => {
         });
         setIsEditModalOpen(true);
     };
-
-
     const openGenreModal = (e,kind) => {
         e.preventDefault();
         setIsGenreModalOpen(true);
@@ -142,11 +141,11 @@ const SongAdmin = () => {
         setIsArModalOpen(true);
     };
 
+
     // Đóng pop-up form chỉnh sửa
     const closeEditModal = () => {
         setIsEditModalOpen(false);
     };
-
     const closeGenreModal = () => {
         setIsGenreModalOpen(false);
     };
@@ -158,7 +157,6 @@ const SongAdmin = () => {
     const openCreateModal = (kind) => {
         setSelectedSong(kind);
         setCreateForm({
-
             songname: kind.songname,
             thumbnail: kind.thumbnail,
             artists: kind.artists,
@@ -183,7 +181,6 @@ const SongAdmin = () => {
 
     const handleCreateFormChange = (e) => {
         const { name, value } = e.target;
-        console.log({ ...createForm, [name]: value })
         setCreateForm({ ...createForm, [name]: value });
     };
     const handleserch = async (e) => {
