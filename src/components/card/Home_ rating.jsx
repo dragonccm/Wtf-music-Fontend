@@ -9,7 +9,7 @@ import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 
 import { NavLink } from "react-router-dom";
 import moment from 'moment';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 
 
@@ -37,8 +37,16 @@ function SamplePrevArrow(props) {
 
 const HomeRating = ({ data }) => {
   const dispatch = useDispatch();
+  const dataf = useSelector((state) => state.playlist.playlist);
+
   const handlePlaying = (e, id) => {
     e.preventDefault();
+    const song = dataf.song.find(item => item.id === id);
+    if (song) {
+      console.log(`ID ${id} trùng với một bài hát trong playlist.`);
+    } else {
+      console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
+    }
     dispatch(fetchSongPlaying(id));
   }
   const settings = {

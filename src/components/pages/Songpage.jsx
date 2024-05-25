@@ -25,28 +25,37 @@ const Songpage = () => {
   const { id } = useParams();
   const [data, setData] = useState({});
 
-  useEffect( () => {
+  useEffect(() => {
     const fetchData = async () => {
       const response = await fetchSongPage(id);
       setData(response);
       console.log(response);
     };
-  
+
     fetchData();
   }, []);
   const fetchSongPage = async (id) => {
     try {
       const response = await songPage(id);
-      return  response
+      return response
     } catch (error) {
       console.log(error);
     }
   };
+  const dataf = useSelector((state) => state.playlist.playlist);
+
   if (!data.DT) {
     return <div><Loading /></div>;
   }
+
   const handlePlaying = (e, id) => {
     e.preventDefault();
+    const song = dataf.song.find(item => item.id === id);
+    if (song) {
+      console.log(`ID ${id} trùng với một bài hát trong playlist.`);
+    } else {
+      console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
+    }
     dispatch(fetchSongPlaying(id));
   }
   const usserplaylist = [

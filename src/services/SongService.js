@@ -33,7 +33,7 @@ export const getSongData = async (Songid) => {
         songDetailResult.data.song.songLink ||
           "https://a128-z3.zmdcdn.me/c2e3abd902697240cf99ffb93e9e38f3?authen=exp=1712376116~acl=/c2e3abd902697240cf99ffb93e9e38f3/*~hmac=d9866bb2a2216c3ce17a63244b18dde1";
         const Ly = songDetailResult.data.song.lyric;
-        const Li = songLyricsResult.data.sentences;
+        const Li = songLyricsResult.data ? songLyricsResult.data.sentences:[];
 
         // const jj = await cloneSongsService(
         //   {
@@ -63,7 +63,7 @@ export const getSongData = async (Songid) => {
           listen: listen,
           like: like,
           duration: duration,
-          lyric: Li,
+          lyric: Ly,
           genresid: [
             "IWZ9Z097",
             "IWZ9Z09F",

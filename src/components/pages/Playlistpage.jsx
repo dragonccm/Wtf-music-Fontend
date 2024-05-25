@@ -21,26 +21,31 @@ import { playlistroute } from "../../controller/playlist";
 const Playlistpage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [playlist, setPlaylist] = useState([])
+  const [playlist, setPlaylist] = useState({})
   const currData = useSelector((state) => state.Authentication);
   const nowPlaylist = useSelector((state) => state.playlist);
 
 
   useEffect(() => {
-    // dispatch(fetchPlayList(id));
     fecthPlaylist()
+    console.log(playlist);
   }, []);
+  useEffect(() => {
+    console.log(playlist);
+  }, [playlist]);
   const fecthPlaylist = async () => {
 
     let response = await playlistroute(id);
-    if (response && response.data) {
-      console.log(response.data)
-      setPlaylist(response.data)
+    if (response.EC === '0' &&response.DT.data) {
+      console.log(response);
+      setPlaylist(response.DT.data)
+    } else {
+      console.log('saiiiiiiiiiiiiii')
     }
   }
 
   // const currData = useSelector((state) => state.playlist.playlist.data);
-  if (!playlist || !playlist.song || !Array.isArray(playlist.song.items)) {
+  if (!playlist || !playlist.song || !playlist.genres) {
     // console.error('currData is not properly formatted:', currData);
     return <div className="main_banner"><Loading /></div>;
   }
@@ -56,7 +61,7 @@ const Playlistpage = () => {
 
   const handlePlayPlaylist = async () => {
     dispatch(fetchPlayList(id));
-    dispatch(fetchSongPlaying(playlist.song.items[0].encodeId))
+    dispatch(fetchSongPlaying(playlist.song[0].id))
     dispatch(update(0))
     localStorage.setItem('playlistID', id)
     await addHisFetch({
@@ -67,13 +72,14 @@ const Playlistpage = () => {
 
   const mysong = currData.defaultUser.account.likedPlayLists
   return (
+    // <></>
     <section className="detailed_list">
       <div className="list_father">
         <div className="list_head">
           <div className="list_info_ctn">
             <div className="left_head">
               <img
-                src={playlist.thumbnailM}
+                src={playlist.playlist.thumbnail}
               />
               {/* {nowPlaylist &&
                 playlist.encodeId === nowPlaylist.playlist.data.encodeId &&
@@ -81,13 +87,13 @@ const Playlistpage = () => {
               } */}
             </div>
             <div className="mid_head">
-              <h1 className="list_name">{playlist.title}</h1>
+              <h1 className="list_name">{playlist.playlist.playlistname}</h1>
               <div className="info">
 
                 <div className="playlist_info_item">
-                  <span className="user_name">{playlist.artistsNames}</span>
-                  <span className="total_song"> {playlist.song.total} bài hát</span>
-                  <span className="total_time"> {playlist.like > 1000 ? playlist.like / 1000 + 'k' : playlist.like} người yêu thích</span>
+                  {/* <span className="user_name">{playlist.artistsNames}</span> */}
+                  {/* <span className="total_song"> {playlist.song.total} bài hát</span> */}
+                  <span className="total_time"> {playlist.playlist.like > 1000 ? playlist.playlist.like / 1000 + 'k' : playlist.playlist.like} người yêu thích</span>
                 </div>
               </div>
             </div>
@@ -99,7 +105,7 @@ const Playlistpage = () => {
               <span>Phát Ngẫu Nhiên</span>
             </button>
             <div className="child_btn_gr">
-              <Like_heart id={playlist.encodeId} type={'playlist'} />
+              <Like_heart id={playlist.playlist.playlistId} type={'playlist'} />
 
 
               <Popup
@@ -120,8 +126,8 @@ const Playlistpage = () => {
               >
                 <div className="menu-plalist">
                   <button className="menu-item" onClick={(e) => e.preventDefault()}><CreatePlaylist
-                    idSongs={playlist.song.items.map((item) => {
-                      return item.encodeId
+                    idSongs={playlist.song.map((item) => {
+                      return item.id
                     })} /></button>
 
                   <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
@@ -140,7 +146,7 @@ const Playlistpage = () => {
             </span>
           </section>
           <div className="list">
-            {playlist.song.items.map((data, index) => (
+            {playlist.song.map((data, index) => (
               <SongCard2
                 data={data}
                 rating={{
@@ -149,7 +155,7 @@ const Playlistpage = () => {
                 }
                 }
                 onPlaylist={{
-                  idPlaylist: playlist.encodeId,
+                  idPlaylist: playlist.playlist.playlistId,
                   isPlay: true
                 }
 

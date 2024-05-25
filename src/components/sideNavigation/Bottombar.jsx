@@ -201,6 +201,7 @@ const Bottombar = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (localStorage.getItem('playlistID')) {
+        console.log('jajaja')
         await dispatch(fetchPlayList(localStorage.getItem('playlistID')));
       }
 
@@ -216,15 +217,15 @@ const Bottombar = () => {
     fetchData();
 
   }, [])
-  const dataf = useSelector((state) => state.playlist.playlist.data);
-  console.table(dataf)
+  const dataf = useSelector((state) => state.playlist.playlist);
+  console.log(dataf)
   const handleClickNext = () => {
-    if (Number(currentMusicIndex) < dataf.song.items.length - 1) {
+    if (Number(currentMusicIndex) < dataf.song.length - 1) {
       dispatch(increment())
       console.log(currentMusicIndex);
       if (dataf && isPlaying) {
-        dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex + 1].encodeId))
-        localStorage.setItem('currentMusicIndex', currentMusicIndex + 1)
+        dispatch(fetchSongPlaying(dataf.song[currentMusicIndex + 1].id))
+        localStorage.setItem('currentMusicIndex', currentMusicIndex)
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     } else {
@@ -236,11 +237,12 @@ const Bottombar = () => {
       dispatch(decrement())
       console.log(currentMusicIndex);
       if (dataf && isPlaying) {
-        dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex - 1].encodeId))
-        localStorage.setItem('currentMusicIndex', currentMusicIndex - 1)
+        dispatch(fetchSongPlaying(dataf.song[currentMusicIndex - 1].id))
+        localStorage.setItem('currentMusicIndex', currentMusicIndex)
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     } else {
+      console.log(currentMusicIndex);
       alert('Không có')
     }
 
@@ -280,13 +282,13 @@ const Bottombar = () => {
   }
   useEffect(() => {
     // Cập nhật giá trị mới cho dataf khi state.playlist.playlist.data thay đổi
-    if (dataf !== undefined) {
-      const lol = dataf.song.items.map((item, index) => {
-        return item.encodeId
+    if (dataf !== undefined && dataf.song) {
+      const lol = dataf.song.map((item, index) => {
+        return item.id
       })
       console.log(lol)
-      for (let i = 0; i < dataf.song.items.length; i++) {
-        if (dataf.song.items[i].encodeId === songInfo.infor.id) {
+      for (let i = 0; i < dataf.song.length; i++) {
+        if (dataf.song[i].id === songInfo.infor.id) {
           dispatch(update(i))
           break;
         }
@@ -298,7 +300,6 @@ const Bottombar = () => {
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
   const songInfo = useSelector((state) => state.getSongData.inforSong);
-  console.log(songInfo)
   const currentMusicIndex = useSelector((state) => state.getSongData.currentMusicIndex);
   // const [currentMusicIndex,setCurrentMusicIndex] = useState(0)
   // useEffect(() => {
@@ -310,7 +311,7 @@ const Bottombar = () => {
   // }, [currentMusicIndex]);
   // xử lí lyrics
   useEffect(() => {
-    if (songInfo.songInfo) {
+    if (songInfo.songInfo && songInfo.infor.lyricsString.length > 0) {
       haha = songInfo.infor.lyricsString.map((sentence) => {
         const startTime = sentence.words[0].startTime;
         const endTime = sentence.words[sentence.words.length - 1].endTime;
@@ -318,11 +319,11 @@ const Bottombar = () => {
         return { startTime, endTime, data };
       });
     }
-    if (dataf !== undefined) {
+    if (dataf !== undefined && dataf.song) {
 
-      for (let i = 0; i < dataf.song.items.length; i++) {
+      for (let i = 0; i < dataf.song.length; i++) {
         // console.log(dataf.song.items[i].encodeId,songInfo.infor.id)
-        if (dataf.song.items[i].encodeId === songInfo.infor.id) {
+        if (dataf.song[i].id === songInfo.infor.id) {
           dispatch(update(i))
           break;
         } else {
@@ -525,19 +526,16 @@ const Bottombar = () => {
     // Lưu tham chiếu đến hàm updateTime hiện tại
 
     updateTime(e)
-    console.log('addd');
   };
 
   const handleStop = (e) => {
     // Xóa event listener cho sự kiện timeupdate
     e.target.removeEventListener('timeupdate', oldUpdateTimeFunc);
-    console.log('xoá');
   };
 
 
 
   function updateTime(e) {
-    console.log('llll');
 
     const currentTime = e.target.currentTime;
     localStorage.setItem('duration', currentTime);
@@ -719,12 +717,14 @@ const Bottombar = () => {
                         {<a href={"/artists/" + songInfo.infor.composers &&songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'Jack-J97'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : 'Jack-J97'}</a>}
                       </div>
                     </div>}
+                    {songInfo.infor.genres.length > 0 &&
                     <div className="item">
                       <h5>Thể loại</h5>
                       <div className="content">
                         {<a href={"/artists/" + songInfo.infor.genres[0].id} >{songInfo.infor.genres[0].genrename}</a>}
                       </div>
                     </div>
+                      }
                     <div className="item">
                       <h5>Cung cấp bởi</h5>
                       <div className="content">
@@ -759,7 +759,7 @@ const Bottombar = () => {
                     >
                       <div className="Modal_lyric_title">haha</div>
                       <div className="Modal_lyric_ctn">
-                        <textarea name="" id="" rows='15' value={haha.map((sentence) => sentence.data).join("\n")} />
+                        <textarea name="" id="" rows='15' value={haha?haha.map((sentence) => sentence.data).join("\n"):'Không có lời bài hát'} />
                       </div>
                       <div className="Modal_lyric_btn">
                         <button onClick={closeModalLyric}>Đóng</button>
@@ -993,7 +993,7 @@ const Bottombar = () => {
           </div>
           <div className="Modal_playlist_ctn">
             <div className="playlist">
-              {dataf && dataf.song.items.map((item, index) => {
+              {dataf && dataf.song && dataf.song.map((item, index) => {
                 return item.encodeId === songInfo.infor.id ?
                   <div className="list_song active" key={'hahaha' + index} onClick={() => handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
                     <SongCard element={item} className={'active'} />
@@ -1050,7 +1050,7 @@ const Bottombar = () => {
               <div className="lyric">
                 <ul className="scroll-content">
 
-                  {haha.map((sentence, index) => {
+                  {haha && haha.map((sentence, index) => {
                     return <li className="item" key={'haha' + index}>{sentence.data}</li>;
                   })}
                 </ul>
