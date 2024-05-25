@@ -22,7 +22,6 @@ const Card = ({ playlist }) => {
     const currData = useSelector((state) => state.Authentication);
  
     const slicedData = playlist.slice(0, 5);
-    console.log(slicedData)
 
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
@@ -49,16 +48,16 @@ const Card = ({ playlist }) => {
                                 alt="f"
                                 className="img"
                             />
-                            <NavLink to={`/playlist/${playlist.encodeId}`} className="img_overlay">
+                            <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
                                 <div className="img_overlay">
                                     <div className="img_overlay_group_btn">
-                                        <Like_heart id={playlist.encodeId} type={'playlist'} />
+                                        <Like_heart id={playlist.playlistId} type={'playlist'} />
 
 
 
                                         <div
                                             className="nav-link list_nav_item"
-                                            onClick={(e) => handlePlayPlaylist(e, playlist.encodeId)}
+                                            onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
                                         >
                                             
                                                 <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
@@ -72,7 +71,7 @@ const Card = ({ playlist }) => {
                             </NavLink>
                         </div>
 
-                        <NavLink to={`/playlist/${playlist.encodeId}`} className="playlist_name">
+                        <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
                             {playlist.playlistname}
                         </NavLink>
                     </div>
@@ -88,14 +87,14 @@ const Card = ({ playlist }) => {
                                 alt="f"
                                 className="img"
                             />
-                            <NavLink to={`/playlist/${playlist.encodeId}`} className="img_overlay">
+                            <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
                                 <div className="img_overlay">
                                     <div className="img_overlay_group_btn" onClick={(e)=>e.preventDefault()}>
-                                        <Like_heart id={playlist.encodeId} type={'playlist'} />
+                                        <Like_heart id={playlist.playlistId} type={'playlist'} />
 
                                         <div
                                             className="nav-link list_nav_item"
-                                            onClick={(e) => handlePlayPlaylist(e, playlist.encodeId)}
+                                            onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
                                         >
                                             
                                                 <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
@@ -109,7 +108,7 @@ const Card = ({ playlist }) => {
                             </NavLink>
                         </div>
 
-                        <NavLink to={`/playlist/${playlist.encodeId}`} className="playlist_name">
+                        <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
                             {playlist.sortDescription ? playlist.sortDescription : playlist.title}
                         </NavLink>
                     </div>

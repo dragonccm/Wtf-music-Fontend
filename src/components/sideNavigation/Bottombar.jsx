@@ -298,6 +298,7 @@ const Bottombar = () => {
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
   const songInfo = useSelector((state) => state.getSongData.inforSong);
+  console.log(songInfo)
   const currentMusicIndex = useSelector((state) => state.getSongData.currentMusicIndex);
   // const [currentMusicIndex,setCurrentMusicIndex] = useState(0)
   // useEffect(() => {
@@ -337,12 +338,12 @@ const Bottombar = () => {
     songInfo !== undefined &&
     songInfo.infor.lyricsString
   ) {
-    haha = songInfo.infor.lyricsString.map((sentence) => {
+    haha = songInfo.infor.lyricsString.length>0 ? songInfo.infor.lyricsString.map((sentence) => {
       const startTime = sentence.words[0].startTime;
       const endTime = sentence.words[sentence.words.length - 1].endTime;
       const data = sentence.words.map((word) => word.data).join(" ");
       return { startTime, endTime, data };
-    });
+    }):'';
 
   } else {
     // console.log("BOTTOM BAR PLAYING NULLL");
@@ -521,17 +522,17 @@ const Bottombar = () => {
   let oldUpdateTimeFunc;
   const handleListen = (e) => {
     // Lưu tham chiếu đến hàm updateTime hiện tại
-    
+
     updateTime(e)
     console.log('addd');
   };
-  
+
   const handleStop = (e) => {
     // Xóa event listener cho sự kiện timeupdate
     e.target.removeEventListener('timeupdate', oldUpdateTimeFunc);
     console.log('xoá');
   };
-  
+
 
 
   function updateTime(e) {
@@ -704,23 +705,23 @@ const Bottombar = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="item">
+                    {songInfo.infor.album !== undefined && <div className="item">
                       <h5>Album</h5>
                       <div className="content">
 
                         <a href="/album/">{songInfo.infor.album ? songInfo.infor.album.name : ''}</a>
                       </div>
-                    </div>
-                    <div className="item">
+                    </div>}
+                    {songInfo.infor.composers.length > 0 && <div className="item">
                       <h5>Sáng tác</h5>
                       <div className="content">
-                        {<a href={"/artists/" + songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'Jack-J97'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : 'Jack-J97'}</a>}
+                        {<a href={"/artists/" + songInfo.infor.composers &&songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'Jack-J97'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : 'Jack-J97'}</a>}
                       </div>
-                    </div>
+                    </div>}
                     <div className="item">
                       <h5>Thể loại</h5>
                       <div className="content">
-                        {<a href={"/artists/" + songInfo.infor.genres[0].alias} >{songInfo.infor.genres[0].name}</a>}
+                        {<a href={"/artists/" + songInfo.infor.genres[0].id} >{songInfo.infor.genres[0].genrename}</a>}
                       </div>
                     </div>
                     <div className="item">

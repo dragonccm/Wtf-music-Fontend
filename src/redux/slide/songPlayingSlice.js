@@ -5,11 +5,14 @@ import { addHisFetch } from "../../services/upDateHService";
 export const fetchSongPlaying = createAsyncThunk(
   "getSongPlaying",
   async (id) => {
-    const response = await getSongData(id);
     await addHisFetch({
       id: id,
       type:"song"
     })
+    const response = await getSongData(id);
+    console.log(response)
+
+   
     return response;
   }
 );

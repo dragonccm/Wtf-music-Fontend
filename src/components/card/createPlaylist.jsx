@@ -25,11 +25,11 @@ const CreatePlaylist = ({ idSongs ,type}) => {
         }
     }, [dispatch, isAuthenticated])
 
-    if (!userPlaylist) {
-        return (
-            <div className="load">skfjfjk</div>
-        )
-    }
+    // if (!userPlaylist) {
+    //     return (
+    //         <div className="load">skfjfjk</div>
+    //     )
+    // }
     const handlePushSong = async (playlistId) => {
         const response = await adSongToPlaylist({
             playlistId: playlistId,
@@ -81,9 +81,7 @@ const CreatePlaylist = ({ idSongs ,type}) => {
         >
             {close => (
                 <div className="menu-plalist">
-                    {userPlaylist.length < 1 ? (
-                        <button className="menu-item">chưa có PlayList</button>
-                    ) : (
+                    {userPlaylist.length >= 1 && (
                         userPlaylist.map((data) =>
                              (
                                     <button

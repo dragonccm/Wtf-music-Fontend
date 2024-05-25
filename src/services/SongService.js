@@ -1,50 +1,44 @@
 import { songInfo, songUrl, songLyric } from "../controller/firstfetch";
 import { cloneSongsService } from "../services/songCloneService";
 export const getSongData = async (Songid) => {
-  // console.log('okkkkkkkkkkkkkkkkkkkkkkkkkk'+Songid);
+  console.log("okkkkkkkkkkkkkkkkkkkkkkkkkk" + Songid);
   if (Songid) {
     try {
-
-      const songDetailResult = await songInfo(Songid);
-      const songUrlResult = await songUrl(Songid);
+      const dataa = await songInfo(Songid);
+      const songDetailResult = dataa.DT;
+      // const songUrlResult = await songUrl(Songid);
       const songLyricsResult = await songLyric(Songid);
-      const id = Songid;
-      // console.log(id)
-      if (songDetailResult.err === 0) {
-        const genres = songDetailResult.data.genres ? songDetailResult.data.genres.map((genre) => ({
-          id: genre.id,
-          name: genre.name,
-          alias: genre.alias
-        })) : ['undefined', 'undefined', 'undefined'];
-        const like = songDetailResult.data.like;
-        const listen = songDetailResult.data.listen;
-        const artistInfo = songDetailResult.data.artists ? songDetailResult.data.artists.map((artist) => ({
-          id: artist.id,
-          name: artist.name,
-          alias: artist.alias,
-        })) : [''];
-        const composers = songDetailResult.data.composers ? songDetailResult.data.composers.map((composer) => ({
-          id: composer.id,
-          name: composer.name,
-          alias: composer.alias,
-        })) : [];
-        const alias = songDetailResult.data?.alias || "Unknown Artist";
-        const duration = songDetailResult.data?.duration || "Unknown Artist";
+      const id = songDetailResult.data.song.id;
+      console.log(songDetailResult);
+      if (songDetailResult) {
+        const genres = songDetailResult.data.genres?songDetailResult.data.genres
+          : ["undefined", "undefined", "undefined"];
+        const like = songDetailResult.data.song.like;
+        const listen = songDetailResult.data.song.listen;
+        const artistInfo = songDetailResult.data.song.artists
+          ? songDetailResult.data.song.artists
+          : [""];
+        const composers = songDetailResult.data.song.composers
+          ? songDetailResult.data.song.composers
+          : [];
+        const alias = songDetailResult.data.song.alias?songDetailResult.data.song.alias : "Unknown Artist";
+        const duration = songDetailResult.data.song.duration || 20;
 
-
-        const songname = songDetailResult.data?.title || "Untitled Song";
+        const songname = songDetailResult.data.song.songname || "Untitled Song";
         const img =
-          songDetailResult.data?.thumbnailM ||
+          songDetailResult.data.song.thumbnail ||
           "https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg";
 
         const song =
-          songUrlResult.data?.[128] ||
+        songDetailResult.data.song.songLink ||
           "https://a128-z3.zmdcdn.me/c2e3abd902697240cf99ffb93e9e38f3?authen=exp=1712376116~acl=/c2e3abd902697240cf99ffb93e9e38f3/*~hmac=d9866bb2a2216c3ce17a63244b18dde1";
-        const Ly = songLyricsResult.data.sentences;
+        const Ly = songDetailResult.data.song.lyric;
+        const Li = songLyricsResult.data.sentences;
+
         // const jj = await cloneSongsService(
         //   {
         //     id: id,
-        //     img: img,
+        //     thumbnail: img,
         //     songname: songname,
         //     artists: artistInfo,
         //     alias: alias,
@@ -52,14 +46,32 @@ export const getSongData = async (Songid) => {
         //     listen: listen,
         //     like: like,
         //     duration: duration,
-        //     lyric: Ly,
+        //     lyric: Li,
         //     genresid: [
         //       "IWZ9Z097",
         //       "IWZ9Z09F",
-        //       "IWZ9Z086"
+        //       "IWZ9Z087"
         //     ],
         //   })
-        // console.log(jj)
+        console.log({
+          id: id,
+          thumbnail: img,
+          songname: songname,
+          artists: artistInfo,
+          alias: alias,
+          songLink: song,
+          listen: listen,
+          like: like,
+          duration: duration,
+          lyric: Li,
+          genresid: [
+            "IWZ9Z097",
+            "IWZ9Z09F",
+            "IWZ9Z087"
+          ],
+        })
+     
+
         return {
           id,
           img,
@@ -72,7 +84,7 @@ export const getSongData = async (Songid) => {
           duration,
           lyricsString: Ly,
           composers,
-          genres
+          genres,
         };
       } else {
         // const jj = await cloneSongsService(
@@ -94,28 +106,25 @@ export const getSongData = async (Songid) => {
         //     ],
         //   })
         // console.log(jj)
-        return {
-          id: '1',
-          img: '1',
-          songname: '1',
-          artistInfo: '1',
-          alias: '1',
-          song: '1',
-          listen: '1',
-          like: '1',
-          duration: '1',
-          lyricsString: '1',
-          composers: '1',
-          genres: '1'[
-            "IWZ9Z097",
-            "IWZ9Z09F"
-          ],
+        console.log("jahahahah");
 
-        }
+        return {
+          id: "1",
+          img: "1",
+          songname: "1",
+          artistInfo: "1",
+          alias: "1",
+          song: "1",
+          listen: "1",
+          like: "1",
+          duration: "1",
+          lyricsString: "1",
+          composers: "1",
+          genres: "1"[("IWZ9Z097", "IWZ9Z09F")],
+        };
       }
     } catch (error) {
       console.error("Error loading song data:", error);
-
     }
   } else {
     return {

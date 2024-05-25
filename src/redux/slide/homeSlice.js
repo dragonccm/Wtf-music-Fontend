@@ -35,17 +35,17 @@ export const homeSlice = createSlice({
         state.isError = false;
       })
       .addCase(fetchHome.fulfilled, (state, action) => {
-        state.dataHome = action.payload;
+        state.dataHome = action.payload.url;
         state.banner = state.dataHome.items[0].items;
 
-        state.newRelease = state.dataHome.items[2].items;
-        state.songHot = state.dataHome.items[11].items;
-        state.songRemix = state.dataHome.items[4].items;
-        state.songChill = state.dataHome.items[3].items;
-        state.songSad = state.dataHome.items[5].items;
-        state.top100 = state.dataHome.items[9].items;
-        state.albumHot = state.dataHome.items[11].items;
-        state.hNewrelease = state.dataHome.items[6].items;
+        state.newRelease = action.payload.newRelease;
+        state.songHot = action.payload.songHot;
+        state.songRemix = action.payload.songRemix;
+        state.songChill = action.payload.songChill;
+        state.songSad = action.payload.songSad;
+        state.top100 = action.payload.songTop100;
+        state.albumHot = action.payload.albumHot;
+        state.hNewrelease = action.payload.songRating;
         state.isLoading = false;
         state.isError = false;
       })

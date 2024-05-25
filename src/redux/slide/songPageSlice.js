@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getSongInfor } from "../../services/SongInforService";
+import { getSongData } from "../../services/SongService";
 
 export const fetchPageSong = createAsyncThunk(
   'music/getSongData',
   async (id) => {
-    const response = await getSongInfor(id)
+    const response = await getSongData(id)
     return response
   },
 )

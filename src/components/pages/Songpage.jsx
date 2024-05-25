@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlay, faShare } from '@fortawesome/free-solid-svg-icons'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { faHeart, faSquarePlus, faPlay, faLink } from '@fortawesome/free-solid-svg-icons'
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 // import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import { fetchPageSong } from '../../redux/slide/songPageSlice'
@@ -16,21 +16,33 @@ import Loading from "../sideNavigation/mascot_animation";
 import Card from '../card/playlist_card'
 import CreatePlaylist from "../card/createPlaylist";
 import Like_heart from "../card/like";
+import Col3Layout from "../card/col_3_layout";
 
+import { songPage } from "../../controller/song"
 const Songpage = () => {
-
+  const dispatch = useDispatch()
 
   const { id } = useParams();
+  const [data, setData] = useState({});
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchPageSong(id));
-  }, [id]);
-
-  const currSongData = useSelector((state) => state.songPage.pageData);
-  const isLoading = useSelector((state) => state.songPage.isLoading);
-  if (isLoading || !currSongData || !Object.keys(currSongData).length > 0 || !currSongData.img) {
+  useEffect( () => {
+    const fetchData = async () => {
+      const response = await fetchSongPage(id);
+      setData(response);
+      console.log(response);
+    };
+  
+    fetchData();
+  }, []);
+  const fetchSongPage = async (id) => {
+    try {
+      const response = await songPage(id);
+      return  response
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  if (!data.DT) {
     return <div><Loading /></div>;
   }
   const handlePlaying = (e, id) => {
@@ -70,18 +82,18 @@ const Songpage = () => {
       <div className="songpage_list_head">
 
         <div className="songpage_left_head">
-          <img src={currSongData.img} alt="f" />
+          <img src={data.DT.song.thumbnail} alt="f" />
         </div>
 
         <div className="songpage_mid_head">
           <h5>Bài hát</h5>
-          <h1 className="songpage_list_name">{currSongData.songname}</h1>
+          <h1 className="songpage_list_name">{data.DT.song.songname}</h1>
           <p className="songpage_info">
 
-            <div className="songpage_user_name">{currSongData.artistInfo[0].name}</div>
+            <div className="songpage_user_name">{data.DT.song.artists[0].name}</div>
 
-            <div className="songpage_total_song">{currSongData.like > 1000 ? currSongData.like / 1000 + 'k' : currSongData.like} người yêu thích</div>
-            <div className="songpage_total_time">{String(Math.floor(currSongData.duration / 60)).padStart(2, "0") + ':' + String(currSongData.duration % 60).padStart(2, "0")}</div>
+            <div className="songpage_total_song">{data.DT.song.like > 1000 ? data.DT.song.like / 1000 + 'k' : data.DT.song.like} người yêu thích</div>
+            <div className="songpage_total_time">{String(Math.floor(data.DT.song.duration / 60)).padStart(2, "0") + ':' + String(data.DT.song.duration % 60).padStart(2, "0")}</div>
           </p>
         </div>
       </div>
@@ -115,12 +127,12 @@ const Songpage = () => {
         <div className="r_element">
           <div className="r_element_item">
             <h1>Bài hát liên quan </h1>
-            <Card playlist={usserplaylist} />
+            <Col3Layout data={data.DT.songRelated} />
           </div>
 
           <div className="r_element_item">
-            <h1>Cùng thể loại</h1>
-            <Card playlist={usserplaylist} />
+            <h1>Playlist liên quan</h1>
+            <Card playlist={data.DT.playlistRelated} />
           </div>
 
         </div>

@@ -59,10 +59,10 @@ const HomeRating = ({ data }) => {
            <div className="ratimg_item" key={'lala'+index}>
            <div className="rating_item_wrap">
              <div className="ratimg_item_img">
-               <img src={item.thumbnailM} alt="f"></img>
+               <img src={item.thumbnail} alt="f"></img>
                <div className="img_overlay">
                  <div className="img_overlay_group_btn">
-                   <NavLink to="/song/Z7I9OC70" onClick={(e)=>handlePlaying(e,item.encodeId)}  className="nav-link list_nav_item">
+                   <NavLink to="/song/" onClick={(e)=>handlePlaying(e,item.id)}  className="nav-link list_nav_item">
                      <FontAwesomeIcon icon={faCirclePlay} />
                    </NavLink>
                  </div>
@@ -70,7 +70,7 @@ const HomeRating = ({ data }) => {
              </div>
              <div className="ratimg_item_content">
                <div className="ratimg_item_content_a">
-                  <div className="ratimg_item_content_name">{item.title }</div>
+                  <div className="ratimg_item_content_name">{item.songname }</div>
                   <div className="ratimg_item_content_artist">
                     {item.artists.map(
                     (artist, index) => (
@@ -97,7 +97,7 @@ const HomeRating = ({ data }) => {
                    #{index+1}
                  </div>
                  <div className="rating_date">
-                   {moment.unix(item.releaseDate).format('DD.MM.YYYY')}
+                   {moment.unix(item.createdAt).format('DD.MM.YYYY')}
                  </div>
                </div>
              </div>

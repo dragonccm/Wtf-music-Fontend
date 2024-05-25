@@ -23,7 +23,7 @@ const Playlistpage = () => {
   const dispatch = useDispatch();
   const [playlist, setPlaylist] = useState([])
   const currData = useSelector((state) => state.Authentication);
-  const nowPlaylist = useSelector((state) => state.playlist );
+  const nowPlaylist = useSelector((state) => state.playlist);
 
 
   useEffect(() => {
@@ -54,14 +54,14 @@ const Playlistpage = () => {
 
   }
 
-  const handlePlayPlaylist = async() => {
+  const handlePlayPlaylist = async () => {
     dispatch(fetchPlayList(id));
     dispatch(fetchSongPlaying(playlist.song.items[0].encodeId))
     dispatch(update(0))
     localStorage.setItem('playlistID', id)
     await addHisFetch({
       id: id,
-      type:"playlist",
+      type: "playlist",
     })
   };
 
@@ -74,13 +74,11 @@ const Playlistpage = () => {
             <div className="left_head">
               <img
                 src={playlist.thumbnailM}
-                alt="f"
               />
-              {playlist.encodeId == nowPlaylist.playlist.data.encodeId ?
-               <Play_animation />
-                :
-                <div>{ nowPlaylist.playlist.data.encodeId}</div>
-            }
+              {/* {nowPlaylist &&
+                playlist.encodeId === nowPlaylist.playlist.data.encodeId &&
+                <Play_animation />
+              } */}
             </div>
             <div className="mid_head">
               <h1 className="list_name">{playlist.title}</h1>
@@ -124,7 +122,7 @@ const Playlistpage = () => {
                   <button className="menu-item" onClick={(e) => e.preventDefault()}><CreatePlaylist
                     idSongs={playlist.song.items.map((item) => {
                       return item.encodeId
-                    })}  /></button>
+                    })} /></button>
 
                   <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
                   <button className="menu-item"><FontAwesomeIcon icon={faPlay} /> Phát Tất Cả</button>
@@ -152,9 +150,9 @@ const Playlistpage = () => {
                 }
                 onPlaylist={{
                   idPlaylist: playlist.encodeId,
-                  isPlay : true
+                  isPlay: true
                 }
-                 
+
                 }
               />
             ))}

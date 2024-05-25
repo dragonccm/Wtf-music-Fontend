@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 const SongCard = ({ element }) => {
   const dispatch = useDispatch();
+  const currData = useSelector((state) => state.Authentication);
+
   const handlePlaying = (e, id) => {
     e.preventDefault();
     dispatch(fetchSongPlaying(id));
@@ -19,14 +21,14 @@ const SongCard = ({ element }) => {
 
       <div className="playlist_item_img">
 
-        <img src={element.thumbnailM ? element.thumbnailM : element.thumb} alt="Playlist" />
-        {element.encodeId === songInfo.infor.id ?
+        <img src={element.thumbnail ? element.thumbnail : currData.defaultUser.account.avt} alt="song" />
+        {element.id === songInfo.infor.id ?
           <Play_animation />
           :
 
           <div className="img_overlay">
             <div className="img_overlay_group_btn">
-              <NavLink to={element.encodeId} onClick={(e) => handlePlaying(e, element.encodeId ? element.encodeId : element.id)} className="nav-link list_nav_item">
+              <NavLink to={element.id} onClick={(e) => handlePlaying(e, element.id)} className="nav-link list_nav_item">
                 <FontAwesomeIcon icon={faPlay} />
               </NavLink>
             </div>
@@ -38,8 +40,8 @@ const SongCard = ({ element }) => {
       <div className="playlist_item_content">
         <div className="content_name">
           <NavLink
-            to={"/song/" + (element.encodeId ? element.encodeId : element.id)}>
-            {element.title ? element.title : element.name}
+            to={"/song/" + (element.id)}>
+            {element.songname ? element.songname : element.title}
           </NavLink>
 
         </div>

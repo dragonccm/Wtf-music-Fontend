@@ -70,9 +70,10 @@
             a {
                 max-width: 240px;
                 display: block;
-                font-size: 1.6rem;
-                font-weight: 700;
-                color: var(--footer-text);
+                font-size: 15px;
+                font-family: Inter, sans-serif;
+                font-weight: 500;
+                color: var(--text-1);
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -90,6 +91,7 @@
             color: var(--text-2);
 
             a {
+                font-family: Inter, sans-serif;
                 margin-left: 2px;
                 color: var(--text-2);
                 font-size: 12px;
