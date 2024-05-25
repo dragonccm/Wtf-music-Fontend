@@ -47,7 +47,7 @@ const AppRoutes = (props) => {
             <RightSidebar />
             <div
                 className="main_page"
-                style={{ height: isPlaying ? "calc(100vh - 92px)" : "100%" }}
+                style={{ height: isPlaying ? "calc(100vh - 92px)" : "100vh" }}
             >
                 <Header />
                 <section className={`main_page_container ${theme}`}>

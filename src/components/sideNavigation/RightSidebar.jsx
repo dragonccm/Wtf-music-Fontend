@@ -39,7 +39,7 @@ const RightSidebar = () => {
     return (
         <div
             className="rightsidebar"
-            style={{ height: isPlaying ? "calc(100vh - 92px)" : "100%" }}
+            style={{ height: isPlaying ? "calc(100vh - 92px)" : "100vh" }}
         >
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container style={{ padding: "0" }}>
