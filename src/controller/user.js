@@ -10,7 +10,6 @@ const EditUserInfo = (infor) => {
   formData.append("email", infor.email);
   formData.append("birthday", infor.birthday);
   formData.append("file", infor.file);
-
   return axios.post(`/api/editInfor`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
