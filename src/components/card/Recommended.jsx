@@ -11,7 +11,6 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, israting }) => {
     setShowAll(!showAll);
   };
   const validDatas = Array.isArray(datas) ? datas : [];
-
   return (
     <>
       {/* lable */}
@@ -26,6 +25,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, israting }) => {
         {validDatas
           .slice(0, showAll ? validDatas.length : maxItemsToShow)
           .map((data, index) => (
+            data &&
             <SongCard2
               key={index} // Thêm key ở đây
               data={data}
