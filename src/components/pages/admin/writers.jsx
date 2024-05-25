@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const WritersAdmin = () => {
+const WriterAdmin = () => {
     const [musicSingers, setMusicSingers] = useState([]); // Danh sách thể loại nhạc
     const [selectedSinger, setSelectedSinger] = useState(null); // Thể loại đang được chọn
     const [editForm, setEditForm] = useState({
@@ -424,4 +424,4 @@ const WritersAdmin = () => {
     );
 };
 
-export default WritersAdmin;
+export default WriterAdmin;

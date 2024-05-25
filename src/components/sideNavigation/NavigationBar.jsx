@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import icon_Home from "../../img/music-house-fill-svgrepo-com.svg";
 import icon_Category from "../../img/category-admin.svg";
+import icon_Playlist from "../../img/music-folder-svgrepo-com.svg";
 import icon_Writer from "../../img/writer-admin.svg";
 import icon_User from "../../img/user-admin.svg";
 import icon_Singer from "../../img/singer-admin.svg";
@@ -88,6 +89,22 @@ const NavigationBar = () => {
                                     />
                                 </div>
                                 <span>Thể loại</span>
+                            </NavLink>
+                            <NavLink
+                                to="/admin/playlist"
+                                className="nav-link list_nav_item"
+                            >
+                                <div className="icon_list_nav_item">
+                                    <ReactSVG
+                                        beforeInjection={(svg) => {
+                                            svg.classList.add(
+                                                "icon_list_nav_item_svg"
+                                            );
+                                        }}
+                                        src={icon_Playlist}
+                                    />
+                                </div>
+                                <span>Danh sách phát</span>
                             </NavLink>
                             {/* <NavLink
                                 to="/admin/writer"

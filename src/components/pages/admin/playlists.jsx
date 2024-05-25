@@ -15,7 +15,7 @@ import {
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 
-const CategoryAdmin = () => {
+const PlaylistAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
@@ -151,11 +151,11 @@ const CategoryAdmin = () => {
             </div>
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <h2 className="fw-normal fs-1 heading-admin">
-                    Danh sách thể loại
+                    Danh sách phát nhạc
                 </h2>
                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
                     <button className="btn fs-4 py-2" onClick={openCreateModal}>
-                        Thêm mới thể loại
+                        Thêm mới danh sách
                     </button>
                 </div>
             </div>
@@ -168,7 +168,7 @@ const CategoryAdmin = () => {
                         <input
                             id="search-kind"
                             type="text"
-                            placeholder="Nhập thể loại"
+                            placeholder="Nhập danh sách"
                             required
                             className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
                             onChange={handleserch}
@@ -233,7 +233,7 @@ const CategoryAdmin = () => {
                             {Math.min(currentPage * itemsPerPage, maxpage)}
                         </span>{" "}
                         trong <span style={{ color: "red" }}>{maxpage}</span>{" "}
-                        thể loại
+                        bài hát
                     </div>
                 </div>
                 <div className="col-6 pe-5 pagination-numbers">
@@ -295,16 +295,16 @@ const CategoryAdmin = () => {
                 >
                     {/* Nội dung của pop-up form chỉnh sửa */}
                     <h2 className="text-center opacity-75 mb-5 fs-2">
-                        Chỉnh sửa thông tin Thể loại
+                        Chỉnh sửa thông tin Danh sách
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-name">
+                            <label className="fs-5 mb-2" htmlFor="edit-name">
                                 id:
                             </label>
                             <input
                                 type="text"
-                                className="fs-4 form-control"
+                                className="fs-5 form-control"
                                 id="edit-name"
                                 name="id"
                                 placeholder={editForm.genreId}
@@ -313,12 +313,12 @@ const CategoryAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-email">
-                                Tên thể loại:
+                            <label className="fs-5 mb-2" htmlFor="edit-email">
+                                tên thể loại:
                             </label>
                             <input
                                 type="text"
-                                className="fs-4 form-control"
+                                className="fs-5 form-control"
                                 id="edit-email"
                                 name="songname"
                                 placeholder={editForm.genrename}
@@ -326,7 +326,7 @@ const CategoryAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                            <label className="fs-5 mb-2" htmlFor="edit-profile">
                                 thumbnail:
                             </label>
                             {imageUrl && (
@@ -368,16 +368,16 @@ const CategoryAdmin = () => {
                     overlayClassName="modal-overlay-1"
                 >
                     <h2 className="text-center opacity-75 mb-5 fs-2">
-                        Tạo mới Thể loại
+                        Tạo mới Danh sách
                     </h2>
                     <form>
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="create-name">
+                            <label className="fs-5 mb-2" htmlFor="create-name">
                                 Tên Thể loại:
                             </label>
                             <input
                                 type="text"
-                                className="fs-4 form-control"
+                                className="fs-5 form-control"
                                 id="create-name"
                                 name="genrename"
                                 value={createForm.genrename}
@@ -385,7 +385,7 @@ const CategoryAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                            <label className="fs-5 mb-2" htmlFor="edit-profile">
                                 thumbnail:
                             </label>
                             {imageUrl && (
@@ -399,7 +399,7 @@ const CategoryAdmin = () => {
                             <ImageUploader onUpload={handleUpload} />
                             {/* <input
                                 type="file"
-                                className="fs-4 form-control"
+                                className="fs-5 form-control"
                                 id="thumbnail"
                                 value={editForm.thumbnail}
                                 onChange={handleEditFormChange}
@@ -427,4 +427,4 @@ const CategoryAdmin = () => {
     );
 };
 
-export default CategoryAdmin;
+export default PlaylistAdmin;
