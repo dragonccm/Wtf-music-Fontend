@@ -495,6 +495,7 @@ const SingerAdmin = () => {
 
 
 
+
                         <div className="mb-4 form-group">
                             <label
                                 style={{ width: "13%" }}
@@ -505,13 +506,13 @@ const SingerAdmin = () => {
                             </label>
                             <button
                                 className="btn btn-outline-primary btn-lg"
-                                onClick={(e) => openArModal(e, editForm)}
+                                onClick={(e) => openSongModal(e, editForm)}
                             >
                                 {" "}
                                 chọn songListId
                             </button>
                             <div class="row align-items-start">
-                                <p>{editForm.songListId && editForm.songListId.map((d) => (<button onClick={(e) => handleRemoveArTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <p>{editForm.songListId && editForm.songListId.map((d) => (<button onClick={(e) => handleRemoveSongTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
                                 <Modal
                                     isOpen={isSongModalOpen}
                                     onRequestClose={closeSongModal}
@@ -534,7 +535,7 @@ const SingerAdmin = () => {
                                                 <p value={data.id}>
                                                     <button
                                                         onClick={(e) =>
-                                                            handleAddArTag(
+                                                            handleAddSongTag(
                                                                 e,
                                                                 data.id
                                                             )
@@ -554,6 +555,10 @@ const SingerAdmin = () => {
                                 </Modal>
                             </div>
                         </div>
+
+
+
+
 
 
                         <div className="mb-4 form-group">
@@ -562,75 +567,59 @@ const SingerAdmin = () => {
                                 className="fs-4 mb-2 me-3"
                                 htmlFor="create-date"
                             >
-                                songListId:
-                            </label>
-                            <button
-                                className="btn btn-outline-primary btn-lg"
-                                onClick={(e) => openArModal(e, editForm)}
-                            >
-                                {" "}
-                                chọn songListId
-                            </button>
-                            <div class="row align-items-start">
-                                <p>{editForm.songListId && editForm.songListId.map((d) => (<button onClick={(e) => handleRemoveArTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
-                                <Modal
-                                    isOpen={isSongModalOpen}
-                                    onRequestClose={closeSongModal}
-                                    contentLabel="Edit Music Kind"
-                                    className="modal-kindMusic"
-                                    overlayClassName="modal-overlay-1"
-                                >
-                                    <input
-                                        type="text"
-                                        className="fs-4 form-control col"
-                                        id="create-date"
-                                        name="artists"
-                                        // value={createForm.artists}
-                                        onChange={handSongsearch}
-                                    />
-                                    <p>{editForm.songListId}</p>
-                                    <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
-                                        {searchSong ? (
-                                            searchSong.map((data) => (
-                                                <p value={data.id}>
-                                                    <button
-                                                        onClick={(e) =>
-                                                            handleAddArTag(
-                                                                e,
-                                                                data.id
-                                                            )
-                                                        }
-                                                        className="btn btn-outline-primary btn-lg"
-                                                    >
-                                                        {data.songname}
-                                                    </button>
-                                                </p>
-                                            ))
-                                        ) : (
-                                            <option value="sds">
-                                                undefine
-                                            </option>
-                                        )}
-                                    </div>
-                                </Modal>
-                            </div>
-                        </div>
-
-                        <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-date">
                                 playListId:
                             </label>
-                            <input
-                                type="text"
-                                className="fs-4 form-control"
-                                id="edit-date"
-                                name="listen"
-                                placeholder={editForm.playListId}
-                                onChange={handleEditFormChange}
-                                readOnly
-                            />
+                            <button
+                                className="btn btn-outline-primary btn-lg"
+                                onClick={(e) => openPlaylistModal(e, editForm)}
+                            >
+                                {" "}
+                                chọn playListId
+                            </button>
+                            <div class="row align-items-start">
+                                <p>{editForm.playListId && editForm.playListId.map((d) => (<button onClick={(e) => handleRemovePlaylistTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <Modal
+                                    isOpen={isPlaylistModalOpen}
+                                    onRequestClose={closePlaylistModal}
+                                    contentLabel="Edit Music Kind"
+                                    className="modal-kindMusic"
+                                    overlayClassName="modal-overlay-1"
+                                >
+                                    <input
+                                        type="text"
+                                        className="fs-4 form-control col"
+                                        id="create-date"
+                                        name="artists"
+                                        // value={createForm.artists}
+                                        onChange={handPlaylistsearch}
+                                    />
+                                    <p>{editForm.playListId}</p>
+                                    <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                        {searchPalylist ? (
+                                            searchPalylist.map((data) => (
+                                                <p value={data.id}>
+                                                    <button
+                                                        onClick={(e) =>
+                                                            handleAddPlaylistTag(
+                                                                e,
+                                                                data.playListId
+                                                            )
+                                                        }
+                                                        className="btn btn-outline-primary btn-lg"
+                                                    >
+                                                        {data.playlistname}
+                                                    </button>
+                                                </p>
+                                            ))
+                                        ) : (
+                                            <option value="sds">
+                                                undefine
+                                            </option>
+                                        )}
+                                    </div>
+                                </Modal>
+                            </div>
                         </div>
-
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
