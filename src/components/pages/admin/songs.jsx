@@ -14,10 +14,15 @@ import {
 } from "../../../services/restSongService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
+import AudioUploader from "../../../components/pages/profile/Profile-setting/upladAudio";
 
 const SongAdmin = () => {
     const [file, setFile] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
+
+    const [audioFile, setAudioFile] = useState(null);
+    const [audioUrl, setAudioUrl] = useState("");
+
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     // các state edit
@@ -25,8 +30,8 @@ const SongAdmin = () => {
         id: "",
         songname: "",
         thumbnail: "",
-        artists: "",
-        genresid: "",
+        artists: [],
+        genresid: [],
         songLink: "",
         like: "",
         listen: "",
@@ -34,18 +39,15 @@ const SongAdmin = () => {
     const [createForm, setCreateForm] = useState({
         songname: "",
         thumbnail: "",
-        artists: "",
-        genresid: "",
+        artists: [],
+        genresid: [],
         songLink: "",
         lyric: "",
     });
-    const [editSongGenre, seteditSongGenre] = useState([]);
-    const [editAr, seteditAr] = useState([]);
     // phân trang
     const [currentPage, setCurrentPage] = useState(1);
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
     // tìm kiếm
-    const [search, setSearch] = useState([]);
     const [searchGenre, setSearchGenre] = useState([]);
     const [searchAr, setSearchAr] = useState([]);
     // quản lý modal
@@ -64,14 +66,20 @@ const SongAdmin = () => {
     const handleUpload = (file) => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
-        console.log("file img",file)
+        console.log("file img", file)
     };
-    const itemsPerPage = 20; 
-    
+
+    const handleAudioUpload = (audioFile) => {
+        setAudioFile(audioFile);
+        setAudioUrl(URL.createObjectURL(audioFile));
+        console.log("file audio ", audioFile, audioUrl)
+    };
+    const itemsPerPage = 20;
+
     useEffect(() => {
         fetchMusicSongs();
     }, []);
-    
+
     const fetchMusicSongs = async () => {
         try {
             const response = await adminGetSong(
@@ -85,8 +93,6 @@ const SongAdmin = () => {
     };
     const updateMusicSongs = async (data) => {
         try {
-            data.genresid = editSongGenre;
-            data.artists = editAr;
             data.thumbnail = file;
             await updateSong(data);
         } catch (error) {
@@ -94,8 +100,9 @@ const SongAdmin = () => {
         }
     };
     const createMusicSongs = async (data) => {
-        alert(JSON.stringify(data));
         try {
+            data.thumbnail = file;
+            data.songLink = audioFile;
             await createSong(data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -111,11 +118,11 @@ const SongAdmin = () => {
 
 
 
-    const createMusicKind = async () => {
+    const createMusicKind = async (e) => {
+        e.preventDefault()
         createMusicSongs(createForm);
     };
     const updateMusicKind = async (e) => {
-        e.preventDefault();
         updateMusicSongs(editForm)
     }
     const deleteMusicKind = async (id) => {
@@ -171,17 +178,9 @@ const SongAdmin = () => {
     // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
     const handleEditFormChange = async (e) => {
         const { name, value } = e.target;
-        console.log({
-            ...editForm,
-            [name]: value,
-            artists: editAr,
-            genresid: editSongGenre,
-        });
         setEditForm({
             ...editForm,
             [name]: value,
-            artists: editAr,
-            genresid: editSongGenre,
         });
     };
     const handleCreateFormChange = (e) => {
@@ -212,26 +211,96 @@ const SongAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
+
+    // form edit 
+
     const handleAddGenreTag = (e, id) => {
         e.preventDefault();
-        if (!editSongGenre.includes(id)) {
-            const newEditSongGenre = [...editSongGenre];
-            newEditSongGenre.push(id);
-            seteditSongGenre(newEditSongGenre);
+        if (!editForm.genresid.includes(id)) {
+            editForm.genresid.push(id);
         } else {
             alert("id đã tồn tại");
         }
     };
     const handleAddArTag = (e, id) => {
         e.preventDefault();
-        if (!editAr.includes(id)) {
-            const neweditAr = [...editAr];
-            neweditAr.push(id);
-            seteditAr(neweditAr);
+        if (!editForm.artists.includes(id)) {
+            setEditForm(prevState => ({
+                ...prevState,
+                artists: [...prevState.artists, id],
+            }));
         } else {
             alert("id đã tồn tại");
         }
     };
+    const handleRemoveGenreTag = (e, id) => {
+        e.preventDefault();
+        if (editForm.genresid.includes(id)) {
+            editForm.filter(item => item !== id)
+        } else {
+            alert("id đã tồn tại");
+        }
+    };
+    const handleRemoveArTag = (e, id) => {
+        e.preventDefault();
+        if (editForm.artists.includes(id)) {
+            setEditForm(prevState => ({
+                ...prevState,
+                artists: prevState.artists.filter(item => item !== id),
+            }));
+        } else {
+            alert("id không tồn tại");
+        }
+    }
+
+
+    // form tạo mới 
+    const handleCreateAddGenreTag = (e, id) => {
+        e.preventDefault();
+        if (!createForm.genresid || !createForm.genresid.includes(id)) {
+            setCreateForm((prevState) => ({
+                ...prevState,
+                genresid: [...(prevState.genresid || []), id],
+            }));
+        } else {
+            alert("id đã tồn tại");
+        }
+    };
+    const handleCreateAddArTag = (e, id) => {
+        e.preventDefault();
+        if (!createForm.artists || !createForm.artists.includes(id)) {
+            setCreateForm((prevState) => ({
+                ...prevState,
+                artists: [...(prevState.artists || []), id],
+            }));
+        } else {
+            alert("id đã tồn tại");
+        }
+    };
+    const handleCreateRemoveGenreTag = (e, id) => {
+        e.preventDefault();
+        if (createForm.genresid && createForm.genresid.includes(id)) {
+            setCreateForm((prevState) => ({
+                ...prevState,
+                genresid: prevState.genresid.filter((item) => item !== id),
+            }));
+        } else {
+            alert("id không tồn tại");
+        }
+    };
+    const handleCreateRemoveArTag = (e, id) => {
+        e.preventDefault();
+        if (createForm.artists && createForm.artists.includes(id)) {
+            setCreateForm((prevState) => ({
+                ...prevState,
+                artists: prevState.artists.filter((item) => item !== id),
+            }));
+        } else {
+            alert("id không tồn tại");
+        }
+    };
+
+
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
         <div className="container overflow-x-auto container-admin">
@@ -389,6 +458,9 @@ const SongAdmin = () => {
                 </div>
             </div>
 
+
+
+
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}
             <div className="updateBtn-form-admin">
                 <Modal
@@ -437,31 +509,27 @@ const SongAdmin = () => {
                             {imageUrl && (
                                 <img
                                     src={imageUrl}
-                                    className="avt-img"
+                                    className="avt-img w-25"
                                     alt="Uploaded"
                                 />
                             )}
 
                             <ImageUploader onUpload={handleUpload} />
-                            {/* <input
-                                type="file"
-                                className="fs-5 form-control"
-                                id="thumbnail"
-                                value={editForm.thumbnail}
-                                onChange={handleEditFormChange}
-                            /> */}
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-profile">
-                                songLink:
+                            <label className="fs-4 mb-2" htmlFor="create-email">
+                                file nhạc:
                             </label>
-                            <input
-                                type="file"
-                                className="fs-4 form-control"
-                                id="songLink"
-                                value={editForm.songLink}
-                                onChange={handleEditFormChange}
-                            />
+                            {(audioUrl &&
+                                <>
+                                    <audio controls>
+                                        <source src={audioUrl} type="audio/ogg" />
+                                        <source src={audioUrl} type="audio/mpeg" />
+                                    </audio>
+                                </>
+                            )}
+
+                            <AudioUploader onUpload={handleAudioUpload} />
                         </div>
                         <div className="mb-4 form-group">
                             <label
@@ -479,7 +547,7 @@ const SongAdmin = () => {
                                 chọn nghệ sĩ
                             </button>
                             <div class="row align-items-start">
-                                <p>{editAr}</p>
+                                <p>{editForm.artists && editForm.artists.map((d) => (<button onClick={(e) => handleRemoveArTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
                                 <Modal
                                     isOpen={isArModalOpen}
                                     onRequestClose={closeArModal}
@@ -495,10 +563,10 @@ const SongAdmin = () => {
                                         // value={createForm.artists}
                                         onChange={handarleserch}
                                     />
-                                    <p>{editAr}</p>
+                                    <p>{editForm.artists}</p>
                                     <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
-                                        {searchAr ?(
-                                            searchAr.map((data) =>(
+                                        {searchAr ? (
+                                            searchAr.map((data) => (
                                                 <p value={data.id}>
                                                     <button
                                                         onClick={(e) =>
@@ -522,6 +590,8 @@ const SongAdmin = () => {
                                 </Modal>
                             </div>
                         </div>
+
+
                         <div className="mb-4 form-group">
                             <label
                                 style={{ width: "13%" }}
@@ -538,6 +608,7 @@ const SongAdmin = () => {
                                 {" "}
                                 chọn thể loại
                             </button>
+                            <p>{editForm.genresid && editForm.genresid.map((d) => (<button onClick={(e) => handleRemoveGenreTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
                             <Modal
                                 isOpen={isGenreModalOpen}
                                 onRequestClose={closeGenreModal}
@@ -549,12 +620,11 @@ const SongAdmin = () => {
                                     type="text"
                                     className="fs-4 form-control col"
                                     id="create-date"
-                                    // value={createForm.genresid}
+                                    // value={editForm.genresid}
                                     onChange={handgenreleserch}
                                 />
-                                <p>{editSongGenre}</p>
                                 <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
-                                {searchGenre ? (
+                                    {searchGenre ? (
                                         searchGenre.map((data) => (
                                             <p value={data.genreId}>
                                                 <button
@@ -566,7 +636,7 @@ const SongAdmin = () => {
                                                     }
                                                     className="btn btn-outline-primary btn-lg"
                                                 >
-                                                    {data.playlistname}
+                                                    {data.genrename}
                                                 </button>
                                             </p>
                                         ))
@@ -575,41 +645,13 @@ const SongAdmin = () => {
                                     )}
                                 </div>
                             </Modal>
-                            <p>{editSongGenre}</p>
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-date">
-                                like:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-4 form-control"
-                                id="edit-date"
-                                name="like"
-                                value={editForm.like}
-                                onChange={handleEditFormChange}
-                                readOnly
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-date">
-                                listen:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-4 form-control"
-                                id="edit-date"
-                                name="listen"
-                                value={editForm.listen}
-                                onChange={handleEditFormChange}
-                                readOnly
-                            />
+                            <p>{editForm.genresid && editForm.genresid.map((d) => d)}</p>
                         </div>
 
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
-                                onClick={(e)=>updateMusicKind(e)}
+                                onClick={updateMusicKind}
                             >
                                 Cập nhật
                             </button>
@@ -651,96 +693,156 @@ const SongAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="create-email">
-                                hình ảnh:
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                                thumbnail:
                             </label>
-                            <input
-                                type="file"
-                                className="fs-4 form-control"
-                                id="create-email"
-                                name="thumbnail"
-                                // value={createForm.thumbnail}
-                                onChange={handleCreateFormChange}
-                            />
+                            {imageUrl && (
+                                <img
+                                    src={imageUrl}
+                                    className="avt-img w-25"
+                                    alt="Uploaded"
+                                />
+                            )}
+
+                            <ImageUploader onUpload={handleUpload} />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="create-email">
                                 file nhạc:
                             </label>
-                            <input
-                                type="url"
-                                className="fs-4 form-control"
-                                id="create-email"
-                                name="songLink"
-                                // value={createForm.thumbnail}
-                                onChange={handleCreateFormChange}
-                            />
+                            {(audioUrl &&
+                                <>
+                                    <audio controls>
+                                        <source src={audioUrl} type="audio/ogg" />
+                                        <source src={audioUrl} type="audio/mpeg" />
+                                    </audio>
+                                </>
+                            )}
+
+                            <AudioUploader onUpload={handleAudioUpload} />
                         </div>
+
+
+                        {/* model */}
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="create-date">
+                            <label
+                                style={{ width: "13%" }}
+                                className="fs-4 mb-2 me-3"
+                                htmlFor="create-date"
+                            >
                                 nghệ sĩ:
                             </label>
-                            <div class="row align-items-center">
-                                <input
-                                    style={{ margin: "0px 8px" }}
-                                    type="text"
-                                    className="fs-4 form-control col"
-                                    id="create-date"
-                                    name="artists"
-                                    // value={createForm.artists}
-                                    onChange={handarleserch}
-                                />
-                                <select
-                                    value={createForm.artists}
-                                    class="form-select col"
-                                    aria-label="Default select example"
-                                    name="artists"
-                                    onChange={handleCreateFormChange}
+                            <button
+                                className="btn btn-outline-primary btn-lg"
+                                onClick={(e) => openArModal(e, createForm)}
+                            >
+                                {" "}
+                                chọn nghệ sĩ
+                            </button>
+                            <div class="row align-items-start">
+                                <p>{createForm.artists && createForm.artists.map((d) => (<button onClick={(e) => handleCreateRemoveArTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <Modal
+                                    isOpen={isArModalOpen}
+                                    onRequestClose={closeArModal}
+                                    contentLabel="Edit Music Kind"
+                                    className="modal-kindMusic"
+                                    overlayClassName="modal-overlay-1"
                                 >
-                                    {searchAr ? (
-                                        searchAr.map((data) => (
-                                            <option value={data.id}>
-                                                {data.artistsName}
+                                    <input
+                                        type="text"
+                                        className="fs-4 form-control col"
+                                        id="create-date"
+                                        name="artists"
+                                        // value={createForm.artists}
+                                        onChange={handarleserch}
+                                    />
+                                    <p>{createForm.artists}</p>
+                                    <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                        {searchAr ? (
+                                            searchAr.map((data) => (
+                                                <p value={data.id}>
+                                                    <button
+                                                        onClick={(e) =>
+                                                            handleCreateAddArTag(
+                                                                e,
+                                                                data.id
+                                                            )
+                                                        }
+                                                        className="btn btn-outline-primary btn-lg"
+                                                    >
+                                                        {data.artistsName}
+                                                    </button>
+                                                </p>
+                                            ))
+                                        ) : (
+                                            <option value="sds">
+                                                undefine
                                             </option>
-                                        ))
-                                    ) : (
-                                        <option value="sds">undefine</option>
-                                    )}
-                                </select>
+                                        )}
+                                    </div>
+                                </Modal>
                             </div>
                         </div>
+
+
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="create-email">
+                            <label
+                                style={{ width: "13%" }}
+                                className="fs-4 mb-2 me-3"
+                                htmlFor="create-email"
+                            >
                                 thể loại:
                             </label>
-                            <div class="row align-items-center">
+
+                            <button
+                                className="btn btn-outline-primary btn-lg"
+                                onClick={(e) => openGenreModal(e, createForm)}
+                            >
+                                {" "}
+                                chọn thể loại
+                            </button>
+                            <p>{createForm.genresid && createForm.genresid.map((d) => (<button onClick={(e) => handleCreateRemoveGenreTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                            <Modal
+                                isOpen={isGenreModalOpen}
+                                onRequestClose={closeGenreModal}
+                                contentLabel="Edit Music Kind"
+                                className="modal-kindMusic"
+                                overlayClassName="modal-overlay-1"
+                            >
                                 <input
-                                    style={{ margin: "0px 8px" }}
                                     type="text"
                                     className="fs-4 form-control col"
                                     id="create-date"
                                     // value={createForm.genresid}
                                     onChange={handgenreleserch}
                                 />
-                                <select
-                                    value={createForm.genresid}
-                                    class="form-select col"
-                                    aria-label="Default select example"
-                                    name="genresid"
-                                    onChange={handleCreateFormChange}
-                                >
+                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
                                     {searchGenre ? (
                                         searchGenre.map((data) => (
-                                            <option value={data.genreId}>
-                                                {data.genrename}
-                                            </option>
+                                            <p value={data.genreId}>
+                                                <button
+                                                    onClick={(e) =>
+                                                        handleCreateAddGenreTag(
+                                                            e,
+                                                            data.genreId
+                                                        )
+                                                    }
+                                                    className="btn btn-outline-primary btn-lg"
+                                                >
+                                                    {data.genrename}
+                                                </button>
+                                            </p>
                                         ))
                                     ) : (
-                                        <option value="sds">undefine</option>
+                                        <p value="sds">none</p>
                                     )}
-                                </select>
-                            </div>
+                                </div>
+                            </Modal>
+                            <p>{createForm.genresid && createForm.genresid.map((d) => d)}</p>
                         </div>
+                        {/* model */}
+
+
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="create-email">
                                 lyric:
@@ -755,7 +857,7 @@ const SongAdmin = () => {
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
-                                onClick={createMusicKind}
+                                onClick={(e) => createMusicKind(e)}
                             >
                                 Tạo
                             </button>
