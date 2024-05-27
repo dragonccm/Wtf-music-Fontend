@@ -98,10 +98,7 @@ const SingerAdmin = () => {
         }
     };
     const createMusicSongs = async (data) => {
-        data.avt = imageUrl;
-        data.songListId = editSongArray;
-        data.playListId = editPlaylistArray;
-        console.table(data);
+        data.avt = file;
         try {
             await createArtists(data);
         } catch (error) {
@@ -200,17 +197,6 @@ const SingerAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
-    const handleAddPlaylistTag = (e, id) => {
-        e.preventDefault();
-        if (!editPlaylistArray.includes(id)) {
-            const neweditPlaylistArray = [...editPlaylistArray];
-            neweditPlaylistArray.push(id);
-            seteditPlaylistArray(neweditPlaylistArray);
-        } else {
-            alert("id đã tồn tại");
-        }
-    };
-
     const handSongsearch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
@@ -219,14 +205,54 @@ const SingerAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
-    const handleAddSongTag = (e, id) => {
+
+
+    const handleAddPlaylistTag = (e, id) => {
         e.preventDefault();
-        if (!editSongArray.includes(id)) {
-            const neweditSongArray = [...editSongArray];
-            neweditSongArray.push(id);
-            seteditSongArray(neweditSongArray);
+        if (!createForm.playListId || !createForm.playListId.includes(id)) {
+            setCreateForm((prevState) => ({
+                ...prevState,
+                playListId: [...(prevState.playListId || []), id],
+            }));
         } else {
             alert("id đã tồn tại");
+        }
+    };
+
+    const handleAddSongTag = (e, id) => {
+        e.preventDefault();
+        if (!createForm.songListId || !createForm.songListId.includes(id)) {
+            setCreateForm((prevState) => ({
+                ...prevState,
+                songListId: [...(prevState.songListId || []), id],
+            }));
+        } else {
+            alert("id đã tồn tại");
+        }
+    };
+
+    const handleRemovePlaylistTag = (e, id) => {
+        e.preventDefault();
+        if (createForm.playListId && createForm.playListId.includes(id)) {
+            setCreateForm((prevState) => ({
+                ...prevState,
+                playListId: prevState.playListId.filter((item) => item !== id),
+            }));
+        } else {
+            alert("id không tồn tại");
+        }
+    };
+
+
+    const handleRemoveSongTag = (e, id) => {
+        e.preventDefault();
+        if (createForm.songListId && createForm.songListId.includes(id)) {
+            setCreateForm((prevState) => ({
+                ...prevState,
+                songListId: prevState.songListId.filter((item) => item !== id),
+            }));
+        } else {
+            alert("id không tồn tại");
         }
     };
 
@@ -384,6 +410,9 @@ const SingerAdmin = () => {
                 </div>
             </div>
 
+
+
+
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}
             <div className="updateBtn-form-admin">
                 <Modal
@@ -413,18 +442,17 @@ const SingerAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-email">
-                                avt:
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                                thumbnail:
                             </label>
-                            <input
-                                type="text"
-                                className="fs-4 form-control"
-                                id="edit-email"
-                                name="songname"
-                                placeholder={editForm.avt}
-                                onChange={handleEditFormChange}
+                            <img
+                                src={imageUrl ? imageUrl : editForm.avt}
+                                className="avt-img"
+                                alt="Uploaded"
                             />
+                            <ImageUploader onUpload={handleUpload} />
                         </div>
+
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="edit-profile">
                                 artistsName:
@@ -461,22 +489,133 @@ const SingerAdmin = () => {
                                 name="genresid"
                                 placeholder={editForm.totalFollow}
                                 onChange={handleEditFormChange}
-                            />
-                        </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-date">
-                                songListId:
-                            </label>
-                            <input
-                                type="text"
-                                className="fs-4 form-control"
-                                id="edit-date"
-                                name="like"
-                                placeholder={editForm.songListId}
-                                onChange={handleEditFormChange}
                                 readOnly
                             />
                         </div>
+
+
+
+                        <div className="mb-4 form-group">
+                            <label
+                                style={{ width: "13%" }}
+                                className="fs-4 mb-2 me-3"
+                                htmlFor="create-date"
+                            >
+                                songListId:
+                            </label>
+                            <button
+                                className="btn btn-outline-primary btn-lg"
+                                onClick={(e) => openArModal(e, editForm)}
+                            >
+                                {" "}
+                                chọn songListId
+                            </button>
+                            <div class="row align-items-start">
+                                <p>{editForm.songListId && editForm.songListId.map((d) => (<button onClick={(e) => handleRemoveArTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <Modal
+                                    isOpen={isSongModalOpen}
+                                    onRequestClose={closeSongModal}
+                                    contentLabel="Edit Music Kind"
+                                    className="modal-kindMusic"
+                                    overlayClassName="modal-overlay-1"
+                                >
+                                    <input
+                                        type="text"
+                                        className="fs-4 form-control col"
+                                        id="create-date"
+                                        name="artists"
+                                        // value={createForm.artists}
+                                        onChange={handSongsearch}
+                                    />
+                                    <p>{editForm.songListId}</p>
+                                    <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                        {searchSong ? (
+                                            searchSong.map((data) => (
+                                                <p value={data.id}>
+                                                    <button
+                                                        onClick={(e) =>
+                                                            handleAddArTag(
+                                                                e,
+                                                                data.id
+                                                            )
+                                                        }
+                                                        className="btn btn-outline-primary btn-lg"
+                                                    >
+                                                        {data.songname}
+                                                    </button>
+                                                </p>
+                                            ))
+                                        ) : (
+                                            <option value="sds">
+                                                undefine
+                                            </option>
+                                        )}
+                                    </div>
+                                </Modal>
+                            </div>
+                        </div>
+
+
+                        <div className="mb-4 form-group">
+                            <label
+                                style={{ width: "13%" }}
+                                className="fs-4 mb-2 me-3"
+                                htmlFor="create-date"
+                            >
+                                songListId:
+                            </label>
+                            <button
+                                className="btn btn-outline-primary btn-lg"
+                                onClick={(e) => openArModal(e, editForm)}
+                            >
+                                {" "}
+                                chọn songListId
+                            </button>
+                            <div class="row align-items-start">
+                                <p>{editForm.songListId && editForm.songListId.map((d) => (<button onClick={(e) => handleRemoveArTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <Modal
+                                    isOpen={isSongModalOpen}
+                                    onRequestClose={closeSongModal}
+                                    contentLabel="Edit Music Kind"
+                                    className="modal-kindMusic"
+                                    overlayClassName="modal-overlay-1"
+                                >
+                                    <input
+                                        type="text"
+                                        className="fs-4 form-control col"
+                                        id="create-date"
+                                        name="artists"
+                                        // value={createForm.artists}
+                                        onChange={handSongsearch}
+                                    />
+                                    <p>{editForm.songListId}</p>
+                                    <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                        {searchSong ? (
+                                            searchSong.map((data) => (
+                                                <p value={data.id}>
+                                                    <button
+                                                        onClick={(e) =>
+                                                            handleAddArTag(
+                                                                e,
+                                                                data.id
+                                                            )
+                                                        }
+                                                        className="btn btn-outline-primary btn-lg"
+                                                    >
+                                                        {data.songname}
+                                                    </button>
+                                                </p>
+                                            ))
+                                        ) : (
+                                            <option value="sds">
+                                                undefine
+                                            </option>
+                                        )}
+                                    </div>
+                                </Modal>
+                            </div>
+                        </div>
+
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="edit-date">
                                 playListId:
@@ -604,8 +743,9 @@ const SingerAdmin = () => {
                                 onClick={(e) => openSongModal(e, editForm)}
                             >
                                 {" "}
-                                chọn Nhạc
+                                chọn nhạc
                             </button>
+                            <p>{createForm.songListId && createForm.songListId.map((d) => (<button onClick={(e) => handleRemoveSongTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
                             <Modal
                                 isOpen={isSongModalOpen}
                                 onRequestClose={closeSongModal}
@@ -620,11 +760,8 @@ const SingerAdmin = () => {
                                     // value={createForm.genresid}
                                     onChange={handSongsearch}
                                 />
-                                <p>{editSongArray}</p>
-                                <div
-                                    style={{ height: "20rem" }}
-                                    className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
-                                >
+                                <p>{createForm.songListId}</p>
+                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
                                     {searchSong ? (
                                         searchSong.map((data) => (
                                             <p value={data.id}>
@@ -642,12 +779,17 @@ const SingerAdmin = () => {
                                             </p>
                                         ))
                                     ) : (
-                                        <p value="sds">none</p>
+                                        <option value="sds">
+                                            undefine
+                                        </option>
                                     )}
                                 </div>
                             </Modal>
-                            <p>{editSongArray}</p>
+                            <p>{editPlaylistArray}</p>
                         </div>
+
+
+
                         <div className="mb-4 form-group">
                             <label
                                 style={{ width: "11%" }}
@@ -664,6 +806,7 @@ const SingerAdmin = () => {
                                 {" "}
                                 chọn playlist
                             </button>
+                            <p>{createForm.playListId && createForm.playListId.map((d) => (<button onClick={(e) => handleRemovePlaylistTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
                             <Modal
                                 isOpen={isPlaylistModalOpen}
                                 onRequestClose={closePlaylistModal}
@@ -678,11 +821,8 @@ const SingerAdmin = () => {
                                     // value={createForm.genresid}
                                     onChange={handPlaylistsearch}
                                 />
-                                <p>{editPlaylistArray}</p>
-                                <div
-                                    style={{ height: "20rem" }}
-                                    className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
-                                >
+                                <p>{createForm.playListId}</p>
+                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
                                     {searchPalylist ? (
                                         searchPalylist.map((data) => (
                                             <p value={data.playlistId}>
@@ -700,12 +840,16 @@ const SingerAdmin = () => {
                                             </p>
                                         ))
                                     ) : (
-                                        <p value="sds">none</p>
+                                        <option value="sds">
+                                            undefine
+                                        </option>
                                     )}
                                 </div>
                             </Modal>
                             <p>{editPlaylistArray}</p>
                         </div>
+
+
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
