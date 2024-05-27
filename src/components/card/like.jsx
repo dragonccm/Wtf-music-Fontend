@@ -19,13 +19,25 @@ const Like_heart = ({ id,type }) => {
 
     const currData = useSelector((state) => state.Authentication);
     const mysong = currData.defaultUser.account.likedSongs
+    const myplaylist = currData.defaultUser.account.likedPlayLists
     useEffect(() => {
-        if (mysong && mysong.includes(id)) {
-            setLiked(true)
+        if (type === 'playlist') {
+            console.log('lllll')
+            if (myplaylist && myplaylist.includes(id)) {
+            console.log('lllllaaaaa')
+                setLiked(true)
+            } else {
+                setLiked(false)
+            }
         } else {
-            setLiked(false)
+            if (mysong && mysong.includes(id)) {
+                setLiked(true)
+            } else {
+                setLiked(false)
+            }
         }
-    }, [mysong])
+       
+    }, [mysong,myplaylist])
     const handleAdd = async() => {
         if (currData.defaultUser.isAuthenticated === true) {
             if (liked) {
@@ -54,10 +66,18 @@ const Like_heart = ({ id,type }) => {
                     // alert(response.EM)
                 }
             } else {
-                const data = {
-                    type: "song",
-                    id: id
-                  }
+                let data 
+                if (type === 'song') {
+                    data = {
+                        type: "song",
+                        id: id
+                    }
+                } else if (type === 'playlist') {
+                    data = {
+                        type: "playlist",
+                        id: id
+                    }
+                }
                 let response = await addLike(data);
                 if (response && response.EC === "0") {
                     // toast.success(response.EM)

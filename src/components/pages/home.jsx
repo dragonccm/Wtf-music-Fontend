@@ -9,29 +9,29 @@ import Card from "../../components/card/playlist_card";
 import Release from "../../components/card/release";
 import HomeRating from "../../components/card/Home_ rating";
 import Loading from "../sideNavigation/mascot_animation";
-import {getHistory} from"../../controller/history"
+import { getHistory } from "../../controller/history"
 
 const HomePage = () => {
     const dispatch = useDispatch();
-    const [playlistsData,setPlaylistsData] = useState([])
+    const [playlistsData, setPlaylistsData] = useState([])
     useEffect(() => {
         dispatch(fetchHome());
     }, []);
     useEffect(() => {
         // dispatch(fetchPlayList(id));
         fecthPlaylist()
-      }, []);
-      const fecthPlaylist = async () => {
-    
+    }, []);
+    const fecthPlaylist = async () => {
+
         let response = await getHistory();
         if (response && response.DT) {
-          console.log(response.DT)
-          setPlaylistsData(response.DT)
+            console.log(response.DT)
+            setPlaylistsData(response.DT)
             console.log(playlistsData)
         } else {
             console.log('No Playlists')
         }
-      }
+    }
     const banner = useSelector((state) => state.home.banner);
     const newRelease = useSelector((state) => state.home.newRelease);
     const songHot = useSelector((state) => state.home.songHot);
@@ -42,7 +42,7 @@ const HomePage = () => {
     const albumHot = useSelector((state) => state.home.albumHot);
     const hNewrelease = useSelector((state) => state.home.hNewrelease);
 
-   
+
 
     const isLoading = useSelector((state) => state.home.isLoading);
     // useEffect(() => {

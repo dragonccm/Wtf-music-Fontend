@@ -11,8 +11,8 @@ import Play_animation from "./play_animation"
 
 const SongCard2 = ({ data, rating, onPlaylist }) => {
     const dispatch = useDispatch();
-    const  Playlist= useSelector((state) => state.playlist.playlist.data); 
-    const idPlaylistNow = Playlist && Playlist.encodeId
+    const  Playlist= useSelector((state) => state.playlist.playlist.playlist); 
+    const idPlaylistNow = Playlist && Playlist.playlistId
     const handlePlaying =  (e, id) => {
         if (onPlaylist.isPlay) {
             console.log(idPlaylistNow)
@@ -41,14 +41,14 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
                 }
 
                 <div className="song_img">
-                    <img src={data.thumbnailM} alt="f" />
-                    {data.encodeId === songInfo.infor.id ?
+                    <img src={data.thumbnail} alt="f" />
+                    {data.id === songInfo.infor.id ?
                         <Play_animation />
                         :
 
                         <div className="img_overlay">
                             <div className="img_overlay_group_btn">
-                                <NavLink to={data.encodeId} onClick={(e) => handlePlaying(e, data.encodeId ? data.encodeId : data.id)} className="nav-link list_nav_item">
+                                <NavLink to={data.id} onClick={(e) => handlePlaying(e, data.id)} className="nav-link list_nav_item">
                                     <FontAwesomeIcon icon={faPlay} />
                                 </NavLink>
                             </div>
@@ -58,8 +58,8 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
                 <div className="songif">
                     <div className="songname">
                         <NavLink
-                            to={"/song/" + data.encodeId}>
-                            {data.title}
+                            to={"/song/" + data.id}>
+                            {data.songname}
                         </NavLink>
                     </div>
                     <div className="songartist">

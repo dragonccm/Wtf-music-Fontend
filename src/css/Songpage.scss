@@ -4,112 +4,212 @@
   }
 
   .songpage_mid_head {
-    display: flex;
-    flex-direction: column;
+    display        : flex;
+    flex-direction : column;
     justify-content: flex-end;
-    margin-left: 2rem;
-    color: #383838;
+    margin-left    : 2rem;
+    color          : #383838;
   }
 
   .songpage_mid_head {
-    h5{
+    h5 {
       font-size: 1.5rem;
-      color: var(--text-1);
+      color    : var(--text-1);
     }
+
     h1 {
       font-size: 6rem;
-      color: var(--text-1);
+      color    : var(--text-1);
     }
+
     p {
       font-size: 1.5rem;
-      color: #383838;
-      display: flex;
-      gap: 10px;
-      color: var(--text-1);
+      color    : #383838;
+      display  : flex;
+      gap      : 10px;
+      color    : var(--text-1);
     }
   }
 
 
 
   .songpage_left_head {
-    width: 23rem;
+    width : 23rem;
     height: 23rem;
   }
 
   .songpage_left_head img {
-    width: 100%;
-    height: 100%;
+    width        : 100%;
+    height       : 100%;
     border-radius: 0.5rem;
   }
 
   .songpage_info {
-    display: flex;
+    display    : flex;
     align-items: center;
-    font-size: 1.5rem;
+    font-size  : 1.5rem;
   }
 
   .songpage_small_avt {
     border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    overflow: hidden;
-    object-fit: contain;
+    width        : 2rem;
+    height       : 2rem;
+    overflow     : hidden;
+    object-fit   : contain;
   }
 
   .songpage_small_avt img {
-    width: 100%;
+    width : 100%;
     height: 100%;
   }
+
   .song_control {
-    display: flex;
-    margin: 2rem 0;
+    display    : flex;
+    margin     : 2rem 0;
     align-items: center;
-    gap: 2rem;
+    gap        : 2rem;
   }
+
   .menu_btn {
-    font-size: 3rem !important ;
+    font-size: 3rem !important;
   }
+
   .song_control button {
     background-color: transparent;
-    margin: 0;
-    padding: 0;
-    color: var(--main-color);
-    &.play_random{
+    margin          : 0;
+    padding         : 0;
+    color           : var(--main-color);
+
+    &.play_random {
       font-size: 5rem;
 
     }
   }
+
   .like_btn {
     background-color: transparent;
-    font-size: 3rem !important;
-    margin: 0;
-    padding: 0;
+    font-size       : 3rem !important;
+    margin          : 0;
+    padding         : 0;
   }
 
   .Lyrics {
     font-size: 3rem;
-    margin: 3rem 0;
-    color: var(--main-color);
+    margin   : 3rem 0;
+    color    : var(--main-color);
   }
+
   .lyrics_line {
     font-size: 2rem;
   }
 }
+
 .main_page_container {
-  background: linear-gradient(
-    -90deg,
-    rgb(237, 245, 255) 0%,
-    rgb(226, 235, 248) 50%,
-    rgb(228, 238, 251) 100%
-  );
-  .r_element_item{
-    h1{
+  background: linear-gradient(-90deg,
+      rgb(237, 245, 255) 0%,
+      rgb(226, 235, 248) 50%,
+      rgb(228, 238, 251) 100%);
+
+  .r_element_item {
+    h1 {
       color: var(--text-1);
     }
   }
+
+  .song_user-rating {
+    background-color: #fff !important;
+    border-radius   : 15px;
+    opacity         : 0.85;
+
+    .form_rating {
+      .user_reviews {
+        img {
+          height: 50px;
+        }
+
+        .reviews {
+          .inf_user_reviews {
+            display        : flex;
+            border-radius  : 10px;
+            padding        : 1rem 2rem;
+            background     : #f5f5f5;
+            justify-content: center;
+            flex-direction : column;
+            margin-bottom  : 5px;
+
+            span {
+              font-size: small;
+            }
+          }
+
+          .date_reviews {
+            font-size  : small;
+            margin-left: 10px;
+            color      : #555;
+          }
+        }
+      }
+
+      .handle_rating {
+        background: #fff;
+
+        img {
+          width        : 50px;
+          height       : 50px;
+          border-radius: 50% !important;
+        }
+
+        textarea {
+          width        : 100%;
+          height       : 50px;
+          line-height  : 50px;
+          background   : #f5f5f5;
+          font-size    : medium;
+          padding      : 0 2rem;
+          border-radius: 60px;
+          border       : none;
+          outline      : none;
+          resize       : none;
+          transition   : all 0.1s linear;
+
+          &:focus-visible {
+            box-shadow: 1px 1px 10px 4px rgb(181, 200, 255, 0.5);
+          }
+        }
+      }
+
+      .btn-group {
+        grid-gap: 1rem;
+
+        .btn {
+          height       : 40px;
+          line-height  : 40px;
+          padding      : 0 2rem;
+          border-radius: .5rem;
+          border       : none;
+          outline      : none;
+          cursor       : pointer;
+          font-size    : medium;
+          font-weight  : 500;
+          transition   : all 0.1s linear;
+
+          &.submit {
+            background: #4383FF;
+            color     : #fff
+          }
+
+          &.submit:hover {
+            transform : scale(1.05);
+            background: #3278FF;
+          }
+        }
+      }
+    }
+  }
 }
+
 @media screen and (max-width: 600px) {
-  .songpage_main{
+  .songpage_main {
     padding-top: 10rem;
   }
 }

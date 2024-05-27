@@ -34,8 +34,16 @@ const Rating = () => {
   const group_rating_title = ['Việt Nam', 'US-UK', 'K-Pop']
   // console.log(group_rating)
 
+  const dataf = useSelector((state) => state.playlist.playlist);
+
   const handlePlaying = (e, id) => {
     e.preventDefault();
+    const song = dataf.song.find(item => item.id === id);
+    if (song) {
+      console.log(`ID ${id} trùng với một bài hát trong playlist.`);
+    } else {
+      console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
+    }
     dispatch(fetchSongPlaying(id));
   }
   return (

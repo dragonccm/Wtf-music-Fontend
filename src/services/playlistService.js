@@ -4,21 +4,22 @@ import { clonePlayListData } from "../controller/playlistclone";
 const getPlaylist = async (id) => {
   try {
     const data = await playlistroute(id);
-    // if (data) {
-    //   const clone = {
-    //     playlistId: data.data.encodeId,
-    //     playlistname: data.data.title,
-    //     genresid: data.data.genres.map((genres) => genres.id),
-    //     artistsId: data.data.artists.map((artists) => artists.id),
-    //     type: "album",
-    //     thumbnail: data.data.thumbnailM,
-    //     description: data.data.description ? data.data.description:'Playlist hay đi vào lòng người!',
-    //     songid: data.data.song.items.map((song) => song.encodeId),
-    //     like: data.data.like,
-    //     listen: data.data.listen,
-    //   };
-    //   await clonePlayListData(clone);
-    // }
+    console.log(data);
+    if (data) {
+      // const clone = {
+      //   playlistId: data.data.DT.playlist.playlistId,
+      //   playlistname: data.data.DT.playlist.playlistname,
+      //   genresid: data.data.DT.playlist.genres.map((genres) => genres.id),
+      //   artistsId: data.data.DT.playlist.artists.map((artists) => artists.id),
+      //   type: "playlist",
+      //   thumbnail: data.data.DT.playlist.thumbnailM,
+      //   description: data.data.DT.playlist.description ? data.data.DT.playlist.description:'Playlist hay đi vào lòng người!',
+      //   songid: data.data.DT.playlist.song.items.map((song) => song.encodeId),
+      //   like: data.data.DT.playlist.like,
+      //   listen: data.data.DT.playlist.listen,
+      // };
+      // await clonePlayListData(clone);
+    }
     return data;
   } catch (error) {
     console.error("Error loading song data:", error);

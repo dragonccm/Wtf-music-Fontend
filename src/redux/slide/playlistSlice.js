@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getPlaylist } from "../../services/playlistService";
+import { playlistroute } from "../../controller/playlist";
 
 export const fetchPlayList = createAsyncThunk(
   "playlsit/getplaylist",
   async (id) => {
-    const response = await getPlaylist(id);
-    return response;
+    const response = await playlistroute(id);
+    console.log("oooooo");
+    return response.DT.data;
   }
 );
 const initialState = {
@@ -34,12 +35,18 @@ export const Playlistslice = createSlice({
       };
     },
     randomSongs: (state) => {
-      const songs = state.playlist.data.song.items;
-      for (let i = songs.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [songs[i], songs[j]] = [songs[j], songs[i]];
+      const playlist = state.playlist;
+      console.log(JSON.stringify(playlist));
+      if (playlist  && playlist.song) {
+        const songs = playlist.song;
+        for (let i = songs.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [songs[i], songs[j]] = [songs[j], songs[i]];
+        }
+        localStorage.setItem("playlistRandom", JSON.stringify(songs));
+      } else {
+        console.log("Dữ liệu playlist không tồn tại.");
       }
-      localStorage.setItem("playlistRandom", JSON.stringify(songs));
     },
     updatePlaylist: (state) => {
       state.playlist = {
