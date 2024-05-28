@@ -39,7 +39,9 @@ const SingerAdmin = () => {
         avt: "",
         artistsName: "",
         realName: "",
+        biography: "",
         totalFollow: "",
+        birthday: "",
         songListId: [],
         playListId: [],
     });
@@ -52,7 +54,6 @@ const SingerAdmin = () => {
         songListId: [],
         playListId: [],
     });
-
     const handleUpload = (file) => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
@@ -91,6 +92,7 @@ const SingerAdmin = () => {
         }
     };
     const updateMusicSongs = async (data) => {
+        data.avt = file;
         try {
             await updateArtists(data);
         } catch (error) {
@@ -112,7 +114,8 @@ const SingerAdmin = () => {
     };
 
     // Hàm chỉnh sửa thông tin thể loại nhạc
-    const updateMusicKind = async () => {
+    const updateMusicKind = async (e) => {
+        e.preventDefault()
         // Gọi API để chỉnh sửa thông tin thể loại nhạc
         // Khi chỉnh sửa thành công, cập nhật state
         updateMusicSongs(editForm);
@@ -131,9 +134,10 @@ const SingerAdmin = () => {
             id: kind.id,
             avt: kind.avt,
             artistsName: kind.artistsName,
-            avt: kind.avt,
             realName: kind.realName,
+            biography: kind.biography,
             totalFollow: kind.totalFollow,
+            birthday: kind.birthday,
             songListId: kind.songListId,
             playListId: kind.playListId,
         });
@@ -256,6 +260,58 @@ const SingerAdmin = () => {
         }
     };
 
+
+    // edit 
+    const handleEditAddPlaylistTag = (e, id) => {
+        e.preventDefault();
+        if (!editForm.playListId || !editForm.playListId.includes(id)) {
+            setEditForm((prevState) => ({
+                ...prevState,
+                playListId: [...(prevState.playListId || []), id],
+            }));
+        } else {
+            alert("id đã tồn tại");
+        }
+    };
+
+    const handleEditAddSongTag = (e, id) => {
+        e.preventDefault();
+        if (!editForm.songListId || !editForm.songListId.includes(id)) {
+            setEditForm((prevState) => ({
+                ...prevState,
+                songListId: [...(prevState.songListId || []), id],
+            }));
+        } else {
+            alert("id đã tồn tại");
+        }
+    };
+
+    const handleEditRemovePlaylistTag = (e, id) => {
+        e.preventDefault();
+
+        if (editForm.playListId && editForm.playListId.includes(id)) {
+            setEditForm((prevState) => ({
+                ...prevState,
+                playListId: prevState.playListId.filter((item) => item !== id),
+            }));
+        } else {
+            alert("id không tồn tại");
+        }
+    };
+
+
+    const handleEditRemoveSongTag = (e, id) => {
+        e.preventDefault();
+        if (editForm.songListId && editForm.songListId.includes(id)) {
+            setEditForm((prevState) => ({
+                ...prevState,
+                songListId: prevState.songListId.filter((item) => item !== id),
+            }));
+        } else {
+            alert("id không tồn tại");
+        }
+    };
+
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
         <div className="container overflow-x-auto container-admin">
@@ -281,7 +337,7 @@ const SingerAdmin = () => {
                         <input
                             id="search-kind"
                             type="text"
-                            placeholder="Nhập ca sĩ"
+                            value="Nhập ca sĩ"
                             required
                             className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
                             onChange={handleserch}
@@ -299,7 +355,10 @@ const SingerAdmin = () => {
                             <th>Baì Nhạc</th>
                             <th>PlayList</th>
                             <th>alias</th>
-                            <th>Lượt theo dõi</th>
+                            <th>follwẻr</th>
+                            <th>mô tả</th>
+                            <th>tên thật </th>
+                            <th>sinh nhật </th>
                         </tr>
                     </thead>
 
@@ -316,13 +375,7 @@ const SingerAdmin = () => {
                                     />{" "}
                                 </td>
                                 <td>
-                                    {kind.songListId
-                                        ?.map((artist) =>
-                                            artist && artist.songname
-                                                ? artist.songname
-                                                : ""
-                                        )
-                                        .join(", ")}
+                                    {kind.songListId}
                                 </td>
                                 <td>
                                     {kind.playListId
@@ -331,6 +384,9 @@ const SingerAdmin = () => {
                                 </td>
                                 <td>{kind.alias}</td>
                                 <td>{kind.totalFollow}</td>
+                                <td>{kind.biography}</td>
+                                <td>{kind.realName}</td>
+                                <td>{kind.birthday}</td>
                                 <td>
                                     <button
                                         className="btn btn-primary fs-5"
@@ -436,7 +492,7 @@ const SingerAdmin = () => {
                                 className="fs-4 form-control"
                                 id="edit-name"
                                 name="id"
-                                placeholder={editForm.id}
+                                value={editForm.id}
                                 onChange={handleEditFormChange}
                                 readOnly
                             />
@@ -447,7 +503,7 @@ const SingerAdmin = () => {
                             </label>
                             <img
                                 src={imageUrl ? imageUrl : editForm.avt}
-                                className="avt-img"
+                                className="avt-img w-25"
                                 alt="Uploaded"
                             />
                             <ImageUploader onUpload={handleUpload} />
@@ -461,7 +517,31 @@ const SingerAdmin = () => {
                                 type="text"
                                 className="fs-4 form-control"
                                 id="thumbnail"
-                                placeholder={editForm.artistsName}
+                                value={editForm.artistsName}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                                bio:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-4 form-control"
+                                id="bio"
+                                value={editForm.biography}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                                artistsName:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-4 form-control"
+                                id="thumbnail"
+                                value={editForm.realName}
                                 onChange={handleEditFormChange}
                             />
                         </div>
@@ -474,7 +554,20 @@ const SingerAdmin = () => {
                                 className="fs-4 form-control"
                                 id="edit-date"
                                 name="artists"
-                                placeholder={editForm.alias}
+                                value={editForm.alias}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-date">
+                                sinh nhật:
+                            </label>
+                            <input
+                                type="date"
+                                className="fs-4 form-control"
+                                id="edit-date"
+                                name="artists"
+                                value={editForm.birthday}
                                 onChange={handleEditFormChange}
                             />
                         </div>
@@ -487,7 +580,7 @@ const SingerAdmin = () => {
                                 className="fs-4 form-control"
                                 id="edit-date"
                                 name="genresid"
-                                placeholder={editForm.totalFollow}
+                                value={editForm.totalFollow}
                                 onChange={handleEditFormChange}
                                 readOnly
                             />
@@ -512,7 +605,7 @@ const SingerAdmin = () => {
                                 chọn songListId
                             </button>
                             <div class="row align-items-start">
-                                <p>{editForm.songListId && editForm.songListId.map((d) => (<button onClick={(e) => handleRemoveSongTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <p>{editForm.songListId && editForm.songListId.map((d) => (<button onClick={(e) => handleEditRemoveSongTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
                                 <Modal
                                     isOpen={isSongModalOpen}
                                     onRequestClose={closeSongModal}
@@ -532,19 +625,20 @@ const SingerAdmin = () => {
                                     <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
                                         {searchSong ? (
                                             searchSong.map((data) => (
-                                                <p value={data.id}>
-                                                    <button
-                                                        onClick={(e) =>
-                                                            handleAddSongTag(
-                                                                e,
-                                                                data.id
-                                                            )
-                                                        }
-                                                        className="btn btn-outline-primary btn-lg"
-                                                    >
-                                                        {data.songname}
-                                                    </button>
-                                                </p>
+                                                data !== null ? (
+                                                    <p value={data.id}>
+                                                        <button
+                                                            onClick={(e) =>
+                                                                handleEditAddSongTag(
+                                                                    e,
+                                                                    data.id
+                                                                )
+                                                            }
+                                                            className="btn btn-outline-primary btn-lg"
+                                                        >
+                                                            {data.songname}
+                                                        </button>
+                                                    </p>) : ""
                                             ))
                                         ) : (
                                             <option value="sds">
@@ -555,11 +649,6 @@ const SingerAdmin = () => {
                                 </Modal>
                             </div>
                         </div>
-
-
-
-
-
 
                         <div className="mb-4 form-group">
                             <label
@@ -577,7 +666,7 @@ const SingerAdmin = () => {
                                 chọn playListId
                             </button>
                             <div class="row align-items-start">
-                                <p>{editForm.playListId && editForm.playListId.map((d) => (<button onClick={(e) => handleRemovePlaylistTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <p>{editForm.playListId && editForm.playListId.map((d) => (<button onClick={(e) => handleEditRemovePlaylistTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
                                 <Modal
                                     isOpen={isPlaylistModalOpen}
                                     onRequestClose={closePlaylistModal}
@@ -597,12 +686,12 @@ const SingerAdmin = () => {
                                     <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
                                         {searchPalylist ? (
                                             searchPalylist.map((data) => (
-                                                <p value={data.id}>
+                                                <p value={data.playlistId}>
                                                     <button
                                                         onClick={(e) =>
-                                                            handleAddPlaylistTag(
+                                                            handleEditAddPlaylistTag(
                                                                 e,
-                                                                data.playListId
+                                                                data.playlistId
                                                             )
                                                         }
                                                         className="btn btn-outline-primary btn-lg"
@@ -623,7 +712,7 @@ const SingerAdmin = () => {
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
-                                onClick={updateMusicKind}
+                                onClick={(e) => updateMusicKind(e)}
                             >
                                 Cập nhật
                             </button>
@@ -684,7 +773,7 @@ const SingerAdmin = () => {
                             {imageUrl && (
                                 <img
                                     src={imageUrl}
-                                    className="avt-img"
+                                    className="avt-img w-25"
                                     alt="Uploaded"
                                 />
                             )}
