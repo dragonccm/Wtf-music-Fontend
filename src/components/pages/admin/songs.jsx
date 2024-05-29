@@ -94,6 +94,7 @@ const SongAdmin = () => {
     const updateMusicSongs = async (data) => {
         try {
             data.thumbnail = file;
+            data.songLink = audioFile;
             await updateSong(data);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -123,6 +124,7 @@ const SongAdmin = () => {
         createMusicSongs(createForm);
     };
     const updateMusicKind = async (e) => {
+        e.preventDefault()
         updateMusicSongs(editForm)
     }
     const deleteMusicKind = async (id) => {
@@ -651,7 +653,7 @@ const SongAdmin = () => {
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
-                                onClick={updateMusicKind}
+                                onClick={(e)=>updateMusicKind(e)}
                             >
                                 Cập nhật
                             </button>

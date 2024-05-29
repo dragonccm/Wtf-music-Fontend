@@ -17,7 +17,6 @@ import ImageUploader from "../../../components/pages/profile/Profile-setting/upl
 
 const SingerAdmin = () => {
     const [editPlaylistArray, seteditPlaylistArray] = useState([]);
-    const [editSongArray, seteditSongArray] = useState([]);
     const [searchPalylist, setsearchPalylist] = useState([]);
     const [searchSong, setSearchSong] = useState([]);
 
@@ -175,6 +174,7 @@ const SingerAdmin = () => {
     // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
     const handleEditFormChange = async (e) => {
         const { name, value } = e.target;
+        console.log({ ...editForm, [name]: value })
         setEditForm({ ...editForm, [name]: value });
     };
 
@@ -518,6 +518,7 @@ const SingerAdmin = () => {
                                 className="fs-4 form-control"
                                 id="thumbnail"
                                 value={editForm.artistsName}
+                                name="artistsName"
                                 onChange={handleEditFormChange}
                             />
                         </div>
@@ -529,17 +530,19 @@ const SingerAdmin = () => {
                                 type="text"
                                 className="fs-4 form-control"
                                 id="bio"
+                                name="biography"
                                 value={editForm.biography}
                                 onChange={handleEditFormChange}
                             />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="edit-profile">
-                                artistsName:
+                                realName:
                             </label>
                             <input
                                 type="text"
                                 className="fs-4 form-control"
+                                name="realName"
                                 id="thumbnail"
                                 value={editForm.realName}
                                 onChange={handleEditFormChange}
@@ -553,7 +556,7 @@ const SingerAdmin = () => {
                                 type="text"
                                 className="fs-4 form-control"
                                 id="edit-date"
-                                name="artists"
+                                name="alias"
                                 value={editForm.alias}
                                 onChange={handleEditFormChange}
                             />
@@ -566,7 +569,7 @@ const SingerAdmin = () => {
                                 type="date"
                                 className="fs-4 form-control"
                                 id="edit-date"
-                                name="artists"
+                                name="birthday"
                                 value={editForm.birthday}
                                 onChange={handleEditFormChange}
                             />
@@ -579,7 +582,7 @@ const SingerAdmin = () => {
                                 type="text"
                                 className="fs-4 form-control"
                                 id="edit-date"
-                                name="genresid"
+                                name="totalFollow"
                                 value={editForm.totalFollow}
                                 onChange={handleEditFormChange}
                                 readOnly
@@ -863,7 +866,7 @@ const SingerAdmin = () => {
                                     )}
                                 </div>
                             </Modal>
-                            <p>{editPlaylistArray}</p>
+                            <p>{createForm.songListId}</p>
                         </div>
 
 
@@ -924,7 +927,7 @@ const SingerAdmin = () => {
                                     )}
                                 </div>
                             </Modal>
-                            <p>{editPlaylistArray}</p>
+                            <p>{createForm.playListId}</p>
                         </div>
 
 

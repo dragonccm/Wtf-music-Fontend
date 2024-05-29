@@ -1,10 +1,10 @@
 // controller/SongController.js
 // controller/SongController.js
 import axios from "../setup/axios";
-const adminArtist = (id) => {
-    return axios.get(`/api/admin/artist/${id}`)
+const adminPlaylist = (id) => {
+    return axios.get(`/api/admin/playlist/${id}`)
 }
 
 export {
-    adminArtist
+    adminPlaylist
 }
