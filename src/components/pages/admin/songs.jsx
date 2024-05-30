@@ -110,8 +110,17 @@ const SongAdmin = () => {
         }
     };
     const deleteMusicSongs = async (data) => {
+        const newdata = {
+            id: data,
+            songname: "",
+            thumbnail: "",
+            artists: "",
+            genresid: "",
+            songLink: "",
+            lyric: ""
+        }
         try {
-            await deleteSong(data);
+            await deleteSong(newdata);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -342,11 +351,13 @@ const SongAdmin = () => {
                         <tr>
                             <th>ID</th>
                             <th>Tên</th>
+                            <th>tình trạng</th>
                             <th>Hình Ảnh</th>
                             <th>Nghệ Sĩ</th>
                             <th>Thể Loại</th>
                             <th>Lượt Like</th>
                             <th>Lượt Nghe</th>
+                            <th>trạng thái</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -354,6 +365,7 @@ const SongAdmin = () => {
                             <tr key={kind.id}>
                                 <td>{kind.id}</td>
                                 <td>{kind.songname}</td>
+                                <td>{kind.state ===1 ? "đã ẩn": "bình thường"}</td>
                                 <td className="td_img">
                                     {" "}
                                     <img
@@ -364,23 +376,20 @@ const SongAdmin = () => {
                                 <td>
                                     {kind.artists
                                         ?.map((artist) =>
-                                            artist && artist.artistsName
-                                                ? artist.artistsName
-                                                : ""
+                                            artist
                                         )
                                         .join(", ")}
                                 </td>
                                 <td>
                                     {kind.genresid
                                         ?.map((genre) =>
-                                            genre && genre.genrename
-                                                ? genre.genrename
-                                                : ""
+                                            genre
                                         )
                                         .join(", ")}
                                 </td>
                                 <td>{kind.like}</td>
                                 <td>{kind.listen}</td>
+                                <td>{kind.state}</td>
                                 <td>
                                     <button
                                         className="btn btn-primary fs-5"
@@ -653,7 +662,7 @@ const SongAdmin = () => {
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
-                                onClick={(e)=>updateMusicKind(e)}
+                                onClick={(e) => updateMusicKind(e)}
                             >
                                 Cập nhật
                             </button>

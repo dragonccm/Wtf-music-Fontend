@@ -100,6 +100,17 @@ const PlaylistAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
+    const deleteMusicSongs = async (id) => {
+        const newdata = {
+            ...createForm,
+            playListId: id,
+        }
+        try {
+            await deletePlaylist(newdata);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
     // Hàm tạo mới thể loại nhạc
     const createMusicKind = async (e) => {
         e.preventDefault();
@@ -107,14 +118,14 @@ const PlaylistAdmin = () => {
     };
 
     // Hàm chỉnh sửa thông tin thể loại nhạc
-    const updateMusicKind = async () => {
+    const updateMusicKind = async (e) => {
+        e.preventDefault();
         updateMusicSongs(editForm);
     };
 
     // Hàm xóa thể loại nhạc
     const deleteMusicKind = async (id) => {
-        // Gọi API để xóa thể loại nhạc
-        // Khi xóa thành công, cập nhật state
+        deleteMusicSongs(id);
     };
 
     // Hiển thị pop-up form chỉnh sửa
@@ -404,6 +415,7 @@ const PlaylistAdmin = () => {
                         <tr>
                             <th>playlistId</th>
                             <th>playlistname</th>
+                            <th>trạng thái</th>
                             <th>genresid</th>
                             <th>artistsId</th>
                             <th>thumbnail</th>
@@ -421,11 +433,13 @@ const PlaylistAdmin = () => {
                                 <td className="td_img">
                                     {" "}
                                     <img
+                                    style={{ width: "12%" }}
                                         src={kind.thumbnail}
                                         alt={kind.genrename}
                                     />{" "}
                                 </td>
                                 <td>{kind.playlistname}</td>
+                                <td>{kind.state===1  ? "cấm truy cập": "có thể truy cập "}</td>
                                 <td>{kind.genresid}</td>
                                 <td>{kind.artistsId}</td>
                                 <td>{kind.type}</td>
@@ -443,7 +457,7 @@ const PlaylistAdmin = () => {
                                     </button>
                                     <button
                                         className="btn btn-danger-custom fs-5 ms-3"
-                                        onClick={() => deleteMusicKind(kind.id)}
+                                        onClick={() => deleteMusicKind(kind.playlistId)}
                                     >
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
@@ -765,6 +779,7 @@ const PlaylistAdmin = () => {
                             </label>
                             {imageUrl && (
                                 <img
+                                style={{ width: "12%" }}
                                     src={imageUrl}
                                     className="avt-img"
                                     alt="Uploaded"
@@ -812,7 +827,7 @@ const PlaylistAdmin = () => {
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
-                                onClick={updateMusicKind}
+                                onClick={(e)=>updateMusicKind(e)}
                             >
                                 Cập nhật
                             </button>
@@ -1043,6 +1058,7 @@ const PlaylistAdmin = () => {
                             </label>
                             {imageUrl && (
                                 <img
+                                style={{ width: "12%" }}
                                     src={imageUrl}
                                     className="avt-img"
                                     alt="Uploaded"

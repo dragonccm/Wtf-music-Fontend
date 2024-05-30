@@ -106,6 +106,17 @@ const SingerAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
+    const deleteMusicSongs = async (data) => {
+        const newdata = {
+            ...createForm,
+            id: data,
+        }
+        try {
+            await deleteArtists(newdata);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
     // Hàm tạo mới thể loại nhạc
     const createMusicKind = async (e) => {
         e.preventDefault();
@@ -122,8 +133,7 @@ const SingerAdmin = () => {
 
     // Hàm xóa thể loại nhạc
     const deleteMusicKind = async (id) => {
-        // Gọi API để xóa thể loại nhạc
-        // Khi xóa thành công, cập nhật state
+        deleteMusicSongs(id)
     };
 
     // Hiển thị pop-up form chỉnh sửa
@@ -351,6 +361,7 @@ const SingerAdmin = () => {
                         <tr>
                             <th>ID</th>
                             <th>Tên</th>
+                            <th>trạng thái</th>
                             <th>Hình Ảnh</th>
                             <th>Baì Nhạc</th>
                             <th>PlayList</th>
@@ -367,6 +378,7 @@ const SingerAdmin = () => {
                             <tr key={kind.id}>
                                 <td>{kind.id}</td>
                                 <td>{kind.artistsName}</td>
+                                <td>{kind.state === 1 ? "tài khoản bị hạn chế":"khoá"}</td>
                                 <td className="td_img">
                                     {" "}
                                     <img
