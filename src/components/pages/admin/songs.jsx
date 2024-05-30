@@ -357,7 +357,7 @@ const SongAdmin = () => {
                             <th>Thể Loại</th>
                             <th>Lượt Like</th>
                             <th>Lượt Nghe</th>
-                            <th>trạng thái</th>
+                            <th>trạng thái ks</th>
                         </tr>
                     </thead>
                     <tbody>
