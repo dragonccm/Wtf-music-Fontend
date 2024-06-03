@@ -32,74 +32,94 @@ const Songpage = () => {
     const { id } = useParams();
     const [data, setData] = useState({});
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchSongPage(id);
-      setData(response);
-      console.log(response);
+    const [comments, setComments] = useState([]);
+
+    const handleSubmitComment = (event) => {
+        event && event.preventDefault();
+        let newComment = event.target.value;
+        setComments([...comments, newComment]);
+        event.target.value = "";
     };
 
-    fetchData();
-  }, []);
-  const fetchSongPage = async (id) => {
-    try {
-      const response = await songPage(id);
-      return response
-    } catch (error) {
-      console.log(error);
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            handleSubmitComment(event);
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetchSongPage(id);
+            setData(response);
+            console.log(response);
+        };
+
+        fetchData();
+    }, []);
+    const fetchSongPage = async (id) => {
+        try {
+            const response = await songPage(id);
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const dataf = useSelector((state) => state.playlist.playlist);
+
+    if (!data.DT) {
+        return (
+            <div>
+                <Loading />
+            </div>
+        );
     }
-  };
-  const dataf = useSelector((state) => state.playlist.playlist);
 
-  if (!data.DT) {
-    return <div><Loading /></div>;
-  }
-
-  const handlePlaying = (e, id) => {
-    e.preventDefault();
-    const song = dataf.song.find(item => item.id === id);
-    if (song) {
-      console.log(`ID ${id} trùng với một bài hát trong playlist.`);
-    } else {
-      console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
-    }
-    dispatch(fetchSongPlaying(id));
-  }
-  const usserplaylist = [
-    {
-      id: "jdfhhjf",
-      img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
-      name: "Gone",
-    },
-    {
-      id: "jdfhhjf",
-      img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
-      name: "house",
-    },
-    {
-      id: "jdfhhjf",
-      img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-      name: "Money",
-    },
-    {
-      id: "jdfhhjf",
-      img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-      name: "Money",
-    },
-    {
-      id: "jdfhhjf",
-      img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-      name: "Money",
-    },
-  ];
-  return (
-    <section className="songpage_main">
-
-      <div className="songpage_list_head">
-
-        <div className="songpage_left_head">
-          <img src={data.DT.song.thumbnail} alt="f" />
-        </div>
+    const handlePlaying = (e, id) => {
+        e.preventDefault();
+        const song = dataf.song.find((item) => item.id === id);
+        if (song) {
+            console.log(`ID ${id} trùng với một bài hát trong playlist.`);
+        } else {
+            console.log(
+                `ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`
+            );
+        }
+        dispatch(fetchSongPlaying(id));
+    };
+    const usserplaylist = [
+        {
+            id: "jdfhhjf",
+            img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
+            name: "Gone",
+        },
+        {
+            id: "jdfhhjf",
+            img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
+            name: "house",
+        },
+        {
+            id: "jdfhhjf",
+            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+            name: "Money",
+        },
+        {
+            id: "jdfhhjf",
+            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+            name: "Money",
+        },
+        {
+            id: "jdfhhjf",
+            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
+            name: "Money",
+        },
+    ];
+    return (
+        <section className="songpage_main">
+            <div className="songpage_list_head">
+                <div className="songpage_left_head">
+                    <img src={data.DT.song.thumbnail} alt="f" />
+                </div>
 
                 <div className="songpage_mid_head">
                     <h5>Bài hát</h5>
@@ -201,94 +221,26 @@ const Songpage = () => {
                     </h2>
 
                     <div className="pb-5 d-flex flex-column user_reviews">
-                        <div className="d-flex mb-5 user-item">
-                            <img
-                                className="bg-light"
-                                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                            ></img>
-                            <div className="w-100 d-flex align-items-center justify-content-between handle_rating">
+                        {comments.map((comment, index) => (
+                            <div className="d-flex mb-5 user-item" key={index}>
+                                <img
+                                    className="bg-light"
+                                    src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                                ></img>
                                 <div className="w-100 reviews">
                                     <div className="inf_user_reviews">
                                         <h4>Vua của đom đóm J97</h4>
-                                        <span>tao bỏ con nè</span>
+                                        <span>{comment}</span>
                                     </div>
                                     <span className="date_reviews">
                                         103 ngày trước
                                     </span>
                                 </div>
                             </div>
-                        </div>
-                        <div className="d-flex mb-5 user-item">
-                            <img
-                                className="bg-light"
-                                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                            ></img>
-                            <div className="w-100 d-flex align-items-center justify-content-between handle_rating">
-                                <div className="w-100 reviews">
-                                    <div className="inf_user_reviews">
-                                        <h4>Vua của đom đóm J97</h4>
-                                        <span>tao bỏ con nè</span>
-                                    </div>
-                                    <span className="date_reviews">
-                                        103 ngày trước
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-5 user-item">
-                            <img
-                                className="bg-light"
-                                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                            ></img>
-                            <div className="w-100 d-flex align-items-center justify-content-between handle_rating">
-                                <div className="w-100 reviews">
-                                    <div className="inf_user_reviews">
-                                        <h4>Vua của đom đóm J97</h4>
-                                        <span>tao bỏ con nè</span>
-                                    </div>
-                                    <span className="date_reviews">
-                                        103 ngày trước
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-5 user-item">
-                            <img
-                                className="bg-light"
-                                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                            ></img>
-                            <div className="w-100 d-flex align-items-center justify-content-between handle_rating">
-                                <div className="w-100 reviews">
-                                    <div className="inf_user_reviews">
-                                        <h4>Vua của đom đóm J97</h4>
-                                        <span>tao bỏ con nè</span>
-                                    </div>
-                                    <span className="date_reviews">
-                                        103 ngày trước
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="d-flex mb-5 user-item">
-                            <img
-                                className="bg-light"
-                                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                            ></img>
-                            <div className="w-100 d-flex align-items-center justify-content-between handle_rating">
-                                <div className="w-100 reviews">
-                                    <div className="inf_user_reviews">
-                                        <h4>Vua của đom đóm J97</h4>
-                                        <span>tao bỏ con nè</span>
-                                    </div>
-                                    <span className="date_reviews">
-                                        103 ngày trước
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
 
-                    <form className="w-100">
+                    <form className="w-100" onSubmit={handleSubmitComment}>
                         <div className="d-flex align-items-center justify-content-between handle_rating">
                             <img
                                 className="bg-light"
@@ -297,6 +249,7 @@ const Songpage = () => {
                             <textarea
                                 name="opinion"
                                 placeholder="Để lại bình luận của bạn..."
+                                onKeyDown={handleKeyDown}
                             ></textarea>
                             <div class="ms-3 btn-group">
                                 <button class="btn submit">Gửi</button>
