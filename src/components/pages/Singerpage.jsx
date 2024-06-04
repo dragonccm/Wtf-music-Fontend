@@ -3,8 +3,8 @@ import { faCirclePlay, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../sideNavigation/mascot_animation";
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
-import { fetchgArtist } from '../../redux/slide/artistSlice'
+import { useParams } from "react-router-dom";
+import { fetchgArtist } from "../../redux/slide/artistSlice";
 import { useSelector, useDispatch } from "react-redux";
 const Singerpage = () => {
     const dispatch = useDispatch();
@@ -16,9 +16,12 @@ const Singerpage = () => {
     }, [dispatch, id]);
 
     const currData = useSelector((state) => state.Artist.Artist);
-    console.log(currData);
     if (loading) {
-        return <div><Loading /></div>;
+        return (
+            <div>
+                <Loading />
+            </div>
+        );
     }
 
     return (
@@ -29,7 +32,10 @@ const Singerpage = () => {
                 </div>
                 <div className="artists_if_ctn">
                     <h1 className="artists_name">{currData.artistsName}</h1>
-                    <p className="follower">{currData.totalFollow} người quan tâm <FontAwesomeIcon icon={faUser} /></p>
+                    <p className="follower">
+                        {currData.totalFollow} người quan tâm{" "}
+                        <FontAwesomeIcon icon={faUser} />
+                    </p>
                 </div>
             </section>
             <div className="list_card">
@@ -38,7 +44,6 @@ const Singerpage = () => {
             </div>
             <div className="for_you">
                 <h1>Bài Hát Nổi Bật</h1>
-
 
                 {/* <Col3Layout data={currData.songFavorite} /> */}
             </div>
@@ -54,12 +59,21 @@ const Singerpage = () => {
                 </div>
                 <div className="for_artist_if_ctn">
                     {/* <p className="for_artist_name" dangerouslySetInnerHTML={currData.biography ? { __html: currData.biography.replace(/<br>/g, "<br/>") }:''}></p> */}
-                    <p className="for_artist_name">{currData.biography ? currData.biography.replace(/<br>/g, "\n") : ''}</p>
-                    <p className="follower">{currData.totalFollow ? currData.totalFollow.toLocaleString():''} người quan tâm</p>
+                    <p className="for_artist_name">
+                        {currData.biography
+                            ? currData.biography.replace(/<br>/g, "\n")
+                            : ""}
+                    </p>
+                    <p className="follower">
+                        {currData.totalFollow
+                            ? currData.totalFollow.toLocaleString()
+                            : ""}{" "}
+                        người quan tâm
+                    </p>
                 </div>
             </section>
         </section>
     );
-}
+};
 
 export default Singerpage;
