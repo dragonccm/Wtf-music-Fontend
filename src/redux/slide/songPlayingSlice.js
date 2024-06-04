@@ -10,9 +10,6 @@ export const fetchSongPlaying = createAsyncThunk(
       type:"song"
     })
     const response = await getSongData(id);
-    console.log(response)
-
-   
     return response;
   }
 );
