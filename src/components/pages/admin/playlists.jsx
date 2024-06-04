@@ -414,14 +414,10 @@ const PlaylistAdmin = () => {
                     <thead>
                         <tr>
                             <th>playlistId</th>
-                            <th>playlistname</th>
-                            <th>trạng thái</th>
-                            <th>genresid</th>
-                            <th>artistsId</th>
-                            <th>thumbnail</th>
+                            <th>Hình ảnh</th>
+                            <th>Tên Playlist</th>
+                            <th>tình trạng </th>
                             <th>type</th>
-                            <th>description</th>
-                            <th>songid</th>
                             <th>like</th>
                             <th>listen</th>
                         </tr>
@@ -433,18 +429,17 @@ const PlaylistAdmin = () => {
                                 <td className="td_img">
                                     {" "}
                                     <img
-                                    style={{ width: "12%" }}
+                                    style={{ width: "100%" }}
                                         src={kind.thumbnail}
                                         alt={kind.genrename}
                                     />{" "}
                                 </td>
                                 <td>{kind.playlistname}</td>
                                 <td>{kind.state===1  ? "cấm truy cập": "có thể truy cập "}</td>
-                                <td>{kind.genresid}</td>
-                                <td>{kind.artistsId}</td>
+                              
                                 <td>{kind.type}</td>
-                                <td>{kind.description}</td>
-                                <td>{kind.songid}</td>
+                             
+                         
                                 <td>{kind.like}</td>
                                 <td>{kind.listen}</td>
 

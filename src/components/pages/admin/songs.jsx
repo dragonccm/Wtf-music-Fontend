@@ -353,8 +353,8 @@ const SongAdmin = () => {
                             <th>Tên</th>
                             <th>tình trạng</th>
                             <th>Hình Ảnh</th>
-                            <th>Nghệ Sĩ</th>
-                            <th>Thể Loại</th>
+               
+      
                             <th>Lượt Like</th>
                             <th>Lượt Nghe</th>
                             <th>trạng thái ks</th>
@@ -373,20 +373,7 @@ const SongAdmin = () => {
                                         alt={kind.songname}
                                     />{" "}
                                 </td>
-                                <td>
-                                    {kind.artists
-                                        ?.map((artist) =>
-                                            artist
-                                        )
-                                        .join(", ")}
-                                </td>
-                                <td>
-                                    {kind.genresid
-                                        ?.map((genre) =>
-                                            genre
-                                        )
-                                        .join(", ")}
-                                </td>
+                        
                                 <td>{kind.like}</td>
                                 <td>{kind.listen}</td>
                                 <td>{kind.state}</td>
