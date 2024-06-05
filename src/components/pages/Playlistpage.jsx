@@ -24,6 +24,7 @@ const Playlistpage = () => {
   const [playlist, setPlaylist] = useState({})
   const currData = useSelector((state) => state.Authentication);
   const nowPlaylist = useSelector((state) => state.playlist);
+  const user = useSelector((state) => state.Authentication.defaultUser.isAuthenticated);
 
 
   useEffect(() => {
@@ -62,10 +63,13 @@ const Playlistpage = () => {
     dispatch(fetchSongPlaying(playlist.song[0].id))
     dispatch(update(0))
     localStorage.setItem('playlistID', id)
-    await addHisFetch({
-      id: id,
-      type: "playlist",
-    })
+    if (user) {
+      console.log('kifffffffffffffffffffffff');
+      await addHisFetch({
+        id: id,
+        type: "playlist",
+      })
+    }
   };
 
   const mysong = currData.defaultUser.account.likedPlayLists

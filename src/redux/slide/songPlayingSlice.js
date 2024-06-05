@@ -1,14 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSongData } from "../../services/SongService";
 import { addHisFetch } from "../../services/upDateHService";
-
 export const fetchSongPlaying = createAsyncThunk(
   "getSongPlaying",
-  async (id) => {
-    await addHisFetch({
-      id: id,
-      type:"song"
-    })
+  
+  async (id ,{ getState }) => {
+    const state = getState();
+    const isAuthenticated = state.Authentication.defaultUser.isAuthenticated;
+    if (isAuthenticated) {
+      await addHisFetch({
+        id: id,
+        type:"song"
+      })
+    }
     const response = await getSongData(id);
     return response;
   }

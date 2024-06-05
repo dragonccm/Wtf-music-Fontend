@@ -25,11 +25,12 @@ const Card = ({ playlist }) => {
 
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
+        console.log('akakakakakak',id);
         dispatch(fetchPlayList(id));
         let response = await playlistroute(id);
-        if (response && response.data) {
-            console.log(response.data)
-            dispatch(fetchSongPlaying(response.data.song.items[0].encodeId))
+        if (response && response.DT.data) {
+            console.log(response.DT.data)
+            dispatch(fetchSongPlaying(response.DT.data.playlist.songid[0]))
             localStorage.setItem('playlistID', id)
         }
     };

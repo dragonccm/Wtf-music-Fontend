@@ -14,7 +14,7 @@ const SongCard = ({ element }) => {
 
   const handlePlaying = (e, id) => {
     e.preventDefault();
-    const song = dataf.song.find(item => item.id === id);
+    const song = dataf && dataf.song && dataf.song.find(item => item.id === id);
     if (song) {
       console.log(`ID ${id} trùng với một bài hát trong playlist.`);
     } else {

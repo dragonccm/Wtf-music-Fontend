@@ -81,7 +81,7 @@ const CreatePlaylist = ({ idSongs ,type}) => {
         >
             {close => (
                 <div className="menu-plalist">
-                    {userPlaylist.length >= 1 && (
+                    {userPlaylist.length >= 1 && userPlaylist[0] !== null && (
                         userPlaylist.map((data) =>
                              (
                                     <button
