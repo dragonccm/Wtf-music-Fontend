@@ -1,7 +1,6 @@
 import { songInfo, songUrl, songLyric } from "../controller/firstfetch";
-import { cloneSongsService } from "../services/songCloneService";
+// import { cloneSongsService } from "../services/songCloneService";
 export const getSongData = async (Songid) => {
-  console.log("okkkkkkkkkkkkkkkkkkkkkkkkkk" + Songid);
   if (Songid) {
     try {
       const dataa = await songInfo(Songid);

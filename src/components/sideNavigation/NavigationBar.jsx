@@ -106,7 +106,7 @@ const NavigationBar = () => {
                                 </div>
                                 <span>Danh sách phát</span>
                             </NavLink>
-                            {/* <NavLink
+                            <NavLink
                                 to="/admin/writer"
                                 className="nav-link list_nav_item"
                             >
@@ -121,7 +121,7 @@ const NavigationBar = () => {
                                     />
                                 </div>
                                 <span>Nhạc sĩ</span>
-                            </NavLink> */}
+                            </NavLink>
                             <NavLink
                                 to="/admin/singer"
                                 className="nav-link list_nav_item"
@@ -194,55 +194,7 @@ const NavigationBar = () => {
                   )}
                 </Nav> */}
                     </Navbar.Collapse>
-                    <div className="nav_bot_playlist">
-                        {/* cái này có nav link  */}
-                        {/* {userlist === null ? (
-                            <h1>false</h1>
-                        ) : (
-                            Object.keys(userlist).map((key) => (
-                                <NavLink to={'/playlist/' + userlist[key].playlistId} className="nav-link list_nav_item" key={key}>
-                                    <div className="playlist_item">
-                                        <div className="playlist_item_img">
-                                            <img src={userlist[key].thumbnail} alt="f" />
-                                        </div>
-                                        <div className="playlist_item_content">
-                                            <div className="content_name">
-                                                <p>{userlist[key].playlistname}</p>
-                                            </div>
-                                            <div className="content_cate">Nghệ sĩ</div>
-                                        </div>
-                                    </div>
-                                </NavLink>
-                            ))
-                        )} */}
-                        {/* cái này thì del */}
-
-                        {userlist === null ? (
-                            <h1>false</h1>
-                        ) : (
-                            Object.keys(userlist).map((key, index) => (
-                                <div
-                                    className="playlist_item"
-                                    key={"hahaha" + index}
-                                >
-                                    <div className="playlist_item_img">
-                                        <img
-                                            src={userlist[key].thumbnail}
-                                            alt="f"
-                                        />
-                                    </div>
-                                    <div className="playlist_item_content">
-                                        <div className="content_name">
-                                            <p>{userlist[key].playlistname}</p>
-                                        </div>
-                                        <div className="content_cate">
-                                            Nghệ sĩ
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        )}
-                    </div>
+                    
                 </Container>
             </Navbar>
             {/* <Mascot /> */}

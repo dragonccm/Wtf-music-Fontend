@@ -1,7 +1,7 @@
 import { restsongs } from '../controller/restSongs';
 const updateSong = async (inputdata) => {
     try {
-        const data = await restsongs(inputdata);
+        const data = await restsongs({ data: inputdata, status: "update" })
         return data
     } catch (error) {
         console.error("Error loading song data:", error);

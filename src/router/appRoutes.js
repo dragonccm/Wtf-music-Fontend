@@ -10,6 +10,7 @@ import Playlistpage from "../components/pages/Playlistpage";
 import Songpage from "../components/pages/Songpage";
 import Singerpage from "../components/pages/Singerpage";
 import Top100 from "../components/pages/top100";
+import HubPage from "../components/pages/hubPage";
 import Profile from "../components/pages/profile/profilepage";
 import LoginPage from "../components/pages/loginpage";
 import RegisterPage from "../components/pages/register";
@@ -65,6 +66,7 @@ const AppRoutes = (props) => {
                             element={<Rating_week />}
                         />
                         <Route path="/top100" element={<Top100 />} />
+                        <Route path="/hub" element={<HubPage />} />
                         <Route
                             path="/playlist/:id"
                             element={<Playlistpage />}
