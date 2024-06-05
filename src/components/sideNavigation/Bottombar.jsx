@@ -111,15 +111,15 @@ const Bottombar = () => {
 
     }
   }, [timer, outTime]);
-  useEffect(() => {
-    if (Number(localStorage.getItem('timeout')) > 0) {
-      console.log('Timeout : ' + Number(localStorage.getItem('timeout')))
-      const timeout = Number(localStorage.getItem('timeout'))
-      setOutTime(timeout)
-      console.log(outTime)
-      handleStart()
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (Number(localStorage.getItem('timeout')) > 0) {
+  //     console.log('Timeout : ' + Number(localStorage.getItem('timeout')))
+  //     const timeout = Number(localStorage.getItem('timeout'))
+  //     setOutTime(timeout)
+  //     console.log(outTime)
+  //     handleStart()
+  //   }
+  // }, [])
   const handlePause = () => {
     clearInterval(countRef.current)
     setIsPaused(false)
@@ -199,6 +199,13 @@ const Bottombar = () => {
 
   //playlist
   useEffect(() => {
+    if (Number(localStorage.getItem('timeout')) > 0) {
+      console.log('Timeout : ' + Number(localStorage.getItem('timeout')))
+      const timeout = Number(localStorage.getItem('timeout'))
+      setOutTime(timeout)
+      console.log(outTime)
+      handleStart()
+    }
     const fetchData = async () => {
       if (localStorage.getItem('playlistID')) {
         console.log('jajaja')
@@ -280,21 +287,21 @@ const Bottombar = () => {
 
     dispatch(reset())
   }
-  useEffect(() => {
-    // Cập nhật giá trị mới cho dataf khi state.playlist.playlist.data thay đổi
-    if (dataf !== undefined && dataf.song) {
-      const lol = dataf.song.map((item, index) => {
-        return item.id
-      })
-      console.log(lol)
-      for (let i = 0; i < dataf.song.length; i++) {
-        if (dataf.song[i].id === songInfo.infor.id) {
-          dispatch(update(i))
-          break;
-        }
-      }
-    }
-  }, [dataf]);
+  // useEffect(() => {
+  //   // Cập nhật giá trị mới cho dataf khi state.playlist.playlist.data thay đổi
+  //   if (dataf !== undefined && dataf.song) {
+  //     // const lol = dataf.song.map((item, index) => {
+  //     //   return item.id
+  //     // })
+  //     // console.log(lol)
+  //     for (let i = 0; i < dataf.song.length; i++) {
+  //       if (dataf.song[i].id === songInfo.infor.id) {
+  //         dispatch(update(i))
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }, [dataf]);
 
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
@@ -338,7 +345,7 @@ const Bottombar = () => {
     songInfo !== null &&
     songInfo !== undefined &&
     songInfo.infor&&
-    songInfo.infor.lyricsString
+    songInfo.infor.lyricsString && songInfo.infor.lyricsString[0] && songInfo.infor.lyricsString[0].words[0]
   ) {
     haha = songInfo.infor.lyricsString.length>0 ? songInfo.infor.lyricsString.map((sentence) => {
       const startTime = sentence.words[0].startTime;
@@ -501,22 +508,22 @@ const Bottombar = () => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      setTimeUpdated(false);
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     setTimeUpdated(false);
+  //   };
+  // }, []);
 
 
-
+console.log('=============================================================')
 
   const handleVolumeChange = (e) => {
     setVolume(e.target.volume);
 
   };
-  useEffect(() => {
-    localStorage.setItem('volume', volume);
-  }, [volume]);
+  // useEffect(() => {
+  //   localStorage.setItem('volume', volume);
+  // }, [volume]);
 
 
   //   karaoke

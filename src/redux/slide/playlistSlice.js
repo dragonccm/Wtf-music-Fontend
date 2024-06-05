@@ -36,7 +36,7 @@ export const Playlistslice = createSlice({
     },
     randomSongs: (state) => {
       const playlist = state.playlist;
-      console.log(JSON.stringify(playlist));
+      // console.log(JSON.stringify(playlist));
       if (playlist  && playlist.song) {
         const songs = playlist.song;
         for (let i = songs.length - 1; i > 0; i--) {
@@ -51,12 +51,9 @@ export const Playlistslice = createSlice({
     updatePlaylist: (state) => {
       state.playlist = {
         ...state.playlist,
-        data: {
-          ...state.playlist.data,
-          song: {
-            ...state.playlist.data.song,
-            items: JSON.parse(localStorage.getItem("playlistRandom")),
-          },
+        playlist: {
+          ...state.playlist.playlist,
+          song: JSON.parse(localStorage.getItem("playlistRandom")),
         },
       };
     },

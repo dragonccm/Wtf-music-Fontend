@@ -19,9 +19,9 @@ const HomePage = () => {
     }, []);
     useEffect(() => {
         // dispatch(fetchPlayList(id));
-        fecthPlaylist()
+        fecthHPlaylist()
     }, []);
-    const fecthPlaylist = async () => {
+    const fecthHPlaylist = async () => {
 
         let response = await getHistory();
         if (response && response.DT) {

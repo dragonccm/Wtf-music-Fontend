@@ -20,7 +20,7 @@ import "../../css/card.scss";
 const Card = ({ playlist }) => {
     const dispatch = useDispatch();
     const currData = useSelector((state) => state.Authentication);
- 
+    const playlistNow = useSelector((state)=> state.playlist.playlist);
     const slicedData = playlist.slice(0, 5);
 
     const handlePlayPlaylist = async (e, id) => {

@@ -30,9 +30,7 @@ const Playlistpage = () => {
     fecthPlaylist()
     console.log(playlist);
   }, []);
-  useEffect(() => {
-    console.log(playlist);
-  }, [playlist]);
+
   const fecthPlaylist = async () => {
 
     let response = await playlistroute(id);
