@@ -11,7 +11,10 @@ import "../../css/login_page.scss";
 import bg from "../../img/bg-login.avif";
 import { getLogin } from "../../services/registerService";
 import { NavLink, useNavigate } from "react-router-dom";
-import { loginer,fetchAuthentication } from "../../redux/slide/AuthenticationSlice";
+import {
+    loginer,
+    fetchAuthentication,
+} from "../../redux/slide/AuthenticationSlice";
 import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
@@ -193,7 +196,7 @@ const LoginPage = () => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                theme="colored"
+                theme="light"
             />
         </>
     );
