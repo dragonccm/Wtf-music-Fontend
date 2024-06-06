@@ -50,7 +50,7 @@ const AdminRoutes = (props) => {
                         <Route path="/playlist" element={<PlaylistAdmin />} />
                         <Route path="/user" element={<UserAdmin />} />
                         <Route path="/singer" element={<SingerAdmin />} />
-                        <Route path="/writer" element={<WriterAdmin />} />
+                        <Route path="/writer/:id" element={<WriterAdmin />} />
                         <Route path="/song" element={<SongAdmin />} />
 
                         <Route path="/*" element={<HomeAdmin />} />

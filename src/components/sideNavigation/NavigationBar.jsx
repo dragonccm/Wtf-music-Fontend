@@ -120,7 +120,7 @@ const NavigationBar = () => {
                                         src={icon_Writer}
                                     />
                                 </div>
-                                <span>Nhạc sĩ</span>
+                                <span>thống kê</span>
                             </NavLink>
                             <NavLink
                                 to="/admin/singer"
