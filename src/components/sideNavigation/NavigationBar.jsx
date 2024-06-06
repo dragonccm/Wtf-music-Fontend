@@ -107,7 +107,7 @@ const NavigationBar = () => {
                                 <span>Danh sách phát</span>
                             </NavLink>
                             <NavLink
-                                to="/admin/writer"
+                                to="/admin/songchart"
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">
@@ -120,7 +120,23 @@ const NavigationBar = () => {
                                         src={icon_Writer}
                                     />
                                 </div>
-                                <span>thống kê</span>
+                                <span>thống kê Bài Hát</span>
+                            </NavLink>
+                            <NavLink
+                                to="/admin/playlistchart"
+                                className="nav-link list_nav_item"
+                            >
+                                <div className="icon_list_nav_item">
+                                    <ReactSVG
+                                        beforeInjection={(svg) => {
+                                            svg.classList.add(
+                                                "icon_list_nav_item_svg"
+                                            );
+                                        }}
+                                        src={icon_Writer}
+                                    />
+                                </div>
+                                <span>thống kê playlist</span>
                             </NavLink>
                             <NavLink
                                 to="/admin/singer"

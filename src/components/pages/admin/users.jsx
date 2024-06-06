@@ -53,42 +53,8 @@ const UserAdmin = () => {
             const response = await adminGetUsers(
                 parseInt((currentPage - 1) * itemsPerPage)
             );
-            const handledata = await Promise.all(
-                response.DT.handledata.map(async (userData) => {
-                    const playlists = await Promise.all(
-                        userData.likedPlayLists.map(async (playlistId) => {
-                            const playlist = await getPlaylist(playlistId);
-                            if (playlist.err === 0) {
-                                return playlist.data.title;
-                            } else {
-                                return null;
-                            }
-                        })
-                    );
-                    const songs = await Promise.all(
-                        userData.likedSongs.map(async (songId) => {
-                            const song = await getSongData(songId);
-                            if (song.err === 0) {
-                                return song.data.songname;
-                            } else {
-                                return null;
-                            }
-                        })
-                    );
-                    console.log("dddd", {
-                        ...userData,
-                        likedPlayLists: playlists,
-                        likedSongs: songs,
-                    });
-
-                    return {
-                        ...userData,
-                        likedPlayLists: playlists,
-                        likedSongs: songs,
-                    };
-                })
-            );
-            setMusicSongs(handledata);
+           
+            setMusicSongs(response.DT.handledata);
             setmaxpage(response.maxPage);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -185,13 +151,8 @@ const UserAdmin = () => {
                         <tr>
                             <th>id</th>
                             <th>username</th>
-                            <th>avt</th>
-                            <th>likedPlayLists</th>
-                            <th>likedSongs</th>
-                            <th>myPlayLists</th>
-                            <th>banSongs</th>
+                            <th>avt</th>                        
                             <th>birthday</th>
-                            <th>email</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -206,28 +167,7 @@ const UserAdmin = () => {
                                         alt={`${kind.username}_avt`}
                                     />{" "}
                                 </td>
-                                <td>
-                                    {kind.likedPlayLists
-                                        ?.map((likedPlayList) => likedPlayList)
-                                        .join(", ")}
-                                </td>
-                                <td>
-                                    {kind.likedSongs
-                                        ?.map((likedSong) => likedSong)
-                                        .join(", ")}
-                                </td>
-                                <td>
-                                    {kind.myPlayLists
-                                        ?.map((myPlayList) => myPlayList)
-                                        .join(", ")}
-                                </td>
-                                <td>
-                                    {kind.banSongs
-                                        ?.map((banSong) => banSong)
-                                        .join(", ")}
-                                </td>
                                 <td>{kind.birthday}</td>
-                                <td>{kind.email}</td>
                                 <td>
                                     <button
                                         className="btn btn-danger-custom fs-5 ms-3"

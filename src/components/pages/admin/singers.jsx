@@ -14,7 +14,7 @@ import {
 } from "../../../services/restArtistsService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
-
+import { getbanService } from "../../../services/getbanService";
 const SingerAdmin = () => {
     const [editPlaylistArray, seteditPlaylistArray] = useState([]);
     const [searchPalylist, setsearchPalylist] = useState([]);
@@ -53,6 +53,7 @@ const SingerAdmin = () => {
         songListId: [],
         playListId: [],
     });
+
     const handleUpload = (file) => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
@@ -322,6 +323,15 @@ const SingerAdmin = () => {
         }
     };
 
+    const handlegetban = async (e) => {
+        try {
+            const ser = await getbanService();
+            setMusicSongs(ser.DT.artist);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
+
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
         <div className="container overflow-x-auto container-admin">
@@ -355,6 +365,13 @@ const SingerAdmin = () => {
                     </div>
                 </div>
             </div>
+            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button className="btn fs-4 py-2" onClick={(e) => handlegetban(e)}>
+                        Lấy Nghệ Bị Ban
+                    </button>
+                </div>
+            </div>
             <div className="px-4">
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
@@ -363,11 +380,7 @@ const SingerAdmin = () => {
                             <th>Tên</th>
                             <th>trạng thái</th>
                             <th>Hình Ảnh</th>
-                            <th>Baì Nhạc</th>
-                            <th>PlayList</th>
-                            <th>alias</th>
-                            <th>follwẻr</th>
-                            <th>mô tả</th>
+                            <th>totalFollow</th>
                             <th>tên thật </th>
                             <th>sinh nhật </th>
                         </tr>
@@ -375,45 +388,72 @@ const SingerAdmin = () => {
 
                     <tbody>
                         {musicSongs.map((kind) => (
-                            <tr key={kind.id}>
-                                <td>{kind.id}</td>
-                                <td>{kind.artistsName}</td>
-                                <td>{kind.state === 1 ? "tài khoản bị hạn chế":"khoá"}</td>
-                                <td className="td_img">
-                                    {" "}
-                                    <img
-                                        src={kind.avt}
-                                        alt={kind.artistsName}
-                                    />{" "}
-                                </td>
-                                <td>
-                                    {kind.songListId}
-                                </td>
-                                <td>
-                                    {kind.playListId
-                                        ?.map((genre) => genre)
-                                        .join(", ")}
-                                </td>
-                                <td>{kind.alias}</td>
-                                <td>{kind.totalFollow}</td>
-                                <td>{kind.biography}</td>
-                                <td>{kind.realName}</td>
-                                <td>{kind.birthday}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-primary fs-5"
-                                        onClick={() => openEditModal(kind)}
-                                    >
-                                        <FontAwesomeIcon icon={faPen} />
-                                    </button>
-                                    <button
-                                        className="btn btn-danger-custom fs-5 ms-3"
-                                        onClick={() => deleteMusicKind(kind.id)}
-                                    >
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                </td>
-                            </tr>
+                            <>
+                                {kind.state === 1 ?
+                                    (<tr style={{ opacity: 0.5 }} key={kind.id}>
+                                        <td>{kind.id}</td>
+                                        <td>{kind.artistsName}</td>
+                                        <td>{kind.state === 1 ? "tài khoản bị hạn chế" : "khoá"}</td>
+                                        <td className="td_img">
+                                            {" "}
+                                            <img
+                                                src={kind.avt}
+                                                alt={kind.artistsName}
+                                            />{" "}
+                                        </td>
+
+
+                                        <td>{kind.totalFollow}</td>
+
+                                        <td>{kind.realName}</td>
+                                        <td>{kind.birthday}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-5"
+                                                onClick={() => openEditModal(kind)}
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                            <button
+                                                className="btn btn-danger-custom fs-5 ms-3"
+                                                onClick={() => deleteMusicKind(kind.id)}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </td>
+                                    </tr>) : (<tr key={kind.id}>
+                                        <td>{kind.id}</td>
+                                        <td>{kind.artistsName}</td>
+                                        <td>{kind.state === 1 ? "tài khoản bị hạn chế" : "khoá"}</td>
+                                        <td className="td_img">
+                                            {" "}
+                                            <img
+                                                src={kind.avt}
+                                                alt={kind.artistsName}
+                                            />{" "}
+                                        </td>
+
+
+                                        <td>{kind.totalFollow}</td>
+
+                                        <td>{kind.realName}</td>
+                                        <td>{kind.birthday}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-5"
+                                                onClick={() => openEditModal(kind)}
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                            <button
+                                                className="btn btn-danger-custom fs-5 ms-3"
+                                                onClick={() => deleteMusicKind(kind.id)}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </td>
+                                    </tr>)}
+                            </>
                         ))}
                     </tbody>
                 </table>

@@ -15,6 +15,7 @@ import HomeAdmin from "../components/pages/admin/home";
 import UserAdmin from "../components/pages/admin/users";
 import SingerAdmin from "../components/pages/admin/singers";
 import WriterAdmin from "../components/pages/admin/writers";
+import PlaylistChart from "../components/pages/admin/playlistChart";
 import CategoryAdmin from "../components/pages/admin/categorys";
 import PlaylistAdmin from "../components/pages/admin/playlists";
 import SongAdmin from "../components/pages/admin/songs";
@@ -50,7 +51,8 @@ const AdminRoutes = (props) => {
                         <Route path="/playlist" element={<PlaylistAdmin />} />
                         <Route path="/user" element={<UserAdmin />} />
                         <Route path="/singer" element={<SingerAdmin />} />
-                        <Route path="/writer/:id" element={<WriterAdmin />} />
+                        <Route path="/playlistchart" element={<PlaylistChart />} />
+                        <Route path="/songchart" element={<WriterAdmin />} />
                         <Route path="/song" element={<SongAdmin />} />
 
                         <Route path="/*" element={<HomeAdmin />} />
