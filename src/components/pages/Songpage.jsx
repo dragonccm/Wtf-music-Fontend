@@ -24,8 +24,13 @@ import Card from "../card/playlist_card";
 import CreatePlaylist from "../card/createPlaylist";
 import Like_heart from "../card/like";
 import Col3Layout from "../card/col_3_layout";
-
+import {
+    updateComment,
+    deleteComment,
+    createComment
+} from '../../services/restcomment_service'
 import { songPage } from "../../controller/song";
+
 const Songpage = () => {
     const dispatch = useDispatch();
 
@@ -34,14 +39,32 @@ const Songpage = () => {
 
     const [comments, setComments] = useState([]);
 
-    const handleSubmitComment = (event) => {
-        event && event.preventDefault();
-        let newComment = event.target.value;
-        setComments([...comments, newComment]);
-        event.target.value = "";
+    const handleSubmitComment = async (event) => {
+        event.preventDefault();
+        const newComment = event.target.opinion.value;
+        if (newComment) {
+            const response = await createComment({ comments: newComment, id });
+            setComments([...comments, response]);
+            event.target.opinion.value = "";
+        }
     };
 
+
+    
+    // useEffect(() => {
+    //     if(comments.length < 0){
+    //         const createComments = async () => {
+    //             const response = await createComment({comments,id});
+    //             setData(response);
+    //         }
+    //         createComments();
+    //     }
+    // }, [comments])
+
+
+
     const handleKeyDown = (event) => {
+        event.preventDefault();
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
             handleSubmitComment(event);
@@ -52,7 +75,6 @@ const Songpage = () => {
         const fetchData = async () => {
             const response = await fetchSongPage(id);
             setData(response);
-            console.log(response);
         };
 
         fetchData();
@@ -87,33 +109,6 @@ const Songpage = () => {
         }
         dispatch(fetchSongPlaying(id));
     };
-    const usserplaylist = [
-        {
-            id: "jdfhhjf",
-            img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
-            name: "Gone",
-        },
-        {
-            id: "jdfhhjf",
-            img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
-            name: "house",
-        },
-        {
-            id: "jdfhhjf",
-            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-            name: "Money",
-        },
-        {
-            id: "jdfhhjf",
-            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-            name: "Money",
-        },
-        {
-            id: "jdfhhjf",
-            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-            name: "Money",
-        },
-    ];
     return (
         <section className="songpage_main">
             <div className="songpage_list_head">
@@ -249,7 +244,7 @@ const Songpage = () => {
                             <textarea
                                 name="opinion"
                                 placeholder="Để lại bình luận của bạn..."
-                                onKeyDown={handleKeyDown}
+                                onKeyDown={()=>handleKeyDown}
                             ></textarea>
                             <div class="ms-3 btn-group">
                                 <button class="btn submit">Gửi</button>
