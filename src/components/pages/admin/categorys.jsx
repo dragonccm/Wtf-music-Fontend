@@ -49,9 +49,7 @@ const CategoryAdmin = () => {
     const [thumbnailRUrl, setThumbnailRUrl] = useState("");
     const [thumbnailR, setThumbnailR] = useState(null);
 
-
     const [isSendingRequest, setIsSendingRequest] = useState(false);
-
 
     const handleUploadThumbnail = (file) => {
         setThumbnail(file);
@@ -125,7 +123,7 @@ const CategoryAdmin = () => {
             thumbnailHasText: "",
             thumbnailR: "",
             description: "",
-        }
+        };
         try {
             await deleteGenre(newdata);
         } catch (error) {
@@ -207,7 +205,7 @@ const CategoryAdmin = () => {
         } catch (error) {
             console.error("Error fetching data:", error);
         }
-    }
+    };
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
         <div className="container overflow-x-auto container-admin">
@@ -243,7 +241,10 @@ const CategoryAdmin = () => {
             </div>
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
-                    <button className="btn fs-4 py-2" onClick={(e) => handlegetban(e)}>
+                    <button
+                        className="btn fs-4 py-2"
+                        onClick={(e) => handlegetban(e)}
+                    >
                         Lấy Thể Loại Bị Ban
                     </button>
                 </div>
@@ -252,78 +253,97 @@ const CategoryAdmin = () => {
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
                         <tr>
-                            <th>genreId</th>
-                            <th>genrename</th>
-                            <th>thumbnail</th>
-                            <th>playListId</th>
-                            <th>listen</th>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Hình</th>
+                            <th>Mã danh sách</th>
+                            <th>Lượt nghe</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {musicSongs.map((kind) => (
+                        {musicSongs.map((kind, index) => (
                             <>
-                             {kind.state === 1 ? 
-                                ( <tr style={{ opacity: 0.5 }} key={kind.id}>
-                                    <td>{kind.genreId}</td>
-                                    <td>{kind.genrename}</td>
-                                    <td className="td_img">
-                                        {" "}
-                                        <img
-                                            src={kind.thumbnail}
-                                            alt={kind.genrename}
-                                        />{" "}
-                                    </td>
-                                    <td>
-                                        {kind.playListId
-                                            ?.map((playList) => playList)
-                                            .join(", ")}
-                                    </td>
-                                    <td>{kind.listen}</td>
-                                    <td>
-                                        <button
-                                            className="btn btn-primary fs-5"
-                                            onClick={() => openEditModal(kind)}
-                                        >
-                                            <FontAwesomeIcon icon={faPen} />
-                                        </button>
-                                        <button
-                                            className="btn btn-danger-custom fs-5 ms-3"
-                                            onClick={() => deleteMusicKind(kind.genreId)}
-                                        >
-                                            <FontAwesomeIcon icon={faTrash} />
-                                        </button>
-                                    </td>
-                                </tr>) : ( <tr key={kind.id}>
-                                    <td>{kind.genreId}</td>
-                                    <td>{kind.genrename}</td>
-                                    <td className="td_img">
-                                        {" "}
-                                        <img
-                                            src={kind.thumbnail}
-                                            alt={kind.genrename}
-                                        />{" "}
-                                    </td>
-                                    <td>
-                                        {kind.playListId
-                                            ?.map((playList) => playList)
-                                            .join(", ")}
-                                    </td>
-                                    <td>{kind.listen}</td>
-                                    <td>
-                                        <button
-                                            className="btn btn-primary fs-5"
-                                            onClick={() => openEditModal(kind)}
-                                        >
-                                            <FontAwesomeIcon icon={faPen} />
-                                        </button>
-                                        <button
-                                            className="btn btn-danger-custom fs-5 ms-3"
-                                            onClick={() => deleteMusicKind(kind.genreId)}
-                                        >
-                                            <FontAwesomeIcon icon={faTrash} />
-                                        </button>
-                                    </td>
-                                </tr>)}
+                                {kind.state === 1 ? (
+                                    <tr style={{ opacity: 0.5 }} key={kind.id}>
+                                        <td>{index}</td>
+                                        <td>{kind.genrename}</td>
+                                        <td className="td_img">
+                                            {" "}
+                                            <img
+                                                src={kind.thumbnail}
+                                                alt={kind.genrename}
+                                            />{" "}
+                                        </td>
+                                        <td>
+                                            {kind.playListId
+                                                ?.map((playList) => playList)
+                                                .join(", ")}
+                                        </td>
+                                        <td>{kind.listen}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-3"
+                                                onClick={() =>
+                                                    openEditModal(kind)
+                                                }
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                            <button
+                                                className="btn btn-danger-custom fs-3 ms-3"
+                                                onClick={() =>
+                                                    deleteMusicKind(
+                                                        kind.genreId
+                                                    )
+                                                }
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faTrash}
+                                                />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    <tr key={kind.id}>
+                                        <td>{index}</td>
+                                        <td>{kind.genrename}</td>
+                                        <td className="td_img">
+                                            {" "}
+                                            <img
+                                                src={kind.thumbnail}
+                                                alt={kind.genrename}
+                                            />{" "}
+                                        </td>
+                                        <td>
+                                            {kind.playListId
+                                                ?.map((playList) => playList)
+                                                .join(", ")}
+                                        </td>
+                                        <td>{kind.listen}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-3"
+                                                onClick={() =>
+                                                    openEditModal(kind)
+                                                }
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                            <button
+                                                className="btn btn-danger-custom fs-3 ms-3"
+                                                onClick={() =>
+                                                    deleteMusicKind(
+                                                        kind.genreId
+                                                    )
+                                                }
+                                            >
+                                                <FontAwesomeIcon
+                                                    icon={faTrash}
+                                                />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )}
                             </>
                         ))}
                     </tbody>
@@ -343,13 +363,16 @@ const CategoryAdmin = () => {
                 </div>
                 <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end">
-                        <li className="border">
+                        <li
+                            style={{ backgroundColor: "#d4dae2" }}
+                            className="border"
+                        >
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() => handlePageChange(1)}
                             >
-                                First
+                                Đầu
                             </a>
                         </li>
                         <li className="border">
@@ -361,7 +384,7 @@ const CategoryAdmin = () => {
                                 }
                                 disabled={currentPage === 1}
                             >
-                                Previous
+                                Lùi
                             </a>
                         </li>
                         <li className="border">
@@ -373,16 +396,19 @@ const CategoryAdmin = () => {
                                 }
                                 disabled={currentPage === totalPages}
                             >
-                                Next
+                                Tiếp
                             </a>
                         </li>
-                        <li className="border">
+                        <li
+                            style={{ backgroundColor: "#d4dae2" }}
+                            className="border"
+                        >
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() => handlePageChange(totalPages - 5)}
                             >
-                                Last
+                                Cuối
                             </a>
                         </li>
                     </ul>
@@ -458,7 +484,9 @@ const CategoryAdmin = () => {
                                 />
                             )}
 
-                            <ImageUploader onUpload={handleUploadThumbnailHasText} />
+                            <ImageUploader
+                                onUpload={handleUploadThumbnailHasText}
+                            />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="edit-profile">
@@ -490,12 +518,16 @@ const CategoryAdmin = () => {
                             />
                         </div>
                         <div className="mb-4 form-group form-check">
-                            <select class="form-select" id="edit-email" name="state" value={editForm.state} onChange={handleEditFormChange}>
+                            <select
+                                class="form-select"
+                                id="edit-email"
+                                name="state"
+                                value={editForm.state}
+                                onChange={handleEditFormChange}
+                            >
                                 <option value="1">Ban</option>
                                 <option value="0">Unban</option>
                             </select>
-
-
                         </div>
 
                         <div className="text-end form-group">
@@ -570,7 +602,9 @@ const CategoryAdmin = () => {
                                 />
                             )}
 
-                            <ImageUploader onUpload={handleUploadThumbnailHasText} />
+                            <ImageUploader
+                                onUpload={handleUploadThumbnailHasText}
+                            />
                         </div>
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="edit-profile">

@@ -1,18 +1,22 @@
-import { useEffect, useState } from 'react';
-import { LineChart } from '@mui/x-charts/LineChart';
-import { songRankService, songRankListenService } from "../../../services/songRankService";
+import { useEffect, useState } from "react";
+import { LineChart } from "@mui/x-charts/LineChart";
+import {
+    songRankService,
+    songRankListenService,
+} from "../../../services/songRankService";
 import { getbanService } from "../../../services/getbanService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import "../../../css/admin/musicAdmin.scss";
-export default function WriterAdmin() {
+export default function SongChart() {
     const [data, setData] = useState([]);
     const [years, setYears] = useState([]);
     const [UKGDPperCapita, setUKGDPperCapita] = useState([]);
-    const [tilte, settilte] = useState("")
+    const [tilte, settilte] = useState("");
     const [id, setid] = useState("all");
     const [fetchid, setfetchid] = useState("like");
     const [searchdata, setsearchdata] = useState([]);
-    const [isInteractingWithResults, setIsInteractingWithResults] = useState(false);
+    const [isInteractingWithResults, setIsInteractingWithResults] =
+        useState(false);
     useEffect(() => {
         const fetchRankSongs = async () => {
             try {
@@ -41,7 +45,7 @@ export default function WriterAdmin() {
     }, [id, fetchid]);
     useEffect(() => {
         if (id === "all") {
-            settilte("Thống kê lượt thích Tất Cả Bài Hát trong 1 tháng")
+            settilte("Thống kê lượt thích tất cả Bài hát trong 1 tháng");
             const formattedYears = data.map((day) => {
                 const f = new Date(day.date);
                 const year = parseInt(f.getFullYear());
@@ -55,7 +59,7 @@ export default function WriterAdmin() {
             const UKGDPperCapitadata = data.map((data) => data.likeCount);
             setUKGDPperCapita(UKGDPperCapitadata);
         } else {
-            settilte("Thống kê lượt thích 7 ngày gần nhất")
+            settilte("Thống kê lượt thích 7 ngày gần nhất");
             if (Array.isArray(data)) {
                 const formattedYears = data.map((day) => {
                     const f = new Date(day.rankingDate);
@@ -74,8 +78,8 @@ export default function WriterAdmin() {
         try {
             const ser = await adminSearchS(e.target.value);
             const format = ser.DT.songs.map((data) => {
-                return ({ id: data.id, songname: data.songname })
-            })
+                return { id: data.id, songname: data.songname };
+            });
             setsearchdata(format);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -84,7 +88,7 @@ export default function WriterAdmin() {
     const lineChartsParams = {
         series: [
             {
-                label: 'Song',
+                label: "Song",
                 data: UKGDPperCapita,
                 showMark: false,
             },
@@ -93,7 +97,8 @@ export default function WriterAdmin() {
         height: 400,
     };
 
-    const yearFormatter = (date) => `${date.getDate().toString()}/${date.getMonth().toString()}`;
+    const yearFormatter = (date) =>
+        `${date.getDate().toString()}/${date.getMonth().toString()}`;
     const handleSearchResultClick = async (id) => {
         setIsInteractingWithResults(false);
         try {
@@ -121,36 +126,76 @@ export default function WriterAdmin() {
         <>
             <h1>{tilte}</h1>
             <nav class="d-flex ranking_select">
-
-                <select className=" p-3" onChange={(e) => setfetchid(e.target.value)}>
+                <select
+                    className=" p-3"
+                    onChange={(e) => setfetchid(e.target.value)}
+                >
                     <option value="like">Like</option>
                     <option value="listen">Listen</option>
                 </select>
-
-                <div class="search_ctn">
-                    <input class="mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={handleserch} onBlur={handleclear} />
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-                </div>
-                {searchdata.length > 0 &&
-                    <div class="search_result" onMouseEnter={handleResultMouseEnter} onMouseLeave={handleResultMouseLeave}>
-                        <button className='list-group-item search_result_item' value="all" onClick={() => handleSearchResultClick("all")}>thống kê tất cả</button>
+                <nav class="navbar">
+                    <div class="search_ctn">
+                        <input
+                            class="mr-sm-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                            onChange={handleserch}
+                            onBlur={handleclear}
+                        />
+                        <button
+                            class="btn btn-outline-success my-2 my-sm-0"
+                            type="button"
+                        >
+                            Search
+                        </button>
+                    </div>
+                </nav>
+                {searchdata.length > 0 && (
+                    <div
+                        class="search_result"
+                        onMouseEnter={handleResultMouseEnter}
+                        onMouseLeave={handleResultMouseLeave}
+                    >
+                        <button
+                            className="list-group-item search_result_item"
+                            value="all"
+                            onClick={() => handleSearchResultClick("all")}
+                        >
+                            thống kê tất cả
+                        </button>
                         {searchdata.map((data) => (
-                            <button className='list-group-item search_result_item' value={data.id} onClick={() => handleSearchResultClick(data.id)}>{data.songname}</button>
+                            <button
+                                className="list-group-item search_result_item"
+                                value={data.id}
+                                onClick={() => handleSearchResultClick(data.id)}
+                            >
+                                {data.songname}
+                            </button>
                         ))}
                     </div>
-                }
-            </nav>
-            {!Array.isArray(data) || data.length < 1 ? (<h2 className='undefine'>chưa có dữ liệu trong 7 ngày gần nhất</h2>) :
-                (
-                    <LineChart
-                        {...lineChartsParams}
-                        xAxis={[{ data: years, scaleType: 'time', valueFormatter: yearFormatter }]}
-                        series={lineChartsParams.series.map((series) => ({
-                            ...series,
-                            data: UKGDPperCapita,
-                        }))}
-                    />
                 )}
+            </nav>
+            {!Array.isArray(data) || data.length < 1 ? (
+                <h2 className="undefine">
+                    chưa có dữ liệu trong 7 ngày gần nhất
+                </h2>
+            ) : (
+                <LineChart
+                    {...lineChartsParams}
+                    xAxis={[
+                        {
+                            data: years,
+                            scaleType: "time",
+                            valueFormatter: yearFormatter,
+                        },
+                    ]}
+                    series={lineChartsParams.series.map((series) => ({
+                        ...series,
+                        data: UKGDPperCapita,
+                    }))}
+                />
+            )}
         </>
     );
 }

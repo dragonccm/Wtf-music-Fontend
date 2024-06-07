@@ -9,6 +9,7 @@ import icon_Category from "../../img/category-admin.svg";
 import icon_Playlist from "../../img/music-folder-svgrepo-com.svg";
 import icon_Writer from "../../img/writer-admin.svg";
 import icon_User from "../../img/user-admin.svg";
+import icon_Comment from "../../img/comment-admin.svg";
 import icon_Singer from "../../img/singer-admin.svg";
 import icon_Music from "../../img/play-music-admin.svg";
 import logo from "../../img/logo3 (1).png";
@@ -120,7 +121,7 @@ const NavigationBar = () => {
                                         src={icon_Writer}
                                     />
                                 </div>
-                                <span>thống kê Bài Hát</span>
+                                <span>Thống kê bài hát</span>
                             </NavLink>
                             <NavLink
                                 to="/admin/playlistchart"
@@ -136,7 +137,7 @@ const NavigationBar = () => {
                                         src={icon_Writer}
                                     />
                                 </div>
-                                <span>thống kê playlist</span>
+                                <span>Thống kê danh sách</span>
                             </NavLink>
                             <NavLink
                                 to="/admin/singer"
@@ -188,6 +189,23 @@ const NavigationBar = () => {
                                 </div>
                                 <span>Người dùng</span>
                             </NavLink>
+                            <NavLink
+                                to="/admin/comment"
+                                isActive={isActive}
+                                className="nav-link list_nav_item"
+                            >
+                                <div className="icon_list_nav_item">
+                                    <ReactSVG
+                                        beforeInjection={(svg) => {
+                                            svg.classList.add(
+                                                "icon_list_nav_item_svg"
+                                            );
+                                        }}
+                                        src={icon_Comment}
+                                    />
+                                </div>
+                                <span>Bình luận</span>
+                            </NavLink>
                         </Nav>
                         {/* <Nav>   
                   {user && user.isAuthenticated === true ? (
@@ -210,7 +228,6 @@ const NavigationBar = () => {
                   )}
                 </Nav> */}
                     </Navbar.Collapse>
-                    
                 </Container>
             </Navbar>
             {/* <Mascot /> */}
