@@ -27,12 +27,7 @@ function App(props) {
       console.log("lỗi");
     }
   }, []);
-  const isAuthentication = useSelector(
-    (state) => state.Authentication.defaultUser.isAuthenticated
-  );
-  const isAdmin = useSelector(
-    (state) => state.Authentication.defaultUser.accountisAdmin
-  );
+ 
 
   const Mainn = () => (
     <ThemeProvider>

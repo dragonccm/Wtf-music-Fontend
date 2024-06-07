@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import '../../css/songcard.scss';
 import Play_animation from "./play_animation"
 import { useSelector, useDispatch } from "react-redux";
+import { fetchPlayList } from '../../redux/slide/playlistSlice'
 
 const SongCard = ({ element }) => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const SongCard = ({ element }) => {
     } else {
       console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
     }
+    dispatch(fetchPlayList());
     dispatch(fetchSongPlaying(id));
   }
   const songInfo = useSelector((state) => state.getSongData.inforSong);

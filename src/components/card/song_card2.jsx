@@ -17,6 +17,8 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
         if (onPlaylist.isPlay) {
             console.log(idPlaylistNow)
             console.log(onPlaylist.idPlaylist)
+            // kiểm tra bài hát này có thuộc playlist hiện tại đang dc phát k,
+            // nếu k thì get playlist mới của bài hát đó
             if (idPlaylistNow !== onPlaylist.idPlaylist) {
                 dispatch(fetchPlayList(onPlaylist.idPlaylist));
                 dispatch(update(rating.index))

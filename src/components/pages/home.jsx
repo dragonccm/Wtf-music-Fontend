@@ -12,11 +12,15 @@ import Loading from "../sideNavigation/mascot_animation";
 import { getHistory } from "../../controller/history"
 
 const HomePage = () => {
+    const homeData = useSelector((state) => state.home.isLoading);
+
     const dispatch = useDispatch();
     const [playlistsData, setPlaylistsData] = useState([])
     useEffect(() => {
-        dispatch(fetchHome());
-    }, []);
+        if (homeData) {
+            dispatch(fetchHome());
+        }
+    }, [homeData]);
     useEffect(() => {
         // dispatch(fetchPlayList(id));
         fecthHPlaylist()

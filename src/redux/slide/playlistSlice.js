@@ -1,12 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { playlistroute } from "../../controller/playlist";
+import { playlistroute,playlistRelate } from "../../controller/playlist";
 
 export const fetchPlayList = createAsyncThunk(
   "playlsit/getplaylist",
   async (id) => {
-    const response = await playlistroute(id);
-    console.log("oooooo");
-    return response.DT.data;
+    if (id) {
+      
+      const response = await playlistroute(id);
+      console.log("oooooo");
+      return response.DT.data;
+    } else {
+      const response = await playlistRelate();
+      console.log("oooooo");
+      return response.DT.data;
+    }
   }
 );
 const initialState = {
