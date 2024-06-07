@@ -27,8 +27,8 @@ import Col3Layout from "../card/col_3_layout";
 import {
     reportComment,
     createComment,
-    getComment
-} from '../../services/restcomment_service'
+    getComment,
+} from "../../services/restcomment_service";
 import { songPage } from "../../controller/song";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,10 +53,6 @@ const Songpage = () => {
         }
     };
 
-
-
-
-
     const handleKeyDown = (event) => {
         event.preventDefault();
         if (event.key === "Enter" && !event.shiftKey) {
@@ -75,18 +71,18 @@ const Songpage = () => {
         await fetchData();
         const getComments = async (id) => {
             const response = await getComment(id);
-            setComments(response.DT)
-        }
-        getComments(id)
+            setComments(response.DT);
+        };
+        getComments(id);
     }, []);
 
     useEffect(() => {
         const getComments = async (id) => {
             const response = await getComment(id);
-            setComments(response.DT)
-        }
-        getComments(id)
-    }, [loading])
+            setComments(response.DT);
+        };
+        getComments(id);
+    }, [loading]);
     const fetchSongPage = async (id) => {
         try {
             const response = await songPage(id);
@@ -118,12 +114,11 @@ const Songpage = () => {
         dispatch(fetchSongPlaying(id));
     };
     const handleReport = async (id) => {
-        const res = await reportComment(id)
-        if (res.EC === '0') {
+        const res = await reportComment(id);
+        if (res.EC === "0") {
             toast.success(res.EM);
-        } else if (res.EC === '2') {
+        } else if (res.EC === "2") {
             toast.warning(res.EM);
-
         }
     };
     return (
@@ -234,40 +229,62 @@ const Songpage = () => {
 
                     <div className="pb-5 d-flex flex-column user_reviews">
                         {comments.map((comment) => (
-                            <div className="d-flex mb-5 user-item" key={comment._id}>
+                            <div
+                                className="d-flex mb-5 user-item"
+                                key={comment._id}
+                            >
                                 <img
-                                    className="bg-light cmt_avt" 
-                                    src={comment.userAvt ? comment.userAvt : "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"}
+                                    className="bg-light cmt_avt"
+                                    src={
+                                        comment.userAvt
+                                            ? comment.userAvt
+                                            : "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                                    }
                                 ></img>
                                 <div className="w-100 reviews">
                                     <div className="inf_user_reviews">
                                         <h4>{comment.userName}</h4>
                                         <span>{comment.content}</span>
                                     </div>
-                                    <span className="date_reviews">
-                                        {new Date(comment.createdAt).toLocaleString("en-US", {
-                                            day: "numeric",
-                                            month: "numeric",
-                                            year: "numeric",
-                                            hour: "numeric",
-                                            minute: "numeric",
-                                            second: "numeric",
-                                        })}
-                                    </span>
-                                </div>
-                                <div>
-                                    {comment.isOwnComment !== true ? (
-                                        <div className="d-flex justify-content-end">
-                                            <button
-                                                className="btn"
-                                                onClick={() => handleReport(comment._id)}
-                                            >
-                                                Báo cáo
-                                            </button>
+                                    <div className="d-flex">
+                                        <div className="d-flex align-items-center">
+                                            <span className="date_reviews">
+                                                {new Date(
+                                                    comment.createdAt
+                                                ).toLocaleString("en-US", {
+                                                    day: "numeric",
+                                                    month: "numeric",
+                                                    year: "numeric",
+                                                    hour: "numeric",
+                                                    minute: "numeric",
+                                                    second: "numeric",
+                                                })}
+                                            </span>
+
+                                            {comment.isOwnComment !== true ? (
+                                                <button
+                                                    className="btn btn-custom"
+                                                    // onClick={() =>
+                                                    //     handleOpenReport()
+                                                    // }
+                                                >
+                                                    ...
+                                                </button>
+                                            ) : (
+                                                // <button
+                                                //     className="btn btn-custom"
+                                                //     onClick={() =>
+                                                //         handleReport(
+                                                //             comment._id
+                                                //         )
+                                                //     }
+                                                // >
+                                                //     Báo cáo
+                                                // </button>
+                                                ""
+                                            )}
                                         </div>
-                                    ) : (
-                                        ""
-                                    )}
+                                    </div>
                                 </div>
                             </div>
                         ))}
