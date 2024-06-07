@@ -1,26 +1,29 @@
 import { useEffect, useState } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { songRankService, songRankListenService } from "../../../services/songRankService";
-import { getbanService } from "../../../services/getbanService";
+import { songRankService } from "../../../services/songRankService";
+import { playlistRankService, playlistRankListenService } from "../../../services/palylistRankService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import "../../../css/admin/musicAdmin.scss";
-export default function WriterAdmin() {
+export default function PlaylistChart() {
     const [data, setData] = useState([]);
     const [years, setYears] = useState([]);
     const [UKGDPperCapita, setUKGDPperCapita] = useState([]);
     const [tilte, settilte] = useState("")
     const [id, setid] = useState("all");
     const [fetchid, setfetchid] = useState("like");
+
     const [searchdata, setsearchdata] = useState([]);
     const [isInteractingWithResults, setIsInteractingWithResults] = useState(false);
+
+
     useEffect(() => {
         const fetchRankSongs = async () => {
             try {
                 if (fetchid === "like") {
-                    const response = await songRankService(id);
+                    const response = await playlistRankService(id);
                     setData(response.DT.data);
                 } else if (fetchid === "listen") {
-                    const response = await songRankListenService(id);
+                    const response = await playlistRankListenService(id);
                     setData(response.DT.data);
                 }
             } catch (error) {
@@ -28,20 +31,10 @@ export default function WriterAdmin() {
             }
         };
         fetchRankSongs();
-
-        const fetchban = async () => {
-            try {
-                const response = await getbanService();
-                console.log(response.DT);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchban();
     }, [id, fetchid]);
     useEffect(() => {
         if (id === "all") {
-            settilte("Thống kê lượt thích Tất Cả Bài Hát trong 1 tháng")
+            settilte("Thống kê lượt thích Tất Cả Playlist trong 1 tháng")
             const formattedYears = data.map((day) => {
                 const f = new Date(day.date);
                 const year = parseInt(f.getFullYear());
@@ -73,8 +66,8 @@ export default function WriterAdmin() {
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            const format = ser.DT.songs.map((data) => {
-                return ({ id: data.id, songname: data.songname })
+            const format = ser.DT.Playlist.map((data) => {
+                return ({ id: data.playlistId, playlistname: data.playlistname })
             })
             setsearchdata(format);
         } catch (error) {
@@ -84,7 +77,7 @@ export default function WriterAdmin() {
     const lineChartsParams = {
         series: [
             {
-                label: 'Song',
+                label: 'Playlist',
                 data: UKGDPperCapita,
                 showMark: false,
             },
@@ -113,34 +106,34 @@ export default function WriterAdmin() {
     const handleResultMouseEnter = () => {
         setIsInteractingWithResults(true);
     };
+
     const handleResultMouseLeave = () => {
         setIsInteractingWithResults(false);
     };
-
     return (
         <>
             <h1>{tilte}</h1>
-            <nav class="d-flex ranking_select">
-
+            <div className='d-flex ranking_select'>
                 <select className=" p-3" onChange={(e) => setfetchid(e.target.value)}>
                     <option value="like">Like</option>
                     <option value="listen">Listen</option>
                 </select>
-
-                <div class="search_ctn">
-                    <input class="mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={handleserch} onBlur={handleclear} />
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
-                </div>
-                {searchdata.length > 0 &&
-                    <div class="search_result" onMouseEnter={handleResultMouseEnter} onMouseLeave={handleResultMouseLeave}>
-                        <button className='list-group-item search_result_item' value="all" onClick={() => handleSearchResultClick("all")}>thống kê tất cả</button>
-                        {searchdata.map((data) => (
-                            <button className='list-group-item search_result_item' value={data.id} onClick={() => handleSearchResultClick(data.id)}>{data.songname}</button>
-                        ))}
+                <nav class="d-flex navbar navbar-light bg-light">
+                    <div class="search_ctn">
+                        <input class="mr-sm-2" type="search" placeholder="Search" aria-label="Search" onChange={handleserch} onBlur={handleclear} />
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="button">Search</button>
                     </div>
-                }
-            </nav>
-            {!Array.isArray(data) || data.length < 1 ? (<h2 className='undefine'>chưa có dữ liệu trong 7 ngày gần nhất</h2>) :
+                    {searchdata.length > 0 &&
+                        <div class="search_result" onMouseEnter={handleResultMouseEnter} onMouseLeave={handleResultMouseLeave}>
+                            <button className='list-group-item search_result_item' value="all" onClick={() => handleSearchResultClick("all")}>thống kê tất cả</button>
+                            {searchdata.map((data) => (
+                                <button className='list-group-item search_result_item' value={data.id} onClick={() => handleSearchResultClick(data.id)}>{data.playlistname}</button>
+                            ))}
+                        </div>
+                    }
+                </nav>
+            </div>
+            {!Array.isArray(data) || data.length < 1 ? (<h2 className='undefine'>play list chưa có dữ liệu trong 7 ngày gần nhất</h2>) :
                 (
                     <LineChart
                         {...lineChartsParams}

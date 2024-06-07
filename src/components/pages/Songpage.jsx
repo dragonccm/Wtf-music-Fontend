@@ -24,8 +24,14 @@ import Card from "../card/playlist_card";
 import CreatePlaylist from "../card/createPlaylist";
 import Like_heart from "../card/like";
 import Col3Layout from "../card/col_3_layout";
-
+import {
+    reportComment,
+    createComment,
+    getComment
+} from '../../services/restcomment_service'
 import { songPage } from "../../controller/song";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Songpage = () => {
     const dispatch = useDispatch();
 
@@ -33,15 +39,26 @@ const Songpage = () => {
     const [data, setData] = useState({});
 
     const [comments, setComments] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmitComment = (event) => {
-        event && event.preventDefault();
-        let newComment = event.target.value;
-        setComments([...comments, newComment]);
-        event.target.value = "";
+    const handleSubmitComment = async (event) => {
+        setLoading(true);
+        event.preventDefault();
+        const newComment = event.target.opinion.value;
+        if (newComment) {
+            await createComment({ comments: newComment, id });
+            setLoading(false);
+
+            event.target.opinion.value = "";
+        }
     };
 
+
+
+
+
     const handleKeyDown = (event) => {
+        event.preventDefault();
         if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();
             handleSubmitComment(event);
@@ -52,11 +69,24 @@ const Songpage = () => {
         const fetchData = async () => {
             const response = await fetchSongPage(id);
             setData(response);
-            console.log(response);
         };
 
+
         fetchData();
+        const getComments = async (id) => {
+            const response = await getComment(id);
+            setComments(response.DT)
+        }
+        getComments(id)
     }, []);
+
+    useEffect(() => {
+        const getComments = async (id) => {
+            const response = await getComment(id);
+            setComments(response.DT)
+        }
+        getComments(id)
+    }, [loading])
     const fetchSongPage = async (id) => {
         try {
             const response = await songPage(id);
@@ -87,33 +117,15 @@ const Songpage = () => {
         }
         dispatch(fetchSongPlaying(id));
     };
-    const usserplaylist = [
-        {
-            id: "jdfhhjf",
-            img: "https://th.bing.com/th/id/OIP.iP-3O89bhSHrVr2rUEe4ZQHaEK?rs=1&pid=ImgDetMain",
-            name: "Gone",
-        },
-        {
-            id: "jdfhhjf",
-            img: "https://th.bing.com/th/id/OIP.za6JTNz9MpwwZHBiIleI0AHaLH?rs=1&pid=ImgDetMain",
-            name: "house",
-        },
-        {
-            id: "jdfhhjf",
-            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-            name: "Money",
-        },
-        {
-            id: "jdfhhjf",
-            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-            name: "Money",
-        },
-        {
-            id: "jdfhhjf",
-            img: "https://6.viki.io/image/6b2ff0b5d027478cbe9b1a63a8705e10/dummy.jpeg?s=900x600&e=t",
-            name: "Money",
-        },
-    ];
+    const handleReport = async (id) => {
+        const res = await reportComment(id)
+        if (res.EC === '0') {
+            toast.success(res.EM);
+        } else if (res.EC === '2') {
+            toast.warning(res.EM);
+
+        }
+    };
     return (
         <section className="songpage_main">
             <div className="songpage_list_head">
@@ -217,24 +229,45 @@ const Songpage = () => {
                         className="text-center fw-bold pb-5"
                         style={{ fontSize: "x-large" }}
                     >
-                        Bình luận (244)
+                        Bình luận ({comments.length})
                     </h2>
 
                     <div className="pb-5 d-flex flex-column user_reviews">
-                        {comments.map((comment, index) => (
-                            <div className="d-flex mb-5 user-item" key={index}>
+                        {comments.map((comment) => (
+                            <div className="d-flex mb-5 user-item" key={comment._id}>
                                 <img
-                                    className="bg-light"
-                                    src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                                    className="bg-light cmt_avt" 
+                                    src={comment.userAvt ? comment.userAvt : "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"}
                                 ></img>
                                 <div className="w-100 reviews">
                                     <div className="inf_user_reviews">
-                                        <h4>Vua của đom đóm J97</h4>
-                                        <span>{comment}</span>
+                                        <h4>{comment.userName}</h4>
+                                        <span>{comment.content}</span>
                                     </div>
                                     <span className="date_reviews">
-                                        103 ngày trước
+                                        {new Date(comment.createdAt).toLocaleString("en-US", {
+                                            day: "numeric",
+                                            month: "numeric",
+                                            year: "numeric",
+                                            hour: "numeric",
+                                            minute: "numeric",
+                                            second: "numeric",
+                                        })}
                                     </span>
+                                </div>
+                                <div>
+                                    {comment.isOwnComment !== true ? (
+                                        <div className="d-flex justify-content-end">
+                                            <button
+                                                className="btn"
+                                                onClick={() => handleReport(comment._id)}
+                                            >
+                                                Báo cáo
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        ""
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -249,7 +282,7 @@ const Songpage = () => {
                             <textarea
                                 name="opinion"
                                 placeholder="Để lại bình luận của bạn..."
-                                onKeyDown={handleKeyDown}
+                                onKeyDown={() => handleKeyDown}
                             ></textarea>
                             <div class="ms-3 btn-group">
                                 <button class="btn submit">Gửi</button>
@@ -258,6 +291,19 @@ const Songpage = () => {
                     </form>
                 </div>
             </div>
+            <ToastContainer
+                style={{ fontSize: "16px" }}
+                position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </section>
     );
 };

@@ -85,6 +85,33 @@
         }
     }
 }
+.carr_ctn{
+    gap: 10px;
+    display: flex;
+    .carr{
+        width: 22%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: var(--bg-white);
+        padding: 1rem;
+        border-radius: 10px;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+        .carr_songname{
+            font-size: 1.5rem;
+            color: var(--footer-text);
+            margin: 1rem 0;
+        }
+    
+    }
+}
 @media screen and (max-width: 600px) {
     .main_artists{
       padding-top: 10rem;

@@ -14,7 +14,7 @@ import {
 } from "../../../services/restGenreService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
-
+import { getbanService } from "../../../services/getbanService";
 const CategoryAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
@@ -23,20 +23,49 @@ const CategoryAdmin = () => {
         genreId: "",
         genrename: "",
         thumbnail: "",
+        thumbnailHasText: "",
+        thumbnailR: "",
+        state: "",
+        description: "",
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
     const [createForm, setCreateForm] = useState({
         genrename: "",
         thumbnail: "",
+        thumbnailHasText: "",
+        thumbnailR: "",
+        description: "",
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState({}); // Trang hiện tại
-    const [imageUrl, setImageUrl] = useState("");
-    const [file, setFile] = useState(null);
-    const handleUpload = (file) => {
-        setFile(file);
-        setImageUrl(URL.createObjectURL(file));
+
+    const [thumbnailUrl, setThumbnailUrl] = useState("");
+    const [thumbnail, setThumbnail] = useState(null);
+
+    const [thumbnailHasTextUrl, setThumbnailHasTextUrl] = useState("");
+    const [thumbnailHasText, setThumbnailHasText] = useState(null);
+
+    const [thumbnailRUrl, setThumbnailRUrl] = useState("");
+    const [thumbnailR, setThumbnailR] = useState(null);
+
+
+    const [isSendingRequest, setIsSendingRequest] = useState(false);
+
+
+    const handleUploadThumbnail = (file) => {
+        setThumbnail(file);
+        setThumbnailUrl(URL.createObjectURL(file));
+    };
+
+    const handleUploadThumbnailHasText = (file) => {
+        setThumbnailHasText(file);
+        setThumbnailHasTextUrl(URL.createObjectURL(file));
+    };
+
+    const handleUploadThumbnailR = (file) => {
+        setThumbnailR(file);
+        setThumbnailRUrl(URL.createObjectURL(file));
     };
     const handlePageChange = (pageNum) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
@@ -52,18 +81,24 @@ const CategoryAdmin = () => {
     }, []);
     // Hàm giả lập lấy danh sách thể loại nhạc từ server
     const fetchMusicSongs = async () => {
-        try {
-            const response = await adminGetGenres(
-                parseInt((currentPage - 1) * itemsPerPage)
-            );
-            setMusicSongs(response.DT.handledata);
-            setmaxpage(response.maxPage);
-        } catch (error) {
-            console.error("Error fetching data:", error);
+        if (!isSendingRequest) {
+            setIsSendingRequest(true);
+            try {
+                const response = await adminGetGenres(
+                    parseInt((currentPage - 1) * itemsPerPage)
+                );
+                setMusicSongs(response.DT.handledata);
+                setmaxpage(response.maxPage);
+                setIsSendingRequest(false);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
     };
     const updateMusicSongs = async (data) => {
-        data.thumbnail = imageUrl;
+        data.thumbnail = thumbnail;
+        data.thumbnailHasText = thumbnailHasText;
+        data.thumbnailR = thumbnailR;
         alert("Update music", editForm);
         try {
             await updateGenre(data);
@@ -72,9 +107,27 @@ const CategoryAdmin = () => {
         }
     };
     const createMusicSongs = async (data) => {
-        data.thumbnail = imageUrl;
+        data.thumbnail = thumbnail;
+        data.thumbnailHasText = thumbnailHasText;
+        data.thumbnailR = thumbnailR;
         try {
             await createGenre(data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    const deleteMusicSongs = async (data) => {
+        const newdata = {
+            genreId: data,
+            genrename: "",
+            thumbnail: "",
+            thumbnailHasText: "",
+            thumbnailR: "",
+            description: "",
+        }
+        try {
+            await deleteGenre(newdata);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -86,14 +139,14 @@ const CategoryAdmin = () => {
     };
 
     // Hàm chỉnh sửa thông tin thể loại nhạc
-    const updateMusicKind = async () => {
+    const updateMusicKind = async (e) => {
+        e.preventDefault();
         updateMusicSongs(editForm);
     };
 
     // Hàm xóa thể loại nhạc
     const deleteMusicKind = async (id) => {
-        // Gọi API để xóa thể loại nhạc
-        // Khi xóa thành công, cập nhật state
+        deleteMusicSongs(id);
     };
 
     // Hiển thị pop-up form chỉnh sửa
@@ -103,6 +156,9 @@ const CategoryAdmin = () => {
             genreId: kind.genreId,
             genrename: kind.genrename,
             thumbnail: kind.thumbnail,
+            thumbnailR: kind.thumbnailR,
+            thumbnailHasText: kind.thumbnailHasText,
+            state: kind.state,
         });
         setIsEditModalOpen(true);
     };
@@ -143,6 +199,15 @@ const CategoryAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
+
+    const handlegetban = async (e) => {
+        try {
+            const ser = await getbanService();
+            setMusicSongs(ser.DT.genres);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
         <div className="container overflow-x-auto container-admin">
@@ -176,6 +241,13 @@ const CategoryAdmin = () => {
                     </div>
                 </div>
             </div>
+            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button className="btn fs-4 py-2" onClick={(e) => handlegetban(e)}>
+                        Lấy Thể Loại Bị Ban
+                    </button>
+                </div>
+            </div>
             <div className="px-4">
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
@@ -189,37 +261,70 @@ const CategoryAdmin = () => {
                     </thead>
                     <tbody>
                         {musicSongs.map((kind) => (
-                            <tr key={kind.id}>
-                                <td>{kind.genreId}</td>
-                                <td>{kind.genrename}</td>
-                                <td className="td_img">
-                                    {" "}
-                                    <img
-                                        src={kind.thumbnail}
-                                        alt={kind.genrename}
-                                    />{" "}
-                                </td>
-                                <td>
-                                    {kind.playListId
-                                        ?.map((playList) => playList)
-                                        .join(", ")}
-                                </td>
-                                <td>{kind.listen}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-primary fs-5"
-                                        onClick={() => openEditModal(kind)}
-                                    >
-                                        <FontAwesomeIcon icon={faPen} />
-                                    </button>
-                                    <button
-                                        className="btn btn-danger-custom fs-5 ms-3"
-                                        onClick={() => deleteMusicKind(kind.id)}
-                                    >
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                </td>
-                            </tr>
+                            <>
+                             {kind.state === 1 ? 
+                                ( <tr style={{ opacity: 0.5 }} key={kind.id}>
+                                    <td>{kind.genreId}</td>
+                                    <td>{kind.genrename}</td>
+                                    <td className="td_img">
+                                        {" "}
+                                        <img
+                                            src={kind.thumbnail}
+                                            alt={kind.genrename}
+                                        />{" "}
+                                    </td>
+                                    <td>
+                                        {kind.playListId
+                                            ?.map((playList) => playList)
+                                            .join(", ")}
+                                    </td>
+                                    <td>{kind.listen}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn-primary fs-5"
+                                            onClick={() => openEditModal(kind)}
+                                        >
+                                            <FontAwesomeIcon icon={faPen} />
+                                        </button>
+                                        <button
+                                            className="btn btn-danger-custom fs-5 ms-3"
+                                            onClick={() => deleteMusicKind(kind.genreId)}
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </td>
+                                </tr>) : ( <tr key={kind.id}>
+                                    <td>{kind.genreId}</td>
+                                    <td>{kind.genrename}</td>
+                                    <td className="td_img">
+                                        {" "}
+                                        <img
+                                            src={kind.thumbnail}
+                                            alt={kind.genrename}
+                                        />{" "}
+                                    </td>
+                                    <td>
+                                        {kind.playListId
+                                            ?.map((playList) => playList)
+                                            .join(", ")}
+                                    </td>
+                                    <td>{kind.listen}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn-primary fs-5"
+                                            onClick={() => openEditModal(kind)}
+                                        >
+                                            <FontAwesomeIcon icon={faPen} />
+                                        </button>
+                                        <button
+                                            className="btn btn-danger-custom fs-5 ms-3"
+                                            onClick={() => deleteMusicKind(kind.genreId)}
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} />
+                                        </button>
+                                    </td>
+                                </tr>)}
+                            </>
                         ))}
                     </tbody>
                 </table>
@@ -329,21 +434,74 @@ const CategoryAdmin = () => {
                             <label className="fs-4 mb-2" htmlFor="edit-profile">
                                 thumbnail:
                             </label>
-                            {imageUrl && (
+                            {thumbnailUrl && (
                                 <img
-                                    src={imageUrl}
+                                    style={{ width: "12%" }}
+                                    src={thumbnailUrl}
                                     className="avt-img"
                                     alt="Uploaded"
                                 />
                             )}
 
-                            <ImageUploader onUpload={handleUpload} />
+                            <ImageUploader onUpload={handleUploadThumbnail} />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                                thumbnailHasText:
+                            </label>
+                            {thumbnailHasTextUrl && (
+                                <img
+                                    style={{ width: "12%" }}
+                                    src={thumbnailHasTextUrl}
+                                    className="avt-img"
+                                    alt="Uploaded"
+                                />
+                            )}
+
+                            <ImageUploader onUpload={handleUploadThumbnailHasText} />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                                thumbnailR:
+                            </label>
+                            {thumbnailRUrl && (
+                                <img
+                                    style={{ width: "12%" }}
+                                    src={thumbnailRUrl}
+                                    className="avt-img"
+                                    alt="Uploaded"
+                                />
+                            )}
+
+                            <ImageUploader onUpload={handleUploadThumbnailR} />
+                        </div>
+
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-email">
+                                Mô Tả:
+                            </label>
+                            <input
+                                type="text"
+                                className="fs-4 form-control"
+                                id="edit-email"
+                                name="description"
+                                placeholder={editForm.description}
+                                onChange={handleEditFormChange}
+                            />
+                        </div>
+                        <div className="mb-4 form-group form-check">
+                            <select class="form-select" id="edit-email" name="state" value={editForm.state} onChange={handleEditFormChange}>
+                                <option value="1">Ban</option>
+                                <option value="0">Unban</option>
+                            </select>
+
+
                         </div>
 
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
-                                onClick={updateMusicKind}
+                                onClick={(e) => updateMusicKind(e)}
                             >
                                 Cập nhật
                             </button>
@@ -388,22 +546,60 @@ const CategoryAdmin = () => {
                             <label className="fs-4 mb-2" htmlFor="edit-profile">
                                 thumbnail:
                             </label>
-                            {imageUrl && (
+                            {thumbnailUrl && (
                                 <img
-                                    src={imageUrl}
+                                    style={{ width: "12%" }}
+                                    src={thumbnailUrl}
                                     className="avt-img"
                                     alt="Uploaded"
                                 />
                             )}
 
-                            <ImageUploader onUpload={handleUpload} />
-                            {/* <input
-                                type="file"
+                            <ImageUploader onUpload={handleUploadThumbnail} />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                                thumbnailHasText:
+                            </label>
+                            {thumbnailHasTextUrl && (
+                                <img
+                                    style={{ width: "12%" }}
+                                    src={thumbnailHasTextUrl}
+                                    className="avt-img"
+                                    alt="Uploaded"
+                                />
+                            )}
+
+                            <ImageUploader onUpload={handleUploadThumbnailHasText} />
+                        </div>
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-profile">
+                                thumbnailR:
+                            </label>
+                            {thumbnailRUrl && (
+                                <img
+                                    style={{ width: "12%" }}
+                                    src={thumbnailRUrl}
+                                    className="avt-img"
+                                    alt="Uploaded"
+                                />
+                            )}
+
+                            <ImageUploader onUpload={handleUploadThumbnailR} />
+                        </div>
+
+                        <div className="mb-4 form-group">
+                            <label className="fs-4 mb-2" htmlFor="edit-email">
+                                Mô Tả:
+                            </label>
+                            <input
+                                type="text"
                                 className="fs-4 form-control"
-                                id="thumbnail"
-                                value={editForm.thumbnail}
-                                onChange={handleEditFormChange}
-                            /> */}
+                                id="edit-email"
+                                name="description"
+                                placeholder={createForm.description}
+                                onChange={handleCreateFormChange}
+                            />
                         </div>
 
                         <div className="text-end form-group">

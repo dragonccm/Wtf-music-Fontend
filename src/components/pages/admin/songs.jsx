@@ -15,14 +15,14 @@ import {
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import AudioUploader from "../../../components/pages/profile/Profile-setting/upladAudio";
-
+import { getbanService } from "../../../services/getbanService";
 const SongAdmin = () => {
     const [file, setFile] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
 
     const [audioFile, setAudioFile] = useState(null);
     const [audioUrl, setAudioUrl] = useState("");
-
+    const [isSendingRequest, setIsSendingRequest] = useState(false);
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     // các state edit
@@ -68,7 +68,6 @@ const SongAdmin = () => {
         setImageUrl(URL.createObjectURL(file));
         console.log("file img", file)
     };
-
     const handleAudioUpload = (audioFile) => {
         setAudioFile(audioFile);
         setAudioUrl(URL.createObjectURL(audioFile));
@@ -81,14 +80,18 @@ const SongAdmin = () => {
     }, []);
 
     const fetchMusicSongs = async () => {
-        try {
-            const response = await adminGetSong(
-                parseInt((currentPage - 1) * itemsPerPage)
-            );
-            setMusicSongs(response.handledata);
-            setmaxpage(response.maxPage);
-        } catch (error) {
-            console.error("Error fetching data:", error);
+        if (!isSendingRequest) {
+            setIsSendingRequest(true);
+            try {
+                const response = await adminGetSong(
+                    parseInt((currentPage - 1) * itemsPerPage)
+                );
+                setMusicSongs(response.handledata);
+                setmaxpage(response.maxPage);
+                setIsSendingRequest(false);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
     };
     const updateMusicSongs = async (data) => {
@@ -310,7 +313,14 @@ const SongAdmin = () => {
             alert("id không tồn tại");
         }
     };
-
+    const handlegetban = async (e) => {
+        try {
+            const ser = await getbanService();
+            setMusicSongs(ser.DT.song);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
 
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
@@ -345,6 +355,13 @@ const SongAdmin = () => {
                     </div>
                 </div>
             </div>
+            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button className="btn fs-4 py-2" onClick={(e) => handlegetban(e)}>
+                        Lấy Bài Hát Bị Ban
+                    </button>
+                </div>
+            </div>
             <div className="px-4">
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
@@ -353,8 +370,8 @@ const SongAdmin = () => {
                             <th>Tên</th>
                             <th>tình trạng</th>
                             <th>Hình Ảnh</th>
-               
-      
+
+
                             <th>Lượt Like</th>
                             <th>Lượt Nghe</th>
                             <th>trạng thái ks</th>
@@ -362,36 +379,71 @@ const SongAdmin = () => {
                     </thead>
                     <tbody>
                         {musicSongs.map((kind) => (
-                            <tr key={kind.id}>
-                                <td>{kind.id}</td>
-                                <td>{kind.songname}</td>
-                                <td>{kind.state ===1 ? "đã ẩn": "bình thường"}</td>
-                                <td className="td_img">
-                                    {" "}
-                                    <img
-                                        src={kind.thumbnail}
-                                        alt={kind.songname}
-                                    />{" "}
-                                </td>
-                        
-                                <td>{kind.like}</td>
-                                <td>{kind.listen}</td>
-                                <td>{kind.state}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-primary fs-5"
-                                        onClick={() => openEditModal(kind)}
-                                    >
-                                        <FontAwesomeIcon icon={faPen} />
-                                    </button>
-                                    <button
-                                        className="btn btn-danger-custom fs-5 ms-3"
-                                        onClick={() => deleteMusicKind(kind.id)}
-                                    >
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                </td>
-                            </tr>
+                            <>
+                                {kind.state === 1 ?
+                                    (<tr style={{ opacity: 0.5 }} key={kind.id}>
+                                        <td>{kind.id}</td>
+                                        <td>{kind.songname}</td>
+                                        <td>{kind.state === 1 ? "đã ẩn" : "bình thường"}</td>
+                                        <td className="td_img">
+                                            {" "}
+                                            <img
+                                                src={kind.thumbnail}
+                                                alt={kind.songname}
+                                            />{" "}
+                                        </td>
+
+                                        <td>{kind.like}</td>
+                                        <td>{kind.listen}</td>
+                                        <td>{kind.state}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-5"
+                                                onClick={() => openEditModal(kind)}
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                            <button
+                                                className="btn btn-danger-custom fs-5 ms-3"
+                                                onClick={() => deleteMusicKind(kind.id)}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </td>
+                                    </tr>) :
+                                    (<tr key={kind.id}>
+                                        <td>{kind.id}</td>
+                                        <td>{kind.songname}</td>
+                                        <td>{kind.state === 1 ? "đã ẩn" : "bình thường"}</td>
+                                        <td className="td_img">
+                                            {" "}
+                                            <img
+                                                src={kind.thumbnail}
+                                                alt={kind.songname}
+                                            />{" "}
+                                        </td>
+
+                                        <td>{kind.like}</td>
+                                        <td>{kind.listen}</td>
+                                        <td>{kind.state}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-5"
+                                                onClick={() => openEditModal(kind)}
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                            <button
+                                                className="btn btn-danger-custom fs-5 ms-3"
+                                                onClick={() => deleteMusicKind(kind.id)}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </td>
+                                    </tr>)
+                                }
+
+                            </>
                         ))}
                     </tbody>
                 </table>

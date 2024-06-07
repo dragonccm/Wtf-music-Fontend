@@ -14,7 +14,7 @@ import {
 } from "../../../services/restPlaylistService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
-
+import { getbanService } from "../../../services/getbanService";
 const PlaylistAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
@@ -26,6 +26,7 @@ const PlaylistAdmin = () => {
     const [searchSong, setSearchSong] = useState([]);
     const [searchAr, setSearchAr] = useState([]);
     const [searchGenre, setSearchGenre] = useState([]);
+    const [isSendingRequest, setIsSendingRequest] = useState(false);
 
 
 
@@ -72,14 +73,18 @@ const PlaylistAdmin = () => {
     }, []);
     // Hàm giả lập lấy danh sách thể loại nhạc từ server
     const fetchMusicSongs = async () => {
-        try {
-            const response = await adminGetPlaylist(
-                parseInt((currentPage - 1) * itemsPerPage)
-            );
-            setMusicSongs(response.handledata);
-            setmaxpage(response.maxPage);
-        } catch (error) {
-            console.error("Error fetching data:", error);
+        if (!isSendingRequest) {
+            setIsSendingRequest(true);
+            try {
+                const response = await adminGetPlaylist(
+                    parseInt((currentPage - 1) * itemsPerPage)
+                );
+                setMusicSongs(response.handledata);
+                setmaxpage(response.maxPage);
+                setIsSendingRequest(false);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
     };
 
@@ -279,7 +284,7 @@ const PlaylistAdmin = () => {
         } else {
             alert("id không tồn tại");
         }
-        
+
     };
 
     const handleCreateAddGenreTag = (e, id) => {
@@ -304,7 +309,7 @@ const PlaylistAdmin = () => {
             alert("id không tồn tại");
         }
 
-        
+
     };
 
     // edit ----------------------------------------------------------------
@@ -374,7 +379,14 @@ const PlaylistAdmin = () => {
             alert("id không tồn tại");
         }
     };
-
+    const handlegetban = async (e) => {
+        try {
+            const ser = await getbanService();
+            setMusicSongs(ser.DT.playlist);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    }
 
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
@@ -409,6 +421,13 @@ const PlaylistAdmin = () => {
                     </div>
                 </div>
             </div>
+            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button className="btn fs-4 py-2" onClick={(e) => handlegetban(e)}>
+                        Lấy Danh Sách Phát Bị Ban
+                    </button>
+                </div>
+            </div>
             <div className="px-4">
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
@@ -424,40 +443,78 @@ const PlaylistAdmin = () => {
                     </thead>
                     <tbody>
                         {musicSongs.map((kind) => (
-                            <tr key={kind.playListId}>
-                                <td>{kind.playlistId}</td>
-                                <td className="td_img">
-                                    {" "}
-                                    <img
-                                    style={{ width: "100%" }}
-                                        src={kind.thumbnail}
-                                        alt={kind.genrename}
-                                    />{" "}
-                                </td>
-                                <td>{kind.playlistname}</td>
-                                <td>{kind.state===1  ? "cấm truy cập": "có thể truy cập "}</td>
-                              
-                                <td>{kind.type}</td>
-                             
-                         
-                                <td>{kind.like}</td>
-                                <td>{kind.listen}</td>
+                            <>
+                                {kind.state === 1 ? (
+                                    <tr style={{ opacity: 0.5 }} key={kind.playListId}>
+                                        <td>{kind.playlistId}</td>
+                                        <td className="td_img">
+                                            {" "}
+                                            <img
+                                                style={{ width: "100%" }}
+                                                src={kind.thumbnail}
+                                                alt={kind.genrename}
+                                            />{" "}
+                                        </td>
+                                        <td>{kind.playlistname}</td>
+                                        <td>{kind.state === 1 ? "cấm truy cập" : "có thể truy cập "}</td>
 
-                                <td>
-                                    <button
-                                        className="btn btn-primary fs-5"
-                                        onClick={() => openEditModal(kind)}
-                                    >
-                                        <FontAwesomeIcon icon={faPen} />
-                                    </button>
-                                    <button
-                                        className="btn btn-danger-custom fs-5 ms-3"
-                                        onClick={() => deleteMusicKind(kind.playlistId)}
-                                    >
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
-                                </td>
-                            </tr>
+                                        <td>{kind.type}</td>
+
+
+                                        <td>{kind.like}</td>
+                                        <td>{kind.listen}</td>
+
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-5"
+                                                onClick={() => openEditModal(kind)}
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                            <button
+                                                className="btn btn-danger-custom fs-5 ms-3"
+                                                onClick={() => deleteMusicKind(kind.playlistId)}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </td>
+                                    </tr>) : (<tr key={kind.playListId}>
+                                        <td>{kind.playlistId}</td>
+                                        <td className="td_img">
+                                            {" "}
+                                            <img
+                                                style={{ width: "100%" }}
+                                                src={kind.thumbnail}
+                                                alt={kind.genrename}
+                                            />{" "}
+                                        </td>
+                                        <td>{kind.playlistname}</td>
+                                        <td>{kind.state === 1 ? "cấm truy cập" : "có thể truy cập "}</td>
+
+                                        <td>{kind.type}</td>
+
+
+                                        <td>{kind.like}</td>
+                                        <td>{kind.listen}</td>
+
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-5"
+                                                onClick={() => openEditModal(kind)}
+                                            >
+                                                <FontAwesomeIcon icon={faPen} />
+                                            </button>
+                                            <button
+                                                className="btn btn-danger-custom fs-5 ms-3"
+                                                onClick={() => deleteMusicKind(kind.playlistId)}
+                                            >
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        </td>
+                                    </tr>)}
+
+
+                            </>
                         ))}
                     </tbody>
                 </table>
@@ -774,7 +831,7 @@ const PlaylistAdmin = () => {
                             </label>
                             {imageUrl && (
                                 <img
-                                style={{ width: "12%" }}
+                                    style={{ width: "12%" }}
                                     src={imageUrl}
                                     className="avt-img"
                                     alt="Uploaded"
@@ -822,7 +879,7 @@ const PlaylistAdmin = () => {
                         <div className="text-end form-group">
                             <button
                                 className="px-4 py-2 btn btn-primary fs-4"
-                                onClick={(e)=>updateMusicKind(e)}
+                                onClick={(e) => updateMusicKind(e)}
                             >
                                 Cập nhật
                             </button>
@@ -1053,7 +1110,7 @@ const PlaylistAdmin = () => {
                             </label>
                             {imageUrl && (
                                 <img
-                                style={{ width: "12%" }}
+                                    style={{ width: "12%" }}
                                     src={imageUrl}
                                     className="avt-img"
                                     alt="Uploaded"

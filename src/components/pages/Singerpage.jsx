@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchgArtist } from "../../redux/slide/artistSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 const Singerpage = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -38,20 +39,22 @@ const Singerpage = () => {
                     </p>
                 </div>
             </section>
-            <div className="list_card">
-                <h1>PlayList</h1>
-                {/* <Card playlist={currData.playlist} /> */}
-            </div>
             <div className="for_you">
                 <h1>Bài Hát Nổi Bật</h1>
-
-                {/* <Col3Layout data={currData.songFavorite} /> */}
+                <div className="carr_ctn">
+                    {currData.songListId && currData.songListId.map((item) => (
+                        <NavLink className="carr" key={item._id} to={"/song/" + item.id}>
+                                <div className="carr_img">
+                                    <img src={item.thumbnail} alt="f" />
+                                </div>
+                                <p className="carr_songname">
+                                    {item.songname}
+                                </p>
+    
+                        </NavLink>
+                    ))}
+                </div>
             </div>
-            <div className="list_card">
-                <h1>Xuất Hiện Trong...</h1>
-                {/* <Card playlist={currData.playlist} /> */}
-            </div>
-
             <h1 className="for_artist_lable">VỀ {currData.artistsName}</h1>
             <section className="for_artists_ctn">
                 <div className="for_artist_avt_ctn">
