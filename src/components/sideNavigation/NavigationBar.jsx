@@ -43,11 +43,7 @@ const NavigationBar = () => {
         <div className="h-100  navigationbar">
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container style={{ padding: "0" }}>
-                    <Navbar.Brand
-                        as={NavLink}
-                        to="/admin"
-                        className="logo-name"
-                    >
+                    <Navbar.Brand as={NavLink} to="/" className="logo-name">
                         <img
                             src={logo}
                             className="d-inline-block align-top"
