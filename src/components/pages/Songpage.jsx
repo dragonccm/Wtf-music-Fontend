@@ -71,7 +71,7 @@ const Songpage = () => {
             setData(response);
         };
 
-        
+
         fetchData();
         const getComments = async (id) => {
             const response = await getComment(id);
@@ -86,7 +86,7 @@ const Songpage = () => {
             setComments(response.DT)
         }
         getComments(id)
-    },[loading])
+    }, [loading])
     const fetchSongPage = async (id) => {
         try {
             const response = await songPage(id);
@@ -117,11 +117,11 @@ const Songpage = () => {
         }
         dispatch(fetchSongPlaying(id));
     };
-    const handleReport = async(id) => {
+    const handleReport = async (id) => {
         const res = await reportComment(id)
-        if(res.EC==='0'){
+        if (res.EC === '0') {
             toast.success(res.EM);
-        } else if(res.EC==='2'){
+        } else if (res.EC === '2') {
             toast.warning(res.EM);
 
         }
@@ -236,8 +236,8 @@ const Songpage = () => {
                         {comments.map((comment) => (
                             <div className="d-flex mb-5 user-item" key={comment._id}>
                                 <img
-                                    className="bg-light"
-                                    src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                                    className="bg-light cmt_avt" 
+                                    src={comment.userAvt ? comment.userAvt : "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"}
                                 ></img>
                                 <div className="w-100 reviews">
                                     <div className="inf_user_reviews">

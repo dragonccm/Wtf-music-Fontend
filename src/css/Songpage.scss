@@ -126,6 +126,14 @@
         max-height: 50rem;
         overflow-y: scroll;
 
+        .user-item {
+          .cmt_avt {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+          }
+        }
+
         img {
           height: 50px;
         }
@@ -143,6 +151,7 @@
             span {
               font-size: small;
             }
+
           }
 
           .date_reviews {
