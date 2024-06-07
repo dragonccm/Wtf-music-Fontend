@@ -8,15 +8,7 @@ const reportComment = async (inputdata) => {
         return null;
     }
 };
-const deleteComment = async (inputdata) => {
-    try {
-        const data = await restComment({ data: inputdata, status: "delete" })
-        return data
-    } catch (error) {
-        console.error("Error loading Comment data:", error);
-        return null;
-    }
-};
+
 const createComment = async (inputdata) => {
 
     try {
@@ -27,9 +19,18 @@ const createComment = async (inputdata) => {
         return null;
     }
 };
+const getComment = async (inputdata) => {
+    try {
+        const data = await restComment({ data: inputdata, status: "read" })
+        return data
+    } catch (error) {
+        console.error("Error loading Comment data:", error);
+        return null;
+    }
+};
 
 export {
     reportComment,
-    deleteComment,
-    createComment
+    createComment,
+    getComment
 }
