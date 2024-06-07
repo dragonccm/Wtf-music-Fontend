@@ -344,15 +344,15 @@ const Bottombar = () => {
     isPlaying &&
     songInfo !== null &&
     songInfo !== undefined &&
-    songInfo.infor&&
+    songInfo.infor &&
     songInfo.infor.lyricsString && songInfo.infor.lyricsString[0] && songInfo.infor.lyricsString[0].words[0]
   ) {
-    haha = songInfo.infor.lyricsString.length>0 ? songInfo.infor.lyricsString.map((sentence) => {
+    haha = songInfo.infor.lyricsString.length > 0 ? songInfo.infor.lyricsString.map((sentence) => {
       const startTime = sentence.words[0].startTime;
       const endTime = sentence.words[sentence.words.length - 1].endTime;
       const data = sentence.words.map((word) => word.data).join(" ");
       return { startTime, endTime, data };
-    }):'';
+    }) : '';
 
   } else {
     // console.log("BOTTOM BAR PLAYING NULLL");
@@ -515,7 +515,7 @@ const Bottombar = () => {
   // }, []);
 
 
-console.log('=============================================================')
+  console.log('=============================================================')
 
   const handleVolumeChange = (e) => {
     setVolume(e.target.volume);
@@ -721,17 +721,17 @@ console.log('=============================================================')
                     {songInfo.infor.composers.length > 0 && <div className="item">
                       <h5>Sáng tác</h5>
                       <div className="content">
-                        {<a href={"/artists/" + songInfo.infor.composers &&songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'Jack-J97'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : 'Jack-J97'}</a>}
+                        {<a href={"/artists/" + songInfo.infor.composers && songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'Jack-J97'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : 'Jack-J97'}</a>}
                       </div>
                     </div>}
                     {songInfo.infor.genres.length > 0 &&
-                    <div className="item">
-                      <h5>Thể loại</h5>
-                      <div className="content">
-                        {<a href={"/artists/" + songInfo.infor.genres[0].id} >{songInfo.infor.genres[0].genrename}</a>}
+                      <div className="item">
+                        <h5>Thể loại</h5>
+                        <div className="content">
+                          {<a href={"/artists/" + songInfo.infor.genres[0] !== null && songInfo.infor.genres[0].genreId  ? songInfo.infor.genres[0].genreId:''} >{songInfo.infor.genres[0] && songInfo.infor.genres[0].genrename}</a>}
+                        </div>
                       </div>
-                    </div>
-                      }
+                    }
                     <div className="item">
                       <h5>Cung cấp bởi</h5>
                       <div className="content">
@@ -766,7 +766,7 @@ console.log('=============================================================')
                     >
                       <div className="Modal_lyric_title">haha</div>
                       <div className="Modal_lyric_ctn">
-                        <textarea name="" id="" rows='15' value={haha?haha.map((sentence) => sentence.data).join("\n"):'Không có lời bài hát'} />
+                        <textarea name="" id="" rows='15' value={haha ? haha.map((sentence) => sentence.data).join("\n") : 'Không có lời bài hát'} />
                       </div>
                       <div className="Modal_lyric_btn">
                         <button onClick={closeModalLyric}>Đóng</button>

@@ -44,7 +44,7 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
 
                 <div className="song_img">
                     <img src={data.thumbnail} alt="f" />
-                    {data.id === songInfo.infor.id ?
+                    {songInfo.infor && songInfo.infor.id && data.id === songInfo.infor.id ?
                         <Play_animation />
                         :
 
