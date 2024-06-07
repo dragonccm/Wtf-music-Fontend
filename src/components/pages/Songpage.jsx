@@ -44,7 +44,7 @@ const Songpage = () => {
         const newComment = event.target.opinion.value;
         if (newComment) {
             const response = await createComment({ comments: newComment, id });
-            setComments([...comments, response]);
+            setComments([...comments, response.DT]);
             event.target.opinion.value = "";
         }
     };
@@ -82,7 +82,7 @@ const Songpage = () => {
     const fetchSongPage = async (id) => {
         try {
             const response = await songPage(id);
-            return response;
+            return response.DT;
         } catch (error) {
             console.log(error);
         }
