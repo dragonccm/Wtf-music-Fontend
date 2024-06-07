@@ -16,7 +16,7 @@ import {
 } from "../../../services/restSongService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 
-const UserAdmin = () => {
+const CommentAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
@@ -125,7 +125,7 @@ const UserAdmin = () => {
             </div>
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <h2 className="fw-normal fs-1 heading-admin">
-                    Danh sách người dùng
+                    Danh sách bình luận báo cáo
                 </h2>
             </div>
             <div className="px-4 py-5 event-admin">
@@ -150,9 +150,11 @@ const UserAdmin = () => {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tài khoản</th>
+                            <th>Mã bài hát</th>
                             <th>Hình</th>
-                            <th>Sinh nhật</th>
+                            <th>Tài khoản</th>
+                            <th>Nội dung</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -170,7 +172,7 @@ const UserAdmin = () => {
                                 <td>{kind.birthday}</td>
                                 <td>
                                     <button
-                                        className="btn btn-danger-custom fs-3 ms-3"
+                                        className="btn btn-danger-custom fs-5 ms-3"
                                         onClick={() => deleteMusicKind(kind.id)}
                                     >
                                         <FontAwesomeIcon icon={faTrash} />
@@ -250,4 +252,4 @@ const UserAdmin = () => {
     );
 };
 
-export default UserAdmin;
+export default CommentAdmin;

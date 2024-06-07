@@ -13,8 +13,9 @@ import NavigationBar from "../components/sideNavigation/NavigationBar";
 
 import HomeAdmin from "../components/pages/admin/home";
 import UserAdmin from "../components/pages/admin/users";
+import CommentAdmin from "../components/pages/admin/comment";
 import SingerAdmin from "../components/pages/admin/singers";
-import WriterAdmin from "../components/pages/admin/writers";
+import SongChart from "../components/pages/admin/songChart";
 import PlaylistChart from "../components/pages/admin/playlistChart";
 import CategoryAdmin from "../components/pages/admin/categorys";
 import PlaylistAdmin from "../components/pages/admin/playlists";
@@ -50,9 +51,13 @@ const AdminRoutes = (props) => {
                         <Route path="/category" element={<CategoryAdmin />} />
                         <Route path="/playlist" element={<PlaylistAdmin />} />
                         <Route path="/user" element={<UserAdmin />} />
+                        <Route path="/comment" element={<CommentAdmin />} />
                         <Route path="/singer" element={<SingerAdmin />} />
-                        <Route path="/playlistchart" element={<PlaylistChart />} />
-                        <Route path="/songchart" element={<WriterAdmin />} />
+                        <Route
+                            path="/playlistchart"
+                            element={<PlaylistChart />}
+                        />
+                        <Route path="/songchart" element={<SongChart />} />
                         <Route path="/song" element={<SongAdmin />} />
 
                         <Route path="/*" element={<HomeAdmin />} />

@@ -66,12 +66,12 @@ const SongAdmin = () => {
     const handleUpload = (file) => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
-        console.log("file img", file)
+        console.log("file img", file);
     };
     const handleAudioUpload = (audioFile) => {
         setAudioFile(audioFile);
         setAudioUrl(URL.createObjectURL(audioFile));
-        console.log("file audio ", audioFile, audioUrl)
+        console.log("file audio ", audioFile, audioUrl);
     };
     const itemsPerPage = 20;
 
@@ -120,8 +120,8 @@ const SongAdmin = () => {
             artists: "",
             genresid: "",
             songLink: "",
-            lyric: ""
-        }
+            lyric: "",
+        };
         try {
             await deleteSong(newdata);
         } catch (error) {
@@ -129,16 +129,14 @@ const SongAdmin = () => {
         }
     };
 
-
-
     const createMusicKind = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         createMusicSongs(createForm);
     };
     const updateMusicKind = async (e) => {
-        e.preventDefault()
-        updateMusicSongs(editForm)
-    }
+        e.preventDefault();
+        updateMusicSongs(editForm);
+    };
     const deleteMusicKind = async (id) => {
         deleteMusicSongs(id);
     };
@@ -226,7 +224,7 @@ const SongAdmin = () => {
         }
     };
 
-    // form edit 
+    // form edit
 
     const handleAddGenreTag = (e, id) => {
         e.preventDefault();
@@ -239,7 +237,7 @@ const SongAdmin = () => {
     const handleAddArTag = (e, id) => {
         e.preventDefault();
         if (!editForm.artists.includes(id)) {
-            setEditForm(prevState => ({
+            setEditForm((prevState) => ({
                 ...prevState,
                 artists: [...prevState.artists, id],
             }));
@@ -250,7 +248,7 @@ const SongAdmin = () => {
     const handleRemoveGenreTag = (e, id) => {
         e.preventDefault();
         if (editForm.genresid.includes(id)) {
-            editForm.filter(item => item !== id)
+            editForm.filter((item) => item !== id);
         } else {
             alert("id đã tồn tại");
         }
@@ -258,17 +256,16 @@ const SongAdmin = () => {
     const handleRemoveArTag = (e, id) => {
         e.preventDefault();
         if (editForm.artists.includes(id)) {
-            setEditForm(prevState => ({
+            setEditForm((prevState) => ({
                 ...prevState,
-                artists: prevState.artists.filter(item => item !== id),
+                artists: prevState.artists.filter((item) => item !== id),
             }));
         } else {
             alert("id không tồn tại");
         }
-    }
+    };
 
-
-    // form tạo mới 
+    // form tạo mới
     const handleCreateAddGenreTag = (e, id) => {
         e.preventDefault();
         if (!createForm.genresid || !createForm.genresid.includes(id)) {
@@ -320,7 +317,7 @@ const SongAdmin = () => {
         } catch (error) {
             console.error("Error fetching data:", error);
         }
-    }
+    };
 
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
@@ -357,7 +354,10 @@ const SongAdmin = () => {
             </div>
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
-                    <button className="btn fs-4 py-2" onClick={(e) => handlegetban(e)}>
+                    <button
+                        className="btn fs-4 py-2"
+                        onClick={(e) => handlegetban(e)}
+                    >
                         Lấy Bài Hát Bị Ban
                     </button>
                 </div>
@@ -370,21 +370,23 @@ const SongAdmin = () => {
                             <th>Tên</th>
                             <th>tình trạng</th>
                             <th>Hình Ảnh</th>
-
-
                             <th>Lượt Like</th>
                             <th>Lượt Nghe</th>
-                            <th>trạng thái ks</th>
+                            <th>Trạng thái kiểm soát</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {musicSongs.map((kind) => (
+                        {musicSongs.map((kind, index) => (
                             <>
-                                {kind.state === 1 ?
-                                    (<tr style={{ opacity: 0.5 }} key={kind.id}>
-                                        <td>{kind.id}</td>
+                                {kind.state === 1 ? (
+                                    <tr style={{ opacity: 0.5 }} key={kind.id}>
+                                        <td>{index}</td>
                                         <td>{kind.songname}</td>
-                                        <td>{kind.state === 1 ? "đã ẩn" : "bình thường"}</td>
+                                        <td>
+                                            {kind.state === 1
+                                                ? "đã ẩn"
+                                                : "bình thường"}
+                                        </td>
                                         <td className="td_img">
                                             {" "}
                                             <img
@@ -398,23 +400,34 @@ const SongAdmin = () => {
                                         <td>{kind.state}</td>
                                         <td>
                                             <button
-                                                className="btn btn-primary fs-5"
-                                                onClick={() => openEditModal(kind)}
+                                                className="btn btn-primary fs-3"
+                                                onClick={() =>
+                                                    openEditModal(kind)
+                                                }
                                             >
                                                 <FontAwesomeIcon icon={faPen} />
                                             </button>
                                             <button
-                                                className="btn btn-danger-custom fs-5 ms-3"
-                                                onClick={() => deleteMusicKind(kind.id)}
+                                                className="btn btn-danger-custom fs-3 ms-3"
+                                                onClick={() =>
+                                                    deleteMusicKind(kind.id)
+                                                }
                                             >
-                                                <FontAwesomeIcon icon={faTrash} />
+                                                <FontAwesomeIcon
+                                                    icon={faTrash}
+                                                />
                                             </button>
                                         </td>
-                                    </tr>) :
-                                    (<tr key={kind.id}>
-                                        <td>{kind.id}</td>
+                                    </tr>
+                                ) : (
+                                    <tr key={kind.id}>
+                                        <td>{index}</td>
                                         <td>{kind.songname}</td>
-                                        <td>{kind.state === 1 ? "đã ẩn" : "bình thường"}</td>
+                                        <td>
+                                            {kind.state === 1
+                                                ? "đã ẩn"
+                                                : "bình thường"}
+                                        </td>
                                         <td className="td_img">
                                             {" "}
                                             <img
@@ -428,21 +441,26 @@ const SongAdmin = () => {
                                         <td>{kind.state}</td>
                                         <td>
                                             <button
-                                                className="btn btn-primary fs-5"
-                                                onClick={() => openEditModal(kind)}
+                                                className="btn btn-primary fs-3"
+                                                onClick={() =>
+                                                    openEditModal(kind)
+                                                }
                                             >
                                                 <FontAwesomeIcon icon={faPen} />
                                             </button>
                                             <button
-                                                className="btn btn-danger-custom fs-5 ms-3"
-                                                onClick={() => deleteMusicKind(kind.id)}
+                                                className="btn btn-danger-custom fs-3 ms-3"
+                                                onClick={() =>
+                                                    deleteMusicKind(kind.id)
+                                                }
                                             >
-                                                <FontAwesomeIcon icon={faTrash} />
+                                                <FontAwesomeIcon
+                                                    icon={faTrash}
+                                                />
                                             </button>
                                         </td>
-                                    </tr>)
-                                }
-
+                                    </tr>
+                                )}
                             </>
                         ))}
                     </tbody>
@@ -462,13 +480,16 @@ const SongAdmin = () => {
                 </div>
                 <div className="col-6 pe-5 pagination-numbers">
                     <ul className="pagination justify-content-end">
-                        <li className="border">
+                        <li
+                            style={{ backgroundColor: "#d4dae2" }}
+                            className="border"
+                        >
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() => handlePageChange(1)}
                             >
-                                First
+                                Đầu
                             </a>
                         </li>
                         <li className="border">
@@ -480,7 +501,7 @@ const SongAdmin = () => {
                                 }
                                 disabled={currentPage === 1}
                             >
-                                Previous
+                                Lùi
                             </a>
                         </li>
                         <li className="border">
@@ -492,24 +513,24 @@ const SongAdmin = () => {
                                 }
                                 disabled={currentPage === totalPages}
                             >
-                                Next
+                                Tiếp
                             </a>
                         </li>
-                        <li className="border">
+                        <li
+                            style={{ backgroundColor: "#d4dae2" }}
+                            className="border"
+                        >
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() => handlePageChange(totalPages - 5)}
                             >
-                                Last
+                                Cuối
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-
-
-
 
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}
             <div className="updateBtn-form-admin">
@@ -570,11 +591,17 @@ const SongAdmin = () => {
                             <label className="fs-4 mb-2" htmlFor="create-email">
                                 file nhạc:
                             </label>
-                            {(audioUrl &&
+                            {audioUrl && (
                                 <>
                                     <audio controls>
-                                        <source src={audioUrl} type="audio/ogg" />
-                                        <source src={audioUrl} type="audio/mpeg" />
+                                        <source
+                                            src={audioUrl}
+                                            type="audio/ogg"
+                                        />
+                                        <source
+                                            src={audioUrl}
+                                            type="audio/mpeg"
+                                        />
                                     </audio>
                                 </>
                             )}
@@ -597,7 +624,19 @@ const SongAdmin = () => {
                                 chọn nghệ sĩ
                             </button>
                             <div class="row align-items-start">
-                                <p>{editForm.artists && editForm.artists.map((d) => (<button onClick={(e) => handleRemoveArTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <p>
+                                    {editForm.artists &&
+                                        editForm.artists.map((d) => (
+                                            <button
+                                                onClick={(e) =>
+                                                    handleRemoveArTag(e, d)
+                                                }
+                                                className="btn btn-outline-primary btn-lg"
+                                            >
+                                                {d}{" "}
+                                            </button>
+                                        ))}
+                                </p>
                                 <Modal
                                     isOpen={isArModalOpen}
                                     onRequestClose={closeArModal}
@@ -614,7 +653,10 @@ const SongAdmin = () => {
                                         onChange={handarleserch}
                                     />
                                     <p>{editForm.artists}</p>
-                                    <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                    <div
+                                        style={{ height: "20rem" }}
+                                        className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
+                                    >
                                         {searchAr ? (
                                             searchAr.map((data) => (
                                                 <p value={data.id}>
@@ -641,7 +683,6 @@ const SongAdmin = () => {
                             </div>
                         </div>
 
-
                         <div className="mb-4 form-group">
                             <label
                                 style={{ width: "13%" }}
@@ -658,7 +699,19 @@ const SongAdmin = () => {
                                 {" "}
                                 chọn thể loại
                             </button>
-                            <p>{editForm.genresid && editForm.genresid.map((d) => (<button onClick={(e) => handleRemoveGenreTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                            <p>
+                                {editForm.genresid &&
+                                    editForm.genresid.map((d) => (
+                                        <button
+                                            onClick={(e) =>
+                                                handleRemoveGenreTag(e, d)
+                                            }
+                                            className="btn btn-outline-primary btn-lg"
+                                        >
+                                            {d}{" "}
+                                        </button>
+                                    ))}
+                            </p>
                             <Modal
                                 isOpen={isGenreModalOpen}
                                 onRequestClose={closeGenreModal}
@@ -673,7 +726,10 @@ const SongAdmin = () => {
                                     // value={editForm.genresid}
                                     onChange={handgenreleserch}
                                 />
-                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                <div
+                                    style={{ height: "20rem" }}
+                                    className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
+                                >
                                     {searchGenre ? (
                                         searchGenre.map((data) => (
                                             <p value={data.genreId}>
@@ -695,7 +751,10 @@ const SongAdmin = () => {
                                     )}
                                 </div>
                             </Modal>
-                            <p>{editForm.genresid && editForm.genresid.map((d) => d)}</p>
+                            <p>
+                                {editForm.genresid &&
+                                    editForm.genresid.map((d) => d)}
+                            </p>
                         </div>
 
                         <div className="text-end form-group">
@@ -760,18 +819,23 @@ const SongAdmin = () => {
                             <label className="fs-4 mb-2" htmlFor="create-email">
                                 file nhạc:
                             </label>
-                            {(audioUrl &&
+                            {audioUrl && (
                                 <>
                                     <audio controls>
-                                        <source src={audioUrl} type="audio/ogg" />
-                                        <source src={audioUrl} type="audio/mpeg" />
+                                        <source
+                                            src={audioUrl}
+                                            type="audio/ogg"
+                                        />
+                                        <source
+                                            src={audioUrl}
+                                            type="audio/mpeg"
+                                        />
                                     </audio>
                                 </>
                             )}
 
                             <AudioUploader onUpload={handleAudioUpload} />
                         </div>
-
 
                         {/* model */}
                         <div className="mb-4 form-group">
@@ -790,7 +854,22 @@ const SongAdmin = () => {
                                 chọn nghệ sĩ
                             </button>
                             <div class="row align-items-start">
-                                <p>{createForm.artists && createForm.artists.map((d) => (<button onClick={(e) => handleCreateRemoveArTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                                <p>
+                                    {createForm.artists &&
+                                        createForm.artists.map((d) => (
+                                            <button
+                                                onClick={(e) =>
+                                                    handleCreateRemoveArTag(
+                                                        e,
+                                                        d
+                                                    )
+                                                }
+                                                className="btn btn-outline-primary btn-lg"
+                                            >
+                                                {d}{" "}
+                                            </button>
+                                        ))}
+                                </p>
                                 <Modal
                                     isOpen={isArModalOpen}
                                     onRequestClose={closeArModal}
@@ -807,7 +886,10 @@ const SongAdmin = () => {
                                         onChange={handarleserch}
                                     />
                                     <p>{createForm.artists}</p>
-                                    <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                    <div
+                                        style={{ height: "20rem" }}
+                                        className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
+                                    >
                                         {searchAr ? (
                                             searchAr.map((data) => (
                                                 <p value={data.id}>
@@ -834,7 +916,6 @@ const SongAdmin = () => {
                             </div>
                         </div>
 
-
                         <div className="mb-4 form-group">
                             <label
                                 style={{ width: "13%" }}
@@ -851,7 +932,19 @@ const SongAdmin = () => {
                                 {" "}
                                 chọn thể loại
                             </button>
-                            <p>{createForm.genresid && createForm.genresid.map((d) => (<button onClick={(e) => handleCreateRemoveGenreTag(e, d)} className="btn btn-outline-primary btn-lg">{d} </button>))}</p>
+                            <p>
+                                {createForm.genresid &&
+                                    createForm.genresid.map((d) => (
+                                        <button
+                                            onClick={(e) =>
+                                                handleCreateRemoveGenreTag(e, d)
+                                            }
+                                            className="btn btn-outline-primary btn-lg"
+                                        >
+                                            {d}{" "}
+                                        </button>
+                                    ))}
+                            </p>
                             <Modal
                                 isOpen={isGenreModalOpen}
                                 onRequestClose={closeGenreModal}
@@ -866,7 +959,10 @@ const SongAdmin = () => {
                                     // value={createForm.genresid}
                                     onChange={handgenreleserch}
                                 />
-                                <div style={{ height: "20rem" }} className="d-flex flex-wrap align-content-start gap-3 overflow-scroll">
+                                <div
+                                    style={{ height: "20rem" }}
+                                    className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
+                                >
                                     {searchGenre ? (
                                         searchGenre.map((data) => (
                                             <p value={data.genreId}>
@@ -888,10 +984,12 @@ const SongAdmin = () => {
                                     )}
                                 </div>
                             </Modal>
-                            <p>{createForm.genresid && createForm.genresid.map((d) => d)}</p>
+                            <p>
+                                {createForm.genresid &&
+                                    createForm.genresid.map((d) => d)}
+                            </p>
                         </div>
                         {/* model */}
-
 
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="create-email">
