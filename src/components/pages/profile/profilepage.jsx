@@ -112,7 +112,7 @@ function Profile() {
     <section className="mylist_page">
       <div className="Recommended_1">Danh Sách Phát Của bạn</div>
       <div className="list_container">
-        <Card playlist={datas} />
+        <Card playlist={datas}  isOw={"you"}/>
       </div>
     </section>
   );
