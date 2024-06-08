@@ -24,4 +24,19 @@ phát từ đầu dến cuối
 -Lấy danh sách đó.
 => Play 1 bài nhạc tại trang /playlist
 
+
+
+
+
+
+
+
+
+
+-Xếp hạng:
++Theo tháng: 
+Lấy 20 bài hát dc ngeh nhiều nhất theo tháng
++Theo tuần:
+chia ra 3 khu vực : VN, Ú-UK,Kpop
+lấy 20 bài có lượt nghe nhiều nhất.
  

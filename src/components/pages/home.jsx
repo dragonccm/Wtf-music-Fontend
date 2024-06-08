@@ -64,10 +64,10 @@ const HomePage = () => {
                 <Col3Layout data={newRelease.all} />
             </div>
 
-            <div className="list_card">
+            {playlistsData && playlistsData.length>0&& <div className="list_card">
                 <h1>Nghe Gần Đây</h1>
                 <Card playlist={playlistsData} />
-            </div>
+            </div>}
             <div className="for_you">
                 <Release data={newRelease} />
             </div>
