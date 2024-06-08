@@ -728,7 +728,7 @@ const Bottombar = () => {
                       <div className="item">
                         <h5>Thể loại</h5>
                         <div className="content">
-                          {<a href={"/artists/" + songInfo.infor.genres[0] !== null && songInfo.infor.genres[0].genreId  ? songInfo.infor.genres[0].genreId:''} >{songInfo.infor.genres[0] && songInfo.infor.genres[0].genrename}</a>}
+                          {<a href={"/artists/" + songInfo.infor.genres&& songInfo.infor.genres[0]  && songInfo.infor.genres[0].genreId  ? songInfo.infor.genres[0].genreId:''} >{songInfo.infor.genres[0] && songInfo.infor.genres[0].genrename}</a>}
                         </div>
                       </div>
                     }

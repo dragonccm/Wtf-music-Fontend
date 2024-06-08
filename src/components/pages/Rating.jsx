@@ -12,10 +12,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 
 const Rating = () => {
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchRating());
+
   }, [dispatch]);
   const RTChart_items = useSelector((state) => {
     return state.rating.RTChart_items;
