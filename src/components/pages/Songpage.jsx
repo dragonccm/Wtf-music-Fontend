@@ -67,7 +67,6 @@ const Songpage = () => {
             setData(response);
         };
 
-
         fetchData();
         const getComments = async (id) => {
             const response = await getComment(id);
@@ -263,24 +262,16 @@ const Songpage = () => {
 
                                             {comment.isOwnComment !== true ? (
                                                 <button
-                                                    className="btn btn-custom"
-                                                    // onClick={() =>
-                                                    //     handleOpenReport()
-                                                    // }
+                                                    className="btn btn-custom btn-custom-other"
+                                                    onClick={() =>
+                                                        handleReport(
+                                                            comment._id
+                                                        )
+                                                    }
                                                 >
-                                                    ...
+                                                    !
                                                 </button>
                                             ) : (
-                                                // <button
-                                                //     className="btn btn-custom"
-                                                //     onClick={() =>
-                                                //         handleReport(
-                                                //             comment._id
-                                                //         )
-                                                //     }
-                                                // >
-                                                //     Báo cáo
-                                                // </button>
                                                 ""
                                             )}
                                         </div>

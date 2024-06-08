@@ -159,6 +159,12 @@
             font-size: x-large;
           }
 
+          .btn-custom-other {
+            position: relative;
+            top     : -2px;
+            color   : red !important;
+          }
+
           .date_reviews {
             font-size  : small;
             margin-left: 10px;
