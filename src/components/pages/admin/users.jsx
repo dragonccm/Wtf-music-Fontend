@@ -1,37 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import "../../../css/admin/musicAdmin.scss";
-import Modal from "react-modal";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBan, faTrash, faUnlock, faUser } from "@fortawesome/free-solid-svg-icons";
 import { adminGetUsers } from "../../../services/adminGetUserService";
-import { getPlaylist } from "../../../services/playlistService";
-import { getSongData } from "../../../services/SongService";
 import {
-    updateSong,
-    deleteSong,
-    createSong,
-} from "../../../services/restSongService";
+    deleteUser,
+} from "../../../services/restUserService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 
 const UserAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
-    const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
-    const [editForm, setEditForm] = useState({
-        id: "",
-        username: "",
-        birthday: "",
-        avt: "",
-        email: "",
-        likedPlayLists: "",
-        likedSongs: "",
-        myPlayLists: "",
-        banSongs: "",
-    }); // Thông tin form chỉnh sửa
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState({}); // Trang hiện tại
 
@@ -47,7 +28,6 @@ const UserAdmin = () => {
     useEffect(() => {
         fetchMusicSongs();
     }, []);
-    // Hàm giả lập lấy danh sách thể loại nhạc từ server
     const fetchMusicSongs = async () => {
         try {
             const response = await adminGetUsers(
@@ -60,53 +40,45 @@ const UserAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
-    const updateMusicSongs = async (data) => {
+    const chanrole = async (id,role) => {
         try {
-            await updateSong(data);
+            const response = await deleteUser(id,role);
+            console.log(response)
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-    // Hàm chỉnh sửa thông tin thể loại nhạc
-    const updateMusicKind = async () => {
-        // Gọi API để chỉnh sửa thông tin thể loại nhạc
-        // Khi chỉnh sửa thành công, cập nhật state
-        updateMusicSongs(editForm);
-    };
-
-    // Hàm xóa thể loại nhạc
-    const deleteMusicKind = async (id) => {
-        // Gọi API để xóa thể loại nhạc
-        // Khi xóa thành công, cập nhật state
+    const deleteMusicKind = async (id,role) => {
+        chanrole(id,role)
     };
 
     // Hiển thị pop-up form chỉnh sửa
-    const openEditModal = (kind) => {
-        setSelectedSong(kind);
-        setEditForm({
-            id: kind.id,
-            username: kind.username,
-            birthday: kind.birthday,
-            avt: kind.avt,
-            email: kind.email,
-            likedPlayLists: kind.likedPlayLists,
-            likedSongs: kind.likedSongs,
-            myPlayLists: kind.myPlayLists,
-            banSongs: kind.banSongs,
-        });
-        setIsEditModalOpen(true);
-    };
+    // const openEditModal = (kind) => {
+    //     setSelectedSong(kind);
+    //     setEditForm({
+    //         id: kind.id,
+    //         username: kind.username,
+    //         birthday: kind.birthday,
+    //         avt: kind.avt,
+    //         email: kind.email,
+    //         likedPlayLists: kind.likedPlayLists,
+    //         likedSongs: kind.likedSongs,
+    //         myPlayLists: kind.myPlayLists,
+    //         banSongs: kind.banSongs,
+    //     });
+    //     setIsEditModalOpen(true);
+    // };
 
     // Đóng pop-up form chỉnh sửa
-    const closeEditModal = () => {
-        setIsEditModalOpen(false);
-    };
+    // const closeEditModal = () => {
+    //     setIsEditModalOpen(false);
+    // };
 
-    // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
-    const handleEditFormChange = async (e) => {
-        const { name, value } = e.target;
-        setEditForm({ ...editForm, [name]: value });
-    };
+    // // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
+    // const handleEditFormChange = async (e) => {
+    //     const { name, value } = e.target;
+    //     setEditForm({ ...editForm, [name]: value });
+    // };
 
     const handleserch = async (e) => {
         try {
@@ -171,9 +143,16 @@ const UserAdmin = () => {
                                 <td>
                                     <button
                                         className="btn btn-danger-custom fs-3 ms-3"
-                                        onClick={() => deleteMusicKind(kind.id)}
+                                        onClick={() => deleteMusicKind(kind.id,"ban")}
                                     >
-                                        <FontAwesomeIcon icon={faTrash} />
+                                        <FontAwesomeIcon icon={faBan} />
+                                    </button>
+                
+                                    <button
+                                        className="btn btn-success-custom fs-3 ms-3"
+                                        onClick={() => deleteMusicKind(kind.id,"user")}
+                                    >
+                                        <FontAwesomeIcon icon={faUnlock} />
                                     </button>
                                 </td>
                             </tr>

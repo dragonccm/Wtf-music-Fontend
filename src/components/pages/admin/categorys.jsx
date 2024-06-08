@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { adminGetGenres } from "../../../services/adminGenresService";
 import {
     updateGenre,
@@ -298,7 +298,7 @@ const CategoryAdmin = () => {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    icon={faTrash}
+                                                    icon={faBan}
                                                 />
                                             </button>
                                         </td>
@@ -338,7 +338,7 @@ const CategoryAdmin = () => {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    icon={faTrash}
+                                                    icon={faBan}
                                                 />
                                             </button>
                                         </td>

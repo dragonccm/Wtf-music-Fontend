@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { adminGetSong } from "../../../services/adminSongService";
 import {
     updateSong,
@@ -79,6 +79,7 @@ const SongAdmin = () => {
         fetchMusicSongs();
     }, []);
 
+
     const fetchMusicSongs = async () => {
         if (!isSendingRequest) {
             setIsSendingRequest(true);
@@ -95,37 +96,56 @@ const SongAdmin = () => {
         }
     };
     const updateMusicSongs = async (data) => {
-        try {
-            data.thumbnail = file;
-            data.songLink = audioFile;
-            await updateSong(data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
+        if (!isSendingRequest) {
+            setIsSendingRequest(true);
+
+            try {
+                data.thumbnail = file;
+                data.songLink = audioFile;
+                const res = await updateSong(data);
+                if (res) {
+                    setIsEditModalOpen(false);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
     };
     const createMusicSongs = async (data) => {
-        try {
-            data.thumbnail = file;
-            data.songLink = audioFile;
-            await createSong(data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
+        if (!isSendingRequest) {
+            setIsSendingRequest(true);
+            try {
+                data.thumbnail = file;
+                data.songLink = audioFile;
+                const res = await createSong(data);
+                if (res) {
+                    setIsCreateModalOpen(false);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
     };
     const deleteMusicSongs = async (data) => {
-        const newdata = {
-            id: data,
-            songname: "",
-            thumbnail: "",
-            artists: "",
-            genresid: "",
-            songLink: "",
-            lyric: "",
-        };
-        try {
-            await deleteSong(newdata);
-        } catch (error) {
-            console.error("Error fetching data:", error);
+        if (!isSendingRequest) {
+            setIsSendingRequest(true);
+            const newdata = {
+                id: data,
+                songname: "",
+                thumbnail: "",
+                artists: "",
+                genresid: "",
+                songLink: "",
+                lyric: "",
+            };
+            try {
+                const res = await deleteSong(newdata);
+                if (res) {
+                    setIsSendingRequest(false);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
     };
 
@@ -414,7 +434,7 @@ const SongAdmin = () => {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    icon={faTrash}
+                                                    icon={faBan}
                                                 />
                                             </button>
                                         </td>
@@ -455,7 +475,7 @@ const SongAdmin = () => {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    icon={faTrash}
+                                                    icon={faBan}
                                                 />
                                             </button>
                                         </td>

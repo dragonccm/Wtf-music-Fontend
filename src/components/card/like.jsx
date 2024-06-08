@@ -22,9 +22,9 @@ const Like_heart = ({ id,type }) => {
     const myplaylist = currData.defaultUser.account.likedPlayLists
     useEffect(() => {
         if (type === 'playlist') {
-            console.log('lllll')
+            // console.log('lllll')
             if (myplaylist && myplaylist.includes(id)) {
-            console.log('lllllaaaaa')
+            // console.log('lllllaaaaa')
                 setLiked(true)
             } else {
                 setLiked(false)

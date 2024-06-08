@@ -6,6 +6,7 @@ import AdminRoutes from "./router/adminRouter";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import CheckAdminRoutes from "./router/checkAdminRoutes";
+import CheckBan from "./router/checkBan";
 // rovider
 import ThemeProvider from "./lib/provider/ThemeProvider";
 import SongDataProvider from "./lib/provider/SongDataProvider";
@@ -16,6 +17,7 @@ import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
 import { useEffect } from "react";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 // import CssBaseline from '@mui/material/CssBaseline';
+
 function App(props) {
   const dispatch = useDispatch();
 
@@ -34,7 +36,7 @@ function App(props) {
       <div className="App">
         <div className="main_content">
           {/* <RightSidebar /> */}
-
+          
           <AppRoutes />
 
           {/* <Bottombar  /> */}
@@ -54,7 +56,11 @@ function App(props) {
               path="/admin/*"
               element={<CheckAdminRoutes component={AdminRoutes} />}
             />
-            <Route path="/*" element={<Mainn />} />
+             <Route
+              path="/*"
+              element={<CheckBan component={Mainn} />}
+            />
+            {/* <Route path="/*" element={<Mainn />} /> */}
           </Routes>
         </Router>
       </SongDataProvider>

@@ -29,17 +29,17 @@ const Playlistpage = () => {
 
   useEffect(() => {
     fecthPlaylist()
-    console.log(playlist);
+    // console.log(playlist);
   }, []);
 
   const fecthPlaylist = async () => {
 
     let response = await playlistroute(id);
     if (response.EC === '0' &&response.DT.data) {
-      console.log(response);
+      // console.log(response);
       setPlaylist(response.DT.data)
     } else {
-      console.log('saiiiiiiiiiiiiii')
+      // console.log('saiiiiiiiiiiiiii')
     }
   }
 
@@ -64,7 +64,7 @@ const Playlistpage = () => {
     dispatch(update(0))
     localStorage.setItem('playlistID', id)
     if (user) {
-      console.log('kifffffffffffffffffffffff');
+      // console.log('kifffffffffffffffffffffff');
       await addHisFetch({
         id: id,
         type: "playlist",

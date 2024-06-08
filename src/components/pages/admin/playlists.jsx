@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { adminGetPlaylist } from "../../../services/adminPlaylistService";
 import {
     updatePlaylist,
@@ -481,7 +481,7 @@ const PlaylistAdmin = () => {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    icon={faTrash}
+                                                    icon={faBan}
                                                 />
                                             </button>
                                         </td>
@@ -526,7 +526,7 @@ const PlaylistAdmin = () => {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    icon={faTrash}
+                                                    icon={faBan}
                                                 />
                                             </button>
                                         </td>
