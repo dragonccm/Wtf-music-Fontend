@@ -61,14 +61,14 @@ const Songpage = () => {
         }
     };
 
-    useEffect(async() => {
+    useEffect(() => {
         const fetchData = async () => {
             const response = await fetchSongPage(id);
             setData(response);
         };
 
 
-        await fetchData();
+        fetchData();
         const getComments = async (id) => {
             const response = await getComment(id);
             setComments(response.DT);
