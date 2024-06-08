@@ -13,21 +13,19 @@ import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import { playlistroute } from "../../controller/playlist";
 import Like_heart from "../card/like";
 import { deleteplaylistService } from "../../services/deleteMyPlaylist"
-import React, { useState } from "react";
-
+import React, { useState,useEffect } from "react";
+import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
+
 import "../../css/card.scss";
 const Card = ({ playlist, isOw }) => {
-    console.log('playlist', isOw)
-    console.log('playlist', playlist)
     const dispatch = useDispatch();
     const currData = useSelector((state) => state.Authentication);
     const playlistNow = useSelector((state) => state.playlist.playlist);
     const slicedData = playlist.slice(0, 5);
-
+    
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
-        console.log('akakakakakak', id);
         dispatch(fetchPlayList(id));
         let response = await playlistroute(id);
         if (response && response.DT.data) {
@@ -38,11 +36,19 @@ const Card = ({ playlist, isOw }) => {
     };
     const handledelete = async (e, id) => {
         e.preventDefault();
-        await deleteplaylistService({ playlistId: id });
-    }
+        const response = await deleteplaylistService({ playlistId: id });
+        if (response && response.EC === '0') {
+            toast.success('Xóa thành công');
+            // Remove the deleted playlist from the playlist array
+            const updatedPlaylist = playlist.filter(item => item.playlistId !== id);
+            dispatch(fetchPlayList([...updatedPlaylist])); // Update the state with the new playlist array
+        } else {
+            toast.error('Xóa thất bại');
+        }
+    };
     return (
         <div className="card_container">
-            {slicedData.map((playlist, index) => playlist._id ?
+            {slicedData.map((playlist, index) => playlist && playlist._id ?
                 (
                     <div className="card_item" key={'ola' + index}>
                         <div className="img_container">
@@ -96,7 +102,7 @@ const Card = ({ playlist, isOw }) => {
                         <div className="img_container">
                             <img
                                 src={
-                                    playlist.thumbnailM
+                                    playlist && playlist.thumbnailM
                                         ? playlist.thumbnailM
                                         : 'https://res.cloudinary.com/drupmc7qd/image/upload/v1714275641/vqsvqsxebphgymfqkgkq.jpg'
                                 }
