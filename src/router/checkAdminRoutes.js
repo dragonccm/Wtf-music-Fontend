@@ -8,6 +8,8 @@ const CheckAdminRoutes = ({ component: Component},props) => {
       const isAdmin = useSelector(
         (state) => state.Authentication.defaultUser.account.isAdmin
       );
+      // console.log("is auth",isAuthentication)
+      // console.log("is admin",isAdmin)
 
   if (isAuthentication && isAuthentication.isLoading === false && isAuthentication.isAuthenticated && isAdmin) {
     return (

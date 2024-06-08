@@ -77,7 +77,6 @@ const Bottombar = () => {
   const [isActiveminutes, setIsActiveMinutes] = useState(false)
   const [isActivesecond, setIsActiveSecond] = useState(false)
   const handleStart = (a) => {
-    console.log('Start time')
     setIsActive(true)
     setIsPaused(true)
     let currTime
@@ -92,8 +91,6 @@ const Bottombar = () => {
     }
   }
   useEffect(() => {
-    // console.log(timer);
-    // console.log(outTime);
     if (Number(outTime) - Number(timer) > 0) {
 
       localStorage.setItem('timeout', Number(outTime) - Number(timer))
@@ -128,7 +125,6 @@ const Bottombar = () => {
     setIsPaused(true)
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1)
-      console.log(timer + 1)
     }, 1000)
   }
   const handleReset = () => {
@@ -146,7 +142,6 @@ const Bottombar = () => {
 
   const handleStopTimeChange = (event) => {
     setOutTime(event.target.value);
-    console.log(outTime);
     // clearTimeout(countdownTimeout); // Dừng hẹn giờ hiện tại
     // setStopTime(newStopTime);
   };
@@ -200,15 +195,15 @@ const Bottombar = () => {
   //playlist
   useEffect(() => {
     if (Number(localStorage.getItem('timeout')) > 0) {
-      console.log('Timeout : ' + Number(localStorage.getItem('timeout')))
+      // console.log('Timeout : ' + Number(localStorage.getItem('timeout')))
       const timeout = Number(localStorage.getItem('timeout'))
       setOutTime(timeout)
-      console.log(outTime)
+      // console.log(outTime)
       handleStart()
     }
     const fetchData = async () => {
       if (localStorage.getItem('playlistID')) {
-        console.log('jajaja')
+        // console.log('jajaja')
         await dispatch(fetchPlayList(localStorage.getItem('playlistID')));
       }
 
@@ -225,11 +220,11 @@ const Bottombar = () => {
 
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist);
-  console.log(dataf)
+  // console.log(dataf)
   const handleClickNext = () => {
     if (Number(currentMusicIndex) < dataf.song.length - 1) {
       dispatch(increment())
-      console.log(currentMusicIndex);
+      // console.log(currentMusicIndex);
       if (dataf && isPlaying) {
         dispatch(fetchSongPlaying(dataf.song[currentMusicIndex + 1].id))
         localStorage.setItem('currentMusicIndex', currentMusicIndex)
@@ -242,24 +237,24 @@ const Bottombar = () => {
   const handleClickPrevious = () => {
     if (currentMusicIndex > 0) {
       dispatch(decrement())
-      console.log(currentMusicIndex);
+      // console.log(currentMusicIndex);
       if (dataf && isPlaying) {
         dispatch(fetchSongPlaying(dataf.song[currentMusicIndex - 1].id))
         localStorage.setItem('currentMusicIndex', currentMusicIndex)
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     } else {
-      console.log(currentMusicIndex);
+      // console.log(currentMusicIndex);
       alert('Không có')
     }
 
   }
   const handleClickNow = (index) => {
-    console.log(index)
+    // console.log(index)
     dispatch(update(index))
   }
   const handleEnd = () => {
-    console.log('end')
+    // console.log('end')
     handleClickNext()
   }
   const handleRandom = () => {
@@ -388,7 +383,7 @@ const Bottombar = () => {
     if (response && response.EC === "0") {
       toast.success(response.EM)
       handleClickNext()
-      console.log(songInfo.infor.id)
+      // console.log(songInfo.infor.id)
       dispatch(banSongs(songInfo.infor.id))
     } else if (response && response.EC !== '0') {
       toast.error(response.EM);
@@ -432,11 +427,11 @@ const Bottombar = () => {
     setLyricIsOpen(true);
   }
   function openModalTime() {
-    console.log('kakakakakak')
+    // console.log('kakakakakak')
     setTimeIsOpen(true);
   }
   function closeModalTime() {
-    console.log('kakakakakak')
+    // console.log('kakakakakak')
     setTimeIsOpen(false);
   }
   function openModalPlaylist() {
@@ -515,7 +510,7 @@ const Bottombar = () => {
   // }, []);
 
 
-  console.log('=============================================================')
+  // console.log('=============================================================')
 
   const handleVolumeChange = (e) => {
     setVolume(e.target.volume);

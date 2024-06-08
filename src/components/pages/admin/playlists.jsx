@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { adminGetPlaylist } from "../../../services/adminPlaylistService";
 import {
     updatePlaylist,
@@ -347,27 +347,27 @@ const PlaylistAdmin = () => {
             alert("id không tồn tại");
         }
     };
-
-    const handleEditAddSongTag = (e, id) => {
-        e.preventDefault();
-        if (!editForm.songid || !editForm.songid.includes(id)) {
-            setEditForm((prevState) => ({
-                ...prevState,
-                songListid: [...(prevState.songid || []), id],
-            }));
-        } else {
-            alert("id đã tồn tại");
-        }
-    };
     const handleEditRemoveSongTag = (e, id) => {
         e.preventDefault();
         if (editForm.songid && editForm.songid.includes(id)) {
             setEditForm((prevState) => ({
                 ...prevState,
-                songListid: prevState.songid.filter((item) => item !== id),
+                songid: prevState.songid.filter((item) => item !== id),
             }));
         } else {
             alert("id không tồn tại");
+        }
+    };
+
+    const handleEditAddSongTag = (e, id) => {
+        e.preventDefault();
+        if (!editForm.songListId || !editForm.songListId.includes(id)) {
+            setEditForm((prevState) => ({
+                ...prevState,
+                songListId: [...(prevState.songListId || []), id],
+            }));
+        } else {
+            alert("id đã tồn tại");
         }
     };
     const handlegetban = async (e) => {
@@ -481,7 +481,7 @@ const PlaylistAdmin = () => {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    icon={faTrash}
+                                                    icon={faBan}
                                                 />
                                             </button>
                                         </td>
@@ -526,7 +526,7 @@ const PlaylistAdmin = () => {
                                                 }
                                             >
                                                 <FontAwesomeIcon
-                                                    icon={faTrash}
+                                                    icon={faBan}
                                                 />
                                             </button>
                                         </td>
@@ -820,10 +820,7 @@ const PlaylistAdmin = () => {
                                         editForm.songid.map((d) => (
                                             <button
                                                 onClick={(e) =>
-                                                    handleEditRemoveSongTag(
-                                                        e,
-                                                        d
-                                                    )
+                                                    handleEditRemoveSongTag(e,d)
                                                 }
                                                 className="btn btn-outline-primary btn-lg"
                                             >
@@ -846,7 +843,7 @@ const PlaylistAdmin = () => {
                                         // value={createForm.artists}
                                         onChange={handSongsearch}
                                     />
-                                    <p>{editForm.songid}</p>
+                                    <p>{editForm.songListId}</p>
                                     <div
                                         style={{ height: "20rem" }}
                                         className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"

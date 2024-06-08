@@ -8,7 +8,7 @@ export const getSongData = async (Songid) => {
       // const songUrlResult = await songUrl(Songid);
       const songLyricsResult = await songLyric(Songid);
       const id = songDetailResult.data.song.id;
-      console.log(songDetailResult);
+
       if (songDetailResult) {
         const genres = songDetailResult.data.genres?songDetailResult.data.genres
           : ["undefined", "undefined", "undefined"];
@@ -52,23 +52,23 @@ export const getSongData = async (Songid) => {
         //       "IWZ9Z087"
         //     ],
         //   })
-        console.log({
-          id: id,
-          thumbnail: img,
-          songname: songname,
-          artists: artistInfo,
-          alias: alias,
-          songLink: song,
-          listen: listen,
-          like: like,
-          duration: duration,
-          lyric: Ly,
-          genresid: [
-            "IWZ9Z097",
-            "IWZ9Z09F",
-            "IWZ9Z087"
-          ],
-        })
+        // console.log({
+        //   id: id,
+        //   thumbnail: img,
+        //   songname: songname,
+        //   artists: artistInfo,
+        //   alias: alias,
+        //   songLink: song,
+        //   listen: listen,
+        //   like: like,
+        //   duration: duration,
+        //   lyric: Ly,
+        //   genresid: [
+        //     "IWZ9Z097",
+        //     "IWZ9Z09F",
+        //     "IWZ9Z087"
+        //   ],
+        // })
      
 
         return {
@@ -105,7 +105,7 @@ export const getSongData = async (Songid) => {
         //     ],
         //   })
         // console.log(jj)
-        console.log("jahahahah");
+        // console.log("jahahahah");
 
         return {
           id: "1",

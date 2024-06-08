@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { adminGetUsers } from "../../../services/adminGetUserService";
 import { getPlaylist } from "../../../services/playlistService";
 import { getSongData } from "../../../services/SongService";
@@ -175,7 +175,7 @@ const CommentAdmin = () => {
                                         className="btn btn-danger-custom fs-5 ms-3"
                                         onClick={() => deleteMusicKind(kind.id)}
                                     >
-                                        <FontAwesomeIcon icon={faTrash} />
+                                        <FontAwesomeIcon icon={faBan} />
                                     </button>
                                 </td>
                             </tr>

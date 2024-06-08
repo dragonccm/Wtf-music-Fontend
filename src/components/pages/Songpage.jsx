@@ -61,14 +61,13 @@ const Songpage = () => {
         }
     };
 
-    useEffect(async() => {
+    useEffect(() => {
         const fetchData = async () => {
             const response = await fetchSongPage(id);
             setData(response);
         };
 
-
-        await fetchData();
+        fetchData();
         const getComments = async (id) => {
             const response = await getComment(id);
             setComments(response.DT);
@@ -263,24 +262,16 @@ const Songpage = () => {
 
                                             {comment.isOwnComment !== true ? (
                                                 <button
-                                                    className="btn btn-custom"
-                                                    // onClick={() =>
-                                                    //     handleOpenReport()
-                                                    // }
+                                                    className="btn btn-custom btn-custom-other"
+                                                    onClick={() =>
+                                                        handleReport(
+                                                            comment._id
+                                                        )
+                                                    }
                                                 >
-                                                    ...
+                                                    !
                                                 </button>
                                             ) : (
-                                                // <button
-                                                //     className="btn btn-custom"
-                                                //     onClick={() =>
-                                                //         handleReport(
-                                                //             comment._id
-                                                //         )
-                                                //     }
-                                                // >
-                                                //     Báo cáo
-                                                // </button>
                                                 ""
                                             )}
                                         </div>
