@@ -17,6 +17,7 @@ import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
 import { useEffect } from "react";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 // import CssBaseline from '@mui/material/CssBaseline';
+import { toast, ToastContainer } from "react-toastify";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -29,16 +30,28 @@ function App(props) {
       console.log("lỗi");
     }
   }, []);
- 
+
 
   const Mainn = () => (
     <ThemeProvider>
       <div className="App">
         <div className="main_content">
           {/* <RightSidebar /> */}
-          
-          <AppRoutes />
 
+          <AppRoutes />
+          <ToastContainer
+            style={{ fontSize: "16px" }}
+            position="top-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
           {/* <Bottombar  /> */}
         </div>
       </div>
@@ -56,11 +69,12 @@ function App(props) {
               path="/admin/*"
               element={<CheckAdminRoutes component={AdminRoutes} />}
             />
-             <Route
+            <Route
               path="/*"
               element={<CheckBan component={Mainn} />}
             />
             {/* <Route path="/*" element={<Mainn />} /> */}
+
           </Routes>
         </Router>
       </SongDataProvider>

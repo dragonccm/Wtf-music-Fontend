@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlay, faShare } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlay, faShare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { NavLink } from "react-router-dom";
 // import SongDataContext from '../../lib/Context/SongContext';
@@ -12,20 +12,20 @@ import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
 import { playlistroute } from "../../controller/playlist";
 import Like_heart from "../card/like";
-
-import React, { useState } from "react";
-
+import { deleteplaylistService } from "../../services/deleteMyPlaylist"
+import React, { useState,useEffect } from "react";
+import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
+
 import "../../css/card.scss";
-const Card = ({ playlist }) => {
+const Card = ({ playlist, isOw }) => {
     const dispatch = useDispatch();
     const currData = useSelector((state) => state.Authentication);
-    const playlistNow = useSelector((state)=> state.playlist.playlist);
+    const playlistNow = useSelector((state) => state.playlist.playlist);
     const slicedData = playlist.slice(0, 5);
-
+    
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
-        console.log('akakakakakak',id);
         dispatch(fetchPlayList(id));
         let response = await playlistroute(id);
         if (response && response.DT.data) {
@@ -34,9 +34,21 @@ const Card = ({ playlist }) => {
             localStorage.setItem('playlistID', id)
         }
     };
+    const handledelete = async (e, id) => {
+        e.preventDefault();
+        const response = await deleteplaylistService({ playlistId: id });
+        if (response && response.EC === '0') {
+            toast.success('Xóa thành công');
+            // Remove the deleted playlist from the playlist array
+            const updatedPlaylist = playlist.filter(item => item.playlistId !== id);
+            dispatch(fetchPlayList([...updatedPlaylist])); // Update the state with the new playlist array
+        } else {
+            toast.error('Xóa thất bại');
+        }
+    };
     return (
         <div className="card_container">
-            {slicedData.map((playlist, index) => playlist._id ?
+            {slicedData.map((playlist, index) => playlist && playlist._id ?
                 (
                     <div className="card_item" key={'ola' + index}>
                         <div className="img_container">
@@ -60,13 +72,22 @@ const Card = ({ playlist }) => {
                                             className="nav-link list_nav_item"
                                             onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
                                         >
-                                            
-                                                <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-                                           
+
+                                            <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+
                                         </div>
-                                        <button className="rhap_main-controls-button rhap_button-clear">
-                                            <FontAwesomeIcon icon={faShare} />
-                                        </button>
+                                        {isOw === "you" ? (
+                                            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e)=>handledelete(e, playlist.playlistId)}>
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        ) :
+                                            (
+                                                <button className="rhap_main-controls-button rhap_button-clear">
+                                                    <FontAwesomeIcon icon={faShare} />
+                                                </button>
+                                            )
+                                        }
+
                                     </div>
                                 </div>
                             </NavLink>
@@ -81,7 +102,7 @@ const Card = ({ playlist }) => {
                         <div className="img_container">
                             <img
                                 src={
-                                    playlist.thumbnailM
+                                    playlist && playlist.thumbnailM
                                         ? playlist.thumbnailM
                                         : 'https://res.cloudinary.com/drupmc7qd/image/upload/v1714275641/vqsvqsxebphgymfqkgkq.jpg'
                                 }
@@ -90,20 +111,29 @@ const Card = ({ playlist }) => {
                             />
                             <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
                                 <div className="img_overlay">
-                                    <div className="img_overlay_group_btn" onClick={(e)=>e.preventDefault()}>
+                                    <div className="img_overlay_group_btn" onClick={(e) => e.preventDefault()}>
                                         <Like_heart id={playlist.playlistId} type={'playlist'} />
 
                                         <div
                                             className="nav-link list_nav_item"
                                             onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
                                         >
-                                            
-                                                <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-                                            
+
+                                            <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+
                                         </div>
-                                        <button className="rhap_main-controls-button rhap_button-clear">
-                                            <FontAwesomeIcon icon={faShare} />
-                                        </button>
+                                        {isOw === "you" ? (
+                                            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e)=>handledelete(e, playlist.playlistId)}>
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        ) :
+                                            (
+                                                <button className="rhap_main-controls-button rhap_button-clear">
+                                                    <FontAwesomeIcon icon={faShare} />
+                                                </button>
+                                            )
+                                        }
+
                                     </div>
                                 </div>
                             </NavLink>

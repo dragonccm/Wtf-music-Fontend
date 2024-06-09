@@ -541,7 +541,6 @@ const Bottombar = () => {
 
     const currentTime = e.target.currentTime;
     localStorage.setItem('duration', currentTime);
-    // console.log(currentTime);
     setLoop(e.target.loop)
     localStorage.setItem('loop', loop);
 

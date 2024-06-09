@@ -9,12 +9,11 @@ import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { useSelector, useDispatch } from "react-redux";
 import { adSongToPlaylist } from '../../controller/adSongToPlaylist'
 import { createplaylist } from '../../controller/createPlaylist'
-
+import { toast } from "react-toastify";
 
 const CreatePlaylist = ({ idSongs ,type}) => {
     const dispatch = useDispatch()
     const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
-    console.log(userPlaylist)
     const [clickedButtons, setClickedButtons] = useState([]);
     const [playlistName, setPlaylistName] = useState('');
 
@@ -38,7 +37,7 @@ const CreatePlaylist = ({ idSongs ,type}) => {
         console.log(response)
         if (response.EC === '0') {
             dispatch(getUserPl());
-            alert('success')
+            toast.success(response.EM)
         }
     }
    
@@ -51,10 +50,9 @@ const CreatePlaylist = ({ idSongs ,type}) => {
         console.log(response)
         if (response.EC === '0') {
             dispatch(getUserPl());
-            alert('success')
+            toast.success(response.EM)
         } else {
-            alert('lỗi')
-            
+            toast.error(response.EM)       
         }
         // Reset form input
         setPlaylistName('');

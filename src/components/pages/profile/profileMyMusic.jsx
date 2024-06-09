@@ -56,7 +56,7 @@ const ProfileMyMusic = ({ type }) => {
         <section className="mylist_page">
             <div className="Recommended_1">{type == 'mymusic' ? "Playlist-Album yêu thích" : 'Playlist-Album đã nghe'}</div>
             <div className="list_container">
-                <Card playlist={datas} />
+                <Card playlist={datas} isOw={""} />
             </div>
         </section>
     );
