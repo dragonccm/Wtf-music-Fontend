@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Routes, Route } from "react-router-dom";
 import ProfileMyMusic from "./profileMyMusic";
+import ProfileHistory from "./profileHistory";
 import Recommended from "../../card/Recommended";
 import Card from "../../card/playlist_card";
 import ProfileSetting from "./Profile-setting/profile_setting";
@@ -183,7 +184,7 @@ function Profile() {
         <Routes>
           <Route
             path="/myplaylist"
-            element={!userPlaylist ? (<Myplaylist datas={usserplaylist} />) :(<Myplaylist datas={userPlaylist} />)}
+            element={!userPlaylist ? (<h3>Bạn chưa có danh sách phát của mình</h3>) :(<Myplaylist datas={userPlaylist} />)}
           />
           {/* <Route path="/history" element={<History data={Recommendeds} />} /> */}
           <Route
@@ -201,7 +202,7 @@ function Profile() {
           <Route
             path="/history"
             element={
-              <ProfileMyMusic type={'history'} />
+              <ProfileHistory type={'history'} />
             }
           />
           <Route path="/" element={<Artist data={element} />} />

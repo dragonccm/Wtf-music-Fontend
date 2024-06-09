@@ -3,60 +3,45 @@ import Card from "../../card/playlist_card";
 import { useState, useEffect } from "react";
 import '../../../css/profileMyMusic.scss'
 import Loading from "../../sideNavigation/mascot_animation";
-import { getUserLikedSong } from '../../../redux/slide/getUserLikedSongs'
+import { fetchMyHistory } from '../../../redux/slide/myHistory'
 import { useSelector, useDispatch } from "react-redux";
 
-const ProfileMyMusic = ({ type }) => {
+const ProfileHistory = ({ type }) => {
     const [area, setArea] = useState('song')
     const dispatch = useDispatch();
+    const myHistory = useSelector((state) => {
+        return state.myHistory.myHistory;
+    });
     useEffect(() => {
-        dispatch(getUserLikedSong());
+        if (Object.keys(myHistory).length === 0 ) {
+            
+            dispatch(fetchMyHistory());
+        }
     }, [dispatch]);
     const likedSong = useSelector((state) => {
-        return state.ulikedSongs.userlikedSongs.songs;
+        return state.myHistory.song;
     });
     const likedplaylist = useSelector((state) => {
-        return state.ulikedSongs.userlikedSongs.playlist;
+        return state.myHistory.playlist;
     });
-    const ulikedSongs = useSelector((state) => {
-        return state.ulikedSongs.userlikedSongs;
-    });
+
 
     if (!Array.isArray(likedSong)) {
         return <><Loading /></>
     }
-    // const neww = likedSong.map((data) => {
-    //     if (data && data.id) {
-    //         return {
-    //             playlistId: data.id,
-    //             title: data.songname,
-    //             thumbnailM: data.thumbnail ? data.thumbnail :"https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
-    //             songname: data.songname
-    //         }
-    //     }
-    // })
-
-    // const list = likedplaylist.map((data) => {
-    //     if (data && data.playlistId) {
-    //         return {
-    //             id: data.playlistId,
-    //             title: data.playlistname,
-    //             img: data.thumbnail ? data.thumbnail :"https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
-    //         }
-    //     }
-    // })
+   
     const Likesong = ({ data }) => (
         likedSong.length>0 && likedSong[0]?
         <div className="history_ctn">
             <Recommended
                 datas={data}
-                type={type == 'mymusic' ? "Bài hát yêu thích" : 'Bài hát đã nghe'}
-                describe={type == 'mymusic' ? "Bài hát yêu thích" : 'Bài hát đã nghe'}
-                maxItemsToShow="5"
+                type={type == 'Bài hát đã nghe'}
+                describe={type == 'Bài hát đã nghe'}
+                maxItemsToShow="25"
             />
             </div>
             :
-            <h3>Bạn chưa có bài hát yêu thích</h3>
+            <h3>Lịch sử trống</h3>
     );
     const Myplaylist = ({ datas }) => (
         likedplaylist.length >0 && likedplaylist[0]?
@@ -120,4 +105,4 @@ const ProfileMyMusic = ({ type }) => {
            
     )
 }
-export default ProfileMyMusic
+export default ProfileHistory

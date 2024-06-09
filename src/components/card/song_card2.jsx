@@ -5,6 +5,7 @@ import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying, update } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import Like_heart from "./like";
 
 import '../../css/song_card2.scss';
 import Play_animation from "./play_animation"
@@ -89,9 +90,8 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
             <div className="root_album"></div>
             {/* <div className="added_time">{data.addedday}</div> */}
             <div className="foot_r">
-                <div className="liked">
-                    <FontAwesomeIcon icon={data.liked_state ? faHeart : regular} />
-                </div>
+               
+                <Like_heart id={data.id} type={'song'} />
                 <div className="time">{String(Math.floor(data.duration / 60)).padStart(2, "0") + ':' + String(Math.round(data.duration) % 60).padStart(2, "0")}</div>
             </div>
         </div>

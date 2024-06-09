@@ -89,7 +89,7 @@ const ProfileChangePass = () => {
         <>
             <div className="change_pass">
                 <h1>Thay đổi mật khẩu</h1>
-                <form action="">
+                <form action="" className="col-sm-9 mx-auto">
                     <div className="input_group">
                         <label htmlhtmlfor="old_pass">Mật khẩu hiện tại</label>
                         <div className="input_group_pass">
