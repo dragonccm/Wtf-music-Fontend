@@ -12,13 +12,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 
 const Rating = () => {
-  
+
   const dispatch = useDispatch();
-
+  const dataRating = useSelector((state) => {
+    return state.rating.dataRating;
+  });
   useEffect(() => {
-    dispatch(fetchRating());
-
-  }, [dispatch]);
+    if (Object.keys(dataRating).length === 0) {
+      dispatch(fetchRating());
+    }
+  }, []);
   const RTChart_items = useSelector((state) => {
     return state.rating.RTChart_items;
   });
@@ -69,7 +72,7 @@ const Rating = () => {
                     <div className="week_rating_card" key={'haha' + innerIndex}>
                       <div className="current_rank">
                         <p>{innerIndex + 1}</p>
-                        {data.rakingStatus !== 0 ?
+                        {/* {data.rakingStatus !== 0 ?
                           (<div className="go_to">
                             {data.rakingStatus > 0 ?
                               (<><FontAwesomeIcon className="upup" icon={faCaretUp} /> <span>{data.rakingStatus}</span></>)
@@ -80,14 +83,14 @@ const Rating = () => {
                           (<div className="go_to">
                             --
                           </div>)
-                        }
-
+                        } */}
+                        <div className="go_to">--</div>
                       </div>
                       <div className="child_info">
                         <div className="week_rating_img">
-                          <img src={data.thumbnailM} alt="f" />
+                          <img src={data.thumbnail} alt="f" />
                           <div className="img_overlay">
-                            <NavLink to={'/' + data.encodeId} onClick={(e) => handlePlaying(e, data.encodeId)} className="nav-link list_nav_item">
+                            <NavLink to={'/' + data.id} onClick={(e) => handlePlaying(e, data.id)} className="nav-link list_nav_item">
                               <FontAwesomeIcon className="play_icon" icon={faPlay} />
                             </NavLink>
                           </div>
@@ -95,8 +98,8 @@ const Rating = () => {
                         <section>
                           <div className="week_rating_name">
                             <NavLink
-                              to={"/song/" + data.encodeId}>
-                              {data.title}
+                              to={"/song/" + data.id}>
+                              {data.songname}
                             </NavLink>
                           </div>
                           <div className="week_rating_artists">

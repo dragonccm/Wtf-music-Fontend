@@ -14,7 +14,7 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
     const  Playlist= useSelector((state) => state.playlist.playlist.playlist); 
     const idPlaylistNow = Playlist && Playlist.playlistId
     const handlePlaying =  (e, id) => {
-        if (onPlaylist.isPlay) {
+        if (onPlaylist&&onPlaylist.isPlay) {
             console.log(idPlaylistNow)
             console.log(onPlaylist.idPlaylist)
             // kiểm tra bài hát này có thuộc playlist hiện tại đang dc phát k,
@@ -92,7 +92,7 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
                 <div className="liked">
                     <FontAwesomeIcon icon={data.liked_state ? faHeart : regular} />
                 </div>
-                <div className="time">{String(Math.floor(data.duration / 60)).padStart(2, "0") + ':' + String(data.duration % 60).padStart(2, "0")}</div>
+                <div className="time">{String(Math.floor(data.duration / 60)).padStart(2, "0") + ':' + String(Math.round(data.duration) % 60).padStart(2, "0")}</div>
             </div>
         </div>
     )

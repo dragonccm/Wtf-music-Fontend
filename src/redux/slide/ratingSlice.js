@@ -3,9 +3,11 @@ import { getRatingData } from "../../services/ratingService";
 import { getRankCliend } from "../../controller/rating";
 
 export const fetchRating = createAsyncThunk("getRating", async () => {
-  const ha = await getRankCliend();
   const response = await getRatingData();
-  return response.data;
+  if (response.EC === '0') {
+    
+    return response.DT.data;
+  }
 });
 const initialState = {
   dataRating: {},

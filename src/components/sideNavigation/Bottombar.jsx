@@ -982,7 +982,7 @@ const Bottombar = () => {
                       <>
                         <button className="menu-item" onClick={() => { handleRemovePlaylist() }}> <FontAwesomeIcon icon={faTrash} />Xoá danh sách phát</button>
                         <button className="menu-item"><FontAwesomeIcon icon={faDownload} />Tải danh sách phát</button>
-                        <button className="menu-item" onClick={(e) => e.preventDefault()}>j</button>
+                        {/* <button className="menu-item" onClick={(e) => e.preventDefault()}>j</button> */}
 
                       </>
                     }

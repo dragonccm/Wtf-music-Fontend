@@ -41,8 +41,8 @@ const HubPage = () => {
             </div>
             {currData.DT.genres.slice(0, 5).map((data, index) => (
                 <React.Fragment key={index}>
-                    <h1 className="catego_title">{data.genrename}</h1>
-                    <div className="list_card">
+                    <div className="for_you">
+                        <h1 className="catego_title">{data.genrename}</h1>
                         <Card playlist={dataHandle(data.playListId)} />
                     </div>
                 </React.Fragment>
