@@ -22,7 +22,7 @@ const ProfileSetting = () => {
                     />
                     <span className="radio-tile ">
                         <span className="radio-icon">
-                            Bài hát
+                            Thông tin
                         </span>
                     </span>
                 </label>
@@ -39,7 +39,7 @@ const ProfileSetting = () => {
                     />
                     <span className="radio-tile ">
                         <span className="radio-icon">
-                            Playlist
+                            Đổi mật khẩu
                         </span>
                     </span>
                 </label>

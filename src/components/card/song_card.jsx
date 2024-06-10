@@ -19,9 +19,10 @@ const SongCard = ({ element }) => {
     if (song) {
       console.log(`ID ${id} trùng với một bài hát trong playlist.`);
     } else {
+    dispatch(fetchPlayList());
+
       console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
     }
-    dispatch(fetchPlayList());
     dispatch(fetchSongPlaying(id));
   }
   const songInfo = useSelector((state) => state.getSongData.inforSong);

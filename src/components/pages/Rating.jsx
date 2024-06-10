@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Recommended from "../card/Recommended";
+import Loading from "../sideNavigation/mascot_animation";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
@@ -54,7 +56,9 @@ const Rating = () => {
   return (
     <>
       {RTChart_items && Array.isArray(RTChart_items) && Array.isArray(week_vn) && Array.isArray(week_us) && Array.isArray(week_korea) ?
-        (<h1>Loading</h1>) :
+        ( <div>
+          <Loading />
+      </div>) :
         (<section className="rating_main">
           <Recommended
             datas={RTChart_items}

@@ -67,6 +67,8 @@ const Bottombar = () => {
   const playerRef = useRef();
   const dispatch = useDispatch();
 
+  const [newAuthenURL,setNewAuthenURL]= useState('authen=exp=1718202123~acl=/90083d6a4f1c62d2b7b5f3e76fed2986/*~hmac=f62e7a8efe71d54ef645a34a2e797e58')
+
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   const minutesOptions = Array.from({ length: 60 }, (_, i) => i + 1);
   const secondsOptions = Array.from({ length: 60 }, (_, i) => i + 1);
@@ -356,7 +358,7 @@ const Bottombar = () => {
 
   // download nhạc 
   const handleDownload = async () => {
-    const audioUrl = songInfo.infor.song;
+    const audioUrl = songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL;
 
     try {
       const response = await fetch(audioUrl);
@@ -885,7 +887,7 @@ const Bottombar = () => {
           onPause={handleStop}
           onCanPlay={handleTimeUpdate}
           showSkipControls="true"
-          src={songInfo.infor.song}
+          src={songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
           onEnded={handleEnd}

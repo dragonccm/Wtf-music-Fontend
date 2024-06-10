@@ -7,20 +7,16 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../css/hubpage.scss";
 const HubPage = () => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true);
-
+    const Genres = useSelector((state) => state.Genres.Genres);
+    const loading = useSelector((state) => state.Genres.isLoading);
     useEffect(() => {
-        dispatch(fetchGenres()).then(() => setLoading(false));
-    }, []);
+        if (Object.keys(Genres).length === 0) {
+            
+            dispatch(fetchGenres());
+        }
+    }, [dispatch]);
 
-    const dataHandle = (data) => {
-        return data.map((con) => ({
-            genreId: con.genreId,
-            name: con.genrename,
-            thumbnailM: con.thumbnail,
-            artists_list: [],
-        }));
-    };
+
 
     const currData = useSelector((state) => state.Genres.Genres);
     console.log(currData);
@@ -31,7 +27,7 @@ const HubPage = () => {
             </div>
         );
     }
-    return (
+    return (currData && currData.DT &&
         <div className="main_hub">
             <div className="banner">
                 <img
@@ -39,11 +35,11 @@ const HubPage = () => {
                     alt="f"
                 />
             </div>
-            {currData.DT.genres.slice(0, 5).map((data, index) => (
+            {currData.DT.genres.slice(0, 17).map((data, index) => (
                 <React.Fragment key={index}>
                     <div className="for_you">
                         <h1 className="catego_title">{data.genrename}</h1>
-                        <Card playlist={dataHandle(data.playListId)} />
+                        <Card playlist={data.playListId} />
                     </div>
                 </React.Fragment>
             ))}

@@ -10,6 +10,8 @@ import 'reactjs-popup/dist/index.css';
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+
 import { playlistroute } from "../../controller/playlist";
 import Like_heart from "../card/like";
 import { deleteplaylistService } from "../../services/deleteMyPlaylist"
@@ -28,7 +30,7 @@ const Card = ({ playlist, isOw }) => {
         e.preventDefault();
         dispatch(fetchPlayList(id));
         let response = await playlistroute(id);
-        if (response && response.DT.data) {
+        if (response && response.DT.data && response.DT.data.playlist  && response.DT.data.playlist.songid.length>0) {
             console.log(response.DT.data)
             dispatch(fetchSongPlaying(response.DT.data.playlist.songid[0]))
             localStorage.setItem('playlistID', id)
@@ -41,7 +43,7 @@ const Card = ({ playlist, isOw }) => {
             toast.success('Xóa thành công');
             // Remove the deleted playlist from the playlist array
             const updatedPlaylist = playlist.filter(item => item.playlistId !== id);
-            dispatch(fetchPlayList([...updatedPlaylist])); // Update the state with the new playlist array
+            dispatch(getUserPl()); // Update the state with the new playlist array
         } else {
             toast.error('Xóa thất bại');
         }
