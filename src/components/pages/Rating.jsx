@@ -144,7 +144,7 @@ const Rating = () => {
                     }
                     className="list_nav_item show_all"
                   >
-                    xem tất cả
+                    Xem tất cả
                   </NavLink>
                 </div>
               )

@@ -38,7 +38,8 @@ const Like_heart = ({ id,type }) => {
         }
        
     }, [mysong,myplaylist])
-    const handleAdd = async() => {
+    const handleAdd = async (e) => {
+        e.preventDefault();
         if (currData.defaultUser.isAuthenticated === true) {
             if (liked) {
                 let data 
@@ -96,11 +97,11 @@ const Like_heart = ({ id,type }) => {
     }
     return (
         liked ? (
-            <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd()}>
+            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e) => handleAdd(e)}>
                 <FontAwesomeIcon icon={faHeartSolid} style={{ color: '#3b68ef' }}/>
             </button>
         ) : (
-            <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd()}>
+            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e) => handleAdd(e)}>
                 <FontAwesomeIcon icon={faHeartRegular} />
             </button>
         )

@@ -30,7 +30,7 @@ const HomePage = () => {
         let response = await getHistory();
         if (response && response.DT) {
             console.log(response.DT)
-            setPlaylistsData(response.DT)
+            setPlaylistsData(response.DT.playlist)
             console.log(playlistsData)
         } else {
             console.log('No Playlists')

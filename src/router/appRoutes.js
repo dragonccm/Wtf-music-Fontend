@@ -11,6 +11,7 @@ import Songpage from "../components/pages/Songpage";
 import Singerpage from "../components/pages/Singerpage";
 import Top100 from "../components/pages/top100";
 import HubPage from "../components/pages/hubPage";
+import HubItem from "../components/pages/hubItem";
 import Profile from "../components/pages/profile/profilepage";
 import LoginPage from "../components/pages/loginpage";
 import RegisterPage from "../components/pages/register";
@@ -67,6 +68,7 @@ const AppRoutes = (props) => {
                         />
                         <Route path="/top100" element={<Top100 />} />
                         <Route path="/hub" element={<HubPage />} />
+                        <Route path="/hub/:id" element={<HubItem/>} />
                         <Route
                             path="/playlist/:id"
                             element={<Playlistpage />}

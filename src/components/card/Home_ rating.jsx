@@ -105,7 +105,7 @@ const HomeRating = ({ data }) => {
                    #{index+1}
                  </div>
                  <div className="rating_date">
-                   {moment.unix(item.createdAt).format('DD.MM.YYYY')}
+                   {moment(item.updatedAt).format('DD.MM.YYYY')}
                  </div>
                </div>
              </div>

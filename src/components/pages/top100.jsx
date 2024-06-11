@@ -14,21 +14,14 @@ const Top100 = () => {
   }, [dispatch]);
 
   const currData = useSelector((state) => state.top100.top100);
-  if (!Array.isArray(currData)) {
-    
-    console.error('currData is not an array:', currData);
-    return <div className="main_banner"><Loading/></div>; 
-  }
-  const dataHandle = (data) => {
-    return data.map((con) => ({
-      encodeId: con.encodeId,
-      name: con.title,
-      thumbnailM: con.thumbnail.replace('w165', 'w320'),
-      artists_list: [], 
-    }));
-  };
+  if (!currData) {
 
-  return (
+    console.error('currData is not an array:', currData);
+    return <div className="main_banner"><Loading /></div>;
+  }
+
+
+  return (currData && Object.keys(currData).length !== 0 && 
     <div className="top100_main">
       <div className="main_banner">
         <span>TOP</span>
@@ -86,14 +79,22 @@ const Top100 = () => {
         </svg>
       </div>
 
-      {currData.map((data, index) => (
-        <React.Fragment key={index}>
-          <h1 className="catego_title">{data.title}</h1>
-          <div className="list_card">
-            <Card playlist={dataHandle(data.items)} />
-          </div>
-        </React.Fragment>
-      ))}
+      <div className="for_you">
+        <h1 className="catego_title">Nổi bật</h1>
+        <Card playlist={currData.playlistHot} />
+      </div>
+      <div className="for_you">
+        <h1 className="catego_title">Nhạc Việt Nam</h1>
+        <Card playlist={currData.topV} limit={ true}/>
+      </div>
+      <div className="for_you">
+        <h1 className="catego_title">Nhạc Châu Á</h1>
+        <Card playlist={currData.topChauA} limit={ true}/>
+      </div>
+      <div className="for_you">
+        <h1 className="catego_title">Nhạc Âu Mỹ</h1>
+        <Card playlist={currData.topUS} limit={ true} />
+      </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { gettop100 } from "../../services/top100Service";
 
 export const fetchTop100 = createAsyncThunk("top100/getTop100", async () => {
     const response = await gettop100();
-    return response
+    return response.DT
 });
 const initialState = {
     top100: {},

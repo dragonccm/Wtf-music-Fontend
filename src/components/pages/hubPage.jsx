@@ -4,6 +4,8 @@ import Loading from "../sideNavigation/mascot_animation";
 import { useEffect, useState } from "react";
 import { fetchGenres } from "../../redux/slide/genresSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+
 import "../../css/hubpage.scss";
 const HubPage = () => {
     const dispatch = useDispatch();
@@ -11,7 +13,7 @@ const HubPage = () => {
     const loading = useSelector((state) => state.Genres.isLoading);
     useEffect(() => {
         if (Object.keys(Genres).length === 0) {
-            
+
             dispatch(fetchGenres());
         }
     }, [dispatch]);
@@ -38,7 +40,12 @@ const HubPage = () => {
             {currData.DT.genres.slice(0, 17).map((data, index) => (
                 <React.Fragment key={index}>
                     <div className="for_you">
-                        <h1 className="catego_title">{data.genrename}</h1>
+                        <div style={{marginTop: '20px'}} className="d-flex justify-content-between align-items-baseline">
+                            <h1 style={{marginBottom: '10px'}} className="catego_title">{data.genrename}</h1>
+                            <NavLink to={`/hub/${data.genreId}`} className="playlist_name" style={{width:'auto'}}>
+                               Xem tất cả 
+                            </NavLink>
+                        </div>
                         <Card playlist={data.playListId} />
                     </div>
                 </React.Fragment>

@@ -20,11 +20,11 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 
 import "../../css/card.scss";
-const Card = ({ playlist, isOw }) => {
+const Card = ({ playlist, isOw,limit }) => {
     const dispatch = useDispatch();
     const currData = useSelector((state) => state.Authentication);
     const playlistNow = useSelector((state) => state.playlist.playlist);
-    const slicedData = playlist.slice(0, 5);
+    const slicedData = limit ? playlist : playlist.slice(0, 5);
     
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
@@ -53,6 +53,7 @@ const Card = ({ playlist, isOw }) => {
             {slicedData.map((playlist, index) => playlist && playlist._id ?
                 (
                     <div className="card_item" key={'ola' + index}>
+                        <div className="card_wrap">
                         <div className="img_container">
                             <img
                                 src={
@@ -98,6 +99,7 @@ const Card = ({ playlist, isOw }) => {
                         <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
                             {playlist.playlistname}
                         </NavLink>
+                        </div>
                     </div>
                 ) : (
                     <div className="card_item" key={'ola' + index}>
