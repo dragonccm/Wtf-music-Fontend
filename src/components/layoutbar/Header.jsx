@@ -147,18 +147,18 @@ const Header = () => {
     const Album = ({ data }) => {
         return (
             <NavLink
-                    to={`/playlist/${data.id}`} className="search_item_album">
+                    to={`/playlist/${data.playlistId}`} className="search_item_album">
                 <div className="search_item_album_img">
-                    <img src={data.thumb} alt={data.name} />
+                    <img src={data.thumb} alt={data.playlistname} />
                 </div>
                 <div className="search_item_album_main">
                 <p
-                    to={`/playlist/${data.id}`}
+                    to={`/playlist/${data.playlistId}`}
                     className="search_item_name"
                 >
                     {data.name}
                     </p>
-                    <p>Album</p>
+                    <p>Playlist</p>
                </div>
                 </NavLink>
         );
@@ -186,7 +186,7 @@ const Header = () => {
             </NavLink>
         );
     };
-
+    console.log(searchResults)
     return (
         <div className="Header">
             <div className="header_wrap">
