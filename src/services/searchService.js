@@ -6,10 +6,10 @@ export const searchFetch = async (searchData) => {
     }
     try {
         const searchResult = await search(searchData);
-        const results = searchResult.data.items[1].suggestions.map(suggestion => {
+        const results = searchResult.map(suggestion => {
             const baseData = {
                 id: suggestion.id,
-                thumb: suggestion.thumb,
+                thumb: suggestion.thumbnail,
                 type: suggestion.type
             };
             
@@ -17,28 +17,24 @@ export const searchFetch = async (searchData) => {
                 
                 return {
                     ...baseData,
-                    name: suggestion.title,
-                    thumb: suggestion.thumb,
-                    artists: suggestion.artists ? suggestion.artists : 'Không xác định',
+                    songname: suggestion.songname,
+                    thumbnail: suggestion.thumbnail,
                 };
             } else if (suggestion.type === 4) {
-                
                 return {
                     ...baseData,
-                    aliasName:suggestion.aliasName,
-                    name: suggestion.name,
-                    avatar: suggestion.avatar,
-                    followers: suggestion.followers
-                    
+                    aliasName:suggestion.artistsName,
+                    name: suggestion.artistsName,
+                    avatar: suggestion.avt,
                 };
             }
             else if (suggestion.type === 3) {
                 
                 return {
                     ...baseData,
-                    name: suggestion.title,
-                    thumb: suggestion.thumb,
-                    artists: suggestion.artists ? suggestion.artists.map(artist => artist.name).join(', ') : 'Không xác định',
+                    playlistId: suggestion.playlistId,
+                    name: suggestion.playlistname,
+                    thumb: suggestion.thumbnail,
                 };
             }
             
