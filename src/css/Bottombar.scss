@@ -515,7 +515,7 @@
                 padding         : 3rem;
                 border-radius   : 1rem;
                 width           : 40rem;
-                height          : 20rem;
+                // height          : 20rem;
                 background-color: var(--bg-white);
 
                 .gid-gr {
@@ -543,7 +543,7 @@
                         border          : none;
                         background-color: var(--bg-radio);
                         border-radius   : 1rem;
-                        margin          : 1rem;
+                        margin          : 1rem auto;
                     }
                 }
             }

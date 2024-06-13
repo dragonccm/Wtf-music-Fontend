@@ -11,7 +11,7 @@ import { adSongToPlaylist } from '../../controller/adSongToPlaylist'
 import { createplaylist } from '../../controller/createPlaylist'
 import { toast } from "react-toastify";
 
-const CreatePlaylist = ({ idSongs ,type}) => {
+const CreatePlaylist = ({ idSongs, type }) => {
     const dispatch = useDispatch()
     const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
     const [clickedButtons, setClickedButtons] = useState([]);
@@ -40,8 +40,8 @@ const CreatePlaylist = ({ idSongs ,type}) => {
             toast.success(response.EM)
         }
     }
-   
-    const handleCreate = async(e) => {
+
+    const handleCreate = async (e) => {
         e.preventDefault();
 
         const response = await createplaylist({
@@ -52,7 +52,7 @@ const CreatePlaylist = ({ idSongs ,type}) => {
             dispatch(getUserPl());
             toast.success(response.EM)
         } else {
-            toast.error(response.EM)       
+            toast.error(response.EM)
         }
         // Reset form input
         setPlaylistName('');
@@ -68,12 +68,12 @@ const CreatePlaylist = ({ idSongs ,type}) => {
                     Thêm vào playlist
                 </div>
             }
-            position={type? 'left top':'right top'}
+            position={type ? 'left top' : 'right top'}
             on="hover"
             closeOnDocumentClick
             mouseLeaveDelay={300}
             mouseEnterDelay={0}
-            contentStyle={{ padding: "0", border: "none"}}
+            contentStyle={{ padding: "0", border: "none" }}
             arrow={false}
             nested
         >
@@ -81,22 +81,22 @@ const CreatePlaylist = ({ idSongs ,type}) => {
                 <div className="menu-plalist">
                     {userPlaylist.length >= 1 && userPlaylist[0] !== null && (
                         userPlaylist.map((data) =>
-                             (
-                                    <button
-                                        className="menu-item"
-                                        key={data.playlistId}
-                                        onClick={() => handlePushSong(data.playlistId)}
-                                    >
-                                        {data.playlistname}
-                                    </button>
-                                )
-                            
+                        (
+                            <button
+                                className="menu-item"
+                                key={data.playlistId}
+                                onClick={() => handlePushSong(data.playlistId)}
+                            >
+                                {data.playlistname}
+                            </button>
+                        )
+
                         )
                     )}
 
                     <Popup
                         trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
-                        position={type? 'left bottom':'right bottom'}
+                        position={type ? 'left bottom' : 'right bottom'}
                         nested
                     >
                         {close => (
@@ -110,7 +110,7 @@ const CreatePlaylist = ({ idSongs ,type}) => {
                                             onChange={handleInputChange}
                                             className="add-playlist-input"
                                         />
-                                        <button className="add-playlist-btn" type="submit">tạo mới</button>
+                                        <button className="add-playlist-btn" type="submit">TẠO MỚI</button>
                                     </div>
                                 </form>
                             </div>

@@ -47,7 +47,7 @@ const ProfileChangePass = () => {
             if (response && response.EC === "0") {
                 // console.log("ok");
                 toast.success('Đã cập nhật mật khẩu thành công !')
-                setTimeout(async() => {
+                setTimeout(async () => {
                     let data = await getLogout(); //clear cookies
                     localStorage.removeItem("jwt"); // clear local storage
                     instance.defaults.headers.common["Authorization"] = undefined;

@@ -17,7 +17,7 @@ import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
 import { useEffect } from "react";
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
 // import CssBaseline from '@mui/material/CssBaseline';
-import { toast, ToastContainer } from "react-toastify";
+// import { toast, ToastContainer } from "react-toastify";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -42,19 +42,7 @@ function App(props) {
           {/* <Bottombar  /> */}
         </div>
       </div>
-      <ToastContainer
-        style={{ fontSize: "16px" }}
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
+     
     </ThemeProvider>
   );
   return (
