@@ -14,7 +14,8 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
     const dispatch = useDispatch();
     const  Playlist= useSelector((state) => state.playlist.playlist.playlist); 
     const idPlaylistNow = Playlist && Playlist.playlistId
-    const handlePlaying =  async(e, id) => {
+    const handlePlaying = async (e, id) => {
+        e.preventDefault();
         if (onPlaylist&&onPlaylist.isPlay) {
             console.log(idPlaylistNow)
             console.log(onPlaylist.idPlaylist)
