@@ -3,8 +3,8 @@ import axios from "../setup/axios";
 const playlistroute = (id) => {
     return axios.get(`/api/getplaylist/${id}`)
 }
-const playlistRelate = () => {
-    return axios.get(`/api/getRelatedPlaylist`)
+const playlistRelate = (id) => {
+    return axios.get(`/api/getRelatedPlaylist/${id}`)
 }
 
 export {

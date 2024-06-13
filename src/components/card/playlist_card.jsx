@@ -28,12 +28,13 @@ const Card = ({ playlist, isOw,limit }) => {
     
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
-        dispatch(fetchPlayList(id));
-        let response = await playlistroute(id);
+        dispatch(fetchPlayList({id}));
+        let response = await playlistroute({id:id});
         if (response && response.DT.data && response.DT.data.playlist  && response.DT.data.playlist.songid.length>0) {
             console.log(response.DT.data)
             dispatch(fetchSongPlaying(response.DT.data.playlist.songid[0]))
             localStorage.setItem('playlistID', id)
+            localStorage.removeItem('playlistRelate')
         }
     };
     const handledelete = async (e, id) => {

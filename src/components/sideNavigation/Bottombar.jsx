@@ -67,7 +67,7 @@ const Bottombar = () => {
   const playerRef = useRef();
   const dispatch = useDispatch();
 
-  const [newAuthenURL,setNewAuthenURL]= useState('authen=exp=1718202123~acl=/90083d6a4f1c62d2b7b5f3e76fed2986/*~hmac=f62e7a8efe71d54ef645a34a2e797e58')
+  const [newAuthenURL,setNewAuthenURL]= useState('authen=exp=1718447391~acl=/34b32a8033ec7f6707368a6296df62a3/*~hmac=1804f3e796baf76ae56a4b18fc012aaf')
 
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   const minutesOptions = Array.from({ length: 60 }, (_, i) => i + 1);
@@ -204,15 +204,18 @@ const Bottombar = () => {
       handleStart()
     }
     const fetchData = async () => {
-      if (localStorage.getItem('playlistID')) {
-        // console.log('jajaja')
-        await dispatch(fetchPlayList(localStorage.getItem('playlistID')));
-      }
-
+      if (localStorage.getItem('playlistID') && isRandom !== true) {
+        console.log('jajaja')
+        await dispatch(fetchPlayList({id:localStorage.getItem('playlistID')}));
+      } 
+      
       if (localStorage.getItem('playlistRandom') && isRandom === true) {
+        console.log('kakakakakakakak');
         await dispatch(updatePlaylist());
       }
-
+      if (localStorage.getItem('playlistRelate') && isRandom !== true) {
+        await dispatch(fetchPlayList({id:localStorage.getItem("idSongPlaying"),type:'true'}));
+      }
       if (localStorage.getItem('currentMusicIndex')) {
         await dispatch(update(+localStorage.getItem('currentMusicIndex')));
       }
@@ -222,7 +225,7 @@ const Bottombar = () => {
 
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist);
-  // console.log(dataf)
+  console.log(dataf)
   const handleClickNext = () => {
     if (Number(currentMusicIndex) < dataf.song.length - 1) {
       dispatch(increment())
@@ -268,7 +271,7 @@ const Bottombar = () => {
     } else {
       setIsRandom(false)
       localStorage.setItem('isRandom', false)
-      dispatch(fetchPlayList(localStorage.getItem('playlistID')));
+      dispatch(fetchPlayList({id:localStorage.getItem('playlistID')}));
     }
 
 
@@ -858,7 +861,7 @@ const Bottombar = () => {
                     </div>
 
 
-                    <CopyToClipboard text="Fuck you!">
+                    <CopyToClipboard text={"http://localhost:3000/song/"+songInfo.infor.id}>
                       <div className="r_click_list_item">
                         <FontAwesomeIcon
                           icon={faLink}
@@ -997,7 +1000,7 @@ const Bottombar = () => {
           <div className="Modal_playlist_ctn">
             <div className="playlist">
               {dataf && dataf.song && dataf.song.map((item, index) => {
-                return item.encodeId === songInfo.infor.id ?
+                return item.id === songInfo.infor.id ?
                   <div className="list_song active" key={'hahaha' + index} onClick={() => handleClickNow(index)} ref={(ref) => ref && ref.scrollIntoView({ behavior: "smooth", block: "start" })}>
                     <SongCard element={item} className={'active'} />
                   </div>
