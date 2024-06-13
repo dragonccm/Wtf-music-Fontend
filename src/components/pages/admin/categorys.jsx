@@ -15,6 +15,8 @@ import {
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import { getbanService } from "../../../services/getbanService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CategoryAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
@@ -27,6 +29,7 @@ const CategoryAdmin = () => {
         thumbnailR: "",
         state: "",
         description: "",
+        
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
@@ -36,6 +39,7 @@ const CategoryAdmin = () => {
         thumbnailHasText: "",
         thumbnailR: "",
         description: "",
+        
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState({}); // Trang hiện tại
@@ -99,7 +103,11 @@ const CategoryAdmin = () => {
         data.thumbnailR = thumbnailR;
         alert("Update music", editForm);
         try {
-            await updateGenre(data);
+            const res = await updateGenre(data);
+            if(res){
+                toast.success(res.EM);
+                fetchMusicSongs();
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -109,7 +117,11 @@ const CategoryAdmin = () => {
         data.thumbnailHasText = thumbnailHasText;
         data.thumbnailR = thumbnailR;
         try {
-            await createGenre(data);
+            const res = await createGenre(data);
+            if(res){
+                toast.success(res.EM);
+                fetchMusicSongs();
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -125,7 +137,11 @@ const CategoryAdmin = () => {
             description: "",
         };
         try {
-            await deleteGenre(newdata);
+            const res = await deleteGenre(newdata);
+            if(res){
+                toast.success(res.EM);
+                fetchMusicSongs();
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -264,7 +280,7 @@ const CategoryAdmin = () => {
                         {musicSongs.map((kind, index) => (
                             <>
                                 {kind.state === 1 ? (
-                                    <tr style={{ opacity: 0.5 }} key={kind.id}>
+                                    <tr style={{ background: '#b5d5ff' }} key={kind.id}>
                                         <td>{index}</td>
                                         <td>{kind.genrename}</td>
                                         <td className="td_img">
@@ -653,6 +669,19 @@ const CategoryAdmin = () => {
                     </form>
                 </Modal>
             </div>
+            <ToastContainer
+                style={{ fontSize: "16px" }}
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </div>
     );
 };

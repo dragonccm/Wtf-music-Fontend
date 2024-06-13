@@ -71,7 +71,36 @@ const Card = ({ playlist, isOw,limit }) => {
                                 alt="f"
                                 className="img"
                             />
-                        
+                            <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
+                                <div className="img_overlay">
+                                    <div className="img_overlay_group_btn">
+                                        <Like_heart id={playlist.playlistId} type={'playlist'} />
+
+
+
+                                        <div
+                                            className="nav-link list_nav_item"
+                                            onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
+                                        >
+
+                                            <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+
+                                        </div>
+                                        {isOw === "you" ? (
+                                            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e)=>handledelete(e, playlist.playlistId)}>
+                                                <FontAwesomeIcon icon={faTrash} />
+                                            </button>
+                                        ) :
+                                            (
+                                                <button className="rhap_main-controls-button rhap_button-clear">
+                                                    <FontAwesomeIcon icon={faShare} />
+                                                </button>
+                                            )
+                                        }
+
+                                    </div>
+                                </div>
+                            </NavLink>
                         </div>
 
                         <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">

@@ -9,7 +9,8 @@ import {
     deleteUser,
 } from "../../../services/restUserService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const UserAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
@@ -40,16 +41,19 @@ const UserAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
-    const chanrole = async (id,role) => {
+    const chanrole = async (id, role) => {
         try {
-            const response = await deleteUser(id,role);
-            console.log(response)
+            const response = await deleteUser(id, role);
+            if (response) {
+                toast.success(response.EM);
+                fetchMusicSongs();
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-    const deleteMusicKind = async (id,role) => {
-        chanrole(id,role)
+    const deleteMusicKind = async (id, role) => {
+        chanrole(id, role)
     };
 
     // Hiển thị pop-up form chỉnh sửa
@@ -129,33 +133,100 @@ const UserAdmin = () => {
                     </thead>
                     <tbody>
                         {musicSongs.map((kind, index) => (
-                            <tr key={kind.id}>
-                                <td>{index}</td>
-                                <td>{kind.username}</td>
-                                <td className="td_img">
-                                    {" "}
-                                    <img
-                                        src={kind.avt}
-                                        alt={`${kind.username}_avt`}
-                                    />{" "}
-                                </td>
-                                <td>{kind.birthday}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-danger-custom fs-3 ms-3"
-                                        onClick={() => deleteMusicKind(kind.id,"ban")}
-                                    >
-                                        <FontAwesomeIcon icon={faBan} />
-                                    </button>
-                
-                                    <button
-                                        className="btn btn-success-custom fs-3 ms-3"
-                                        onClick={() => deleteMusicKind(kind.id,"user")}
-                                    >
-                                        <FontAwesomeIcon icon={faUnlock} />
-                                    </button>
-                                </td>
-                            </tr>
+                            <>
+                                {
+                                    kind.role === "1" && (
+                                        <tr key={kind.id}>
+                                            <td>{index}</td>
+                                            <td>{kind.username}</td>
+                                            <td className="td_img">
+                                                {" "}
+                                                <img
+                                                    src={kind.avt}
+                                                    alt={`${kind.username}_avt`}
+                                                />{" "}
+                                            </td>
+                                            <td>{kind.birthday}</td>
+                                            <td>
+                                               
+                                                {kind.role === "1" ? (
+                                                    <button
+                                                        className="btn btn-danger-custom fs-3 ms-3"
+                                                        onClick={() => deleteMusicKind(kind.id, "ban")}
+                                                    >
+                                                        <FontAwesomeIcon icon={faBan} />
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        className="btn btn-success-custom fs-3 ms-3"
+                                                        onClick={() => deleteMusicKind(kind.id, "user")}
+                                                    >
+                                                        <FontAwesomeIcon icon={faUnlock} />
+                                                    </button>
+                                                )}
+
+                                            </td>
+                                        </tr>
+                                    ) 
+                                }
+                                {
+                                    kind.role === "2" && (
+                                        <tr style={{ background: '#b5d5ff' }} key={kind.id}>
+                                            <td>{index}</td>
+                                            <td>{kind.username}</td>
+                                            <td className="td_img">
+                                                {" "}
+                                                <img
+                                                    src={kind.avt}
+                                                    alt={`${kind.username}_avt`}
+                                                />{" "}
+                                            </td>
+                                            <td>{kind.birthday}</td>
+                                            <td>
+                                               
+                                                {kind.role === "1" ? (
+                                                    <button
+                                                        className="btn btn-danger-custom fs-3 ms-3"
+                                                        onClick={() => deleteMusicKind(kind.id, "ban")}
+                                                    >
+                                                        <FontAwesomeIcon icon={faBan} />
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        className="btn btn-success-custom fs-3 ms-3"
+                                                        onClick={() => deleteMusicKind(kind.id, "user")}
+                                                    >
+                                                        <FontAwesomeIcon icon={faUnlock} />
+                                                    </button>
+                                                )}
+
+                                            </td>
+                                        </tr>
+                                    ) 
+                                }
+                                {
+                                    kind.role === "0" && (
+                                        <tr key={kind.id}>
+                                            <td>{index}</td>
+                                            <td>{kind.username}</td>
+                                            <td className="td_img">
+                                                {" "}
+                                                <img
+                                                    src={kind.avt}
+                                                    alt={`${kind.username}_avt`}
+                                                />{" "}
+                                            </td>
+                                            <td>{kind.birthday}</td>
+                                            <td>
+
+
+                                            </td>
+                                        </tr>
+                                    ) 
+                                }
+                                
+                            </>
+
                         ))}
                     </tbody>
                 </table>
@@ -225,6 +296,19 @@ const UserAdmin = () => {
                     </ul>
                 </div>
             </div>
+            <ToastContainer
+                style={{ fontSize: "16px" }}
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </div>
     );
 };
