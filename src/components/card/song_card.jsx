@@ -19,7 +19,8 @@ const SongCard = ({ element }) => {
     if (song) {
       console.log(`ID ${id} trùng với một bài hát trong playlist.`);
     } else {
-    dispatch(fetchPlayList());
+      dispatch(fetchPlayList({ id: id, type: 'ok' }));
+      localStorage.setItem('playlistRelate','true')
 
       console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
     }

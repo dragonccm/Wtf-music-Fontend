@@ -59,7 +59,8 @@ const Playlistpage = () => {
   }
 
   const handlePlayPlaylist = async () => {
-    dispatch(fetchPlayList(id));
+    dispatch(fetchPlayList({ id }));
+    localStorage.removeItem('playlistRelate')
     dispatch(fetchSongPlaying(playlist.song[0].id))
     dispatch(update(0))
     localStorage.setItem('playlistID', id)

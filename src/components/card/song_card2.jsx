@@ -21,9 +21,11 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
             // kiểm tra bài hát này có thuộc playlist hiện tại đang dc phát k,
             // nếu k thì get playlist mới của bài hát đó
             if (idPlaylistNow !== onPlaylist.idPlaylist) {
-                dispatch(fetchPlayList(onPlaylist.idPlaylist));
+                dispatch(fetchPlayList({id:onPlaylist.idPlaylist}));
                 dispatch(update(rating.index))
+                console.log('ahhahahahahahah');
                 localStorage.setItem('playlistID', onPlaylist.idPlaylist)
+                localStorage.removeItem('playlistRelate')
             }
 
         }

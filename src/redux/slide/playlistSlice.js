@@ -3,13 +3,16 @@ import { playlistroute,playlistRelate } from "../../controller/playlist";
 
 export const fetchPlayList = createAsyncThunk(
   "playlsit/getplaylist",
-  async (id) => {
-    if (id) {
+  async ({id,type}) => {
+    console.log(id);
+    if (!type) {
       
       const response = await playlistroute(id);
       return response.DT.data;
     } else {
-      const response = await playlistRelate();
+      const response = await playlistRelate(id);
+      localStorage.removeItem('playlistID')
+      localStorage.setItem('playlistRelate','true');
       return response.DT.data;
     }
   }
@@ -56,10 +59,9 @@ export const Playlistslice = createSlice({
     updatePlaylist: (state) => {
       state.playlist = {
         ...state.playlist,
-        playlist: {
-          ...state.playlist.playlist,
+        
           song: JSON.parse(localStorage.getItem("playlistRandom")),
-        },
+        
       };
     },
   },
