@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis, faSquarePlus, faPlay, faLink, faHeart } from "@fortawesome/free-solid-svg-icons";
 // redux
 import { useEffect } from "react";
-import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { fetchPlayList, randomSongs } from '../../redux/slide/playlistSlice'
 import { fetchSongPlaying, update } from "../../redux/slide/songPlayingSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
@@ -35,7 +35,7 @@ const Playlistpage = () => {
   const fecthPlaylist = async () => {
 
     let response = await playlistroute(id);
-    if (response.EC === '0' &&response.DT.data) {
+    if (response.EC === '0' && response.DT.data) {
       // console.log(response);
       setPlaylist(response.DT.data)
     } else {
@@ -59,8 +59,12 @@ const Playlistpage = () => {
   }
 
   const handlePlayPlaylist = async () => {
-    dispatch(fetchPlayList({ id }));
+    await dispatch(fetchPlayList({ id }));
     localStorage.removeItem('playlistRelate')
+    if (JSON.parse(localStorage.getItem('isRandom'))) {
+      await dispatch(randomSongs())
+      console.log('jaaaaaaaaaaaaaaaaa');
+    }
     dispatch(fetchSongPlaying(playlist.song[0].id))
     dispatch(update(0))
     localStorage.setItem('playlistID', id)

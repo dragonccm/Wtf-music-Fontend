@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying, update } from "../../redux/slide/songPlayingSlice";
-import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { fetchPlayList,randomSongs } from '../../redux/slide/playlistSlice'
 import Like_heart from "./like";
 
 import '../../css/song_card2.scss';
@@ -14,14 +14,17 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
     const dispatch = useDispatch();
     const  Playlist= useSelector((state) => state.playlist.playlist.playlist); 
     const idPlaylistNow = Playlist && Playlist.playlistId
-    const handlePlaying =  (e, id) => {
+    const handlePlaying =  async(e, id) => {
         if (onPlaylist&&onPlaylist.isPlay) {
             console.log(idPlaylistNow)
             console.log(onPlaylist.idPlaylist)
             // kiểm tra bài hát này có thuộc playlist hiện tại đang dc phát k,
             // nếu k thì get playlist mới của bài hát đó
             if (idPlaylistNow !== onPlaylist.idPlaylist) {
-                dispatch(fetchPlayList({id:onPlaylist.idPlaylist}));
+                await dispatch(fetchPlayList({ id: onPlaylist.idPlaylist }));
+                if (JSON.parse(localStorage.getItem('isRandom'))) {
+                    await dispatch(randomSongs())
+                }
                 dispatch(update(rating.index))
                 console.log('ahhahahahahahah');
                 localStorage.setItem('playlistID', onPlaylist.idPlaylist)

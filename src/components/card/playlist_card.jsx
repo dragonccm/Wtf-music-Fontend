@@ -9,7 +9,7 @@ import 'reactjs-popup/dist/index.css';
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
-import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { fetchPlayList, randomSongs} from '../../redux/slide/playlistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 
 import { playlistroute } from "../../controller/playlist";
