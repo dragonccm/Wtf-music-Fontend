@@ -16,6 +16,8 @@ import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import AudioUploader from "../../../components/pages/profile/Profile-setting/upladAudio";
 import { getbanService } from "../../../services/getbanService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const SongAdmin = () => {
     const [file, setFile] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
@@ -105,6 +107,8 @@ const SongAdmin = () => {
                 const res = await updateSong(data);
                 if (res) {
                     setIsEditModalOpen(false);
+                    toast.success(res.EM);
+                    fetchMusicSongs()
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -120,6 +124,8 @@ const SongAdmin = () => {
                 const res = await createSong(data);
                 if (res) {
                     setIsCreateModalOpen(false);
+                    toast.success(res.EM);
+                    fetchMusicSongs()
                 }
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -141,6 +147,8 @@ const SongAdmin = () => {
             try {
                 const res = await deleteSong(newdata);
                 if (res) {
+                    toast.success("đã cập nhật trạng thái bài hát");
+                    fetchMusicSongs()
                     setIsSendingRequest(false);
                 }
             } catch (error) {
@@ -399,7 +407,7 @@ const SongAdmin = () => {
                         {musicSongs.map((kind, index) => (
                             <>
                                 {kind.state === 1 ? (
-                                    <tr style={{ opacity: 0.5 }} key={kind.id}>
+                                    <tr style={{ background: '#b5d5ff' }} key={kind.id}>
                                         <td>{index}</td>
                                         <td>{kind.songname}</td>
                                         <td>
@@ -1038,6 +1046,19 @@ const SongAdmin = () => {
                         </div>
                     </form>
                 </Modal>
+                <ToastContainer
+                    style={{ fontSize: "16px" }}
+                    position="bottom-right"
+                    autoClose={1000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
             </div>
         </div>
     );

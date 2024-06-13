@@ -15,6 +15,8 @@ import {
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import { getbanService } from "../../../services/getbanService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const SingerAdmin = () => {
     const [editPlaylistArray, seteditPlaylistArray] = useState([]);
     const [searchPalylist, setsearchPalylist] = useState([]);
@@ -94,7 +96,11 @@ const SingerAdmin = () => {
     const updateMusicSongs = async (data) => {
         data.avt = file;
         try {
-            await updateArtists(data);
+            const res = await updateArtists(data);
+            if (res) {
+                toast.success(res.EM);
+                fetchMusicSongs()
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -102,7 +108,11 @@ const SingerAdmin = () => {
     const createMusicSongs = async (data) => {
         data.avt = file;
         try {
-            await createArtists(data);
+            const res = await createArtists(data);
+            if (res) {
+                toast.success(res.EM);
+                fetchMusicSongs()
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -113,7 +123,11 @@ const SingerAdmin = () => {
             id: data,
         };
         try {
-            await deleteArtists(newdata);
+            const res = await deleteArtists(newdata);
+            if (res) {
+                toast.success("cập nhật thành công");
+                fetchMusicSongs()
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -389,7 +403,7 @@ const SingerAdmin = () => {
                         {musicSongs.map((kind, index) => (
                             <>
                                 {kind.state === 1 ? (
-                                    <tr style={{ opacity: 0.5 }} key={kind.id}>
+                                    <tr style={{ background: '#b5d5ff' }} key={kind.id}>
                                         <td>{index}</td>
                                         <td>{kind.artistsName}</td>
                                         <td>
@@ -558,7 +572,7 @@ const SingerAdmin = () => {
                         Chỉnh sửa thông tin Ca sĩ
                     </h2>
                     <form>
-                        <div className="mb-4 form-group">
+                        <div  style={{ display: "none" }} className="mb-4 form-group hidden">
                             <label className="fs-4 mb-2" htmlFor="edit-name">
                                 id:
                             </label>
@@ -649,7 +663,7 @@ const SingerAdmin = () => {
                                 onChange={handleEditFormChange}
                             />
                         </div>
-                        <div className="mb-4 form-group">
+                        <div style={{ display: "none" }} className="mb-4 form-group hidden">
                             <label className="fs-4 mb-2" htmlFor="edit-date">
                                 totalFollow:
                             </label>
@@ -778,49 +792,49 @@ const SingerAdmin = () => {
                                             </button>
                                         ))}
                                 </p>
-                                <Modal
-                                    isOpen={isPlaylistModalOpen}
-                                    onRequestClose={closePlaylistModal}
-                                    contentLabel="Edit Music Kind"
-                                    className="modal-kindMusic"
-                                    overlayClassName="modal-overlay-1"
-                                >
-                                    <input
-                                        type="text"
-                                        className="fs-4 form-control col"
-                                        id="create-date"
-                                        name="artists"
-                                        // value={createForm.artists}
-                                        onChange={handPlaylistsearch}
-                                    />
-                                    <p>{editForm.playListId}</p>
-                                    <div
-                                        style={{ height: "20rem" }}
-                                        className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
+                                    <Modal
+                                        isOpen={isPlaylistModalOpen}
+                                        onRequestClose={closePlaylistModal}
+                                        contentLabel="Edit Music Kind"
+                                        className="modal-kindMusic"
+                                        overlayClassName="modal-overlay-1"
                                     >
-                                        {searchPalylist ? (
-                                            searchPalylist.map((data) => (
-                                                <p value={data.playlistId}>
-                                                    <button
-                                                        onClick={(e) =>
-                                                            handleEditAddPlaylistTag(
-                                                                e,
-                                                                data.playlistId
-                                                            )
-                                                        }
-                                                        className="btn btn-outline-primary btn-lg"
-                                                    >
-                                                        {data.playlistname}
-                                                    </button>
-                                                </p>
-                                            ))
-                                        ) : (
-                                            <option value="sds">
-                                                undefine
-                                            </option>
-                                        )}
-                                    </div>
-                                </Modal>
+                                        <input
+                                            type="text"
+                                            className="fs-4 form-control col"
+                                            id="create-date"
+                                            name="artists"
+                                            // value={createForm.artists}
+                                            onChange={handPlaylistsearch}
+                                        />
+                                        <p>{editForm.playListId}</p>
+                                        <div
+                                            style={{ height: "20rem" }}
+                                            className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
+                                        >
+                                            {searchPalylist ? (
+                                                searchPalylist.map((data) => (
+                                                    <p value={data.playlistId}>
+                                                        <button
+                                                            onClick={(e) =>
+                                                                handleEditAddPlaylistTag(
+                                                                    e,
+                                                                    data.playlistId
+                                                                )
+                                                            }
+                                                            className="btn btn-outline-primary btn-lg"
+                                                        >
+                                                            {data.playlistname}
+                                                        </button>
+                                                    </p>
+                                                ))
+                                            ) : (
+                                                <option value="sds">
+                                                    undefine
+                                                </option>
+                                            )}
+                                        </div>
+                                    </Modal>
                             </div>
                         </div>
                         <div className="text-end form-group">
@@ -1081,7 +1095,21 @@ const SingerAdmin = () => {
                         </div>
                     </form>
                 </Modal>
+
             </div>
+            <ToastContainer
+                style={{ fontSize: "16px" }}
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </div>
     );
 };

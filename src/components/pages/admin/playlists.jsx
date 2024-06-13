@@ -15,6 +15,8 @@ import {
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import { getbanService } from "../../../services/getbanService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const PlaylistAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
@@ -90,7 +92,11 @@ const PlaylistAdmin = () => {
         data.thumbnail = file;
 
         try {
-            await updatePlaylist(data);
+            const res = await updatePlaylist(data);
+            if(res){
+                toast.success(res.EM);
+                fetchMusicSongs();
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -98,7 +104,11 @@ const PlaylistAdmin = () => {
     const createMusicSongs = async (data) => {
         data.thumbnail = file;
         try {
-            await createPlaylist(data);
+            const res = await createPlaylist(data);
+            if(res){
+                toast.success(res.EM);
+                fetchMusicSongs();
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -109,7 +119,11 @@ const PlaylistAdmin = () => {
             playListId: id,
         };
         try {
-            await deletePlaylist(newdata);
+           const res =  await deletePlaylist(newdata);
+           if(res){
+            toast.success("câp nhật thành công");
+            fetchMusicSongs();
+        }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -440,7 +454,7 @@ const PlaylistAdmin = () => {
                             <>
                                 {kind.state === 1 ? (
                                     <tr
-                                        style={{ opacity: 0.5 }}
+                                        style={{ background: '#b5d5ff' }}
                                         key={kind.playListId}
                                     >
                                         <td>{index}</td>
@@ -820,7 +834,7 @@ const PlaylistAdmin = () => {
                                         editForm.songid.map((d) => (
                                             <button
                                                 onClick={(e) =>
-                                                    handleEditRemoveSongTag(e,d)
+                                                    handleEditRemoveSongTag(e, d)
                                                 }
                                                 className="btn btn-outline-primary btn-lg"
                                             >
@@ -1265,6 +1279,19 @@ const PlaylistAdmin = () => {
                     </form>
                 </Modal>
             </div>
+            <ToastContainer
+                style={{ fontSize: "16px" }}
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </div>
     );
 };
