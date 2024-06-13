@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import '../../css/songcard.scss';
 import Play_animation from "./play_animation"
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { fetchPlayList,randomSongs } from '../../redux/slide/playlistSlice'
 
 const SongCard = ({ element }) => {
   const dispatch = useDispatch();
@@ -13,13 +13,16 @@ const SongCard = ({ element }) => {
 
   const dataf = useSelector((state) => state.playlist.playlist);
 
-  const handlePlaying = (e, id) => {
+  const handlePlaying = async(e, id) => {
     e.preventDefault();
     const song = dataf && dataf.song && dataf.song.find(item => item.id === id);
     if (song) {
       console.log(`ID ${id} trùng với một bài hát trong playlist.`);
     } else {
-      dispatch(fetchPlayList({ id: id, type: 'ok' }));
+      await dispatch(fetchPlayList({ id: id, type: 'ok' }));
+      if (JSON.parse(localStorage.getItem('isRandom'))) {
+        await dispatch(randomSongs())
+    }
       localStorage.setItem('playlistRelate','true')
 
       console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);

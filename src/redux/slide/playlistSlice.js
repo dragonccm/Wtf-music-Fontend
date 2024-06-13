@@ -44,7 +44,7 @@ export const Playlistslice = createSlice({
     },
     randomSongs: (state) => {
       const playlist = state.playlist;
-      // console.log(JSON.stringify(playlist));
+      console.log('CHAYJJJJJJJJJJJJJJJJJJJJJJJJJJJJ');
       if (playlist  && playlist.song) {
         const songs = playlist.song;
         for (let i = songs.length - 1; i > 0; i--) {

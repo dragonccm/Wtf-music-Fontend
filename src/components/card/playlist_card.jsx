@@ -9,7 +9,7 @@ import 'reactjs-popup/dist/index.css';
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
-import { fetchPlayList } from '../../redux/slide/playlistSlice'
+import { fetchPlayList, randomSongs} from '../../redux/slide/playlistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 
 import { playlistroute } from "../../controller/playlist";
@@ -28,7 +28,10 @@ const Card = ({ playlist, isOw,limit }) => {
     
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
-        dispatch(fetchPlayList({id}));
+        dispatch(fetchPlayList({ id }));
+        if (JSON.parse(localStorage.getItem('isRandom'))) {
+            dispatch(randomSongs())
+        }
         let response = await playlistroute({id:id});
         if (response && response.DT.data && response.DT.data.playlist  && response.DT.data.playlist.songid.length>0) {
             console.log(response.DT.data)
