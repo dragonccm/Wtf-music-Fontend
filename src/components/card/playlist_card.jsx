@@ -15,26 +15,25 @@ import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 import { playlistroute } from "../../controller/playlist";
 import Like_heart from "../card/like";
 import { deleteplaylistService } from "../../services/deleteMyPlaylist"
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 
 import "../../css/card.scss";
-const Card = ({ playlist, isOw,limit }) => {
+const Card = ({ playlist, isOw, limit }) => {
     const dispatch = useDispatch();
     const currData = useSelector((state) => state.Authentication);
     const playlistNow = useSelector((state) => state.playlist.playlist);
     const slicedData = limit ? playlist : playlist.slice(0, 5);
-    
+
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
-        dispatch(fetchPlayList({id}));
-        let response = await playlistroute({id:id});
-        if (response && response.DT.data && response.DT.data.playlist  && response.DT.data.playlist.songid.length>0) {
+        dispatch(fetchPlayList(id));
+        let response = await playlistroute(id);
+        if (response && response.DT.data && response.DT.data.playlist && response.DT.data.playlist.songid.length > 0) {
             console.log(response.DT.data)
             dispatch(fetchSongPlaying(response.DT.data.playlist.songid[0]))
             localStorage.setItem('playlistID', id)
-            localStorage.removeItem('playlistRelate')
         }
     };
     const handledelete = async (e, id) => {
@@ -58,51 +57,51 @@ const Card = ({ playlist, isOw,limit }) => {
                 (
                     <div className="card_item" key={'ola' + index}>
                         <div className="card_wrap">
-                        <div className="img_container">
-                            <img
-                                src={
-                                    playlist.thumbnail
-                                        ? playlist.thumbnail
-                                        : currData.defaultUser.account.avt
-                                }
-                                alt="f"
-                                className="img"
-                            />
-                            <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
-                                <div className="img_overlay">
-                                    <div className="img_overlay_group_btn">
-                                        <Like_heart id={playlist.playlistId} type={'playlist'} />
+                            <div className="img_container">
+                                <img
+                                    src={
+                                        playlist.thumbnail
+                                            ? playlist.thumbnail
+                                            : currData.defaultUser.account.avt
+                                    }
+                                    alt="f"
+                                    className="img"
+                                />
+                                <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
+                                    <div className="img_overlay">
+                                        <div className="img_overlay_group_btn">
+                                            <Like_heart id={playlist.playlistId} type={'playlist'} />
 
 
 
-                                        <div
-                                            className="nav-link list_nav_item"
-                                            onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
-                                        >
+                                            <div
+                                                className="nav-link list_nav_item"
+                                                onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
+                                            >
 
-                                            <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+                                                <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
+
+                                            </div>
+                                            {isOw === "you" ? (
+                                                <button className="rhap_main-controls-button rhap_button-clear" onClick={(e) => handledelete(e, playlist.playlistId)}>
+                                                    <FontAwesomeIcon icon={faTrash} />
+                                                </button>
+                                            ) :
+                                                (
+                                                    <button className="rhap_main-controls-button rhap_button-clear">
+                                                        <FontAwesomeIcon icon={faShare} />
+                                                    </button>
+                                                )
+                                            }
 
                                         </div>
-                                        {isOw === "you" ? (
-                                            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e)=>handledelete(e, playlist.playlistId)}>
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </button>
-                                        ) :
-                                            (
-                                                <button className="rhap_main-controls-button rhap_button-clear">
-                                                    <FontAwesomeIcon icon={faShare} />
-                                                </button>
-                                            )
-                                        }
-
                                     </div>
-                                </div>
-                            </NavLink>
-                        </div>
+                                </NavLink>
+                            </div>
 
-                        <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
-                            {playlist.playlistname}
-                        </NavLink>
+                            <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
+                                {playlist.playlistname}
+                            </NavLink>
                         </div>
                     </div>
                 ) : (
@@ -131,7 +130,7 @@ const Card = ({ playlist, isOw,limit }) => {
 
                                         </div>
                                         {isOw === "you" ? (
-                                            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e)=>handledelete(e, playlist.playlistId)}>
+                                            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e) => handledelete(e, playlist.playlistId)}>
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </button>
                                         ) :
