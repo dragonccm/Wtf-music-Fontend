@@ -18,6 +18,7 @@ import { logouter } from "../../redux/slide/AuthenticationSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import SongCard from "../card/song_card";
+import { Navigate } from 'react-router-dom';
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -39,7 +40,7 @@ const Header = () => {
     }, []);
 
     const handleFocus = useCallback((event) => {
-            setIsVisible(true);
+        setIsVisible(true);
     }, []);
 
     // Assuming that 'debounce' does not require any state or props, we can define it outside the component
@@ -91,7 +92,7 @@ const Header = () => {
     const handleBlur = () => {
         setTimeout(() => {
             setIsVisible(true);
-        },250);
+        }, 250);
     };
     const handleLogoutUser = async () => {
         let data = await getLogout(); //clear cookies
@@ -147,20 +148,20 @@ const Header = () => {
     const Album = ({ data }) => {
         return (
             <NavLink
-                    to={`/playlist/${data.playlistId}`} className="search_item_album">
+                to={`/playlist/${data.playlistId}`} className="search_item_album">
                 <div className="search_item_album_img">
                     <img src={data.thumb} alt={data.playlistname} />
                 </div>
                 <div className="search_item_album_main">
-                <p
-                    to={`/playlist/${data.playlistId}`}
-                    className="search_item_name"
-                >
-                    {data.name}
+                    <p
+                        to={`/playlist/${data.playlistId}`}
+                        className="search_item_name"
+                    >
+                        {data.name}
                     </p>
                     <p>Playlist</p>
-               </div>
-                </NavLink>
+                </div>
+            </NavLink>
         );
     };
 
@@ -186,7 +187,12 @@ const Header = () => {
             </NavLink>
         );
     };
-    console.log(searchResults)
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            window.location.href = `/search/${event.target.value}`;
+        }
+    };
+
     return (
         <div className="Header">
             <div className="header_wrap">
@@ -202,6 +208,7 @@ const Header = () => {
                         required=""
                         onChange={handleSearchData}
                         onFocus={debouncedFetchData}
+                        onKeyDown={(event) => handleKeyDown(event)}
                         onBlur={() => handleBlur()}
                     />
                     <button className="search_btn" onClick={debouncedFetchData}>
@@ -248,7 +255,7 @@ const Header = () => {
                                 trigger={
                                     <button className="avt_page">
                                         {isAuthentication.account.avt ?
-                                            <img src={ isAuthentication.account.avt} alt="profile" /> :
+                                            <img src={isAuthentication.account.avt} alt="profile" /> :
                                             <img src={logo} alt="profile" />
                                         }
 
