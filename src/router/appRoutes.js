@@ -26,6 +26,7 @@ import Bottombar from "../components/sideNavigation/Bottombar";
 
 import ListCard from "../components/card/ListCard";
 import Rating from "../components/pages/Rating";
+import SearchPage from "../components/pages/searchpage";
 import Rating_week from "../components/pages/rating_week";
 
 import ThemeContext from "../lib/Context/ThemeContext";
@@ -61,6 +62,7 @@ const AppRoutes = (props) => {
                         <Route path="/song/:id" element={<Songpage />} />
                         <Route path="/artists/:id" element={<Singerpage />} />
                         <Route path="/rating" element={<Rating />} />
+                        <Route path="/search/:id" element={<SearchPage />} />
                         <Route
                             path="/rating_week/:id"
                             exact

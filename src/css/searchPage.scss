@@ -1,0 +1,113 @@
+.searchPage_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .component_buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin: 2rem 0;
+    gap: 1rem;
+
+    .component_button {
+      font-size: 1.5rem;
+      padding: 0.5rem;
+      border-radius: 1rem;
+    }
+    .component_button:hover {
+      background-color: var(--bg-header);
+    }
+  }
+
+  .searchPage_keyWord {
+    background-color: var(--bg-header);
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .singer_detail {
+    margin: 3rem 0;
+  }
+
+  .singer_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+
+    .artists_card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--bg-header);
+      padding: 2rem;
+      border-radius: 2rem;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 18rem;
+
+      .artists_img {
+        width: 14rem;
+        height: 14rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        border-radius: 50%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+
+      .artists_name {
+        font-size: 2rem;
+        color: var(--deep-black);
+      }
+    }
+
+  }
+
+  .song_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+
+    .songs_card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--bg-header);
+      padding: 2rem;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 18rem;
+      border-radius: 1rem;
+
+      .songs_img {
+        width: 17rem;
+        height: 17rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        border-radius: 50%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 1rem;
+          object-fit: cover;
+        }
+      }
+
+      .songs_name {
+        font-size: 2rem;
+        color: var(--deep-black);
+      }
+    }
+
+  }
+}
