@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../css/searchPage.scss";
 import Card from "../../components/card/playlist_card";
+import SongCard2 from "../../components/card/song_card2";
 import { NavLink } from "react-router-dom";
 import { searchPageService } from "../../services/searchPageService";
 
@@ -68,16 +69,10 @@ const SearchPage = () => {
       {activeComponent === "song" && (
         <>
           <h1 className="singer_detail">Kết quả tìm kiếm nhạc</h1>
-          <div className="song_list">
-            {songData.map((item, i) => (
-              <NavLink to={`/artists/${item.id}`} className="songs_card" key={i}>
-                <div className="songs_img">
-                  <img src={item.thumbnail} alt={item.songname} />
-                </div>
-                <div className="songs_name">{item.songname}</div>
-              </NavLink>
-            ))}
-          </div>
+          {songData.map((item, i) => (
+            <SongCard2 data={item} rating={false}/>
+          ))}
+          
         </>
       )
       }

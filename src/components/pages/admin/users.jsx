@@ -146,7 +146,7 @@ const UserAdmin = () => {
                                                     alt={`${kind.username}_avt`}
                                                 />{" "}
                                             </td>
-                                            <td>{kind.birthday}</td>
+                                            <td>{new Date(kind.birthday).toLocaleDateString('en-GB')}</td>
                                             <td>
                                                
                                                 {kind.role === "1" ? (
@@ -181,7 +181,7 @@ const UserAdmin = () => {
                                                     alt={`${kind.username}_avt`}
                                                 />{" "}
                                             </td>
-                                            <td>{kind.birthday}</td>
+                                            <td>{new Date(kind.birthday).toLocaleDateString('en-GB')}</td>
                                             <td>
                                                
                                                 {kind.role === "1" ? (
@@ -216,7 +216,7 @@ const UserAdmin = () => {
                                                     alt={`${kind.username}_avt`}
                                                 />{" "}
                                             </td>
-                                            <td>{kind.birthday}</td>
+                                            <td>{new Date(kind.birthday).toLocaleDateString('en-GB')}</td>
                                             <td>
 
 

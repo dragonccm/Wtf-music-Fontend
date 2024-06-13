@@ -4,32 +4,31 @@ import "../../../css/admin/musicAdmin.scss";
 import Modal from "react-modal";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faRepeat, faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
-import { adminGetUsers } from "../../../services/adminGetUserService";
+import { adminGetCommentService } from "../../../services/adminGetComment";
 import { getPlaylist } from "../../../services/playlistService";
 import { getSongData } from "../../../services/SongService";
 import {
-    updateSong,
-    deleteSong,
-    createSong,
-} from "../../../services/restSongService";
+    bancommentService
+} from "../../../services/bancomment_service";
 import { adminSearchS } from "../../../services/adminSearchSongService";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CommentAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
     const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
     const [editForm, setEditForm] = useState({
-        id: "",
-        username: "",
-        birthday: "",
-        avt: "",
-        email: "",
-        likedPlayLists: "",
-        likedSongs: "",
-        myPlayLists: "",
-        banSongs: "",
+        _id: "",
+        songId: "",
+        content: "",
+        userId: "",
+        createdAt: "",
+        ban: "",
+        reportCount: "",
+        songName: "",
+        state: 0,
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
@@ -50,11 +49,11 @@ const CommentAdmin = () => {
     // Hàm giả lập lấy danh sách thể loại nhạc từ server
     const fetchMusicSongs = async () => {
         try {
-            const response = await adminGetUsers(
+            const response = await adminGetCommentService(
                 parseInt((currentPage - 1) * itemsPerPage)
             );
 
-            setMusicSongs(response.DT.handledata);
+            setMusicSongs(response.handledata);
             setmaxpage(response.maxPage);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -62,51 +61,18 @@ const CommentAdmin = () => {
     };
     const updateMusicSongs = async (data) => {
         try {
-            await updateSong(data);
+            const res = await bancommentService(data);
+            if (res && res.EC === "0") {
+                toast.success(res.EM);
+                fetchMusicSongs();
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-    // Hàm chỉnh sửa thông tin thể loại nhạc
-    const updateMusicKind = async () => {
-        // Gọi API để chỉnh sửa thông tin thể loại nhạc
-        // Khi chỉnh sửa thành công, cập nhật state
-        updateMusicSongs(editForm);
-    };
 
-    // Hàm xóa thể loại nhạc
-    const deleteMusicKind = async (id) => {
-        // Gọi API để xóa thể loại nhạc
-        // Khi xóa thành công, cập nhật state
-    };
 
-    // Hiển thị pop-up form chỉnh sửa
-    const openEditModal = (kind) => {
-        setSelectedSong(kind);
-        setEditForm({
-            id: kind.id,
-            username: kind.username,
-            birthday: kind.birthday,
-            avt: kind.avt,
-            email: kind.email,
-            likedPlayLists: kind.likedPlayLists,
-            likedSongs: kind.likedSongs,
-            myPlayLists: kind.myPlayLists,
-            banSongs: kind.banSongs,
-        });
-        setIsEditModalOpen(true);
-    };
 
-    // Đóng pop-up form chỉnh sửa
-    const closeEditModal = () => {
-        setIsEditModalOpen(false);
-    };
-
-    // Xử lý sự kiện thay đổi giá trị trong form chỉnh sửa
-    const handleEditFormChange = async (e) => {
-        const { name, value } = e.target;
-        setEditForm({ ...editForm, [name]: value });
-    };
 
     const handleserch = async (e) => {
         try {
@@ -118,6 +84,7 @@ const CommentAdmin = () => {
         }
     };
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
+    console.log(musicSongs);
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
@@ -149,36 +116,55 @@ const CommentAdmin = () => {
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Mã bài hát</th>
-                            <th>Hình</th>
-                            <th>Tài khoản</th>
+                            <th>ID comment</th>
+                            <th>bài nhạc</th>
+                            <th>người dùng</th>
                             <th>Nội dung</th>
+                            <th>Ngày tạo</th>
+                            <th>lượt báo cáo</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {musicSongs.map((kind, index) => (
-                            <tr key={kind.id}>
-                                <td>{index}</td>
-                                <td>{kind.username}</td>
-                                <td className="td_img">
-                                    {" "}
-                                    <img
-                                        src={kind.avt}
-                                        alt={`${kind.username}_avt`}
-                                    />{" "}
-                                </td>
-                                <td>{kind.birthday}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-danger-custom fs-5 ms-3"
-                                        onClick={() => deleteMusicKind(kind.id)}
-                                    >
-                                        <FontAwesomeIcon icon={faBan} />
-                                    </button>
-                                </td>
-                            </tr>
+                            <>
+                                {kind.state === 0 ? (
+                                    <tr key={kind._id}>
+                                        <td>{index}</td>
+                                        <td>{kind.songId}</td>
+                                        <td>{kind.userId}</td>
+                                        <td>{kind.content}</td>
+                                        <td>{kind.createdAt}</td>
+                                        <td>{kind.reportCount}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-danger-custom fs-5 ms-3"
+                                                onClick={() => updateMusicSongs(kind._id)}
+                                            >
+                                                <FontAwesomeIcon icon={faBan} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    <tr style={{ background: '#b5d5ff' }} key={kind._id}>
+                                        <td>{index}</td>
+                                        <td>{kind.songId}</td>
+                                        <td>{kind.userId}</td>
+                                        <td>{kind.content}</td>
+                                        <td>{kind.createdAt}</td>
+                                        <td>{kind.reportCount}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary fs-5 ms-3"
+                                                onClick={() => updateMusicSongs(kind._id)}
+                                            >
+                                                <FontAwesomeIcon icon={faUnlock} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )}
+
+                            </>
                         ))}
                     </tbody>
                 </table>
@@ -248,6 +234,19 @@ const CommentAdmin = () => {
                     </ul>
                 </div>
             </div>
+            <ToastContainer
+                style={{ fontSize: "16px" }}
+                position="bottom-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            />
         </div>
     );
 };
