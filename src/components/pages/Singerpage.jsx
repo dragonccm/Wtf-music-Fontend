@@ -60,7 +60,7 @@ const Singerpage = () => {
             <div className="for_you">
                 <h1>Bài Hát Nổi Bật</h1>
                 <div className="carr_ctn">
-                    {currData.playlistId && currData.playlistId.map((item) => (
+                    {currData.playListId && currData.playListId.map((item) => (
                         <NavLink className="carr" key={item._id} to={"/song/" + item.playlistId}>
                                 <div className="carr_img">
                                     <img src={item.thumbnail} alt="f" />
