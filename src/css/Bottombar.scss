@@ -1017,7 +1017,7 @@
         transform       : translate(-50%, -50%);
         background-color: var(--bg-player);
         width           : 400px;
-        height          : 300px;
+        height          : 320px;
         padding         : 10px;
         border-radius   : 10px;
 
@@ -1055,16 +1055,15 @@
 
             .buttons {
                 display        : flex;
-                justify-content: space-evenly;
-                width          : 150px;
-                margin         : 20px auto;
+                justify-content: space-around;
+                margin         : 20px 0;
 
                 button {
                     outline         : none;
                     background      : transparent;
                     border          : 1px solid blue;
                     background-color: #257eff;
-                    padding         : 5px 80px;
+                    padding         : 5px 50px;
                     color           : #fff;
                     font-size       : 16px;
                     cursor          : pointer;
