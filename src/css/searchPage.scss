@@ -15,7 +15,7 @@
       border-radius: 1rem;
     }
     .component_button:hover {
-      background-color: var(--bg-header);
+      background-color: var(--bg-radio);
     }
   }
 
@@ -23,10 +23,12 @@
     background-color: var(--bg-header);
     padding: 1rem;
     border-radius: 1rem;
+    color: var(--deep-black);
   }
 
   .singer_detail {
     margin: 3rem 0;
+    color: var(--deep-black);
   }
 
   .singer_list {

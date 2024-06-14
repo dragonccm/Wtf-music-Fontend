@@ -55,6 +55,24 @@ const Singerpage = () => {
                     ))}
                 </div>
             </div>
+
+
+            <div className="for_you">
+                <h1>Bài Hát Nổi Bật</h1>
+                <div className="carr_ctn">
+                    {currData.playlistId && currData.playlistId.map((item) => (
+                        <NavLink className="carr" key={item._id} to={"/song/" + item.playlistId}>
+                                <div className="carr_img">
+                                    <img src={item.thumbnail} alt="f" />
+                                </div>
+                                <p className="carr_songname">
+                                    {item.playlistname}
+                                </p>
+    
+                        </NavLink>
+                    ))}
+                </div>
+            </div>
             <h1 className="for_artist_lable">VỀ {currData.artistsName}</h1>
             <section className="for_artists_ctn">
                 <div className="for_artist_avt_ctn">

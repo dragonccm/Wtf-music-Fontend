@@ -2,9 +2,9 @@ import axios from "../setup/axios";
 import FormData from "form-data";
 
 const restplaylist = (data) => {
-  console.table(data)
+  console.log(data.data)
   const formData = new FormData();
-  formData.append("playlistId", data.data.playListId);
+  formData.append("playlistId", data.data.playlistId);
   formData.append("playlistname", data.data.playlistname);
   formData.append("genresid", data.data.genresid);
   formData.append("artistsId", data.data.artistsId);

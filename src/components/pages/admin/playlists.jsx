@@ -93,7 +93,7 @@ const PlaylistAdmin = () => {
 
         try {
             const res = await updatePlaylist(data);
-            if(res){
+            if (res) {
                 toast.success(res.EM);
                 fetchMusicSongs();
             }
@@ -105,7 +105,7 @@ const PlaylistAdmin = () => {
         data.thumbnail = file;
         try {
             const res = await createPlaylist(data);
-            if(res){
+            if (res) {
                 toast.success(res.EM);
                 fetchMusicSongs();
             }
@@ -116,14 +116,14 @@ const PlaylistAdmin = () => {
     const deleteMusicSongs = async (id) => {
         const newdata = {
             ...createForm,
-            playListId: id,
+            playlistId: id,
         };
         try {
-           const res =  await deletePlaylist(newdata);
-           if(res){
-            toast.success("câp nhật thành công");
-            fetchMusicSongs();
-        }
+            const res = await deletePlaylist(newdata);
+            if (res) {
+                toast.success("câp nhật thành công");
+                fetchMusicSongs();
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -361,6 +361,17 @@ const PlaylistAdmin = () => {
             alert("id không tồn tại");
         }
     };
+    const handleEditAddSongTag = (e, id) => {
+        e.preventDefault();
+        if (!editForm.songid || !editForm.songid.includes(id)) {
+            setEditForm((prevState) => ({
+                ...prevState,
+                songid: [...(prevState.songid || []), id],
+            }));
+        } else {
+            alert("id đã tồn tại");
+        }
+    };
     const handleEditRemoveSongTag = (e, id) => {
         e.preventDefault();
         if (editForm.songid && editForm.songid.includes(id)) {
@@ -373,17 +384,6 @@ const PlaylistAdmin = () => {
         }
     };
 
-    const handleEditAddSongTag = (e, id) => {
-        e.preventDefault();
-        if (!editForm.songListId || !editForm.songListId.includes(id)) {
-            setEditForm((prevState) => ({
-                ...prevState,
-                songListId: [...(prevState.songListId || []), id],
-            }));
-        } else {
-            alert("id đã tồn tại");
-        }
-    };
     const handlegetban = async (e) => {
         try {
             const ser = await getbanService();
@@ -691,7 +691,8 @@ const PlaylistAdmin = () => {
                                             >
                                                 {d}{" "}
                                             </button>
-                                        ))}
+                                        ))
+                                    }
                                 </p>
                                 <Modal
                                     isOpen={isArModalOpen}
