@@ -172,6 +172,7 @@ const CategoryAdmin = () => {
             thumbnail: kind.thumbnail,
             thumbnailR: kind.thumbnailR,
             thumbnailHasText: kind.thumbnailHasText,
+            description: kind.description,
             state: kind.state,
         });
         setIsEditModalOpen(true);
@@ -247,7 +248,7 @@ const CategoryAdmin = () => {
                         <input
                             id="search-kind"
                             type="text"
-                            placeholder="Nhập thể loại"
+                            value="Nhập thể loại"
                             required
                             className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
                             onChange={handleserch}
@@ -454,7 +455,7 @@ const CategoryAdmin = () => {
                                 className="fs-4 form-control"
                                 id="edit-name"
                                 name="id"
-                                placeholder={editForm.genreId}
+                                value={editForm.genreId}
                                 onChange={handleEditFormChange}
                                 readOnly
                             />
@@ -467,8 +468,8 @@ const CategoryAdmin = () => {
                                 type="text"
                                 className="fs-4 form-control"
                                 id="edit-email"
-                                name="songname"
-                                placeholder={editForm.genrename}
+                                name="genrename"
+                                value={editForm.genrename}
                                 onChange={handleEditFormChange}
                             />
                         </div>
@@ -529,7 +530,7 @@ const CategoryAdmin = () => {
                                 className="fs-4 form-control"
                                 id="edit-email"
                                 name="description"
-                                placeholder={editForm.description}
+                                value={editForm.description}
                                 onChange={handleEditFormChange}
                             />
                         </div>
@@ -647,7 +648,7 @@ const CategoryAdmin = () => {
                                 className="fs-4 form-control"
                                 id="edit-email"
                                 name="description"
-                                placeholder={createForm.description}
+                                value={createForm.description}
                                 onChange={handleCreateFormChange}
                             />
                         </div>
