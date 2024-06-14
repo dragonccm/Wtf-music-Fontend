@@ -235,9 +235,7 @@ const Bottombar = () => {
         localStorage.setItem('currentMusicIndex', currentMusicIndex)
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
-    } else {
-      alert('Không có')
-    }
+    } 
   }
   const handleClickPrevious = () => {
     if (currentMusicIndex > 0) {
@@ -685,7 +683,9 @@ const Bottombar = () => {
                   <div className="r_click_head">
                     <div className="r_click_head_img"><img src={songInfo.infor.img} alt="f" /></div>
                     <div className="r_click_head_info">
-                      <div className="name"><a href={"/artists/" + songInfo.infor.alias}>{songInfo.infor.songname}</a></div>
+                      <div className="name">
+                        <NavLink to={"/song/" + songInfo.infor.id}>{songInfo.infor.songname}</NavLink>
+                      </div>
                       <div className="more">
                         <div className="more_item">
                           <FontAwesomeIcon icon={faHeart} />

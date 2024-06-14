@@ -3,7 +3,7 @@ import "../../css/Detailed_list.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faSquarePlus, faPlay, faLink, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faSquarePlus, faShare, faLink,faPlay, faHeart } from "@fortawesome/free-solid-svg-icons";
 // redux
 import { useEffect } from "react";
 import { fetchPlayList, randomSongs } from '../../redux/slide/playlistSlice'
@@ -109,7 +109,7 @@ const Playlistpage = () => {
           <div className="control">
             <button className="play_random" onClick={() => handlePlayPlaylist()} >
               <FontAwesomeIcon icon={faPlay} />
-              <span>Phát Ngẫu Nhiên</span>
+              <span>PHÁT TẤT CẢ</span>
             </button>
             <div className="child_btn_gr">
               <Like_heart id={playlist.playlist.playlistId} type={'playlist'} />
@@ -138,7 +138,7 @@ const Playlistpage = () => {
                     })} /></button>
 
                   <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
-                  <button className="menu-item"><FontAwesomeIcon icon={faPlay} /> Phát Tất Cả</button>
+                  <button className="menu-item"><FontAwesomeIcon icon={faShare} /> Chia sẻ</button>
                 </div>
               </Popup>
             </div>

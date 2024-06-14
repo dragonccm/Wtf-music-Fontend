@@ -107,7 +107,22 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-
+    button {
+      background-color: #5498ff;
+      width: 50%;
+      margin: 20px auto;
+      padding: 20px;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4);
+      color: var(--bg-white);
+      border-radius: 5px;
+  
+      &:hover {
+        opacity: 0.8;
+      }
+    }
 
 
     h1 {
@@ -123,7 +138,22 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    button {
+      background-color: #5498ff;
+      width: 50%;
+      margin: 20px auto;
+      padding: 20px;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4);
+      color: var(--bg-white);
+      border-radius: 5px;
+  
+      &:hover {
+        opacity: 0.8;
+      }
+    }
     .profile_details {
       color: var(--deep-black);
       font-size: 30px;
@@ -260,22 +290,7 @@
   }
 
 
-  button {
-    background-color: #5498ff;
-    width: 50%;
-    margin: 20px auto;
-    padding: 20px;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4);
-    color: var(--bg-white);
-    border-radius: 5px;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
+  
 }
 
 @media screen and (max-width: 600px) {

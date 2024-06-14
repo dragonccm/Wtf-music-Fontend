@@ -57,66 +57,68 @@ const Profile_edit = () => {
     }
     return (
         <>
-            <div className="info_card_ctn">
-                <h2 className="profile_details">Chỉnh sửa thông tin</h2>
+            <>
+                <div className="info_card_ctn">
+                    <h2 className="profile_details">Chỉnh sửa thông tin</h2>
 
-                <div className="main">
-                    <div className="avt_main">
-                        <div className="avt-container">
-                            {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
-                            <ImageUploader onUpload={handleUpload} />
+                    <div className="main">
+                        <div className="avt_main">
+                            <div className="avt-container">
+                                {imageUrl && <img src={imageUrl} className="avt-img" alt="Uploaded" />}
+                                <ImageUploader onUpload={handleUpload} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="info_card">
+                        <div className="info_card">
 
-                        <div className="input_group">
-                            <label htmlhtmlfor="username">Tên tài khoản:</label>
-                            <div className="input_group_pass">
-                                <input
-                                    id="username"
-                                    type='text'
-                                    value={infor.DT.username}
-                                    readOnly
-                                />
+                            <div className="input_group">
+                                <label htmlhtmlfor="username">Tên tài khoản:</label>
+                                <div className="input_group_pass">
+                                    <input
+                                        id="username"
+                                        type='text'
+                                        value={infor.DT.username}
+                                        readOnly
+                                    />
+
+                                </div>
 
                             </div>
+                            <div className="input_group">
+                                <label htmlhtmlfor="email">Email:</label>
+                                <div className="input_group_pass">
+                                    <input
+                                        id="email"
+                                        type='text'
+                                        value={email}
+                                        onChange={(event) =>
+                                            setEmail(event.target.value)
+                                        }
+                                    />
 
-                        </div>
-                        <div className="input_group">
-                            <label htmlhtmlfor="email">Email:</label>
-                            <div className="input_group_pass">
-                                <input
-                                    id="email"
-                                    type='text'
-                                    value={email}
-                                    onChange={(event) =>
-                                        setEmail(event.target.value)
-                                    }
-                                />
+                                </div>
 
                             </div>
+                            <div className="input_group">
+                                <label htmlhtmlfor="birthday">Sinh nhật</label>
+                                <div className="input_group_pass">
+                                    <input
+                                        id="birthday"
+                                        type='date'
+                                        value={birthday}
+                                        onChange={(event) =>
+                                            setBirthday(event.target.value)
+                                        }
+                                    />
+                                </div>
 
-                        </div>
-                        <div className="input_group">
-                            <label htmlhtmlfor="birthday">Sinh nhật</label>
-                            <div className="input_group_pass">
-                                <input
-                                    id="birthday"
-                                    type='date'
-                                    value={birthday}
-                                    onChange={(event) =>
-                                        setBirthday(event.target.value)
-                                    }
-                                />
                             </div>
-
-                        </div>
-                        <div className="input_group">
-                            <button className="list_nav_item" onClick={() => handleEdit()}>Thay đổi</button>
+                            <div className="input_group">
+                                <button className="list_nav_item" onClick={() => handleEdit()}>Thay đổi</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </>
             <ToastContainer
                 style={{ fontSize: "16px" }}
                 position="top-right"
@@ -128,7 +130,7 @@ const Profile_edit = () => {
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
-                theme="colored"
+                theme="light"
             />
         </>
     )

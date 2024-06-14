@@ -1,7 +1,7 @@
 import { restComment } from '../controller/restcomment.controller';
-const reportComment = async (inputdata) => {
+const reportComment = async (inputdata ,userId) => {
     try {
-        const data = await restComment({ data: inputdata, status: "report" });
+        const data = await restComment({ data: inputdata,userId: userId, status: "report" });
         return data
     } catch (error) {
         console.error("Error loading Comment data:", error);
@@ -9,19 +9,19 @@ const reportComment = async (inputdata) => {
     }
 };
 
-const createComment = async (inputdata) => {
+const createComment = async (inputdata ,userId) => {
 
     try {
-        const data = await restComment({ data: inputdata, status: "create" })
+        const data = await restComment({ data: inputdata, userId: userId, status: "create" })
         return data
     } catch (error) {
         console.error("Error loading Comment data:", error);
         return null;
     }
 };
-const getComment = async (inputdata) => {
+const getComment = async (inputdata,userId) => {
     try {
-        const data = await restComment({ data: inputdata, status: "read" })
+        const data = await restComment({ data: inputdata,userId: userId , status: "read" })
         return data
     } catch (error) {
         console.error("Error loading Comment data:", error);

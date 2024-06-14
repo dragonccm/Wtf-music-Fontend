@@ -40,13 +40,13 @@ const Songpage = () => {
 
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const isAuthentication = useSelector((state) => state.Authentication.defaultUser);
     const handleSubmitComment = async (event) => {
         setLoading(true);
         event.preventDefault();
         const newComment = event.target.opinion.value;
         if (newComment) {
-            await createComment({ comments: newComment, id });
+            await createComment({ comments: newComment, id, userId: isAuthentication.account.id });
             setLoading(false);
 
             event.target.opinion.value = "";
@@ -68,8 +68,10 @@ const Songpage = () => {
         };
 
         fetchData();
+
+
         const getComments = async (id) => {
-            const response = await getComment(id);
+            const response = await getComment(id,isAuthentication.account.id);
             setComments(response.DT);
         };
         getComments(id);
@@ -77,11 +79,26 @@ const Songpage = () => {
 
     useEffect(() => {
         const getComments = async (id) => {
-            const response = await getComment(id);
+            const response = await getComment(id,isAuthentication.account.id);
             setComments(response.DT);
         };
         getComments(id);
     }, [loading]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetchSongPage(id);
+            setData(response);
+        };
+
+        fetchData();
+        const getComments = async (id) => {
+            const response = await getComment(id,isAuthentication.account.id);
+            setComments(response.DT);
+        };
+        getComments(id);
+    }, [id]);
+
     const fetchSongPage = async (id) => {
         try {
             const response = await songPage(id);
@@ -92,7 +109,7 @@ const Songpage = () => {
     };
     const dataf = useSelector((state) => state.playlist.playlist);
 
-    if (!data.DT) {
+    if (!data) {
         return (
             <div>
                 <Loading />
@@ -113,14 +130,16 @@ const Songpage = () => {
         dispatch(fetchSongPlaying(id));
     };
     const handleReport = async (id) => {
-        const res = await reportComment(id);
+        const res = await reportComment(id,isAuthentication.account.id);
         if (res.EC === "0") {
             toast.success(res.EM);
         } else if (res.EC === "2") {
             toast.warning(res.EM);
         }
     };
+
     return (
+        Object.keys(data).length !== 0 &&
         <section className="songpage_main">
             <div className="songpage_list_head">
                 <div className="songpage_left_head">
