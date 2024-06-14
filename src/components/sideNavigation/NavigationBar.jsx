@@ -12,6 +12,8 @@ import icon_User from "../../img/user-admin.svg";
 import icon_Comment from "../../img/comment-admin.svg";
 import icon_Singer from "../../img/singer-admin.svg";
 import icon_Music from "../../img/play-music-admin.svg";
+import icon_Statistical from "../../img/statistical-chart-svgrepo-com.svg";
+import icon_Statistical1 from "../../img/stats-1371-svgrepo-com.svg";
 import logo from "../../img/logo3 (1).png";
 import { useSelector } from "react-redux";
 import "../../css/admin/NavigationBar.scss";
@@ -114,7 +116,7 @@ const NavigationBar = () => {
                                                 "icon_list_nav_item_svg"
                                             );
                                         }}
-                                        src={icon_Writer}
+                                        src={icon_Statistical1}
                                     />
                                 </div>
                                 <span>Thống kê bài hát</span>
@@ -130,7 +132,7 @@ const NavigationBar = () => {
                                                 "icon_list_nav_item_svg"
                                             );
                                         }}
-                                        src={icon_Writer}
+                                        src={icon_Statistical}
                                     />
                                 </div>
                                 <span>Thống kê danh sách</span>
