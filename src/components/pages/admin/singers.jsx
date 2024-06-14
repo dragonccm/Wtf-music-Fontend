@@ -367,7 +367,7 @@ const SingerAdmin = () => {
                         <input
                             id="search-kind"
                             type="text"
-                            value="Nhập ca sĩ"
+                            placeholder="Nhập ca sĩ"
                             required
                             className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
                             onChange={handleserch}
