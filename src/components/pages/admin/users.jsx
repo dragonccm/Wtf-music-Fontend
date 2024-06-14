@@ -36,7 +36,7 @@ const UserAdmin = () => {
             );
 
             setMusicSongs(response.DT.handledata);
-            setmaxpage(response.maxPage);
+            setmaxpage(response.DT.maxPage);
         } catch (error) {
             console.error("Error fetching data:", error);
         }

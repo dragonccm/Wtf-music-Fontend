@@ -76,7 +76,7 @@ const CategoryAdmin = () => {
         setCurrentPage(pageNum);
         fetchMusicSongs();
     };
-    const itemsPerPage = 20; // Số mục trên mỗi trang
+    const itemsPerPage =10; // Số mục trên mỗi trang
     // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
     useEffect(() => {
         fetchMusicSongs();
@@ -90,7 +90,7 @@ const CategoryAdmin = () => {
                     parseInt((currentPage - 1) * itemsPerPage)
                 );
                 setMusicSongs(response.DT.handledata);
-                setmaxpage(response.maxPage);
+                setmaxpage(response.DT.maxPage);
                 setIsSendingRequest(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
