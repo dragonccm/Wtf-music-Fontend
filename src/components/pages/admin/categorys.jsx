@@ -101,7 +101,6 @@ const CategoryAdmin = () => {
         data.thumbnail = thumbnail;
         data.thumbnailHasText = thumbnailHasText;
         data.thumbnailR = thumbnailR;
-        alert("Update music", editForm);
         try {
             const res = await updateGenre(data);
             if(res){
@@ -273,8 +272,8 @@ const CategoryAdmin = () => {
                             <th>ID</th>
                             <th>Tên</th>
                             <th>Hình</th>
-                            <th>Mã danh sách</th>
-                            <th>Lượt nghe</th>
+                    
+                            <th>mô tả</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -291,12 +290,7 @@ const CategoryAdmin = () => {
                                                 alt={kind.genrename}
                                             />{" "}
                                         </td>
-                                        <td>
-                                            {kind.playListId
-                                                ?.map((playList) => playList)
-                                                .join(", ")}
-                                        </td>
-                                        <td>{kind.listen}</td>
+                                        <td>{kind.description}</td>
                                         <td>
                                             <button
                                                 className="btn btn-primary fs-3"
@@ -331,12 +325,8 @@ const CategoryAdmin = () => {
                                                 alt={kind.genrename}
                                             />{" "}
                                         </td>
-                                        <td>
-                                            {kind.playListId
-                                                ?.map((playList) => playList)
-                                                .join(", ")}
-                                        </td>
-                                        <td>{kind.listen}</td>
+                                       
+                                        <td>{kind.description}</td>
                                         <td>
                                             <button
                                                 className="btn btn-primary fs-3"
@@ -534,18 +524,7 @@ const CategoryAdmin = () => {
                                 onChange={handleEditFormChange}
                             />
                         </div>
-                        <div className="mb-4 form-group form-check">
-                            <select
-                                class="form-select"
-                                id="edit-email"
-                                name="state"
-                                value={editForm.state}
-                                onChange={handleEditFormChange}
-                            >
-                                <option value="1">Ban</option>
-                                <option value="0">Unban</option>
-                            </select>
-                        </div>
+
 
                         <div className="text-end form-group">
                             <button
