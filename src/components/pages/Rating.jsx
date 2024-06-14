@@ -128,7 +128,7 @@ const Rating = () => {
                           </div>
                         </section>
                         <div className="time">
-                          {String(Math.floor(data.duration / 60)).padStart(2, "0") + ':' + String(data.duration % 60).padStart(2, "0")}
+                          {String(Math.floor(data.duration / 60)).padStart(2, "0") + ':' + String(Math.round(data.duration) % 60).padStart(2, "0")}
                         </div>
                       </div>
                       <div className="total_time">{data.total_time}</div>

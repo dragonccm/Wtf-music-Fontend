@@ -2,6 +2,9 @@ import "../../css/Singerpage.scss";
 import { faCirclePlay, faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../sideNavigation/mascot_animation";
+import Col3Layout from "../../components/card/col_3_layout";
+import Card from "../../components/card/playlist_card";
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchgArtist } from "../../redux/slide/artistSlice";
@@ -33,14 +36,15 @@ const Singerpage = () => {
                 </div>
                 <div className="artists_if_ctn">
                     <h1 className="artists_name">{currData.artistsName}</h1>
-                    <p className="follower">
+                    {/* <p className="follower">
                         {currData.totalFollow} người quan tâm{" "}
                         <FontAwesomeIcon icon={faUser} />
-                    </p>
+                    </p> */}
                 </div>
             </section>
             <div className="for_you">
                 <h1>Bài Hát Nổi Bật</h1>
+                {/* {currData.songListId && <Col3Layout data={currData.songListId} />} */}
                 <div className="carr_ctn">
                     {currData.songListId && currData.songListId.map((item) => (
                         <NavLink className="carr" key={item._id} to={"/song/" + item.id}>
@@ -55,6 +59,10 @@ const Singerpage = () => {
                     ))}
                 </div>
             </div>
+            {currData.songListId && currData.songListId.length>0&& <div className="list_card">
+                <h1>Album</h1>
+                <Card playlist={currData.songListId} />
+            </div>}
             <h1 className="for_artist_lable">VỀ {currData.artistsName}</h1>
             <section className="for_artists_ctn">
                 <div className="for_artist_avt_ctn">
@@ -67,12 +75,12 @@ const Singerpage = () => {
                             ? currData.biography.replace(/<br>/g, "\n")
                             : ""}
                     </p>
-                    <p className="follower">
+                    {/* <p className="follower">
                         {currData.totalFollow
                             ? currData.totalFollow.toLocaleString()
                             : ""}{" "}
                         người quan tâm
-                    </p>
+                    </p> */}
                 </div>
             </section>
         </section>

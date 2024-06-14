@@ -95,10 +95,10 @@ const HomePage = () => {
                 <h1>Top 100</h1>
                 <Card playlist={top100} />
             </div>
-            <div className="list_card">
+            {/* <div className="list_card">
                 <h1>Album hot</h1>
                 <Card playlist={albumHot} />
-            </div>
+            </div> */}
         </>
     )
 }
