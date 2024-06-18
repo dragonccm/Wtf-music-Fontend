@@ -53,7 +53,7 @@ const Card = ({ playlist, isOw, limit }) => {
     }
     return (
         <div className="card_container">
-            {slicedData.map((playlist, index) => playlist && playlist._id ?
+            {slicedData.map((playlist, index) => playlist && playlist._id &&
                 (
                     <div className="card_item" key={'ola' + index}>
                         <div className="card_wrap">
@@ -104,53 +104,8 @@ const Card = ({ playlist, isOw, limit }) => {
                             </NavLink>
                         </div>
                     </div>
-                ) : (
-                    <div className="card_item" key={'ola' + index}>
-                        <div className="img_container">
-                            <img
-                                src={
-                                    playlist && playlist.thumbnailM
-                                        ? playlist.thumbnailM
-                                        : 'https://res.cloudinary.com/drupmc7qd/image/upload/v1714275641/vqsvqsxebphgymfqkgkq.jpg'
-                                }
-                                alt="f"
-                                className="img"
-                            />
-                            <NavLink to={`/playlist/${playlist.playlistId}`} className="img_overlay">
-                                <div className="img_overlay">
-                                    <div className="img_overlay_group_btn" onClick={(e) => e.preventDefault()}>
-                                        <Like_heart id={playlist.playlistId} type={'playlist'} />
-
-                                        <div
-                                            className="nav-link list_nav_item"
-                                            onClick={(e) => handlePlayPlaylist(e, playlist.playlistId)}
-                                        >
-
-                                            <FontAwesomeIcon className="play_icon" icon={faCirclePlay} />
-
-                                        </div>
-                                        {isOw === "you" ? (
-                                            <button className="rhap_main-controls-button rhap_button-clear" onClick={(e) => handledelete(e, playlist.playlistId)}>
-                                                <FontAwesomeIcon icon={faTrash} />
-                                            </button>
-                                        ) :
-                                            (
-                                                <button className="rhap_main-controls-button rhap_button-clear">
-                                                    <FontAwesomeIcon icon={faShare} />
-                                                </button>
-                                            )
-                                        }
-
-                                    </div>
-                                </div>
-                            </NavLink>
-                        </div>
-
-                        <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
-                            {playlist.sortDescription ? playlist.sortDescription : playlist.title}
-                        </NavLink>
-                    </div>
-                ))
+                )
+                )
             }
         </div >
     );

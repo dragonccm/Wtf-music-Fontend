@@ -44,8 +44,8 @@ const Singerpage = () => {
             </section>
             <div className="for_you">
                 <h1>Bài Hát Nổi Bật</h1>
-                {/* {currData.songListId && <Col3Layout data={currData.songListId} />} */}
-                <div className="carr_ctn">
+                {currData && currData.songListId && currData.songListId[0] && <Col3Layout data={currData.songListId} />}
+                {/* <div className="carr_ctn">
                     {currData.songListId && currData.songListId.map((item) => (
                         <NavLink className="carr" key={item._id} to={"/song/" + item.id}>
                                 <div className="carr_img">
@@ -57,11 +57,11 @@ const Singerpage = () => {
     
                         </NavLink>
                     ))}
-                </div>
+                </div> */}
             </div>
-            {currData.songListId && currData.songListId.length>0&& <div className="list_card">
+            {currData.playListId && currData.playListId.length>0&& <div className="list_card">
                 <h1>Album</h1>
-                <Card playlist={currData.songListId} />
+                <Card playlist={currData.playListId} />
             </div>}
             <h1 className="for_artist_lable">VỀ {currData.artistsName}</h1>
             <section className="for_artists_ctn">
