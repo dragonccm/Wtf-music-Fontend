@@ -440,7 +440,7 @@ const PlaylistAdmin = () => {
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>STT</th>
                             <th>Hình</th>
                             <th>Tên</th>
                             <th>Tình trạng</th>
@@ -457,7 +457,7 @@ const PlaylistAdmin = () => {
                                         style={{ background: '#b5d5ff' }}
                                         key={kind.playListId}
                                     >
-                                        <td>{index}</td>
+                                        <td>{index+1}</td>
                                         <td className="td_img">
                                             {" "}
                                             <img
@@ -502,7 +502,7 @@ const PlaylistAdmin = () => {
                                     </tr>
                                 ) : (
                                     <tr key={kind.playListId}>
-                                        <td>{index}</td>
+                                        <td>{index+1}</td>
                                         <td className="td_img">
                                             {" "}
                                             <img

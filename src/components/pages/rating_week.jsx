@@ -91,7 +91,7 @@ const Rating_week = () => {
                 </label>
             </div>
             <Recommended
-            datas={area === 'vn' ? dataRating.weekChart.vn.items : area === 'us-uk' ? dataRating.weekChart.us.items : dataRating.weekChart.korea.items}
+            datas={area === 'vn' ? dataRating.weekChart[0].items : area === 'us-uk' ? dataRating.weekChart[1].items : dataRating.weekChart[2].items}
             type={""}
             describe={""}
             maxItemsToShow="100"
