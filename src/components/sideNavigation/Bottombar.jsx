@@ -67,7 +67,7 @@ const Bottombar = () => {
   const playerRef = useRef();
   const dispatch = useDispatch();
 
-  const [newAuthenURL,setNewAuthenURL]= useState('authen=exp=1718447391~acl=/34b32a8033ec7f6707368a6296df62a3/*~hmac=1804f3e796baf76ae56a4b18fc012aaf')
+  const [newAuthenURL,setNewAuthenURL]= useState('authen=exp=1719203011~acl=/f4d08a9d90dd6fd7eed28971a0459eec/*~hmac=2896e304d66e57e33e79fc011a6bf071')
 
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   const minutesOptions = Array.from({ length: 60 }, (_, i) => i + 1);
@@ -359,7 +359,7 @@ const Bottombar = () => {
 
   // download nhạc 
   const handleDownload = async () => {
-    const audioUrl = songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL;
+    const audioUrl = songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL :songInfo.infor.song;
 
     try {
       const response = await fetch(audioUrl);
@@ -890,7 +890,7 @@ const Bottombar = () => {
           onPause={handleStop}
           onCanPlay={handleTimeUpdate}
           showSkipControls="true"
-          src={songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL}
+          src={songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL :songInfo.infor.song}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
           onEnded={handleEnd}

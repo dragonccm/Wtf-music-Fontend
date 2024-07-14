@@ -37,6 +37,20 @@
     color: #3587ff;
   }
 }
+.playlist_description {
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+  font-size: 1.45rem;
+  // font-weight: 700;
+  color: var(--text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: Inter, sans-serif;
+  
+}
 
 .show_all {
   color: #00000094;

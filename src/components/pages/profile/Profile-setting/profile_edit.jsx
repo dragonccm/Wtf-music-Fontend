@@ -93,6 +93,7 @@ const Profile_edit = () => {
                                         onChange={(event) =>
                                             setEmail(event.target.value)
                                         }
+                                        readOnly={infor.DT.type_login === 'email' ? true : false}
                                     />
 
                                 </div>

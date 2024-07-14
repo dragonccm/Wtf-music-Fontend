@@ -100,7 +100,7 @@ const Header = () => {
         instance.defaults.headers.common["Authorization"] = undefined;
         dispatch(logouter()); //clear user in context
         if (data && data.EC === "0") {
-            toast.success("Logout successful");
+            // toast.success("Logout successful");
         } else {
             toast.error(data.EM);
         }

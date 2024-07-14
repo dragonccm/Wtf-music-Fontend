@@ -53,10 +53,11 @@ export const authenticationSlice = createSlice({
           let isAdmin = action.payload.DT.isAdmin;
           let isBAn = action.payload.DT.isBan;
           let id = action.payload.DT.id;
+          let type_login = action.payload.DT.type_login;
           let data = {
             isAuthenticated: true,
             token: token,
-            account: { groupWithRoles, email, username,avt,myPlayLists,likedSongs,likedPlayLists,isAdmin,isBAn,id },
+            account: { groupWithRoles, email, username,avt,myPlayLists,likedSongs,likedPlayLists,isAdmin,isBAn,id,type_login },
             isLoading: false,
           };
           state.defaultUser = data;

@@ -20,5 +20,8 @@ const loginUser = (valueLogin, password,checkRemember) => {
 const logoutUser = () => {
   return axios.post("/api/logout");
 };
+const loginGG = (id) => {
+  return axios.post("/api/login-gg-success",{id});
+};
 
-export { registerUser, loginUser,logoutUser };
+export { registerUser, loginUser,logoutUser,loginGG };

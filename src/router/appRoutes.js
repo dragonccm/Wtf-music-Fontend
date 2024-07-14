@@ -15,6 +15,7 @@ import HubItem from "../components/pages/hubItem";
 import Profile from "../components/pages/profile/profilepage";
 import LoginPage from "../components/pages/loginpage";
 import RegisterPage from "../components/pages/register";
+import LoginPageGG from "../components/pages/loginGG"
 
 // layout
 import Header from "../components/layoutbar/Header";
@@ -85,6 +86,17 @@ const AppRoutes = (props) => {
                                     <Navigate to="/" />
                                 ) : (
                                     <LoginPage />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/login-gg-success/:id"
+                            element={
+                                isAuthentication &&
+                                isAuthentication.isAuthenticated === true ? (
+                                    <Navigate to="/hahaah" />
+                                ) : (
+                                    <LoginPageGG />
                                 )
                             }
                         />

@@ -73,19 +73,19 @@ const HomePage = () => {
             </div>
             <div className="list_card">
                 <h1>Nhạc hot gây bão</h1>
-                <Card playlist={songHot} />
+                <Card isDes={true} playlist={songHot} />
             </div>
             <div className="list_card">
                 <h1>Remix hay hết sảy</h1>
-                <Card playlist={songRemix} />
+                <Card isDes={true} playlist={songRemix} />
             </div>
             <div className="list_card">
                 <h1>Chill</h1>
-                <Card playlist={songChill} />
+                <Card isDes={true} playlist={songChill} />
             </div>
             <div className="list_card">
                 <h1>Nhạc buồn tâm trạng</h1>
-                <Card playlist={songSad} />
+                <Card isDes={true} playlist={songSad} />
             </div>
             <div className="ratings">
                 <h1>BXH nhạc mới</h1>
@@ -93,7 +93,7 @@ const HomePage = () => {
             </div>
             <div className="list_card">
                 <h1>Top 100</h1>
-                <Card playlist={top100} />
+                <Card  playlist={top100} />
             </div>
             {/* <div className="list_card">
                 <h1>Album hot</h1>

@@ -7,7 +7,7 @@ import "../../css/login_page.scss";
 import logo from "../../img/logo3 (1).png";
 import logo_gg from "../../img/logo-gg.png";
 import bg from "../../img/bg-login.avif";
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 const RegisterPage = () => {
     const navigate = useNavigate();
 
@@ -15,6 +15,7 @@ const RegisterPage = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [titleValid, setTitleValid] = useState("");
     const defaultValidInput = {
         isValidUser: true,
         isValidPassword: true,
@@ -42,12 +43,12 @@ const RegisterPage = () => {
             } else if (response && response.EM === 'the Email already exists') {
                 setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
                 toast.error('Email đã được sử dụng')
-            } else if (response && response.EM === 'A user created successfully'){
+            } else if (response && response.EM === 'A user created successfully') {
                 toast.success('Tạo tài khoản thành công')
                 setTimeout(() => {
-                    
+
                     navigate("/login");
-                },2000)
+                }, 2000)
             }
         }
         console.log("hahahahahahh");
@@ -56,26 +57,30 @@ const RegisterPage = () => {
         setObjCheckInput(defaultValidInput);
         let regexEmail = /\S+@\S+\.\S+/;
         if (!username) {
-            toast.error("Hãy nhập tên đăng nhập !");
+            setTitleValid("Hãy nhập tên đăng nhập !")
+            setObjCheckInput({ ...defaultValidInput, isValidUser: false });
 
             return false;
         } else if (!email) {
-            toast.error("Hãy nhập email !");
+            setTitleValid("Hãy nhập email !")
             setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
             return false;
         } else if (!regexEmail.test(email)) {
-            toast.error("Hãy nhập đúng định dạng email");
+            setTitleValid("Hãy nhập đúng định dạng email !")
+
             setObjCheckInput({ ...defaultValidInput, isValidEmail: false });
 
             return false;
         } else if (!password) {
-            toast.error("Hãy nhập mật khẩu !");
+            setTitleValid("Hãy nhập mật khẩu !")
+
             setObjCheckInput({ ...defaultValidInput, isValidPassword: false });
 
             return false;
         }
-        else if (password.length<6) {
-            toast.error("Mật khẩu phải hơn 6 kí tự !");
+        else if (password.length < 6) {
+            setTitleValid("Mật khẩu phải hơn 6 kí tự !")
+
             setObjCheckInput({ ...defaultValidInput, isValidPassword: false });
 
             return false;
@@ -102,10 +107,16 @@ const RegisterPage = () => {
                                 name="username"
                                 type="text"
                                 value={username}
-                                onChange={(event) =>
+                                onChange={(event) => {
                                     setUsername(event.target.value)
+                                    if (objCheckInput.isValidUser === false) {
+                                        setTitleValid('')
+                                        setObjCheckInput({ ...defaultValidInput, isValidUser: true });
+                                    }
+                                }
                                 }
                             />
+                            {!objCheckInput.isValidUser && <span>{titleValid}</span>}
                         </div>
                         <div className="account">
                             <input
@@ -118,25 +129,40 @@ const RegisterPage = () => {
                                 name="email"
                                 type="text"
                                 value={email}
-                                onChange={(event) => setEmail(event.target.value)}
+                                onChange={(event) => {
+                                    setEmail(event.target.value)
+                                    if (objCheckInput.isValidEmail === false) {
+                                        setTitleValid('')
+                                        setObjCheckInput({ ...defaultValidInput, isValidEmail: true });
+                                    }
+                                }}
                             />
+                            {!objCheckInput.isValidEmail && <span>{titleValid}</span>}
+
+
                         </div>
                         <div className="password">
-                            <input
-                                placeholder="Mật khẩu"
-                                className={
-                                    objCheckInput.isValidPassword
-                                        ? "pass input_form_text"
-                                        : "pass input_form_text is-invalid"
-                                }
-                                name="pass"
-                                type={ispass ? "password" : "text"}
-                                value={password}
-                                onChange={(event) =>
-                                    setPassword(event.target.value)
-                                }
-                            />
-                            {ispass ? (
+                            <div className="pass_wrap">
+                                <input
+                                    placeholder="Mật khẩu"
+                                    className={
+                                        objCheckInput.isValidPassword
+                                            ? "pass input_form_text"
+                                            : "pass input_form_text is-invalid"
+                                    }
+                                    name="pass"
+                                    type={ispass ? "password" : "text"}
+                                    value={password}
+                                    onChange={(event) => {
+                                        setPassword(event.target.value)
+                                        if (objCheckInput.isValidPassword === false) {
+                                            setTitleValid('')
+                                            setObjCheckInput({ ...defaultValidInput, isValidPassword: true });
+                                        }
+                                    }
+                                    }
+                                />
+                                {ispass ? (
                                 <FontAwesomeIcon
                                     icon={faEyeSlash}
                                     onClick={handleIsPass}
@@ -147,6 +173,11 @@ const RegisterPage = () => {
                                     onClick={handleIsPass}
                                 />
                             )}
+                            </div>
+                                {!objCheckInput.isValidPassword && <span>{titleValid}</span>}
+
+
+                            
                         </div>
 
                         <div className="form_button">
@@ -174,19 +205,7 @@ const RegisterPage = () => {
                 </div>
                 <img className="bg_login" src={bg} alt="" />
             </div>
-            <ToastContainer
-                style={{ fontSize: "16px" }}
-                position="top-right"
-                autoClose={1000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-            />
+           
         </>
     );
 };

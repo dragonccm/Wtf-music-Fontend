@@ -20,7 +20,7 @@ import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 
 import "../../css/card.scss";
-const Card = ({ playlist, isOw, limit }) => {
+const Card = ({ playlist, isOw, limit,isDes }) => {
     const dispatch = useDispatch();
     const currData = useSelector((state) => state.Authentication);
     const playlistNow = useSelector((state) => state.playlist.playlist);
@@ -99,9 +99,12 @@ const Card = ({ playlist, isOw, limit }) => {
                                 </NavLink>
                             </div>
 
+                        {isDes ?
+                            <span className="playlist_description">{playlist.description}</span>
+                            :
                             <NavLink to={`/playlist/${playlist.playlistId}`} className="playlist_name">
                                 {playlist.playlistname}
-                            </NavLink>
+                            </NavLink>}
                         </div>
                     </div>
                 )

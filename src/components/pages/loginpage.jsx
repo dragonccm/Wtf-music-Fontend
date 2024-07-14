@@ -7,6 +7,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import "../../css/login_page.scss";
 import logo from "../../img/logo3 (1).png";
 import logo_gg from "../../img/logo-gg.png";
+import logo_fb from "../../img/logo-fb.png";
 import "../../css/login_page.scss";
 import bg from "../../img/bg-login.avif";
 import { getLogin } from "../../services/registerService";
@@ -22,6 +23,8 @@ const LoginPage = () => {
     const [valueLogin, setValueLogin] = useState("");
     const [password, setPassword] = useState("");
     const [checkRemember, setCheckRemember] = useState(false);
+    const [titleValid, setTitleValid] = useState("");
+
     const navigate = useNavigate();
     const defaultValidInput = {
         isValidValueLogin: true,
@@ -38,52 +41,67 @@ const LoginPage = () => {
             setIsPass(true);
         }
     };
+    const isValid = () => {
+        setObjCheckInput(defaultValidInput);
 
+        if (!valueLogin) {
+            setTitleValid("Hãy nhập tên đăng nhập !")
+            setObjCheckInput({ ...defaultValidInput, isValidValueLogin: false });
+
+            return false;
+        } else if (!password) {
+            setTitleValid("Hãy nhập mật khẩu !")
+
+            setObjCheckInput({ ...defaultValidInput, isValidPassword: false });
+
+            return false;
+        }
+
+        return true;
+    };
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        setObjCheckInput(defaultValidInput);
-        if (!valueLogin) {
-            setObjCheckInput({
-                ...defaultValidInput,
-                isValidValueLogin: false,
-            });
+        let check = isValid();
+        if (check) {
+            let response = await getLogin(valueLogin, password, checkRemember);
 
-            //   toast.error("Please enter your email address or phone number")
-            return;
-        }
-        if (!password) {
-            setObjCheckInput({ ...defaultValidInput, isValidPassword: false });
+            if (response && response.EC === "0") {
+                let email = response.DT.email;
+                let username = response.DT.username;
+                let token = response.DT.access_token;
+                let data = {
+                    isAuthenticated: true,
+                    token: token,
+                    account: { email, username },
+                };
+                localStorage.setItem("jwt", token);
+                instance.defaults.headers.common[
+                    "Authorization"
+                ] = `Bearer ${localStorage.getItem("jwt")}`;
 
-            return;
-        }
-        let response = await getLogin(valueLogin, password, checkRemember);
-        let serverData = response;
-        // console.log(serverData);
+                // console.log("ok");
+                dispatch(loginer(data));
+                dispatch(fetchAuthentication());
+                navigate("/");
+            } else {
+                //   toast.error(serverData.EM);
+                setObjCheckInput({ ...defaultValidInput, isValidValueLogin: false,isValidPassword: false  });
 
-        if (response && response.EC === "0") {
-            let email = response.DT.email;
-            let username = response.DT.username;
-            let token = response.DT.access_token;
-            let data = {
-                isAuthenticated: true,
-                token: token,
-                account: { email, username },
-            };
-            localStorage.setItem("jwt", token);
-            instance.defaults.headers.common[
-                "Authorization"
-            ] = `Bearer ${localStorage.getItem("jwt")}`;
-
-            // console.log("ok");
-            dispatch(loginer(data));
-            dispatch(fetchAuthentication());
-            navigate("/");
-        } else {
-            //   toast.error(serverData.EM);
-            toast.error("Tài khoản hoặc mật khẩu không đúng !!");
+                toast.error("Tài khoản hoặc mật khẩu không đúng !!");
+            }
         }
     };
+    const handleLoginGG = (event) => {
+        event.preventDefault();
+      
+        window.location.href = 'http://localhost:6969/api/google';
+    }
+    const handleLoginFb = (event) => {
+        event.preventDefault();
+      
+        window.location.href = 'http://localhost:6969/api/facebook';
+      }
     return (
         <>
             <div className="mod">
@@ -99,43 +117,58 @@ const LoginPage = () => {
                                 className={
                                     objCheckInput.isValidValueLogin
                                         ? "email input_form_text"
-                                        : "email input_form_text is_invalid"
+                                        : "email input_form_text is-invalid"
                                 }
                                 name="email"
                                 type="text"
                                 value={valueLogin}
                                 onChange={(event) =>
+                                {
                                     setValueLogin(event.target.value)
+                                    if (objCheckInput.isValidValueLogin === false) {
+                                        setTitleValid('')
+                                        setObjCheckInput({ ...defaultValidInput, isValidValueLogin: true });
+                                    }
+                                   }
                                 }
                             />
+                            {!objCheckInput.isValidValueLogin && <span>{titleValid}</span>}
                         </div>
 
                         <div className="password">
-                            <input
-                                placeholder="Mật khẩu"
-                                className={
-                                    objCheckInput.isValidValueLogin
-                                        ? "pass input_form_text"
-                                        : "pass input_form_text is_invalid"
-                                }
-                                name="pass"
-                                type={ispass ? "password" : "text"}
-                                value={password}
-                                onChange={(event) =>
-                                    setPassword(event.target.value)
-                                }
-                            />
-                            {ispass ? (
-                                <FontAwesomeIcon
-                                    icon={faEyeSlash}
-                                    onClick={handleIsPass}
+                            <div className="pass_wrap">
+                                <input
+                                    placeholder="Mật khẩu"
+                                    className={
+                                        objCheckInput.isValidPassword
+                                            ? "pass input_form_text"
+                                            : "pass input_form_text is-invalid"
+                                    }
+                                    name="pass"
+                                    type={ispass ? "password" : "text"}
+                                    value={password}
+                                    onChange={(event) => {
+                                        setPassword(event.target.value)
+                                        if (objCheckInput.isValidPassword === false) {
+                                            setTitleValid('')
+                                            setObjCheckInput({ ...defaultValidInput, isValidPassword: true });
+                                        }
+                                    }
+                                    }
                                 />
-                            ) : (
-                                <FontAwesomeIcon
-                                    icon={faEye}
-                                    onClick={handleIsPass}
-                                />
-                            )}
+                                {ispass ? (
+                                    <FontAwesomeIcon
+                                        icon={faEyeSlash}
+                                        onClick={handleIsPass}
+                                    />
+                                ) : (
+                                    <FontAwesomeIcon
+                                        icon={faEye}
+                                        onClick={handleIsPass}
+                                    />
+                                )}
+                            </div>
+                            {!objCheckInput.isValidPassword && <span>{titleValid}</span>}
                         </div>
                         <div className="check_box">
                             <div className="remember_login">
@@ -165,10 +198,16 @@ const LoginPage = () => {
                                 LOGIN
                             </button>
                             <p>Or Login with</p>
-                            <button className="signin_gg form_btn gg_btn">
+                            <div className="group_btn d-flex">
+                            <button className="signin_gg form_btn gg_btn" onClick={(e) => handleLoginGG(e)}>
                                 <img src={logo_gg} alt="avt-gg"></img>
                                 <span>Google</span>
                             </button>
+                            <button className="signin_gg signin_fb form_btn gg_btn" onClick={(e) => handleLoginFb(e)}>
+                                <img src={logo_fb} alt="avt-gg"></img>
+                                <span>Facebook</span>
+                            </button>
+                            </div>
                         </div>
                         <div className="change_page_text">
                             Bạn chưa có tài khoản?{" "}
@@ -185,7 +224,7 @@ const LoginPage = () => {
                 </div>
                 <img className="bg_login" src={bg} alt="" />
             </div>
-            <ToastContainer
+            {/* <ToastContainer
                 style={{ fontSize: "16px" }}
                 position="top-right"
                 autoClose={1000}
@@ -197,7 +236,7 @@ const LoginPage = () => {
                 draggable
                 pauseOnHover
                 theme="light"
-            />
+            /> */}
         </>
     );
 };
