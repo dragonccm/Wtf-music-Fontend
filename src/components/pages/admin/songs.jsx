@@ -12,7 +12,12 @@ import {
     deleteSong,
     createSong,
 } from "../../../services/restSongService";
-import { adminSearchS } from "../../../services/adminSearchSongService";
+import {
+    adminSearchS,
+    adminSearchArtistsService,
+    adminSearchGenreService,
+} from "../../../services/adminSearchSongService";
+
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import AudioUploader from "../../../components/pages/profile/Profile-setting/upladAudio";
 import { getbanService } from "../../../services/getbanService";
@@ -68,12 +73,10 @@ const SongAdmin = () => {
     const handleUpload = (file) => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
-        console.log("file img", file);
     };
     const handleAudioUpload = (audioFile) => {
         setAudioFile(audioFile);
         setAudioUrl(URL.createObjectURL(audioFile));
-        console.log("file audio ", audioFile, audioUrl);
     };
     const itemsPerPage = 20;
 
@@ -227,26 +230,28 @@ const SongAdmin = () => {
         const { name, value } = e.target;
         setCreateForm({ ...createForm, [name]: value });
     };
+
+
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setMusicSongs(ser.DT.songs);
+            setMusicSongs(ser.DT.data.songs);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
     const handarleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearchAr(ser.DT.ar);
+            const ser = await adminSearchArtistsService(e.target.value);
+            setSearchAr(ser.DT.data.ar);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
     const handgenreleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearchGenre(ser.DT.genre);
+            const ser = await adminSearchGenreService(e.target.value);
+            setSearchGenre(ser.DT.data.genre);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
