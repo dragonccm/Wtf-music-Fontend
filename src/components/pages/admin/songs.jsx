@@ -53,8 +53,9 @@ const SongAdmin = () => {
     });
     // phân trang
     const [currentPage, setCurrentPage] = useState(1);
-    const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
+    const [maxpage, setmaxpage] = useState(0);
     // tìm kiếm
+
     const [searchGenre, setSearchGenre] = useState([]);
     const [searchAr, setSearchAr] = useState([]);
     // quản lý modal
@@ -63,11 +64,18 @@ const SongAdmin = () => {
     const [isGenreModalOpen, setIsGenreModalOpen] = useState(false);
     const [isArModalOpen, setIsArModalOpen] = useState(false);
 
-    const handlePageChange = (pageNum) => {
+    const handlePageChange = (pageNum,isNextpage) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
-            return;
+            if( isNextpage=== true ){
+                alert(pageNum)
+                setCurrentPage(0);
+            } else {
+                return
+            }
+        } else {
+            setCurrentPage(pageNum);
         }
-        setCurrentPage(pageNum);
+
         fetchMusicSongs();
     };
     const handleUpload = (file) => {
@@ -520,7 +528,7 @@ const SongAdmin = () => {
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
-                                onClick={() => handlePageChange(1)}
+                                onClick={() => handlePageChange(1,true)}
                             >
                                 Đầu
                             </a>
@@ -530,9 +538,9 @@ const SongAdmin = () => {
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() =>
-                                    handlePageChange(currentPage - 1)
+                                    handlePageChange(currentPage - 1,true)
                                 }
-                                disabled={currentPage === 1}
+                                disabled={currentPage <= 0}
                             >
                                 Lùi
                             </a>
@@ -542,7 +550,7 @@ const SongAdmin = () => {
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() =>
-                                    handlePageChange(currentPage + 1)
+                                    handlePageChange(currentPage + 1,false)
                                 }
                                 disabled={currentPage === totalPages}
                             >
@@ -556,7 +564,7 @@ const SongAdmin = () => {
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
-                                onClick={() => handlePageChange(totalPages - 5)}
+                                onClick={() => handlePageChange(totalPages - 5,false)}
                             >
                                 Cuối
                             </a>
