@@ -4,8 +4,6 @@ import Recommended from "../card/Recommended";
 import Loading from "../sideNavigation/mascot_animation";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import "../../css/Rating.scss";
 import { fetchRating } from "../../redux/slide/ratingSlice";
