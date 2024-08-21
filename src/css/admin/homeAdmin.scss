@@ -36,6 +36,10 @@ $icon-color-users   : #8545dc;
   padding-top: 11px;
   margin     : 0 -26px;
 
+
+  .page_title{
+    margin-bottom:  30px;
+  }
   // data statistical
   .card-box {
     border    : none !important;
@@ -126,6 +130,7 @@ $icon-color-users   : #8545dc;
       img {
         width        : 70px;
         border-radius: 5px;
+        height: 70px !important;
       }
 
       h4 {

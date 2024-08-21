@@ -7,7 +7,7 @@ import {
 import { getbanService } from "../../../services/getbanService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import "../../../css/admin/musicAdmin.scss";
-export default function SongChart() {
+export default function Chart() {
     const [data, setData] = useState([]);
     const [years, setYears] = useState([]);
     const [UKGDPperCapita, setUKGDPperCapita] = useState([]);
