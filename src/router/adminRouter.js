@@ -15,8 +15,7 @@ import HomeAdmin from "../components/pages/admin/home";
 import UserAdmin from "../components/pages/admin/users";
 import CommentAdmin from "../components/pages/admin/comment";
 import SingerAdmin from "../components/pages/admin/singers";
-import SongChart from "../components/pages/admin/songChart";
-import PlaylistChart from "../components/pages/admin/playlistChart";
+import Chart from "../components/pages/admin/chart";
 import CategoryAdmin from "../components/pages/admin/categorys";
 import PlaylistAdmin from "../components/pages/admin/playlists";
 import SongAdmin from "../components/pages/admin/songs";
@@ -30,6 +29,28 @@ const AdminRoutes = (props) => {
     document.body.setAttribute("data-theme", theme);
   }, [theme]);
 
+    return (
+        <div style={{ height: "100vh" }} className="main_content">
+            <NavigationBar />
+            <div className="main_page">
+                <Header_Admin />
+                <section
+                    style={{
+                        paddingTop: "120px",
+                    }}
+                    className="main_page_container bg-white"
+                >
+                    <Routes>
+                        <Route path="/category" element={<CategoryAdmin />} />
+                        <Route path="/playlist" element={<PlaylistAdmin />} />
+                        <Route path="/user" element={<UserAdmin />} />
+                        <Route path="/comment" element={<CommentAdmin />} />
+                        <Route path="/singer" element={<SingerAdmin />} />
+                        <Route
+                            path="/chart"
+                            element={<Chart />}
+                        />
+                        <Route path="/song" element={<SongAdmin />} />
   return (
     <div style={{ height: "100vh" }} className="main_content">
       <NavigationBar />

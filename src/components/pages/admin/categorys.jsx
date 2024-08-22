@@ -12,7 +12,7 @@ import {
     deleteGenre,
     createGenre,
 } from "../../../services/restGenreService";
-import { adminSearchS } from "../../../services/adminSearchSongService";
+import { adminSearchGenreService } from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import { getbanService } from "../../../services/getbanService";
 import { toast, ToastContainer } from "react-toastify";
@@ -42,7 +42,6 @@ const CategoryAdmin = () => {
         
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-    const [search, setSearch] = useState({}); // Trang hiện tại
 
     const [thumbnailUrl, setThumbnailUrl] = useState("");
     const [thumbnail, setThumbnail] = useState(null);
@@ -206,9 +205,8 @@ const CategoryAdmin = () => {
 
     const handleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearch(ser.DT.genre);
-            setMusicSongs(ser.DT.genre);
+            const ser = await adminSearchGenreService(e.target.value);
+            setMusicSongs(ser.DT.data.genre);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -247,7 +245,7 @@ const CategoryAdmin = () => {
                         <input
                             id="search-kind"
                             type="text"
-                            value="Nhập thể loại"
+                            placeholder="Nhập thể loại"
                             required
                             className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
                             onChange={handleserch}
@@ -389,7 +387,7 @@ const CategoryAdmin = () => {
                                 onClick={() =>
                                     handlePageChange(currentPage - 1)
                                 }
-                                disabled={currentPage === 1}
+                                disabled={currentPage <= 1}
                             >
                                 Lùi
                             </a>

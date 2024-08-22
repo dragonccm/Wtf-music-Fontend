@@ -20,35 +20,6 @@ import { adminGetUsers } from "../../../services/adminGetUserService"
 import { adminGetSong } from "../../../services/adminSongService"
 
 const HomeAdmin = () => {
-    // const [id, setid] = useState(null)
-    // const [result, setresult] = useState([])
-
-
-    // useEffect(() => {
-    //     const run = async () => {
-    //         setid(await getAllId())
-    //     }
-    //     run()
-    // }, []);
-    // useEffect(() => {
-    //     const run = async () => {
-    //         if (id) {
-    //             const idList = id
-    //             for (const id of idList.songId) {
-    //                 const res = await pushSong(id);
-    //                 setresult(res)
-    //             }
-    //         }
-    //     }
-    //     run()
-    // }, [id]);
-
-    // if (result.length > 0) {
-    //     const eee = result.map(async (data) => {
-    //         return await postss(data)
-    //     })
-    //     console.log("sdsds", eee)
-    // }
     const [user, setuser] = useState([]);
     const [musicSongs, setMusicSongs] = useState([]);
     const [Artists, setArtists] = useState([]);
@@ -91,6 +62,7 @@ const HomeAdmin = () => {
     return (
         <main className="main-content">
             <div className="HomeAdmin">
+                <h2 className="page_title">MUSIC ADMIN DASHBOARD</h2>
                 {/* data statistical */}
                 <section className="row">
                     <div className="col">
@@ -110,23 +82,6 @@ const HomeAdmin = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="col">
-                        <div className="card card-box text-center">
-                            <div className="card-body bg-albums">
-                                <div className="admin-circle-box rounded-pill">
-                                    <FontAwesomeIcon
-                                        icon={faCompactDisc}
-                                        className="icon-albums"
-                                    />
-                                </div>
-                                
-                                <h4 className="text-capitalize mt-4 mb-1">{currData.Playlist}</h4>
-                                <p className="mb-0 text-capitalize text-body">
-                                    total Music Albums
-                                </p>
-                            </div>
-                        </div>
-                    </div> */}
                     <div className="col">
                         <div className="card card-box text-center">
                             <div className="card-body bg-songs">
@@ -220,7 +175,7 @@ const HomeAdmin = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {Artists && Artists.map((data) => (
+                                {Artists && Artists.slice(0, 3).map((data) => (
                                     <tr>
                                         <td>{data.id}</td>
                                         <td>
@@ -441,14 +396,14 @@ const HomeAdmin = () => {
                             </div>
                             <div className="card-body">
                                 <ui className="list-unstyled p-0 m-0">
-                                    {user.map((data) => (
+                                    {user.slice(0, 5).map((data) => (
                                         <li className="mb-4">
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div className="d-flex align-items-center">
                                                     <img
                                                         src={data.avt}
                                                         id="07"
-                                                        className="img-fluid   avatar-52"
+                                                        className="img-fluid  h-50 avatar-52"
                                                         alt="review-img"
                                                     />
                                                     <div className="ms-5">
@@ -493,7 +448,7 @@ const HomeAdmin = () => {
                             </div>
                             <div className="card-body">
                                 <ui className="list-unstyled p-0 m-0">
-                                    {musicSongs.map((data) => (
+                                    {musicSongs.slice(0, 5).map((data) => (
                                         <li className="mb-4">
                                             <div className="d-flex">
                                                 <img

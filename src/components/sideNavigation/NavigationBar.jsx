@@ -74,25 +74,8 @@ const NavigationBar = () => {
                                 <span>Trang chủ</span>
                             </NavLink>
                             
-                            
                             <NavLink
-                                to="/admin/playlistchart"
-                                className="nav-link list_nav_item"
-                            >
-                                <div className="icon_list_nav_item">
-                                    <ReactSVG
-                                        beforeInjection={(svg) => {
-                                            svg.classList.add(
-                                                "icon_list_nav_item_svg"
-                                            );
-                                        }}
-                                        src={icon_Statistical}
-                                    />
-                                </div>
-                                <span>Thống kê danh sách</span>
-                            </NavLink>
-                            <NavLink
-                                to="/admin/songchart"
+                                to="/admin/chart"
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">
@@ -105,7 +88,7 @@ const NavigationBar = () => {
                                         src={icon_Statistical1}
                                     />
                                 </div>
-                                <span>Thống kê bài hát</span>
+                                <span>Thống kê dữ liệu</span>
                             </NavLink>
                             
                             <NavLink

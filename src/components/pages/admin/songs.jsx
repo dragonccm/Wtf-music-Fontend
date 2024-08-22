@@ -12,7 +12,12 @@ import {
     deleteSong,
     createSong,
 } from "../../../services/restSongService";
-import { adminSearchS } from "../../../services/adminSearchSongService";
+import {
+    adminSearchS,
+    adminSearchArtistsService,
+    adminSearchGenreService,
+} from "../../../services/adminSearchSongService";
+
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import AudioUploader from "../../../components/pages/profile/Profile-setting/upladAudio";
 import { getbanService } from "../../../services/getbanService";
@@ -48,8 +53,9 @@ const SongAdmin = () => {
     });
     // phân trang
     const [currentPage, setCurrentPage] = useState(1);
-    const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
+    const [maxpage, setmaxpage] = useState(0);
     // tìm kiếm
+
     const [searchGenre, setSearchGenre] = useState([]);
     const [searchAr, setSearchAr] = useState([]);
     // quản lý modal
@@ -58,22 +64,27 @@ const SongAdmin = () => {
     const [isGenreModalOpen, setIsGenreModalOpen] = useState(false);
     const [isArModalOpen, setIsArModalOpen] = useState(false);
 
-    const handlePageChange = (pageNum) => {
+    const handlePageChange = (pageNum,isNextpage) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
-            return;
+            if( isNextpage=== true ){
+                alert(pageNum)
+                setCurrentPage(0);
+            } else {
+                return
+            }
+        } else {
+            setCurrentPage(pageNum);
         }
-        setCurrentPage(pageNum);
+
         fetchMusicSongs();
     };
     const handleUpload = (file) => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
-        console.log("file img", file);
     };
     const handleAudioUpload = (audioFile) => {
         setAudioFile(audioFile);
         setAudioUrl(URL.createObjectURL(audioFile));
-        console.log("file audio ", audioFile, audioUrl);
     };
     const itemsPerPage = 20;
 
@@ -227,26 +238,28 @@ const SongAdmin = () => {
         const { name, value } = e.target;
         setCreateForm({ ...createForm, [name]: value });
     };
+
+
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setMusicSongs(ser.DT.songs);
+            setMusicSongs(ser.DT.data.songs);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
     const handarleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearchAr(ser.DT.ar);
+            const ser = await adminSearchArtistsService(e.target.value);
+            setSearchAr(ser.DT.data.ar);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
     const handgenreleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearchGenre(ser.DT.genre);
+            const ser = await adminSearchGenreService(e.target.value);
+            setSearchGenre(ser.DT.data.genre);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -515,7 +528,7 @@ const SongAdmin = () => {
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
-                                onClick={() => handlePageChange(1)}
+                                onClick={() => handlePageChange(1,true)}
                             >
                                 Đầu
                             </a>
@@ -525,9 +538,9 @@ const SongAdmin = () => {
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() =>
-                                    handlePageChange(currentPage - 1)
+                                    handlePageChange(currentPage - 1,true)
                                 }
-                                disabled={currentPage === 1}
+                                disabled={currentPage <= 0}
                             >
                                 Lùi
                             </a>
@@ -537,7 +550,7 @@ const SongAdmin = () => {
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() =>
-                                    handlePageChange(currentPage + 1)
+                                    handlePageChange(currentPage + 1,false)
                                 }
                                 disabled={currentPage === totalPages}
                             >
@@ -551,7 +564,7 @@ const SongAdmin = () => {
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
-                                onClick={() => handlePageChange(totalPages - 5)}
+                                onClick={() => handlePageChange(totalPages - 5,false)}
                             >
                                 Cuối
                             </a>

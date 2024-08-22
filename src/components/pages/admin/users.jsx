@@ -8,7 +8,7 @@ import { adminGetUsers } from "../../../services/adminGetUserService";
 import {
     deleteUser,
 } from "../../../services/restUserService";
-import { adminSearchS } from "../../../services/adminSearchSongService";
+import { adminSearchUserService } from "../../../services/adminSearchSongService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const UserAdmin = () => {
@@ -86,13 +86,13 @@ const UserAdmin = () => {
 
     const handleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearch(ser.DT.User);
-            setMusicSongs(ser.DT.User);
+            const ser = await adminSearchUserService(e.target.value);
+            setMusicSongs(ser.DT.data.User);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
+
     const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
     return (
         <div className="container overflow-x-auto container-admin">
@@ -264,7 +264,7 @@ const UserAdmin = () => {
                                 onClick={() =>
                                     handlePageChange(currentPage - 1)
                                 }
-                                disabled={currentPage === 1}
+                                disabled={currentPage <= 1}
                             >
                                 Lùi
                             </a>

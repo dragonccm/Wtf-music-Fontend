@@ -12,7 +12,12 @@ import {
     deletePlaylist,
     createPlaylist,
 } from "../../../services/restPlaylistService";
-import { adminSearchS } from "../../../services/adminSearchSongService";
+import {
+    adminSearchS,
+    adminSearchArtistsService,
+    adminSearchPlaylistService,
+    adminSearchGenreService,
+} from "../../../services/adminSearchSongService";
 import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import { getbanService } from "../../../services/getbanService";
 import { toast, ToastContainer } from "react-toastify";
@@ -190,9 +195,9 @@ const PlaylistAdmin = () => {
 
     const handleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearch(ser.DT.Playlist);
-            setMusicSongs(ser.DT.Playlist);
+            const ser = await adminSearchPlaylistService(e.target.value);
+            setSearch(ser.DT.data.Playlist);
+            setMusicSongs(ser.DT.data.Playlist);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -225,23 +230,23 @@ const PlaylistAdmin = () => {
     const handSongsearch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            setSearchSong(ser.DT.songs);
+            setSearchSong(ser.DT.data.songs);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
     const handarleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearchAr(ser.DT.ar);
+            const ser = await adminSearchArtistsService(e.target.value);
+            setSearchAr(ser.DT.data.ar);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
     const handgenreleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            setSearchGenre(ser.DT.genre);
+            const ser = await adminSearchGenreService(e.target.value);
+            setSearchGenre(ser.DT.data.genre);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -457,7 +462,7 @@ const PlaylistAdmin = () => {
                                         style={{ background: '#b5d5ff' }}
                                         key={kind.playListId}
                                     >
-                                        <td>{index+1}</td>
+                                        <td>{index + 1}</td>
                                         <td className="td_img">
                                             {" "}
                                             <img
@@ -502,7 +507,7 @@ const PlaylistAdmin = () => {
                                     </tr>
                                 ) : (
                                     <tr key={kind.playListId}>
-                                        <td>{index+1}</td>
+                                        <td>{index + 1}</td>
                                         <td className="td_img">
                                             {" "}
                                             <img
@@ -584,7 +589,7 @@ const PlaylistAdmin = () => {
                                 onClick={() =>
                                     handlePageChange(currentPage - 1)
                                 }
-                                disabled={currentPage === 1}
+                                disabled={currentPage <= 1}
                             >
                                 Lùi
                             </a>
