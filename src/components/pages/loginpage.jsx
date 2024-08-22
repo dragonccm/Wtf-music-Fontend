@@ -1,6 +1,6 @@
 import instance from "../../setup/axios";
 import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast,ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,7 @@ import logo_fb from "../../img/logo-fb.png";
 import "../../css/login_page.scss";
 import bg from "../../img/bg-login.avif";
 import { getLogin } from "../../services/registerService";
+import { sendOtp } from "../../controller/Authentication";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
     loginer,
@@ -86,24 +87,48 @@ const LoginPage = () => {
                 navigate("/");
             } else {
                 //   toast.error(serverData.EM);
-                setObjCheckInput({ ...defaultValidInput, isValidValueLogin: false,isValidPassword: false  });
+                setObjCheckInput({ ...defaultValidInput, isValidValueLogin: false, isValidPassword: false });
 
                 toast.error("Tài khoản hoặc mật khẩu không đúng !!");
             }
         }
     };
+    const handleForget = async () => {
+        let check = false;
+        if (!valueLogin) {
+            setTitleValid("Hãy nhập tên đăng nhập hoặc email !")
+            setObjCheckInput({ ...defaultValidInput, isValidValueLogin: false });
+
+            check = false;
+        } else {
+            check = true;
+        }
+        if (check) {
+            let response = await sendOtp(valueLogin);
+
+            if (response && response.EC === "0") {
+
+                navigate("/forgetPassword");
+            } else {
+                //   toast.error(serverData.EM);
+                setObjCheckInput({ ...defaultValidInput, isValidValueLogin: false, isValidPassword: false });
+
+                toast.error("Tài khoản hoặc email không tồn tại !!");
+            }
+        }
+    };
     const handleLoginGG = (event) => {
         event.preventDefault();
-      
+
         window.location.href = 'http://localhost:6969/api/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
-      
+
         window.location.href = 'http://localhost:6969/api/facebook';
-      }
+    }
     return (
-        <>
+        <div className="loginPage">
             <div className="mod">
                 <div className="form-con">
                     <form action="" className="login_form">
@@ -122,14 +147,13 @@ const LoginPage = () => {
                                 name="email"
                                 type="text"
                                 value={valueLogin}
-                                onChange={(event) =>
-                                {
+                                onChange={(event) => {
                                     setValueLogin(event.target.value)
                                     if (objCheckInput.isValidValueLogin === false) {
                                         setTitleValid('')
                                         setObjCheckInput({ ...defaultValidInput, isValidValueLogin: true });
                                     }
-                                   }
+                                }
                                 }
                             />
                             {!objCheckInput.isValidValueLogin && <span>{titleValid}</span>}
@@ -186,9 +210,9 @@ const LoginPage = () => {
                                     Ghi Nhớ Đăng Nhập
                                 </label>
                             </div>
-                            <a className="forgot_pass" href="/">
+                            <span className="forgot_pass" onClick={() => { handleForget() }}>
                                 Quên mật khẩu?
-                            </a>
+                            </span>
                         </div>
                         <div className="form_button">
                             <button
@@ -199,14 +223,14 @@ const LoginPage = () => {
                             </button>
                             <p>Or Login with</p>
                             <div className="group_btn d-flex">
-                            <button className="signin_gg form_btn gg_btn" onClick={(e) => handleLoginGG(e)}>
-                                <img src={logo_gg} alt="avt-gg"></img>
-                                <span>Google</span>
-                            </button>
-                            <button className="signin_gg signin_fb form_btn gg_btn" onClick={(e) => handleLoginFb(e)}>
-                                <img src={logo_fb} alt="avt-gg"></img>
-                                <span>Facebook</span>
-                            </button>
+                                <button className="signin_gg form_btn gg_btn" onClick={(e) => handleLoginGG(e)}>
+                                    <img src={logo_gg} alt="avt-gg"></img>
+                                    <span>Google</span>
+                                </button>
+                                <button className="signin_gg signin_fb form_btn gg_btn" onClick={(e) => handleLoginFb(e)}>
+                                    <img src={logo_fb} alt="avt-gg"></img>
+                                    <span>Facebook</span>
+                                </button>
                             </div>
                         </div>
                         <div className="change_page_text">
@@ -224,7 +248,7 @@ const LoginPage = () => {
                 </div>
                 <img className="bg_login" src={bg} alt="" />
             </div>
-            {/* <ToastContainer
+            <ToastContainer
                 style={{ fontSize: "16px" }}
                 position="top-right"
                 autoClose={1000}
@@ -236,8 +260,8 @@ const LoginPage = () => {
                 draggable
                 pauseOnHover
                 theme="light"
-            /> */}
-        </>
+            />
+        </div>
     );
 };
 export default LoginPage;

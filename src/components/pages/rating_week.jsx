@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchRating } from "../../redux/slide/ratingSlice";
 import { useParams } from 'react-router-dom';
 import Loading from "../sideNavigation/mascot_animation";
-const Rating_week = () => {
+const RatingWeek = () => {
 
     let { id } = useParams();
     const [area, setArea] = useState(id)
@@ -99,4 +99,4 @@ const Rating_week = () => {
         </div>
     )
 }
-export default Rating_week
+export default RatingWeek

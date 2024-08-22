@@ -18,6 +18,7 @@ import AdminSongReducer from "./slide/adminSongSlice";
 import adSongToPlReducer from "./slide/adSongToPlaylistSlice";
 import getUserLikedSongsReducer from "./slide/getUserLikedSongs";
 import myHistoryReducer from "./slide/myHistory";
+import themeReducer from "./slide/themeSlice";
 
 export const store = configureStore({
     reducer: {
@@ -39,5 +40,6 @@ export const store = configureStore({
         adSongToPl: adSongToPlReducer,
         ulikedSongs: getUserLikedSongsReducer,
         myHistory: myHistoryReducer,
+        theme:themeReducer
     },
 });

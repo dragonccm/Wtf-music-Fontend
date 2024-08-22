@@ -9,7 +9,7 @@ import AudioPlayer, { RHAP_UI } from "react-h5-audio-player";
 import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { increment, decrement, update, reset } from '../../redux/slide/songPlayingSlice'
-import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+import { fetchSongPlaying, toPlay } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList, banSongs, randomSongs, updatePlaylist } from '../../redux/slide/playlistSlice'
 import { banSong } from "../../controller/user";
 import Popup from "reactjs-popup";
@@ -67,7 +67,7 @@ const Bottombar = () => {
   const playerRef = useRef();
   const dispatch = useDispatch();
 
-  const [newAuthenURL,setNewAuthenURL]= useState('authen=exp=1719203011~acl=/f4d08a9d90dd6fd7eed28971a0459eec/*~hmac=2896e304d66e57e33e79fc011a6bf071')
+  const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1724077857~acl=/126e4ecad7e14151fc8699709ed281ae/*~hmac=f13e7c15256cdaa2d08c156c9df367cd')
 
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   const minutesOptions = Array.from({ length: 60 }, (_, i) => i + 1);
@@ -110,6 +110,7 @@ const Bottombar = () => {
 
     }
   }, [timer, outTime]);
+
   // useEffect(() => {
   //   if (Number(localStorage.getItem('timeout')) > 0) {
   //     console.log('Timeout : ' + Number(localStorage.getItem('timeout')))
@@ -206,15 +207,15 @@ const Bottombar = () => {
     const fetchData = async () => {
       if (localStorage.getItem('playlistID') && isRandom !== true) {
         console.log('jajaja')
-        await dispatch(fetchPlayList({id:localStorage.getItem('playlistID')}));
-      } 
-      
+        await dispatch(fetchPlayList({ id: localStorage.getItem('playlistID') }));
+      }
+
       if (localStorage.getItem('playlistRandom') && isRandom === true) {
         console.log('kakakakakakakak');
         await dispatch(updatePlaylist());
       }
       if (localStorage.getItem('playlistRelate') && isRandom !== true) {
-        await dispatch(fetchPlayList({id:localStorage.getItem("idSongPlaying"),type:'true'}));
+        await dispatch(fetchPlayList({ id: localStorage.getItem("idSongPlaying"), type: 'true' }));
       }
       if (localStorage.getItem('currentMusicIndex')) {
         await dispatch(update(+localStorage.getItem('currentMusicIndex')));
@@ -225,7 +226,7 @@ const Bottombar = () => {
 
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist);
-  console.log(dataf)
+  // console.log(dataf)
   const handleClickNext = () => {
     if (Number(currentMusicIndex) < dataf.song.length - 1) {
       dispatch(increment())
@@ -235,7 +236,7 @@ const Bottombar = () => {
         localStorage.setItem('currentMusicIndex', currentMusicIndex)
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
-    } 
+    }
   }
   const handleClickPrevious = () => {
     if (currentMusicIndex > 0) {
@@ -269,7 +270,11 @@ const Bottombar = () => {
     } else {
       setIsRandom(false)
       localStorage.setItem('isRandom', false)
-      dispatch(fetchPlayList({id:localStorage.getItem('playlistID')}));
+      if (localStorage.getItem('playlistRelate')) {
+        dispatch(fetchPlayList({ id: localStorage.getItem("idSongPlaying"), type: 'true' }));
+      } else {
+        dispatch(fetchPlayList({ id: localStorage.getItem('playlistID') }));
+      }
     }
 
 
@@ -303,9 +308,18 @@ const Bottombar = () => {
 
   let haha = [];
   const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+  const playStatus = useSelector((state) => state.getSongData.playStatus);
 
   const songInfo = useSelector((state) => state.getSongData.inforSong);
   const currentMusicIndex = useSelector((state) => state.getSongData.currentMusicIndex);
+
+  useEffect(() => {
+    if (playerRef.current && playerRef.current.audio.current && playStatus === true) {
+      playerRef.current.audio.current.play();
+      console.log('saiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+      console.log(playStatus);
+    }
+  }, [playStatus])
   // const [currentMusicIndex,setCurrentMusicIndex] = useState(0)
   // useEffect(() => {
   //   if (dataf && isPlaying) {
@@ -359,7 +373,7 @@ const Bottombar = () => {
 
   // download nhạc 
   const handleDownload = async () => {
-    const audioUrl = songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL :songInfo.infor.song;
+    const audioUrl = songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL : songInfo.infor.song;
 
     try {
       const response = await fetch(audioUrl);
@@ -536,6 +550,17 @@ const Bottombar = () => {
   const handleStop = (e) => {
     // Xóa event listener cho sự kiện timeupdate
     e.target.removeEventListener('timeupdate', oldUpdateTimeFunc);
+    setPlaying(false)
+
+    dispatch(toPlay())
+  };
+  const handlePlay = (e) => {
+    // Xóa event listener cho sự kiện timeupdate
+    console.log('playyyyyyyyyyyyyyy');
+    setPlaying(true)
+    if (playStatus === false) {
+      dispatch(toPlay())
+    }
   };
 
 
@@ -727,7 +752,7 @@ const Bottombar = () => {
                       <div className="item">
                         <h5>Thể loại</h5>
                         <div className="content">
-                          {<a href={"/artists/" + songInfo.infor.genres&& songInfo.infor.genres[0]  && songInfo.infor.genres[0].genreId  ? songInfo.infor.genres[0].genreId:''} >{songInfo.infor.genres[0] && songInfo.infor.genres[0].genrename}</a>}
+                          {<a href={"/artists/" + songInfo.infor.genres && songInfo.infor.genres[0] && songInfo.infor.genres[0].genreId ? songInfo.infor.genres[0].genreId : ''} >{songInfo.infor.genres[0] && songInfo.infor.genres[0].genrename}</a>}
                         </div>
                       </div>
                     }
@@ -861,7 +886,7 @@ const Bottombar = () => {
                     </div>
 
 
-                    <CopyToClipboard text={"http://localhost:3000/song/"+songInfo.infor.id}>
+                    <CopyToClipboard text={"http://localhost:3000/song/" + songInfo.infor.id}>
                       <div className="r_click_list_item">
                         <FontAwesomeIcon
                           icon={faLink}
@@ -889,8 +914,9 @@ const Bottombar = () => {
           onListen={(e) => handleListen(e)}
           onPause={handleStop}
           onCanPlay={handleTimeUpdate}
+          onPlay={handlePlay}
           showSkipControls="true"
-          src={songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL :songInfo.infor.song}
+          src={songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL : songInfo.infor.song}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
           onEnded={handleEnd}

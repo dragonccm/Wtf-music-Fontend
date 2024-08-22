@@ -1,0 +1,47 @@
+.container-OTP {
+    position: relative;
+    height: 100vh;
+    background: #162a45;
+
+    .main-wrap {
+        padding: 20px;
+        border: 1px solid #6764ff;
+        background-color: #1a2636;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 12px 15px rgba(0, 0, 0, 0.02);
+        color: #fff;
+
+        .form_btn {
+            width: 40%;
+            font-size: large;
+            color: #111;
+            background-color: #afc7ff;
+            padding: 1rem;
+            margin: 1rem auto;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+        }
+        .form_btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+    
+        .form_btn:active {
+            transform: scale(0.95);
+            box-shadow: rgba(122, 175, 255, 0.878) 0px 15px 10px -10px;
+        }
+        span{
+            font-size: 18px;
+        }
+        h1{
+            margin-bottom: -0.5rem;
+        }
+        p{
+            font-size: 15px;
+        }
+    }
+
+}

@@ -23,5 +23,14 @@ const logoutUser = () => {
 const loginGG = (id) => {
   return axios.post("/api/login-gg-success",{id});
 };
+const sendOtp = (email) => {
+  return axios.post("/api/forgot-password",{email});
+};
+const verifyOtp = (otp) => {
+  return axios.post("/api/verifyOtp",{otp});
+};
+const againSendOTP = (otp) => {
+  return axios.get("/api/requestOTP");
+};
 
-export { registerUser, loginUser,logoutUser,loginGG };
+export { registerUser, loginUser,logoutUser,loginGG,sendOtp,verifyOtp,againSendOTP };

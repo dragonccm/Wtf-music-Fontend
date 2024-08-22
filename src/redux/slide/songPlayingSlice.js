@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSongData } from "../../services/SongService";
 import { addHisFetch } from "../../services/upDateHService";
+import { addRanking } from "../../controller/rating";
 export const fetchSongPlaying = createAsyncThunk(
   "getSongPlaying",
   
   async (id ,{ getState }) => {
     const state = getState();
     const isAuthenticated = state.Authentication.defaultUser.isAuthenticated;
+    await addRanking(id)
     if (isAuthenticated) {
       await addHisFetch({
         id: id,
@@ -19,6 +21,7 @@ export const fetchSongPlaying = createAsyncThunk(
 );
 const initialState = {
   isPlaying: false,
+  playStatus: false,
   currentMusicIndex:0,
   inforSong: {
     isLoading: true,
@@ -48,6 +51,9 @@ export const getSongDataSlice = createSlice({
         isError: true,
         infor: {},
       }
+    },
+    toPlay: (state,index) => {
+      state.playStatus = !state.playStatus
     },
   },
   extraReducers: (builder) => {
@@ -97,22 +103,25 @@ export const getSongDataSlice = createSlice({
           };
           state.inforSong = data;
           state.isPlaying = true;
+          state.playStatus = false;
           localStorage.setItem("idSongPlaying",id)
         } else {
           state.inforSong = { ...state.inforSong, isLoading: false, isError:true };
           state.isPlaying = false;
+          state.playStatus = false;
 
         }
       })
       .addCase(fetchSongPlaying.rejected, (state, action) => {
         state.inforSong = { ...state.inforSong, isLoading: false,isError:true  };
         state.isPlaying = false;
+        state.playStatus = false;
 
       });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { decrement, increment,update,reset} = getSongDataSlice.actions
+export const { decrement, increment,update,reset,toPlay} = getSongDataSlice.actions
 
 export default getSongDataSlice.reducer;

@@ -1,0 +1,11 @@
+-Quên mật khẩu:
++ Điền email or tên tk , nhấn quên mật khẩu.
++ Gửi OTP qua email của tk đó.
++ Chuyển sang trang nhập OTP
++ Mỗi OTP tồn tại trong 3p, có thể gửi lại OTP 3 lần trong khi OTP còn tồn tại.
++ Nếu nhập đúng chuyển qua trang reset password 
++ Mật khẩu mới phải khác pass cũ
++ cập nhật xong chuyển qua trang login.
+** Nếu tự dô trang OTP or reset password mà k có cookies thì k làm dc gì cả.
+
+-

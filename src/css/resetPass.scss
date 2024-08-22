@@ -1,0 +1,54 @@
+.reset-pass {
+    background-color: #162a45;
+    position: relative;
+    height: 100vh;
+
+    h1 {
+        color: #fff;
+        font-size: 30px;
+    text-align: center;
+
+    }
+
+    form {
+        background-color: #102037;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -55%);
+        width: 45%;
+        height: auto;
+        padding: 30px 50px;
+        border-radius: 10px;
+
+        .list_nav_item {
+            background-color: #5498ff;
+            transition: color 0.5s;
+            font-size: 17px;
+            font-weight: 500;
+            display: flex;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+
+
+            &:hover {
+                background: #4680d7;
+                transition: linear 0.2s all;
+            }
+        }
+        label{
+            color: #fff !important;
+            font-size: 18px !important;
+        }
+        span{
+            color: red !important;
+            font-size: 15px;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import "../css/mainpage.scss";
 import { useSelector } from "react-redux";
 
@@ -13,8 +13,6 @@ import Top100 from "../components/pages/top100";
 import HubPage from "../components/pages/hubPage";
 import HubItem from "../components/pages/hubItem";
 import Profile from "../components/pages/profile/profilepage";
-import LoginPage from "../components/pages/loginpage";
-import RegisterPage from "../components/pages/register";
 import LoginPageGG from "../components/pages/loginGG"
 
 // layout
@@ -25,16 +23,15 @@ import Bottombar from "../components/sideNavigation/Bottombar";
 
 // component
 
-import ListCard from "../components/card/ListCard";
 import Rating from "../components/pages/Rating";
 import SearchPage from "../components/pages/searchpage";
-import Rating_week from "../components/pages/rating_week";
+import RatingWeek from "../components/pages/rating_week";
+import { useLocation } from 'react-router-dom';
 
-import ThemeContext from "../lib/Context/ThemeContext";
 // import { height } from "@mui/system";
 
 const AppRoutes = (props) => {
-    const { theme } = useContext(ThemeContext);
+    const theme = useSelector((state) => state.theme.theme);
     useEffect(() => {
         document.body.setAttribute("data-theme", theme);
     }, [theme]);
@@ -45,7 +42,11 @@ const AppRoutes = (props) => {
     );
 
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+    const { pathname } = useLocation();
 
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
     return (
         <>
             <RightSidebar />
@@ -67,7 +68,7 @@ const AppRoutes = (props) => {
                         <Route
                             path="/rating_week/:id"
                             exact
-                            element={<Rating_week />}
+                            element={<RatingWeek />}
                         />
                         <Route path="/top100" element={<Top100 />} />
                         <Route path="/hub" element={<HubPage />} />
@@ -78,17 +79,7 @@ const AppRoutes = (props) => {
                         />
 
                         {/* //authentication */}
-                        <Route
-                            path="/login"
-                            element={
-                                isAuthentication &&
-                                isAuthentication.isAuthenticated === true ? (
-                                    <Navigate to="/" />
-                                ) : (
-                                    <LoginPage />
-                                )
-                            }
-                        />
+                       
                         <Route
                             path="/login-gg-success/:id"
                             element={
@@ -100,8 +91,7 @@ const AppRoutes = (props) => {
                                 )
                             }
                         />
-                        <Route path="/register" element={<RegisterPage />} />
-
+                        
                         <Route
                             path="/profile/*"
                             element={<PrivateRoutes component={Profile} />}

@@ -10,12 +10,17 @@ import Release from "../../components/card/release";
 import HomeRating from "../../components/card/Home_ rating";
 import Loading from "../sideNavigation/mascot_animation";
 import { getHistory } from "../../controller/history"
-
+import { useLocation } from 'react-router-dom';
 const HomePage = () => {
     const homeData = useSelector((state) => state.home.isLoading);
 
     const dispatch = useDispatch();
     const [playlistsData, setPlaylistsData] = useState([])
+    const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
     useEffect(() => {
         if (homeData) {
             dispatch(fetchHome());

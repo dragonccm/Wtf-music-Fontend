@@ -9,21 +9,20 @@ import 'reactjs-popup/dist/index.css';
 // import { faCirclePlayFull } from '@fortawesome/free-solid-svg-icons'
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
-import { fetchPlayList, randomSongs} from '../../redux/slide/playlistSlice'
+import { fetchPlayList} from '../../redux/slide/playlistSlice'
 import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
 
 import { playlistroute } from "../../controller/playlist";
 import Like_heart from "../card/like";
 import { deleteplaylistService } from "../../services/deleteMyPlaylist"
-import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-
+import "../../css/list_card.scss";
 import "../../css/card.scss";
 const Card = ({ playlist, isOw, limit,isDes }) => {
     const dispatch = useDispatch();
     const currData = useSelector((state) => state.Authentication);
-    const playlistNow = useSelector((state) => state.playlist.playlist);
+    // const playlistNow = useSelector((state) => state.playlist.playlist);
     const slicedData = limit ? playlist : playlist.slice(0, 5);
 
     const handlePlayPlaylist = async (e, id) => {
@@ -42,7 +41,7 @@ const Card = ({ playlist, isOw, limit,isDes }) => {
         if (response && response.EC === '0') {
             toast.success('Xóa thành công');
             // Remove the deleted playlist from the playlist array
-            const updatedPlaylist = playlist.filter(item => item.playlistId !== id);
+            // const updatedPlaylist = playlist.filter(item => item.playlistId !== id);
             dispatch(getUserPl()); // Update the state with the new playlist array
         } else {
             toast.error('Xóa thất bại');

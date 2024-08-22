@@ -1,6 +1,5 @@
 import instance from "../../setup/axios";
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import ThemeContext from "../../lib/Context/ThemeContext";
+import React, { useState, useEffect, useCallback } from "react";
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
@@ -18,11 +17,10 @@ import { logouter } from "../../redux/slide/AuthenticationSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import SongCard from "../card/song_card";
-const Header_Admin = () => {
+const HeaderAdmin = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
-    const { toggleTheme } = useContext(ThemeContext);
 
     const dispatch = useDispatch();
 
@@ -37,9 +35,9 @@ const Header_Admin = () => {
         }
     }, []);
 
-    const handleFocus = useCallback((event) => {
-        setIsVisible(true);
-    }, []);
+    // const handleFocus = useCallback((event) => {
+    //     setIsVisible(true);
+    // }, []);
 
     // Assuming that 'debounce' does not require any state or props, we can define it outside the component
     // or just remove its useCallback wrapper if no dependency will ever be included.
@@ -257,7 +255,7 @@ const Header_Admin = () => {
                                 <div className="login_btn">
                                     <NavLink to="/login" className="">
                                         Đăng nhập
-                                        <img src="https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.10.13/static/media/user-default.3ff115bb.png"></img>
+                                        <img alt="" src="https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.10.13/static/media/user-default.3ff115bb.png"></img>
                                     </NavLink>
                                 </div>
                             </div>
@@ -269,4 +267,4 @@ const Header_Admin = () => {
     );
 };
 
-export default Header_Admin;
+export default HeaderAdmin;

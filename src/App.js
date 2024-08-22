@@ -4,11 +4,16 @@ import AdminRoutes from "./router/adminRouter";
 
 // react route
 import { BrowserRouter as Router } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import CheckAdminRoutes from "./router/checkAdminRoutes";
 import CheckBan from "./router/checkBan";
+import OTPInput from "./components/pages/OTP_forgetPass";
+import ResetPass from "./components/pages/resetPass";
+import LoginPage from "./components/pages/loginpage";
+import RegisterPage from "./components/pages/register";
+
 // rovider
-import ThemeProvider from "./lib/provider/ThemeProvider";
+
 import SongDataProvider from "./lib/provider/SongDataProvider";
 import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
 
@@ -31,41 +36,74 @@ function App(props) {
     }
   }, []);
 
-
+  const isAuthentication = useSelector(
+    (state) => state.Authentication.defaultUser
+  );
   const Mainn = () => (
-    <ThemeProvider>
-      <div className="App">
-        <div className="main_content">
-          {/* <RightSidebar /> */}
-
-          <AppRoutes />
-          {/* <Bottombar  /> */}
-        </div>
-      </div>
-     
-    </ThemeProvider>
+    <div className="main_content">
+      <AppRoutes />
+    </div>
   );
   return (
     <>
-      <SongDataProvider>
-        <Router>
-          <Routes>
-            {/* {isAuthentication && isAdmin && (
-              <Route path="/admin/*" element={<AdminRoutes />} />
-            )} */}
-            <Route
-              path="/admin/*"
-              element={<CheckAdminRoutes component={AdminRoutes} />}
-            />
-            <Route
-              path="/*"
-              element={<CheckBan component={Mainn} />}
-            />
-            {/* <Route path="/*" element={<Mainn />} /> */}
-
-          </Routes>
-        </Router>
-      </SongDataProvider>
+      <div className="App">
+        <SongDataProvider>
+          <Router>
+            <Routes>
+              <Route
+                path="/admin/*"
+                element={<CheckAdminRoutes component={AdminRoutes} />}
+              />
+              <Route
+                path="/reset-password"
+                element={
+                  isAuthentication &&
+                  isAuthentication.isAuthenticated === true ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <ResetPass />
+                  )
+                }
+              />
+              <Route
+                path="/forgetPassword"
+                element={
+                  isAuthentication &&
+                  isAuthentication.isAuthenticated === true ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <OTPInput />
+                  )
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  isAuthentication &&
+                  isAuthentication.isAuthenticated === true ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <LoginPage />
+                  )
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  isAuthentication &&
+                  isAuthentication.isAuthenticated === true ? (
+                    <Navigate to="/" />
+                  ) : (
+                    <RegisterPage />
+                  )
+                }
+              />
+              <Route path="/*" element={<CheckBan component={Mainn} />} />
+              {/* <Route path="/*" element={<Mainn />} /> */}
+            </Routes>
+          </Router>
+        </SongDataProvider>
+      </div>
     </>
   );
 }

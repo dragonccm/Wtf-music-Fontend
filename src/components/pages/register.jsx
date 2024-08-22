@@ -5,6 +5,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "../../css/login_page.scss";
 import logo from "../../img/logo3 (1).png";
+import logo_fb from "../../img/logo-fb.png";
+
 import logo_gg from "../../img/logo-gg.png";
 import bg from "../../img/bg-login.avif";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -12,13 +14,17 @@ const RegisterPage = () => {
     const navigate = useNavigate();
 
     const [ispass, setIsPass] = useState(true);
+    const [isCpass, setIsCPass] = useState(true);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPass, setConfirmPass] = useState("");
+
     const [email, setEmail] = useState("");
     const [titleValid, setTitleValid] = useState("");
     const defaultValidInput = {
         isValidUser: true,
         isValidPassword: true,
+        isValidConfirmPassword: true,
         isValidEmail: true,
     };
     const [objCheckInput, setObjCheckInput] = useState(defaultValidInput);
@@ -30,7 +36,23 @@ const RegisterPage = () => {
             setIsPass(true);
         }
     };
+    const handleIsCPass = () => {
+        if (isCpass) {
+            setIsCPass(false);
+        } else {
+            setIsCPass(true);
+        }
+    };
+    const handleLoginGG = (event) => {
+        event.preventDefault();
 
+        window.location.href = 'http://localhost:6969/api/google';
+    }
+    const handleLoginFb = (event) => {
+        event.preventDefault();
+
+        window.location.href = 'http://localhost:6969/api/facebook';
+    }
     const handleRegister = async (e) => {
         e.preventDefault();
         let check = isValid();
@@ -84,12 +106,20 @@ const RegisterPage = () => {
             setObjCheckInput({ ...defaultValidInput, isValidPassword: false });
 
             return false;
+        }else if (!confirmPass) {
+            setTitleValid("Hãy nhập lại mật khẩu !");
+            setObjCheckInput({ ...defaultValidInput, isValidConfirmPassword: false });
+            return false;
+        } else if (password!==confirmPass) {
+            setTitleValid("Mật khẩu không trùng khớp !");
+            setObjCheckInput({ ...defaultValidInput, isValidConfirmPassword: false });
+            return false;
         }
 
         return true;
     };
     return (
-        <>
+        <div className="loginPage">
             <div className="mod">
                 <div className="form-con">
                     <form action="" className="signup_form">
@@ -179,6 +209,44 @@ const RegisterPage = () => {
 
                             
                         </div>
+                        <div className="password">
+                            <div className="pass_wrap">
+                                <input
+                                    placeholder="Nhập lại mật khẩu"
+                                    className={
+                                        objCheckInput.isValidConfirmPassword
+                                            ? "pass input_form_text"
+                                            : "pass input_form_text is-invalid"
+                                    }
+                                    name="pass"
+                                    type={isCpass ? "password" : "text"}
+                                    value={confirmPass}
+                                    onChange={(event) => {
+                                        setConfirmPass(event.target.value)
+                                        if (objCheckInput.isValidConfirmPassword === false) {
+                                            setTitleValid('')
+                                            setObjCheckInput({ ...defaultValidInput, isValidConfirmPassword: true });
+                                        }
+                                    }
+                                    }
+                                />
+                                {isCpass ? (
+                                <FontAwesomeIcon
+                                    icon={faEyeSlash}
+                                    onClick={handleIsCPass}
+                                />
+                            ) : (
+                                <FontAwesomeIcon
+                                    icon={faEye}
+                                    onClick={handleIsCPass}
+                                />
+                            )}
+                            </div>
+                                {!objCheckInput.isValidConfirmPassword && <span>{titleValid}</span>}
+
+
+                            
+                        </div>
 
                         <div className="form_button">
                             <button
@@ -188,10 +256,16 @@ const RegisterPage = () => {
                                 SIGN UP
                             </button>
                             <p>Or Sign up with</p>
-                            <button className="signin_gg form_btn gg_btn">
-                                <img src={logo_gg} alt="avt-gg"></img>
-                                <span>Google</span>
-                            </button>
+                            <div className="group_btn d-flex">
+                                <button className="signin_gg form_btn gg_btn" onClick={(e) => handleLoginGG(e)}>
+                                    <img src={logo_gg} alt="avt-gg"></img>
+                                    <span>Google</span>
+                                </button>
+                                <button className="signin_gg signin_fb form_btn gg_btn" onClick={(e) => handleLoginFb(e)}>
+                                    <img src={logo_fb} alt="avt-gg"></img>
+                                    <span>Facebook</span>
+                                </button>
+                            </div>
                         </div>
                         <div className="change_page_text">
                             Bạn chưa có tài khoản?
@@ -205,8 +279,20 @@ const RegisterPage = () => {
                 </div>
                 <img className="bg_login" src={bg} alt="" />
             </div>
-           
-        </>
+            <ToastContainer
+                style={{ fontSize: "16px" }}
+                position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            </div>
     );
 };
 export default RegisterPage;

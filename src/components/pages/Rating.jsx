@@ -12,6 +12,7 @@ import { fetchRating } from "../../redux/slide/ratingSlice";
 
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+import SongCard2 from "../card/song_card2";
 
 const Rating = () => {
 
@@ -56,9 +57,9 @@ const Rating = () => {
   return (
     <>
       {RTChart_items && Array.isArray(RTChart_items) && Array.isArray(week_vn) && Array.isArray(week_us) && Array.isArray(week_korea) ?
-        ( <div>
+        (<div>
           <Loading />
-      </div>) :
+        </div>) :
         (<section className="rating_main">
           <Recommended
             datas={RTChart_items}
@@ -133,6 +134,16 @@ const Rating = () => {
                       </div>
                       <div className="total_time">{data.total_time}</div>
                     </div>
+                    // <div className="week_rating_card" key={'haha' + innerIndex}>
+                    // <SongCard2
+                    //   key={innerIndex} // Thêm key ở đây
+                    //   data={data}
+                    //   rating={{
+                    //     israting: true,
+                    //     index: innerIndex
+                    //   }}
+                    //   />
+                    //   </div>
                   ))}
                   <NavLink
                     to={

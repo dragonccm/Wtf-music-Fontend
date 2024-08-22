@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "../../css/Detailed_list.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faSquarePlus, faShare, faLink,faPlay, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faSquarePlus, faShare, faLink, faPlay, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 // redux
 import { useEffect } from "react";
 import { fetchPlayList, randomSongs } from '../../redux/slide/playlistSlice'
@@ -77,7 +79,6 @@ const Playlistpage = () => {
     }
   };
 
-  const mysong = currData.defaultUser.account.likedPlayLists
   return (
     // <></>
     <section className="detailed_list">
@@ -98,6 +99,8 @@ const Playlistpage = () => {
               <div className="info">
 
                 <div className="playlist_info_item">
+                  <span className="user_name">Cập nhật: {moment(playlist.playlist.updatedAt).format('DD.MM.YYYY')}</span>
+
                   {/* <span className="user_name">{playlist.artistsNames}</span> */}
                   {/* <span className="total_song"> {playlist.song.total} bài hát</span> */}
                   <span className="total_time"> {playlist.playlist.like > 1000 ? playlist.playlist.like / 1000 + 'k' : playlist.playlist.like} người yêu thích</span>
@@ -136,8 +139,9 @@ const Playlistpage = () => {
                     idSongs={playlist.song.map((item) => {
                       return item.id
                     })} /></button>
-
-                  <button className="menu-item"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
+                  <CopyToClipboard text={"http://localhost:3000/playlist/" + playlist.playlist.playlistId}>
+                    <button className="menu-item copy"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
+                  </CopyToClipboard>
                   <button className="menu-item"><FontAwesomeIcon icon={faShare} /> Chia sẻ</button>
                 </div>
               </Popup>
@@ -147,10 +151,10 @@ const Playlistpage = () => {
 
         <div className="list_body">
           <section className="description">
-            <p>Lời tựa</p>
-            <span>
-              {playlist.sortDescription}
-            </span>
+            <p>Lời tựa <span>
+              {playlist.playlist.description}
+            </span></p>
+
           </section>
           <div className="list">
             {playlist.song.map((data, index) => (

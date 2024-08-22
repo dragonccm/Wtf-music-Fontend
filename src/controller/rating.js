@@ -6,7 +6,10 @@ const getRating = () => {
 const getRankCliend = () => {
     return axios.get(`/api/getRankCliend`)
 }
+const addRanking = async(id) => {
+    return await axios.post(`/api/addRanking`,{id})
+}
 
 export {
-    getRating,getRankCliend
+    getRating,getRankCliend,addRanking
 }

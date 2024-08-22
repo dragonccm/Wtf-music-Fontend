@@ -5,7 +5,8 @@ import { NavLink } from "react-router-dom";
 import '../../css/songcard.scss';
 import Play_animation from "./play_animation"
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPlayList,randomSongs } from '../../redux/slide/playlistSlice'
+import { fetchPlayList, randomSongs } from '../../redux/slide/playlistSlice'
+import { toPlay } from '../../redux/slide/songPlayingSlice'
 
 const SongCard = ({ element }) => {
   const dispatch = useDispatch();
@@ -13,23 +14,28 @@ const SongCard = ({ element }) => {
 
   const dataf = useSelector((state) => state.playlist.playlist);
 
-  const handlePlaying = async(e, id) => {
+  const handlePlaying = async (e, id) => {
     e.preventDefault();
     const song = dataf && dataf.song && dataf.song.find(item => item.id === id);
-    if (song) {
-      console.log(`ID ${id} trùng với một bài hát trong playlist.`);
+    if (songInfo.infor.id === id) {
+      dispatch(toPlay());
     } else {
-      await dispatch(fetchPlayList({ id: id, type: 'ok' }));
-      if (JSON.parse(localStorage.getItem('isRandom'))) {
-        await dispatch(randomSongs())
-    }
-      localStorage.setItem('playlistRelate','true')
+      if (song) {
+        console.log(`ID ${id} trùng với một bài hát trong playlist.`);
+      } else {
+        await dispatch(fetchPlayList({ id: id, type: 'ok' }));
+        if (JSON.parse(localStorage.getItem('isRandom'))) {
+          await dispatch(randomSongs())
+        }
+        localStorage.setItem('playlistRelate', 'true')
 
-      console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
+        console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
+      }
+      dispatch(fetchSongPlaying(id));
     }
-    dispatch(fetchSongPlaying(id));
   }
   const songInfo = useSelector((state) => state.getSongData.inforSong);
+  const playing = useSelector((state) => state.getSongData.playStatus);
 
   return (
     <div className="song_card">
@@ -37,7 +43,7 @@ const SongCard = ({ element }) => {
       <div className="playlist_item_img">
 
         <img src={element.thumbnail ? element.thumbnail : currData.defaultUser.account.avt} alt="song" />
-        {element.id === songInfo.infor.id ?
+        {element.id === songInfo.infor.id && playing ?
           <Play_animation />
           :
 
