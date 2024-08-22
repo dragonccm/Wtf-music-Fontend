@@ -23,34 +23,12 @@ import SongAdmin from "../components/pages/admin/songs";
 
 const AdminRoutes = (props) => {
   // get state from redux
-  
+
   const theme = useSelector((state) => state.theme.theme);
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
   }, [theme]);
 
-    return (
-        <div style={{ height: "100vh" }} className="main_content">
-            <NavigationBar />
-            <div className="main_page">
-                <Header_Admin />
-                <section
-                    style={{
-                        paddingTop: "120px",
-                    }}
-                    className="main_page_container bg-white"
-                >
-                    <Routes>
-                        <Route path="/category" element={<CategoryAdmin />} />
-                        <Route path="/playlist" element={<PlaylistAdmin />} />
-                        <Route path="/user" element={<UserAdmin />} />
-                        <Route path="/comment" element={<CommentAdmin />} />
-                        <Route path="/singer" element={<SingerAdmin />} />
-                        <Route
-                            path="/chart"
-                            element={<Chart />}
-                        />
-                        <Route path="/song" element={<SongAdmin />} />
   return (
     <div style={{ height: "100vh" }} className="main_content">
       <NavigationBar />
@@ -67,13 +45,11 @@ const AdminRoutes = (props) => {
             <Route path="/user" element={<UserAdmin />} />
             <Route path="/comment" element={<CommentAdmin />} />
             <Route path="/singer" element={<SingerAdmin />} />
-            <Route path="/playlistchart" element={<PlaylistChart />} />
-            <Route path="/songchart" element={<SongChart />} />
+            <Route path="/chart" element={<Chart />} />
             <Route path="/song" element={<SongAdmin />} />
-
-            <Route path="/*" element={<HomeAdmin />} />
           </Routes>
         </section>
+        
       </div>
     </div>
   );
