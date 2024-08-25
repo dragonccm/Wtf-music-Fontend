@@ -30,7 +30,7 @@ const AdminRoutes = (props) => {
   }, [theme]);
 
   return (
-    <div style={{ height: "100vh" }} className="main_content">
+    <div style={{ height: "100vh" }} className="main_content" >
       <NavigationBar />
       <div className="main_page">
         <HeaderAdmin />
@@ -40,6 +40,7 @@ const AdminRoutes = (props) => {
           }}
           className="main_page_container bg-white">
           <Routes>
+            <Route path="/" element={<HomeAdmin />} />
             <Route path="/category" element={<CategoryAdmin />} />
             <Route path="/playlist" element={<PlaylistAdmin />} />
             <Route path="/user" element={<UserAdmin />} />

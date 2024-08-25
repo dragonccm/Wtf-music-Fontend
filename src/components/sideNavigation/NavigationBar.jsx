@@ -58,7 +58,7 @@ const NavigationBar = () => {
                     >
                         <Nav className="me-auto list_nav">
                             <NavLink
-                                to="/admin/dashboard"
+                                to="/admin"
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">

@@ -85,7 +85,7 @@ const AppRoutes = (props) => {
                             element={
                                 isAuthentication &&
                                 isAuthentication.isAuthenticated === true ? (
-                                    <Navigate to="/hahaah" />
+                                    <Navigate to="/" />
                                 ) : (
                                     <LoginPageGG />
                                 )
