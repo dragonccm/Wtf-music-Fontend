@@ -19,6 +19,7 @@ import Chart from "../components/pages/admin/chart";
 import CategoryAdmin from "../components/pages/admin/categorys";
 import PlaylistAdmin from "../components/pages/admin/playlists";
 import SongAdmin from "../components/pages/admin/songs";
+import AdminUpload from "../components/pages/admin/adminUpload";
 // import { height } from "@mui/system";
 
 const AdminRoutes = (props) => {
@@ -48,6 +49,7 @@ const AdminRoutes = (props) => {
             <Route path="/singer" element={<SingerAdmin />} />
             <Route path="/chart" element={<Chart />} />
             <Route path="/song" element={<SongAdmin />} />
+            <Route path="/adminupload" element={<AdminUpload />} />
           </Routes>
         </section>
         
