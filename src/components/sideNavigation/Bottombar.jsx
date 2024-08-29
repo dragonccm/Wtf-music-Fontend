@@ -67,7 +67,8 @@ const Bottombar = () => {
   const playerRef = useRef();
   const dispatch = useDispatch();
 
-  const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1724481865~acl=/98e8764e0a8866d5a22ad5f5156cbb7b/*~hmac=5550920e955fcac1304c160c1b3b6fcd')
+  const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1725102704~acl=/96def8368227f4490f4b3baf24e52be2/*~hmac=5ce6953cafee7de7f2b3e9520fc3d0ca')
+
 
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   const minutesOptions = Array.from({ length: 60 }, (_, i) => i + 1);
