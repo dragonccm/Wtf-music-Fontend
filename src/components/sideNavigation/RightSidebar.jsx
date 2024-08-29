@@ -118,8 +118,9 @@ const RightSidebar = () => {
                             </NavLink>
                             <NavLink
                                 to="/profile/mymusic"
-                                isActive={isActive}
-                                className="nav-link list_nav_item"
+                                className={( isActive ) =>
+                                    isActive ? "active nav-link list_nav_item" : "nav-link list_nav_item"
+                                  }
                             >
                                 <div className="icon_list_nav_item">
                                     <ReactSVG

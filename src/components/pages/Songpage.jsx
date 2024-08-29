@@ -1,34 +1,25 @@
 import "../../css/Songpage.scss";
-import Rating from "@mui/material/Rating";
-import Stack from "@mui/material/Stack";
+import React, { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
+
 import "reactjs-popup/dist/index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlay, faShare } from "@fortawesome/free-solid-svg-icons";
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
-import {
-    faHeart,
-    faSquarePlus,
-    faPlay,
-    faLink,
-} from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useState } from "react";
+import { faCirclePlay, faShare, faLink, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
-// import { fetchPlayList } from '../../redux/slide/playlistSlice'
-import { fetchPageSong } from "../../redux/slide/songPageSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
-// import ListCard from "../card/ListCard";
 import Loading from "../sideNavigation/mascot_animation";
 import Card from "../card/playlist_card";
 import CreatePlaylist from "../card/createPlaylist";
 import Like_heart from "../card/like";
 import Col3Layout from "../card/col_3_layout";
+import Comments from "../card/comment/comments";
 import {
     reportComment,
     createComment,
-    getComment,
+
 } from "../../services/restcomment_service";
+import { getComment } from '../../controller/restcomment.controller'
 import { songPage } from "../../controller/song";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -41,46 +32,18 @@ const Songpage = () => {
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(false);
     const isAuthentication = useSelector((state) => state.Authentication.defaultUser);
-    const handleSubmitComment = async (event) => {
-        setLoading(true);
-        event.preventDefault();
-        const newComment = event.target.opinion.value;
-        if (newComment) {
-            await createComment({ comments: newComment, id, userId: isAuthentication.account.id });
-            setLoading(false);
 
-            event.target.opinion.value = "";
-        }
-    };
 
-    const handleKeyDown = (event) => {
-        event.preventDefault();
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault();
-            handleSubmitComment(event);
-        }
-    };
+
+
+
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetchSongPage(id);
-            setData(response);
-        };
-
-        fetchData();
-
+        console.log('hahah');
 
         const getComments = async (id) => {
-            const response = await getComment(id,isAuthentication.account.id);
-            setComments(response.DT);
-        };
-        getComments(id);
-    }, []);
+            const response = await getComment(id);
 
-    useEffect(() => {
-        const getComments = async (id) => {
-            const response = await getComment(id,isAuthentication.account.id);
-            setComments(response.DT);
         };
         getComments(id);
     }, [loading]);
@@ -93,8 +56,7 @@ const Songpage = () => {
 
         fetchData();
         const getComments = async (id) => {
-            const response = await getComment(id,isAuthentication.account.id);
-            setComments(response.DT);
+            const response = await getComment(id);
         };
         getComments(id);
     }, [id]);
@@ -130,7 +92,7 @@ const Songpage = () => {
         dispatch(fetchSongPlaying(id));
     };
     const handleReport = async (id) => {
-        const res = await reportComment(id,isAuthentication.account.id);
+        const res = await reportComment(id, isAuthentication.account.id);
         if (res.EC === "0") {
             toast.success(res.EM);
         } else if (res.EC === "2") {
@@ -231,7 +193,13 @@ const Songpage = () => {
             </div>
 
             <div className="p-5 mt-5 song_user-rating">
-                <div
+                <Comments
+                    commentsUrl="http://localhost:3004/comments"
+                        currentUserId={isAuthentication.account.id}
+                        id={id}
+                />
+
+                {/* <div
                     style={{
                         width: "100%",
                         maxWidth: "100%",
@@ -300,7 +268,7 @@ const Songpage = () => {
                         ))}
                     </div>
 
-                    <form className="w-100" onSubmit={handleSubmitComment}>
+                    <form className="w-100" onSubmit={(event) => handleSubmitComment(event)}>
                         <div className="d-flex align-items-center justify-content-between handle_rating">
                             <img
                                 className="bg-light"
@@ -311,12 +279,12 @@ const Songpage = () => {
                                 placeholder="Để lại bình luận của bạn..."
                                 onKeyDown={() => handleKeyDown}
                             ></textarea>
-                            <div class="ms-3 btn-group">
-                                <button class="btn submit">Gửi</button>
+                            <div className="ms-3 btn-group">
+                                <button className="btn submit">Gửi</button>
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> */}
             </div>
             <ToastContainer
                 style={{ fontSize: "16px" }}

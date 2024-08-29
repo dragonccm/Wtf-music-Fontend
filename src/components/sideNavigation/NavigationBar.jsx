@@ -109,8 +109,9 @@ const NavigationBar = () => {
                             </NavLink>
                             <NavLink
                                 to="/admin/song"
-                                isActive={isActive}
-                                className="nav-link list_nav_item"
+                                className={({ isActive }) =>
+                                    isActive ? "active nav-link list_nav_item" : "nav-link list_nav_item"
+                                  }
                             >
                                 <div className="icon_list_nav_item">
                                     <ReactSVG
@@ -142,8 +143,9 @@ const NavigationBar = () => {
                             </NavLink>
                             <NavLink
                                 to="/admin/user"
-                                isActive={isActive}
-                                className="nav-link list_nav_item"
+                                className={({ isActive }) =>
+                                    isActive ? "active nav-link list_nav_item" : "nav-link list_nav_item"
+                                  }
                             >
                                 <div className="icon_list_nav_item">
                                     <ReactSVG
@@ -159,8 +161,9 @@ const NavigationBar = () => {
                             </NavLink>
                             <NavLink
                                 to="/admin/comment"
-                                isActive={isActive}
-                                className="nav-link list_nav_item"
+                                className={({ isActive }) =>
+                                    isActive ? "active nav-link list_nav_item" : "nav-link list_nav_item"
+                                  }
                             >
                                 <div className="icon_list_nav_item">
                                     <ReactSVG

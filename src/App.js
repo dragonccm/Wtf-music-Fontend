@@ -26,7 +26,7 @@ import { useEffect } from "react";
 
 function App(props) {
   const dispatch = useDispatch();
-
+  const prevPath = localStorage.getItem('prevPath') || '/';
   useEffect(() => {
     dispatch(fetchAuthentication());
     if (localStorage.getItem("idSongPlaying")) {
@@ -81,7 +81,7 @@ function App(props) {
                 element={
                   isAuthentication &&
                   isAuthentication.isAuthenticated === true ? (
-                    <Navigate to="/" />
+                    <Navigate to={prevPath} />
                   ) : (
                     <LoginPage />
                   )

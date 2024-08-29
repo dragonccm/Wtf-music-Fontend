@@ -10,6 +10,19 @@ const restComment = async (data,userId) => {
         }
     });
 }
+const getComment = async (id) => {
+    return axios.get(`/api/getComment/${id}`);
+}
+const editComment = async (data) => {
+    return axios.post(`/api/editComment`, {
+        data
+    });
+}
+const createComments = async (data) => {
+    return axios.post(`/api/createComment`, {
+        data
+    });
+}
 export {
-    restComment
+    restComment,getComment,editComment,createComments
 }

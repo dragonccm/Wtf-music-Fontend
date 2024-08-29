@@ -19,9 +19,9 @@ const createComment = async (inputdata ,userId) => {
         return null;
     }
 };
-const getComment = async (inputdata,userId) => {
+const getComment = async (id) => {
     try {
-        const data = await restComment({ data: inputdata,userId: userId , status: "read" })
+        const data = await getComment({ id })
         return data
     } catch (error) {
         console.error("Error loading Comment data:", error);

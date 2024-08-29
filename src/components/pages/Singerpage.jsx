@@ -30,18 +30,24 @@ const Singerpage = () => {
 
     return (
         <section className="main_artists">
-            <section className="main_artists_head">
-                <div className="artists_avt_ctn">
-                    <img src={currData.avt} alt="f" />
+            <div className="artist-hero">
+                <div className="blur-container">
+                    <div class="blur" style={{backgroundImage: `url(${currData.avt})`}}></div>
+                    <div class="bg-alpha"></div>
                 </div>
-                <div className="artists_if_ctn">
-                    <h1 className="artists_name">{currData.artistsName}</h1>
-                    {/* <p className="follower">
+                <section className="main_artists_head">
+                    <div className="artists_avt_ctn">
+                        <img src={currData.avt} alt="f" />
+                    </div>
+                    <div className="artists_if_ctn">
+                        <h1 className="artists_name">{currData.artistsName}</h1>
+                        {/* <p className="follower">
                         {currData.totalFollow} người quan tâm{" "}
                         <FontAwesomeIcon icon={faUser} />
                     </p> */}
-                </div>
-            </section>
+                    </div>
+                </section>
+            </div>
             <div className="for_you">
                 <h1>Bài Hát Nổi Bật</h1>
                 {currData && currData.songListId && currData.songListId[0] && <Col3Layout data={currData.songListId} />}
@@ -59,7 +65,7 @@ const Singerpage = () => {
                     ))}
                 </div> */}
             </div>
-            {currData.playListId && currData.playListId.length>0&& <div className="list_card">
+            {currData.playListId && currData.playListId.length > 0 && <div className="list_card">
                 <h1>Album</h1>
                 <Card playlist={currData.playListId} />
             </div>}

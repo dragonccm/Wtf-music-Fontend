@@ -3,7 +3,7 @@ import React, {  useState, useEffect, useCallback } from "react";
 import "../../css/Header.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faUser,
@@ -24,6 +24,7 @@ const Header = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [isVisible, setIsVisible] = useState(false);
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -193,7 +194,10 @@ const Header = () => {
             window.location.href = `/search/${event.target.value}`;
         }
     };
-
+    const handleRedirect = () => {
+        localStorage.setItem('prevPath', window.location.pathname)
+        navigate('/login')
+}
     return (
         <div className="Header">
             <div className="header_wrap">
@@ -256,8 +260,8 @@ const Header = () => {
                                 trigger={
                                     <button className="avt_page">
                                         {isAuthentication.account.avt ?
-                                            <img src={isAuthentication.account.avt} alt="profile" /> :
-                                            <img src={logo} alt="profile" />
+                                            <img src={isAuthentication.account.avt} alt="profile" referrerPolicy="no-referrer"/> :
+                                            <img src={logo} alt="profile" referrerPolicy="no-referrer"/>
                                         }
 
                                     </button>
@@ -298,8 +302,8 @@ const Header = () => {
                             </Popup>
                         ) : (
                             <div className="group_authentication">
-                                <div className="login_btn">
-                                    <NavLink to="/login" className="">
+                                <div className="login_btn" onClick={()=>handleRedirect()}>
+                                    <NavLink to="#" className="">
                                         Đăng nhập
                                         <img alt="" src="https://zjs.zmdcdn.me/zmp3-desktop/releases/v1.10.13/static/media/user-default.3ff115bb.png"></img>
                                     </NavLink>

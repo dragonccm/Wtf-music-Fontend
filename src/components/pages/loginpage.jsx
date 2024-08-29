@@ -25,7 +25,8 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const [checkRemember, setCheckRemember] = useState(false);
     const [titleValid, setTitleValid] = useState("");
-
+    const prevPath = localStorage.getItem('prevPath') || '/';
+    console.log(prevPath);
     const navigate = useNavigate();
     const defaultValidInput = {
         isValidValueLogin: true,
@@ -84,7 +85,7 @@ const LoginPage = () => {
                 // console.log("ok");
                 dispatch(loginer(data));
                 dispatch(fetchAuthentication());
-                navigate("/");
+                navigate('/ppp');
             } else {
                 //   toast.error(serverData.EM);
                 setObjCheckInput({ ...defaultValidInput, isValidValueLogin: false, isValidPassword: false });

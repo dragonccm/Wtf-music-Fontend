@@ -43,7 +43,7 @@ const AppRoutes = (props) => {
 
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
     const { pathname } = useLocation();
-
+    const prevPath = localStorage.getItem('prevPath') || '/';
     useEffect(() => {
       window.scrollTo(0, 0);
     }, [pathname]);
@@ -85,7 +85,7 @@ const AppRoutes = (props) => {
                             element={
                                 isAuthentication &&
                                 isAuthentication.isAuthenticated === true ? (
-                                    <Navigate to="/hahaah" />
+                                        <Navigate to={prevPath} />
                                 ) : (
                                     <LoginPageGG />
                                 )

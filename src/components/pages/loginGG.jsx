@@ -14,6 +14,7 @@ const LoginPageGG = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const prevPath = localStorage.getItem('prevPath') || '/';
     const handleLogin = async () => {
 
             let response = await loginGG(id);
@@ -35,7 +36,7 @@ const LoginPageGG = () => {
                 // console.log("ok");
                 dispatch(loginer(data));
                 dispatch(fetchAuthentication());
-                navigate("/");
+                navigate(prevPath, { replace: true });
             } else {
                 //   toast.error(serverData.EM);
                 navigate("/login");
