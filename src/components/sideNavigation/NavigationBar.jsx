@@ -58,7 +58,7 @@ const NavigationBar = () => {
                     >
                         <Nav className="me-auto list_nav">
                             <NavLink
-                                to="/admin/dashboard"
+                                to="/admin"
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">
@@ -192,6 +192,23 @@ const NavigationBar = () => {
                                     />
                                 </div>
                                 <span>Thể loại</span>
+                            </NavLink>
+
+                            <NavLink
+                                to="/admin/adminupload"
+                                className="nav-link list_nav_item"
+                            >
+                                <div className="icon_list_nav_item">
+                                    <ReactSVG
+                                        beforeInjection={(svg) => {
+                                            svg.classList.add(
+                                                "icon_list_nav_item_svg"
+                                            );
+                                        }}
+                                        src={icon_Category}
+                                    />
+                                </div>
+                                <span>adminupload</span>
                             </NavLink>
                         </Nav>
                         {/* <Nav>   

@@ -19,6 +19,7 @@ import Chart from "../components/pages/admin/chart";
 import CategoryAdmin from "../components/pages/admin/categorys";
 import PlaylistAdmin from "../components/pages/admin/playlists";
 import SongAdmin from "../components/pages/admin/songs";
+import AdminUpload from "../components/pages/admin/adminUpload";
 // import { height } from "@mui/system";
 
 const AdminRoutes = (props) => {
@@ -30,7 +31,7 @@ const AdminRoutes = (props) => {
   }, [theme]);
 
   return (
-    <div style={{ height: "100vh" }} className="main_content">
+    <div style={{ height: "100vh" }} className="main_content" >
       <NavigationBar />
       <div className="main_page">
         <HeaderAdmin />
@@ -40,6 +41,7 @@ const AdminRoutes = (props) => {
           }}
           className="main_page_container bg-white">
           <Routes>
+            <Route path="/" element={<HomeAdmin />} />
             <Route path="/category" element={<CategoryAdmin />} />
             <Route path="/playlist" element={<PlaylistAdmin />} />
             <Route path="/user" element={<UserAdmin />} />
@@ -47,6 +49,7 @@ const AdminRoutes = (props) => {
             <Route path="/singer" element={<SingerAdmin />} />
             <Route path="/chart" element={<Chart />} />
             <Route path="/song" element={<SongAdmin />} />
+            <Route path="/adminupload" element={<AdminUpload />} />
           </Routes>
         </section>
         
