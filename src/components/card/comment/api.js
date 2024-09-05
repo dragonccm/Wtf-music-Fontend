@@ -1,10 +1,10 @@
 import {
   getComment,
   editComment,
-  createComments
+  createComments,deleteComments,reportComments
 } from "../../../controller/restcomment.controller";
-export const getComments = async (id) => {
-  const data = await getComment(id);
+export const getComments = async (id,page) => {
+  const data = await getComment(id,page);
   console.log(data);
   if (data.EC == "0") {
     return data.DT;
@@ -51,6 +51,21 @@ export const updateComment = async (data) => {
   }
 };
 
-export const deleteComment = async () => {
-  return {};
+export const deleteComment = async (id) => {
+  const data1 = await deleteComments(id);
+  console.log(data1);
+  if (data1.EC == "0") {
+    return data1.DT; 
+  } else {
+    return false;
+  }
+};
+export const reportComment = async (id) => {
+  const data1 = await reportComments(id);
+  console.log(data1);
+  if (data1.EC == "0") {
+    return data1; 
+  } else {
+    return false;
+  }
 };
