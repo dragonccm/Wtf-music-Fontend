@@ -1,6 +1,6 @@
 import CommentForm from "./commentForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReply, faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
+import { faReply, faEllipsisVertical,faChevronUp,faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 const Comment = ({
@@ -10,6 +10,7 @@ const Comment = ({
     activeComment,
     updateComment,
     deleteComment,
+    reportComment,
     addComment,
     parentId ,
     currentUserId,
@@ -24,8 +25,9 @@ const Comment = ({
         activeComment.type === "replying";
     // const fiveMinutes = 3000000;
     // const [timePassed, setTimePassed] = useState(false);
+    const [hidenReply,setHidenReply] = useState(false);
     const canDelete =
-        currentUserId === comment.userId && replies.length === 0 ;
+        currentUserId === comment.userId && (!replies ||replies.length === 0) ;
     const canReply = Boolean(currentUserId);
     const canEdit = currentUserId === comment.userId ;
     const replyId = parentId ? parentId : comment._id;
@@ -94,7 +96,9 @@ const Comment = ({
                                         Ẩn
                                     </div>
                                 )}
-                                <div className="menu-item"> Báo cáo</div>
+                                <div className="menu-item comment-action"
+                                onClick={() => reportComment(comment._id)}
+                                > Báo cáo</div>
                                 
                             </div>
                         </Popup>
@@ -128,13 +132,18 @@ const Comment = ({
                 {isReplying && (
                     <CommentForm
                         submitLabel="Reply"
-                        handleSubmit={(text) => addComment(text, replyId)}
+                        handleSubmit={(text) => addComment(text, replyId,'reply')}
                         handleCancel={() => {
                             setActiveComment(null);
                         }}
                     />
                 )}
-                {replies.length > 0 && (
+                {replies&&replies.length > 0  && (
+                    <div className="replies">
+                        <p className="repstatus" onClick={() => setHidenReply(!hidenReply)}>{hidenReply ?<FontAwesomeIcon icon={faChevronUp}/>:<FontAwesomeIcon icon={faChevronDown} />} Xem { replies.length} phản hồi</p>
+                    </div>
+                )}
+                {replies&&replies.length > 0 && hidenReply && (
                     <div className="replies">
                         {replies.map((reply) => (
                             <Comment
@@ -144,6 +153,7 @@ const Comment = ({
                                 activeComment={activeComment}
                                 updateComment={updateComment}
                                 deleteComment={deleteComment}
+                                reportComment={reportComment}
                                 addComment={addComment}
                                 parentId={comment._id}
                                 replies={[]}
@@ -152,6 +162,7 @@ const Comment = ({
                         ))}
                     </div>
                 )}
+                
             </div>
         </div>
     );

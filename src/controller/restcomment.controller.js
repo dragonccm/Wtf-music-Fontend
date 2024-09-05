@@ -10,8 +10,8 @@ const restComment = async (data,userId) => {
         }
     });
 }
-const getComment = async (id) => {
-    return axios.get(`/api/getComment/${id}`);
+const getComment = async (id,page) => {
+    return axios.get(`/api/getComment/${id}/${page}`);
 }
 const editComment = async (data) => {
     return axios.post(`/api/editComment`, {
@@ -23,6 +23,12 @@ const createComments = async (data) => {
         data
     });
 }
+const deleteComments = async (id) => {
+    return axios.post(`/api/deleteComment`,{id});
+}
+const reportComments = async (id) => {
+    return axios.post(`/api/reportComment`,{id});
+}
 export {
-    restComment,getComment,editComment,createComments
+    restComment,getComment,editComment,createComments,deleteComments,reportComments
 }
