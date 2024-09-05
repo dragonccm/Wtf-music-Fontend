@@ -49,7 +49,7 @@ const AdminRoutes = (props) => {
             <Route path="/singer" element={<SingerAdmin />} />
             <Route path="/chart" element={<Chart />} />
             <Route path="/song" element={<SongAdmin />} />
-            <Route path="/adminupload" element={<AdminUpload />} />
+            <Route path="/adminupload/:id" element={<AdminUpload />} />
           </Routes>
         </section>
         
