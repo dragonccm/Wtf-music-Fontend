@@ -25,7 +25,8 @@
 
       .ly_text {
         margin: 0 0.2rem;
-        .highlight_new{
+
+        .highlight_new {
           display: flex !important;
           flex-direction: row;
           justify-content: space-between;
@@ -40,29 +41,55 @@
           font-size: larger;
           background-color: rgb(90, 90, 90);
         }
+
         .new_ly {
           display: none;
-          .change_time{
-            padding: 0;
+          height: 7rem;
+          .change_time_ctn {
+            .change_time {
+              margin: 0;
+              border: none;
+              background-color: transparent;
+              color: wheat;
+              text-align: center;
+              width: 100%;
+              padding: 0.5rem;
+              background-color: #373131;
+              border-radius: 10px;
+              box-shadow: 2px 3px black;
+            }
+
+            .time_format {
+              padding: 0;
+              margin: 0;
+              border: none;
+              background-color: transparent;
+              color: wheat;
+            }
+          }
+
+          .save_change {
+            padding: 1rem;
             margin: 0;
             border: none;
-            background-color: transparent;
-            color: wheat;
-          } 
-          .save_change{
-            padding: 0;
-            margin: 0;
-            border: none;
-            background-color: transparent;
+            background-color: #c6c6c6;
             font-weight: 700;
             font-size: larger;
+            height: 100%;
+            border-radius: 4px;
+            transition: all 0.2s ease-in-out;
           }
-          .new_ly_input{
-            width:40% ;
+          .save_change:hover{
+            scale: 1.1;
+            background-color: #c8c8c857;
+          }
+
+          .new_ly_input {
+            width: 25%;
             height: 100%;
             background-color: rgb(193, 193, 193);
-            color: white;
-            font-size: 1.5rem;
+            color: black;
+            font-size: 2rem;
             font-weight: 500;
             border-radius: 5px;
             box-shadow: 1px 1px 5px 0px #888888;
@@ -73,14 +100,15 @@
           }
         }
       }
-      .highlight{
+
+      .highlight {
         background-color: rgb(90, 90, 90);
         border-radius: 5px;
         cursor: pointer;
         color: white;
         font-weight: 500;
       }
-      
+
       .ly_text:hover {
         background-color: rgb(90, 90, 90);
         border-radius: 5px;
@@ -88,6 +116,7 @@
         color: white;
         font-weight: 500;
       }
+
       .ly_text:hover .new_ly {
         display: flex;
         flex-direction: row;
@@ -132,6 +161,7 @@
           height: 100%;
           justify-content: space-between;
           margin-left: 20px;
+
           .edit_body_info_text_title {
             font-size: 3rem !important;
             padding: 5px;

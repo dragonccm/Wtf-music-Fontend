@@ -89,30 +89,53 @@ const AdminUpload = () => {
     };
 
 
-    const handleInputChange = (e, word) => {
-        const { name, value } = e.target;
-        console.log(name, value);
-        setEditedWord({
-            ...word,
-            [name]:  name === "startTime" || name ==="endTime" ? Number(value) : value,
+    const handleInputChange = (e, wordId, fieldName, lineIndex) => {
+        const newValue = e.target.value;
+        // Cập nhật dữ liệu với giá trị mới dựa trên từ chỉ định và trường
+        setData(data => {
+            const newData = { ...data }; // Tạo bản sao mới của state để tránh thay đổi trực tiếp
+            const line = newData.lyric[lineIndex]; // Tìm dòng chứa từ cần sửa
+            const wordIndex = line.words.findIndex(w => w._id === wordId); // Tìm chỉ mục của từ trong dòng
+            if (wordIndex > -1) {
+                // Cập nhật từ tại chỉ mục tìm thấy
+                line.words[wordIndex] = { ...line.words[wordIndex], [fieldName]: fieldName === 'startTime' || fieldName === 'endTime' ? parseInt(newValue, 10) : newValue };
+            }
+            console.log(newData);
+            return newData; // Trả về dữ liệu mới để cập nhật state
         });
     };
-
     const handleSave = async (word) => {
-        console.log(word);
         try {
+            // Đảm bảo rằng bạn chỉ gửi dữ liệu cần thiết và cấu trúc dữ liệu phù hợp với yêu cầu của API.
+            // Ví dụ: Nếu API chỉ yêu cầu 'startTime', 'endTime', và 'data', hãy tạo một đối tượng mới chỉ bao gồm những trường đó.
+            const wordData = {
+                startTime: word.startTime,
+                endTime: word.endTime,
+                data: word.data,
+                // Đảm bảo thêm bất kỳ trường nào khác mà API của bạn cần
+            };
+            console.log(wordData);
+    
             const response = await fetch('http://wtfmusic.vercel.app/api/updatelyric', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(word),
+                body: JSON.stringify(wordData), // Sử dụng wordData đã được chế biến
             });
+    
             if (!response.ok) {
+                // Bạn cũng có thể muốn kiểm tra cho các mã lỗi cụ thể từ API để xử lý chúng một cách cẩn thận hơn
                 throw new Error('Failed to update lyric');
             }
+    
+            // Xử lý thành công, ví dụ: cập nhật UI, hiển thị thông báo,...
+            console.log('Lyric updated successfully');
+    
         } catch (error) {
             console.error('Error updating lyric:', error);
+            
+            // Xử lý khi có lỗi, ví dụ: hiển thị thông báo lỗi cho người dùng
         }
     };
 
@@ -138,7 +161,7 @@ const AdminUpload = () => {
 
             <div className="edit_body">
                 <div className="edit_body_lyrics">
-                    {data.lyric.map((line) => (
+                    {data.lyric.map((line, lineIndex) => (
                         <div key={line._id}>
                             {line.words.map((word) => (
                                 <span
@@ -147,31 +170,40 @@ const AdminUpload = () => {
                                 >
                                     {word.data}
                                     <div className={`new_ly ${currentTime >= word.startTime / 1000 && currentTime <= word.endTime / 1000 ? 'highlight_new' : ''}`}>
-                                        <input
-                                            type="time"
-                                            className="change_time"
-                                            defaultValue={word.startTime}
-                                            name="startTime"
-                                            onChange={(e) => handleInputChange(e, word)}
-                                        />
+                                        <div className="change_time_ctn">
+                                            <div className="time_format">
+                                                {formatTime(word.startTime / 1000)} giây
+                                            </div>
+                                            <input
+                                                type="number"
+                                                className="change_time"
+                                                value={word.startTime}
+                                                name="startTime"
+                                                onChange={(event) => handleInputChange(event, word._id, "startTime", lineIndex)}
+                                            />
+                                        </div>
                                         :
                                         <input
                                             type="text"
                                             className="new_ly_input"
-                                            defaultValue={word.data}
-                                            name="word"
-                                            onChange={(e) => handleInputChange(e, word)}
+                                            value={word.data}
+                                            name="data"
+                                            onChange={(event) => handleInputChange(event, word._id, "data", lineIndex)}
                                         />
-                                        
                                         :
-                                        <input
-                                            type="time"
-                                            className="change_time"
-                                            defaultValue={Number(word.endTime)}
-                                            name="endTime"
-                                            onChange={(e) => handleInputChange(e, word)}
-                                        />
-                                        <button onClick={() => handleSave(editedWord || word)} className="save_change">Save</button>
+                                        <div className="change_time_ctn">
+                                            <div className="time_format">
+                                                {formatTime(word.endTime / 1000)} giây
+                                            </div>
+                                            <input
+                                                type="number"
+                                                className="change_time"
+                                                value={word.endTime}
+                                                name="endTime"
+                                                onChange={(event) => handleInputChange(event, word._id, "endTime", lineIndex)}
+                                            />
+                                        </div>
+                                        <button onClick={() => handleSave(word, lineIndex)} className="save_change">Save</button>
                                     </div>
                                 </span>
                             ))}
