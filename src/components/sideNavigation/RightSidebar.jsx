@@ -12,10 +12,10 @@ import icon_libary from "../../img/music-folder-svgrepo-com.svg";
 import logo from "../../img/logo3 (1).png";
 import { useSelector } from "react-redux";
 import "../../css/RightSidebar.scss";
-import { useEffect, useState, useLocation } from "react";
+import { useEffect, useState } from "react";
 import { getUserPl } from "../../redux/slide/getUserPlaylistSlice";
 import { useDispatch } from "react-redux";
-
+import { useLocation } from 'react-router-dom';
 const RightSidebar = () => {
     const dispatch = useDispatch();
     const [userlist, setuserlist] = useState(null);
@@ -33,9 +33,14 @@ const RightSidebar = () => {
     }, [userplaylist]);
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
-    const isActive = (_, { pathname }) => {
-        return pathname.startsWith("/profile");
-    };
+    const location = useLocation();
+    const [isActive, setIsActive] = useState(false);
+
+    useEffect(() => {
+        // Cập nhật trạng thái `isActive` dựa trên `pathname`
+        setIsActive(location.pathname.startsWith("/profile"));
+    }, [location]);
+    
     return (
         <div
             className="rightsidebar"
@@ -118,7 +123,7 @@ const RightSidebar = () => {
                             </NavLink>
                             <NavLink
                                 to="/profile/mymusic"
-                                className={( isActive ) =>
+                                className={
                                     isActive ? "active nav-link list_nav_item" : "nav-link list_nav_item"
                                   }
                             >

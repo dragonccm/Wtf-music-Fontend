@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReply, faEllipsisVertical,faChevronUp,faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
+import { NavLink } from "react-router-dom";
+
 const Comment = ({
     comment,
     replies,
@@ -13,7 +15,7 @@ const Comment = ({
     reportComment,
     addComment,
     parentId ,
-    currentUserId,
+    currentUser,
 }) => {
     const isEditing =
         activeComment &&
@@ -27,9 +29,9 @@ const Comment = ({
     // const [timePassed, setTimePassed] = useState(false);
     const [hidenReply,setHidenReply] = useState(false);
     const canDelete =
-        currentUserId === comment.userId && (!replies ||replies.length === 0) ;
-    const canReply = Boolean(currentUserId);
-    const canEdit = currentUserId === comment.userId ;
+        currentUser.id === comment.userId && (!replies ||replies.length === 0) ;
+    const canReply = Boolean(currentUser.id);
+    const canEdit = currentUser.id === comment.userId ;
     const replyId = parentId ? parentId : comment._id;
     const createdAt = new Date(comment.createdAt).toLocaleDateString();
 
@@ -56,7 +58,9 @@ const Comment = ({
     return (
         <div key={comment._id} className="comment">
             <div className="comment-image-container">
-                <img src={comment.userAvt} />
+            <NavLink to={`/artists/${currentUser.id}`} className='nav-link'>
+                    <img src={comment.userAvt} alt="userIcon" referrerPolicy="no-referrer" />
+                </NavLink>
             </div>
             <div className="comment-right-part">
                 <div className="comment-content">
@@ -114,6 +118,7 @@ const Comment = ({
                         handleCancel={() => {
                             setActiveComment(null);
                         }}
+                        currentUser={currentUser}
                     />
                 )}
                 <div className="comment-actions">
@@ -136,6 +141,7 @@ const Comment = ({
                         handleCancel={() => {
                             setActiveComment(null);
                         }}
+                        currentUser={currentUser}
                     />
                 )}
                 {replies&&replies.length > 0  && (
@@ -157,7 +163,7 @@ const Comment = ({
                                 addComment={addComment}
                                 parentId={comment._id}
                                 replies={[]}
-                                currentUserId={currentUserId}
+                                currentUser={currentUser}
                             />
                         ))}
                     </div>

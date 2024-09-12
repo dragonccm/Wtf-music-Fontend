@@ -37,9 +37,9 @@ const Playlistpage = () => {
   const fecthPlaylist = async () => {
 
     let response = await playlistroute(id);
-    if (response.EC === '0' && response.DT.data) {
+    if (response.EC === '0' && response.DT) {
       // console.log(response);
-      setPlaylist(response.DT.data)
+      setPlaylist(response.DT)
     } else {
       // console.log('saiiiiiiiiiiiiii')
     }

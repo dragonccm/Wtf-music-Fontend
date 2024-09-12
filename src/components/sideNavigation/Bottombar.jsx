@@ -49,7 +49,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Play_animation from "../../components/card/play_animation"
 
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 const Bottombar = () => {
   const [playlistName, setPlaylistName] = useState('');
 

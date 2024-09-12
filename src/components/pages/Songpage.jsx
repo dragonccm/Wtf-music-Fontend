@@ -195,7 +195,7 @@ const Songpage = () => {
             <div className="p-5 mt-5 song_user-rating">
                 <Comments
                     commentsUrl="http://localhost:3004/comments"
-                        currentUserId={isAuthentication.account.id}
+                        currentUser={isAuthentication.account}
                         id={id}
                 />
 

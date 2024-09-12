@@ -1,74 +1,37 @@
-import { songInfo, songUrl, songLyric } from "../controller/firstfetch";
+import { songInfo} from "../controller/firstfetch";
 // import { cloneSongsService } from "../services/songCloneService";
 export const getSongData = async (Songid) => {
   if (Songid) {
     try {
       const dataa = await songInfo(Songid);
       const songDetailResult = dataa.DT;
-      // const songUrlResult = await songUrl(Songid);
-      const songLyricsResult = await songLyric(Songid);
-      const id = songDetailResult.data.song.id;
+      const id = songDetailResult.song.id;
 
       if (songDetailResult) {
-        const genres = songDetailResult.data.genres?songDetailResult.data.genres
+        const genres = songDetailResult.genres?songDetailResult.genres
           : ["undefined", "undefined", "undefined"];
-        const like = songDetailResult.data.song.like;
-        const listen = songDetailResult.data.song.listen;
-        const artistInfo = songDetailResult.data.song.artists
-          ? songDetailResult.data.song.artists
+        const like = songDetailResult.song.like;
+        const listen = songDetailResult.song.listen;
+        const artistInfo = songDetailResult.song.artists
+          ? songDetailResult.song.artists
           : [""];
-        const composers = songDetailResult.data.song.composers
-          ? songDetailResult.data.song.composers
+        const composers = songDetailResult.song.composers
+          ? songDetailResult.song.composers
           : [];
-        const alias = songDetailResult.data.song.alias?songDetailResult.data.song.alias : "Unknown Artist";
-        const duration = songDetailResult.data.song.duration || 20;
+        const alias = songDetailResult.song.alias?songDetailResult.song.alias : "Unknown Artist";
+        const duration = songDetailResult.song.duration || 20;
 
-        const songname = songDetailResult.data.song.songname || "Untitled Song";
+        const songname = songDetailResult.song.songname || "Untitled Song";
         const img =
-          songDetailResult.data.song.thumbnail ||
+          songDetailResult.song.thumbnail ||
           "https://i.pinimg.com/736x/a7/a6/9d/a7a69d9337d6cd2b8b84290a7b9145ad.jpg";
 
         const song =
-        songDetailResult.data.song.songLink ||
+        songDetailResult.song.songLink ||
           "https://a128-z3.zmdcdn.me/c2e3abd902697240cf99ffb93e9e38f3?authen=exp=1712376116~acl=/c2e3abd902697240cf99ffb93e9e38f3/*~hmac=d9866bb2a2216c3ce17a63244b18dde1";
-        const Ly = songDetailResult.data.song.lyric;
-        const Li = songLyricsResult.data ? songLyricsResult.data.sentences:[];
+        const Ly = songDetailResult.song.lyric;
 
-        // const jj = await cloneSongsService(
-        //   {
-        //     id: id,
-        //     thumbnail: img,
-        //     songname: songname,
-        //     artists: artistInfo,
-        //     alias: alias,
-        //     songLink: song,
-        //     listen: listen,
-        //     like: like,
-        //     duration: duration,
-        //     lyric: Li,
-        //     genresid: [
-        //       "IWZ9Z097",
-        //       "IWZ9Z09F",
-        //       "IWZ9Z087"
-        //     ],
-        //   })
-        // console.log({
-        //   id: id,
-        //   thumbnail: img,
-        //   songname: songname,
-        //   artists: artistInfo,
-        //   alias: alias,
-        //   songLink: song,
-        //   listen: listen,
-        //   like: like,
-        //   duration: duration,
-        //   lyric: Ly,
-        //   genresid: [
-        //     "IWZ9Z097",
-        //     "IWZ9Z09F",
-        //     "IWZ9Z087"
-        //   ],
-        // })
+
      
 
         return {

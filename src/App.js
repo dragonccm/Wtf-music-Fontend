@@ -1,33 +1,31 @@
 import "./App.css";
-import AppRoutes from "./router/appRoutes";
-import AdminRoutes from "./router/adminRouter";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // react route
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router-dom";
+import AppRoutes from "./router/appRoutes";
+import AdminRoutes from "./router/adminRouter";
 import CheckAdminRoutes from "./router/checkAdminRoutes";
 import CheckBan from "./router/checkBan";
+//component
 import OTPInput from "./components/pages/OTP_forgetPass";
 import ResetPass from "./components/pages/resetPass";
 import LoginPage from "./components/pages/loginpage";
 import RegisterPage from "./components/pages/register";
 
 // rovider
-
 import SongDataProvider from "./lib/provider/SongDataProvider";
 import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
-
-import { useDispatch, useSelector } from "react-redux";
 import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
-import { useEffect } from "react";
-// import { ThemeProvider, createTheme } from '@mui/material/styles';
-// import CssBaseline from '@mui/material/CssBaseline';
-// import { toast, ToastContainer } from "react-toastify";
+
+
 
 function App(props) {
   const dispatch = useDispatch();
   const prevPath = localStorage.getItem('prevPath') || '/';
   useEffect(() => {
+   
     dispatch(fetchAuthentication());
     if (localStorage.getItem("idSongPlaying")) {
       dispatch(fetchSongPlaying(localStorage.getItem("idSongPlaying")));
