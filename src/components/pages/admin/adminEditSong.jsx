@@ -3,20 +3,13 @@ import Chip from '@mui/material/Chip';
 import WaveSurfer from 'wavesurfer.js';
 import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ImageUploader from "../../pages/profile/Profile-setting/uploadImage";
-import AudioUploader from "../../pages/profile/Profile-setting/upladAudio";
+import { deditgetdata } from "../../../services/editgetdata";
+import ImageUploader from "../profile/Profile-setting/uploadImage";
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import { toast, ToastContainer } from "react-toastify";
-
-import {
-    updateSong,
-    deleteSong,
-    createSong,
-} from "../../../services/restSongService";
 import {
     adminSearchArtistsService,
     adminSearchGenreService,
@@ -30,44 +23,26 @@ const formatTime = (seconds) => {
     return `${minutes}:${remainingSeconds}:${milliseconds}`;
 }
 
-const initialData = {
-    lyric: [],
-    thumbnail: null,
-    songLink: null,
-    artist: [],
-    genre: []
-};
-
-const AdminUpload = () => {
+const AdminEditSong = () => {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isLoading, setLoading] = useState(true);
     const [currentTime, setCurrentTime] = useState(0);
-    const { id } = useParams();
-    const [data, setData] = useState({
-        "id": id,
-        "songname": "",
-        "artist": [],
-        "genre": [],
-        "lyric": [],
-        "songLink": "",
-        "thumbnail": "",
-    })
+    const [data, setData] = useState()
     const wavesurferRef = useRef(null);
     const containerRef = useRef(null);
+    const { id } = useParams();
     const [value, setValue] = useState('1');
     const [imageUrl, setImageUrl] = useState('');
     const [file, setFile] = useState(null);
-    const [audioFile, setAudioFile] = useState(null);
-    const [audioUrl, setAudioUrl] = useState("");
+
 
     // tìm kiếm
     const [searchGenre, setSearchGenre] = useState([]);
     const [searchAr, setSearchAr] = useState([]);
 
 
-
-
     useEffect(() => {
-        if (containerRef.current && audioUrl) {
+        if (containerRef.current && data?.songLink) {
             if (containerRef.current) {
                 wavesurferRef.current = WaveSurfer.create({
                     container: containerRef.current,
@@ -82,7 +57,7 @@ const AdminUpload = () => {
                     partialRender: true,
                 });
 
-                wavesurferRef.current.load(audioUrl && audioUrl);
+                wavesurferRef.current.load(data.songLink && data.songLink);
 
                 wavesurferRef.current.on('audioprocess', () => {
                     setCurrentTime(wavesurferRef.current.getCurrentTime());
@@ -101,21 +76,21 @@ const AdminUpload = () => {
                 wavesurferRef.current = null;
             }
         };
-    }, [audioUrl]);
-    const createMusicSongs = async () => {
-        try {
-            data.thumbnail = file;
-            data.songLink = audioFile;
+    }, [data]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await deditgetdata(id);
+                setData(response.DT.songs);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching lyric:', error);
 
-            const newData = {...data, artists: data.artist.map((data) => data.id).join(','), genresid: data.genre.map((data) => data.genreId).join(',')};
-            const res = await createSong(newData);
-            if (res) {
-                toast.success(res.EM);
+                setLoading(false);
             }
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
+        };
+        fetchData();
+    }, []);
 
     const onPlayPause = () => {
         if (wavesurferRef.current) {
@@ -127,6 +102,8 @@ const AdminUpload = () => {
             setIsPlaying(!isPlaying);
         }
     };
+
+
     const handleInputChange = (e, wordId, fieldName, lineIndex) => {
         const newValue = e.target.value;
         setData(data => {
@@ -141,8 +118,6 @@ const AdminUpload = () => {
         });
     };
     const handleSave = () => {
-        data.thumbnail = file;
-        data.songLink = audioFile;
         console.table(data)
     };
 
@@ -194,6 +169,8 @@ const AdminUpload = () => {
     const handleSongNameChange = (e) => {
         setData((prevData) => ({ ...prevData, songname: e.target.value }));
     };
+
+
     // search 
     const handarleserch = async (e) => {
         try {
@@ -211,16 +188,12 @@ const AdminUpload = () => {
             console.error("Error fetching data:", error);
         }
     };
-    const handleAudioUpload = (audioFile) => {
-        setAudioFile(audioFile);
-        setAudioUrl(URL.createObjectURL(audioFile));
-    };
-    
-    const clearState = () => {
-        setData(initialData);
-        setCurrentTime(0);
-        setIsPlaying(false);
-    };
+
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="edit">
             <h1 className="edit_title">
@@ -228,23 +201,17 @@ const AdminUpload = () => {
             </h1>
             <div className="player">
                 <div ref={containerRef} />
-
                 <p>Current time: {formatTime(currentTime)}</p>
                 <div style={{ margin: '1em 0', display: 'flex', gap: '1em' }}>
                     <button onClick={onPlayPause} style={{ minWidth: '5em' }}>
                         {isPlaying ? 'Pause' : 'Play'}
                     </button>
                 </div>
-
-                <label className="fs-4 mb-2" htmlFor="create-email">
-                    Chọn File Bhạc:
-                </label>
-                <AudioUploader onUpload={handleAudioUpload} />
             </div>
 
             <div className="edit_body">
                 <div className="edit_body_lyrics">
-                    {data && data.lyric.map((line, lineIndex) => (
+                    {data.lyric && data.lyric.map((line, lineIndex) => (
                         <div key={line._id}>
                             {line.words.map((word) => (
                                 <span
@@ -285,7 +252,7 @@ const AdminUpload = () => {
                                                 name="endTime"
                                                 onChange={(event) => handleInputChange(event, word._id, "endTime", lineIndex)}
                                             />
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </span>
                             ))}
@@ -295,13 +262,13 @@ const AdminUpload = () => {
                 <div className="edit_body_info">
                     <div className="edit_body_info_head">
                         <div className="edit_body_info_img">
-                            {imageUrl ? <img src={imageUrl} className="song-img" alt="Uploaded" /> : <img src="https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg" className="song-img" alt="Uploaded" />}
+                            {imageUrl ? <img src={imageUrl} className="song-img" alt="Uploaded" /> : <img src={data.thumbnail} className="song-img" alt="Uploaded" />}
                             <ImageUploader onUpload={handleUpload} />
                         </div>
                         <div className="edit_body_info_text">
-                            <input className="edit_body_info_text_title" onChange={(e) => handleSongNameChange(e)} defaultValue={data && data.songname} />
+                            <input className="edit_body_info_text_title" onChange={(e)=>handleSongNameChange(e)} defaultValue={data.songname} />
                             <div className="edit_body_info_text_category_gr">
-                                {data && data.genre.map((data) => {
+                                {data.genre && data.genre.map((data) => {
                                     return (
                                         <Chip
                                             label={data.genrename}
@@ -312,7 +279,7 @@ const AdminUpload = () => {
                                 })}
                             </div>
                             <div className="edit_body_info_text_singer_gr">
-                                {data && data.artist.map((data) => {
+                                {data.artist && data.artist.map((data) => {
                                     return (
                                         <Chip
                                             label={data.artistsName}
@@ -398,12 +365,12 @@ const AdminUpload = () => {
                     </div>
                 </div>
             </div>
-            <div className="gr">
-                <button className="save_change" onClick={() => createMusicSongs()}>lưu</button>
-                <button className="save_change" onClick={()=>clearState()}>huỷ</button>
+            <div className="gr"> 
+                <button className="save_change" onClick={()=>handleSave()}>lưu</button>
+                <button className="save_change">huỷ</button>
             </div>
         </div>
     );
 }
 
-export default AdminUpload;
+export default AdminEditSong;
