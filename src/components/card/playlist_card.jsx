@@ -29,9 +29,9 @@ const Card = ({ playlist, isOw, limit,isDes }) => {
         e.preventDefault();
         dispatch(fetchPlayList(id));
         let response = await playlistroute(id);
-        if (response && response.DT.data && response.DT.data.playlist && response.DT.data.playlist.songid.length > 0) {
-            console.log(response.DT.data)
-            dispatch(fetchSongPlaying(response.DT.data.playlist.songid[0]))
+        if (response && response.DT && response.DT.playlist && response.DT.playlist.songid.length > 0) {
+            console.log(response.DT)
+            dispatch(fetchSongPlaying(response.DT.playlist.songid[0]))
             localStorage.setItem('playlistID', id)
         }
     };

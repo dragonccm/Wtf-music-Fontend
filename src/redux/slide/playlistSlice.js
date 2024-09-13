@@ -8,12 +8,12 @@ export const fetchPlayList = createAsyncThunk(
     if (!type) {
       
       const response = await playlistroute(id);
-      return response.DT.data;
+      return response.DT;
     } else {
       const response = await playlistRelate(id);
       localStorage.removeItem('playlistID')
       localStorage.setItem('playlistRelate','true');
-      return response.DT.data;
+      return response.DT;
     }
   }
 );

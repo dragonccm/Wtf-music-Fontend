@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getRatingData } from "../../services/ratingService";
-import { getRankCliend } from "../../controller/rating";
+
 
 export const fetchRating = createAsyncThunk("getRating", async () => {
   const response = await getRatingData();

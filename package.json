@@ -64,6 +64,7 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.5",
     "streamsaver": "^2.0.6",
     "styled-components": "^6.1.11",
     "timepicker-ui": "^2.6.1",

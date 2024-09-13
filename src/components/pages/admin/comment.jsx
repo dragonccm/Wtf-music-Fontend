@@ -1,13 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import "../../../css/admin/musicAdmin.scss";
-import Modal from "react-modal";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faRepeat, faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { adminGetCommentService } from "../../../services/adminGetComment";
-import { getPlaylist } from "../../../services/playlistService";
 import { getSongData } from "../../../services/SongService";
 import {
     bancommentService

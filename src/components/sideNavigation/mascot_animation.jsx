@@ -1,6 +1,6 @@
 import '../../css/mascot.scss'
 import Modal from "react-modal";
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 const Loading = () => {
   return (
     <Modal
