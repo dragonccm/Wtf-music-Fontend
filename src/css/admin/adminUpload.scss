@@ -54,11 +54,18 @@
     width: 100%;
     display: flex;
     gap: 10px;
+    border-radius: 5px;
+    box-shadow: 7px 8px 0px 0px #888888;
 
     .edit_body_lyrics {
       width: 50%;
-      background-color: pink;
+      max-height: 52rem;
+      background-color: rgb(255, 249, 222);
       font-size: 1.5rem;
+      overflow-y: scroll;
+      border-radius: 5px;
+      padding: 1rem;
+      box-shadow: 1px 1px 5px 0px #888888;
 
       .ly_text {
         margin: 0 0.2rem;
@@ -185,16 +192,19 @@
       width: 50%;
       display: flex;
       flex-direction: column;
+      border-radius: 5px;
+      box-shadow: 1px 1px 5px 0px #888888;
 
       .edit_body_info_head {
         display: flex;
 
         .edit_body_info_img {
           width: 35%;
-
+          border-radius: 5px;
           height: 20rem;
           overflow: hidden;
           position: relative;
+          box-shadow: 1px 1px 5px 0px #888888;
 
           &:hover .avt_group {
             display: block;
@@ -247,7 +257,6 @@
 
           .edit_body_info_text_singer_gr {
             display: flex;
-            overflow-x: scroll;
             width: 100%;
             gap: 1rem;
 
@@ -263,7 +272,6 @@
 
           .edit_body_info_text_category_gr {
             display: flex;
-            overflow-x: scroll;
             width: 100%;
             gap: 1rem;
 
