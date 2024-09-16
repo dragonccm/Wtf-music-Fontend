@@ -64,9 +64,9 @@ const SongAdmin = () => {
     const [isGenreModalOpen, setIsGenreModalOpen] = useState(false);
     const [isArModalOpen, setIsArModalOpen] = useState(false);
 
-    const handlePageChange = (pageNum,isNextpage) => {
+    const handlePageChange = (pageNum, isNextpage) => {
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
-            if( isNextpage=== true ){
+            if (isNextpage === true) {
                 alert(pageNum)
                 setCurrentPage(0);
             } else {
@@ -372,7 +372,10 @@ const SongAdmin = () => {
                 </h2>
                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
                     <button className="btn fs-4 py-2" onClick={openCreateModal}>
-                        Thêm mới bài hát
+                        Thêm mới bài hát nhanh
+                    </button>
+                    <button className="btn fs-4 py-2">
+                        <a href="/admin/adminupload"> vào trang thêm mới bài hát</a>
                     </button>
                 </div>
             </div>
@@ -528,7 +531,7 @@ const SongAdmin = () => {
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
-                                onClick={() => handlePageChange(1,true)}
+                                onClick={() => handlePageChange(1, true)}
                             >
                                 Đầu
                             </a>
@@ -538,7 +541,7 @@ const SongAdmin = () => {
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() =>
-                                    handlePageChange(currentPage - 1,true)
+                                    handlePageChange(currentPage - 1, true)
                                 }
                                 disabled={currentPage <= 0}
                             >
@@ -550,7 +553,7 @@ const SongAdmin = () => {
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
                                 onClick={() =>
-                                    handlePageChange(currentPage + 1,false)
+                                    handlePageChange(currentPage + 1, false)
                                 }
                                 disabled={currentPage === totalPages}
                             >
@@ -564,7 +567,7 @@ const SongAdmin = () => {
                             <a
                                 className="d-block fs-4 px-4 py-1 opacity-75"
                                 href="#"
-                                onClick={() => handlePageChange(totalPages - 5,false)}
+                                onClick={() => handlePageChange(totalPages - 5, false)}
                             >
                                 Cuối
                             </a>

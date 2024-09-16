@@ -7,6 +7,12 @@ import {
 import { getbanService } from "../../../services/getbanService";
 import { adminSearchS } from "../../../services/adminSearchSongService";
 import "../../../css/admin/musicAdmin.scss";
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+
 export default function Chart() {
     const [data, setData] = useState([]);
     const [years, setYears] = useState([]);
@@ -17,6 +23,11 @@ export default function Chart() {
     const [searchdata, setsearchdata] = useState([]);
     const [isInteractingWithResults, setIsInteractingWithResults] =
         useState(false);
+    const [value, setValue] = useState(null);
+    const [maxValue, setMaxValue] = useState(null);
+
+
+
     useEffect(() => {
         const fetchRankSongs = async () => {
             try {
@@ -51,7 +62,6 @@ export default function Chart() {
                 const year = parseInt(f.getFullYear());
                 const month = parseInt(f.getMonth()) + 1;
                 const date = parseInt(f.getDate());
-                console.log(f.getFullYear(), f.getMonth(), f.getDate());
                 return new Date(year, month, date);
             });
             formattedYears.sort((a, b) => a - b);
@@ -77,7 +87,7 @@ export default function Chart() {
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            const format = ser.DT.songs.map((data) => {
+            const format = ser.DT.data.songs.map((data) => {
                 return { id: data.id, songname: data.songname };
             });
             setsearchdata(format);
@@ -150,32 +160,49 @@ export default function Chart() {
                             Search
                         </button>
                     </div>
-                </nav>
-                {searchdata.length > 0 && (
-                    <div
-                        class="search_result"
-                        onMouseEnter={handleResultMouseEnter}
-                        onMouseLeave={handleResultMouseLeave}
-                    >
-                        <button
-                            className="list-group-item search_result_item"
-                            value="all"
-                            onClick={() => handleSearchResultClick("all")}
+                    {searchdata.length > 0 && (
+                        <div
+                            class="search_result"
+                            onMouseEnter={handleResultMouseEnter}
+                            onMouseLeave={handleResultMouseLeave}
                         >
-                            thống kê tất cả
-                        </button>
-                        {searchdata.map((data) => (
                             <button
                                 className="list-group-item search_result_item"
-                                value={data.id}
-                                onClick={() => handleSearchResultClick(data.id)}
+                                value="all"
+                                onClick={() => handleSearchResultClick("all")}
                             >
-                                {data.songname}
+                                thống kê tất cả
                             </button>
-                        ))}
-                    </div>
-                )}
+                            {searchdata.map((data) => (
+                                <button
+                                    className="list-group-item search_result_item"
+                                    value={data.id}
+                                    onClick={() => handleSearchResultClick(data.id)}
+                                >
+                                    {data.songname}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </nav>
             </nav>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DatePicker', 'DatePicker']}>
+                    <DemoItem label="No validation: uses today">
+                        <DatePicker
+                            value={value}
+                            onChange={setValue}
+                        />
+                    </DemoItem>
+                    Stored value: {value == null ? 'null' : value.format()}
+                    <DemoItem label="Validation: uses the day of `maxDate`">
+                        <DatePicker 
+                        value={maxValue}
+                        onChange={setMaxValue} />
+                    </DemoItem>
+                    Stored value: {maxValue == null ? 'null' : maxValue.format()}
+                </DemoContainer>
+            </LocalizationProvider>
             {!Array.isArray(data) || data.length < 1 ? (
                 <h2 className="undefine">
                     chưa có dữ liệu trong 7 ngày gần nhất

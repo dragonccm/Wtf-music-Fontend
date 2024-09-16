@@ -193,23 +193,6 @@ const NavigationBar = () => {
                                 </div>
                                 <span>Thể loại</span>
                             </NavLink>
-
-                            <NavLink
-                                to="/admin/adminupload"
-                                className="nav-link list_nav_item"
-                            >
-                                <div className="icon_list_nav_item">
-                                    <ReactSVG
-                                        beforeInjection={(svg) => {
-                                            svg.classList.add(
-                                                "icon_list_nav_item_svg"
-                                            );
-                                        }}
-                                        src={icon_Category}
-                                    />
-                                </div>
-                                <span>adminupload</span>
-                            </NavLink>
                         </Nav>
                         {/* <Nav>   
                   {user && user.isAuthenticated === true ? (
