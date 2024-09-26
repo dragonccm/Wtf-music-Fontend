@@ -135,7 +135,7 @@ export default function Chart() {
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            const format = ser.DT.songs.map((data) => {
+            const format = ser.DT.data.songs.map((data) => {
                 return { id: data.id, songname: data.songname };
             });
             setsearchdata(format);
@@ -180,13 +180,11 @@ export default function Chart() {
     const handleResultMouseLeave = () => {
         setIsInteractingWithResults(false);
     };
-    console.log("sdsds",
-        lineChartsParams.series.map((series) => ({
-            ...series,
-            data: UKGDPperCapita,
-        }))
-    )
 
+
+    if (data.length < 0) {
+        return <h1>loading...</h1>;
+    }
     return (
         <>
             <h1>{tilte}</h1>
@@ -215,31 +213,31 @@ export default function Chart() {
                             Search
                         </button>
                     </div>
-                </nav>
-                {searchdata.length > 0 && (
-                    <div
-                        class="search_result"
-                        onMouseEnter={handleResultMouseEnter}
-                        onMouseLeave={handleResultMouseLeave}
-                    >
-                        <button
-                            className="list-group-item search_result_item"
-                            value="all"
-                            onClick={() => handleSearchResultClick("all")}
+                    {searchdata.length > 0 && (
+                        <div
+                            class="search_result"
+                            onMouseEnter={handleResultMouseEnter}
+                            onMouseLeave={handleResultMouseLeave}
                         >
-                            thống kê tất cả
-                        </button>
-                        {searchdata.map((data) => (
                             <button
                                 className="list-group-item search_result_item"
-                                value={data.id}
-                                onClick={() => handleSearchResultClick(data.id)}
+                                value="all"
+                                onClick={() => handleSearchResultClick("all")}
                             >
-                                {data.songname}
+                                thống kê tất cả
                             </button>
-                        ))}
-                    </div>
-                )}
+                            {searchdata.map((data) => (
+                                <button
+                                    className="list-group-item search_result_item"
+                                    value={data.id}
+                                    onClick={() => handleSearchResultClick(data.id)}
+                                >
+                                    {data.songname}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </nav>
             </nav>
             {!Array.isArray(data) || data.length < 1 ? (
                 <h2 className="undefine">
