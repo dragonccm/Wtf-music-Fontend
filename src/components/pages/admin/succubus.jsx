@@ -66,7 +66,35 @@ const session = [
     },
 ]
 
-
+const xAxis = 
+    [
+    {
+        scaleType: 'band',
+        categoryGapRatio: 0.5,
+        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+    },
+  ]
+const series = 
+    [
+    {
+        id: 'page-views',
+        label: 'Page views',
+        data: [2234, 3872, 2998, 4125, 3357, 2789, 2998],
+        stack: 'A',
+    },
+    {
+        id: 'downloads',
+        label: 'Downloads',
+        data: [3098, 4215, 2384, 2101, 4752, 3593, 2384],
+        stack: 'A',
+    },
+    {
+        id: 'conversions',
+        label: 'Conversions',
+        data: [4051, 2275, 3129, 4693, 3904, 2038, 2275],
+        stack: 'A',
+    },
+  ]
 export default function Chart() {
     const [data, setData] = useState([]);
     const [years, setYears] = useState([]);
@@ -81,11 +109,10 @@ export default function Chart() {
         const fetchRankSongs = async () => {
             try {
                 if (fetchid === "like") {
-                    const response = await songRankService(id, "90", "09-01-2024");
-                    console.log(response);
+                    const response = await songRankService(id,"30","09-01-2024");
                     setData(response.DT.data);
                 } else if (fetchid === "listen") {
-                    const response = await songRankListenService(id, "90", "09-01-2024");
+                    const response = await songRankListenService(id,"30","09-01-2024");
                     setData(response.DT.data);
                 }
             } catch (error) {
@@ -136,7 +163,7 @@ export default function Chart() {
     const handleserch = async (e) => {
         try {
             const ser = await adminSearchS(e.target.value);
-            const format = ser.DT.data.songs.map((data) => {
+            const format = ser.DT.songs.map((data) => {
                 return { id: data.id, songname: data.songname };
             });
             setsearchdata(format);
@@ -147,10 +174,9 @@ export default function Chart() {
     const lineChartsParams = {
         series: [
             {
-                id: 'downloads',
                 label: "Song",
                 data: UKGDPperCapita,
-                stack: 'A',
+                showMark: false,
             },
         ],
         width: 1100,
@@ -182,10 +208,6 @@ export default function Chart() {
         setIsInteractingWithResults(false);
     };
 
-
-    if (data.length < 0) {
-        return <h1>loading...</h1>;
-    }
     return (
         <>
             <h1>{tilte}</h1>
@@ -214,31 +236,31 @@ export default function Chart() {
                             Search
                         </button>
                     </div>
-                    {searchdata.length > 0 && (
-                        <div
-                            class="search_result"
-                            onMouseEnter={handleResultMouseEnter}
-                            onMouseLeave={handleResultMouseLeave}
+                </nav>
+                {searchdata.length > 0 && (
+                    <div
+                        class="search_result"
+                        onMouseEnter={handleResultMouseEnter}
+                        onMouseLeave={handleResultMouseLeave}
+                    >
+                        <button
+                            className="list-group-item search_result_item"
+                            value="all"
+                            onClick={() => handleSearchResultClick("all")}
                         >
+                            thống kê tất cả
+                        </button>
+                        {searchdata.map((data) => (
                             <button
                                 className="list-group-item search_result_item"
-                                value="all"
-                                onClick={() => handleSearchResultClick("all")}
+                                value={data.id}
+                                onClick={() => handleSearchResultClick(data.id)}
                             >
-                                thống kê tất cả
+                                {data.songname}
                             </button>
-                            {searchdata.map((data) => (
-                                <button
-                                    className="list-group-item search_result_item"
-                                    value={data.id}
-                                    onClick={() => handleSearchResultClick(data.id)}
-                                >
-                                    {data.songname}
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                </nav>
+                        ))}
+                    </div>
+                )}
             </nav>
             {!Array.isArray(data) || data.length < 1 ? (
                 <h2 className="undefine">

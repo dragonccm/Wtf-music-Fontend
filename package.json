@@ -20,6 +20,9 @@
     "@mui/x-data-grid": "^7.3.2",
     "@mui/x-data-grid-generator": "^7.3.2",
     "@mui/x-data-grid-pro": "^7.3.2",
+    "@mui/x-date-pickers": "^7.17.0",
+    "@mui/x-date-pickers-pro": "^7.17.0",
+    "@mui/x-tree-view": "^7.18.0",
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.2.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -27,10 +30,12 @@
     "@testing-library/user-event": "^13.5.0",
     "@wavesurfer/react": "^1.0.7",
     "antd": "^5.17.2",
-    "assemblyai": "^4.7.0",
     "babel-plugin-macros": "^3.1.0",
     "bootstrap": "^5.3.3",
+
     "es-abstract": "^1.23.3",
+
+    "dayjs": "^1.11.13",
     "express": "^4.18.2",
     "file-loader": "^6.2.0",
     "file-saver": "^2.0.5",
