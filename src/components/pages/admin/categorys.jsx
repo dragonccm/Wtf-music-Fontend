@@ -423,7 +423,7 @@ const CategoryAdmin = () => {
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}
             <div className="updateBtn-form-admin">
                 <Modal
-                    isOpen={isEditModalOpen}
+                    isOpen={()=>isEditModalOpen()}
                     onRequestClose={closeEditModal}
                     contentLabel="Edit Music Kind"
                     className="modal-kindMusic"
@@ -545,7 +545,7 @@ const CategoryAdmin = () => {
             {/* Hiển thị pop-up form tạo mới thể loại nhạc */}
             <div className="addBtn-form-admin">
                 <Modal
-                    isOpen={isCreateModalOpen}
+                    isOpen={()=>isCreateModalOpen()}
                     onRequestClose={closeCreateModal}
                     contentLabel="Create Music Kind"
                     className="modal-kindMusic"

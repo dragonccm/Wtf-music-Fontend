@@ -5,11 +5,12 @@ import SongCard from './song_card'
 
 
 
-const Col3Layout = ({ data }) => {
-  const slicedData = data.slice(0, 12);
+const Col3Layout = ({ data, rowSize, col, isDuration }) => {
+  const colData = col ? rowSize*col : 12
+  const slicedData = data.slice(0, colData);
   // Chia data thành các mảng con có 3 phần tử
   const chunkedData = [];
-  const chunkSize = 4;
+  const chunkSize = rowSize||4;
 
   for (let i = 0; i < slicedData.length; i += chunkSize) {
     const chunk = slicedData.slice(i, i + chunkSize);
@@ -27,14 +28,14 @@ const Col3Layout = ({ data }) => {
             {chunk.map((element, elementIndex) => {
               element = {
                 ...element,
-                artists: element.artists|| [{alias:'haha',name:element.artist[0]}] ,
+                artists: element.artists|| [{alias:'haha',name:'haha'}] ,
                 thumbnailM: element.thumbnailM || element.img,
                 encodeId: element.encodeId || element.id,
                 title: element.title || element.name,
               }
               return (
                 <div key={elementIndex} className="col_3_layout_colum_item">
-                  <SongCard element={ element} />
+                  <SongCard element={ element} isDuration={isDuration} />
                 </div>
               )
             })}

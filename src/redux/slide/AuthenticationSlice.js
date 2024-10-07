@@ -31,6 +31,9 @@ export const authenticationSlice = createSlice({
     logouter: (state) => {
       state.defaultUser = { ...initState, isLoading: false };
     },
+    addlike: (state) => {
+      state.defaultUser = { ...initState, account: state.account};
+    },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed

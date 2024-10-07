@@ -18,7 +18,7 @@ import RegisterPage from "./components/pages/register";
 import SongDataProvider from "./lib/provider/SongDataProvider";
 import { fetchAuthentication } from "./redux/slide/AuthenticationSlice";
 import { fetchSongPlaying } from "./redux/slide/songPlayingSlice";
-
+import { getInforUser } from "./redux/slide/InforUserSlice";
 
 
 function App(props) {
@@ -37,6 +37,13 @@ function App(props) {
   const isAuthentication = useSelector(
     (state) => state.Authentication.defaultUser
   );
+  useEffect(() => {
+    
+    if (isAuthentication && isAuthentication.isAuthenticated === true) {
+      console.log('.....................................sjshhsghsgs');
+      dispatch(getInforUser())
+    }
+  }, [isAuthentication])
   const Mainn = () => (
     <div className="main_content">
       <AppRoutes />

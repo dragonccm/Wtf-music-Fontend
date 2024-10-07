@@ -17,6 +17,7 @@ import Loading from "../sideNavigation/mascot_animation";
 import Like_heart from "../card/like";
 import CreatePlaylist from "../card/createPlaylist";
 import Play_animation from "../card/play_animation"
+import Card from "../card/playlist_card"
 import { addHisFetch } from "../../services/upDateHService";
 
 import { playlistroute } from "../../controller/playlist";
@@ -177,15 +178,13 @@ const Playlistpage = () => {
         </div>
       </div>
 
-      {/*<div className="recommen">
+      {/* <div className="recommen">
                 <div className="recommen_list">
                     <Card playlist={data} />
                 </div>
-                <div className="recommen_list">
-                    <Card playlist={data} />
-                </div>
-            </div>
- */}
+              
+            </div> */}
+
     </section>
   );
 };

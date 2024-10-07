@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import songReducer from "./slide/songSlice";
+
+
+
 import songPageReducer from "./slide/songPageSlice";
 import homeReducer from "./slide/homeSlice";
 
@@ -14,7 +16,6 @@ import GenresReducer from "./slide/genresSlice";
 import getSongDataReducer from "./slide/songPlayingSlice";
 import creataPlReducer from "./slide/createplaylistSlice";
 import getUserPlReducer from "./slide/getUserPlaylistSlice";
-import AdminSongReducer from "./slide/adminSongSlice";
 import adSongToPlReducer from "./slide/adSongToPlaylistSlice";
 import getUserLikedSongsReducer from "./slide/getUserLikedSongs";
 import myHistoryReducer from "./slide/myHistory";
@@ -22,7 +23,6 @@ import themeReducer from "./slide/themeSlice";
 
 export const store = configureStore({
     reducer: {
-        song: songReducer,
         songPage: songPageReducer,
         home: homeReducer,
         top100: top100Reducer,
@@ -34,7 +34,6 @@ export const store = configureStore({
         Genres: GenresReducer,
         getSongData: getSongDataReducer,
         inforUser: InforUserReducer,
-        adminsong: AdminSongReducer,
         creataPl: creataPlReducer,
         getUserPl: getUserPlReducer,
         adSongToPl: adSongToPlReducer,
@@ -42,4 +41,6 @@ export const store = configureStore({
         myHistory: myHistoryReducer,
         theme:themeReducer
     },
+    devTools: true,
+    
 });
