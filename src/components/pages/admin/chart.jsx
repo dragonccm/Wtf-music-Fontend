@@ -81,10 +81,11 @@ export default function Chart() {
         const fetchRankSongs = async () => {
             try {
                 if (fetchid === "like") {
-                    const response = await songRankService(id, "30", "09-01-2024");
+                    const response = await songRankService(id, "90", "09-01-2024");
+                    console.log(response);
                     setData(response.DT.data);
                 } else if (fetchid === "listen") {
-                    const response = await songRankListenService(id, "30", "09-01-2024");
+                    const response = await songRankListenService(id, "90", "09-01-2024");
                     setData(response.DT.data);
                 }
             } catch (error) {

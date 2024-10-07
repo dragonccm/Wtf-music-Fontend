@@ -30,7 +30,6 @@
     "@testing-library/user-event": "^13.5.0",
     "@wavesurfer/react": "^1.0.7",
     "antd": "^5.17.2",
-    "assemblyai": "^4.7.0",
     "babel-plugin-macros": "^3.1.0",
     "bootstrap": "^5.3.3",
     "dayjs": "^1.11.13",
