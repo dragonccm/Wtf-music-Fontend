@@ -1,16 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faHeart, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faPlay, faMusic, faCaretUp, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from "react-router-dom";
 import { faHeart as regular } from "@fortawesome/free-regular-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchSongPlaying, update,toPlay } from "../../redux/slide/songPlayingSlice";
+import { fetchSongPlaying, update, toPlay } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList, randomSongs } from '../../redux/slide/playlistSlice'
 import Like_heart from "./like";
 
 import '../../css/song_card2.scss';
 import Play_animation from "./play_animation"
 
-const SongCard2 = ({ data, rating, onPlaylist }) => {
+const SongCard2 = ({ data, rank, rating, onPlaylist }) => {
+
     const dispatch = useDispatch();
     const Playlist = useSelector((state) => state.playlist.playlist.playlist);
     const idPlaylistNow = Playlist && Playlist.playlistId
@@ -47,6 +48,18 @@ const SongCard2 = ({ data, rating, onPlaylist }) => {
                 {rating.israting ?
                     <div className="row_order">
                         <div className="number">{rating.index + 1}</div>
+                        {rank &&
+                        <div className="go_to">
+                            {rank.index1 - rank.index2 > 0 ?
+                                (<><FontAwesomeIcon className="upup" icon={faCaretUp} /> <span>{rank.index1 - rank.index2}</span></>)
+                                :
+                                rank.index1 - rank.index2 > 0 ?
+                                    (<><FontAwesomeIcon className="downdown" icon={faCaretDown} /> <span>{rank.index2 - rank.index1}</span></>)
+                                    : 
+                                    (<span>--</span>)
+                            }
+                        </div>} 
+
                     </div>
                     :
                     <div className="icon_start"><FontAwesomeIcon icon={faMusic} /></div>

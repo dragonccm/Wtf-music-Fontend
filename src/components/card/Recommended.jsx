@@ -3,14 +3,15 @@ import React from "react";
 import "../../css/recommend.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faHeart } from "@fortawesome/free-solid-svg-icons";
-
+import Skeleton from '@mui/material/Skeleton';
 import SongCard2 from "./song_card2";
-const Recommended = ({ datas, type, describe, maxItemsToShow, israting }) => {
+const Recommended = ({ datas, type, describe, maxItemsToShow, rank }) => {
   const [showAll, setShowAll] = useState(false);
   const toggleShowAll = () => {
     setShowAll(!showAll);
   };
   const validDatas = Array.isArray(datas) ? datas : [];
+
   return (
     <>
       {/* lable */}
@@ -22,19 +23,63 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, israting }) => {
       <p className="Recommended_1">{describe}</p>
       {/* lable */}
       <div className="full_list">
-        {validDatas
-          .slice(0, showAll ? validDatas.length : maxItemsToShow)
-          .map((data, index) => (
-            data &&
-            <SongCard2
-              key={index} // Thêm key ở đây
-              data={data}
-              rating={{
-                israting: true,
-                index: index
-              }}
-            />
-          ))}
+        {
+          validDatas && validDatas.length > 0
+            ?
+            validDatas
+              .slice(0, showAll ? validDatas.length : maxItemsToShow)
+              .map((data, index) => (
+                data && rank ?
+
+                  (<SongCard2
+                    key={index} // Thêm key ở đây
+                    data={data}
+                    rating={{
+                      israting: true,
+                      index: index
+                    }}
+                    rank={rank[index]}
+                  />)
+                  :
+                  (<SongCard2
+                    key={index} // Thêm key ở đây
+                    data={data}
+                    rating={{
+                      israting: true,
+                      index: index
+                    }}
+                  />)
+              )
+              )
+            :
+            <>
+              <div>
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <div key={index} className="song_card2">
+                    <div className="song_img_ctn">
+                      <div className="row_order">
+                        <Skeleton variant="circular" width={30} height={30} />
+                      </div>
+                      <div className="song_img">
+                        <Skeleton variant="rectangular" width={60} height={60} />
+                      </div>
+                      <div className="songif">
+                        <Skeleton variant="text" width={200} height={20} />
+                        <Skeleton variant="text" width={200} height={15} />
+                      </div>
+                    </div>
+                    <div className="root_album">
+                      <Skeleton variant="rectangular" width={100} height={15} />
+                    </div>
+                    <div className="foot_r">
+                      <Skeleton variant="circular" width={20} height={20} />
+                      <Skeleton variant="text" width={50} height={15} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+        }
       </div>
       {validDatas.length > maxItemsToShow && !showAll && (
         <div className="list_row list_row_btn ">

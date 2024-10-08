@@ -67,7 +67,7 @@ const Bottombar = () => {
   const playerRef = useRef();
   const dispatch = useDispatch();
 
-  const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1725102704~acl=/96def8368227f4490f4b3baf24e52be2/*~hmac=5ce6953cafee7de7f2b3e9520fc3d0ca')
+  const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1728488042~acl=/caa7d09452bca2dd41815083e1628cc2*~hmac=c7679212cf3b122d516156393e908e3a')
 
 
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -207,7 +207,7 @@ const Bottombar = () => {
     }
     const fetchData = async () => {
       if (localStorage.getItem('playlistID') && isRandom !== true) {
-        console.log('jajaja')
+        console.log('jajaja',localStorage.getItem('playlistID'))
         await dispatch(fetchPlayList({ id: localStorage.getItem('playlistID') }));
       }
 
@@ -215,7 +215,7 @@ const Bottombar = () => {
         console.log('kakakakakakakak');
         await dispatch(updatePlaylist());
       }
-      if (localStorage.getItem('playlistRelate') && isRandom !== true) {
+      if (localStorage.getItem('playlistRelate')&&localStorage.getItem("idSongPlaying") && isRandom !== true) {
         await dispatch(fetchPlayList({ id: localStorage.getItem("idSongPlaying"), type: 'true' }));
       }
       if (localStorage.getItem('currentMusicIndex')) {
@@ -343,7 +343,7 @@ const Bottombar = () => {
 
       for (let i = 0; i < dataf.song.length; i++) {
         // console.log(dataf.song.items[i].encodeId,songInfo.infor.id)
-        if (dataf.song[i].id === songInfo.infor.id) {
+        if (songInfo && songInfo.infor && dataf.song[i] && dataf.song[i].id === songInfo.infor.id) {
           dispatch(update(i))
           break;
         } else {

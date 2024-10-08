@@ -7,7 +7,7 @@
     margin: 10px 0;
     color: var(--footer-text);
     border-radius: 5px;
-
+    justify-content: space-between;
     &:hover {
         background-color: var(--bg-white-1);
         cursor: pointer;
@@ -17,7 +17,10 @@
         display: flex !important;
     }
 
-
+.song_card_item_left{
+    display: flex;
+    gap: 20px;
+    align-items: center;
     .playlist_item_img {
         width: 60px;
         height: 60px;
@@ -104,4 +107,10 @@
             }
         }
     }
+}
+.song_card_item_right{
+    padding-right: 20px;
+    font-size: 12px;
+    color: var(--text-2);
+}
 }
