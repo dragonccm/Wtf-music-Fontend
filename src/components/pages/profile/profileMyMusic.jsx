@@ -78,7 +78,7 @@ const ProfileMyMusic = ({ type }) => {
 
 
     return (
-        <div className="like_song">
+        <div className="like_song platlist">
             <div className="radio-inputs">
                 <label>
                     <input

@@ -110,12 +110,14 @@ function Profile() {
     },
   ];
   const Myplaylist = ({ datas }) => (
-    <section className="mylist_page">
+    <div className="playlist">
+      <section className="mylist_page ">
       <div className="Recommended_1">Danh Sách Phát Của bạn</div>
       <div className="list_container">
         <Card playlist={datas}  isOw={"you"}/>
       </div>
     </section>
+    </div>
   );
 
 

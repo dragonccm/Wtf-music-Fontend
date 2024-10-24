@@ -63,7 +63,7 @@ const ProfileHistory = ({ type }) => {
 
 
     return (
-        <div className="like_song">
+        <div className="like_song history">
             <div className="radio-inputs">
                 <label>
                     <input

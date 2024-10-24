@@ -1,71 +1,78 @@
 .profile_container {
-  display        : flex;
-  flex-direction : column;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin         : 2rem 4%;
+  margin: 2rem 4%;
 
   .profile_bar {
-    font-size     : 20px;
-    border-radius : 10px;
-    display       : flex;
+    font-size: 20px;
+    border-radius: 10px;
+    display: flex;
     flex-direction: column;
-    width         : 100%;
-    height        : 100%;
+    width: 100%;
+    height: 100%;
+
     .list_nav_pr {
       width: 100%;
-      align-items    : center;
-      margin         : 0;
+      align-items: center;
+      margin: 0;
       justify-content: center;
+
       .icon_list_nav_item {
         width: 30px;
-         svg {
+
+        svg {
           color: var(--text-1);
         }
       }
+
       .list_nav_item_pr span {
         font-size: 18px;
-        color    : var(--text-1);
+        color: var(--text-1);
       }
     }
-    .list_nav_item{
-      --color        : var(--white-color);
-      position       : relative;
-      overflow       : hidden;
-      transition     : color 0.5s;
-      z-index        : 1;
-      font-size      : 17px;
-      font-weight    : 500;
-      display        : flex;
-      padding        : 15px 20px;
-      /* transition  : all .3s; */
-      z-index        : 1;
-      border-radius  : 10px;
-      text-decoration: none;
-      width          : 30%;
+
+    .list_nav_item {
+      --color: var(--white-color);
+      position: relative;
+      overflow: hidden;
+      transition: color 0.5s;
+      z-index: 1;
+      font-size: 17px;
+      font-weight: 500;
       display: flex;
-    align-items: center;
-    justify-content: center;
+      padding: 15px 20px;
+      /* transition  : all .3s; */
+      z-index: 1;
+      border-radius: 10px;
+      text-decoration: none;
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       &.active {
-        color        : #096cff;
-        background   : rgba(255, 255, 255, 0.3);
-        box-shadow   : inset 1px 1px 0.12px rgba(255, 255, 255, 0.4),
+        color: #096cff;
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: inset 1px 1px 0.12px rgba(255, 255, 255, 0.4),
           1px 1px 3px rgba(0, 0, 0, 0.3);
-        backdrop-filter        : blur(4px);
+        backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
-        border                 : 1px solid rgba(255, 255, 255, 0.18);
-        transition             : all 0.3s ease-in-out;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: all 0.3s ease-in-out;
       }
+
       &:hover {
-        background             : var(--rightsidebar-hover);
-        color                  : #096cff;
+        background: var(--rightsidebar-hover);
+        color: #096cff;
         /* box-shadow          : 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             box-shadow         : inset 1px 1px 0.12px rgba(255, 255, 255, 0.4), 1px 1px 3px rgba(0, 0, 0, 0.1); */
-        backdrop-filter        : blur(4px);
+        backdrop-filter: blur(4px);
         -webkit-backdrop-filter: blur(4px);
-    
+
         /* border: 1px solid rgba(255, 255, 255, 0.18); */
         background-position: top right, bottom left;
-        transition         : linear 0.2s all;
+        transition: linear 0.2s all;
       }
     }
   }
@@ -73,21 +80,23 @@
 
   .bg-body-tertiary {
     background-color: var(--bg-white) !important;
-    border-radius   : 1rem;
-    margin-bottom   : 3rem;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
   }
 
   .profile_content {
     background-color: var(--bg-white);
-    border-radius   : 1rem;
-h3{
-  color     : var(--text-1);
-  font-size : 25px;
-  text-align: center;
-  padding   : 20px;
-}
+    border-radius: 1rem;
+
+    h3 {
+      color: var(--text-1);
+      font-size: 25px;
+      text-align: center;
+      padding: 20px;
+    }
+
     .like_song {
-      width  : 100%;
+      width: 100%;
       padding: 20px;
 
 
@@ -96,60 +105,80 @@ h3{
       }
     }
 
-   
+
   }
 
- 
+
 
   /* user info */
 
   /* list  */
-  .list_container {
-    display        : flex;
-    flex-wrap      : wrap;
-    justify-content: flex-start;
-    width          : 100%;
-    height         : 100%;
-    gap            : 1rem;
-  }
+  // .list_container {
+  //   display        : flex;
+  //   flex-wrap      : wrap;
+  //   justify-content: flex-start;
+  //   width          : 100%;
+  //   height         : 100%;
+  //   gap            : 1rem;
+  // }
 
   .myListcard {
-    display         : flex;
-    flex-direction  : column;
-    align-items     : center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #f9f5f6;
-    padding         : 1rem;
-    border-radius   : 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
   }
 
   .list_img {
-    width        : 17rem;
-    height       : 17rem;
-    object-fit   : contain;
-    overflow     : hidden;
+    width: 17rem;
+    height: 17rem;
+    object-fit: contain;
+    overflow: hidden;
     border-radius: 1rem;
   }
 
   .list_img img {
-    width : 100%;
+    width: 100%;
     height: 100%;
   }
 
-  .mylist_page {
-    display       : flex;
-    flex-direction: column;
-    width         : 90%;
-    padding: 30px 50px; 
-    .Recommended_1{
-      color: var(--text-1);
-      -webkit-text-fill-color: unset !important;
-      letter-spacing: 7px;
+  .history {
+
+    .mylist_page {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      // padding: 20px 20px;
+
+      .Recommended_1 {
+        color: var(--text-1);
+        -webkit-text-fill-color: unset !important;
+        letter-spacing: 7px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .playlist{
+    .mylist_page {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 20px 50px;
+
+      .Recommended_1 {
+        color: var(--text-1);
+        -webkit-text-fill-color: unset !important;
+        letter-spacing: 7px;
+        margin-bottom: 10px;
+      }
     }
   }
 
   .mylisttitle {
-    color        : rgb(31, 31, 31) !important;
-    font-size    : 3rem;
+    color: rgb(31, 31, 31) !important;
+    font-size: 3rem;
     margin-bottom: 2rem;
   }
 
@@ -164,24 +193,27 @@ h3{
 }
 
 @media screen and (max-width: 600px) {
-  .collapse:not(.show){
+  .collapse:not(.show) {
     display: block !important;
   }
-  .profile_container { 
-    .mylist_page{
+
+  .profile_container {
+    .mylist_page {
       padding: 30px 15px;
       align-items: center;
       width: 100% !important;
     }
-    .profile_bar{
-       .list_nav_pr{
+
+    .profile_bar {
+      .list_nav_pr {
         display: flex;
         flex-direction: row;
-       }
       }
+    }
+
     .profile_content {
       padding: 0;
-      margin : 0;
+      margin: 0;
     }
 
     .navbar-expand-lg {
@@ -189,17 +221,17 @@ h3{
         .collapse {
           .navbar-nav {
             .list_nav_item_pr {
-              
+
               span {
                 display: none !important;
               }
 
               .icon_list_nav_item {
                 text-align: center;
-                margin    : 0;
+                margin: 0;
               }
 
-              margin-right   : 0 !important;
+              margin-right : 0 !important;
               justify-content: center;
             }
           }
@@ -207,27 +239,31 @@ h3{
       }
     }
 
-    .profile_content{
-      .list_container{
-        .card_container{
+    .profile_content {
+      .list_container {
+        .card_container {
           overflow: unset;
           flex-wrap: wrap;
-          .card_item{
+
+          .card_item {
             width: 40%;
             height: auto;
           }
         }
       }
-      .like_song{
-        .history_ctn{
-          .full_list{
-            .song_card2{
+
+      .like_song {
+        .history_ctn {
+          .full_list {
+            .song_card2 {
               padding: 10px 0;
-              .song_img{
+
+              .song_img {
                 margin: 0 1rem;
               }
-              .song_img_ctn{
-                .row_order{
+
+              .song_img_ctn {
+                .row_order {
                   display: none;
                 }
               }
@@ -235,6 +271,7 @@ h3{
           }
         }
       }
+
     }
   }
 

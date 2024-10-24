@@ -1,4 +1,5 @@
 .card_container {
+  margin: 0 -10px;
   margin-top: 20px;
   display: flex;
 
@@ -6,9 +7,10 @@
     color: rgb(0 0 0 / 60%);
     width: 20%;
     height: 100%;
+    padding: 0 10px;
 
     .card_wrap {
-      width: 90%;
+      width: 100%;
     }
 
     .img_container {
