@@ -13,6 +13,10 @@ import { adminSearchS } from "../../../services/adminSearchSongService";
 import "../../../css/admin/musicAdmin.scss";
 
 
+
+
+export default function Chart() {
+    
 const datatop = [
     {
         title: 'Users',
@@ -45,29 +49,6 @@ const datatop = [
         ],
     },
 ];
-const session = [
-    {
-        id: 'page-views',
-        label: 'Page views',
-        data: [2234, 3872, 2998, 4125, 3357, 2789, 2998],
-        stack: 'A',
-    },
-    {
-        id: 'downloads',
-        label: 'Downloads',
-        data: [3098, 4215, 2384, 2101, 4752, 3593, 2384],
-        stack: 'A',
-    },
-    {
-        id: 'conversions',
-        label: 'Conversions',
-        data: [4051, 2275, 3129, 4693, 3904, 2038, 2275],
-        stack: 'A',
-    },
-]
-
-
-export default function Chart() {
     const [data, setData] = useState([]);
     const [years, setYears] = useState([]);
     const [UKGDPperCapita, setUKGDPperCapita] = useState([]);
@@ -75,17 +56,16 @@ export default function Chart() {
     const [id, setid] = useState("all");
     const [fetchid, setfetchid] = useState("like");
     const [searchdata, setsearchdata] = useState([]);
-    const [isInteractingWithResults, setIsInteractingWithResults] =
-        useState(false);
+    const [isInteractingWithResults, setIsInteractingWithResults] = useState(false);
     useEffect(() => {
         const fetchRankSongs = async () => {
             try {
                 if (fetchid === "like") {
-                    const response = await songRankService(id, "90", "09-01-2024");
+                    const response = await songRankService(id, "20", "10-7-2024");
                     console.log(response);
                     setData(response.DT.data);
                 } else if (fetchid === "listen") {
-                    const response = await songRankListenService(id, "90", "09-01-2024");
+                    const response = await songRankListenService(id, "20", "10-7-2024");
                     setData(response.DT.data);
                 }
             } catch (error) {
@@ -242,7 +222,7 @@ export default function Chart() {
             </nav>
             {!Array.isArray(data) || data.length < 1 ? (
                 <h2 className="undefine">
-                    chưa có dữ liệu trong 7 ngày gần nhất
+                    chưa có dữ liệu trong 30 ngày gần nhất
                 </h2>
             ) : (
                 <>

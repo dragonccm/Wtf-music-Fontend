@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import "../../../css/admin/musicAdmin.scss";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faRepeat, faUnlock } from "@fortawesome/free-solid-svg-icons";
+import {faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { adminGetCommentService } from "../../../services/adminGetComment";
-import { getSongData } from "../../../services/SongService";
+
 import {
     bancommentService
 } from "../../../services/bancomment_service";
