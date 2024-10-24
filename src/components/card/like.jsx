@@ -18,8 +18,12 @@ const Like_heart = ({ id, type }) => {
     const [liked, setLiked] = useState(false);
     const currData = useSelector((state) => state.inforUser);
     
-    const mysong = currData.userInfor.DT.likedSongs;
-    const myplaylist = currData.userInfor.DT.likedPlayLists;
+    let mysong = []
+    let myplaylist = []
+    if ( Object.keys(currData.userInfor).length !== 0) {
+         mysong = currData.userInfor.DT.likedSongs;
+         myplaylist = currData.userInfor.DT.likedPlayLists;
+    }
     const authen = useSelector((state) => state.Authentication);
 
     useEffect(() => {

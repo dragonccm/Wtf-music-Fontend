@@ -7,7 +7,7 @@ import PrivateRoutes from "./privateRoutes";
 import HomePage from "../components/pages/home";
 import Playlistpage from "../components/pages/Playlistpage";
 import Songpage from "../components/pages/Songpage";
-import Singerpage from "../components/pages/Singerpage";
+import ArtistRouter from "../components/pages/artist/artistRouter";
 import Top100 from "../components/pages/top100";
 import HubPage from "../components/pages/hubPage";
 import HubItem from "../components/pages/hubItem";
@@ -54,7 +54,8 @@ const AppRoutes = (props) => {
             <Routes>
               <Route path="/playlistpage" element={<Playlistpage />} />
               <Route path="/song/:id" element={<Songpage />} />
-              <Route path="/artists/:id" element={<Singerpage />} />
+              <Route path="/artists/:id/*" element={<ArtistRouter />}/>
+              
               <Route path="/rating" element={<Rating />} />
               <Route path="/search/:id" element={<SearchPage />} />
               <Route path="/rating_week/:id" exact element={<RatingWeek />} />

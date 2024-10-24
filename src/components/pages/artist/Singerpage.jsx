@@ -1,15 +1,15 @@
-import "../../css/Singerpage.scss";
-import { faCirclePlay, faUser } from "@fortawesome/free-regular-svg-icons";
+import "../../../css/Singerpage.scss";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Loading from "../sideNavigation/mascot_animation";
-import Col3Layout from "../../components/card/col_3_layout";
-import Card from "../../components/card/playlist_card";
-
+import Loading from "../../sideNavigation/mascot_animation";
+import Col3Layout from "../../card/col_3_layout";
+import Card from "../../card/playlist_card";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchgArtist } from "../../redux/slide/artistSlice";
+import { fetchgArtist } from "../../../redux/slide/artistSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import ArtistList from "../../card/artistList"
 const Singerpage = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -19,7 +19,7 @@ const Singerpage = () => {
         dispatch(fetchgArtist(id)).then(() => setLoading(false));
     }, [dispatch, id]);
 
-    const currData = useSelector((state) => state.Artist.Artist);
+    const currData = useSelector((state) => state.Artist.Artist.DT);
     if (loading) {
         return (
             <div>
@@ -29,6 +29,8 @@ const Singerpage = () => {
     }
 
     return (
+
+
         <section className="main_artists">
             <div className="artist-hero">
                 <div className="blur-container">
@@ -41,19 +43,22 @@ const Singerpage = () => {
                     </div>
                     <div className="artists_if_ctn">
                         <h1 className="artists_name">{currData.artistsName}</h1>
-                        <p className="follower">
-                        {currData.totalFollow
-                                ? currData.totalFollow.toLocaleString()
-                                : ""}{" "} người quan tâm{" "}
-                            <FontAwesomeIcon icon={faUser} />
-                        </p>
+                        <div className="group_follow">
+                            <p className="follower">
+                                {currData.totalFollow
+                                    ? currData.totalFollow.toLocaleString()
+                                    : ""}{" "} người quan tâm{" "}
+
+                            </p>
+                            <button className="btn-follow"><FontAwesomeIcon icon={faUserPlus} /> Quan tâm</button>
+                        </div>
                     </div>
                 </section>
             </div>
             <div className="for_you">
                 <div style={{ marginTop: '20px' }} className="d-flex justify-content-between align-items-baseline">
                     <h1 style={{ marginBottom: '10px' }} className="catego_title">Bài Hát Nổi Bật</h1>
-                    <NavLink to={`/bai-hat`} className="playlist_name" style={{ width: 'auto' }}>
+                    <NavLink to={`bai-hat`} className="playlist_name" style={{ width: 'auto' }}>
                         Xem tất cả
                     </NavLink>
                 </div>
@@ -65,27 +70,38 @@ const Singerpage = () => {
                         isDuration={true}
                     />}
                 {/* <div className="carr_ctn">
-                    {currData.songListId && currData.songListId.map((item) => (
-                        <NavLink className="carr" key={item._id} to={"/song/" + item.id}>
-                                <div className="carr_img">
-                                    <img src={item.thumbnail} alt="f" />
-                                </div>
-                                <p className="carr_songname">
-                                    {item.songname}
-                                </p>
-    
-                        </NavLink>
-                    ))}
-                </div> */}
+                            {currData.songListId && currData.songListId.map((item) => (
+                                <NavLink className="carr" key={item._id} to={"/song/" + item.id}>
+                                        <div className="carr_img">
+                                            <img src={item.thumbnail} alt="f" />
+                                        </div>
+                                        <p className="carr_songname">
+                                            {item.songname}
+                                        </p>
+            
+                                </NavLink>
+                            ))}
+                        </div> */}
             </div>
             {currData.playListId && currData.playListId.length > 0 && <div className="list_card">
-                <h1>Album</h1>
+                <div style={{ marginTop: '20px' }} className="d-flex justify-content-between align-items-baseline">
+
+                    <h1>Album</h1>
+                    <NavLink to={`playlist`} className="playlist_name" style={{ width: 'auto' }}>
+                        Xem tất cả
+                    </NavLink>
+                </div>
                 <Card playlist={currData.playListId} />
             </div>}
             {currData.playlistJoin && currData.playlistJoin.length > 0 && <div className="list_card">
                 <h1>Xuất hiện trong</h1>
                 <Card playlist={currData.playlistJoin} />
             </div>}
+            <div className="list_card">
+
+                <h1>Bạn có thể thích</h1>
+                <ArtistList data={currData.relatedArtists} />
+            </div>
             <h1 className="for_artist_lable">VỀ {currData.artistsName}</h1>
             <section className="for_artists_ctn">
                 <div className="for_artist_avt_ctn">
@@ -94,10 +110,10 @@ const Singerpage = () => {
                 <div className="for_artist_if_ctn">
                     <p className="for_artist_name" dangerouslySetInnerHTML={currData.biography ? { __html: currData.biography.replace(/<br>/g, "<br/>") } : ''}></p>
                     {/* <span className="for_artist_name">
-                        {currData.biography
-                            ? currData.biography.replace(/<br>/g, "\n")
-                            : ""}
-                    </span> */}
+                                {currData.biography
+                                    ? currData.biography.replace(/<br>/g, "\n")
+                                    : ""}
+                            </span> */}
                     <div className="follower">
                         <p >
                             {currData.totalFollow
@@ -110,6 +126,8 @@ const Singerpage = () => {
                 </div>
             </section>
         </section>
+
+
     );
 };
 

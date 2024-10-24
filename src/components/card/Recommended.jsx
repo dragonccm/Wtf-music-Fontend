@@ -15,11 +15,11 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, rank }) => {
   return (
     <>
       {/* lable */}
-      <h1 className="Recommended">
+      {type && <h1 className="Recommended">
         <i className="animation"></i>
         {type}
         <i className="animation"></i>
-      </h1>
+      </h1>}
       <p className="Recommended_1">{describe}</p>
       {/* lable */}
       <div className="full_list">
@@ -45,7 +45,7 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, rank }) => {
                     key={index} // Thêm key ở đây
                     data={data}
                     rating={{
-                      israting: true,
+                      israting: false,
                       index: index
                     }}
                   />)

@@ -104,7 +104,7 @@ const Playlistpage = () => {
 
                   {/* <span className="user_name">{playlist.artistsNames}</span> */}
                   {/* <span className="total_song"> {playlist.song.total} bài hát</span> */}
-                  <span className="total_time"> {playlist.playlist.like > 1000 ? playlist.playlist.like / 1000 + 'k' : playlist.playlist.like} người yêu thích</span>
+                  <span className="total_time"> {playlist.playlist.like > 1000 ? ((playlist.playlist.like / 1000).toFixed(1)) + 'k' : playlist.playlist.like} người yêu thích</span>
                 </div>
               </div>
             </div>

@@ -67,7 +67,7 @@ const Bottombar = () => {
   const playerRef = useRef();
   const dispatch = useDispatch();
 
-  const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1728488042~acl=/caa7d09452bca2dd41815083e1628cc2*~hmac=c7679212cf3b122d516156393e908e3a')
+  const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1729958418~acl=/6365d747214750e70ab2baf07187b007*~hmac=14197f8c817f8db67a2e3b063838bb60')
 
 
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]

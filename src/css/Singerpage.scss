@@ -29,10 +29,11 @@
                 position: absolute;
                 inset: 0px;
                 display: block;
+                -webkit-filter: blur(50px);
             }
 
             .bg-alpha {
-                background-color: var(--background-color);
+                // background-color: var(--background-color);
                 opacity: .8;
                 height: 100%;
                 z-index: 1;
@@ -84,12 +85,28 @@
                     font-size: 6rem;
                     color: var(--deep-black);
                 }
+.group_follow{
+    display: flex;
+    gap: 20px;
+    .follower {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--deep-black);
+    }
+    .btn-follow{
+        padding: 5px 10px;
+        margin: 0;
+        border-radius: 100px;
+        background: transparent;
+        border: 1px solid hsl(0deg 0% 100% / 10%);
+        color: var(--text-1);
+        text-transform: uppercase;
+        height: 28px;
+        padding: 4px 24px;
+        font-size: 12px;
+    }
 
-                .follower {
-                    font-size: 1.5rem;
-                    font-weight: 600;
-                    color: var(--deep-black);
-                }
+}
             }
 
 
@@ -178,6 +195,14 @@
         }
 
     }
+}
+.artist-more{
+    h1 {
+        color: var(--text-1);
+        font-size: 22px;
+        font-weight: 600;
+        padding: 20px 0;
+      }
 }
 
 @media screen and (max-width: 600px) {
