@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getArtist } from "../../services/artistsService";
 
-export const fetchgArtist = createAsyncThunk("Artist/getArtist", async (id) => {
-    const response = await getArtist(id);
-    return response;
-});
+    export const fetchgArtist = createAsyncThunk("Artist/getArtist", async (id) => {
+        const response = await getArtist(id);
+        return response;
+    });
 const initialState = {
     Artist: {},
     isLoading: false,
