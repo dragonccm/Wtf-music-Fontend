@@ -460,7 +460,7 @@ const PlaylistAdmin = () => {
                                 {kind.state === 1 ? (
                                     <tr
                                         style={{ background: '#b5d5ff' }}
-                                        key={kind.playListId}
+                                        key={index}
                                     >
                                         <td>{index + 1}</td>
                                         <td className="td_img">
@@ -506,7 +506,7 @@ const PlaylistAdmin = () => {
                                         </td>
                                     </tr>
                                 ) : (
-                                    <tr key={kind.playListId}>
+                                    <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td className="td_img">
                                             {" "}
@@ -625,7 +625,7 @@ const PlaylistAdmin = () => {
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}
             <div className="updateBtn-form-admin">
                 <Modal
-                    isOpen={()=>isEditModalOpen}
+                    isOpen={isEditModalOpen}
                     onRequestClose={closeEditModal}
                     contentLabel="Edit Music Kind"
                     className="modal-kindMusic"
@@ -687,12 +687,13 @@ const PlaylistAdmin = () => {
                             <div class="row align-items-start">
                                 <p>
                                     {editForm.artistsId &&
-                                        editForm.artistsId.map((d) => (
+                                        editForm.artistsId.map((d,index) => (
                                             <button
                                                 onClick={(e) =>
                                                     handleRemoveArTag(e, d)
                                                 }
                                                 className="btn btn-outline-primary btn-lg"
+                                                key={index}
                                             >
                                                 {d}{" "}
                                             </button>
@@ -700,7 +701,7 @@ const PlaylistAdmin = () => {
                                     }
                                 </p>
                                 <Modal
-                                    isOpen={()=>isArModalOpen}
+                                    isOpen={isArModalOpen}
                                     onRequestClose={closeArModal}
                                     contentLabel="Edit Music Kind"
                                     className="modal-kindMusic"
@@ -720,8 +721,8 @@ const PlaylistAdmin = () => {
                                         className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
                                     >
                                         {searchAr ? (
-                                            searchAr.map((data) => (
-                                                <p value={data.id}>
+                                            searchAr.map((data,index) => (
+                                                <p value={data.id} key={index}>
                                                     <button
                                                         onClick={(e) =>
                                                             handleAddArTag(
@@ -763,19 +764,20 @@ const PlaylistAdmin = () => {
                             </button>
                             <p>
                                 {editForm.genresid &&
-                                    editForm.genresid.map((d) => (
+                                    editForm.genresid.map((d,index) => (
                                         <button
                                             onClick={(e) =>
                                                 handleRemoveGenreTag(e, d)
                                             }
                                             className="btn btn-outline-primary btn-lg"
+                                            key={index}
                                         >
                                             {d}{" "}
                                         </button>
                                     ))}
                             </p>
                             <Modal
-                                isOpen={()=>isGenreModalOpen}
+                                isOpen={isGenreModalOpen}
                                 onRequestClose={closeGenreModal}
                                 contentLabel="Edit Music Kind"
                                 className="modal-kindMusic"
@@ -793,8 +795,8 @@ const PlaylistAdmin = () => {
                                     className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
                                 >
                                     {searchGenre ? (
-                                        searchGenre.map((data) => (
-                                            <p value={data.genreId}>
+                                        searchGenre.map((data,index) => (
+                                            <p value={data.genreId} key={index}>
                                                 <button
                                                     onClick={(e) =>
                                                         handleAddGenreTag(
@@ -837,19 +839,20 @@ const PlaylistAdmin = () => {
                             <div class="row align-items-start">
                                 <p>
                                     {editForm.songid &&
-                                        editForm.songid.map((d) => (
+                                        editForm.songid.map((d,index) => (
                                             <button
                                                 onClick={(e) =>
                                                     handleEditRemoveSongTag(e, d)
                                                 }
                                                 className="btn btn-outline-primary btn-lg"
+                                                key={index}
                                             >
                                                 {d}{" "}
                                             </button>
                                         ))}
                                 </p>
                                 <Modal
-                                    isOpen={()=>isSongModalOpen}
+                                    isOpen={isSongModalOpen}
                                     onRequestClose={closeSongModal}
                                     contentLabel="Edit Music Kind"
                                     className="modal-kindMusic"
@@ -869,9 +872,9 @@ const PlaylistAdmin = () => {
                                         className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
                                     >
                                         {searchSong ? (
-                                            searchSong.map((data) =>
+                                            searchSong.map((data,index) =>
                                                 data !== null ? (
-                                                    <p value={data.id}>
+                                                    <p value={data.id} key={index}>
                                                         <button
                                                             onClick={(e) =>
                                                                 handleEditAddSongTag(
@@ -968,7 +971,7 @@ const PlaylistAdmin = () => {
             {/* Hiển thị pop-up form tạo mới thể loại nhạc */}
             <div className="addBtn-form-admin">
                 <Modal
-                    isOpen={()=>isCreateModalOpen}
+                    isOpen={isCreateModalOpen}
                     onRequestClose={closeCreateModal}
                     contentLabel="Create Music Kind"
                     className="modal-kindMusic"
@@ -1012,7 +1015,7 @@ const PlaylistAdmin = () => {
                             <div class="row align-items-start">
                                 <p>
                                     {createForm.artistsId &&
-                                        createForm.artistsId.map((d) => (
+                                        createForm.artistsId.map((d,index) => (
                                             <button
                                                 onClick={(e) =>
                                                     handleCreateRemoveArTag(
@@ -1021,13 +1024,14 @@ const PlaylistAdmin = () => {
                                                     )
                                                 }
                                                 className="btn btn-outline-primary btn-lg"
+                                                key={index}
                                             >
                                                 {d}{" "}
                                             </button>
                                         ))}
                                 </p>
                                 <Modal
-                                    isOpen={()=>isArModalOpen}
+                                    isOpen={isArModalOpen}
                                     onRequestClose={closeArModal}
                                     contentLabel="Edit Music Kind"
                                     className="modal-kindMusic"
@@ -1047,8 +1051,8 @@ const PlaylistAdmin = () => {
                                         className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
                                     >
                                         {searchAr ? (
-                                            searchAr.map((data) => (
-                                                <p value={data.id}>
+                                            searchAr.map((data,index) => (
+                                                <p value={data.id} key={index}>
                                                     <button
                                                         onClick={(e) =>
                                                             handleCreateAddArTag(
@@ -1090,19 +1094,20 @@ const PlaylistAdmin = () => {
                             </button>
                             <p>
                                 {createForm.genresid &&
-                                    createForm.genresid.map((d) => (
+                                    createForm.genresid.map((d,index) => (
                                         <button
                                             onClick={(e) =>
                                                 handleCreateRemoveGenreTag(e, d)
                                             }
                                             className="btn btn-outline-primary btn-lg"
+                                            key={index}
                                         >
                                             {d}{" "}
                                         </button>
                                     ))}
                             </p>
                             <Modal
-                                isOpen={()=>isGenreModalOpen}
+                                isOpen={isGenreModalOpen}
                                 onRequestClose={closeGenreModal}
                                 contentLabel="Edit Music Kind"
                                 className="modal-kindMusic"
@@ -1120,7 +1125,7 @@ const PlaylistAdmin = () => {
                                     className="d-flex flex-wrap align-content-start gap-3 overflow-scroll"
                                 >
                                     {searchGenre ? (
-                                        searchGenre.map((data) => (
+                                        searchGenre.map((data,index) => (
                                             <p value={data.genreId}>
                                                 <button
                                                     onClick={(e) =>
@@ -1130,6 +1135,7 @@ const PlaylistAdmin = () => {
                                                         )
                                                     }
                                                     className="btn btn-outline-primary btn-lg"
+                                                    key={index}
                                                 >
                                                     {data.genrename}
                                                 </button>
@@ -1164,19 +1170,20 @@ const PlaylistAdmin = () => {
                             </button>
                             <p>
                                 {createForm.songid &&
-                                    createForm.songid.map((d) => (
+                                    createForm.songid.map((d,index) => (
                                         <button
                                             onClick={(e) =>
                                                 handleRemoveSongTag(e, d)
                                             }
                                             className="btn btn-outline-primary btn-lg"
+                                            key={index}
                                         >
                                             {d}{" "}
                                         </button>
                                     ))}
                             </p>
                             <Modal
-                                isOpen={()=>isSongModalOpen}
+                                isOpen={isSongModalOpen}
                                 onRequestClose={closeSongModal}
                                 contentLabel="Edit Music Kind"
                                 className="modal-kindMusic"
@@ -1196,7 +1203,7 @@ const PlaylistAdmin = () => {
                                 >
                                     {searchSong ? (
                                         searchSong.map((data) => (
-                                            <p value={data.id}>
+                                            <p value={data.id} key={data.id}>
                                                 <button
                                                     onClick={(e) =>
                                                         handleAddSongTag(
