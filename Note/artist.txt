@@ -1,0 +1,7 @@
+trang: http://localhost:3000/artists/HIEUTHUHAI
+-Có thông tin nghệ sĩ 
+-Theo dõi nghệ sĩ -> ** Mỗi khi có sản phẩm mới sẽ thông báo cho các user.
+-Hiện bài hát nổi bật - Xem tất cả -> hiện toàn bộ bài hát
+-Hiện albums - Xem tất cả
+-Hiện các playlist có tham gia
+-Gợi ý các nghệ sĩ có thể thích ( dựa trên việc có xuất hiện trong các sản phẩm của nghệ sĩ chính)

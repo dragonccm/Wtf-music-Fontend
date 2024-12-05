@@ -5,7 +5,7 @@ import { faUserPlus,faShuffle } from "@fortawesome/free-solid-svg-icons";
 
 
 const ArtistList = ({ data }) => {
-
+    
     return (
         <div className="artist_list">
             {data.map((element,index) => (

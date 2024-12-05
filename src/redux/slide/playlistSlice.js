@@ -8,6 +8,8 @@ export const fetchPlayList = createAsyncThunk(
     if (!type) {
       
       const response = await playlistroute(id);
+      console.log(response);
+      
       return response.DT;
     } else {
       const response = await playlistRelate(id);

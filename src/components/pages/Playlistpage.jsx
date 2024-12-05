@@ -13,6 +13,7 @@ import { fetchSongPlaying, update } from "../../redux/slide/songPlayingSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
 import SongCard2 from '../card/song_card2'
+import ArtistList from "../card/artistList"
 import Loading from "../sideNavigation/mascot_animation";
 import Like_heart from "../card/like";
 import CreatePlaylist from "../card/createPlaylist";
@@ -47,7 +48,7 @@ const Playlistpage = () => {
   }
 
   // const currData = useSelector((state) => state.playlist.playlist.data);
-  if (!playlist || !playlist.song || !playlist.genres) {
+  if (!playlist || !playlist.song) {
     // console.error('currData is not properly formatted:', currData);
     return <div className="main_banner"><Loading /></div>;
   }
@@ -177,13 +178,17 @@ const Playlistpage = () => {
           </div>
         </div>
       </div>
+      <div className="list_card">
 
+        <h1>Nghệ sĩ tham gia</h1>
+        <ArtistList data={playlist.artist} />
+      </div>
       {/* <div className="recommen">
-                <div className="recommen_list">
-                    <Card playlist={data} />
-                </div>
-              
-            </div> */}
+        <div className="recommen_list">
+          <Card playlist={data} />
+        </div>
+
+      </div> */}
 
     </section>
   );

@@ -79,7 +79,10 @@ padding-top: 30px;
       height     : 600px;
       overflow-y : auto;
       flex       : 1;
-
+      
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      
       .description {
         color        : var(--footer-text);
         margin-bottom: 1.7rem;

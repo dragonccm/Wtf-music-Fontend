@@ -71,6 +71,7 @@ const CreatePlaylist = ({ idSongs, type }) => {
             position={type ? 'left top' : 'right top'}
             on="hover"
             closeOnDocumentClick
+            offsetX={5}
             mouseLeaveDelay={300}
             mouseEnterDelay={0}
             contentStyle={{ padding: "0", border: "none" }}
