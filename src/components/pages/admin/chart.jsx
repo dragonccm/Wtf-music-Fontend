@@ -1,78 +1,101 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Statcard from '../../card/statcard'
 import ChartElement from "../../card/chartElement";
 import {
     songRankService,
     songRankListenService,
+    songRankPLService,
+    songRankPLListenService,
 } from "../../../services/songRankService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone, faCircleUser, faMusic, faList } from "@fortawesome/free-solid-svg-icons";
 import { getbanService } from "../../../services/getbanService";
-import { adminSearchS } from "../../../services/adminSearchSongService";
+import { adminSearchS, adminSearchPlaylistService } from "../../../services/adminSearchSongService";
+import Loading from "../../sideNavigation/mascot_animation";
+import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
 import "../../../css/admin/musicAdmin.scss";
 
-
-
-
 export default function Chart() {
-    
-const datatop = [
-    {
-        title: 'Users',
-        value: '14k',
-        interval: 'Last 30 days',
-        trend: 'up',
-        data: [
-            200, 24, 220, 260, 240, 380, 100, 240, 280, 240, 300, 340, 320, 360, 340, 380,
-            360, 400, 380, 420, 400, 640, 340, 460, 440, 480, 460, 600, 880, 920,
-        ],
-    },
-    {
-        title: 'Conversions',
-        value: '325',
-        interval: 'Last 30 days',
-        trend: 'down',
-        data: [
-            1640, 1250, 970, 1130, 1050, 900, 720, 1080, 900, 450, 920, 820, 840, 600, 820,
-            780, 800, 760, 380, 740, 660, 620, 840, 500, 520, 480, 400, 360, 300, 220,
-        ],
-    },
-    {
-        title: 'Event count',
-        value: '200k',
-        interval: 'Last 30 days',
-        trend: 'neutral',
-        data: [
-            500, 400, 510, 530, 520, 600, 530, 520, 510, 730, 520, 510, 530, 620, 510, 530,
-            520, 410, 530, 520, 610, 530, 520, 610, 530, 420, 510, 430, 520, 510,
-        ],
-    },
-];
     const [data, setData] = useState([]);
+    const [playlistData, setPlaylistData] = useState([]);
+    const [listenData, setListenData] = useState([]);
+    const [playlistListenData, setPlaylistListenData] = useState([]);
     const [years, setYears] = useState([]);
     const [UKGDPperCapita, setUKGDPperCapita] = useState([]);
-    const [tilte, settilte] = useState("");
+    const [UKGDPperCapitaListen, setUKGDPperCapitaListen] = useState([]);
+    const [tilte, settilte] = useState("Thống kê lượt thích tất cả Bài hát trong 1 tháng");
     const [id, setid] = useState("all");
-    const [fetchid, setfetchid] = useState("like");
     const [searchdata, setsearchdata] = useState([]);
     const [isInteractingWithResults, setIsInteractingWithResults] = useState(false);
+    const [startDate, setStartDate] = useState("12-5-2024");
+    const [range, setRange] = useState("30");
+    const [dataType, setDataType] = useState("song");
+    const currData = useSelector((state) => state.admin.AdminHome.DT);
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
-        const fetchRankSongs = async () => {
-            try {
-                if (fetchid === "like") {
-                    const response = await songRankService(id, "20", "10-7-2024");
-                    console.log(response);
-                    setData(response.DT.data);
-                } else if (fetchid === "listen") {
-                    const response = await songRankListenService(id, "20", "10-7-2024");
-                    setData(response.DT.data);
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-        fetchRankSongs();
+        dispatch(fetchAdminHome())
+            .then(() => {
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                setIsLoading(false);
+            });
+    }, [dispatch]);
+
+    const fetchRankSongs = async () => {
+        try {
+            const response = await songRankService(id, range, startDate);
+            setData(response.DT.data);
+            console.log(response.DT.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    const fetchRankSongsListen = async () => {
+        try {
+            const response = await songRankListenService(id, range, startDate);
+            setListenData(response.DT.data);
+            console.log(response.DT.data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    const fetchRankPlaylist = async () => {
+        try {
+            const response = await songRankPLService({ id, days: range, startDate });
+            setPlaylistData(response.DT);
+            console.log(response.DT);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    const fetchRankPlaylistListen = async () => {
+        try {
+            const response = await songRankPLListenService({ id, days: range, startDate });
+            setPlaylistListenData(response.DT);
+            console.log(response.DT);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (dataType === "song") {
+            fetchRankSongs();
+            fetchRankSongsListen();
+        } else {
+            fetchRankPlaylist();
+            fetchRankPlaylistListen();
+        }
 
         const fetchban = async () => {
             try {
@@ -82,11 +105,14 @@ const datatop = [
             }
         };
         fetchban();
-    }, [id, fetchid]);
+    }, [id, range, startDate, dataType]);
+
     useEffect(() => {
+        const currentData = dataType === "song" ? data : playlistData;
+        const currentListenData = dataType === "song" ? listenData : playlistListenData;
         if (id === "all") {
-            settilte("Thống kê lượt thích tất cả Bài hát trong 1 tháng");
-            const formattedYears = data.map((day) => {
+            settilte(`Thống kê lượt thích tất cả ${dataType === "song" ? "Bài hát" : "Playlist"} trong 1 tháng`);
+            const formattedYears = currentData.map((day) => {
                 const f = new Date(day.date);
                 const year = parseInt(f.getFullYear());
                 const month = parseInt(f.getMonth()) + 1;
@@ -95,56 +121,78 @@ const datatop = [
             });
             formattedYears.sort((a, b) => a - b);
             setYears(formattedYears);
-            const UKGDPperCapitadata = data.map((data) => data.likeCount);
+            const UKGDPperCapitadata = currentData.map((data) => data.likeCount);
             setUKGDPperCapita(UKGDPperCapitadata);
+            if (Array.isArray(currentListenData)) {
+                const UKGDPperCapitaListenData = currentListenData.map((data) => data.listenCount);
+                setUKGDPperCapitaListen(UKGDPperCapitaListenData);
+            }
         } else {
-            settilte("Thống kê lượt thích 7 ngày gần nhất");
-            if (Array.isArray(data)) {
-                const formattedYears = data.map((day) => {
+            settilte(`Thống kê lượt thích 7 ngày gần nhất`);
+            if (Array.isArray(currentData)) {
+                const formattedYears = currentData.map((day) => {
                     const f = new Date(day.rankingDate);
                     return new Date(f.getFullYear(), f.getMonth(), f.getDate());
                 });
                 formattedYears.sort((a, b) => a - b);
                 setYears(formattedYears);
-
-                const UKGDPperCapitadata = data.map((data) => data.likeCount);
+                const UKGDPperCapitadata = currentData.map((data) => data.likeCount);
                 setUKGDPperCapita(UKGDPperCapitadata);
+                if (Array.isArray(currentListenData)) {
+                    const UKGDPperCapitaListenData = currentListenData.map((data) => data.listenCount);
+                    setUKGDPperCapitaListen(UKGDPperCapitaListenData);
+                }
             }
         }
-    }, [data]);
+    }, [data, playlistData, listenData, playlistListenData, dataType]);
+
+    useEffect(() => {
+        if (dataType === "song") {
+            fetchRankSongs();
+            fetchRankSongsListen();
+        } else {
+            fetchRankPlaylist();
+            fetchRankPlaylistListen();
+        }
+    }, [dataType]);
 
     const handleserch = async (e) => {
         try {
-            const ser = await adminSearchS(e.target.value);
-            const format = ser.DT.data.songs.map((data) => {
-                return { id: data.id, songname: data.songname };
-            });
-            setsearchdata(format);
+            let ser;
+            if (dataType === "song") {
+                ser = await adminSearchS(e.target.value);
+                const format = ser.DT.data.songs.map((data) => {
+                    return { id: data.id, songname: data.songname };
+                });
+                setsearchdata(format);
+            } else {
+                ser = await adminSearchPlaylistService(e.target.value);
+                const format = ser.DT.data.Playlist.map((data) => {
+                    return { id: data.playlistId, playlistname: data.playlistname };
+                });
+                setsearchdata(format);
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
-    const lineChartsParams = {
-        series: [
-            {
-                id: 'downloads',
-                label: "Song",
-                data: UKGDPperCapita,
-                stack: 'A',
-            },
-        ],
-        width: 1100,
-        height: 400,
-    };
 
-    const yearFormatter = (date) =>
-        `${date.getDate().toString()}/${date.getMonth().toString()}`;
     const handleSearchResultClick = async (id) => {
         setIsInteractingWithResults(false);
         try {
-            const response = await songRankService(id);
-            setData(response.DT.data);
+            if (dataType === "song") {
+                const response = await songRankService(id, range, startDate);
+                setData(response.DT.data);
+                const listenResponse = await songRankListenService(id, range, startDate);
+                setListenData(listenResponse.DT.data);
+            } else {
+                const response = await songRankPLService(id);
+                setPlaylistData(response.DT.data);
+                const listenResponse = await songRankPLListenService(id);
+                setPlaylistListenData(listenResponse.DT.data);
+            }
             setid(id);
+            setsearchdata([]); // Clear search results after selection
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -155,48 +203,82 @@ const datatop = [
             setsearchdata([]);
         }
     };
+
     const handleResultMouseEnter = () => {
         setIsInteractingWithResults(true);
     };
+
     const handleResultMouseLeave = () => {
         setIsInteractingWithResults(false);
     };
 
+    const yearFormatter = (date) => `${date.getDate().toString()}/${date.getMonth().toString()}`;
+    const lineChartsParams = {
+        series: [
+            {
+                id: 'like',
+                label: 'like',
+                data: UKGDPperCapita,
+                stack: 'A',
+            },
+            {
+                id: 'listen',
+                label: 'listen',
+                data: UKGDPperCapitaListen,
+                stack: 'A',
+            },
+        ],
+        width: 1100,
+        height: 400,
+    };
 
-    if (data.length < 0) {
-        return <h1>loading...</h1>;
+    if (isLoading || data.length < 0) {
+        return <div><Loading /></div>;
     }
+
     return (
         <>
             <h1>{tilte}</h1>
-            <nav class="d-flex ranking_select">
-                <select
-                    className=" p-3"
-                    onChange={(e) => setfetchid(e.target.value)}
-                >
-                    <option value="like">Like</option>
-                    <option value="listen">Listen</option>
-                </select>
-                <nav class="navbar">
-                    <div class="search_ctn">
+            <nav className="d-flex flex-column flex-md-row align-items-md-center ranking_select mb-3">
+                <div className="d-flex flex-column flex-md-row align-items-md-center mb-3 mb-md-0">
+                    <div className="d-flex flex-column flex-md-row align-items-md-center">
                         <input
-                            class="mr-sm-2"
+                            type="text"
+                            className="form-control me-md-2 mb-2 mb-md-0"
+                            placeholder="Start Date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+                        <input
+                            type="number"
+                            className="form-control me-md-2 mb-2 mb-md-0"
+                            placeholder="Range"
+                            value={range}
+                            onChange={(e) => setRange(e.target.value)}
+                        />
+                        <button className="btn btn-primary" onClick={() => setDataType(dataType === "song" ? "playlist" : "song")}>
+                            {dataType === "song" ? "Chuyển sang Playlist" : "Chuyển sang Bài hát"}
+                        </button>
+                    </div>
+                </div>
+                <div className="navbar">
+                    <div className="search_ctn">
+                        <input
+                            className="form-control me-2"
                             type="search"
                             placeholder="Search"
                             aria-label="Search"
                             onChange={handleserch}
                             onBlur={handleclear}
+                            onFocus={() => setIsInteractingWithResults(true)}
                         />
-                        <button
-                            class="btn btn-outline-success my-2 my-sm-0"
-                            type="button"
-                        >
-                            Search
+                        <button className="btn btn-outline-success" type="button">
+                            Tìm Kiếm
                         </button>
                     </div>
-                    {searchdata.length > 0 && (
+                    {searchdata.length > 0 && isInteractingWithResults && (
                         <div
-                            class="search_result"
+                            className="search_result"
                             onMouseEnter={handleResultMouseEnter}
                             onMouseLeave={handleResultMouseLeave}
                         >
@@ -213,54 +295,131 @@ const datatop = [
                                     value={data.id}
                                     onClick={() => handleSearchResultClick(data.id)}
                                 >
-                                    {data.songname}
+                                    {dataType === "song" ? data.songname : data.playlistname}
                                 </button>
                             ))}
                         </div>
                     )}
-                </nav>
+                </div>
             </nav>
             {!Array.isArray(data) || data.length < 1 ? (
-                <h2 className="undefine">
-                    chưa có dữ liệu trong 30 ngày gần nhất
-                </h2>
+                <h2 className="undefine">chưa có dữ liệu trong 30 ngày gần nhất</h2>
             ) : (
                 <>
                     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
+                        <div className="HomeAdmin">
+                            <section className="row">
+                                <div className="col">
+                                    <div className="card card-box text-center ">
+                                        <div className="card-body bg-artist">
+                                            <div className="admin-circle-box rounded-pill">
+                                                <FontAwesomeIcon
+                                                    icon={faMicrophone}
+                                                    className="icon-artist"
+                                                />
+                                            </div>
+
+                                            <h4 className="text-capitalize mt-4 mb-1">{currData.ar}</h4>
+                                            <p className="mb-0 text-capitalize text-body">
+                                                Tổng Số Nghệ Sĩ
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="card card-box text-center">
+                                        <div className="card-body bg-songs">
+                                            <div className="admin-circle-box rounded-pill">
+                                                <FontAwesomeIcon
+                                                    icon={faMusic}
+                                                    className="icon-songs"
+                                                />
+                                            </div>
+
+                                            <h4 className="text-capitalize mt-4 mb-1">{currData.songs}</h4>
+                                            <p className="mb-0 text-capitalize text-body">
+                                                Tổng Số Bài Hát
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="card card-box text-center">
+                                        <div className="card-body bg-playlist">
+                                            <div className="admin-circle-box rounded-pill">
+                                                <FontAwesomeIcon
+                                                    icon={faList}
+                                                    className="icon-playlist"
+                                                />
+                                            </div>
+
+                                            <h4 className="text-capitalize mt-4 mb-1">{currData.Playlist}</h4>
+                                            <p className="mb-0 text-capitalize text-body">
+                                                Tổng Số Playlist
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col">
+                                    <div className="card card-box text-center">
+                                        <div className="card-body bg-users">
+                                            <div className="admin-circle-box rounded-pill">
+                                                <FontAwesomeIcon
+                                                    icon={faCircleUser}
+                                                    className="icon-users"
+                                                />
+                                            </div>
+                                            <h4 className="text-capitalize mt-4 mb-1">{currData.User}</h4>
+
+                                            <p className="mb-0 text-capitalize text-body">
+                                                Tổng Số Người Dùng
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
                         <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
                             Overview
                         </Typography>
-                        <Stack
-                            direction="row"
-                            sx={{ gap: 1 }}
-                        >
-                            {datatop.map((item) => (
-                                <Statcard {...item} />
-                            ))}
-                        </Stack>
+                        <h1>{dataType==="song" ? "Dữ Liệu Thống Kê Của Nhạc":"Dữ Liệu Thống Kê Của PlayList"}</h1>
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                            <ChartElement xAxis={[
-                                {
-                                    data: years,
-                                    scaleType: "time",
-                                    valueFormatter: yearFormatter,
-                                },
-                            ]}
-                                series={lineChartsParams.series.map((series) => ({
-                                    ...series,
-                                    data: UKGDPperCapita,
-                                }))} />
-                            <ChartElement xAxis={[
-                                {
-                                    data: years,
-                                    scaleType: "time",
-                                    valueFormatter: yearFormatter,
-                                },
-                            ]}
-                                series={lineChartsParams.series.map((series) => ({
-                                    ...series,
-                                    data: UKGDPperCapita,
-                                }))} />
+                            <ChartElement
+                                xAxis={[
+                                    {
+                                        data: years,
+                                        scaleType: "time",
+                                        valueFormatter: yearFormatter,
+                                    },
+                                ]}
+                                series={[
+                                    {
+                                        id: 'like',
+                                        label: dataType === "song" ? "Song Likes" : "Playlist Likes",
+                                        data: UKGDPperCapita,
+                                        stack: 'A',
+                                    },
+                                ]}
+                                total={300}
+                            />
+                            <ChartElement
+                                xAxis={[
+                                    {
+                                        data: years,
+                                        scaleType: "time",
+                                        valueFormatter: yearFormatter,
+                                    },
+                                ]}
+                                series={[
+                                    {
+                                        id: 'listen',
+                                        label: dataType === "song" ? "Song Listens" : "Playlist Listens",
+                                        data: UKGDPperCapitaListen,
+                                        stack: 'A',
+                                    },
+                                ]}
+                                total={300}
+                            />
                         </Stack>
                     </Box>
                 </>

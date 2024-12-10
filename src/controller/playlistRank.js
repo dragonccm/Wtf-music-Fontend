@@ -1,10 +1,22 @@
 // controller/SongController.js
 import axios from "../setup/axios";
-const getrankingPlController = (id) => {
-    return axios.get(`/api/getrankingplservice/${id}`)
+const getrankingPlController = (data) => {
+    return axios.post(`/api/getrankingplservice`,{
+        data:data
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 }
-const getrankingPllistenController = (id) => {
-    return axios.get(`/api/getrankingplservicelisten/${id}`)
+const getrankingPllistenController = (data) => {
+    return axios.post(`/api/getrankingplservicelisten`,{
+        data:data
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 }
 
 export {

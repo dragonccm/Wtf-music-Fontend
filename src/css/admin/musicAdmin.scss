@@ -1,24 +1,24 @@
 .modal-overlay-1 {
-    position        : fixed;
-    inset           : 0px;
+    position: fixed;
+    inset: 0px;
     background-color: rgba(39, 39, 39, 0.75);
-    z-index         : 11;
+    z-index: 11;
 }
 
 .modal-kindMusic {
-    position     : absolute;
-    top          : 50%;
-    left         : 50%;
-    transform    : translate(-50%, -50%);
-    width        : 500px;
-    background   : #fff;
-    color        : #333;
-    padding      : 20px;
-    border       : 1px solid rgb(204, 204, 204);
-    outline      : none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background: #fff;
+    color: #333;
+    padding: 20px;
+    border: 1px solid rgb(204, 204, 204);
+    outline: none;
     border-radius: 4px;
-    overflow     : auto;
-    z-index      : 10;
+    overflow: auto;
+    z-index: 10;
 }
 
 .MuiDataGrid-root {
@@ -29,55 +29,79 @@
     color: aliceblue !important;
 }
 
+.avt_group {
+    display: flex;
+    justify-content: center;
+    background-color: #33333366;
+    padding: 7px;
+    border-radius: 10px;
+
+    svg {
+        height: 4rem;
+    }
+}
+
+.audio_group {
+    display: flex;
+    justify-content: center;
+    background-color: #33333366;
+    padding: 7px;
+    border-radius: 10px;
+
+    svg {
+        height: 4rem;
+    }
+}
+
 .container-admin {
-    position           : relative;
-    padding            : 0 !important;
+    position: relative;
+    padding: 0 !important;
     // background-color: #f8f8f866;
-    max-width          : 100% !important;
-    border-radius      : 15px !important;
-    box-shadow         : 0px 4px 16px rgb(116 166 255 / 80%) !important;
-    z-index            : 1;
+    max-width: 100% !important;
+    border-radius: 15px !important;
+    box-shadow: 0px 4px 16px rgb(116 166 255 / 80%) !important;
+    z-index: 1;
 
     &::after {
-        content            : "";
-        position           : absolute;
-        top                : 0;
-        left               : 0;
-        right              : 0;
-        bottom             : 0;
-        background-image   : url('../../img/bg-sidebar.jpg');
-        background-size    : contain;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('../../img/bg-sidebar.jpg');
+        background-size: contain;
         background-position: center;
-        opacity            : 0.15;
-        filter             : brightness(1.85);
-        z-index            : -1;
+        opacity: 0.15;
+        filter: brightness(1.85);
+        z-index: -1;
     }
 
     .header-admin {
-        padding      : 16px 0;
+        padding: 16px 0;
         border-bottom: 1px solid #cccccc;
 
         .heading-admin {
             border-radius: 20px;
-            padding      : 10px 20px;
-            color        : #333 !important;
-            font-weight  : 400 !important;
-            box-shadow   : 0px 4px 14px rgba(0, 0, 0, 0.25) !important;
+            padding: 10px 20px;
+            color: #333 !important;
+            font-weight: 400 !important;
+            box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25) !important;
         }
 
         .actions-admin {
             .btn {
-                border-radius   : 16px !important;
-                font-size       : medium !important;
-                padding         : 6px 16px !important;
+                border-radius: 16px !important;
+                font-size: medium !important;
+                padding: 6px 16px !important;
                 background-color: #0b5fd0 !important;
-                color           : #fff !important;
-                border-color    : #0b5fd0 !important;
-                transition      : all 0.1s ease-in-out;
+                color: #fff !important;
+                border-color: #0b5fd0 !important;
+                transition: all 0.1s ease-in-out;
 
                 &:hover {
                     opacity: 0.95;
-                    scale  : 1.05;
+                    scale: 1.05;
                 }
             }
 
@@ -88,11 +112,11 @@
             input {
 
                 &:focus-visible {
-                    color           : var(--bs-body-color);
+                    color: var(--bs-body-color);
                     background-color: var(--bs-body-bg);
-                    border-color    : #86b7fe !important;
-                    outline         : 0;
-                    box-shadow      : 0 0 0 0.25rem rgba(13, 110, 253, .25);
+                    border-color: #86b7fe !important;
+                    outline: 0;
+                    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
                 }
             }
         }
@@ -102,19 +126,19 @@
         text-align: right;
 
         .card {
-            flex-direction : row !important;
-            border         : 0 !important;
+            flex-direction: row !important;
+            border: 0 !important;
             justify-content: end;
         }
 
         input {
-            outline      : 0;
-            padding      : 4px 4px 4px 10px !important;
+            outline: 0;
+            padding: 4px 4px 4px 10px !important;
             border-radius: 10px !important;
-            transition   : all 0.1s linear;
+            transition: all 0.1s linear;
 
             &:focus-visible {
-                border    : 1px solid #74a6ffcc !important;
+                border: 1px solid #74a6ffcc !important;
                 box-shadow: 0px 1px 8px #74a6ffcc !important;
             }
         }
@@ -138,19 +162,19 @@
                 }
 
                 td {
-                    font-size    : medium;
-                    color        : #333 !important;
-                    max-width    : 15rem;
-                    max-height   : 15rem;
+                    font-size: medium;
+                    color: #333 !important;
+                    max-width: 15rem;
+                    max-height: 15rem;
                     overflow-wrap: break-word;
                     /* Chia từ khi văn bản không thể trên một dòng */
-                    word-break   : break-all;
+                    word-break: break-all;
                     /* Chia dòng ngay cả khi từ không thể đặt trên dòng mới */
-                    hyphens      : auto;
+                    hyphens: auto;
                     /* Chèn dấu gạch ngang khi cần thiết */
 
                     img {
-                        width        : 100px;
+                        width: 100px;
                         border-radius: 10%;
                     }
                 }
@@ -159,38 +183,40 @@
 
         tr {
             --bs-gutter-x: 0;
-            flex-wrap    : nowrap;
+            flex-wrap: nowrap;
 
             th,
             td {
-                padding   : 16px 0 16px 16px;
+                padding: 16px 0 16px 16px;
                 border-top: 1px solid #cbcbcb;
             }
 
             td {
                 button.btn-primary {
-                    border-radius   : 50%;
-                    padding         : 5px 10px;
+                    border-radius: 50%;
+                    padding: 5px 10px;
                     background-color: #0b5fd0 !important;
                 }
 
                 button.btn-danger-custom {
-                    color           : #fff;
+                    color: #fff;
                     background-color: #eb0000 !important;
-                    border-radius   : 50%;
-                    padding         : 5px 10px;
+                    border-radius: 50%;
+                    padding: 5px 10px;
                 }
+
                 button.btn-success-custom {
-                    color           : #fff;
+                    color: #fff;
                     background-color: #00cc33 !important;
-                    border-radius   : 50%;
-                    padding         : 5px 10px;
+                    border-radius: 50%;
+                    padding: 5px 10px;
                 }
+
                 button.btn-warning-custom {
-                    color           : #fff;
+                    color: #fff;
                     background-color: #dfeb00c3 !important;
-                    border-radius   : 50%;
-                    padding         : 5px 10px;
+                    border-radius: 50%;
+                    padding: 5px 10px;
                 }
 
                 button {
@@ -198,7 +224,7 @@
 
                     &:hover {
                         opacity: 0.8 !important;
-                        scale  : 1.1;
+                        scale: 1.1;
                     }
                 }
 
@@ -236,7 +262,7 @@
 
                 li {
                     border-color: #0b5fd0 !important;
-                    cursor      : pointer;
+                    cursor: pointer;
 
                     &.active {
                         background-color: #bfd7fa;
@@ -257,64 +283,64 @@
 
 
 .navbar {
-    display       : flex;
+    display: flex;
     flex-direction: column;
-    position      : relative;
+    position: relative;
 
     .search_ctn {
-        display    : flex;
+        display: flex;
         align-items: center;
 
         input {
-            width        : 40rem;
-            height       : 4rem;
-            padding      : 5px 10px;
+            width: 40rem;
+            height: 4rem;
+            padding: 5px 10px;
             border-radius: 5px;
-            border-width : 1px;
-            outline      : none;
-            margin-right : 10px;
-            font-size    : 16px;
+            border-width: 1px;
+            outline: none;
+            margin-right: 10px;
+            font-size: 16px;
         }
 
         button {
             font-size: medium;
-            padding  : 5px 10px;
+            padding: 5px 10px;
         }
 
         .add {
-            padding         : 5px 10px;
-            border-radius   : 5px;
+            padding: 5px 10px;
+            border-radius: 5px;
             background-color: #0b5fd0;
-            color           : white;
-            border          : none;
-            cursor          : pointer;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
     }
 
     .search_result {
-        position        : absolute;
-        top             : 5rem;
-        width           : 30rem;
-        height          : 30rem;
-        overflow-y      : scroll;
-        overflow-x      : unset;
-        font-size       : medium;
-        font-weight     : 700;
+        position: absolute;
+        top: 5rem;
+        width: 30rem;
+        height: 30rem;
+        overflow-y: scroll;
+        overflow-x: unset;
+        font-size: medium;
+        font-weight: 700;
         background-color: #a6b0c0b0;
-        border-radius   : 1rem;
-        padding         : 1rem;
-        z-index         : 10;
+        border-radius: 1rem;
+        padding: 1rem;
+        z-index: 10;
 
         .search_result_item {
-            width        : 100%;
-            padding      : 0.5rem;
+            width: 100%;
+            padding: 0.5rem;
             border-bottom: 1px solid #000000;
-            cursor       : pointer;
-            transition   : all 0.2s ease-in-out;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
 
             &:hover {
                 background-color: #0b5fd0;
-                color           : white;
+                color: white;
             }
         }
     }
@@ -322,21 +348,21 @@
 
 .undefine {
     text-align: center;
-    margin    : 2rem;
+    margin: 2rem;
 }
 
 .ranking_select {
     select {
-        width        : 8%;
-        margin-left  : 1rem;
-        margin-right : 1rem;
+        width: 8%;
+        margin-left: 1rem;
+        margin-right: 1rem;
         border-radius: 0.5rem;
-        font-size    : medium;
+        font-size: medium;
     }
 
     input {
-        height       : 4rem;
-        margin       : 0 1rem;
+        height: 4rem;
+        margin: 0 1rem;
         border-radius: 0.5rem;
     }
 }
