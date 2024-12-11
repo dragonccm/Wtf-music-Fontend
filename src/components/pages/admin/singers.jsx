@@ -24,7 +24,8 @@ import { getbanService } from "../../../services/getbanService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const SingerAdmin = () => {
-    const [editPlaylistArray, seteditPlaylistArray] = useState([]);
+    const [searchSongDisplay, setSearchSongDisplay] = useState([]);
+    const [searchPalylistDisplay, setsearchPalylistDisplay] = useState([]);
     const [searchPalylist, setsearchPalylist] = useState([]);
     const [searchSong, setSearchSong] = useState([]);
 
@@ -240,8 +241,9 @@ const SingerAdmin = () => {
         }
     };
 
-    const handleAddPlaylistTag = (e, id) => {
+    const handleAddPlaylistTag = (e, id, data) => {
         e.preventDefault();
+        setSearchSongDisplay(data);
         if (!createForm.playListId || !createForm.playListId.includes(id)) {
             setCreateForm((prevState) => ({
                 ...prevState,
@@ -252,8 +254,9 @@ const SingerAdmin = () => {
         }
     };
 
-    const handleAddSongTag = (e, id) => {
+    const handleAddSongTag = (e, id, data) => {
         e.preventDefault();
+        setsearchPalylistDisplay(data);
         if (!createForm.songListId || !createForm.songListId.includes(id)) {
             setCreateForm((prevState) => ({
                 ...prevState,

@@ -36,6 +36,7 @@ export default function Chart() {
     const currData = useSelector((state) => state.admin.AdminHome.DT);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
+    const [selectedName, setSelectedName] = useState("");
 
     useEffect(() => {
         dispatch(fetchAdminHome())
@@ -177,7 +178,7 @@ export default function Chart() {
         }
     };
 
-    const handleSearchResultClick = async (id) => {
+    const handleSearchResultClick = async (id, name) => {
         setIsInteractingWithResults(false);
         try {
             if (dataType === "song") {
@@ -192,6 +193,7 @@ export default function Chart() {
                 setPlaylistListenData(listenResponse.DT.data);
             }
             setid(id);
+            setSelectedName(name);
             setsearchdata([]); // Clear search results after selection
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -231,6 +233,17 @@ export default function Chart() {
         width: 1100,
         height: 400,
     };
+
+    const formatDate = (dateString) => {
+        const [day, month, year] = dateString.split("-");
+        return new Date(year, month - 1, day);
+    };
+
+    const endDate = new Date(formatDate(startDate));
+    endDate.setDate(endDate.getDate() + parseInt(range));
+
+    const formattedStartDate = `${formatDate(startDate).getDate()}-${formatDate(startDate).getMonth() + 1}-${formatDate(startDate).getFullYear()}`;
+    const formattedEndDate = `${endDate.getDate()}-${endDate.getMonth() + 1}-${endDate.getFullYear()}`;
 
     if (isLoading || data.length < 0) {
         return <div><Loading /></div>;
@@ -293,7 +306,7 @@ export default function Chart() {
                                 <button
                                     className="list-group-item search_result_item"
                                     value={data.id}
-                                    onClick={() => handleSearchResultClick(data.id)}
+                                    onClick={() => handleSearchResultClick(data.id, dataType === "song" ? data.songname : data.playlistname)}
                                 >
                                     {dataType === "song" ? data.songname : data.playlistname}
                                 </button>
@@ -382,7 +395,13 @@ export default function Chart() {
                         <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
                             Overview
                         </Typography>
-                        <h1>{dataType==="song" ? "Dữ Liệu Thống Kê Của Nhạc":"Dữ Liệu Thống Kê Của PlayList"}</h1>
+                        <h1>
+                            {dataType === "song"
+                                ? selectedName ? `Dữ Liệu Thống Kê Của Bài Hát: ${selectedName}` : "Dữ Liệu Thống Kê Của Nhạc"
+                                : selectedName ? `Dữ Liệu Thống Kê Của Playlist: ${selectedName}` : "Dữ Liệu Thống Kê Của PlayList"}
+                            <br />
+                            {`(Từ ngày ${formattedStartDate} đến ngày ${formattedEndDate})`}
+                        </h1>
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
                             <ChartElement
                                 xAxis={[

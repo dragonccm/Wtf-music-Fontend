@@ -21,16 +21,17 @@ const RightSidebar = () => {
     const [userlist, setuserlist] = useState(null);
     const currData = useSelector((state) => state.Authentication);
     const usernames = currData.defaultUser.account.username;
-    // const userplaylist = useSelector((state) => state.getUserPl.userPlaylist);
-    // useEffect(() => {
-    //     if (usernames) {
-    //         dispatch(getUserPl({ userId: usernames }));
-    //     }
-    // }, [dispatch, currData]);
+    const userplaylist = useSelector((state) => state.getUserPl.userPlaylist);
+    useEffect(() => {
+        if (usernames) {
+            dispatch(getUserPl({ userId: usernames }));
+        }
+    }, [dispatch, currData]);
 
-    // useEffect(() => {
-    //     setuserlist(userplaylist);
-    // }, [userplaylist]);
+    useEffect(() => {
+        setuserlist(userplaylist);
+        console.table(userlist)
+    }, [userplaylist]);
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
     const location = useLocation();
