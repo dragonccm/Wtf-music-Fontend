@@ -21,7 +21,6 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
     const { fetchMusicSongs } = usePlaylistAdmin();
 
     useEffect(() => {
-        console.log("form", form);
         if (form.genresNames) {
             setGenres(form.genresNames.map(data => ({ id: data.genreId, name: data.genrename })));
         }
@@ -92,7 +91,6 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
     };
 
     const handleSubmit = async (e) => {
-        console.log("form", songs,"form2",artists,"form3",genres);
         e.preventDefault();
         const updatedForm = {
             playlistId: form.playlistId,

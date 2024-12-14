@@ -33,17 +33,17 @@ const SongAdmin = () => {
         id: "",
         songname: "",
         thumbnail: "",
-        artists: [],
-        genresid: [],
+        artistsNames: [],
+        genresNames: [],
         songLink: "",
-        like: "",
-        listen: "",
+        like: 0,
+        listen: 0,
     });
     const [createForm, setCreateForm] = useState({
         songname: "",
         thumbnail: "",
-        artists: [],
-        genresid: [],
+        artistsNames: [],
+        genresNames: [],
         songLink: "",
         lyric: "",
     });
@@ -146,8 +146,8 @@ const SongAdmin = () => {
                 id: data,
                 songname: "",
                 thumbnail: "",
-                artists: "",
-                genresid: "",
+                artistsNames: [],
+                genresNames: [],
                 songLink: "",
                 lyric: "",
             };
@@ -184,8 +184,11 @@ const SongAdmin = () => {
             id: kind.id,
             songname: kind.songname,
             thumbnail: kind.thumbnail,
-            artists: kind.artists,
-            genresid: kind.genresid,
+            artistsNames: kind.artistsNames,
+            genresNames: kind.genresNames,
+            songLink: kind.songLink,
+            like: kind.like,
+            listen: kind.listen,
         });
         setIsEditModalOpen(true);
     };
@@ -217,8 +220,8 @@ const SongAdmin = () => {
         setCreateForm({
             songname: kind.songname,
             thumbnail: kind.thumbnail,
-            artists: kind.artists,
-            genresid: kind.genresid,
+            artistsNames: kind.artistsNames,
+            genresNames: kind.genresNames,
             songLink: kind.songLink,
             lyric: kind.lyric,
         });
@@ -271,8 +274,11 @@ const SongAdmin = () => {
 
     const handleAddGenreTag = (e, id) => {
         e.preventDefault();
-        if (!editForm.genresid.includes(id)) {
-            editForm.genresid.push(id);
+        if (!editForm.genresNames.some(genre => genre.genreId === id)) {
+            setEditForm((prevState) => ({
+                ...prevState,
+                genresNames: [...prevState.genresNames, { genreId: id, genrename: id }],
+            }));
         } else {
             alert("id đã tồn tại");
         }
@@ -280,10 +286,10 @@ const SongAdmin = () => {
 
     const handleAddArTag = (e, id) => {
         e.preventDefault();
-        if (!editForm.artists.includes(id)) {
+        if (!editForm.artistsNames.some(artist => artist.id === id)) {
             setEditForm((prevState) => ({
                 ...prevState,
-                artists: [...prevState.artists, id],
+                artistsNames: [...prevState.artistsNames, { id: id, artistsName: id }],
             }));
         } else {
             alert("id đã tồn tại");
@@ -292,31 +298,26 @@ const SongAdmin = () => {
 
     const handleRemoveGenreTag = (e, id) => {
         e.preventDefault();
-        if (editForm.genresid.includes(id)) {
-            editForm.filter((item) => item !== id);
-        } else {
-            alert("id đã tồn tại");
-        }
+        setEditForm((prevState) => ({
+            ...prevState,
+            genresNames: prevState.genresNames.filter((genre) => genre.genreId !== id),
+        }));
     };
 
     const handleRemoveArTag = (e, id) => {
         e.preventDefault();
-        if (editForm.artists.includes(id)) {
-            setEditForm((prevState) => ({
-                ...prevState,
-                artists: prevState.artists.filter((item) => item !== id),
-            }));
-        } else {
-            alert("id không tồn tại");
-        }
+        setEditForm((prevState) => ({
+            ...prevState,
+            artistsNames: prevState.artistsNames.filter((artist) => artist.id !== id),
+        }));
     };
 
     const handleCreateAddGenreTag = (e, id) => {
         e.preventDefault();
-        if (!createForm.genresid || !createForm.genresid.includes(id)) {
+        if (!createForm.genresNames.some(genre => genre.genreId === id)) {
             setCreateForm((prevState) => ({
                 ...prevState,
-                genresid: [...(prevState.genresid || []), id],
+                genresNames: [...prevState.genresNames, { genreId: id, genrename: id }],
             }));
         } else {
             alert("id đã tồn tại");
@@ -325,10 +326,10 @@ const SongAdmin = () => {
 
     const handleCreateAddArTag = (e, id) => {
         e.preventDefault();
-        if (!createForm.artists || !createForm.artists.includes(id)) {
+        if (!createForm.artistsNames.some(artist => artist.id === id)) {
             setCreateForm((prevState) => ({
                 ...prevState,
-                artists: [...(prevState.artists || []), id],
+                artistsNames: [...prevState.artistsNames, { id: id, artistsName: id }],
             }));
         } else {
             alert("id đã tồn tại");
@@ -337,26 +338,18 @@ const SongAdmin = () => {
 
     const handleCreateRemoveGenreTag = (e, id) => {
         e.preventDefault();
-        if (createForm.genresid && createForm.genresid.includes(id)) {
-            setCreateForm((prevState) => ({
-                ...prevState,
-                genresid: prevState.genresid.filter((item) => item !== id),
-            }));
-        } else {
-            alert("id không tồn tại");
-        }
+        setCreateForm((prevState) => ({
+            ...prevState,
+            genresNames: prevState.genresNames.filter((genre) => genre.genreId !== id),
+        }));
     };
 
     const handleCreateRemoveArTag = (e, id) => {
         e.preventDefault();
-        if (createForm.artists && createForm.artists.includes(id)) {
-            setCreateForm((prevState) => ({
-                ...prevState,
-                artists: prevState.artists.filter((item) => item !== id),
-            }));
-        } else {
-            alert("id không tồn tại");
-        }
+        setCreateForm((prevState) => ({
+            ...prevState,
+            artistsNames: prevState.artistsNames.filter((artist) => artist.id !== id),
+        }));
     };
 
     const handlegetban = async (e) => {
