@@ -189,7 +189,7 @@ const HomeAdmin = () => {
                                             </p>
                                         </td>
                                         <td>{data.createdAt}</td>
-                                        <td>{data.songListId.length}</td>
+                                        <td>{Array.isArray(data.songListId) && data.songListId.length}</td>
                                         <td>{data.totalFollow.toLocaleString()}</td>
                                     </tr>
                                 ))}
