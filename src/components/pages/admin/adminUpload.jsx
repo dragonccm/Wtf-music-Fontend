@@ -58,6 +58,7 @@ const AdminUpload = () => {
     const [file, setFile] = useState(null);
     const [audioFile, setAudioFile] = useState(null);
     const [audioUrl, setAudioUrl] = useState("");
+    const [isSaving, setIsSaving] = useState(false);
 
     // tìm kiếm
     const [searchGenre, setSearchGenre] = useState([]);
@@ -104,16 +105,19 @@ const AdminUpload = () => {
     }, [audioUrl]);
     const createMusicSongs = async () => {
         try {
+            setIsSaving(true);
             data.thumbnail = file;
             data.songLink = audioFile;
 
-            const newData = {...data, artists: data.artist.map((data) => data.id).join(','), genresid: data.genre.map((data) => data.genreId).join(',')};
+            const newData = { ...data, artists: data.artist.map((data) => data.id).join(','), genresid: data.genre.map((data) => data.genreId).join(',') };
             const res = await createSong(newData);
             if (res) {
                 toast.success(res.EM);
             }
         } catch (error) {
             console.error("Error fetching data:", error);
+        } finally {
+            setIsSaving(false);
         }
     };
 
@@ -215,11 +219,15 @@ const AdminUpload = () => {
         setAudioFile(audioFile);
         setAudioUrl(URL.createObjectURL(audioFile));
     };
-    
+
     const clearState = () => {
         setData(initialData);
         setCurrentTime(0);
         setIsPlaying(false);
+        setImageUrl('');
+        setAudioUrl('');
+        setFile(null);
+        setAudioFile(null);
     };
     return (
         <div className="edit">
@@ -399,8 +407,12 @@ const AdminUpload = () => {
                 </div>
             </div>
             <div className="gr">
-                <button className="save_change" onClick={() => createMusicSongs()}>lưu</button>
-                <button className="save_change" onClick={()=>clearState()}>huỷ</button>
+                {isSaving ? 'Load' :
+                    <button className="save_change" onClick={() => createMusicSongs()} disabled={isSaving}>
+                        Lưu
+                    </button>}
+
+                <button className="save_change" onClick={() => clearState()}>Huỷ</button>
             </div>
         </div>
     );

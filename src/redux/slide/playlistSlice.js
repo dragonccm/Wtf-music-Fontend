@@ -4,7 +4,6 @@ import { playlistroute,playlistRelate } from "../../controller/playlist";
 export const fetchPlayList = createAsyncThunk(
   "playlsit/getplaylist",
   async ({id,type}) => {
-    console.log(id);
     if (!type) {
       
       const response = await playlistroute(id);

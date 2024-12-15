@@ -30,7 +30,6 @@ const RightSidebar = () => {
 
     useEffect(() => {
         setuserlist(userplaylist);
-        console.table(userlist)
     }, [userplaylist]);
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 

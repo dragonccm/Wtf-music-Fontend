@@ -13,7 +13,6 @@ import { getHistory } from "../../controller/history"
 import { useLocation } from 'react-router-dom';
 const HomePage = () => {
     const homeData = useSelector((state) => state.home.isLoading);
-
     const dispatch = useDispatch();
     const [playlistsData, setPlaylistsData] = useState([])
     const { pathname } = useLocation();
@@ -27,16 +26,13 @@ const HomePage = () => {
         }
     }, [homeData]);
     useEffect(() => {
-        // dispatch(fetchPlayList(id));
         fecthHPlaylist()
     }, []);
     const fecthHPlaylist = async () => {
 
         let response = await getHistory();
-        if (response && response.DT) {
-            console.log(response.DT)
+        if (response && response.DT) { 
             setPlaylistsData(response.DT.playlist)
-            console.log(playlistsData)
         } else {
             console.log('No Playlists')
         }
