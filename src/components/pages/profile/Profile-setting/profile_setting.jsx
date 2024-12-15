@@ -1,8 +1,11 @@
 import { useState } from "react"
 import Profile_edit from "./profile_edit"
 import ProfileChangePass from "./profile_changePass"
+import { useSelector, useDispatch } from "react-redux";
 import "../../../../css/profileSetting.scss"
 const ProfileSetting = () => {
+    const currData = useSelector((state) => state.Authentication);
+    const type = currData.defaultUser.account.type_login;
     const [area, setArea] = useState('song')
     const handleChange = (e) => {
         // console.log(e.target.value); // In ra giá trị của radio button được chọn
@@ -10,7 +13,7 @@ const ProfileSetting = () => {
     }
     return (
         <div className="setting_ctn profile_page">
-            <div className="radio-inputs">
+           {type !== 'email' && <div className="radio-inputs">
                 <label>
                     <input
                         className="radio-input "
@@ -43,10 +46,10 @@ const ProfileSetting = () => {
                         </span>
                     </span>
                 </label>
-            </div>
-            {area === 'song' ? <Profile_edit /> :<ProfileChangePass />}
-            
-            
+            </div>}
+            {area === 'song' ? <Profile_edit /> : <ProfileChangePass />}
+
+
         </div>
     )
 }

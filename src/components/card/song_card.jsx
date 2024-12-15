@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from "react-router-dom";
 import '../../css/songcard.scss';
+import React, {  useState,useEffect } from "react";
+
 import Play_animation from "./play_animation"
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPlayList, randomSongs } from '../../redux/slide/playlistSlice'
@@ -10,6 +12,21 @@ import { toPlay } from '../../redux/slide/songPlayingSlice'
 
 const SongCard = ({ element,isDuration }) => {
   const dispatch = useDispatch();
+  const [isBlocked, setIsBlocked] = useState(true)
+  const blockSong = useSelector((state) => state.Authentication.blockSong);
+
+  useEffect(() => {
+    console.log('đã đổiiiiiiiiiiiiiiiii');
+    
+    if (blockSong.includes(element.id)) {
+        // console.log(`ID ${data.id} có nằm trong mảng.`);
+        setIsBlocked(true)
+      } else {
+        // console.log(`ID ${data.id} không nằm trong mảng.`);
+        setIsBlocked(false)
+
+      }
+},[blockSong])
   const currData = useSelector((state) => state.Authentication);
 
   const dataf = useSelector((state) => state.playlist.playlist);
@@ -23,9 +40,9 @@ const SongCard = ({ element,isDuration }) => {
       if (song) {
         console.log(`ID ${id} trùng với một bài hát trong playlist.`);
       } else {
-        await dispatch(fetchPlayList({ id: id, type: 'ok' }));
+         dispatch(fetchPlayList({ id: id, type: 'ok' }));
         if (JSON.parse(localStorage.getItem('isRandom'))) {
-          await dispatch(randomSongs())
+           dispatch(randomSongs())
         }
         localStorage.setItem('playlistRelate', 'true')
 
@@ -50,9 +67,9 @@ const SongCard = ({ element,isDuration }) => {
 
             <div className="img_overlay">
               <div className="img_overlay_group_btn">
-                <NavLink to={element.id} onClick={(e) => handlePlaying(e, element.id)} className="nav-link list_nav_item">
+                {!isBlocked&&<NavLink to={element.id} onClick={(e) => handlePlaying(e, element.id)} className="nav-link list_nav_item">
                   <FontAwesomeIcon icon={faPlay} />
-                </NavLink>
+                </NavLink>}
               </div>
             </div>
           }

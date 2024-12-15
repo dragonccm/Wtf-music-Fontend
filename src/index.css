@@ -89,6 +89,7 @@ button {
   --light-bg-player: #fff;
   --light-item-player: #424242;
   --light-line-player: #fff;
+  --light-shadow:rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
   /* --background-color-dark: linear-gradient(180deg, 
   rgb(27, 27, 27) 0%, 
@@ -119,7 +120,7 @@ button {
   --dark-item-player: #fff;
   --dark-line-player: #5d6d84;
   --dark-form-login: #072b56;
-
+  --dark-shadow:rgb(212 212 212 / 12%) 0px 2px 5px, rgb(164 164 164 / 24%) 0px 1px 3px;
 }
 
 [data-theme="dark"] {
@@ -145,6 +146,7 @@ button {
   --line-player: var(--dark-line-player);
   --bg-form_login: var(--dark-form-login);
   --arrow_btn_bg: var(--dark-item-player);
+  --box-shadow: var(--dark-shadow);
 }
 
 [data-theme="light"] {
@@ -170,7 +172,7 @@ button {
   --line-player: var(--light-line-player);
   --bg-form_login: var(--light-line-player);
   --arrow_btn_bg: var(--lightmain-color);
-
+  --box-shadow: var(--light-shadow);
 }
 
 

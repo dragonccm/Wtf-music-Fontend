@@ -10,11 +10,13 @@ import 'reactjs-popup/dist/index.css';
 // import { faHeartFull } from '@fortawesome/free-solid-svg-icons'
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 import { fetchPlayList} from '../../redux/slide/playlistSlice'
-import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+import { userPLayList } from '../../controller/MyPlaylist'
+import { setUserPlaylist } from "../../redux/slide/InforUserSlice";
+
 
 import { playlistroute } from "../../controller/playlist";
 import Like_heart from "../card/like";
-import { deleteplaylistService } from "../../services/deleteMyPlaylist"
+import { deleteplaylist } from "../../controller/MyPlaylist"
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import "../../css/list_card.scss";
@@ -27,7 +29,9 @@ const Card = ({ playlist, isOw, limit,isDes }) => {
 
     const handlePlayPlaylist = async (e, id) => {
         e.preventDefault();
-        dispatch(fetchPlayList(id));
+        console.log('cossssssssssssssssssssss',id);
+        
+        dispatch(fetchPlayList({id}));
         let response = await playlistroute(id);
         if (response && response.DT && response.DT.playlist && response.DT.playlist.songid.length > 0) {
             console.log(response.DT)
@@ -37,12 +41,16 @@ const Card = ({ playlist, isOw, limit,isDes }) => {
     };
     const handledelete = async (e, id) => {
         e.preventDefault();
-        const response = await deleteplaylistService({ playlistId: id });
+        const response = await deleteplaylist({ playlistId: id });
         if (response && response.EC === '0') {
             toast.success('Xóa thành công');
-            // Remove the deleted playlist from the playlist array
-            // const updatedPlaylist = playlist.filter(item => item.playlistId !== id);
-            dispatch(getUserPl()); // Update the state with the new playlist array
+            const fetchPlaylist = async () => {
+                const response = await userPLayList();
+                if (response.EC === "0") {
+                  dispatch(setUserPlaylist(response.DT));
+                }
+              };
+              fetchPlaylist();
         } else {
             toast.error('Xóa thất bại');
         }

@@ -3,26 +3,32 @@ import Card from "../../card/playlist_card";
 import { useState, useEffect } from "react";
 import '../../../css/profileMyMusic.scss'
 import Loading from "../../sideNavigation/mascot_animation";
-import { fetchMyHistory } from '../../../redux/slide/myHistory'
+import { setHistory } from '../../../redux/slide/InforUserSlice'
 import { useSelector, useDispatch } from "react-redux";
-
+import { getHistory } from "../../../controller/history";
 const ProfileHistory = ({ type }) => {
     const [area, setArea] = useState('song')
     const dispatch = useDispatch();
     const myHistory = useSelector((state) => {
-        return state.myHistory.myHistory;
+        return state.inforUser.myHistory;
     });
     useEffect(() => {
         if (Object.keys(myHistory).length === 0 ) {
+            const fetchHis = async() => {
+                const response = await getHistory();
+                if (response.EC === '0') {
+                    dispatch(setHistory(response.DT));
+                }
+            }
+            fetchHis()
             
-            dispatch(fetchMyHistory());
         }
     }, [dispatch]);
     const likedSong = useSelector((state) => {
-        return state.myHistory.song;
+        return state.inforUser.myHistory.song;
     });
     const likedplaylist = useSelector((state) => {
-        return state.myHistory.playlist;
+        return state.inforUser.myHistory.playlist;
     });
 
 
@@ -37,7 +43,8 @@ const ProfileHistory = ({ type }) => {
                 datas={data}
                 type={type == 'Bài hát đã nghe'}
                 describe={type == 'Bài hát đã nghe'}
-                maxItemsToShow="25"
+                    maxItemsToShow="25"
+                    isPlaylist={false}
             />
             </div>
             :
@@ -52,7 +59,7 @@ const ProfileHistory = ({ type }) => {
             </div>
             </section>
             :
-            <h3>Bạn chưa có danh sách yêu thích</h3>
+            <h3>Lịch sử trống</h3>
     );
 
     const handleChange = (e) => {

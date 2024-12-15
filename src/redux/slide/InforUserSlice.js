@@ -11,6 +11,10 @@ export const editInforUser = createAsyncThunk("editInforUser", async (infor) => 
 });
 const initialState = {
     userInfor: {},
+    myHistory: {},
+    userPlaylist: [],
+    userlikedSongs: [],
+    userBlocked:[],
     isLoading: false,
     isError: false,
 };
@@ -18,7 +22,34 @@ const initialState = {
 export const InforUserslice = createSlice({
     name: "Infor",
     initialState,
-    reducers: {},
+    reducers: {
+        editInfor: (state, action) => {
+            state.userInfor = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+        },
+        setHistory: (state, action) => {
+            state.myHistory = action.payload;
+        },
+        setUserPlaylist: (state, action) => {
+            state.userPlaylist = action.payload;
+        },
+        AddUserPlaylist: (state, action) => {
+            const playlistToUpdate = state.userPlaylist.find(playlist => playlist.playlistId === action.payload.playlistId);
+            playlistToUpdate.songid.push(action.payload.songId);
+            state.userPlaylist = playlistToUpdate;
+        },
+        setUserlikedSong: (state, action) => {
+            state.userlikedSongs = action.payload;
+        },
+        setUserBlocked: (state, action) => {
+            state.userBlocked = action.payload;
+        },
+        removeUserBlocked: (state, action) => {
+            const updatedPlaylists = state.userBlocked.filter(playlist => playlist.id !== action.payload);
+            state.userBlocked = updatedPlaylists;
+        },
+      },
     extraReducers: (builder) => {
         builder
             .addCase(getInforUser.pending, (state, action) => {
@@ -52,5 +83,6 @@ export const InforUserslice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-
+export const { editInfor, setHistory, setUserPlaylist,
+    setUserlikedSong, AddUserPlaylist, setUserBlocked,removeUserBlocked } = InforUserslice.actions
 export default InforUserslice.reducer;

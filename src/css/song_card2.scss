@@ -8,7 +8,31 @@
   padding: 10px;
   transition: all 0.3s ease-in-out;
   border-radius: 5px;
-
+  &.mini{
+    padding: 5px;
+    .song_img{
+      margin: 0 1rem;
+    }
+    .foot_r{
+      font-size: 12px;
+    }
+    .song_img_ctn {
+      .row_order{
+        width: auto !important;
+        gap: 1.7rem;
+        flex: 1 1;
+        .number{
+          width: 32px;
+        }
+      }
+      .songif .songname a{
+        width: 167px;
+      }
+      .songif .songartist{
+        width: 170px;
+      }
+    }
+  }
   a &:hover {
     background-color: var(--rightsidebar-hover);
   }
@@ -158,7 +182,22 @@ width: 50px;
       }
     }
   }
+  .block_btn{
+    background-color: transparent !important;
+    border-radius: 10px;
+    border: 1px solid var(--text-2);
+    padding: 0 10px;
+    color: var(--text-2);
+    font-size: 14px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
 
+    &:hover{
+      color: var(--text-1);
+      border-color: var(--text-1);
+    }
+  }
   .root_album,
   .added_time,
   .foot_r {

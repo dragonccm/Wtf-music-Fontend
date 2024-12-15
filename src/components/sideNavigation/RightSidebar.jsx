@@ -13,24 +13,9 @@ import logo from "../../img/logo3 (1).png";
 import { useSelector } from "react-redux";
 import "../../css/RightSidebar.scss";
 import { useEffect, useState } from "react";
-import { getUserPl } from "../../redux/slide/getUserPlaylistSlice";
-import { useDispatch } from "react-redux";
 import { useLocation } from 'react-router-dom';
 const RightSidebar = () => {
-    const dispatch = useDispatch();
-    const [userlist, setuserlist] = useState(null);
-    const currData = useSelector((state) => state.Authentication);
-    const usernames = currData.defaultUser.account.username;
-    // const userplaylist = useSelector((state) => state.getUserPl.userPlaylist);
-    // useEffect(() => {
-    //     if (usernames) {
-    //         dispatch(getUserPl({ userId: usernames }));
-    //     }
-    // }, [dispatch, currData]);
-
-    // useEffect(() => {
-    //     setuserlist(userplaylist);
-    // }, [userplaylist]);
+  
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
     const location = useLocation();

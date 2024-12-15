@@ -1,6 +1,6 @@
 import CommentForm from "./commentForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faReply, faEllipsisVertical,faChevronUp,faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faReply, faEllipsisVertical, faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import { NavLink } from "react-router-dom";
@@ -14,7 +14,7 @@ const Comment = ({
     deleteComment,
     reportComment,
     addComment,
-    parentId ,
+    parentId,
     currentUser,
 }) => {
     const isEditing =
@@ -27,11 +27,11 @@ const Comment = ({
         activeComment.type === "replying";
     // const fiveMinutes = 3000000;
     // const [timePassed, setTimePassed] = useState(false);
-    const [hidenReply,setHidenReply] = useState(false);
+    const [hidenReply, setHidenReply] = useState(false);
     const canDelete =
-        currentUser.id === comment.userId && (!replies ||replies.length === 0) ;
+        currentUser.id === comment.userId && (!replies || replies.length === 0);
     const canReply = Boolean(currentUser.id);
-    const canEdit = currentUser.id === comment.userId ;
+    const canEdit = currentUser.id === comment.userId;
     const replyId = parentId ? parentId : comment._id;
     const createdAt = new Date(comment.createdAt).toLocaleDateString();
 
@@ -58,9 +58,9 @@ const Comment = ({
     return (
         <div key={comment._id} className="comment">
             <div className="comment-image-container">
-            <NavLink to={`/artists/${currentUser.id}`} className='nav-link'>
+                <div  className='nav-link'>
                     <img src={comment.userAvt} alt="userIcon" referrerPolicy="no-referrer" />
-                </NavLink>
+                </div>
             </div>
             <div className="comment-right-part">
                 <div className="comment-content">
@@ -101,9 +101,11 @@ const Comment = ({
                                     </div>
                                 )}
                                 <div className="menu-item comment-action"
-                                onClick={() => reportComment(comment._id)}
-                                > Báo cáo</div>
-                                
+                                    onClick={() => reportComment(comment._id)}>
+                                    Báo xấu
+                                    
+                                </div>
+
                             </div>
                         </Popup>
                     </div>
@@ -137,19 +139,19 @@ const Comment = ({
                 {isReplying && (
                     <CommentForm
                         submitLabel="Reply"
-                        handleSubmit={(text) => addComment(text, replyId,'reply')}
+                        handleSubmit={(text) => addComment(text, replyId, 'reply')}
                         handleCancel={() => {
                             setActiveComment(null);
                         }}
                         currentUser={currentUser}
                     />
                 )}
-                {replies&&replies.length > 0  && (
+                {replies && replies.length > 0 && (
                     <div className="replies">
-                        <p className="repstatus" onClick={() => setHidenReply(!hidenReply)}>{hidenReply ?<FontAwesomeIcon icon={faChevronUp}/>:<FontAwesomeIcon icon={faChevronDown} />} Xem { replies.length} phản hồi</p>
+                        <p className="repstatus" onClick={() => setHidenReply(!hidenReply)}>{hidenReply ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />} Xem {replies.length} phản hồi</p>
                     </div>
                 )}
-                {replies&&replies.length > 0 && hidenReply && (
+                {replies && replies.length > 0 && hidenReply && (
                     <div className="replies">
                         {replies.map((reply) => (
                             <Comment
@@ -168,7 +170,7 @@ const Comment = ({
                         ))}
                     </div>
                 )}
-                
+
             </div>
         </div>
     );

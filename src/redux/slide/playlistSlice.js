@@ -6,12 +6,16 @@ export const fetchPlayList = createAsyncThunk(
   async ({id,type}) => {
     console.log(id);
     if (!type) {
+      console.log('khong có type');
       
       const response = await playlistroute(id);
       console.log(response);
       
       return response.DT;
     } else {
+      console.log('có type');
+      console.log(id);
+      
       const response = await playlistRelate(id);
       localStorage.removeItem('playlistID')
       localStorage.setItem('playlistRelate','true');
@@ -33,15 +37,9 @@ export const Playlistslice = createSlice({
       console.log(id);
       state.playlist = {
         ...state.playlist,
-        data: {
-          ...state.playlist.data,
-          song: {
-            ...state.playlist.data.song,
-            items: state.playlist.data.song.items.filter(
-              (item) => item.encodeId !== `${id.payload}`
+          song: state.playlist.song.filter(
+              (item) => item.id !== `${id.payload}`
             ),
-          },
-        },
       };
     },
     randomSongs: (state) => {

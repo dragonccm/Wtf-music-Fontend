@@ -64,10 +64,10 @@ const HomePage = () => {
         <>
             <SliderBar data={banner} />
 
-            <div className="for_you">
+            {/* <div className="for_you">
                 <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
                 <Col3Layout data={newRelease.all} />
-            </div>
+            </div> */}
 
             {playlistsData && playlistsData.length>0&& <div className="list_card">
                 <h1>Nghe Gần Đây</h1>

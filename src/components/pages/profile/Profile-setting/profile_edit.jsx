@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import ImageUploader from "./uploadImage";
 import { toast, ToastContainer } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
-import { getInforUser, editInforUser } from "../../../../redux/slide/InforUserSlice";
+import { getInforUser, editInfor } from "../../../../redux/slide/InforUserSlice";
+import { editAvt } from "../../../../redux/slide/AuthenticationSlice";
 import Loading from "../../../sideNavigation/mascot_animation";
+import {EditUserInfo } from "../../../../controller/user";
 const Profile_edit = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -14,6 +16,7 @@ const Profile_edit = () => {
     });
 
     const [birthday, setBirthday] = useState("");
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
 
     const [imageUrl, setImageUrl] = useState('');
@@ -25,15 +28,13 @@ const Profile_edit = () => {
 
     useEffect(() => {
         if (infor && infor.DT) {
+            setUsername(infor.DT.username)
             setEmail(infor.DT.email)
             if (infor.DT.avt) setImageUrl(infor.DT.avt)
             if (infor.DT.birthday) {
                 const date = new Date(infor.DT.birthday);
                 const formattedDate = date.toISOString().split('T')[0];
                 setBirthday(formattedDate)
-            }
-            if (infor.EM === 'updated successfully') {
-                toast.success('Cập nhật thông tin thành công')
             }
         }
     }, [infor])
@@ -44,16 +45,29 @@ const Profile_edit = () => {
         return <div className="main_banner"><Loading /></div>;
     }
 
-    const handleEdit = () => {
+    const handleEdit = async() => {
         // console.log(birthday)
         // console.log(file)
-        if (file !== 'data:image/png;base64,' + infor.DT.avt) {
-
-            dispatch(editInforUser({ email, birthday, file }));
+        let data
+        if (file|| file !== 'data:image/png;base64,' + infor.DT.avt ) {
+            data = {username,email, birthday, file };
         } else {
-            dispatch(editInforUser({ email, birthday }));
-
+            data={ username,email, birthday };
         }
+        let response = await EditUserInfo(data);
+                if (response && response.EC === "0") {
+                    toast.success(response.EM)
+                    setFile(null)
+                    dispatch(editInfor(response));
+                    if (file) {
+                        dispatch(editAvt(response.DT.avt));
+                        
+                    }
+
+                } else if (response && response.EC !== '0') {
+                    toast.error(response.EM);
+                }
+       
     }
     return (
         <>
@@ -76,8 +90,10 @@ const Profile_edit = () => {
                                     <input
                                         id="username"
                                         type='text'
-                                        value={infor.DT.username}
-                                        readOnly
+                                        value={username}
+                                        onChange={(event) =>
+                                            setUsername(event.target.value)
+                                        }
                                     />
 
                                 </div>
@@ -120,19 +136,7 @@ const Profile_edit = () => {
                     </div>
                 </div>
             </>
-            <ToastContainer
-                style={{ fontSize: "16px" }}
-                position="top-right"
-                autoClose={1000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
+          
         </>
     )
 }

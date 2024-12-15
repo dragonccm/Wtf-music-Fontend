@@ -7,40 +7,16 @@ import { NavLink } from "react-router-dom";
 import icon_Home from "../../img/music-house-fill-svgrepo-com.svg";
 import icon_Category from "../../img/category-admin.svg";
 import icon_Playlist from "../../img/music-folder-svgrepo-com.svg";
-import icon_Writer from "../../img/writer-admin.svg";
 import icon_User from "../../img/user-admin.svg";
 import icon_Comment from "../../img/comment-admin.svg";
 import icon_Singer from "../../img/singer-admin.svg";
 import icon_Music from "../../img/play-music-admin.svg";
-import icon_Statistical from "../../img/statistical-chart-svgrepo-com.svg";
 import icon_Statistical1 from "../../img/stats-1371-svgrepo-com.svg";
 import logo from "../../img/logo3 (1).png";
-import { useSelector } from "react-redux";
 import "../../css/admin/NavigationBar.scss";
 import "../../css/RightSidebar.scss";
-import { useEffect, useState, useLocation } from "react";
-import { getUserPl } from "../../redux/slide/getUserPlaylistSlice";
-import { useDispatch } from "react-redux";
 
 const NavigationBar = () => {
-    const dispatch = useDispatch();
-    const [userlist, setuserlist] = useState(null);
-    const currData = useSelector((state) => state.Authentication);
-    const usernames = currData.defaultUser.account.username;
-    const userplaylist = useSelector((state) => state.getUserPl.userPlaylist);
-    useEffect(() => {
-        if (usernames) {
-            dispatch(getUserPl({ userId: usernames }));
-        }
-    }, [dispatch, currData]);
-
-    useEffect(() => {
-        setuserlist(userplaylist);
-    }, [userplaylist]);
-
-    const isActive = (_, { pathname }) => {
-        return pathname.startsWith("/profile");
-    };
     return (
         <div className="h-100  navigationbar">
             <Navbar expand="lg" className="bg-body-tertiary">
