@@ -6,9 +6,9 @@ import { faPen, faBan } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { usePlaylistAdmin } from "../../../hooks/usePlaylistAdmin";
-import PlaylistTable from "./PlaylistTable";
-import EditModal from "./EditModal";
-import CreateModal from "./CreateModal";
+import { PlaylistTable } from "./PlaylistTable";
+import { EditModal } from "./EditModal";
+import { CreateModal } from "./CreateModal";
 
 const PlaylistAdmin = () => {
     const {

@@ -323,12 +323,9 @@ const Bottombar = () => {
 
   const songInfo = useSelector((state) => state.getSongData.inforSong);
   const currentMusicIndex = useSelector((state) => state.getSongData.currentMusicIndex);
-
   useEffect(() => {
     if (playerRef.current && playerRef.current.audio.current && playStatus === true) {
       playerRef.current.audio.current.play();
-      console.log('saiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
-      console.log(playStatus);
     }
   }, [playStatus])
   // const [currentMusicIndex,setCurrentMusicIndex] = useState(0)
@@ -594,7 +591,6 @@ const Bottombar = () => {
           // console.log(oldtime, currentTime);
           // console.log(parseFloat(lyric.startTime) / 1000, parseFloat(lyric.endTime) / 1000);
           // console.log(lyric.data);
-          console.log(songInfo.infor.alias);
 
           if (lyricUL[i]) {
             lyricUL[i].classList.add("active");

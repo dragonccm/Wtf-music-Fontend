@@ -9,7 +9,7 @@ import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";
 
 import { NavLink } from "react-router-dom";
 import moment from 'moment';
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
 
 
@@ -63,57 +63,57 @@ const HomeRating = ({ data }) => {
   return (
     <div className="HomeRating_container">
       <Slider {...settings}>
-        {data.map((item,index) => (
-           <div className="ratimg_item" key={'lala'+index}>
-           <div className="rating_item_wrap">
-             <div className="ratimg_item_img">
-               <img src={item.thumbnail} alt="f"></img>
-               <div className="img_overlay">
-                 <div className="img_overlay_group_btn">
-                   <NavLink to="/song/" onClick={(e)=>handlePlaying(e,item.id)}  className="nav-link list_nav_item">
-                     <FontAwesomeIcon icon={faCirclePlay} />
-                   </NavLink>
-                 </div>
-               </div>
-             </div>
-             <div className="ratimg_item_content">
-               <div className="ratimg_item_content_a">
-                  <div className="ratimg_item_content_name">{item.songname }</div>
-                  <div className="ratimg_item_content_artist">
-                    {item.artists.map(
-                    (artist, index) => (
-                      <span key={index}>
-                        <a
-                          href={
-                            "/artists/" +
-                            artist.alias
-                          }
-                        >
-                          {artist.name}
-                        </a>
-                        {index !==
-                          item.artists
-                            .length -
-                          1 && ","}
-                      </span>
-                    )
-                  )}
+        {data.map((item, index) => (
+          <div className="ratimg_item" key={'lala' + index}>
+            <div className="rating_item_wrap">
+              <div className="ratimg_item_img">
+                <img src={item.thumbnail} alt="f"></img>
+                <div className="img_overlay">
+                  <div className="img_overlay_group_btn">
+                    <NavLink to="/song/" onClick={(e) => handlePlaying(e, item.id)} className="nav-link list_nav_item">
+                      <FontAwesomeIcon icon={faCirclePlay} />
+                    </NavLink>
                   </div>
-               </div>
-               <div className="ratimg_item_content_b">
-                 <div className="rating_number">
-                   #{index+1}
-                 </div>
-                 <div className="rating_date">
-                   {moment(item.updatedAt).format('DD.MM.YYYY')}
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
+                </div>
+              </div>
+              <div className="ratimg_item_content">
+                <div className="ratimg_item_content_a">
+                  <div className="ratimg_item_content_name">{item.songname}</div>
+                  <div className="ratimg_item_content_artist">
+                    {Array.isArray(item.artists) && item.artists.map(
+                      (artist, index) => (
+                        <span key={index}>
+                          <a
+                            href={
+                              "/artists/" +
+                              artist.alias
+                            }
+                          >
+                            {artist.name ? artist.name : artist.artistsName}
+                          </a>
+                          {index !==
+                            item.artists
+                              .length -
+                            1 && ","}
+                        </span>
+                      )
+                    )}
+                  </div>
+                </div>
+                <div className="ratimg_item_content_b">
+                  <div className="rating_number">
+                    #{index + 1}
+                  </div>
+                  <div className="rating_date">
+                    {moment(item.updatedAt).format('DD.MM.YYYY')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         ))}
-       
-        
+
+
 
 
       </Slider>

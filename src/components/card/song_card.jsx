@@ -94,7 +94,7 @@ const SongCard = ({ element,isDuration }) => {
                       (artist.alias ? artist.alias : artist.aliasName)
                     }
                   >
-                    {artist.name}
+                    {artist.name ? artist.name : artist.artistsName}
                   </NavLink>
                   {index !==
                     element.artists

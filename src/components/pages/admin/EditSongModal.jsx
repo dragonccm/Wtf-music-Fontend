@@ -8,29 +8,27 @@ import {
     adminSearchGenreService,
 } from "../../../services/adminSearchSongService";
 import { toast } from "react-toastify";
-import { updatePlaylist } from "../../../services/restPlaylistService";
-import { usePlaylistAdmin } from "../../../hooks/usePlaylistAdmin";
+import { updateSong } from "../../../services/restSongService";
+import { useSongAdmin } from "../../../hooks/useSongAdmin";
 
-const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updateMusicKind }) => {
+const EditSongModal = ({ isEditModalOpen, closeEditModal, editForm, handleEditFormChange, imageUrl, audioUrl, updateMusicKind }) => {
     const [genres, setGenres] = useState([]);
     const [artists, setArtists] = useState([]);
-    const [songs, setSongs] = useState([]);
     const [searchResults, setSearchResults] = useState({ genres: [], artists: [], songs: [] });
     const [file, setFile] = useState(null);
+    const [audioFile, setAudioFile] = useState(null);
     const [localImageUrl, setImageUrl] = useState(imageUrl);
-    const { fetchMusicSongs } = usePlaylistAdmin();
+    const [localAudioUrl, setLocalAudioUrl] = useState(audioUrl);
+    const { fetchMusicSongs } = useSongAdmin();
 
     useEffect(() => {
-        if (form.genresNames) {
-            setGenres(form.genresNames.map(data => ({ id: data.genreId, name: data.genrename })));
+        if (editForm.genresNames) {
+            setGenres(editForm.genresNames.map(data => ({ id: data.genreId, label: data.genrename })));
         }
-        if (form.artistsNames) {
-            setArtists(form.artistsNames.map(data => ({ id: data.id, name: data.artistsName })));
+        if (editForm.artistsNames) {
+            setArtists(editForm.artistsNames.map(data => ({ id: data.id, label: data.artistsName })));
         }
-        if (form.songDetails) {
-            setSongs(form.songDetails.map(data => ({ id: data.id, name: data.songname })));
-        }
-    }, [form]);
+    }, [editForm]);
 
     const handleSearch = async (type, query) => {
         let response;
@@ -43,10 +41,6 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
                 response = await adminSearchArtistsService(query);
                 setSearchResults({ ...searchResults, artists: response.DT.data.ar });
                 break;
-            case 'song':
-                response = await adminSearchS(query);
-                setSearchResults({ ...searchResults, songs: response.DT.data.songs });
-                break;
             default:
                 break;
         }
@@ -55,13 +49,10 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
     const handleAddItem = (type, item) => {
         switch (type) {
             case 'genre':
-                setGenres([...genres, { id: item.genreId, name: item.genrename }]);
+                setGenres([...genres, { id: item.genreId, label: item.genrename }]);
                 break;
             case 'artist':
-                setArtists([...artists, { id: item.id, name: item.artistsName }]);
-                break;
-            case 'song':
-                setSongs([...songs, { id: item.id, name: item.songname }]);
+                setArtists([...artists, { id: item.id, label: item.artistsName }]);
                 break;
             default:
                 break;
@@ -76,9 +67,6 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
             case 'artist':
                 setArtists(artists.filter((_, i) => i !== index));
                 break;
-            case 'song':
-                setSongs(songs.filter((_, i) => i !== index));
-                break;
             default:
                 break;
         }
@@ -86,29 +74,34 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
 
     const handleUpload = (uploadedFile) => {
         setFile(uploadedFile);
-        handleFormChange({ target: { name: 'thumbnail', value: uploadedFile } });
+        handleEditFormChange({ target: { name: 'thumbnail', value: uploadedFile } });
         setImageUrl(URL.createObjectURL(uploadedFile));
+    };
+
+    const handleAudioUpload = (uploadedFile) => {
+        setAudioFile(uploadedFile);
+        handleEditFormChange({ target: { name: 'songLink', value: uploadedFile } });
+        setLocalAudioUrl(URL.createObjectURL(uploadedFile));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const updatedForm = {
-            playlistId: form.playlistId,
-            playlistname: form.playlistname,
-            genresid: genres.map(g => g.id).filter(id => id),
-            artistsId: artists.map(a => a.id).filter(id => id),
-            songid: songs.map(s => s.id).filter(id => id),
+            id: editForm.id,
+            songname: editForm.songname,
+            genresid: genres.map(g => g.id).filter(id => id).join(","),
+            artists: artists.map(a => a.id).filter(id => id).join(","),
             thumbnail: file,
-            type: form.type,
-            description: form.description,
+            songLink: audioFile,
+            lyric: editForm.lyric,
             status: 'update'
         };
         try {
-            const res = await updatePlaylist(updatedForm);
+            const res = await updateSong(updatedForm);
             if (res) {
                 toast.success(res.EM);
                 fetchMusicSongs();
-                closeModal();
+                closeEditModal();
             }
         } catch (error) {
             console.error("Error updating data:", error);
@@ -116,29 +109,26 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
     };
 
     return (
-        <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Edit Music Kind" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
-            <h2 className="text-center opacity-75 mb-5 fs-2">Chỉnh sửa thông tin Danh sách</h2>
+        <Modal isOpen={isEditModalOpen} onRequestClose={closeEditModal} contentLabel="Edit Song" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
+            <h2 className="text-center opacity-75 mb-5 fs-2">Chỉnh sửa Bài Hát</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-name">playlistId:</label>
-                    <input type="text" className="fs-5 form-control" id="edit-name" name="playlistId" value={form.playlistId} onChange={handleFormChange} readOnly />
+                    <label className="fs-5 mb-2" htmlFor="edit-name">Tên bài hát:</label>
+                    <input type="text" className="fs-5 form-control" id="edit-name" name="songname" value={editForm.songname} onChange={handleEditFormChange} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-name">playlistname:</label>
-                    <input type="text" className="fs-5 form-control" id="edit-name" name="playlistname" value={form.playlistname} onChange={handleFormChange} />
-                </div>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-profile">thumbnail:</label>
+                    <label className="fs-5 mb-2" htmlFor="edit-profile">Ảnh bìa:</label>
                     {localImageUrl && <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" />}
                     <ImageUploader onUpload={handleUpload} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-name">type:</label>
-                    <input type="text" className="fs-5 form-control" id="edit-name" name="type" value={form.type} onChange={handleFormChange} />
+                    <label className="fs-5 mb-2" htmlFor="edit-audio">Tệp âm thanh:</label>
+                    {localAudioUrl && <audio controls src={localAudioUrl} />}
+                    <ImageUploader onUpload={handleAudioUpload} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-name">description:</label>
-                    <input type="text" className="fs-5 form-control" id="edit-name" name="description" value={form.description} onChange={handleFormChange} />
+                    <label className="fs-5 mb-2" htmlFor="edit-lyric">Lời bài hát:</label>
+                    <textarea className="fs-5 form-control" id="edit-lyric" name="lyric" value={editForm.lyric} onChange={handleEditFormChange} />
                 </div>
                 <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="edit-genre">Thể loại:</label>
@@ -148,36 +138,15 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
                         placeholder="Tìm kiếm thể loại"
                         onChange={(e) => handleSearch('genre', e.target.value)}
                     />
-                    <MuiChipsInput 
-                        value={genres.map(g => g.name)}
+                    <MuiChipsInput
+                        value={genres.map(g => g.label)}
                         onAdd={(chip) => handleAddItem('genre', { genreId: chip, genrename: chip })}
-                        onDeleteChip={(chip, index) => handleDeleteItem('genre', index)}
+                        onDelete={(chip, index) => handleDeleteItem('genre', index)}
                     />
                     <div className="list-group d-flex flex-wrap">
                         {searchResults.genres.map((genre, index) => (
                             <button key={index} type="button" className="list-group-item list-group-item-action m-1" onClick={() => handleAddItem('genre', genre)}>
                                 {genre.genrename}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-song">Nhạc:</label>
-                    <input
-                        type="text"
-                        className="fs-5 form-control mb-2"
-                        placeholder="Tìm kiếm nhạc"
-                        onChange={(e) => handleSearch('song', e.target.value)}
-                    />
-                    <MuiChipsInput 
-                        value={songs.map(s => s.name)}
-                        onAdd={(chip) => handleAddItem('song', { id: chip, songname: chip })}
-                        onDeleteChip={(chip, index) => handleDeleteItem('song', index)}
-                    />
-                    <div className="list-group d-flex flex-wrap">
-                        {searchResults.songs.map((song, index) => (
-                            <button key={index} type="button" className="list-group-item list-group-item-action m-1" onClick={() => handleAddItem('song', song)}>
-                                {song.songname}
                             </button>
                         ))}
                     </div>
@@ -190,10 +159,10 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
                         placeholder="Tìm kiếm nghệ sĩ"
                         onChange={(e) => handleSearch('artist', e.target.value)}
                     />
-                    <MuiChipsInput 
-                        value={artists.map(a => a.name)}
+                    <MuiChipsInput
+                        value={artists.map(a => a.label)}
                         onAdd={(chip) => handleAddItem('artist', { id: chip, artistsName: chip })}
-                        onDeleteChip={(chip, index) => handleDeleteItem('artist', index)}
+                        onDelete={(chip, index) => handleDeleteItem('artist', index)}
                     />
                     <div className="list-group d-flex flex-wrap">
                         {searchResults.artists.map((artist, index) => (
@@ -205,13 +174,13 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
                 </div>
                 <div className="text-end form-group">
                     <button type="submit" className="px-4 py-2 btn btn-primary fs-4">Cập nhật</button>
-                    <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={closeModal}>Hủy bỏ</button>
+                    <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={closeEditModal}>Hủy bỏ</button>
                 </div>
             </form>
         </Modal>
     );
 };
 
-export { EditModal };
+export { EditSongModal };
 
-export default EditModal;
+export default EditSongModal;

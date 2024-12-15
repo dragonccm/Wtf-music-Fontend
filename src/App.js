@@ -40,7 +40,6 @@ function App(props) {
   useEffect(() => {
     
     if (isAuthentication && isAuthentication.isAuthenticated === true) {
-      console.log('.....................................sjshhsghsgs');
       dispatch(getInforUser())
     }
   }, [isAuthentication])
