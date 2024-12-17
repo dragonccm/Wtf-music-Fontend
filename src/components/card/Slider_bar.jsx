@@ -41,8 +41,8 @@ const SliderBar = ({ data }) => {
       <Slider {...settings}>
         {data && data.map((item, index) => (
           <div key={index} className="slider_item">
-            <NavLink to={`/playlist/${item.encodeId}`}>
-              <img src={item.banner} alt="f"></img>
+            <NavLink to={`/playlist/${item.playlistId[0]}`}>
+              <img src={item.slideImage} alt="f"></img>
             </NavLink>
           </div>
         ))}

@@ -4,20 +4,28 @@ import { faCompactDisc } from "@fortawesome/free-solid-svg-icons";
 import { faMusic } from "@fortawesome/free-solid-svg-icons";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import { faCircleChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "../../../css/admin/homeAdmin.scss";
 import "../../../css/admin/musicAdmin.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { getAllId, pushSong } from "../../../services/setupService";
-// import { postss } from "../../../services/postService";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import { useEffect, useState } from "react";
 import Loading from "../../sideNavigation/mascot_animation";
 import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
-import { adminGetArtist } from "../../../services/adminSingerService"
-import { adminGetUsers } from "../../../services/adminGetUserService"
-import { adminGetSong } from "../../../services/adminSongService"
+import { adminGetArtist } from "../../../services/adminSingerService";
+import { adminGetUsers } from "../../../services/adminGetUserService";
+import { adminGetSong } from "../../../services/adminSongService";
+import {
+    getSlider,
+    setSlider,
+    insertSlider
+} from '../../../redux/slide/silderSlice';
+import { MuiChipsInput } from 'mui-chips-input';
+import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
+import {
+    adminSearchPlaylistService
+} from "../../../services/adminSearchSongService";
+import { useForm } from "react-hook-form";
 
 const HomeAdmin = () => {
     const [user, setuser] = useState([]);
@@ -25,21 +33,39 @@ const HomeAdmin = () => {
     const [Artists, setArtists] = useState([]);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
+
+    const [searchResults, setSearchResults] = useState([]);
+    const [file, setFile] = useState(null);
+    const [localImageUrl, setImageUrl] = useState("");
+    const [playlist, setPlaylist] = useState([]);
+    const { register, handleSubmit, reset, setValue } = useForm();
+    const [editMode, setEditMode] = useState(false);
+    const [currentSlide, setCurrentSlide] = useState(null);
+
     useEffect(() => {
         dispatch(fetchAdminHome())
             .then(() => {
-                setIsLoading(false); // Cập nhật isLoading thành false khi dữ liệu đã được tải xong
+                setIsLoading(false);
             })
             .catch((error) => {
-                // Xử lý lỗi khi tải dữ liệu không thành công
                 console.error('Error fetching data:', error);
-                setIsLoading(false); // Cập nhật isLoading thành false để ngừng hiển thị trạng thái chờ
+                setIsLoading(false);
+            });
+
+        dispatch(getSlider())
+            .then(() => {
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+                setIsLoading(false);
             });
     }, [dispatch]);
+
     useEffect(() => {
         fetchMusicSongs();
     }, []);
-    // Hàm giả lập lấy danh sách thể loại nhạc từ server
+
     const fetchMusicSongs = async () => {
         try {
             const response = await adminGetUsers(0);
@@ -53,11 +79,70 @@ const HomeAdmin = () => {
         }
     };
 
+    const slider = useSelector((state) => state.slider.sliderData);
     const currData = useSelector((state) => state.admin.AdminHome.DT);
 
-    if (isLoading) {
-        return <div><Loading /></div>; // Hiển thị trạng thái chờ khi isLoading là true
+    const handleUpload = (uploadedFile) => {
+        setFile(uploadedFile);
+        setImageUrl(URL.createObjectURL(uploadedFile));
+    };
+
+    const onSubmit = (data) => {
+        if (editMode) {
+            dispatch(setSlider(currentSlide._id, data));
+        } else {
+            dispatch(insertSlider(data));
+        }
+        reset();
+        setEditMode(false);
+        setCurrentSlide(null);
+    };
+
+    const handleEdit = (slide) => {
+        setEditMode(true);
+        setCurrentSlide(slide);
+        setValue("slideName", slide.slideName);
+        setValue("slideDescription", slide.slideDescription);
+        setValue("playlistId", slide.playlistId);
+        setImageUrl(slide.slideImage);
+        setPlaylist(slide.Playlist.map(pl => ({ playlistId: pl.playlistId, name: pl.playlistname })));
+    };
+
+    const handleSubmitForm = async (data) => {
+        const formData = new FormData();
+        formData.append("slideName", data.slideName);
+        formData.append("file", file);
+        formData.append("slideDescription", data.slideDescription);
+        formData.append("playlistId", playlist.map(item => item.playlistId).join(","));
+
+        await onSubmit(formData);
+    };
+
+    const handleAddItem = (item) => {
+        setPlaylist([...playlist, { playlistId: item.playlistId, name: item.playlistname }]);
+    };
+
+    const handleDeleteItem = (index) => {
+        setPlaylist(playlist.filter((_, i) => i !== index));
+    };
+
+    const handleSearch = async (query) => {
+        let response;
+        response = await adminSearchPlaylistService(query);
+        setSearchResults({ ...searchResults, playlist: response.DT.data.Playlist });
+    };
+
+    const toggleFormMode = () => {
+        setEditMode(!editMode);
+        reset();
+        setCurrentSlide(null);
+        setImageUrl("");
+    };
+
+    if (isLoading && currData) {
+        return <div><Loading /></div>;
     }
+
     return (
         <main className="main-content">
             <div className="HomeAdmin">
@@ -74,7 +159,7 @@ const HomeAdmin = () => {
                                     />
                                 </div>
 
-                                <h4 className="text-capitalize mt-4 mb-1">{currData.ar}</h4>
+                                <h4 className="text-capitalize mt-4 mb-1">{currData && currData.ar}</h4>
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Artist
                                 </p>
@@ -91,7 +176,7 @@ const HomeAdmin = () => {
                                     />
                                 </div>
 
-                                <h4 className="text-capitalize mt-4 mb-1">{currData.songs}</h4>
+                                <h4 className="text-capitalize mt-4 mb-1">{currData && currData.songs}</h4>
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Songs
                                 </p>
@@ -108,7 +193,7 @@ const HomeAdmin = () => {
                                     />
                                 </div>
 
-                                <h4 className="text-capitalize mt-4 mb-1">{currData.Playlist}</h4>
+                                <h4 className="text-capitalize mt-4 mb-1">{currData && currData.Playlist}</h4>
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Playlist
                                 </p>
@@ -124,7 +209,7 @@ const HomeAdmin = () => {
                                         className="icon-users"
                                     />
                                 </div>
-                                <h4 className="text-capitalize mt-4 mb-1">{currData.User}</h4>
+                                <h4 className="text-capitalize mt-4 mb-1">{currData && currData.User}</h4>
 
                                 <p className="mb-0 text-capitalize text-body">
                                     total Music Users
@@ -136,28 +221,14 @@ const HomeAdmin = () => {
 
                 {/* top data */}
                 <section className="row my-5">
+
+
                     <div className="col-lg-8 py-3 card container-admin">
                         <div className="row py-5 card-header">
                             <div className="col-lg-6 header-title">
                                 <h4 className="card-title text-capitalize">
                                     top artist
                                 </h4>
-                            </div>
-                            <div class="col-lg-6">
-                                <div
-                                    id="datatable_filter"
-                                    class="text-end dataTables_filter"
-                                >
-                                    <label className="fs-4">
-                                        Search:
-                                        <input
-                                            type="search"
-                                            class="fs-5 form-control form-control-sm"
-                                            placeholder=""
-                                            aria-controls="datatable"
-                                        />
-                                    </label>
-                                </div>
                             </div>
                         </div>
                         <table
@@ -252,7 +323,7 @@ const HomeAdmin = () => {
                                                 Artist
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                {currData.ar}
+                                                {currData && currData.ar}
                                             </h6>
                                         </div>
                                         <div
@@ -286,7 +357,7 @@ const HomeAdmin = () => {
                                                 Songs
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                {currData.songs}
+                                                {currData && currData.songs}
                                             </h6>
                                         </div>
                                         <div
@@ -320,7 +391,7 @@ const HomeAdmin = () => {
                                                 Playlist
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                {currData.Playlist}
+                                                {currData && currData.Playlist}
                                             </h6>
                                         </div>
                                         <div
@@ -354,7 +425,7 @@ const HomeAdmin = () => {
                                                 Users
                                             </h6>
                                             <h6 className="text-body fs-3 fw-normal">
-                                                {currData.User}
+                                                {currData && currData.User}
                                             </h6>
                                         </div>
                                         <div
@@ -458,7 +529,7 @@ const HomeAdmin = () => {
                                                 />
                                                 <div className="ms-5">
                                                     <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
-                                                       {data.songname}
+                                                        {data.songname}
                                                     </h6>
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <small
@@ -475,7 +546,7 @@ const HomeAdmin = () => {
                                                             }}
                                                             className="text-capitalize custom-icon fs-3"
                                                         >
-                                                           {data.createdAt}
+                                                            {data.createdAt}
                                                         </small>
                                                     </div>
                                                 </div>
@@ -487,6 +558,104 @@ const HomeAdmin = () => {
                         </div>
                     </div>
                 </section>
+                {/* form  */}
+
+
+                <section className="row my-5">
+                    <div className="col-lg-8 py-3 card container-admin">
+                        <div className="row py-5 card-header">
+                            <div className="col-lg-6 header-title">
+                                <h4 className="card-title text-capitalize">Slider</h4>
+                            </div>
+                        </div>
+                        <table className="w-100 fs-4 text-justify table-admin">
+                            <thead>
+                                <tr>
+                                    <th>Thứ tự</th>
+                                    <th>Tên slide</th>
+                                    <th>Mô tả</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {slider.DT && slider.DT.map((slide, index) => (
+                                    <tr key={slide._id}>
+                                        <td>{index + 1}</td>
+                                        <td>{slide.slideName}</td>
+                                        <td>{slide.slideDescription}</td>
+                                        <td><img src={slide.slideImage} alt={slide.slideName} className="img-fluid" style={{ width: "50px" }} /></td>
+                                        <td>
+                                            <button className="btn btn-secondary" onClick={() => handleEdit(slide)}>Chỉnh sửa</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h2 className="text-center opacity-75 mb-5 fs-2">{editMode ? "Cập nhật tiêu đề" : "Tạo mới tiêu đề"}</h2>
+                    <button className="btn btn-info" onClick={toggleFormMode}>
+                        {editMode ? "Chuyển sang thêm mới" : "Chuyển sang cập nhật"}
+                    </button>
+                </div>
+                
+                <form onSubmit={handleSubmit(handleSubmitForm)} className="needs-validation" noValidate>
+                    <div className="mb-4 form-group">
+                        <label className="fs-5 mb-2" htmlFor="create-name">Tên slide:</label>
+                        <input type="text" className="fs-5 form-control" id="create-name" {...register("slideName", { required: true })} />
+                        <div className="invalid-feedback">
+                            Vui lòng nhập tên slide.
+                        </div>
+                    </div>
+                    <div className="mb-4 form-group">
+                        <label className="fs-5 mb-2" htmlFor="edit-profile">Hình ảnh slide:</label>
+                        {localImageUrl && <img style={{ width: "12%" }} src={localImageUrl} className="avt-img mb-2" alt="Uploaded" />}
+                        <ImageUploader onUpload={handleUpload} />
+                        <div className="invalid-feedback">
+                            Vui lòng tải lên hình ảnh slide.
+                        </div>
+                    </div>
+                    <div className="mb-4 form-group">
+                        <label className="fs-5 mb-2" htmlFor="create-description">Mô tả slide:</label>
+                        <input type="text" className="fs-5 form-control" id="create-description" {...register("slideDescription", { required: true })} />
+                        <div className="invalid-feedback">
+                            Vui lòng nhập mô tả slide.
+                        </div>
+                    </div>
+                    <div className="mb-4 form-group">
+                        <label className="fs-5 mb-2" htmlFor="create-genre">Playlist ID:</label>
+                        <input
+                            type="text"
+                            className="fs-5 form-control mb-2"
+                            placeholder="Tìm kiếm thể loại"
+                            onChange={(e) => handleSearch(e.target.value)}
+                        />
+                        <MuiChipsInput
+                            value={playlist.map(g => g.name)}
+                            onAdd={(chip) => handleAddItem({ playlistId: chip, playlistname: chip })}
+                            onDeleteChip={(chip, index) => handleDeleteItem(index)}
+                        />
+                        <div className="list-group d-flex flex-wrap">
+                            {Array.isArray(searchResults.playlist) && searchResults.playlist.map((playlist, index) => (
+                                <button key={index} type="button" className="list-group-item list-group-item-action m-1" onClick={() => handleAddItem(playlist)}>
+                                    {playlist.playlistname}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="text-end form-group">
+                        <button type="submit" className="px-4 py-2 btn btn-primary fs-4">{editMode ? "Cập nhật slide" : "Tạo mới"}</button>
+                        <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={reset}>Hủy bỏ</button>
+                    </div>
+                </form>
+
+             
+                {/* form  */}
             </div>
         </main>
     );

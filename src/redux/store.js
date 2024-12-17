@@ -20,6 +20,7 @@ import adSongToPlReducer from "./slide/adSongToPlaylistSlice";
 import getUserLikedSongsReducer from "./slide/getUserLikedSongs";
 import myHistoryReducer from "./slide/myHistory";
 import themeReducer from "./slide/themeSlice";
+import sliderReducer from "./slide/silderSlice";
 
 export const store = configureStore({
     reducer: {
@@ -39,7 +40,8 @@ export const store = configureStore({
         adSongToPl: adSongToPlReducer,
         ulikedSongs: getUserLikedSongsReducer,
         myHistory: myHistoryReducer,
-        theme:themeReducer
+        theme:themeReducer,
+        slider: sliderReducer
     },
     devTools: true,
     
