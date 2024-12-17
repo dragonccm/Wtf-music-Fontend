@@ -1,8 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-
-
-import songPageReducer from "./slide/songPageSlice";
 import homeReducer from "./slide/homeSlice";
 
 import InforUserReducer from "./slide/InforUserSlice";
@@ -14,17 +11,11 @@ import AuthenticationRedecer from "./slide/AuthenticationSlice";
 import ArtistReducer from "./slide/artistSlice";
 import GenresReducer from "./slide/genresSlice";
 import getSongDataReducer from "./slide/songPlayingSlice";
-import creataPlReducer from "./slide/createplaylistSlice";
-import getUserPlReducer from "./slide/getUserPlaylistSlice";
-import adSongToPlReducer from "./slide/adSongToPlaylistSlice";
-import getUserLikedSongsReducer from "./slide/getUserLikedSongs";
-import myHistoryReducer from "./slide/myHistory";
 import themeReducer from "./slide/themeSlice";
 import sliderReducer from "./slide/silderSlice";
 
 export const store = configureStore({
     reducer: {
-        songPage: songPageReducer,
         home: homeReducer,
         top100: top100Reducer,
         rating: ratingReducer,

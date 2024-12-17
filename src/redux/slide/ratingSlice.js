@@ -11,7 +11,6 @@ export const fetchRating = createAsyncThunk("getRating", async () => {
 });
 const initialState = {
   dataRating: {},
-  RTChart_items: [],
   week_vn: [],
   week_us: [],
   week_korea: [],
@@ -33,7 +32,6 @@ export const ratingSlice = createSlice({
       })
       .addCase(fetchRating.fulfilled, (state, action) => {
         state.dataRating = action.payload;
-        state.RTChart_items = state.dataRating.RTChart.items;
         state.week_vn = state.dataRating.weekChart[0];
         state.week_us = state.dataRating.weekChart[1];
         state.week_korea = state.dataRating.weekChart[2];

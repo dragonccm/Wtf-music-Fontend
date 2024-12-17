@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Recommended from "../card/Recommended"
 import '../../css/rating_week.scss'
 import Skeleton from '@mui/material/Skeleton';
-
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRating } from "../../redux/slide/ratingSlice";
 import { useParams } from 'react-router-dom';
@@ -12,10 +12,9 @@ const RatingWeek = () => {
     let { id } = useParams();
     const [area, setArea] = useState(id)
 
-    const handleChange = (e) => {
-        // console.log(e.target.value); // In ra giá trị của radio button được chọn
-        setArea(e.target.value)
-    }
+    useEffect(() => {
+        setArea(id)
+    }, [id]);
     const dispatch = useDispatch();
     const dataRating = useSelector((state) => {
         return state.rating.dataRating;
@@ -61,13 +60,13 @@ const RatingWeek = () => {
     }
     const indexesWee = () => {
         const weeklySongIndexes = []; // Mảng lưu trữ thông tin về vị trí của bài hát trong mỗi tuần
-
+        // weekChart=[1,2,3]
         dataRating && dataRating.weekChart && dataRating.weekChart.forEach((weekItem, weekIndex) => {
             const songIndexesForWeek = []; // Mảng lưu trữ thông tin về vị trí của bài hát trong tuần hiện tại
 
-            weekItem.song.forEach((songItem, songIndex) => {
+            weekItem.NowPlaylist.songs.forEach((songItem, songIndex) => {
                 const id = songItem.id;
-                const index2 = RTChart_items.playlists.songid.findIndex(songId => songId === id); // Tìm vị trí của bài hát trong bảng xếp hạng của tất cả các tuần
+                const index2 = weekItem.lastPlaylist.songid.findIndex(songId => songId === id); // Tìm vị trí của bài hát trong bảng xếp hạng của tất cả các tuần
                 const indexObj = { id, index1: songIndex, index2 };
                 songIndexesForWeek.push(indexObj); // Thêm thông tin về bài hát vào mảng 
             });
@@ -90,11 +89,13 @@ const RatingWeek = () => {
                         name="engine"
                         value='vn'
                         checked={area === 'vn'}
-                        onChange={(e) => handleChange(e)}
                     />
                     <span className="radio-tile ">
                         <span className="radio-icon">
+                            
+                            <NavLink to={'/rating_week/vn'}>
                             Việt Nam
+                            </NavLink>
                         </span>
                     </span>
                 </label>
@@ -107,12 +108,12 @@ const RatingWeek = () => {
                         value='us-uk'
                         checked={area === 'us-uk'}
 
-                        onChange={(e) => handleChange(e)}
-
                     />
                     <span className="radio-tile ">
                         <span className="radio-icon">
+                            <NavLink to={'/rating_week/us-uk'}>
                             US-UK
+                            </NavLink>
                         </span>
                     </span>
                 </label>
@@ -125,22 +126,40 @@ const RatingWeek = () => {
                         value='korea'
                         checked={area === 'korea'}
 
-                        onChange={(e) => handleChange(e)}
-
                     />
                     <span className="radio-tile ">
                         <span className="radio-icon">
-                            K-Pop
+                            <NavLink to={'/rating_week/korea'}>
+
+                                K-Pop
+                            </NavLink>
                         </span>
                     </span>
                 </label>
             </div>
             <Recommended
-                datas={area === 'vn' ? dataRating.weekChart[0].song : area === 'us-uk' ? dataRating.weekChart[1].song : dataRating.weekChart[2].song}
+                datas={area === 'vn' ? dataRating.weekChart[0].NowPlaylist.songs : area === 'us-uk' ? dataRating.weekChart[1].NowPlaylist.songs : dataRating.weekChart[2].NowPlaylist.songs}
                 type={""}
                 describe={""}
                 maxItemsToShow="100"
-                rank={area === 'vn' ? indexesWeek[0] : area === 'us-uk' ? indexesWeek[1] : indexesWeek[2]}
+                // isPlaylist={true}
+
+                rank={area === 'vn' ?
+                    {
+                        index: indexesWeek[0],
+                        playlistId: dataRating.weekChart[0].NowPlaylist.songs
+                    }
+                    :
+                    area === 'us-uk' ?
+                        {
+                            index: indexesWeek[1],
+                            playlistId: dataRating.weekChart[1].NowPlaylist.songs
+                        }
+                        : {
+                            index: indexesWeek[2],
+                            playlistId: dataRating.weekChart[2].NowPlaylist.songs
+                        }
+                }
             />
         </div>
     )

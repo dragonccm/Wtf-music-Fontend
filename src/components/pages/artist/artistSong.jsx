@@ -33,7 +33,8 @@ const ArtistSong = () => {
         <Recommended
             datas= {song}
             describe={""}
-            maxItemsToShow="100"
+                maxItemsToShow="100"
+                isPlaylist={false}
             
         />
     </div>

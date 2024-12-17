@@ -14,6 +14,7 @@ const initialState = {
     token: "",
     account: {},
   },
+  blockSong:[]
 };
 const initState = {
   isLoading: true,
@@ -34,20 +35,29 @@ export const authenticationSlice = createSlice({
     addlike: (state) => {
       state.defaultUser = { ...initState, account: state.account};
     },
+    ChangeBlockList: (state,action) => {
+      state.blockSong = action.payload
+    },
+    editAvt: (state,action) => {
+      state.defaultUser = {
+        ...state.defaultUser,
+        account: {
+          ...state.defaultUser.account,
+          avt: action.payload 
+        }
+       };
+    },
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder
       .addCase(fetchAuthentication.pending, (state, action) => {
         // Add user to the state array
-        state.isLoading = true;
-        state.isError = false;
+        state.defaultUser.isLoading = true;
+        state.defaultUser.isError = false;
       })
       .addCase(fetchAuthentication.fulfilled, (state, action) => {
         if (action.payload && action.payload.EC === "0") {
-          let groupWithRoles = action.payload.DT.groupWithRoles;
-          let email = action.payload.DT.email;
-          let username = action.payload.DT.username;
           let avt = action.payload.DT.avt;
           let token = action.payload.DT.access_token;
           let myPlayLists = action.payload.DT.myPlayLists;
@@ -60,22 +70,23 @@ export const authenticationSlice = createSlice({
           let data = {
             isAuthenticated: true,
             token: token,
-            account: { groupWithRoles, email, username,avt,myPlayLists,likedSongs,likedPlayLists,isAdmin,isBAn,id,type_login },
+            account: { avt,myPlayLists,likedSongs,likedPlayLists,isAdmin,isBAn,id,type_login },
             isLoading: false,
           };
           state.defaultUser = data;
+          state.blockSong = action.payload.DT.blockSong;
         } else {
             state.defaultUser = { ...state.defaultUser, isLoading: false };
         }
       })
       .addCase(fetchAuthentication.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
+        state.defaultUser.isLoading = false;
+        state.defaultUser.isError = true;
       });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { loginer, logouter} = authenticationSlice.actions
+export const { loginer, logouter,editAvt,ChangeBlockList} = authenticationSlice.actions
 
 export default authenticationSlice.reducer;

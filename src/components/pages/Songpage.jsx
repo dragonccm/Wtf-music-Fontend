@@ -28,7 +28,8 @@ const Songpage = () => {
 
     const { id } = useParams();
     const [data, setData] = useState({});
-
+    const blockSong = useSelector((state) => state.Authentication.blockSong);
+    const [isBlocked, setIsBlocked] = useState(true)
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(false);
     const isAuthentication = useSelector((state) => state.Authentication.defaultUser);
@@ -47,7 +48,18 @@ const Songpage = () => {
         };
         getComments(id);
     }, [loading]);
+    useEffect(() => {
+        console.log('đã đổiiiiiiiiiiiiiiiii');
+        
+        if (data && data.DT && blockSong.includes(data.DT.song.id)) {
+            // console.log(`ID ${data.id} có nằm trong mảng.`);
+            setIsBlocked(true)
+          } else {
+            // console.log(`ID ${data.id} không nằm trong mảng.`);
+            setIsBlocked(false)
 
+          }
+    },[data,blockSong])
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetchSongPage(id);
@@ -140,12 +152,12 @@ const Songpage = () => {
 
             <div className="song_body">
                 <div className="song_control">
-                    <button
+                    {!isBlocked&&<button
                         className="play_random"
                         onClick={(e) => handlePlaying(e, id)}
                     >
                         <FontAwesomeIcon icon={faCirclePlay} />
-                    </button>
+                    </button>}
                     <Like_heart id={id} type={"song"} />
                     <Popup
                         trigger={

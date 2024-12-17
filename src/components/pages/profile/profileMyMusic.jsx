@@ -3,23 +3,27 @@ import Card from "../../card/playlist_card";
 import { useState, useEffect } from "react";
 import '../../../css/profileMyMusic.scss'
 import Loading from "../../sideNavigation/mascot_animation";
-import { getUserLikedSong } from '../../../redux/slide/getUserLikedSongs'
+import { setUserlikedSong } from '../../../redux/slide/InforUserSlice'
 import { useSelector, useDispatch } from "react-redux";
+import { usergetlikedsong } from "../../../controller/usergetlikedsongs"
 
 const ProfileMyMusic = ({ type }) => {
     const [area, setArea] = useState('song')
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getUserLikedSong());
+        const fetchMyPlaylist = async() => {
+            const response = await usergetlikedsong();
+            if (response.EC === '0') {
+                dispatch(setUserlikedSong(response.DT));
+            }
+        }
+        fetchMyPlaylist()
     }, [dispatch]);
     const likedSong = useSelector((state) => {
-        return state.ulikedSongs.userlikedSongs.songs;
+        return state.inforUser.userlikedSongs.songs;
     });
     const likedplaylist = useSelector((state) => {
-        return state.ulikedSongs.userlikedSongs.playlist;
-    });
-    const ulikedSongs = useSelector((state) => {
-        return state.ulikedSongs.userlikedSongs;
+        return state.inforUser.userlikedSongs.playlist;
     });
 
     if (!Array.isArray(likedSong)) {
@@ -52,7 +56,8 @@ const ProfileMyMusic = ({ type }) => {
                 datas={data}
                 type={type == 'mymusic' ? "Bài hát yêu thích" : 'Bài hát đã nghe'}
                 describe={type == 'mymusic' ? "Bài hát yêu thích" : 'Bài hát đã nghe'}
-                maxItemsToShow="5"
+                    maxItemsToShow="5"
+                    isPlaylist={false}
             />
             </div>
             :

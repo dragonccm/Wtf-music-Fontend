@@ -54,14 +54,6 @@ const Playlistpage = () => {
   }
 
 
-  const handleAdd = (id) => {
-    let username
-    if (currData) {
-      username = currData.defaultUser.account.username;
-    }
-
-  }
-
   const handlePlayPlaylist = async () => {
     await dispatch(fetchPlayList({ id }));
     localStorage.removeItem('playlistRelate')
@@ -161,6 +153,7 @@ const Playlistpage = () => {
           <div className="list">
             {playlist.song.map((data, index) => (
               <SongCard2
+                key={'haha'+index}
                 data={data}
                 rating={{
                   israting: false,
@@ -178,11 +171,11 @@ const Playlistpage = () => {
           </div>
         </div>
       </div>
-      <div className="list_card">
+      {playlist.artist.length > 0 && <div className="list_card">
 
         <h1>Nghệ sĩ tham gia</h1>
         <ArtistList data={playlist.artist} />
-      </div>
+      </div>}
       {/* <div className="recommen">
         <div className="recommen_list">
           <Card playlist={data} />

@@ -10,6 +10,7 @@ import { ReactSVG } from "react-svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { increment, decrement, update, reset } from '../../redux/slide/songPlayingSlice'
 import { fetchSongPlaying, toPlay } from "../../redux/slide/songPlayingSlice";
+import { ChangeBlockList } from "../../redux/slide/AuthenticationSlice";
 import { fetchPlayList, banSongs, randomSongs, updatePlaylist } from '../../redux/slide/playlistSlice'
 import { banSong } from "../../controller/user";
 import Popup from "reactjs-popup";
@@ -18,7 +19,6 @@ import SongCard from "../card/song_card";
 import Like_heart from "../card/like";
 import CreatePlaylist from "../card/createPlaylist";
 import {
-  faPlay,
   faEllipsis,
   faShuffle,
   faForwardStep,
@@ -26,15 +26,12 @@ import {
   faHeadphonesSimple,
   faBan,
   faDownload,
-  faCirclePlus,
   faLink,
   faChevronDown,
   faCompress,
   faExpand,
-  faCircleCheck,
   faEllipsisVertical,
   faTrash,
-  faHeartCrack
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart,
@@ -46,12 +43,11 @@ import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg";
 import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
-import Play_animation from "../../components/card/play_animation"
+import { NavLink } from "react-router-dom";
+// import Play_animation from "../../components/card/play_animation"
 
 // Modal.setAppElement("#root");
 const Bottombar = () => {
-  const [playlistName, setPlaylistName] = useState('');
 
   const [isFullScreen, SetIsFullScreen] = useState(false);
   const [animationActive, setAnimationActive] = useState(true);
@@ -67,7 +63,7 @@ const Bottombar = () => {
   const playerRef = useRef();
   const dispatch = useDispatch();
 
-  const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1733480924~acl=/86dc632e5c0666a3e15789d49be5a05b*~hmac=4cec7795e66107cab4a3eee6c4028256')
+  // const [newAuthenURL, setNewAuthenURL] = useState('authen=exp=1734102013~acl=/b54af8b0ae046b465acf2394ec845f3b*~hmac=77acaddc3484ad6920b4c71373515d06')
 
 
   const hoursOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -207,7 +203,7 @@ const Bottombar = () => {
     }
     const fetchData = async () => {
       if (localStorage.getItem('playlistID') && isRandom !== true) {
-        console.log('jajaja',localStorage.getItem('playlistID'))
+        console.log('jajaja', localStorage.getItem('playlistID'))
         await dispatch(fetchPlayList({ id: localStorage.getItem('playlistID') }));
       }
 
@@ -215,7 +211,7 @@ const Bottombar = () => {
         console.log('kakakakakakakak');
         await dispatch(updatePlaylist());
       }
-      if (localStorage.getItem('playlistRelate')&&localStorage.getItem("idSongPlaying") && isRandom !== true) {
+      if (localStorage.getItem('playlistRelate') && localStorage.getItem("idSongPlaying") && isRandom !== true) {
         await dispatch(fetchPlayList({ id: localStorage.getItem("idSongPlaying"), type: 'true' }));
       }
       if (localStorage.getItem('currentMusicIndex')) {
@@ -227,14 +223,28 @@ const Bottombar = () => {
 
   }, [])
   const dataf = useSelector((state) => state.playlist.playlist);
+  const blockSong = useSelector((state) => state.Authentication.blockSong);
   // console.log(dataf)
   const handleClickNext = () => {
     if (Number(currentMusicIndex) < dataf.song.length - 1) {
       dispatch(increment())
       // console.log(currentMusicIndex);
       if (dataf && isPlaying) {
-        dispatch(fetchSongPlaying(dataf.song[currentMusicIndex + 1].id))
-        localStorage.setItem('currentMusicIndex', currentMusicIndex)
+        let currentIndex = currentMusicIndex + 1;
+
+        // Duyệt qua danh sách bài hát
+        while (currentIndex < dataf.song.length) {
+          // Kiểm tra ID bài hát hiện tại
+          if (!blockSong.includes(dataf.song[currentIndex].id)) {
+            dispatch(fetchSongPlaying(dataf.song[currentIndex].id))
+            localStorage.setItem('currentMusicIndex', currentIndex-1)
+            break;
+          } else {
+            // Nếu ID bài hát không nằm trong mảng, chuyển sang bài hát tiếp theo
+            currentIndex++;
+          }
+        }
+      
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     }
@@ -371,7 +381,8 @@ const Bottombar = () => {
 
   // download nhạc 
   const handleDownload = async () => {
-    const audioUrl = songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL : songInfo.infor.song;
+    // const audioUrl = songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL : songInfo.infor.song;
+    const audioUrl = songInfo.infor.song;
 
     try {
       const response = await fetch(audioUrl);
@@ -398,8 +409,8 @@ const Bottombar = () => {
     if (response && response.EC === "0") {
       toast.success(response.EM)
       handleClickNext()
-      // console.log(songInfo.infor.id)
       dispatch(banSongs(songInfo.infor.id))
+      dispatch(ChangeBlockList(response.DT))
     } else if (response && response.EC !== '0') {
       toast.error(response.EM);
     }
@@ -785,7 +796,7 @@ const Bottombar = () => {
                       shouldCloseOnOverlayClick={true}
 
                     >
-                      <div className="Modal_lyric_title">haha</div>
+                      <div className="Modal_lyric_title">Lời bài hát</div>
                       <div className="Modal_lyric_ctn">
                         <textarea name="" id="" rows='15' value={haha ? haha.map((sentence) => sentence.data).join("\n") : 'Không có lời bài hát'} />
                       </div>
@@ -913,7 +924,8 @@ const Bottombar = () => {
           onCanPlay={handleTimeUpdate}
           onPlay={handlePlay}
           showSkipControls="true"
-          src={songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL : songInfo.infor.song}
+          // src={songInfo.infor.song.includes('?') ? songInfo.infor.song.substring(0, songInfo.infor.song.indexOf('?') + 1) + newAuthenURL : songInfo.infor.song}
+          src={songInfo.infor.song}
           onClickPrevious={handleClickPrevious}
           onClickNext={handleClickNext}
           onEnded={handleEnd}

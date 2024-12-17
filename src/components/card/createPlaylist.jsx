@@ -1,47 +1,48 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faCirclePlus, faCircleCheck,
+    faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { getUserPl } from '../../redux/slide/getUserPlaylistSlice'
+import { userPLayList } from '../../controller/MyPlaylist'
 import { useSelector, useDispatch } from "react-redux";
-import { adSongToPlaylist } from '../../controller/adSongToPlaylist'
-import { createplaylist } from '../../controller/createPlaylist'
+import { adSongToPlaylist } from '../../controller/MyPlaylist'
+import { createplaylist } from '../../controller/MyPlaylist'
 import { toast } from "react-toastify";
+import { setUserPlaylist, AddUserPlaylist } from "../../redux/slide/InforUserSlice";
 
 const CreatePlaylist = ({ idSongs, type }) => {
     const dispatch = useDispatch()
-    const userPlaylist = useSelector((state) => state.getUserPl.userPlaylist);
-    const [clickedButtons, setClickedButtons] = useState([]);
+    const userPlaylist = useSelector((state) => {
+        return state.inforUser.userPlaylist;
+    });
     const [playlistName, setPlaylistName] = useState('');
-
     const isAuthenticated = useSelector((state) => state.Authentication.defaultUser.isAuthenticated);
     useEffect(() => {
-        if (isAuthenticated) {
-            dispatch(getUserPl());
-        }
+        const fetchPlaylist = async () => {
+            const response = await userPLayList();
+            if (response.EC === "0") {
+                dispatch(setUserPlaylist(response.DT));
+            }
+        };
+        fetchPlaylist();
     }, [dispatch, isAuthenticated])
-
-    // if (!userPlaylist) {
-    //     return (
-    //         <div className="load">skfjfjk</div>
-    //     )
-    // }
     const handlePushSong = async (playlistId) => {
         const response = await adSongToPlaylist({
             playlistId: playlistId,
             songId: idSongs
         })
-        console.log(response)
+        toast.success(response.EM)
         if (response.EC === '0') {
-            dispatch(getUserPl());
-            toast.success(response.EM)
+            dispatch(AddUserPlaylist({
+                playlistId: playlistId,
+                songId: idSongs
+            }));
         }
     }
 
-    const handleCreate = async (e) => {
+    const handleCreate = async (e, close) => {
         e.preventDefault();
 
         const response = await createplaylist({
@@ -49,8 +50,15 @@ const CreatePlaylist = ({ idSongs, type }) => {
         })
         console.log(response)
         if (response.EC === '0') {
-            dispatch(getUserPl());
+            const fetchPlaylist = async () => {
+                const response = await userPLayList();
+                if (response.EC === "0") {
+                    dispatch(setUserPlaylist(response.DT));
+                }
+            };
+            fetchPlaylist();
             toast.success(response.EM)
+            close()
         } else {
             toast.error(response.EM)
         }
@@ -98,11 +106,14 @@ const CreatePlaylist = ({ idSongs, type }) => {
                     <Popup
                         trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
                         position={type ? 'left bottom' : 'right bottom'}
+                        modal
                         nested
                     >
                         {close => (
                             <div className="modal-body">
-                                <form onSubmit={handleCreate}>
+                                <form onSubmit={e => {
+                                    handleCreate(e, close); // Pass close to handleCreate
+                                }}>
                                     <div className="gid-gr">
                                         <label htmlFor="add-playlist-input" className="add-playlist-label">Hãy Nhập Tên PlayList</label>
                                         <input

@@ -5,12 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faHeart } from "@fortawesome/free-solid-svg-icons";
 import Skeleton from '@mui/material/Skeleton';
 import SongCard2 from "./song_card2";
-const Recommended = ({ datas, type, describe, maxItemsToShow, rank }) => {
+const Recommended = ({ datas, type, describe, maxItemsToShow, rank,size }) => {
   const [showAll, setShowAll] = useState(false);
   const toggleShowAll = () => {
     setShowAll(!showAll);
   };
   const validDatas = Array.isArray(datas) ? datas : [];
+console.log(rank);
 
   return (
     <>
@@ -38,7 +39,12 @@ const Recommended = ({ datas, type, describe, maxItemsToShow, rank }) => {
                       israting: true,
                       index: index
                     }}
-                    rank={rank[index]}
+                    rank={rank.index[index]}
+                    onPlaylist={{
+                      idPlaylist: rank.playlistId,
+                      isPlay: true
+                    }}
+                    size={size}
                   />)
                   :
                   (<SongCard2

@@ -20,7 +20,15 @@
     .radio-inputs>* {
       margin: 6px;
     }
-  
+    .radio-icon{
+      width: 100%;
+      text-align: center;
+      a{
+        width: 100%;
+        display: block;
+        color: #000;
+      }
+    }
     .radio-input:checked+.radio-tile {
       border-color: #3887ff;
       box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
