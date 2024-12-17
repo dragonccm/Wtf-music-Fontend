@@ -13,6 +13,11 @@ import GenresReducer from "./slide/genresSlice";
 import getSongDataReducer from "./slide/songPlayingSlice";
 import themeReducer from "./slide/themeSlice";
 import sliderReducer from "./slide/silderSlice";
+import creataPlReducer from "./slide/silderSlice"
+import getUserPlReducer from "./slide/getUserPlaylistSlice";
+import adSongToPlReducer from "./slide/adSongToPlaylistSlice";
+import getUserLikedSongsReducer from "./slide/getUserLikedSongs";
+import myHistoryReducer from "./slide/myHistory";
 
 export const store = configureStore({
     reducer: {
