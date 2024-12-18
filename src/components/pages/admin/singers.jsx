@@ -44,7 +44,9 @@ const SingerAdmin = () => {
         setEditForm,
         setCreateForm,
     } = useSingerAdmin();
-
+    const handleChange = (event, value) => {
+        handlePageChange(value);
+    };
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
@@ -91,7 +93,7 @@ const SingerAdmin = () => {
                     </div>
                 </div>
                 <Stack spacing={2}>
-                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handlePageChange} showFirstButton showLastButton />
+                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
                 </Stack>
             </div>
             <EditSingerModal

@@ -47,8 +47,9 @@ const useSingerAdmin = () => {
     };
 
     const handlePageChange = (pageNum) => {
+        
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) return;
-        setCurrentPage(pageNum);
+        setCurrentPage();
     };
 
     const openEditModal = (kind) => {
