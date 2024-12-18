@@ -55,7 +55,7 @@ const ProfileHistory = ({ type }) => {
         <section className="mylist_page">
             <div className="Recommended_1">{type == 'mymusic' ? "Playlist-Album yêu thích" : 'Playlist-Album đã nghe'}</div>
             <div className="list_container">
-                <Card playlist={datas} isOw={""} />
+                <Card playlist={datas} isOw={""} limit={true} />
             </div>
             </section>
             :

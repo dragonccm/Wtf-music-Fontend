@@ -3,12 +3,16 @@ import "../../css/Detailed_list.scss";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import moment from 'moment';
+import { toast } from "react-toastify";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsis, faSquarePlus, faShare, faLink, faPlay, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis, faShare, faLink, faPlay,faTrash} from "@fortawesome/free-solid-svg-icons";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 // redux
 import { useEffect } from "react";
 import { fetchPlayList, randomSongs } from '../../redux/slide/playlistSlice'
+import { setUserPlaylist } from "../../redux/slide/InforUserSlice";
+
 import { fetchSongPlaying, update } from "../../redux/slide/songPlayingSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from 'react-router-dom';
@@ -22,8 +26,12 @@ import Card from "../card/playlist_card"
 import { addHisFetch } from "../../services/upDateHService";
 
 import { playlistroute } from "../../controller/playlist";
+import { deleteplaylist } from "../../controller/MyPlaylist"
+import { userPLayList } from '../../controller/MyPlaylist'
 const Playlistpage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [playlist, setPlaylist] = useState({})
   const currData = useSelector((state) => state.Authentication);
@@ -40,7 +48,7 @@ const Playlistpage = () => {
 
     let response = await playlistroute(id);
     if (response.EC === '0' && response.DT) {
-      // console.log(response);
+      console.log(response);
       setPlaylist(response.DT)
     } else {
       // console.log('saiiiiiiiiiiiiii')
@@ -55,16 +63,16 @@ const Playlistpage = () => {
 
 
   const handlePlayPlaylist = async () => {
-    await dispatch(fetchPlayList({ id }));
+     dispatch(fetchPlayList({ id }));
     localStorage.removeItem('playlistRelate')
     if (JSON.parse(localStorage.getItem('isRandom'))) {
-      await dispatch(randomSongs())
+       dispatch(randomSongs())
       console.log('jaaaaaaaaaaaaaaaaa');
     }
     dispatch(fetchSongPlaying(playlist.song[0].id))
     dispatch(update(0))
     localStorage.setItem('playlistID', id)
-    if (user) {
+    if (user && playlist.playlist.type !=='user') {
       // console.log('kifffffffffffffffffffffff');
       await addHisFetch({
         id: id,
@@ -72,7 +80,23 @@ const Playlistpage = () => {
       })
     }
   };
-
+  const handledelete = async (e) => {
+    e.preventDefault();
+    const response = await deleteplaylist({ playlistId: id });
+    if (response && response.EC === '0') {
+        toast.success('Xóa thành công');
+        const fetchPlaylist = async () => {
+            const response = await userPLayList();
+            if (response.EC === "0") {
+              dispatch(setUserPlaylist(response.DT));
+              navigate("/profile/myplaylist");
+            }
+          };
+          fetchPlaylist();
+    } else {
+        toast.error('Xóa thất bại');
+    }
+};
   return (
     // <></>
     <section className="detailed_list">
@@ -97,7 +121,7 @@ const Playlistpage = () => {
 
                   {/* <span className="user_name">{playlist.artistsNames}</span> */}
                   {/* <span className="total_song"> {playlist.song.total} bài hát</span> */}
-                  <span className="total_time"> {playlist.playlist.like > 1000 ? ((playlist.playlist.like / 1000).toFixed(1)) + 'k' : playlist.playlist.like} người yêu thích</span>
+                  {playlist.playlist.type !=='user'&&<span className="total_time"> {playlist.playlist.like > 1000 ? ((playlist.playlist.like / 1000).toFixed(1)) + 'k' : playlist.playlist.like} người yêu thích</span>}
                 </div>
               </div>
             </div>
@@ -109,7 +133,7 @@ const Playlistpage = () => {
               <span>PHÁT TẤT CẢ</span>
             </button>
             <div className="child_btn_gr">
-              <Like_heart id={playlist.playlist.playlistId} type={'playlist'} />
+              {playlist.playlist.type !=='user'&&<Like_heart id={playlist.playlist.playlistId} type={'playlist'} />}
 
 
               <Popup
@@ -129,14 +153,19 @@ const Playlistpage = () => {
                 nested
               >
                 <div className="menu-plalist">
-                  <button className="menu-item" onClick={(e) => e.preventDefault()}><CreatePlaylist
+                  {playlist.playlist.type !=='user'&&<button className="menu-item" onClick={(e) => e.preventDefault()}>
+                    <CreatePlaylist
                     idSongs={playlist.song.map((item) => {
                       return item.id
-                    })} /></button>
+                    })}
+                    />
+                  </button>}
                   <CopyToClipboard text={"http://localhost:3000/playlist/" + playlist.playlist.playlistId}>
                     <button className="menu-item copy"><FontAwesomeIcon icon={faLink} /> Sao Chép Link</button>
                   </CopyToClipboard>
                   <button className="menu-item"><FontAwesomeIcon icon={faShare} /> Chia sẻ</button>
+                {playlist.playlist.type ==='user'&&<button className="menu-item" onClick={(e)=>handledelete(e)}><FontAwesomeIcon icon={faTrash} /> Xoá playlist</button>}
+
                 </div>
               </Popup>
             </div>

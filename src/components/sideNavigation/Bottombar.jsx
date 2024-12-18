@@ -254,8 +254,20 @@ const Bottombar = () => {
       dispatch(decrement())
       // console.log(currentMusicIndex);
       if (dataf && isPlaying) {
-        dispatch(fetchSongPlaying(dataf.song[currentMusicIndex - 1].id))
-        localStorage.setItem('currentMusicIndex', currentMusicIndex)
+        let currentIndex = currentMusicIndex - 1;
+
+        // Duyệt qua danh sách bài hát
+        while (currentIndex < dataf.song.length) {
+          // Kiểm tra ID bài hát hiện tại
+          if (!blockSong.includes(dataf.song[currentIndex].id)) {
+            dispatch(fetchSongPlaying(dataf.song[currentIndex].id))
+            localStorage.setItem('currentMusicIndex', currentIndex-1)
+            break;
+          } else {
+            // Nếu ID bài hát không nằm trong mảng, chuyển sang bài hát tiếp theo
+            currentIndex--;
+          }
+        }
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     } else {
@@ -409,7 +421,7 @@ const Bottombar = () => {
     if (response && response.EC === "0") {
       toast.success(response.EM)
       handleClickNext()
-      dispatch(banSongs(songInfo.infor.id))
+      // dispatch(banSongs(songInfo.infor.id))
       dispatch(ChangeBlockList(response.DT))
     } else if (response && response.EC !== '0') {
       toast.error(response.EM);

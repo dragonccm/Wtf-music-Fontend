@@ -15,7 +15,6 @@ import "../../css/RightSidebar.scss";
 import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
 const RightSidebar = () => {
-  
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
 
     const location = useLocation();

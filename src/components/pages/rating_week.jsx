@@ -147,17 +147,17 @@ const RatingWeek = () => {
                 rank={area === 'vn' ?
                     {
                         index: indexesWeek[0],
-                        playlistId: dataRating.weekChart[0].NowPlaylist.songs
+                        playlistId: dataRating.weekChart[0].NowPlaylist.playlistId
                     }
                     :
                     area === 'us-uk' ?
                         {
                             index: indexesWeek[1],
-                            playlistId: dataRating.weekChart[1].NowPlaylist.songs
+                            playlistId: dataRating.weekChart[1].NowPlaylist.playlistId
                         }
                         : {
                             index: indexesWeek[2],
-                            playlistId: dataRating.weekChart[2].NowPlaylist.songs
+                            playlistId: dataRating.weekChart[2].NowPlaylist.playlistId
                         }
                 }
             />

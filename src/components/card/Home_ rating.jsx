@@ -11,6 +11,8 @@ import { NavLink } from "react-router-dom";
 import moment from 'moment';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
+import { fetchPlayList, randomSongs } from '../../redux/slide/playlistSlice'
+import { toPlay } from '../../redux/slide/songPlayingSlice'
 
 
 function SampleNextArrow(props) {
@@ -38,16 +40,27 @@ function SamplePrevArrow(props) {
 const HomeRating = ({ data }) => {
   const dispatch = useDispatch();
   const dataf = useSelector((state) => state.playlist.playlist);
+  const songInfo = useSelector((state) => state.getSongData.inforSong);
 
   const handlePlaying = (e, id) => {
     e.preventDefault();
-    const song = dataf.song.find(item => item.id === id);
-    if (song) {
-      console.log(`ID ${id} trùng với một bài hát trong playlist.`);
-    } else {
-      console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
-    }
-    dispatch(fetchSongPlaying(id));
+     const song = dataf && dataf.song && dataf.song.find(item => item.id === id);
+        if (songInfo.infor.id === id) {
+          dispatch(toPlay());
+        } else {
+          if (song) {
+            console.log(`ID ${id} trùng với một bài hát trong playlist.`);
+          } else {
+             dispatch(fetchPlayList({ id: id, type: 'ok' }));
+            if (JSON.parse(localStorage.getItem('isRandom'))) {
+               dispatch(randomSongs())
+            }
+            localStorage.setItem('playlistRelate', 'true')
+    
+            console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
+          }
+          dispatch(fetchSongPlaying(id));
+        }
   }
   const settings = {
     infinite: true,
