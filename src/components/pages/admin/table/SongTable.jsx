@@ -11,8 +11,10 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
             <table className="w-100 fs-3 text-justify table-admin">
                 <thead>
                     <tr>
+
                         <th>#</th>
                         <th>Tên</th>
+
                         <th>Lượt Like</th>
                         <th>Lượt Nghe</th>
                         <th>Thao tác</th>
@@ -21,6 +23,7 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
                 <tbody>
                     {musicSongs.map((kind, index) => (
                         <tr key={kind.id} style={{ background: kind.state === 1 ? '#b5d5ff' : 'transparent' }}>
+
                             <td>{index + 1}</td>
                             <td>
                                 <div className="infor">
@@ -28,6 +31,7 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
                                     <span>{kind.songname}</span>
                                 </div>
                             </td>
+
 
                             <td>{kind.like}</td>
                             <td>{kind.listen}</td>

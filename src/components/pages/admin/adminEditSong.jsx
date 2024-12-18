@@ -14,6 +14,12 @@ import {
     adminSearchArtistsService,
     adminSearchGenreService,
 } from "../../../services/adminSearchSongService";
+import {
+    updateSong,
+} from "../../../services/restSongService";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -34,6 +40,7 @@ const AdminEditSong = () => {
     const [value, setValue] = useState('1');
     const [imageUrl, setImageUrl] = useState('');
     const [file, setFile] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
 
 
     // tìm kiếm
@@ -117,8 +124,25 @@ const AdminEditSong = () => {
             return newData;
         });
     };
-    const handleSave = () => {
-        console.table(data)
+    const handleSave = async () => {
+        try {
+            setIsSaving(true);
+            const updatedData = {
+                ...data,
+                thumbnail: file || data.thumbnail,
+                artists: data.artist.map((artist) => artist.id).join(','),
+                genresid: data.genre.map((genre) => genre.genreId).join(',')
+            };
+            const res = await updateSong(updatedData);
+            if (res) {
+                toast.success(res.EM);
+            }
+        } catch (error) {
+            console.error("Error updating data:", error);
+            toast.error("Error updating data");
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     const handleUpload = (file) => {
@@ -366,8 +390,11 @@ const AdminEditSong = () => {
                 </div>
             </div>
             <div className="gr"> 
-                <button className="save_change" onClick={()=>handleSave()}>lưu</button>
-                <button className="save_change">huỷ</button>
+                {isSaving ? <FontAwesomeIcon icon={faSpinner} spin className="spinner"/> :
+                    <button className="save_change" onClick={() => handleSave()} disabled={isSaving}>
+                        Lưu
+                    </button>}
+                <button className="save_change">Huỷ</button>
             </div>
         </div>
     );

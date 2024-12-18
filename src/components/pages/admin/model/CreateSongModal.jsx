@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
-import AudioUploader from "../../../components/pages/profile/Profile-setting/upladAudio";
+import ImageUploader from "../../profile/Profile-setting/uploadImage";
+import AudioUploader from "../../profile/Profile-setting/upladAudio";
 import { MuiChipsInput } from 'mui-chips-input';
 import {
     adminSearchS,
     adminSearchArtistsService,
     adminSearchGenreService,
-} from "../../../services/adminSearchSongService";
+} from "../../../../services/adminSearchSongService";
 import { toast } from "react-toastify";
-import { createSong } from "../../../services/restSongService";
-import { useSongAdmin } from "../../../hooks/useSongAdmin";
+import { createSong } from "../../../../services/restSongService";
+import { useSongAdmin } from "../../../../hooks/useSongAdmin";
 
 const CreateSongModal = ({ isCreateModalOpen, closeCreateModal, createForm, handleCreateFormChange, imageUrl, audioUrl, createMusicKind }) => {
     const [genres, setGenres] = useState([]);
@@ -103,18 +103,16 @@ const CreateSongModal = ({ isCreateModalOpen, closeCreateModal, createForm, hand
         <Modal isOpen={isCreateModalOpen} onRequestClose={closeCreateModal} contentLabel="Create Song" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
             <h2 className="text-center opacity-75 mb-5 fs-2">Tạo mới Bài Hát</h2>
             <form onSubmit={handleSubmit}>
+                <div className="mb-4 form-group img-upload">
+                    {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> :  <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
+                    <ImageUploader onUpload={handleUpload} />
+                </div>
                 <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="create-name">Tên bài hát:</label>
                     <input type="text" className="fs-5 form-control" id="create-name" name="songname" value={createForm.songname} onChange={handleCreateFormChange} />
                 </div>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-profile">Ảnh bìa:</label>
-                    {localImageUrl && <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" />}
-                    <ImageUploader onUpload={handleUpload} />
-                </div>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-audio">Tệp âm thanh:</label>
-                    {localAudioUrl && <audio controls src={localAudioUrl} />}
+                <div className="mb-4 form-group song-upload">
+                    {localAudioUrl ? (<audio controls src={localAudioUrl}/>) :   <img style={{ width: "12%" }} src='https://cdn-icons-png.freepik.com/256/15470/15470354.png?semt=ais_hybrid' className="avt-img" alt="Uploaded" />}
                     <AudioUploader onUpload={handleAudioUpload} />
                 </div>
                 <div className="mb-4 form-group">

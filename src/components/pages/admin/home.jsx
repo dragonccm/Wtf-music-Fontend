@@ -26,6 +26,7 @@ import {
     adminSearchPlaylistService
 } from "../../../services/adminSearchSongService";
 import { useForm } from "react-hook-form";
+import { Modal, Button } from 'react-bootstrap';
 
 const HomeAdmin = () => {
     const [user, setuser] = useState([]);
@@ -41,6 +42,16 @@ const HomeAdmin = () => {
     const { register, handleSubmit, reset, setValue } = useForm();
     const [editMode, setEditMode] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => {
+        setShowModal(false);
+        reset();
+        setEditMode(false);
+        setCurrentSlide(null);
+        setImageUrl("");
+    };
 
     useEffect(() => {
         dispatch(fetchAdminHome())
@@ -106,6 +117,7 @@ const HomeAdmin = () => {
         setValue("playlistId", slide.playlistId);
         setImageUrl(slide.slideImage);
         setPlaylist(slide.Playlist.map(pl => ({ playlistId: pl.playlistId, name: pl.playlistname })));
+        handleShowModal();
     };
 
     const handleSubmitForm = async (data) => {
@@ -116,6 +128,7 @@ const HomeAdmin = () => {
         formData.append("playlistId", playlist.map(item => item.playlistId).join(","));
 
         await onSubmit(formData);
+        handleCloseModal();
     };
 
     const handleAddItem = (item) => {
@@ -130,13 +143,6 @@ const HomeAdmin = () => {
         let response;
         response = await adminSearchPlaylistService(query);
         setSearchResults({ ...searchResults, playlist: response.DT.data.Playlist });
-    };
-
-    const toggleFormMode = () => {
-        setEditMode(!editMode);
-        reset();
-        setCurrentSlide(null);
-        setImageUrl("");
     };
 
     if (isLoading && currData) {
@@ -223,7 +229,7 @@ const HomeAdmin = () => {
                 <section className="row my-5">
 
 
-                    <div className="col-lg-8 py-3 card container-admin">
+                    <div className="col-lg-8 py-3 card container-admin  w-100">
                         <div className="row py-5 card-header">
                             <div className="col-lg-6 header-title">
                                 <h4 className="card-title text-capitalize">
@@ -265,189 +271,6 @@ const HomeAdmin = () => {
 
                             </tbody>
                         </table>
-                        <div className="d-flex pagination-admin">
-                            <div className="col-6 description-pagination"></div>
-                            <div className="col-6 pe-5 pagination-numbers">
-                                <ul className="pagination justify-content-end ">
-                                    <li className="border">
-                                        <a
-                                            className="d-block fs-4 px-4 py-1 opacity-75"
-                                            href="#"
-                                        >
-                                            Previous
-                                        </a>
-                                    </li>
-                                    <li className="border active">
-                                        <a
-                                            className="d-block fs-4 px-4 py-1 opacity-75"
-                                            href="#"
-                                        >
-                                            1
-                                        </a>
-                                    </li>
-                                    <li className="border">
-                                        <a
-                                            className="d-block fs-4 px-4 py-1 opacity-75"
-                                            href="#"
-                                        >
-                                            Next
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4">
-                        <div
-                            style={{ height: "100%" }}
-                            className="card py-3 px-2 container-admin"
-                        >
-                            <div className="card-header">
-                                <div className="header-title">
-                                    <h4 className="mb-5 card-title text-capitalize">
-                                        total reviews
-                                    </h4>
-                                </div>
-                            </div>
-                            <div className="card-body pt-0">
-                                <div className="d-flex align-items-center mb-5">
-                                    <FontAwesomeIcon
-                                        icon={faMicrophone}
-                                        className="icon-artist icon_top-reviews me-5"
-                                    />
-                                    <div style={{ width: "100%" }}>
-                                        <div className="d-flex justify-content-between  ">
-                                            <h6 className="mb-2 fs-3 fw-normal">
-                                                Artist
-                                            </h6>
-                                            <h6 className="text-body fs-3 fw-normal">
-                                                {currData && currData.ar}
-                                            </h6>
-                                        </div>
-                                        <div
-                                            className="progress bg-soft-success shadow-none w-100"
-                                            style={{ height: "6px" }}
-                                        >
-                                            <div
-                                                className="progress-bar bg-soft-success"
-                                                data-toggle="progress-bar"
-                                                role="progressbar"
-                                                aria-valuenow="23"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100"
-                                                style={{
-                                                    width: "21%",
-                                                    transition:
-                                                        "width 2s ease 0s",
-                                                }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex align-items-center mb-5">
-                                    <FontAwesomeIcon
-                                        icon={faMusic}
-                                        className="icon-songs icon_top-reviews me-5"
-                                    />
-                                    <div style={{ width: "100%" }}>
-                                        <div className="d-flex justify-content-between">
-                                            <h6 className="mb-2 fs-3 fw-normal">
-                                                Songs
-                                            </h6>
-                                            <h6 className="text-body fs-3 fw-normal">
-                                                {currData && currData.songs}
-                                            </h6>
-                                        </div>
-                                        <div
-                                            className="progress bg-soft-info shadow-none w-100"
-                                            style={{ height: "6px" }}
-                                        >
-                                            <div
-                                                className="progress-bar bg-soft-info"
-                                                data-toggle="progress-bar"
-                                                role="progressbar"
-                                                aria-valuenow="45"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100"
-                                                style={{
-                                                    width: "45%",
-                                                    transition:
-                                                        "width 2s ease 0s",
-                                                }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex align-items-center mb-5">
-                                    <FontAwesomeIcon
-                                        icon={faList}
-                                        className="icon-playlist icon_top-reviews me-5"
-                                    />
-                                    <div style={{ width: "100%" }}>
-                                        <div className="d-flex justify-content-between  ">
-                                            <h6 className="mb-2 fs-3 fw-normal">
-                                                Playlist
-                                            </h6>
-                                            <h6 className="text-body fs-3 fw-normal">
-                                                {currData && currData.Playlist}
-                                            </h6>
-                                        </div>
-                                        <div
-                                            className="progress bg-soft-success shadow-none w-100"
-                                            style={{ height: "6px" }}
-                                        >
-                                            <div
-                                                className="progress-bar bg-soft-success"
-                                                data-toggle="progress-bar"
-                                                role="progressbar"
-                                                aria-valuenow="23"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100"
-                                                style={{
-                                                    width: "27%",
-                                                    transition:
-                                                        "width 2s ease 0s",
-                                                }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex align-items-center">
-                                    <FontAwesomeIcon
-                                        icon={faCircleUser}
-                                        className="icon-playlist icon_top-reviews me-5"
-                                    />
-                                    <div style={{ width: "100%" }}>
-                                        <div className="d-flex justify-content-between  ">
-                                            <h6 className="mb-2 fs-3 fw-normal">
-                                                Users
-                                            </h6>
-                                            <h6 className="text-body fs-3 fw-normal">
-                                                {currData && currData.User}
-                                            </h6>
-                                        </div>
-                                        <div
-                                            className="progress bg-soft-success shadow-none w-100"
-                                            style={{ height: "6px" }}
-                                        >
-                                            <div
-                                                className="progress-bar bg-soft-success"
-                                                data-toggle="progress-bar"
-                                                role="progressbar"
-                                                aria-valuenow="23"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100"
-                                                style={{
-                                                    width: "63%",
-                                                    transition:
-                                                        "width 2s ease 0s",
-                                                }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </section>
 
@@ -559,11 +382,16 @@ const HomeAdmin = () => {
                 {/* form  */}
 
 
-                <section className="row my-5">
-                    <div className="col-lg-8 py-3 card container-admin">
-                        <div className="row py-5 card-header">
+                <section className="row my-5 w-100">
+                    <div className="col-lg-8 py-3 card container-admin w-100">
+                        <div className="row py-5 card-header"> 
                             <div className="col-lg-6 header-title">
                                 <h4 className="card-title text-capitalize">Slider</h4>
+                            </div>
+                            <div className="col-lg-6 text-end">
+                                <Button className="btn btn-info" onClick={handleShowModal}>
+                                    Thêm mới
+                                </Button>
                             </div>
                         </div>
                         <table className="w-100 fs-4 text-justify table-admin">
@@ -593,66 +421,59 @@ const HomeAdmin = () => {
                     </div>
                 </section>
 
+                <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{editMode ? "Cập nhật tiêu đề" : "Tạo mới tiêu đề"}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <form onSubmit={handleSubmit(handleSubmitForm)} className="needs-validation" noValidate>
+                            <div className="mb-4 form-group">
+                                <label className="fs-5 mb-2" htmlFor="create-name">Tên slide:</label>
+                                <input type="text" className="fs-5 form-control" id="create-name" {...register("slideName", { required: true })} />
+                                <div className="invalid-feedback">
+                                    Vui lòng nhập tên slide.
+                                </div>
+                            </div>
+                            <div className="mb-4 form-group img-upload">
+                                {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> : <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
+                                <ImageUploader onUpload={handleUpload} />
+                            </div>
+                            <div className="mb-4 form-group">
+                                <label className="fs-5 mb-2" htmlFor="create-description">Mô tả slide:</label>
+                                <input type="text" className="fs-5 form-control" id="create-description" {...register("slideDescription", { required: true })} />
+                                <div className="invalid-feedback">
+                                    Vui lòng nhập mô tả slide.
+                                </div>
+                            </div>
+                            <div className="mb-4 form-group">
+                                <label className="fs-5 mb-2" htmlFor="create-genre">Playlist ID:</label>
+                                <input
+                                    type="text"
+                                    className="fs-5 form-control mb-2"
+                                    placeholder="Tìm kiếm thể loại"
+                                    onChange={(e) => handleSearch(e.target.value)}
+                                />
+                                <MuiChipsInput
+                                    value={playlist.map(g => g.name)}
+                                    onAdd={(chip) => handleAddItem({ playlistId: chip, playlistname: chip })}
+                                    onDeleteChip={(chip, index) => handleDeleteItem(index)}
+                                />
+                                <div className="list-group d-flex flex-wrap">
+                                    {Array.isArray(searchResults.playlist) && searchResults.playlist.map((playlist, index) => (
+                                        <button key={index} type="button" className="list-group-item list-group-item-action m-1" onClick={() => handleAddItem(playlist)}>
+                                            {playlist.playlistname}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="text-end form-group">
+                                <button type="submit" className="px-4 py-2 btn btn-primary fs-4">{editMode ? "Cập nhật slide" : "Tạo mới"}</button>
+                                <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={handleCloseModal}>Hủy bỏ</button>
+                            </div>
+                        </form>
+                    </Modal.Body>
+                </Modal>
 
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h2 className="text-center opacity-75 mb-5 fs-2">{editMode ? "Cập nhật tiêu đề" : "Tạo mới tiêu đề"}</h2>
-                    <button className="btn btn-info" onClick={toggleFormMode}>
-                        {editMode ? "Chuyển sang thêm mới" : "Chuyển sang cập nhật"}
-                    </button>
-                </div>
-                
-                <form onSubmit={handleSubmit(handleSubmitForm)} className="needs-validation" noValidate>
-                    <div className="mb-4 form-group">
-                        <label className="fs-5 mb-2" htmlFor="create-name">Tên slide:</label>
-                        <input type="text" className="fs-5 form-control" id="create-name" {...register("slideName", { required: true })} />
-                        <div className="invalid-feedback">
-                            Vui lòng nhập tên slide.
-                        </div>
-                    </div>
-                    <div className="mb-4 form-group">
-                        <label className="fs-5 mb-2" htmlFor="edit-profile">Hình ảnh slide:</label>
-                        {localImageUrl && <img style={{ width: "12%" }} src={localImageUrl} className="avt-img mb-2" alt="Uploaded" />}
-                        <ImageUploader onUpload={handleUpload} />
-                        <div className="invalid-feedback">
-                            Vui lòng tải lên hình ảnh slide.
-                        </div>
-                    </div>
-                    <div className="mb-4 form-group">
-                        <label className="fs-5 mb-2" htmlFor="create-description">Mô tả slide:</label>
-                        <input type="text" className="fs-5 form-control" id="create-description" {...register("slideDescription", { required: true })} />
-                        <div className="invalid-feedback">
-                            Vui lòng nhập mô tả slide.
-                        </div>
-                    </div>
-                    <div className="mb-4 form-group">
-                        <label className="fs-5 mb-2" htmlFor="create-genre">Playlist ID:</label>
-                        <input
-                            type="text"
-                            className="fs-5 form-control mb-2"
-                            placeholder="Tìm kiếm thể loại"
-                            onChange={(e) => handleSearch(e.target.value)}
-                        />
-                        <MuiChipsInput
-                            value={playlist.map(g => g.name)}
-                            onAdd={(chip) => handleAddItem({ playlistId: chip, playlistname: chip })}
-                            onDeleteChip={(chip, index) => handleDeleteItem(index)}
-                        />
-                        <div className="list-group d-flex flex-wrap">
-                            {Array.isArray(searchResults.playlist) && searchResults.playlist.map((playlist, index) => (
-                                <button key={index} type="button" className="list-group-item list-group-item-action m-1" onClick={() => handleAddItem(playlist)}>
-                                    {playlist.playlistname}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="text-end form-group">
-                        <button type="submit" className="px-4 py-2 btn btn-primary fs-4">{editMode ? "Cập nhật slide" : "Tạo mới"}</button>
-                        <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={reset}>Hủy bỏ</button>
-                    </div>
-                </form>
-
-             
                 {/* form  */}
             </div>
         </main>

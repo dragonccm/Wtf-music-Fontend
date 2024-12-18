@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
+import ImageUploader from "../../profile/Profile-setting/uploadImage";
 import { MuiChipsInput } from 'mui-chips-input';
-import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import {
     adminSearchS,
     adminSearchArtistsService,
     adminSearchGenreService,
-} from "../../../services/adminSearchSongService";
+} from "../../../../services/adminSearchSongService";
 import { toast } from "react-toastify";
-import { createPlaylist } from "../../../services/restPlaylistService";
-import { usePlaylistAdmin } from "../../../hooks/usePlaylistAdmin";
+import { updatePlaylist } from "../../../../services/restPlaylistService";
+import { usePlaylistAdmin } from "../../../../hooks/usePlaylistAdmin";
 
-const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, createMusicKind }) => {
+const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updateMusicKind }) => {
     const [genres, setGenres] = useState([]);
     const [artists, setArtists] = useState([]);
     const [songs, setSongs] = useState([]);
@@ -19,6 +19,18 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
     const [file, setFile] = useState(null);
     const [localImageUrl, setImageUrl] = useState(imageUrl);
     const { fetchMusicSongs } = usePlaylistAdmin();
+
+    useEffect(() => {
+        if (form.genresNames) {
+            setGenres(form.genresNames.map(data => ({ id: data.genreId, name: data.genrename })));
+        }
+        if (form.artistsNames) {
+            setArtists(form.artistsNames.map(data => ({ id: data.id, name: data.artistsName })));
+        }
+        if (form.songDetails) {
+            setSongs(form.songDetails.map(data => ({ id: data.id, name: data.songname })));
+        }
+    }, [form]);
 
     const handleSearch = async (type, query) => {
         let response;
@@ -80,7 +92,8 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newForm = {
+        const updatedForm = {
+            playlistId: form.playlistId,
             playlistname: form.playlistname,
             genresid: genres.map(g => g.id).filter(id => id),
             artistsId: artists.map(a => a.id).filter(id => id),
@@ -88,43 +101,46 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
             thumbnail: file,
             type: form.type,
             description: form.description,
-            status: 'create'
+            status: 'update'
         };
         try {
-            const res = await createPlaylist(newForm);
+            const res = await updatePlaylist(updatedForm);
             if (res) {
                 toast.success(res.EM);
                 fetchMusicSongs();
                 closeModal();
             }
         } catch (error) {
-            console.error("Error creating data:", error);
+            console.error("Error updating data:", error);
         }
     };
 
     return (
-        <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Create Music Kind" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
-            <h2 className="text-center opacity-75 mb-5 fs-2">Tạo mới Danh sách</h2>
+        <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Edit Music Kind" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
+            <h2 className="text-center opacity-75 mb-5 fs-2">Chỉnh sửa thông tin Danh sách</h2>
             <form onSubmit={handleSubmit}>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-name">playlistname:</label>
-                    <input type="text" className="fs-5 form-control" id="create-name" name="playlistname" value={form.playlistname} onChange={handleFormChange} />
-                </div>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-profile">thumbnail:</label>
-                    {localImageUrl && <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" />}
+                <div className="mb-4 form-group img-upload">
+                    {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> :  <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
                     <ImageUploader onUpload={handleUpload} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-name">type:</label>
-                    <input type="text" className="fs-5 form-control" id="create-name" name="type" value={form.type} onChange={handleFormChange} />
+                    <label className="fs-5 mb-2" htmlFor="edit-name">playlistId:</label>
+                    <input type="text" className="fs-5 form-control" id="edit-name" name="playlistId" value={form.playlistId} onChange={handleFormChange} readOnly />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-description">description:</label>
-                    <input type="text" className="fs-5 form-control" id="create-description" name="description" value={form.description} onChange={handleFormChange} />
+                    <label className="fs-5 mb-2" htmlFor="edit-name">playlistname:</label>
+                    <input type="text" className="fs-5 form-control" id="edit-name" name="playlistname" value={form.playlistname} onChange={handleFormChange} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-genre">Thể loại:</label>
+                    <label className="fs-5 mb-2" htmlFor="edit-name">type:</label>
+                    <input type="text" className="fs-5 form-control" id="edit-name" name="type" value={form.type} onChange={handleFormChange} />
+                </div>
+                <div className="mb-4 form-group">
+                    <label className="fs-5 mb-2" htmlFor="edit-name">description:</label>
+                    <input type="text" className="fs-5 form-control" id="edit-name" name="description" value={form.description} onChange={handleFormChange} />
+                </div>
+                <div className="mb-4 form-group">
+                    <label className="fs-5 mb-2" htmlFor="edit-genre">Thể loại:</label>
                     <input
                         type="text"
                         className="fs-5 form-control mb-2"
@@ -145,7 +161,7 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
                     </div>
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-song">Nhạc:</label>
+                    <label className="fs-5 mb-2" htmlFor="edit-song">Nhạc:</label>
                     <input
                         type="text"
                         className="fs-5 form-control mb-2"
@@ -166,7 +182,7 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
                     </div>
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-artist">Nghệ sĩ:</label>
+                    <label className="fs-5 mb-2" htmlFor="edit-artist">Nghệ sĩ:</label>
                     <input
                         type="text"
                         className="fs-5 form-control mb-2"
@@ -187,7 +203,7 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
                     </div>
                 </div>
                 <div className="text-end form-group">
-                    <button type="submit" className="px-4 py-2 btn btn-primary fs-4">Create</button>
+                    <button type="submit" className="px-4 py-2 btn btn-primary fs-4">Cập nhật</button>
                     <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={closeModal}>Hủy bỏ</button>
                 </div>
             </form>
@@ -195,6 +211,6 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
     );
 };
 
-export { CreateModal };
+export { EditModal };
 
-export default CreateModal;
+export default EditModal;
