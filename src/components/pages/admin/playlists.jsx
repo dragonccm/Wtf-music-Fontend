@@ -4,9 +4,9 @@ import logo from "../../../img/logo3 (1).png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { usePlaylistAdmin } from "../../../hooks/usePlaylistAdmin";
-import PlaylistTable from "./PlaylistTable";
-import EditModal from "./EditModal";
-import CreateModal from "./CreateModal";
+import PlaylistTable from "./table/PlaylistTable";
+import EditModal from "./model/EditModal";
+import CreateModal from "./model/CreateModal";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 const PlaylistAdmin = () => {

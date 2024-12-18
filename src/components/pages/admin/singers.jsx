@@ -8,13 +8,15 @@ import useSingerAdmin from "../../../hooks/useSingerAdmin";
 import SingerTable from "./table/singerTable";
 import EditSingerModal from "./model/EditSingerModal";
 import CreateSingerModal from "./model/CreateSingerModal";
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 const SingerAdmin = () => {
     const {
         musicSongs,
         maxpage,
         currentPage,
         totalPages,
+        itemsPerPage,
         isEditModalOpen,
         isCreateModalOpen,
         isSongModalOpen,
@@ -56,10 +58,20 @@ const SingerAdmin = () => {
                     </button>
                 </div>
             </div>
-            <div className="px-4 py-5 event-admin">
-                <div className="card">
-                    <label className="fs-3 me-3" htmlFor="search-kind">Tìm kiếm:</label>
-                    <div className="input-box">
+            <div className="event-admin">
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button
+                        className="btn fs-4"
+                        onClick={(e) => handlegetban(e)}
+                    >
+                        Lấy Nghệ Bị Ban
+                    </button>
+                </div>
+                <div class="card">
+                    <label className="fs-3 me-3" htmlFor="search-kind">
+                        Tìm kiếm:
+                    </label>
+                    <div class="input-box">
                         <input
                             id="search-kind"
                             type="text"
@@ -71,36 +83,16 @@ const SingerAdmin = () => {
                     </div>
                 </div>
             </div>
-            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
-                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
-                    <button className="btn fs-4 py-2" onClick={handlegetban}>
-                        Lấy Nghệ Bị Ban
-                    </button>
-                </div>
-            </div>
             <SingerTable musicSongs={musicSongs} openEditModal={openEditModal} deleteMusicKind={deleteMusicKind} />
-            <div className="d-flex py-4 pagination-admin">
+            <div className="d-flex pagination-admin">
                 <div className="col-6 ps-5 description-pagination">
                     <div style={{ fontSize: "medium" }}>
-                        Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * 20 + 1} - {Math.min(currentPage * 20, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> ca sĩ
+                        Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> ca sĩ
                     </div>
                 </div>
-                <div className="col-6 pe-5 pagination-numbers">
-                    <ul className="pagination justify-content-end">
-                        <li style={{ backgroundColor: "#d4dae2" }} className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(1)}>Đầu</a>
-                        </li>
-                        <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(currentPage - 1)}>Lùi</a>
-                        </li>
-                        <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(currentPage + 1)}>Tiếp</a>
-                        </li>
-                        <li style={{ backgroundColor: "#d4dae2" }} className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(totalPages - 5)}>Cuối</a>
-                        </li>
-                    </ul>
-                </div>
+                <Stack spacing={2}>
+                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handlePageChange} showFirstButton showLastButton />
+                </Stack>
             </div>
             <EditSingerModal
                 isEditModalOpen={isEditModalOpen}

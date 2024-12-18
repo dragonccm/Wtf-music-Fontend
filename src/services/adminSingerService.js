@@ -1,7 +1,7 @@
-import { adminArtist } from '../controller/adminSingers';
-const adminGetArtist = async (page) => {
+import { adminSinger } from '../controller/adminSingers';
+const adminGetSinger = async (page) => {
     try {
-        const data = await adminArtist(page)
+        const data = await adminSinger(page)
         return data
     } catch (error) {
         console.error("Error loading artist data:", error);
@@ -10,5 +10,5 @@ const adminGetArtist = async (page) => {
 }; 
 
 export {
-    adminGetArtist
+    adminGetSinger
 }

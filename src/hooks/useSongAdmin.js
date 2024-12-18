@@ -140,6 +140,7 @@ const useSongAdmin = () => {
         maxpage,
         currentPage,
         totalPages,
+        itemsPerPage,
         isEditModalOpen,
         isCreateModalOpen,
         editForm,

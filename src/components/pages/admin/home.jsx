@@ -12,7 +12,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import Loading from "../../sideNavigation/mascot_animation";
 import { fetchAdminHome } from "../../../redux/slide/adminHomeSlice";
-import { adminGetArtist } from "../../../services/adminSingerService";
+import { adminGetSinger } from "../../../services/adminSingerService";
 import { adminGetUsers } from "../../../services/adminGetUserService";
 import { adminGetSong } from "../../../services/adminSongService";
 import {
@@ -80,7 +80,7 @@ const HomeAdmin = () => {
     const fetchMusicSongs = async () => {
         try {
             const response = await adminGetUsers(0);
-            const Artistresponse = await adminGetArtist(0);
+            const Artistresponse = await adminGetSinger(0);
             const songsresponse = await adminGetSong(0);
             setMusicSongs(songsresponse.handledata);
             setuser(response.DT.handledata);

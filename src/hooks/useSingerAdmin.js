@@ -4,7 +4,7 @@ import {
     adminSearchPlaylistService,
     adminSearchArtistsService,
 } from "../services/adminSearchSongService";
-import { adminGetArtist } from "../services/adminSingerService";
+import { adminGetSinger } from "../services/adminSingerService";
 import {
     updateArtists,
     deleteArtists,
@@ -24,7 +24,7 @@ const useSingerAdmin = () => {
     const [createForm, setCreateForm] = useState({});
     const [imageUrl, setImageUrl] = useState("");
     const [file, setFile] = useState(null);
-    const itemsPerPage = 20;
+    const itemsPerPage = 10;
 
     useEffect(() => {
         fetchMusicSongs();
@@ -34,7 +34,7 @@ const useSingerAdmin = () => {
         if (!loading) {
             try {
                 const offset = (currentPage - 1) * itemsPerPage;
-                const response = await adminGetArtist(offset, itemsPerPage);
+                const response = await adminGetSinger(offset, itemsPerPage);
                 if (response) {
                     setMusicSongs(response.handleData);
                     setmaxpage(response.maxPage);
@@ -162,6 +162,7 @@ const useSingerAdmin = () => {
         maxpage,
         currentPage,
         totalPages,
+        itemsPerPage,
         isEditModalOpen,
         isCreateModalOpen,
         editForm,
