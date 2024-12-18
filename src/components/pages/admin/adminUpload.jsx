@@ -11,16 +11,15 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import { toast, ToastContainer } from "react-toastify";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    updateSong,
-    deleteSong,
     createSong,
 } from "../../../services/restSongService";
 import {
     adminSearchArtistsService,
     adminSearchGenreService,
 } from "../../../services/adminSearchSongService";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -411,7 +410,7 @@ const AdminUpload = () => {
                 </div>
             </div>
             <div className="gr">
-                {isSaving ? 'Load' :
+                {isSaving ? <FontAwesomeIcon icon={faSpinner} spin  className="spinner"/> :
                     <button className="save_change" onClick={() => createMusicSongs()} disabled={isSaving}>
                         Lưu
                     </button>}

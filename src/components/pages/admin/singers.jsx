@@ -143,7 +143,7 @@ const SingerAdmin = () => {
                 handleAddPlaylistTag={(e, id) => setCreateForm({ ...createForm, playListId: [...createForm.playListId, id] })}
             />
             <ToastContainer
-                style={{ fontSize: "16px" }}
+                style={{ fontSize: "16px", zIndex: 999999999 }}
                 position="bottom-right"
                 autoClose={1000}
                 hideProgressBar={false}
