@@ -29,26 +29,7 @@ const ProfileMyMusic = ({ type }) => {
     if (!Array.isArray(likedSong)) {
         return <><Loading /></>
     }
-    // const neww = likedSong.map((data) => {
-    //     if (data && data.id) {
-    //         return {
-    //             playlistId: data.id,
-    //             title: data.songname,
-    //             thumbnailM: data.thumbnail ? data.thumbnail :"https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
-    //             songname: data.songname
-    //         }
-    //     }
-    // })
-
-    // const list = likedplaylist.map((data) => {
-    //     if (data && data.playlistId) {
-    //         return {
-    //             id: data.playlistId,
-    //             title: data.playlistname,
-    //             img: data.thumbnail ? data.thumbnail :"https://th.bing.com/th/id/OIP.MfAV8J9NzWpF06S-jLvakQHaLH?rs=1&pid=ImgDetMain",
-    //         }
-    //     }
-    // })
+  
     const Likesong = ({ data }) => (
         likedSong.length>0 && likedSong[0]?
         <div className="history_ctn">
@@ -68,7 +49,7 @@ const ProfileMyMusic = ({ type }) => {
         <section className="mylist_page">
             <div className="Recommended_1">{type == 'mymusic' ? "Playlist-Album yêu thích" : 'Playlist-Album đã nghe'}</div>
             <div className="list_container">
-                <Card playlist={datas} isOw={""} />
+                    <Card playlist={datas} isOw={""} limit={true} />
             </div>
             </section>
             :

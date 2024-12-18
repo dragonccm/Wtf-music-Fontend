@@ -8,7 +8,8 @@ import Col3Layout from "./col_3_layout";
 
 const Release = ({ data }) => {
     const [area, setArea] = useState('all')
-
+    console.log(data);
+    
     const handleChange = (e) => {; // In ra giá trị của radio button được chọn
         setArea(e.target.value)
     }
