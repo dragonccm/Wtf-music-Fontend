@@ -26,7 +26,7 @@ export default function Chart() {
     const [years, setYears] = useState([]);
     const [UKGDPperCapita, setUKGDPperCapita] = useState([]);
     const [UKGDPperCapitaListen, setUKGDPperCapitaListen] = useState([]);
-    const [tilte, settilte] = useState("Thống kê lượt thích tất cả Bài hát trong 1 tháng");
+    const [tilte, settilte] = useState("Thống kê lượt thích và lượt nghe tất cả Bài hát");
     const [id, setid] = useState("all");
     const [searchdata, setsearchdata] = useState([]);
     const [isInteractingWithResults, setIsInteractingWithResults] = useState(false);
@@ -112,7 +112,7 @@ export default function Chart() {
         const currentData = dataType === "song" ? data : playlistData;
         const currentListenData = dataType === "song" ? listenData : playlistListenData;
         if (id === "all") {
-            settilte(`Thống kê lượt thích tất cả ${dataType === "song" ? "Bài hát" : "Playlist"} trong 1 tháng`);
+            settilte(`Thống kê lượt thích và nghe của tất cả ${dataType === "song" ? "Bài hát" : "Playlist"} trong`);
             const formattedYears = currentData.map((day) => {
                 const f = new Date(day.date);
                 const year = parseInt(f.getFullYear());
@@ -256,7 +256,7 @@ export default function Chart() {
                 <div className="d-flex flex-column flex-md-row align-items-md-center mb-3 mb-md-0">
                     <div className="d-flex flex-column flex-md-row align-items-md-center">
                         <input
-                            type="text"
+                            type="date"
                             className="form-control me-md-2 mb-2 mb-md-0"
                             placeholder="Start Date"
                             value={startDate}
@@ -270,7 +270,7 @@ export default function Chart() {
                             onChange={(e) => setRange(e.target.value)}
                         />
                         <button className="btn btn-primary" onClick={() => setDataType(dataType === "song" ? "playlist" : "song")}>
-                            {dataType === "song" ? "Chuyển sang Playlist" : "Chuyển sang Bài hát"}
+                            {dataType === "song" ? "Xem Playlist" : "Xem Bài hát"}
                         </button>
                     </div>
                 </div>
@@ -392,9 +392,6 @@ export default function Chart() {
                                 </div>
                             </section>
                         </div>
-                        <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
-                            Overview
-                        </Typography>
                         <h1>
                             {dataType === "song"
                                 ? selectedName ? `Dữ Liệu Thống Kê Của Bài Hát: ${selectedName}` : "Dữ Liệu Thống Kê Của Nhạc"
@@ -403,42 +400,48 @@ export default function Chart() {
                             {`(Từ ngày ${formattedStartDate} đến ngày ${formattedEndDate})`}
                         </h1>
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                            <ChartElement
-                                xAxis={[
-                                    {
-                                        data: years,
-                                        scaleType: "time",
-                                        valueFormatter: yearFormatter,
-                                    },
-                                ]}
-                                series={[
-                                    {
-                                        id: 'like',
-                                        label: dataType === "song" ? "Song Likes" : "Playlist Likes",
-                                        data: UKGDPperCapita,
-                                        stack: 'A',
-                                    },
-                                ]}
-                                total={300}
-                            />
-                            <ChartElement
-                                xAxis={[
-                                    {
-                                        data: years,
-                                        scaleType: "time",
-                                        valueFormatter: yearFormatter,
-                                    },
-                                ]}
-                                series={[
-                                    {
-                                        id: 'listen',
-                                        label: dataType === "song" ? "Song Listens" : "Playlist Listens",
-                                        data: UKGDPperCapitaListen,
-                                        stack: 'A',
-                                    },
-                                ]}
-                                total={300}
-                            />
+                            <div className="chart_title flex flex-col w-100">
+                                <h1>Lượt Thích</h1>
+                                <ChartElement
+                                    xAxis={[
+                                        {
+                                            data: years,
+                                            scaleType: "time",
+                                            valueFormatter: yearFormatter,
+                                        },
+                                    ]}
+                                    series={[
+                                        {
+                                            id: 'like',
+                                            label: dataType === "song" ? "lượt thích của nhạc" : "lượt thích của playlist",
+                                            data: UKGDPperCapita,
+                                            stack: 'A',
+                                        },
+                                    ]}
+                                    total={300}
+                                />
+                            </div>
+                            <div className="chart_title flex flex-col w-100">
+                                <h1>Lượt Nghe</h1>
+                                <ChartElement
+                                    xAxis={[
+                                        {
+                                            data: years,
+                                            scaleType: "time",
+                                            valueFormatter: yearFormatter,
+                                        },
+                                    ]}
+                                    series={[
+                                        {
+                                            id: 'listen',
+                                            label: dataType === "song" ? "lượt nghe của nhạc" : "lượt nghe của playlist",
+                                            data: UKGDPperCapitaListen,
+                                            stack: 'A',
+                                        },
+                                    ]}
+                                    total={300}
+                                />
+                            </div>
                         </Stack>
                     </Box>
                 </>

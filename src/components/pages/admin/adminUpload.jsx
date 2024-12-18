@@ -308,7 +308,9 @@ const AdminUpload = () => {
                         </div>
                         <div className="edit_body_info_text">
                             <input className="edit_body_info_text_title" onChange={(e) => handleSongNameChange(e)} defaultValue={data && data.songname} />
+
                             <div className="edit_body_info_text_category_gr">
+                                <label htmlFor="/">Thể Loại</label>
                                 {data && data.genre.map((data) => {
                                     return (
                                         <Chip
@@ -319,7 +321,9 @@ const AdminUpload = () => {
                                     );
                                 })}
                             </div>
+
                             <div className="edit_body_info_text_singer_gr">
+                                <label htmlFor="/">Nghệ Sĩ</label>
                                 {data && data.artist.map((data) => {
                                     return (
                                         <Chip

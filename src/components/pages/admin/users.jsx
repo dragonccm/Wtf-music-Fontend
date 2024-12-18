@@ -126,8 +126,8 @@ const UserAdmin = () => {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tài khoản</th>
                             <th>Hình</th>
+                            <th>Tài khoản</th>
                             <th>Sinh nhật</th>
                         </tr>
                     </thead>
@@ -138,7 +138,6 @@ const UserAdmin = () => {
                                     kind.role === "1" && (
                                         <tr key={kind.id}>
                                             <td>{index}</td>
-                                            <td>{kind.username}</td>
                                             <td className="td_img">
                                                 {" "}
                                                 <img
@@ -146,6 +145,7 @@ const UserAdmin = () => {
                                                     alt={`${kind.username}_avt`}
                                                 />{" "}
                                             </td>
+                                            <td>{kind.username}</td>
                                             <td>{new Date(kind.birthday).toLocaleDateString('en-GB')}</td>
                                             <td>
                                                

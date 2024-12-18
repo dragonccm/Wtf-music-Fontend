@@ -119,6 +119,10 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
         <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Edit Music Kind" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
             <h2 className="text-center opacity-75 mb-5 fs-2">Chỉnh sửa thông tin Danh sách</h2>
             <form onSubmit={handleSubmit}>
+                <div className="mb-4 form-group img-upload">
+                    {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> :  <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
+                    <ImageUploader onUpload={handleUpload} />
+                </div>
                 <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="edit-name">playlistId:</label>
                     <input type="text" className="fs-5 form-control" id="edit-name" name="playlistId" value={form.playlistId} onChange={handleFormChange} readOnly />
@@ -126,11 +130,6 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
                 <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="edit-name">playlistname:</label>
                     <input type="text" className="fs-5 form-control" id="edit-name" name="playlistname" value={form.playlistname} onChange={handleFormChange} />
-                </div>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-profile">thumbnail:</label>
-                    {localImageUrl && <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" />}
-                    <ImageUploader onUpload={handleUpload} />
                 </div>
                 <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="edit-name">type:</label>

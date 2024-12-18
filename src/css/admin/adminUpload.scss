@@ -256,10 +256,10 @@
           }
 
           .edit_body_info_text_singer_gr {
-            display: flex;
-            width: 100%;
-            gap: 1rem;
-
+            display: flex  ;
+                width: 100%;
+                gap: 1rem;
+                flex-wrap: wrap;
             .edit_body_info_text_singer {
               font-size: 1.5rem !important;
               padding: 1%;
@@ -274,6 +274,7 @@
             display: flex;
             width: 100%;
             gap: 1rem;
+            flex-wrap: wrap;
 
             .edit_body_info_text_category {
               font-size: 1.5rem !important;

@@ -106,14 +106,13 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
         <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Create Music Kind" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
             <h2 className="text-center opacity-75 mb-5 fs-2">Tạo mới Danh sách</h2>
             <form onSubmit={handleSubmit}>
+                <div className="mb-4 form-group img-upload">
+                    {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> :  <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
+                    <ImageUploader onUpload={handleUpload} />
+                </div>
                 <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="create-name">playlistname:</label>
                     <input type="text" className="fs-5 form-control" id="create-name" name="playlistname" value={form.playlistname} onChange={handleFormChange} />
-                </div>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="edit-profile">thumbnail:</label>
-                    {localImageUrl && <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" />}
-                    <ImageUploader onUpload={handleUpload} />
                 </div>
                 <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="create-name">type:</label>

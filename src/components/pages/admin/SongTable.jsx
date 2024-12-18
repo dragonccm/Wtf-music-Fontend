@@ -10,10 +10,10 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
             <table className="w-100 fs-3 text-justify table-admin">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>stt</th>
+                        <th>Hình Ảnh</th>
                         <th>Tên</th>
                         <th>tình trạng</th>
-                        <th>Hình Ảnh</th>
                         <th>Lượt Like</th>
                         <th>Lượt Nghe</th>
                         <th>Trạng thái kiểm soát</th>
@@ -23,11 +23,11 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
                     {musicSongs.map((kind, index) => (
                         <tr key={kind.id} style={{ background: kind.state === 1 ? '#b5d5ff' : 'transparent' }}>
                             <td>{index}</td>
-                            <td>{kind.songname}</td>
-                            <td>{kind.state === 1 ? "đã ẩn" : "bình thường"}</td>
                             <td className="td_img">
                                 <img src={kind.thumbnail} alt={kind.songname} />
                             </td>
+                            <td>{kind.songname}</td>
+                            <td>{kind.state === 1 ? "đã ẩn" : "bình thường"}</td>
                             <td>{kind.like}</td>
                             <td>{kind.listen}</td>
                             <td>{kind.state}</td>
