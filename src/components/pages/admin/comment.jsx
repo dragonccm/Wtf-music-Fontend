@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import "../../../css/admin/musicAdmin.scss";
 import logo from "../../../img/logo3 (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
 import { adminGetCommentService } from "../../../services/adminGetComment";
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import {
     bancommentService
 } from "../../../services/bancomment_service";
@@ -16,35 +17,18 @@ import "react-toastify/dist/ReactToastify.css";
 const CommentAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
-    const [selectedSong, setSelectedSong] = useState(null); // Thể loại đang được chọn
-    const [editForm, setEditForm] = useState({
-        _id: "",
-        songId: "",
-        content: "",
-        userId: "",
-        createdAt: "",
-        ban: "",
-        reportCount: "",
-        songName: "",
-        state: 0,
-    }); // Thông tin form chỉnh sửa
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
+    };
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState({}); // Trang hiện tại
 
-    const handlePageChange = (pageNum) => {
-        if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
-            return; // Không thực hiện cập nhật nếu số trang không hợp lệ
-        }
-        setCurrentPage(pageNum);
-        fetchMusicSongs();
-    };
     const itemsPerPage = 20; // Số mục trên mỗi trang
-    // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
+
     useEffect(() => {
         fetchMusicSongs();
-    }, []);
-    // Hàm giả lập lấy danh sách thể loại nhạc từ server
+    }, [currentPage]);
+
     const fetchMusicSongs = async () => {
         try {
             const response = await adminGetCommentService(
@@ -81,8 +65,6 @@ const CommentAdmin = () => {
             console.error("Error fetching data:", error);
         }
     };
-    const totalPages = Math.ceil(maxpage / itemsPerPage) - 5;
-    console.log(musicSongs);
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
@@ -179,58 +161,10 @@ const CommentAdmin = () => {
                         người dùng
                     </div>
                 </div>
-                <div className="col-6 pe-5 pagination-numbers">
-                    <ul className="pagination justify-content-end">
-                        <li
-                            style={{ backgroundColor: "#d4dae2" }}
-                            className="border"
-                        >
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() => handlePageChange(1)}
-                            >
-                                Đầu
-                            </a>
-                        </li>
-                        <li className="border">
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() =>
-                                    handlePageChange(currentPage - 1)
-                                }
-                                disabled={currentPage <= 1}
-                            >
-                                Lùi
-                            </a>
-                        </li>
-                        <li className="border">
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() =>
-                                    handlePageChange(currentPage + 1)
-                                }
-                                disabled={currentPage === totalPages}
-                            >
-                                Tiếp
-                            </a>
-                        </li>
-                        <li
-                            style={{ backgroundColor: "#d4dae2" }}
-                            className="border"
-                        >
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() => handlePageChange(totalPages - 5)}
-                            >
-                                Cuối
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <Stack spacing={2}>
+                    <Pagination count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
+                </Stack>
+               
             </div>
             <ToastContainer
                 style={{ fontSize: "16px" }}
