@@ -407,8 +407,6 @@ export default function Chart() {
                                 xAxis={[
                                     {
                                         data: years,
-                                        scaleType: "time",
-                                        valueFormatter: yearFormatter,
                                     },
                                 ]}
                                 series={[
@@ -417,6 +415,7 @@ export default function Chart() {
                                         label: dataType === "song" ? "Song Likes" : "Playlist Likes",
                                         data: UKGDPperCapita,
                                         stack: 'A',
+                                        area: true,
                                     },
                                 ]}
                                 total={300}
@@ -435,6 +434,7 @@ export default function Chart() {
                                         label: dataType === "song" ? "Song Listens" : "Playlist Listens",
                                         data: UKGDPperCapitaListen,
                                         stack: 'A',
+                                        area: true,
                                     },
                                 ]}
                                 total={300}

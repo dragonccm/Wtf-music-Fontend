@@ -146,7 +146,7 @@ const HomeAdmin = () => {
     return (
         <main className="main-content">
             <div className="HomeAdmin">
-                <h2 className="page_title">MUSIC ADMIN DASHBOARD</h2>
+                <h2 className="page_title">DASHBOARD</h2>
                 {/* data statistical */}
                 <section className="row">
                     <div className="col">

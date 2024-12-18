@@ -35,10 +35,9 @@ const AdminRoutes = (props) => {
     <div style={{ height: "100vh" }} className="main_content" >
       <NavigationBar />
       <div className="main_page">
-        <HeaderAdmin />
         <section
           style={{
-            paddingTop: "120px",
+            paddingTop: "20px",
           }}
           className="main_page_container bg-white">
           <Routes>
