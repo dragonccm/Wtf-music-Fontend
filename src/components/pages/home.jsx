@@ -10,34 +10,37 @@ import Release from "../../components/card/release";
 import HomeRating from "../../components/card/Home_ rating";
 import Loading from "../sideNavigation/mascot_animation";
 import { getHistory } from "../../controller/history"
+import { getSlider} from '../../redux/slide/silderSlice';
 import { useLocation } from 'react-router-dom';
 const HomePage = () => {
     const homeData = useSelector((state) => state.home.isLoading);
+    const slider = useSelector((state) => state.slider.sliderData);
+
     const dispatch = useDispatch();
     const [playlistsData, setPlaylistsData] = useState([])
     const { pathname } = useLocation();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
     useEffect(() => {
         if (homeData) {
             dispatch(fetchHome());
+            dispatch(getSlider())
         }
-    }, [homeData]);
+    }, [homeData,slider]);
     useEffect(() => {
         fecthHPlaylist()
     }, []);
     const fecthHPlaylist = async () => {
 
         let response = await getHistory();
-        if (response && response.DT) { 
+        if (response && response.DT) {
             setPlaylistsData(response.DT.playlist)
         } else {
             console.log('No Playlists')
         }
     }
-    const banner = useSelector((state) => state.home.banner);
     const newRelease = useSelector((state) => state.home.newRelease);
     const songHot = useSelector((state) => state.home.songHot);
     const songRemix = useSelector((state) => state.home.songRemix);
@@ -58,14 +61,14 @@ const HomePage = () => {
     }
     return (
         <>
-            <SliderBar data={banner} />
+            <SliderBar data={slider.DT} />
 
             {/* <div className="for_you">
                 <h1>Gợi Ý Dành Riêng Cho Bạn</h1>
                 <Col3Layout data={newRelease.all} />
             </div> */}
 
-            {playlistsData && playlistsData.length>0&& <div className="list_card">
+            {playlistsData && playlistsData.length > 0 && <div className="list_card">
                 <h1>Nghe Gần Đây</h1>
                 <Card playlist={playlistsData} />
             </div>}
@@ -94,7 +97,7 @@ const HomePage = () => {
             </div>
             <div className="list_card">
                 <h1>Top 100</h1>
-                <Card  playlist={top100} />
+                <Card playlist={top100} />
             </div>
             {/* <div className="list_card">
                 <h1>Album hot</h1>

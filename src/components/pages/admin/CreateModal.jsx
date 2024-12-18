@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import { MuiChipsInput } from 'mui-chips-input';
+import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import {
     adminSearchS,
     adminSearchArtistsService,
