@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import ImageUploader from "../../profile/Profile-setting/uploadImage";
+import AudioUploader from "../../profile/Profile-setting/upladAudio";
 import { MuiChipsInput } from 'mui-chips-input';
-import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
 import {
     adminSearchS,
     adminSearchArtistsService,
     adminSearchGenreService,
-} from "../../../services/adminSearchSongService";
+} from "../../../../services/adminSearchSongService";
 import { toast } from "react-toastify";
-import { createPlaylist } from "../../../services/restPlaylistService";
-import { usePlaylistAdmin } from "../../../hooks/usePlaylistAdmin";
+import { createSong } from "../../../../services/restSongService";
+import { useSongAdmin } from "../../../../hooks/useSongAdmin";
 
-const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, createMusicKind }) => {
+const CreateSongModal = ({ isCreateModalOpen, closeCreateModal, createForm, handleCreateFormChange, imageUrl, audioUrl, createMusicKind }) => {
     const [genres, setGenres] = useState([]);
     const [artists, setArtists] = useState([]);
-    const [songs, setSongs] = useState([]);
     const [searchResults, setSearchResults] = useState({ genres: [], artists: [], songs: [] });
     const [file, setFile] = useState(null);
+    const [audioFile, setAudioFile] = useState(null);
     const [localImageUrl, setImageUrl] = useState(imageUrl);
-    const { fetchMusicSongs } = usePlaylistAdmin();
+    const [localAudioUrl, setLocalAudioUrl] = useState(audioUrl);
+    const { fetchMusicSongs } = useSongAdmin();
 
     const handleSearch = async (type, query) => {
         let response;
@@ -31,10 +33,6 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
                 response = await adminSearchArtistsService(query);
                 setSearchResults({ ...searchResults, artists: response.DT.data.ar });
                 break;
-            case 'song':
-                response = await adminSearchS(query);
-                setSearchResults({ ...searchResults, songs: response.DT.data.songs });
-                break;
             default:
                 break;
         }
@@ -43,13 +41,10 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
     const handleAddItem = (type, item) => {
         switch (type) {
             case 'genre':
-                setGenres([...genres, { id: item.genreId, name: item.genrename }]);
+                setGenres([...genres, { id: item.genreId, label: item.genrename }]);
                 break;
             case 'artist':
-                setArtists([...artists, { id: item.id, name: item.artistsName }]);
-                break;
-            case 'song':
-                setSongs([...songs, { id: item.id, name: item.songname }]);
+                setArtists([...artists, { id: item.id, label: item.artistsName }]);
                 break;
             default:
                 break;
@@ -64,9 +59,6 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
             case 'artist':
                 setArtists(artists.filter((_, i) => i !== index));
                 break;
-            case 'song':
-                setSongs(songs.filter((_, i) => i !== index));
-                break;
             default:
                 break;
         }
@@ -74,28 +66,33 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
 
     const handleUpload = (uploadedFile) => {
         setFile(uploadedFile);
-        handleFormChange({ target: { name: 'thumbnail', value: uploadedFile } });
+        handleCreateFormChange({ target: { name: 'thumbnail', value: uploadedFile } });
         setImageUrl(URL.createObjectURL(uploadedFile));
+    };
+
+    const handleAudioUpload = (uploadedFile) => {
+        setAudioFile(uploadedFile);
+        handleCreateFormChange({ target: { name: 'songLink', value: uploadedFile } });
+        setLocalAudioUrl(URL.createObjectURL(uploadedFile));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newForm = {
-            playlistname: form.playlistname,
-            genresid: genres.map(g => g.id).filter(id => id),
-            artistsId: artists.map(a => a.id).filter(id => id),
-            songid: songs.map(s => s.id).filter(id => id),
+            songname: createForm.songname,
+            genresid: genres.map(g => g.id).filter(id => id).join(","),
+            artists: artists.map(a => a.id).filter(id => id).join(","),
             thumbnail: file,
-            type: form.type,
-            description: form.description,
+            songLink: audioFile,
+            lyric: createForm.lyric,
             status: 'create'
         };
         try {
-            const res = await createPlaylist(newForm);
+            const res = await createSong(newForm);
             if (res) {
                 toast.success(res.EM);
                 fetchMusicSongs();
-                closeModal();
+                closeCreateModal();
             }
         } catch (error) {
             console.error("Error creating data:", error);
@@ -103,24 +100,24 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
     };
 
     return (
-        <Modal isOpen={isOpen} onRequestClose={closeModal} contentLabel="Create Music Kind" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
-            <h2 className="text-center opacity-75 mb-5 fs-2">Tạo mới Danh sách</h2>
+        <Modal isOpen={isCreateModalOpen} onRequestClose={closeCreateModal} contentLabel="Create Song" className="modal-kindMusic overflow-scroll h-75" overlayClassName="modal-overlay-1">
+            <h2 className="text-center opacity-75 mb-5 fs-2">Tạo mới Bài Hát</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4 form-group img-upload">
                     {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> :  <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
                     <ImageUploader onUpload={handleUpload} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-name">playlistname:</label>
-                    <input type="text" className="fs-5 form-control" id="create-name" name="playlistname" value={form.playlistname} onChange={handleFormChange} />
+                    <label className="fs-5 mb-2" htmlFor="create-name">Tên bài hát:</label>
+                    <input type="text" className="fs-5 form-control" id="create-name" name="songname" value={createForm.songname} onChange={handleCreateFormChange} />
+                </div>
+                <div className="mb-4 form-group song-upload">
+                    {localAudioUrl ? (<audio controls src={localAudioUrl}/>) :   <img style={{ width: "12%" }} src='https://cdn-icons-png.freepik.com/256/15470/15470354.png?semt=ais_hybrid' className="avt-img" alt="Uploaded" />}
+                    <AudioUploader onUpload={handleAudioUpload} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-name">type:</label>
-                    <input type="text" className="fs-5 form-control" id="create-name" name="type" value={form.type} onChange={handleFormChange} />
-                </div>
-                <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-description">description:</label>
-                    <input type="text" className="fs-5 form-control" id="create-description" name="description" value={form.description} onChange={handleFormChange} />
+                    <label className="fs-5 mb-2" htmlFor="create-lyric">Lời bài hát:</label>
+                    <textarea className="fs-5 form-control" id="create-lyric" name="lyric" value={createForm.lyric} onChange={handleCreateFormChange} />
                 </div>
                 <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="create-genre">Thể loại:</label>
@@ -130,8 +127,8 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
                         placeholder="Tìm kiếm thể loại"
                         onChange={(e) => handleSearch('genre', e.target.value)}
                     />
-                    <MuiChipsInput 
-                        value={genres.map(g => g.name)}
+                    <MuiChipsInput
+                        value={genres.map(g => g.label)}
                         onAdd={(chip) => handleAddItem('genre', { genreId: chip, genrename: chip })}
                         onDeleteChip={(chip, index) => handleDeleteItem('genre', index)}
                     />
@@ -144,27 +141,6 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
                     </div>
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-5 mb-2" htmlFor="create-song">Nhạc:</label>
-                    <input
-                        type="text"
-                        className="fs-5 form-control mb-2"
-                        placeholder="Tìm kiếm nhạc"
-                        onChange={(e) => handleSearch('song', e.target.value)}
-                    />
-                    <MuiChipsInput 
-                        value={songs.map(s => s.name)}
-                        onAdd={(chip) => handleAddItem('song', { id: chip, songname: chip })}
-                        onDeleteChip={(chip, index) => handleDeleteItem('song', index)}
-                    />
-                    <div className="list-group d-flex flex-wrap">
-                        {searchResults.songs.map((song, index) => (
-                            <button key={index} type="button" className="list-group-item list-group-item-action m-1" onClick={() => handleAddItem('song', song)}>
-                                {song.songname}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-                <div className="mb-4 form-group">
                     <label className="fs-5 mb-2" htmlFor="create-artist">Nghệ sĩ:</label>
                     <input
                         type="text"
@@ -172,8 +148,8 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
                         placeholder="Tìm kiếm nghệ sĩ"
                         onChange={(e) => handleSearch('artist', e.target.value)}
                     />
-                    <MuiChipsInput 
-                        value={artists.map(a => a.name)}
+                    <MuiChipsInput
+                        value={artists.map(a => a.label)}
                         onAdd={(chip) => handleAddItem('artist', { id: chip, artistsName: chip })}
                         onDeleteChip={(chip, index) => handleDeleteItem('artist', index)}
                     />
@@ -187,13 +163,13 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
                 </div>
                 <div className="text-end form-group">
                     <button type="submit" className="px-4 py-2 btn btn-primary fs-4">Create</button>
-                    <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={closeModal}>Hủy bỏ</button>
+                    <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={closeCreateModal}>Hủy bỏ</button>
                 </div>
             </form>
         </Modal>
     );
 };
 
-export { CreateModal };
+export { CreateSongModal };
 
-export default CreateModal;
+export default CreateSongModal;

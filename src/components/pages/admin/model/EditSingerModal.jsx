@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import ImageUploader from "../../../components/pages/profile/Profile-setting/uploadImage";
+import ImageUploader from "../../profile/Profile-setting/uploadImage";
 import { MuiChipsInput } from 'mui-chips-input';
 import {
     adminSearchS,
     adminSearchPlaylistService,
-} from "../../../services/adminSearchSongService";
+} from "../../../../services/adminSearchSongService";
 import { toast } from "react-toastify";
-import { updateArtists } from "../../../services/restArtistsService";
-import useSingerAdmin from "../../../hooks/useSingerAdmin";
+import { updateArtists } from "../../../../services/restArtistsService";
+import useSingerAdmin from "../../../../hooks/useSingerAdmin";
 
 const EditSingerModal = ({
     isEditModalOpen,

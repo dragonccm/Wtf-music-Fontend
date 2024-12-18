@@ -5,9 +5,9 @@ import logo from "../../../img/logo3 (1).png";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useSingerAdmin from "../../../hooks/useSingerAdmin";
-import SingerTable from "./singerTable";
-import EditSingerModal from "./EditSingerModal";
-import CreateSingerModal from "./CreateSingerModal";
+import SingerTable from "./table/singerTable";
+import EditSingerModal from "./model/EditSingerModal";
+import CreateSingerModal from "./model/CreateSingerModal";
 
 const SingerAdmin = () => {
     const {
