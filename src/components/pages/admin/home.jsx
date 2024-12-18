@@ -241,7 +241,6 @@ const HomeAdmin = () => {
                                     <th>Tên nghệ sĩ</th>
                                     <th>Ngày hoạt động</th>
                                     <th>Tổng bài hát</th>
-                                    <th>lượt theo dõi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -261,13 +260,12 @@ const HomeAdmin = () => {
                                         </td>
                                         <td>{data.createdAt}</td>
                                         <td>{Array.isArray(data.songListId) && data.songListId.length}</td>
-                                        <td>{data.totalFollow.toLocaleString()}</td>
                                     </tr>
                                 ))}
 
                             </tbody>
                         </table>
-                        <div className="d-flex py-4 pagination-admin">
+                        <div className="d-flex pagination-admin">
                             <div className="col-6 description-pagination"></div>
                             <div className="col-6 pe-5 pagination-numbers">
                                 <ul className="pagination justify-content-end ">

@@ -21,7 +21,7 @@ const useSongAdmin = () => {
     const [audioUrl, setAudioUrl] = useState("");
     const [file, setFile] = useState(null);
     const [audioFile, setAudioFile] = useState(null);
-    const itemsPerPage = 20;
+    const itemsPerPage = 10;
 
     useEffect(() => {
         fetchMusicSongs();

@@ -23,7 +23,7 @@ const CommentAdmin = () => {
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
     const [search, setSearch] = useState({}); // Trang hiện tại
 
-    const itemsPerPage = 20; // Số mục trên mỗi trang
+    const itemsPerPage = 10; // Số mục trên mỗi trang
 
     useEffect(() => {
         fetchMusicSongs();
@@ -149,8 +149,8 @@ const CommentAdmin = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 ps-5 description-pagination">
+            <div className="d-flex pagination-admin">
+                <div className="col-6 description-pagination">
                     <div style={{ fontSize: "medium" }}>
                         Hiển thị{" "}
                         <span style={{ color: "red" }}>
@@ -162,7 +162,7 @@ const CommentAdmin = () => {
                     </div>
                 </div>
                 <Stack spacing={2}>
-                    <Pagination count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
+                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
                 </Stack>
                
             </div>

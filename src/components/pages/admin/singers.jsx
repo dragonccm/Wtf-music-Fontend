@@ -12,7 +12,8 @@ import {
     deleteArtists,
     createArtists,
 } from "../../../services/restArtistsService";
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import {
     adminSearchS,
     adminSearchPlaylistService,
@@ -66,19 +67,12 @@ const SingerAdmin = () => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
     };
-    const handlePageChange = (pageNum) => {
-        if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
-            return; // Không thực hiện cập nhật nếu số trang không hợp lệ
-        }
-        setCurrentPage(pageNum);
-        fetchMusicSongs();
-        setloading(true);
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
     };
-    const itemsPerPage = 20; // Số mục trên mỗi trang
+    const itemsPerPage = 10; // Số mục trên mỗi trang
     // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
-    useEffect(() => {
-        fetchMusicSongs();
-    }, []);
+
     useEffect(() => {
         fetchMusicSongs();
     }, [currentPage]);
@@ -366,7 +360,15 @@ const SingerAdmin = () => {
                     </button>
                 </div>
             </div>
-            <div className="px-4 py-5 event-admin">
+            <div className="event-admin">
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button
+                        className="btn fs-4"
+                        onClick={(e) => handlegetban(e)}
+                    >
+                        Lấy Nghệ Bị Ban
+                    </button>
+                </div>
                 <div class="card">
                     <label className="fs-3 me-3" htmlFor="search-kind">
                         Tìm kiếm:
@@ -383,27 +385,18 @@ const SingerAdmin = () => {
                     </div>
                 </div>
             </div>
-            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
-                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
-                    <button
-                        className="btn fs-4 py-2"
-                        onClick={(e) => handlegetban(e)}
-                    >
-                        Lấy Nghệ Bị Ban
-                    </button>
-                </div>
-            </div>
+
             <div className="px-4">
                 <table className="w-100 fs-3 text-justify table-admin">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Tên</th>
-                            <th>Trạng thái</th>
-                            <th>Hình</th>
-                            <th>Tổng lượt theo dõi</th>
-                            <th>Tên thật</th>
-                            <th>Sinh nhật </th>
+                            <th>#</th>
+                            <th>Nghệ danh</th>
+                            <th>Họ và tên</th>
+                            <th>Bài hát</th>
+                            <th>Playlist</th>
+                            <th>Ngày sinh</th>
+                            <th>Thao tác </th>
                         </tr>
                     </thead>
 
@@ -412,26 +405,22 @@ const SingerAdmin = () => {
                             <>
                                 {kind.state === 1 ? (
                                     <tr style={{ background: '#b5d5ff' }} key={kind.id}>
-                                        <td>{index}</td>
-                                        <td>{kind.artistsName}</td>
+                                        <td>{index + 1}</td>
                                         <td>
-                                            {kind.state === 1
-                                                ? "tài khoản bị hạn chế"
-                                                : "khoá"}
+                                            <div className="infor">
+                                                <img
+                                                    src={kind.avt}
+                                                    alt={kind.artistsName}
+                                                />
+                                                <span>{kind.artistsName}</span>
+                                            </div>
                                         </td>
-                                        <td className="td_img">
-                                            {" "}
-                                            <img
-                                                src={kind.avt}
-                                                alt={kind.artistsName}
-                                            />{" "}
-                                        </td>
-
-                                        <td>{kind.totalFollow}</td>
-
                                         <td>{kind.realName}</td>
+                                        <td>{kind.songListId&&kind.songListId.length}</td>
+                                        <td>{kind.playListId.length}</td>
                                         <td>{kind.birthday}</td>
                                         <td>
+                                        <div className="btn_action d-flex">
                                             <button
                                                 className="btn btn-primary fs-3"
                                                 onClick={() =>
@@ -450,31 +439,28 @@ const SingerAdmin = () => {
                                                     icon={faBan}
                                                 />
                                             </button>
+                                        </div>
                                         </td>
                                     </tr>
                                 ) : (
                                     <tr key={kind.id}>
-                                        <td>{index}</td>
-                                        <td>{kind.artistsName}</td>
-                                        <td>
-                                            {kind.state === 1
-                                                ? "tài khoản bị hạn chế"
-                                                : "khoá"}
-                                        </td>
-                                        <td className="td_img">
-                                            {" "}
+                                        <td>{index+1}</td>
+                                        <td><div className="infor">
                                             <img
                                                 src={kind.avt}
                                                 alt={kind.artistsName}
-                                            />{" "}
+                                            />
+                                            <span>{kind.artistsName}</span>
+                                        </div>
                                         </td>
-
-                                        <td>{kind.totalFollow}</td>
-
                                         <td>{kind.realName}</td>
+                                        <td>{kind.songListId&&kind.songListId.length}</td>
+                                        <td>{kind.playListId.length}</td>
+
                                         <td>{kind.birthday}</td>
                                         <td>
-                                            <button
+                                                <div className="btn_action d-flex">
+                                                <button
                                                 className="btn btn-primary fs-3"
                                                 onClick={() =>
                                                     openEditModal(kind)
@@ -492,6 +478,7 @@ const SingerAdmin = () => {
                                                     icon={faBan}
                                                 />
                                             </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 )}
@@ -500,8 +487,8 @@ const SingerAdmin = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 ps-5 description-pagination">
+            <div className="d-flex pagination-admin">
+                <div className="col-6 description-pagination">
                     <div style={{ fontSize: "medium" }}>
                         Hiển thị{" "}
                         <span style={{ color: "red" }}>
@@ -512,58 +499,9 @@ const SingerAdmin = () => {
                         sĩ
                     </div>
                 </div>
-                <div className="col-6 pe-5 pagination-numbers">
-                    <ul className="pagination justify-content-end">
-                        <li
-                            style={{ backgroundColor: "#d4dae2" }}
-                            className="border"
-                        >
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() => handlePageChange(1)}
-                            >
-                                Đầu
-                            </a>
-                        </li>
-                        <li className="border">
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() =>
-                                    handlePageChange(currentPage - 1)
-                                }
-                                disabled={currentPage <= 1}
-                            >
-                                Lùi
-                            </a>
-                        </li>
-                        <li className="border">
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() =>
-                                    handlePageChange(currentPage + 1)
-                                }
-                                disabled={currentPage === totalPages}
-                            >
-                                Tiếp
-                            </a>
-                        </li>
-                        <li
-                            style={{ backgroundColor: "#d4dae2" }}
-                            className="border"
-                        >
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() => handlePageChange(totalPages - 5)}
-                            >
-                                Cuối
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <Stack spacing={2}>
+                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
+                </Stack>
             </div>
 
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}

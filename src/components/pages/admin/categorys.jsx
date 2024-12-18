@@ -17,6 +17,8 @@ import ImageUploader from "../../../components/pages/profile/Profile-setting/upl
 import { getbanService } from "../../../services/getbanService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 const CategoryAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
     const [maxpage, setmaxpage] = useState(0); // Danh sách thể loại nhạc
@@ -68,18 +70,14 @@ const CategoryAdmin = () => {
         setThumbnailR(file);
         setThumbnailRUrl(URL.createObjectURL(file));
     };
-    const handlePageChange = (pageNum) => {
-        if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
-            return; // Không thực hiện cập nhật nếu số trang không hợp lệ
-        }
-        setCurrentPage(pageNum);
-        fetchMusicSongs();
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
     };
     const itemsPerPage =10; // Số mục trên mỗi trang
     // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
     useEffect(() => {
         fetchMusicSongs();
-    }, []);
+    }, [currentPage]);
     // Hàm giả lập lấy danh sách thể loại nhạc từ server
     const fetchMusicSongs = async () => {
         if (!isSendingRequest) {
@@ -354,8 +352,8 @@ const CategoryAdmin = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 ps-5 description-pagination">
+            <div className="d-flex pagination-admin">
+                <div className="col-6 description-pagination">
                     <div style={{ fontSize: "medium" }}>
                         Hiển thị{" "}
                         <span style={{ color: "red" }}>
@@ -366,58 +364,9 @@ const CategoryAdmin = () => {
                         thể loại
                     </div>
                 </div>
-                <div className="col-6 pe-5 pagination-numbers">
-                    <ul className="pagination justify-content-end">
-                        <li
-                            style={{ backgroundColor: "#d4dae2" }}
-                            className="border"
-                        >
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() => handlePageChange(1)}
-                            >
-                                Đầu
-                            </a>
-                        </li>
-                        <li className="border">
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() =>
-                                    handlePageChange(currentPage - 1)
-                                }
-                                disabled={currentPage <= 1}
-                            >
-                                Lùi
-                            </a>
-                        </li>
-                        <li className="border">
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() =>
-                                    handlePageChange(currentPage + 1)
-                                }
-                                disabled={currentPage === totalPages}
-                            >
-                                Tiếp
-                            </a>
-                        </li>
-                        <li
-                            style={{ backgroundColor: "#d4dae2" }}
-                            className="border"
-                        >
-                            <a
-                                className="d-block fs-4 px-4 py-1 opacity-75"
-                                href="#"
-                                onClick={() => handlePageChange(totalPages - 5)}
-                            >
-                                Cuối
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <Stack spacing={2}>
+                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
+                </Stack>
             </div>
 
             {/* Hiển thị pop-up form chỉnh sửa thông tin thể loại nhạc */}

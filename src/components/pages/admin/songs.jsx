@@ -20,7 +20,6 @@ import EditSongModal from "./EditSongModal";
 import CreateSongModal from "./CreateSongModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-
 const SongAdmin = () => {
     const [file, setFile] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
@@ -55,12 +54,14 @@ const SongAdmin = () => {
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [isGenreModalOpen, setIsGenreModalOpen] = useState(false);
     const [isArModalOpen, setIsArModalOpen] = useState(false);
-    const itemsPerPage = 20;
+    const itemsPerPage = 10;
 
     useEffect(() => {
         fetchMusicSongs();
-    }, []);
-
+    }, [currentPage]);
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
+    };
     const fetchMusicSongs = async () => {
         if (!isSendingRequest) {
             setIsSendingRequest(true);
@@ -77,20 +78,7 @@ const SongAdmin = () => {
         }
     };
 
-    const handlePageChange = (pageNum, isNextpage) => {
-        if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) {
-            if (isNextpage === true) {
-                alert(pageNum)
-                setCurrentPage(0);
-            } else {
-                return
-            }
-        } else {
-            setCurrentPage(pageNum);
-        }
-
-        fetchMusicSongs();
-    };
+    
 
     const handleUpload = (file) => {
         setFile(file);
@@ -379,31 +367,29 @@ const SongAdmin = () => {
                     </button>
                 </div>
             </div>
-            <div className="px-4 py-5 event-admin">
-                <div className="card">
+            <div className="event-admin">
+                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button
+                        className="btn fs-4"
+                        onClick={(e) => handlegetban(e)}
+                    >
+                        Lấy Nghệ Bị Ban
+                    </button>
+                </div>
+                <div class="card">
                     <label className="fs-3 me-3" htmlFor="search-kind">
                         Tìm kiếm:
                     </label>
-                    <div className="input-box">
+                    <div class="input-box">
                         <input
                             id="search-kind"
                             type="text"
-                            placeholder="Nhập bài hát"
+                            placeholder="Nhập ca sĩ"
                             required
                             className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
                             onChange={handleserch}
                         />
                     </div>
-                </div>
-            </div>
-            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
-                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
-                    <button
-                        className="btn fs-4 py-2"
-                        onClick={(e) => handlegetban(e)}
-                    >
-                        Lấy Bài Hát Bị Ban
-                    </button>
                 </div>
             </div>
             <SongTable
@@ -413,7 +399,7 @@ const SongAdmin = () => {
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}
                 maxpage={maxpage}
-                handlePageChange={handlePageChange}
+                handlePageChange={handleChange}
             />
             <EditSongModal
                 isEditModalOpen={isEditModalOpen}

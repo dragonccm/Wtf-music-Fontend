@@ -1,7 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faBan } from "@fortawesome/free-solid-svg-icons";
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, itemsPerPage, maxpage, handlePageChange }) => {
     const totalPages = Math.ceil(maxpage / itemsPerPage);
 
@@ -10,41 +11,42 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
             <table className="w-100 fs-3 text-justify table-admin">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Tên</th>
-                        <th>tình trạng</th>
-                        <th>Hình Ảnh</th>
                         <th>Lượt Like</th>
                         <th>Lượt Nghe</th>
-                        <th>Trạng thái kiểm soát</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     {musicSongs.map((kind, index) => (
                         <tr key={kind.id} style={{ background: kind.state === 1 ? '#b5d5ff' : 'transparent' }}>
-                            <td>{index}</td>
-                            <td>{kind.songname}</td>
-                            <td>{kind.state === 1 ? "đã ẩn" : "bình thường"}</td>
-                            <td className="td_img">
-                                <img src={kind.thumbnail} alt={kind.songname} />
+                            <td>{index + 1}</td>
+                            <td>
+                                <div className="infor">
+                                    <img src={kind.thumbnail} alt={kind.songname} />
+                                    <span>{kind.songname}</span>
+                                </div>
                             </td>
+
                             <td>{kind.like}</td>
                             <td>{kind.listen}</td>
-                            <td>{kind.state}</td>
                             <td>
+                                <div className="d-flex">
                                 <button className="btn btn-primary fs-3" onClick={() => openEditModal(kind)}>
                                     <FontAwesomeIcon icon={faPen} />
                                 </button>
                                 <button className="btn btn-danger-custom fs-3 ms-3" onClick={() => deleteMusicKind(kind.id)}>
                                     <FontAwesomeIcon icon={faBan} />
-                                </button>
+                                    </button>
+                                    </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 ps-5 description-pagination">
+            <div className="d-flex pagination-admin">
+                <div className="col-6 description-pagination">
                     <div style={{ fontSize: "medium" }}>
                         Hiển thị{" "}
                         <span style={{ color: "red" }}>
@@ -55,30 +57,9 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
                         bài hát
                     </div>
                 </div>
-                <div className="col-6 pe-5 pagination-numbers">
-                    <ul className="pagination justify-content-end">
-                        <li style={{ backgroundColor: "#d4dae2" }} className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(1, true)}>
-                                Đầu
-                            </a>
-                        </li>
-                        <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(currentPage - 1, true)}>
-                                Lùi
-                            </a>
-                        </li>
-                        <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(currentPage + 1, false)}>
-                                Tiếp
-                            </a>
-                        </li>
-                        <li style={{ backgroundColor: "#d4dae2" }} className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(totalPages, false)}>
-                                Cuối
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <Stack spacing={2}>
+                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handlePageChange} showFirstButton showLastButton />
+                </Stack>
             </div>
         </div>
     );

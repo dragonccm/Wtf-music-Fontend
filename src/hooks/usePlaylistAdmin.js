@@ -17,7 +17,7 @@ const usePlaylistAdmin = () => {
     const [createForm, setCreateForm] = useState({});
     const [imageUrl, setImageUrl] = useState("");
     const [file, setFile] = useState(null);
-    const itemsPerPage = 20;
+    const itemsPerPage = 10;
 
     useEffect(() => {
         fetchMusicSongs();

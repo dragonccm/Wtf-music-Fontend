@@ -7,7 +7,8 @@ import { useSingerAdmin } from "../../../hooks/useSingerAdmin";
 import SingerTable from "./SingerTable";
 import EditModal from "./EditModal";
 import CreateModal from "./CreateModal";
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 const SingerAdmin = () => {
     const {
         musicSongs,
@@ -33,7 +34,9 @@ const SingerAdmin = () => {
         handleserch,
         handlegetban,
     } = useSingerAdmin();
-
+    const handleChange = (event, value) => {
+        handlePageChange(value);
+    };
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
@@ -76,28 +79,15 @@ const SingerAdmin = () => {
                     deleteMusicKind={deleteMusicKind}
                 />
             </div>
-            <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 ps-5 description-pagination">
+            <div className="d-flexpagination-admin">
+                <div className="col-6 description-pagination">
                     <div style={{ fontSize: "medium" }}>
                         Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * 20 + 1} - {Math.min(currentPage * 20, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> ca sĩ
                     </div>
                 </div>
-                <div className="col-6 pe-5 pagination-numbers">
-                    <ul className="pagination justify-content-end">
-                        <li style={{ backgroundColor: "#d4dae2" }} className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(1)}>Đầu</a>
-                        </li>
-                        <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(currentPage - 1)}>Lùi</a>
-                        </li>
-                        <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(currentPage + 1)}>Tiếp</a>
-                        </li>
-                        <li style={{ backgroundColor: "#d4dae2" }} className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(totalPages - 5)}>Cuối</a>
-                        </li>
-                    </ul>
-                </div>
+                <Stack spacing={2}>
+                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
+                </Stack>
             </div>
             <EditModal
                 isOpen={isEditModalOpen}

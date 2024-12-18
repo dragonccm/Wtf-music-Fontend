@@ -78,8 +78,8 @@ const PlaylistAdmin = () => {
                     deleteMusicKind={deleteMusicKind}
                 />
             </div>
-            <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 ps-5 description-pagination">
+            <div className="d-flex pagination-admin">
+                <div className="col-6 description-pagination">
                     <div style={{ fontSize: "medium" }}>
                         Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * 20 + 1} - {Math.min(currentPage * 20, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> bài hát
                     </div>

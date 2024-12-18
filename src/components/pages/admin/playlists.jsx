@@ -1,15 +1,14 @@
 import React from "react";
 import "../../../css/admin/musicAdmin.scss";
 import logo from "../../../img/logo3 (1).png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faBan } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { usePlaylistAdmin } from "../../../hooks/usePlaylistAdmin";
 import PlaylistTable from "./PlaylistTable";
 import EditModal from "./EditModal";
 import CreateModal from "./CreateModal";
-
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 const PlaylistAdmin = () => {
     const {
         musicSongs,
@@ -35,7 +34,10 @@ const PlaylistAdmin = () => {
         handleserch,
         handlegetban,
     } = usePlaylistAdmin();
-
+    const handleChange = (event, value) => {
+        handlePageChange(value);
+    };
+    const itemsPerPage = 10; // Số mục trên mỗi trang
     return (
         <div className="container overflow-x-auto container-admin">
             <div className="text-center container-img">
@@ -78,28 +80,15 @@ const PlaylistAdmin = () => {
                     deleteMusicKind={deleteMusicKind}
                 />
             </div>
-            <div className="d-flex py-4 pagination-admin">
-                <div className="col-6 ps-5 description-pagination">
+            <div className="d-flex pagination-admin">
+                <div className="col-6 description-pagination">
                     <div style={{ fontSize: "medium" }}>
-                        Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * 20 + 1} - {Math.min(currentPage * 20, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> bài hát
+                        Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> bài hát
                     </div>
                 </div>
-                <div className="col-6 pe-5 pagination-numbers">
-                    <ul className="pagination justify-content-end">
-                        <li style={{ backgroundColor: "#d4dae2" }} className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(1)}>Đầu</a>
-                        </li>
-                        <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(currentPage - 1)}>Lùi</a>
-                        </li>
-                        <li className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(currentPage + 1)}>Tiếp</a>
-                        </li>
-                        <li style={{ backgroundColor: "#d4dae2" }} className="border">
-                            <a className="d-block fs-4 px-4 py-1 opacity-75" href="#" onClick={() => handlePageChange(totalPages - 5)}>Cuối</a>
-                        </li>
-                    </ul>
-                </div>
+                <Stack spacing={2}>
+                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
+                </Stack>
             </div>
             <EditModal
                 isOpen={isEditModalOpen}
