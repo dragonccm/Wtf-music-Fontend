@@ -400,48 +400,42 @@ export default function Chart() {
                             {`(Từ ngày ${formattedStartDate} đến ngày ${formattedEndDate})`}
                         </h1>
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                            <div className="chart_title flex flex-col w-100">
-                                <h1>Lượt Thích</h1>
-                                <ChartElement
-                                    xAxis={[
-                                        {
-                                            data: years,
-                                            scaleType: "time",
-                                            valueFormatter: yearFormatter,
-                                        },
-                                    ]}
-                                    series={[
-                                        {
-                                            id: 'like',
-                                            label: dataType === "song" ? "lượt thích của nhạc" : "lượt thích của playlist",
-                                            data: UKGDPperCapita,
-                                            stack: 'A',
-                                        },
-                                    ]}
-                                    total={300}
-                                />
-                            </div>
-                            <div className="chart_title flex flex-col w-100">
-                                <h1>Lượt Nghe</h1>
-                                <ChartElement
-                                    xAxis={[
-                                        {
-                                            data: years,
-                                            scaleType: "time",
-                                            valueFormatter: yearFormatter,
-                                        },
-                                    ]}
-                                    series={[
-                                        {
-                                            id: 'listen',
-                                            label: dataType === "song" ? "lượt nghe của nhạc" : "lượt nghe của playlist",
-                                            data: UKGDPperCapitaListen,
-                                            stack: 'A',
-                                        },
-                                    ]}
-                                    total={300}
-                                />
-                            </div>
+                            <ChartElement
+                                xAxis={[
+                                    {
+                                        data: years,
+                                    },
+                                ]}
+                                series={[
+                                    {
+                                        id: 'like',
+                                        label: dataType === "song" ? "Song Likes" : "Playlist Likes",
+                                        data: UKGDPperCapita,
+                                        stack: 'A',
+                                        area: true,
+                                    },
+                                ]}
+                                total={300}
+                            />
+                            <ChartElement
+                                xAxis={[
+                                    {
+                                        data: years,
+                                        scaleType: "time",
+                                        valueFormatter: yearFormatter,
+                                    },
+                                ]}
+                                series={[
+                                    {
+                                        id: 'listen',
+                                        label: dataType === "song" ? "Song Listens" : "Playlist Listens",
+                                        data: UKGDPperCapitaListen,
+                                        stack: 'A',
+                                        area: true,
+                                    },
+                                ]}
+                                total={300}
+                            />
                         </Stack>
                     </Box>
                 </>
