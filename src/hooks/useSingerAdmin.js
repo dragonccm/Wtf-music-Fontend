@@ -49,7 +49,7 @@ const useSingerAdmin = () => {
     const handlePageChange = (pageNum) => {
         
         if (pageNum < 1 || pageNum > Math.ceil(maxpage / itemsPerPage)) return;
-        setCurrentPage();
+        setCurrentPage(pageNum);
     };
 
     const openEditModal = (kind) => {
