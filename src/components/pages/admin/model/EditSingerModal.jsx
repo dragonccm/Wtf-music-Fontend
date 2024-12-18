@@ -37,7 +37,7 @@ const EditSingerModal = ({
             setSongs(editForm.songListNames.map(data => ({ id: data.id, name: data.songname })));
         }
         if (editForm.playListNames) {
-            setPlaylists(editForm.playListNames.map(data => ({ id: data.playListId, name: data.playListname })));
+            setPlaylists(editForm.playListNames.map(data => ({ id: data.playlistId, name: data.playlistname })));
         }
         setImageUrl(editForm.avt); // Set the localImageUrl when the modal is opened
     }, [editForm]);
