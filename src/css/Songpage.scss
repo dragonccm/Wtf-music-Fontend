@@ -48,6 +48,19 @@
     display    : flex;
     align-items: center;
     font-size  : 1.5rem;
+    .songpage_user_name{
+      a{
+        color: var(--text-1);
+        &:hover{
+          color: #257eff;
+        }
+      }
+    }
+    .songpage_total_song{
+      svg{
+        color: rgb(59, 104, 239);
+      }
+    }
   }
 
   .songpage_small_avt {
@@ -71,7 +84,17 @@
   }
 
   .menu_btn {
-    font-size: 3rem !important;
+    font-size: 2rem !important;
+    padding: 12px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover{
+     background-color: var(--rightsidebar-hover);
+    }
   }
 
   .song_control button {
@@ -79,7 +102,11 @@
     margin          : 0;
     padding         : 0;
     color           : var(--main-color);
-
+    &.rhap_button-clear{
+      svg{
+        width: 25px;
+      }
+    }
     &.play_random {
       font-size: 5rem;
 
@@ -117,7 +144,7 @@
   }
 
   .song_user-rating {
-    background-color: #fff !important;
+    border: 1px solid var(--text-1);
     border-radius   : 15px;
     opacity         : 0.85;
 

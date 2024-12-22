@@ -1,10 +1,10 @@
 import "../../css/Songpage.scss";
 import React, { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
-
+import { NavLink } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlay, faShare, faLink, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlay, faShare, faLink, faEllipsis,faHeart } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSongPlaying } from "../../redux/slide/songPlayingSlice";
@@ -50,16 +50,16 @@ const Songpage = () => {
     }, [loading]);
     useEffect(() => {
         console.log('đã đổiiiiiiiiiiiiiiiii');
-        
+
         if (data && data.DT && blockSong.includes(data.DT.song.id)) {
             // console.log(`ID ${data.id} có nằm trong mảng.`);
             setIsBlocked(true)
-          } else {
+        } else {
             // console.log(`ID ${data.id} không nằm trong mảng.`);
             setIsBlocked(false)
 
-          }
-    },[data,blockSong])
+        }
+    }, [data, blockSong])
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetchSongPage(id);
@@ -127,15 +127,22 @@ const Songpage = () => {
                     </h1>
                     <p className="songpage_info">
                         <div className="songpage_user_name">
-                            {data.DT.song.artists[0].name}
-                        </div>
 
+                            {data.DT.song.artistInfo.map((artist, index) => (
+                                <span key={index}>
+                                    <NavLink to={"/artists/" + artist.alias}>{artist.artistsName}</NavLink>
+                                    {index !== data.DT.song.artistInfo.length - 1 && ", "}
+                                </span>
+                            ))}
+                        </div>
+                        •
                         <div className="songpage_total_song">
                             {data.DT.song.like > 1000
-                                ? data.DT.song.like / 1000 + "k"
+                                ? Math.ceil(data.DT.song.like / 1000) + "k"
                                 : data.DT.song.like}{" "}
-                            người yêu thích
+                            <FontAwesomeIcon icon={faHeart} />
                         </div>
+                        •
                         <div className="songpage_total_time">
                             {String(
                                 Math.floor(data.DT.song.duration / 60)
@@ -152,7 +159,7 @@ const Songpage = () => {
 
             <div className="song_body">
                 <div className="song_control">
-                    {!isBlocked&&<button
+                    {!isBlocked && <button
                         className="play_random"
                         onClick={(e) => handlePlaying(e, id)}
                     >
@@ -207,8 +214,8 @@ const Songpage = () => {
             <div className="p-5 mt-5 song_user-rating">
                 <Comments
                     commentsUrl="http://localhost:3004/comments"
-                        currentUser={isAuthentication.account}
-                        id={id}
+                    currentUser={isAuthentication.account}
+                    id={id}
                 />
 
                 {/* <div

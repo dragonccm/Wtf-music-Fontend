@@ -12,8 +12,8 @@ export const getSongData = async (Songid) => {
           : ["undefined", "undefined", "undefined"];
         const like = songDetailResult.song.like;
         const listen = songDetailResult.song.listen;
-        const artistInfo = songDetailResult.song.artists
-          ? songDetailResult.song.artists
+        const artistInfo = songDetailResult.song.artistInfo
+          ? songDetailResult.song.artistInfo
           : [""];
         const composers = songDetailResult.song.composers
           ? songDetailResult.song.composers

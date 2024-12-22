@@ -25,6 +25,7 @@
 .comments-title {
   font-size: 30px;
   margin-bottom: 20px;
+  color: var(--text-1);
 }
 
 .comments-container {
@@ -41,7 +42,7 @@
 }
 
 form {
-  // display: flex;
+  display: flex;
   padding: 20px;
 
   margin: 10px 0px;
@@ -81,19 +82,22 @@ a{
   text-decoration: none;
   background-color: transparent;
   margin-left: 6px;
+  color: var(--text-1);
 
   &:focus {
     outline: none;
-    border-bottom: 2px solid rgb(14, 14, 14);
+    border-bottom: 2px solid var(--text-2);
   }
 }
 
 .comment-form-button {
   font-size: 16px;
-  padding: 8px 16px;
+  padding: 8px 20px;
+  height: 40px;
   background: rgb(59, 130, 246);
   border-radius: 8px;
   color: white;
+  border: 1px solid var(--text-2);
 }
 
 
@@ -104,10 +108,10 @@ a{
 
 .comment-form-cancel-button {
   background-color: rgb(237, 237, 237);
-  color: rgb(174, 174, 174);
+  color: rgb(98 98 98);
 
   &:hover {
-    background-color: rgb(210, 210, 210) !important;
+    background-color: rgb(188 188 188) !important;
   }
 }
 
@@ -139,6 +143,7 @@ a{
 
 .comment-right-part {
   width: 100%;
+  color: var(--text-1);
 }
 
 .comment-content {
@@ -147,12 +152,12 @@ a{
 
 .comment-author {
   margin-right: 8px;
-  font-size: 20px;
+  font-size: 16px;
   color: rgb(59, 130, 246);
 }
 
 .comment-text {
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   justify-content: space-between;
 }
@@ -161,9 +166,9 @@ a{
   width: 100px;
   display: flex;
   font-size: 12px;
-  color: rgb(51, 51, 51);
+  color: var(--text-1);
   cursor: pointer;
-  margin-top: 8px;
+  // margin-top: 8px;
 }
 
 .comment-action {
@@ -175,18 +180,19 @@ a{
 }
 
 .replies {
-  margin-top: 20px;
+  margin-bottom: 5px;
 
   .repstatus {
     font-size: 15px;
     cursor: pointer;
-    color: #2980b9;
+    color: #3867ff;
     width: fit-content;
     padding: 5px;
 
     &:hover {
-      background-color: #b9dff9;
-      border-radius: 10px;
+      // background-color: #b9dff9;
+      // border-radius: 10px;
+      text-decoration: underline;
     }
   }
 }
@@ -195,16 +201,19 @@ a{
   width: 20px;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  // background: #ffffff;
 }
 
 .comment-action {
   cursor: pointer;
   padding: 10px;
   height: 28px;
-  font-size: 16px;
+  font-size: 14px;
   display: flex;
   align-items: center;
+  svg{
+    margin-right: 5px;
+  }
 }
 
 .comment-action:hover {
@@ -232,4 +241,7 @@ a{
 
     }
   }
+}
+#popup-root .popup-content{
+  background-color: #fff !important;
 }

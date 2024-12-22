@@ -183,7 +183,7 @@ html *::-webkit-scrollbar {
   border-radius: 0;
   width: 5px;
   height: 4px;
-  background-color: var(--background-color) !important;
+  background-color: transparent !important;
 }
 
 html *::-webkit-scrollbar-thumb {

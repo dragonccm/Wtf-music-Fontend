@@ -18,6 +18,7 @@ import "reactjs-popup/dist/index.css";
 import SongCard from "../card/song_card";
 import Like_heart from "../card/like";
 import CreatePlaylist from "../card/createPlaylist";
+import { NavLink } from "react-router-dom";
 import {
   faEllipsis,
   faShuffle,
@@ -43,7 +44,6 @@ import icon_karaoke from "../../img/karaoke-sing-svgrepo-com.svg";
 import icon_playlist from "../../img/playlist-thin-svgrepo-com.svg";
 import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
 // import Play_animation from "../../components/card/play_animation"
 
 // Modal.setAppElement("#root");
@@ -448,17 +448,16 @@ const Bottombar = () => {
     }
   }
   function openModalFull() {
-    if (modalFullIsOpen) {
+    if (!modalFullIsOpen && songInfo.infor.lyricsString.length > 0) {
+      setFullIsOpen(true);
+      setAnimationActive(true);
+      
+    } else {
       setAnimationActive(false);
       setTimeout(() => {
         setFullIsOpen(false);
         setMenuIsOpen(false);
-
       }, 700);
-    } else {
-
-      setFullIsOpen(true);
-      setAnimationActive(true);
     }
   }
   function openModalLyric() {
@@ -677,12 +676,12 @@ const Bottombar = () => {
                           artist.alias
                         }
                       >
-                        {artist.name}
+                        {artist.artistsName}
                       </NavLink>
                       {index !==
                         songInfo.infor.artistInfo
                           .length -
-                        1 && ","}
+                        1 && ", "}
                     </span>
                   )
                 )}
@@ -749,8 +748,8 @@ const Bottombar = () => {
                       <div className="content">
                         {songInfo.infor.artistInfo.map((artist, index) => (
                           <span key={index}>
-                            <NavLink to={"/artists/" + artist.alias}>{artist.name}</NavLink>
-                            {index !== songInfo.infor.artistInfo.length - 1 && ","}
+                            <NavLink to={"/artists/" + artist.alias}>{artist.artistsName}</NavLink>
+                            {index !== songInfo.infor.artistInfo.length - 1 && ", "}
                           </span>
                         ))}
                       </div>
@@ -759,27 +758,33 @@ const Bottombar = () => {
                       <h5>Album</h5>
                       <div className="content">
 
-                        <a href="/album/">{songInfo.infor.album ? songInfo.infor.album.name : ''}</a>
+                        <NavLink to="/album/">{songInfo.infor.album ? songInfo.infor.album.name : ''}</NavLink>
                       </div>
                     </div>}
                     {songInfo.infor.composers.length > 0 && <div className="item">
                       <h5>Sáng tác</h5>
                       <div className="content">
-                        {<a href={"/artists/" + songInfo.infor.composers && songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'Jack-J97'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : 'Jack-J97'}</a>}
+                        {<NavLink to={"/artists/" + songInfo.infor.composers && songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].alias : 'Jack-J97'} >{songInfo.infor.composers.length > 0 ? songInfo.infor.composers[0].name : 'Jack-J97'}</NavLink>}
                       </div>
                     </div>}
                     {songInfo.infor.genres.length > 0 &&
                       <div className="item">
                         <h5>Thể loại</h5>
                         <div className="content">
-                          {<a href={"/artists/" + songInfo.infor.genres && songInfo.infor.genres[0] && songInfo.infor.genres[0].genreId ? songInfo.infor.genres[0].genreId : ''} >{songInfo.infor.genres[0] && songInfo.infor.genres[0].genrename}</a>}
+                        {songInfo.infor.genres.map((genres, index) => (
+                          <span key={index}>
+                            <NavLink to={"/hub/" + genres.genreId}>{genres.genrename}</NavLink>
+                            {index !== songInfo.infor.genres.length - 1 && ", "}
+                          </span>
+                        ))}
+                          {/* {<NavLink to={"/artists/" + songInfo.infor.genres && songInfo.infor.genres[0] && songInfo.infor.genres[0].genreId ? songInfo.infor.genres[0].genreId : ''} >{songInfo.infor.genres[0] && songInfo.infor.genres[0].genrename}</NavLink>} */}
                         </div>
                       </div>
                     }
                     <div className="item">
                       <h5>Cung cấp bởi</h5>
                       <div className="content">
-                        <a href="/">Ingrooves Music Group</a>
+                        <NavLink to="/">WTF Musics</NavLink>
                       </div>
                     </div>
 
@@ -813,7 +818,7 @@ const Bottombar = () => {
                         <textarea name="" id="" rows='15' value={haha ? haha.map((sentence) => sentence.data).join("\n") : 'Không có lời bài hát'} />
                       </div>
                       <div className="Modal_lyric_btn">
-                        <button onClick={closeModalLyric}>Đóng</button>
+                        <button onClick={closeModalLyric}>ĐÓNG</button>
                       </div>
                     </Modal>
                     <div className="item" onClick={() => handleBanSong()}>
@@ -967,6 +972,7 @@ const Bottombar = () => {
       {!modalFullIsOpen && <div className="player_more">
         <div className="player_more_1">
           <button
+        style={{ opacity: songInfo.infor.lyricsString.length > 0 ? 1 : 0.5 }}
             className="rhap_button-clear rhap_main-controls-button btn_more"
             onClick={openModalFull}
           >
@@ -1098,7 +1104,7 @@ const Bottombar = () => {
           {isPlaying && songInfo.isLoading === false && songInfo.isError === false && <div className="playlist_player_body">
             <div className="body">
               <div className="avt">
-                <img src={songInfo.infor.img.replace('w240', 'w480')} alt="h" />
+                <img src={songInfo.infor.img.replace('w240', 'w600')} alt="h" />
               </div>
               <div className="lyric">
                 <ul className="scroll-content">

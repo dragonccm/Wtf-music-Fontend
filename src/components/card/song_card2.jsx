@@ -128,7 +128,7 @@ const SongCard2 = ({ data, rank, rating, onPlaylist, size, block }) => {
                                             artist.alias
                                         }
                                     >
-                                        {artist.name}
+                                        {artist.artistsName}
                                     </NavLink>
                                     {index !==
                                         data.artists
