@@ -23,47 +23,65 @@ import { getComment } from '../../controller/restcomment.controller'
 import { songPage } from "../../controller/song";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setUserPlaylist } from "../../redux/slide/InforUserSlice";
+import { userPLayList } from "../../controller/MyPlaylist";
+import { adSongToPl } from '../../redux/slide/adSongToPlaylistSlice';
+import { createPl } from '../../redux/slide/createplaylistSlice';
+import { faCircleCheck, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { Modal as BootstrapModal, Button } from 'react-bootstrap';
+
 const Songpage = () => {
     const dispatch = useDispatch();
 
     const { id } = useParams();
-    const [data, setData] = useState({});
+    const [dataSong, setDataSong] = useState({});
     const blockSong = useSelector((state) => state.Authentication.blockSong);
-    const [isBlocked, setIsBlocked] = useState(true)
+    const [isBlocked, setIsBlocked] = useState(true);
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(false);
     const isAuthentication = useSelector((state) => state.Authentication.defaultUser);
+    const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+    const [playlistName, setPlaylistName] = useState('');
+    const [clickedButtons, setClickedButtons] = useState([]);
+    const handleShowPlaylistModal = () => setShowPlaylistModal(true);
+    const handleClosePlaylistModal = () => setShowPlaylistModal(false);
 
+    const currData = useSelector((state) => state.inforUser);
+    const userPlaylist = useSelector((state) => state.inforUser.userPlaylist);
 
-
-
-
+    useEffect(() => {
+        const fetchPlaylist = async () => {
+            const response = await userPLayList();
+            if (response.EC === "0") {
+                dispatch(setUserPlaylist(response.DT));
+            }
+        };
+        fetchPlaylist();
+    }, [dispatch]);
 
     useEffect(() => {
         console.log('hahah');
 
         const getComments = async (id) => {
             const response = await getComment(id);
-
         };
         getComments(id);
     }, [loading]);
+
     useEffect(() => {
         console.log('đã đổiiiiiiiiiiiiiiiii');
         
-        if (data && data.DT && blockSong.includes(data.DT.song.id)) {
-            // console.log(`ID ${data.id} có nằm trong mảng.`);
-            setIsBlocked(true)
-          } else {
-            // console.log(`ID ${data.id} không nằm trong mảng.`);
-            setIsBlocked(false)
+        if (dataSong && dataSong.DT && blockSong.includes(dataSong.DT.song.id)) {
+            setIsBlocked(true);
+        } else {
+            setIsBlocked(false);
+        }
+    }, [dataSong, blockSong]);
 
-          }
-    },[data,blockSong])
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetchSongPage(id);
-            setData(response);
+            setDataSong(response);
         };
 
         fetchData();
@@ -81,9 +99,10 @@ const Songpage = () => {
             console.log(error);
         }
     };
+
     const dataf = useSelector((state) => state.playlist.playlist);
 
-    if (!data) {
+    if (!dataSong) {
         return (
             <div>
                 <Loading />
@@ -97,12 +116,11 @@ const Songpage = () => {
         if (song) {
             console.log(`ID ${id} trùng với một bài hát trong playlist.`);
         } else {
-            console.log(
-                `ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`
-            );
+            console.log(`ID ${id} không trùng với bất kỳ bài hát nào trong playlist.`);
         }
         dispatch(fetchSongPlaying(id));
     };
+
     const handleReport = async (id) => {
         const res = await reportComment(id, isAuthentication.account.id);
         if (res.EC === "0") {
@@ -112,39 +130,104 @@ const Songpage = () => {
         }
     };
 
+    const handlePushSong = async (playlistId, songId) => {
+        const playlist = userPlaylist.find(pl => pl.playlistId === playlistId);
+        if (playlist && playlist.songid && playlist.songid.includes(songId)) {
+            toast.info("Bài hát đã có trong danh sách");
+            return;
+        }
+      
+        let username = '';
+        if (currData && currData.userInfor.DT && currData.userInfor.DT.account) {
+          username = currData.userInfor.DT.account.username;
+        } else {
+          username = 'dragonccm'; // Fallback username
+        }
+        const response = await dispatch(adSongToPl({
+          userId: username,
+          playlistId: playlistId,
+          songId: [songId]
+        }));
+      
+        if (response.meta.requestStatus === 'fulfilled') {
+          toast.success("Thêm bài hát vào playlist thành công");
+          const updatedClickedButtons = [...clickedButtons];
+          updatedClickedButtons[playlistId] = true;
+          setClickedButtons(updatedClickedButtons);
+          setTimeout(() => {
+            resetButton();
+          }, 2000);
+      
+          // Fetch updated playlist
+          const updatedPlaylistResponse = await userPLayList();
+          if (updatedPlaylistResponse.EC === "0") {
+            dispatch(setUserPlaylist(updatedPlaylistResponse.DT));
+          }
+        } else {
+          toast.error("Thêm bài hát vào playlist thất bại");
+        }
+      }
+
+    const resetButton = () => {
+        setClickedButtons([]);
+    };
+
+    const handleCreate = (e) => {
+        e.preventDefault();
+
+        let username = '';
+        if (currData && currData.defaultUser && currData.defaultUser.account) {
+            username = currData.defaultUser.account.username;
+        } else {
+            username = 'dragonccm'; // Fallback username
+        }
+
+        dispatch(createPl({
+            user: username,
+            playlistname: playlistName
+        }));
+
+        // Reset form input
+        setPlaylistName('');
+    }
+
+    const handleInputChange = (e) => {
+        setPlaylistName(e.target.value);
+    }
+
     return (
-        Object.keys(data).length !== 0 &&
+        Object.keys(dataSong).length !== 0 &&
         <section className="songpage_main">
             <div className="songpage_list_head">
                 <div className="songpage_left_head">
-                    <img src={data.DT.song.thumbnail} alt="f" />
+                    {dataSong.DT && dataSong.DT.song && <img src={dataSong.DT.song.thumbnail} alt="f" />}
                 </div>
 
                 <div className="songpage_mid_head">
                     <h5>Bài hát</h5>
                     <h1 className="songpage_list_name">
-                        {data.DT.song.songname}
+                        {dataSong.DT && dataSong.DT.song && dataSong.DT.song.songname}
                     </h1>
                     <p className="songpage_info">
                         <div className="songpage_user_name">
-                            {data.DT.song.artists[0].name}
+                            {dataSong.DT && dataSong.DT.song && dataSong.DT.song.artists[0].name}
                         </div>
 
                         <div className="songpage_total_song">
-                            {data.DT.song.like > 1000
-                                ? data.DT.song.like / 1000 + "k"
-                                : data.DT.song.like}{" "}
+                            {dataSong.DT && dataSong.DT.song && (dataSong.DT.song.like > 1000
+                                ? dataSong.DT.song.like / 1000 + "k"
+                                : dataSong.DT.song.like)}{" "}
                             người yêu thích
                         </div>
                         <div className="songpage_total_time">
-                            {String(
-                                Math.floor(data.DT.song.duration / 60)
+                            {dataSong.DT && dataSong.DT.song && (String(
+                                Math.floor(dataSong.DT.song.duration / 60)
                             ).padStart(2, "0") +
                                 ":" +
-                                String(data.DT.song.duration % 60).padStart(
+                                String(dataSong.DT.song.duration % 60).padStart(
                                     2,
                                     "0"
-                                )}
+                                ))}
                         </div>
                     </p>
                 </div>
@@ -152,54 +235,89 @@ const Songpage = () => {
 
             <div className="song_body">
                 <div className="song_control">
-                    {!isBlocked&&<button
+                    {!isBlocked && <button
                         className="play_random"
                         onClick={(e) => handlePlaying(e, id)}
                     >
                         <FontAwesomeIcon icon={faCirclePlay} />
                     </button>}
                     <Like_heart id={id} type={"song"} />
-                    <Popup
-                        trigger={
-                            <button className="menu_btn">
-                                {" "}
-                                <FontAwesomeIcon icon={faEllipsis} />
-                            </button>
-                        }
-                        position="right top"
-                        nested
-                        closeOnDocumentClick
-                        mouseLeaveDelay={300}
-                        mouseEnterDelay={0}
-                        contentStyle={{ padding: "0", border: "none" }}
-                        arrow={false}
-                    >
-                        <div className="menu-plalist">
-                            <button
-                                className="menu-item"
-                                onClick={(e) => e.preventDefault()}
-                            >
-                                <CreatePlaylist idSongs={[id]} />
-                            </button>
-                            <button className="menu-item">
-                                <FontAwesomeIcon icon={faLink} /> Sao Chép Link
-                            </button>
-                            <button className="menu-item">
-                                <FontAwesomeIcon icon={faShare} /> Chia Sẽ
-                            </button>
-                        </div>
-                    </Popup>
+                    <button className="menu_btn" onClick={handleShowPlaylistModal}>
+                        <FontAwesomeIcon icon={faCirclePlus} />
+                    </button>
+                    <BootstrapModal show={showPlaylistModal} onHide={handleClosePlaylistModal}>
+                        <BootstrapModal.Header closeButton>
+                            <BootstrapModal.Title>Thêm vào playlist</BootstrapModal.Title>
+                        </BootstrapModal.Header>
+                        <BootstrapModal.Body>
+                            {userPlaylist && userPlaylist.length < 1 ? (
+                                <div className="alert alert-warning">Chưa có PlayList</div>
+                            ) : (
+                                <div className="list-group d-flex flex-row flex-wrap" style={{ maxHeight: '35rem', overflowY: 'auto' }}>
+                                    {userPlaylist && userPlaylist.map((data) =>
+                                        data && (
+                                            <div className="list-group-item d-flex flex-column align-items-center mb-2 rounded .bg-primary w-50" key={data.playlistId}>
+                                                <img src={data.thumbnail} alt={data.playlistname} className="img-thumbnail mr-2" style={{ width: '100%', borderRadius: "10px" }} />
+                                                <div className="flex-grow-1">
+                                                    {clickedButtons[data.playlistId] ? (
+                                                        <button className="btn btn-success btn-sm w-100 text-break fs-5" style={{ width: '13rem !improtant' }}>
+                                                            Thêm Thành Công
+                                                            <FontAwesomeIcon icon={faCircleCheck} className="ml-2" />
+                                                        </button>
+                                                    ) : (
+                                                        data.songid && dataSong.DT && dataSong.DT.song && data.songid.includes(dataSong.DT.song.id) ? (
+                                                            <p className="text-success mb-0">{data.playlistname} <FontAwesomeIcon icon={faCircleCheck} /></p>
+                                                        ) : (
+                                                            dataSong.DT && dataSong.DT.song && (
+                                                                <button
+                                                                    className="btn btn-primary btn-sm w-100 text-break fs-5"
+                                                                    onClick={() => handlePushSong(data.playlistId, dataSong.DT.song.id)}
+                                                                    style={{ width: '13rem !improtant' }}
+                                                                >
+                                                                    {data.playlistname}
+                                                                </button>
+                                                            )
+                                                        )
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )
+                                    )}
+                                </div>
+                            )}
+                            <div className="modal-body">
+                                <form onSubmit={handleCreate}>
+                                    <div className="form-group">
+                                        <label htmlFor="add-playlist-input" className="add-playlist-label">Hãy Nhập Tên PlayList</label>
+                                        <input
+                                            type="text"
+                                            value={playlistName}
+                                            onChange={handleInputChange}
+                                            className="form-control"
+                                            id="add-playlist-input"
+                                        />
+                                    </div>
+                                    <button className="btn btn-primary" type="submit">Tạo mới</button>
+                                </form>
+                            </div>
+                        </BootstrapModal.Body>
+                        <BootstrapModal.Footer>
+                            <Button variant="secondary" onClick={handleClosePlaylistModal}>
+                                Đóng
+                            </Button>
+                        </BootstrapModal.Footer>
+                    </BootstrapModal>
                 </div>
 
                 <div className="r_element">
                     <div className="r_element_item">
                         <h1>Bài hát liên quan </h1>
-                        <Col3Layout data={data.DT.songRelated} />
+                        {dataSong.DT && dataSong.DT.songRelated && <Col3Layout data={dataSong.DT.songRelated} />}
                     </div>
 
                     <div className="r_element_item">
                         <h1>Playlist liên quan</h1>
-                        <Card playlist={data.DT.playlistRelated} />
+                        {dataSong.DT && dataSong.DT.playlistRelated && <Card playlist={dataSong.DT.playlistRelated} />}
                     </div>
                 </div>
             </div>
@@ -207,8 +325,8 @@ const Songpage = () => {
             <div className="p-5 mt-5 song_user-rating">
                 <Comments
                     commentsUrl="http://localhost:3004/comments"
-                        currentUser={isAuthentication.account}
-                        id={id}
+                    currentUser={isAuthentication.account}
+                    id={id}
                 />
 
                 {/* <div
