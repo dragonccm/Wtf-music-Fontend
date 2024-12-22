@@ -42,7 +42,7 @@ const Playlistpage = () => {
   useEffect(() => {
     fecthPlaylist()
     // console.log(playlist);
-  }, []);
+  }, [id]);
 
   const fecthPlaylist = async () => {
 

@@ -14,17 +14,38 @@ import { useSelector } from "react-redux";
 import "../../css/RightSidebar.scss";
 import { useEffect, useState } from "react";
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setUserPlaylist } from "../../redux/slide/InforUserSlice";
+import { userPLayList } from "../../controller/MyPlaylist";
 const RightSidebar = () => {
+    const dispatch = useDispatch();
     const isPlaying = useSelector((state) => state.getSongData.isPlaying);
+    // const idUser = useSelector((state) => state.inforUser.userInfor.DT);
 
     const location = useLocation();
     const [isActive, setIsActive] = useState(false);
 
     useEffect(() => {
-        // Cập nhật trạng thái `isActive` dựa trên `pathname`
         setIsActive(location.pathname.startsWith("/profile"));
     }, [location]);
-    
+
+
+
+
+    useEffect(() => {
+        const fetchPlaylist = async () => {
+            const response = await userPLayList();
+            if (response.EC === "0") {
+                dispatch(setUserPlaylist(response.DT));
+            }
+        };
+        fetchPlaylist();
+
+    }, [dispatch]);
+    const userPlaylist = useSelector((state) => {
+        return state.inforUser.userPlaylist;
+    });
+
     return (
         <div
             className="rightsidebar"
@@ -109,7 +130,7 @@ const RightSidebar = () => {
                                 to="/profile/mymusic"
                                 className={
                                     isActive ? "active nav-link list_nav_item" : "nav-link list_nav_item"
-                                  }
+                                }
                             >
                                 <div className="icon_list_nav_item">
                                     <ReactSVG
@@ -124,26 +145,25 @@ const RightSidebar = () => {
                                 <span>Thư viện</span>
                             </NavLink>
                         </Nav>
-                        {/* <Nav>   
-                  {user && user.isAuthenticated === true ? (
-                    <>
-                      <Nav.Item className="name-user nav-link ">
-                        Hi, {user.account.username}!
-                      </Nav.Item>
-                      <NavDropdown title="Settings" id="basic-nav-dropdown">
-                        <NavDropdown.Item><span >Change password</span></NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item><span onClick={handleLogoutUser}>Log out</span></NavDropdown.Item>
-                      </NavDropdown>
-                    </>
-                  ) : (
-                    <>
-                      <NavLink to="/login" className="nav-link">
-                        Login
-                      </NavLink>
-                    </>
-                  )}
-                </Nav> */}
+                        <Nav className="me-auto list_nav">
+                            {Array.isArray(userPlaylist) && userPlaylist.map((item, index) => {
+                                return (
+                                    item && <NavLink
+                                        to={`/playlist/${item.playlistId}`}
+                                        className={
+                                            isActive ? "active nav-link list_nav_item" : "nav-link list_nav_item"
+                                        }
+                                        key={index}
+                                    >
+                                        <div className="icon_list_nav_item">
+                                            {item.thumbnail ? <img src={item.thumbnail} alt="playlist" /> : <img src="https://i.pinimg.com/564x/7b/7b/7b/7b7b7b7b7b7b7b7b7b7b7b7b7b7b7b.jpg" alt="playlist" />}
+                                        </div>
+                                        <span>{item.playlistname}</span>
+                                    </NavLink>
+                                );
+                            })
+                            }
+                        </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
