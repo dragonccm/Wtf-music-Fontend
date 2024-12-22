@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Modal from "react-modal";
 import { toast, ToastContainer } from "react-toastify";
-import { Modal as BootstrapModal, Button } from 'react-bootstrap';
 
 import "../../css/Bottombar.scss";
 import "react-h5-audio-player/lib/styles.css";
@@ -34,8 +33,6 @@ import {
   faExpand,
   faEllipsisVertical,
   faTrash,
-  faCirclePlus,
-  faCircleCheck
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart,
@@ -49,9 +46,9 @@ import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector, useDispatch } from "react-redux";
 // import Play_animation from "../../components/card/play_animation"
 
-
+// Modal.setAppElement("#root");
 const Bottombar = () => {
-  const [playlistName, setPlaylistName] = useState('');
+
   const [isFullScreen, SetIsFullScreen] = useState(false);
   const [animationActive, setAnimationActive] = useState(true);
   const [playing, setPlaying] = useState(false);
@@ -240,14 +237,14 @@ const Bottombar = () => {
           // Kiểm tra ID bài hát hiện tại
           if (!blockSong.includes(dataf.song[currentIndex].id)) {
             dispatch(fetchSongPlaying(dataf.song[currentIndex].id))
-            localStorage.setItem('currentMusicIndex', currentIndex - 1)
+            localStorage.setItem('currentMusicIndex', currentIndex-1)
             break;
           } else {
             // Nếu ID bài hát không nằm trong mảng, chuyển sang bài hát tiếp theo
             currentIndex++;
           }
         }
-
+      
       }
       // dispatch(fetchSongPlaying(dataf.song.items[currentMusicIndex].encodeId))
     }
@@ -264,7 +261,7 @@ const Bottombar = () => {
           // Kiểm tra ID bài hát hiện tại
           if (!blockSong.includes(dataf.song[currentIndex].id)) {
             dispatch(fetchSongPlaying(dataf.song[currentIndex].id))
-            localStorage.setItem('currentMusicIndex', currentIndex - 1)
+            localStorage.setItem('currentMusicIndex', currentIndex-1)
             break;
           } else {
             // Nếu ID bài hát không nằm trong mảng, chuyển sang bài hát tiếp theo
@@ -442,9 +439,6 @@ const Bottombar = () => {
   const [modalTimeIsOpen, setTimeIsOpen] = React.useState(false);
   const [modalLyricIsOpen, setLyricIsOpen] = React.useState(false);
   const [modalPlaylistIsOpen, setPlaylistIsOpen] = React.useState(false);
-  const [showPlaylistModal, setShowPlaylistModal] = useState(false);
-  const handleShowPlaylistModal = () => setShowPlaylistModal(true);
-  const handleClosePlaylistModal = () => setShowPlaylistModal(false);
 
   function openModal() {
     if (modalMenuIsOpen) {
@@ -651,86 +645,10 @@ const Bottombar = () => {
   }
 
 
-  const [clickedButtons, setClickedButtons] = useState([]);
-
-  const currData = useSelector((state) => state.inforUser);
-  useEffect(() => {
-    const fetchPlaylist = async () => {
-      const response = await userPLayList();
-      if (response.EC === "0") {
-        dispatch(setUserPlaylist(response.DT));
-      }
-    };
-    fetchPlaylist();
-
-  }, [dispatch]);
-  const userPlaylist = useSelector((state) => {
-    return state.inforUser.userPlaylist;
-  });
-
-  const handlePushSong = async (playlistId, songId) => {
-    const playlist = userPlaylist.find(pl => pl.playlistId === playlistId);
-    if (playlist && playlist.songid && playlist.songid.includes(songId)) {
-      toast.info("Bài hát đã có trong danh sách");
-      return;
-    }
-  
-    let username = '';
-    if (currData && currData.userInfor.DT && currData.userInfor.DT.account) {
-      username = currData.userInfor.DT.account.username;
-    } else {
-      username = 'dragonccm'; // Fallback username
-    }
-    const response = await dispatch(adSongToPl({
-      userId: username,
-      playlistId: playlistId,
-      songId: [songId]
-    }));
-  
-    if (response.meta.requestStatus === 'fulfilled') {
-      toast.success("Thêm bài hát vào playlist thành công");
-      const updatedClickedButtons = [...clickedButtons];
-      updatedClickedButtons[playlistId] = true;
-      setClickedButtons(updatedClickedButtons);
-      setTimeout(() => {
-        resetButton();
-      }, 2000);
-  
-      // Fetch updated playlist
-      const updatedPlaylistResponse = await userPLayList();
-      if (updatedPlaylistResponse.EC === "0") {
-        dispatch(setUserPlaylist(updatedPlaylistResponse.DT));
-      }
-    } else {
-      toast.error("Thêm bài hát vào playlist thất bại");
-    }
-  }
-  
-  const resetButton = () => {
-    setClickedButtons([]);
-  };
-  const handleCreate = (e) => {
-    e.preventDefault();
 
 
-    let username = '';
-    if (currData && currData.defaultUser && currData.defaultUser.account) {
-      username = currData.defaultUser.account.username;
-    } else {
-      username = 'dragonccm'; // Fallback username
-    }
 
-    dispatch(createPl({
-      user: username,
-      playlistname: playlistName
-    }));
 
-    // Reset form input
-    setPlaylistName('');
-  }
-  const handleInputChange = (e) => {
-    setPlaylistName(e.target.value);
-  }
   return (
     // isPlaying && songInfo.isLoading === false && songInfo.isError === false && (
     (isPlaying && <div className="main_bottom_bar" style={modalFullIsOpen ? { 'background': 'transparent', 'justifyContent': 'center' } : { 'background': 'var(--bg-player)', 'justifyContent': 'unset' }}>
@@ -770,6 +688,24 @@ const Bottombar = () => {
               </div>
             </div>
             <div className="more">
+              {/* {mysong ? (
+                mysong.includes(songInfo.infor.id) ? (
+                  <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd(songInfo.infor.id)}>
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                ) : (
+                  <button className="rhap_main-controls-button rhap_button-clear" onClick={() => handleAdd(songInfo.infor.id)}>
+                    <FontAwesomeIcon icon={faHeartCrack} />
+                  </button>
+                )
+              ) : (
+                <NavLink to={`/login`}>
+                  <button className="rhap_main-controls-button rhap_button-clear">
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+                </NavLink>
+
+              )} */}
               <Like_heart id={songInfo.infor.id} type={'song'} />
 
 
@@ -892,70 +828,78 @@ const Bottombar = () => {
                   </div>
                   <div className="r_click_list">
 
-                    <div className="r_click_list_item add-playlist" onClick={handleShowPlaylistModal}>
-                      <FontAwesomeIcon icon={faCirclePlus} />
-                      Thêm vào playlist
-                    </div>
-                    <BootstrapModal show={showPlaylistModal} onHide={handleClosePlaylistModal}>
-                      <BootstrapModal.Header closeButton>
-                        <BootstrapModal.Title>Thêm vào playlist</BootstrapModal.Title>
-                      </BootstrapModal.Header>
-                      <BootstrapModal.Body>
-                        {userPlaylist && userPlaylist.length < 1 ? (
-                          <div className="alert alert-warning">Chưa có PlayList</div>
-                        ) : (
-                          <div className="list-group d-flex flex-row flex-wrap" style={{ maxHeight: '35rem', overflowY: 'auto' }}>
-                            {userPlaylist && userPlaylist.map((data) =>
-                              data && (
-                                <div className="list-group-item d-flex flex-column align-items-center mb-2 rounded .bg-primary w-50" key={data.playlistId}>
-                                  <img src={data.thumbnail} alt={data.playlistname} className="img-thumbnail mr-2" style={{ width: '100%', borderRadius: "10px" }} />
-                                  <div className="flex-grow-1">
-                                    {clickedButtons[data.playlistId] ? (
-                                      <button className="btn btn-success btn-sm w-100 text-break fs-5" style={{ width: '13rem !improtant' }}>
-                                        Thêm Thành Công
-                                        <FontAwesomeIcon icon={faCircleCheck} className="ml-2" />
-                                      </button>
-                                    ) : (
-                                      data.songid && data.songid.includes(songInfo.infor.id) ? (
-                                        <p className="text-success mb-0">{data.playlistname} <FontAwesomeIcon icon={faCircleCheck} /></p>
-                                      ) : (
-                                        <button
-                                          className="btn btn-primary btn-sm w-100 text-break fs-5"
-                                          onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
-                                          style={{ width: '13rem !improtant' }}
-                                        >
-                                          {data.playlistname}
-                                        </button>
-                                      )
-                                    )}
-                                  </div>
-                                </div>
-                              )
-                            )}
-                          </div>
-                        )}
-                        <div className="modal-body">
-                          <form onSubmit={handleCreate}>
-                            <div className="form-group">
-                              <label htmlFor="add-playlist-input" className="add-playlist-label">Hãy Nhập Tên PlayList</label>
-                              <input
-                                type="text"
-                                value={playlistName}
-                                onChange={handleInputChange}
-                                className="form-control"
-                                id="add-playlist-input"
-                              />
-                            </div>
-                            <button className="btn btn-primary" type="submit">Tạo mới</button>
-                          </form>
+                    {/* <Popup
+                      trigger={
+                        <div className="r_click_list_item add-playlist" >
+                          <FontAwesomeIcon icon={faCirclePlus} />
+                          Thêm vào playlist
                         </div>
-                      </BootstrapModal.Body>
-                      <BootstrapModal.Footer>
-                        <Button variant="secondary" onClick={handleClosePlaylistModal}>
-                          Đóng
-                        </Button>
-                      </BootstrapModal.Footer>
-                    </BootstrapModal>
+                      }
+                      position="right top"
+                      on="hover"
+                      closeOnDocumentClick
+                      mouseLeaveDelay={300}
+                      mouseEnterDelay={0}
+                      contentStyle={{ padding: "0", border: "none" }}
+                      arrow={false}
+                      nested
+                    >
+                      {close => (<div className="menu-plalist">
+                        {userPlaylist.length < 1 ? (
+                          <button className="menu-item">chưa có PlayList</button>
+                        ) : (
+                          userPlaylist.map((data) =>
+                            clickedButtons[data.playlistId] ? (
+                              <button
+                                className="menu-item"
+                                key={data.playlistId}
+                              >
+                                Thêm Thành Công
+                                <FontAwesomeIcon icon={faCircleCheck} />
+                                {() => close()}
+                              </button>
+                            ) : (
+                              data.songid.includes(songInfo.infor.id) ? (
+                                <p className="menu-item">{data.playlistname}  <FontAwesomeIcon icon={faCircleCheck} /></p>
+                              ) : (
+                                <button
+                                  className="menu-item"
+                                  key={data.playlistId}
+                                  onClick={() => handlePushSong(data.playlistId, songInfo.infor.id)}
+                                >
+                                  {data.playlistname}
+                                </button>
+                              )
+                            )
+                          )
+                        )}
+
+                        <Popup
+                          trigger={<button className="menu-item"><FontAwesomeIcon icon={faCirclePlus} /> Tạo PlayList</button>}
+                          position="right bottom"
+                          nested
+                        >
+                          {close => (
+                            <div className="modal-body">
+                              <form onSubmit={handleCreate}>
+                                <div className="gid-gr">
+                                  <label htmlFor="add-playlist-input" className="add-playlist-label">Hãy Nhập Tên PlayList</label>
+                                  <input
+                                    type="text"
+                                    value={playlistName}
+                                    onChange={handleInputChange}
+                                    className="add-playlist-input"
+                                  />
+                                  <button className="add-playlist-btn" type="submit">tạo mới</button>
+                                </div>
+                              </form>
+                            </div>
+                          )}
+                        </Popup>
+                      </div>)
+                      }
+                    </Popup> */}
+                    <CreatePlaylist idSongs={[songInfo.infor.id]} />
                     <div className="r_click_list_item" onClick={openModalFull}>
                       <ReactSVG
                         beforeInjection={(svg) => {

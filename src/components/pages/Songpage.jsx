@@ -71,15 +71,15 @@ const Songpage = () => {
     useEffect(() => {
         console.log('đã đổiiiiiiiiiiiiiiiii');
 
-        if (data && data.DT && blockSong.includes(data.DT.song.id)) {
-            // console.log(`ID ${data.id} có nằm trong mảng.`);
+        if (dataSong && dataSong.DT && blockSong.includes(dataSong.DT.song.id)) {
+            // console.log(`ID ${dataSong.id} có nằm trong mảng.`);
             setIsBlocked(true)
         } else {
-            // console.log(`ID ${data.id} không nằm trong mảng.`);
+            // console.log(`ID ${dataSong.id} không nằm trong mảng.`);
             setIsBlocked(false)
 
         }
-    }, [data, blockSong])
+    }, [dataSong, blockSong])
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetchSongPage(id);
@@ -213,18 +213,18 @@ const Songpage = () => {
                     <p className="songpage_info">
                         <div className="songpage_user_name">
 
-                            {data.DT.song.artistInfo.map((artist, index) => (
+                            {dataSong.DT.song.artistInfo.map((artist, index) => (
                                 <span key={index}>
                                     <NavLink to={"/artists/" + artist.alias}>{artist.artistsName}</NavLink>
-                                    {index !== data.DT.song.artistInfo.length - 1 && ", "}
+                                    {index !== dataSong.DT.song.artistInfo.length - 1 && ", "}
                                 </span>
                             ))}
                         </div>
                         •
                         <div className="songpage_total_song">
-                            {data.DT.song.like > 1000
-                                ? Math.ceil(data.DT.song.like / 1000) + "k"
-                                : data.DT.song.like}{" "}
+                            {dataSong.DT.song.like > 1000
+                                ? Math.ceil(dataSong.DT.song.like / 1000) + "k"
+                                : dataSong.DT.song.like}{" "}
                             <FontAwesomeIcon icon={faHeart} />
                         </div>
                         •
