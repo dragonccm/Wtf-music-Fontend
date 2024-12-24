@@ -78,11 +78,11 @@ a{
   line-height: 50px;
   font-size: medium;
   border: none;
-  border-bottom: 1px solid rgb(24, 24, 24);
+  border-bottom: 1px solid var(--text-1);
   text-decoration: none;
   background-color: transparent;
   margin-left: 6px;
-  color: var(--text-1);
+  color: var(--text-1) ;
 
   &:focus {
     outline: none;
@@ -243,5 +243,9 @@ a{
   }
 }
 #popup-root .popup-content{
-  background-color: #fff !important;
+  .more_action{
+
+    background-color: #fff !important;
+    border-radius: 5px;
+  }
 }

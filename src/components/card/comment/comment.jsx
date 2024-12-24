@@ -81,7 +81,7 @@ const Comment = ({
                             contentStyle={{ padding: '0px', border: 'none' }}
                             arrow={false}
                         >
-                            <div className="menu-comment">
+                            <div className="menu-comment more_action">
                                 {canEdit && (
                                     <div
                                         className="comment-action menu-item"

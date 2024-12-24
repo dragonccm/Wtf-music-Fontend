@@ -115,12 +115,13 @@ const CreatePlaylist = ({ idSongs, type }) => {
                                     handleCreate(e, close); // Pass close to handleCreate
                                 }}>
                                     <div className="gid-gr">
-                                        <label htmlFor="add-playlist-input" className="add-playlist-label">Hãy Nhập Tên PlayList</label>
+                                        <label htmlFor="add-playlist-input" className="add-playlist-label">Tạo Playlist mới</label>
                                         <input
                                             type="text"
                                             value={playlistName}
                                             onChange={handleInputChange}
                                             className="add-playlist-input"
+                                            placeholder="Nhập tên playlist"
                                         />
                                         <button className="add-playlist-btn" type="submit">TẠO MỚI</button>
                                     </div>

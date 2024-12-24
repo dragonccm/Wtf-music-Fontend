@@ -150,9 +150,7 @@ const RightSidebar = () => {
                                 return (
                                     item && <NavLink
                                         to={`/playlist/${item.playlistId}`}
-                                        className={
-                                            isActive ? "active nav-link list_nav_item" : "nav-link list_nav_item"
-                                        }
+                                        className="nav-link list_nav_item"
                                         key={index}
                                     >
                                         <div className="icon_list_nav_item">
