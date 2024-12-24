@@ -83,7 +83,7 @@ const PlaylistAdmin = () => {
             <div className="d-flex pagination-admin">
                 <div className="col-6 description-pagination">
                     <div style={{ fontSize: "medium" }}>
-                        Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> bài hát
+                        Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> playlist
                     </div>
                 </div>
                 <Stack spacing={2}>

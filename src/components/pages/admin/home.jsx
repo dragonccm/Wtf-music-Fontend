@@ -16,6 +16,11 @@ import { adminGetSinger } from "../../../services/adminSingerService";
 import { adminGetUsers } from "../../../services/adminGetUserService";
 import { adminGetSong } from "../../../services/adminSongService";
 import {
+    getSlideService,
+    setSlideService,
+    insertSildeService
+} from "../../../services/silderservice";
+import {
     getSlider,
     setSlider,
     insertSlider
@@ -99,11 +104,12 @@ const HomeAdmin = () => {
         setImageUrl(URL.createObjectURL(uploadedFile));
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async(data) => {
         if (editMode) {
-            dispatch(setSlider(currentSlide._id, data));
+            await setSlideService(currentSlide.slideId, data)
         } else {
-            dispatch(insertSlider(data));
+            await insertSildeService(data)
+
         }
         reset();
         setEditMode(false);

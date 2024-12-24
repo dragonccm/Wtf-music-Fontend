@@ -272,8 +272,8 @@ export default function Chart() {
 
     return (
         <>
-            <h1>XẾP HẠNG LƯỢT NGHE THÁNG</h1>
-            <div className="HomeAdmin">
+            <h1>TOP NHẠC CÓ LƯỢT NGHE CAO NHẤT THÁNG</h1>
+            <div className="HomeAdmin py-5">
                 {musicSongs.data.length > 0 && musicSongs.label.length > 0 ? (
                     <BarChart
                         series={[
@@ -305,7 +305,7 @@ export default function Chart() {
                             value={range}
                             onChange={(e) => setRange(e.target.value)}
                         />
-                        <button className="btn btn-primary" style={{width:'175px',padding:'10px', trasi}} onClick={() => setDataType(dataType === "song" ? "playlist" : "song")}>
+                        <button className="btn btn-primary" style={{width:'175px',padding:'10px'}} onClick={() => setDataType(dataType === "song" ? "playlist" : "song")}>
                             {dataType === "song" ? "Xem Playlist" : "Xem Nhạc"}
                         </button>
                     </div>
@@ -356,21 +356,7 @@ export default function Chart() {
             ) : (
                 <>
                     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
-                        <div className="HomeAdmin pb-5">
-                            {JSON.stringify(musicSongs)}
-                            {musicSongs.data.length > 0 && musicSongs.label.length > 0 ? (
-                                <BarChart
-                                    series={[
-                                        { data: musicSongs.data },
-                                    ]}
-                                    height={290}
-                                    xAxis={[{ data: musicSongs.label, scaleType: 'band' }]}
-                                    margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
-                                />
-                            ) : (
-                                <p>No music data available</p>
-                            )}
-                        </div>
+                        
                         <h1>
                             {dataType === "song"
                                 ? selectedName ? `Dữ Liệu Thống Kê Của Bài Hát: ${selectedName}` : "Dữ Liệu Thống Kê Của Nhạc"

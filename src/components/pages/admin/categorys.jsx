@@ -269,7 +269,8 @@ const CategoryAdmin = () => {
                             <th>Hình</th>
                             <th>Tên</th>
 
-                            <th>mô tả</th>
+                            <th>Mô tả</th>
+                            <th>Thao Tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -327,26 +328,28 @@ const CategoryAdmin = () => {
 
                                         <td>{kind.description}</td>
                                         <td>
-                                            <button
-                                                className="btn btn-primary fs-3"
-                                                onClick={() =>
-                                                    openEditModal(kind)
-                                                }
-                                            >
-                                                <FontAwesomeIcon icon={faPen} />
-                                            </button>
-                                            <button
-                                                className="btn btn-danger-custom fs-3 ms-3"
-                                                onClick={() =>
-                                                    deleteMusicKind(
-                                                        kind.genreId
-                                                    )
-                                                }
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faBan}
-                                                />
-                                            </button>
+                                            <div className="d-flex">
+                                                <button
+                                                    className="btn btn-primary fs-3"
+                                                    onClick={() =>
+                                                        openEditModal(kind)
+                                                    }
+                                                >
+                                                    <FontAwesomeIcon icon={faPen} />
+                                                </button>
+                                                <button
+                                                    className="btn btn-danger-custom fs-3 ms-3"
+                                                    onClick={() =>
+                                                        deleteMusicKind(
+                                                            kind.genreId
+                                                        )
+                                                    }
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faBan}
+                                                    />
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 )}

@@ -97,11 +97,13 @@ const CommentAdmin = () => {
                     <thead>
                         <tr>
                             <th>ID comment</th>
-                            <th>bài nhạc</th>
-                            <th>người dùng</th>
+                            <th>Bài hát</th>
+                            <th>Người dùng</th>
                             <th>Nội dung</th>
                             <th>Ngày tạo</th>
-                            <th>lượt báo cáo</th>
+                            <th>Lượt báo cáo</th>
+                            <th>Thao Tác</th>
+
                             <th></th>
                         </tr>
                     </thead>
@@ -158,7 +160,7 @@ const CommentAdmin = () => {
                             {Math.min(currentPage * itemsPerPage, maxpage)}
                         </span>{" "}
                         trong <span style={{ color: "red" }}>{maxpage}</span>{" "}
-                        người dùng
+                        bình luận
                     </div>
                 </div>
                 <Stack spacing={2}>

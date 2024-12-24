@@ -14,6 +14,8 @@ const PlaylistTable = ({ musicSongs, openEditModal, deleteMusicKind }) => {
                     <th>Loại</th>
                     <th>Lượt thích</th>
                     <th>Lượt nghe</th>
+                    <th>Thao Tác</th>
+
                 </tr>
             </thead>
             <tbody>
