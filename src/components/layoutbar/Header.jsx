@@ -122,7 +122,7 @@ const Header = () => {
             if (result.type === 1) {
                 return <Songitem key={result.id} data={result} />;
             } else if (result.type === 4) {
-                return <Artistsitem key={result.aliasName} data={result} />;
+                return <Artistsitem key={result.alias} data={result} />;
             } else if (result.type === 3) {
                 return <Album key={result.id} data={result} />;
             }
@@ -170,7 +170,7 @@ const Header = () => {
     const Artistsitem = ({ data }) => {
         return (
             <NavLink
-                to={`/artists/${data.aliasName}`}
+                to={`/artists/${data.alias}`}
                 className="search_item_artists"
             >
 
@@ -288,6 +288,12 @@ const Header = () => {
                                         <FontAwesomeIcon icon={faUser} /> Hồ sơ
                                         của bạn
                                     </NavLink>
+                                    {isAuthentication.account.isAdmin &&<NavLink
+                                        to="/admin"
+                                        className="nav-link list_nav_item menu-item"
+                                    >
+                                        <FontAwesomeIcon icon={faUser} /> Admin
+                                    </NavLink>}
                                     <NavLink
                                         onClick={() => handleLogoutUser()}
                                         className="nav-link list_nav_item menu-item"

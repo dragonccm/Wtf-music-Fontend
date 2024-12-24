@@ -23,7 +23,7 @@ const ArtistList = ({ data }) => {
                     <div className="artist_info">
                         <a href={`/artists/${element.alias}`} className="name">{element.artistsName}</a>
                         <p className="total_fl"> {element.totalFollow > 1000 ? ((element.totalFollow / 1000).toFixed(1)) + 'k' : element.totalFollow} quan tâm</p>
-                        <button className="btn-follow"><FontAwesomeIcon icon={faUserPlus} /> Quan tâm</button>
+                        {/* <button className="btn-follow"><FontAwesomeIcon icon={faUserPlus} /> Quan tâm</button> */}
 
                     </div>
 
