@@ -21,7 +21,7 @@ const PlaylistTable = ({ musicSongs, openEditModal, deleteMusicKind }) => {
                     <tr key={index} style={{ background: kind.state === 1 ? '#b5d5ff' : 'transparent' }}>
                         <td>{index + 1}</td>
                         <td className="td_img">
-                            <img src={kind.thumbnail} alt={kind.genrename} />
+                            <img src={kind.thumbnail} alt={kind.genrename} className="square-img" />
                         </td>
                         <td>{kind.playlistname}</td>
                         <td>{kind.state === 1 ? "cấm truy cập" : "có thể truy cập"}</td>
@@ -29,12 +29,14 @@ const PlaylistTable = ({ musicSongs, openEditModal, deleteMusicKind }) => {
                         <td>{kind.like}</td>
                         <td>{kind.listen}</td>
                         <td>
-                            <button className="btn btn-primary fs-3" onClick={() => openEditModal(kind)}>
-                                <FontAwesomeIcon icon={faPen} />
-                            </button>
-                            <button className="btn btn-danger-custom fs-3 ms-3" onClick={() => deleteMusicKind(kind.playlistId)}>
-                                <FontAwesomeIcon icon={faBan} />
-                            </button>
+                            <div className="d-flex">
+                                <button className="btn btn-primary fs-3" onClick={() => openEditModal(kind)}>
+                                    <FontAwesomeIcon icon={faPen} />
+                                </button>
+                                <button className="btn btn-danger-custom fs-3 ms-3" onClick={() => deleteMusicKind(kind.playlistId)}>
+                                    <FontAwesomeIcon icon={faBan} />
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 ))}

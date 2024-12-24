@@ -14,7 +14,6 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
 
                         <th>#</th>
                         <th>Tên</th>
-
                         <th>Lượt Like</th>
                         <th>Lượt Nghe</th>
                         <th>Thao tác</th>
@@ -25,9 +24,9 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
                         <tr key={kind.id} style={{ background: kind.state === 1 ? '#b5d5ff' : 'transparent' }}>
 
                             <td>{index + 1}</td>
-                            <td>
+                            <td className="td_img">
                                 <div className="infor">
-                                    <img src={kind.thumbnail} alt={kind.songname} />
+                                    <img src={kind.thumbnail} alt={kind.songname} className="square-img"/>
                                     <span>{kind.songname}</span>
                                 </div>
                             </td>

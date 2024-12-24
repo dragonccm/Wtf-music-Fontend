@@ -31,7 +31,7 @@ const CategoryAdmin = () => {
         thumbnailR: "",
         state: "",
         description: "",
-        
+
     }); // Thông tin form chỉnh sửa
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Trạng thái hiển thị pop-up form
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false); // Trạng thái hiển thị pop-up form tạo mới
@@ -41,7 +41,7 @@ const CategoryAdmin = () => {
         thumbnailHasText: "",
         thumbnailR: "",
         description: "",
-        
+
     }); // Thông tin form tạo mới
     const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
 
@@ -73,7 +73,7 @@ const CategoryAdmin = () => {
     const handleChange = (event, value) => {
         setCurrentPage(value);
     };
-    const itemsPerPage =10; // Số mục trên mỗi trang
+    const itemsPerPage = 10; // Số mục trên mỗi trang
     // Giả sử chúng ta có một hàm fetchMusicSongs để lấy dữ liệu từ API
     useEffect(() => {
         fetchMusicSongs();
@@ -100,7 +100,7 @@ const CategoryAdmin = () => {
         data.thumbnailR = thumbnailR;
         try {
             const res = await updateGenre(data);
-            if(res){
+            if (res) {
                 toast.success(res.EM);
                 fetchMusicSongs();
             }
@@ -114,7 +114,7 @@ const CategoryAdmin = () => {
         data.thumbnailR = thumbnailR;
         try {
             const res = await createGenre(data);
-            if(res){
+            if (res) {
                 toast.success(res.EM);
                 fetchMusicSongs();
             }
@@ -134,7 +134,7 @@ const CategoryAdmin = () => {
         };
         try {
             const res = await deleteGenre(newdata);
-            if(res){
+            if (res) {
                 toast.success(res.EM);
                 fetchMusicSongs();
             }
@@ -266,9 +266,9 @@ const CategoryAdmin = () => {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên</th>
                             <th>Hình</th>
-                    
+                            <th>Tên</th>
+
                             <th>mô tả</th>
                         </tr>
                     </thead>
@@ -278,50 +278,53 @@ const CategoryAdmin = () => {
                                 {kind.state === 1 ? (
                                     <tr style={{ background: '#b5d5ff' }} key={kind.id}>
                                         <td>{index}</td>
-                                        <td>{kind.genrename}</td>
                                         <td className="td_img">
-                                            {" "}
                                             <img
                                                 src={kind.thumbnail}
                                                 alt={kind.genrename}
-                                            />{" "}
+                                                className="square-img"
+                                            />
                                         </td>
+                                        <td>{kind.genrename}</td>
                                         <td>{kind.description}</td>
                                         <td>
-                                            <button
-                                                className="btn btn-primary fs-3"
-                                                onClick={() =>
-                                                    openEditModal(kind)
-                                                }
-                                            >
-                                                <FontAwesomeIcon icon={faPen} />
-                                            </button>
-                                            <button
-                                                className="btn btn-danger-custom fs-3 ms-3"
-                                                onClick={() =>
-                                                    deleteMusicKind(
-                                                        kind.genreId
-                                                    )
-                                                }
-                                            >
-                                                <FontAwesomeIcon
-                                                    icon={faBan}
-                                                />
-                                            </button>
+                                            <div className="d-flex">
+                                                <button
+                                                    className="btn btn-primary fs-3"
+                                                    onClick={() =>
+                                                        openEditModal(kind)
+                                                    }
+                                                >
+                                                    <FontAwesomeIcon icon={faPen} />
+                                                </button>
+                                                <button
+                                                    className="btn btn-danger-custom fs-3 ms-3"
+                                                    onClick={() =>
+                                                        deleteMusicKind(
+                                                            kind.genreId
+                                                        )
+                                                    }
+                                                >
+                                                    <FontAwesomeIcon
+                                                        icon={faBan}
+                                                    />
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ) : (
                                     <tr key={kind.id}>
                                         <td>{index}</td>
-                                        <td>{kind.genrename}</td>
                                         <td className="td_img">
-                                            {" "}
+
                                             <img
                                                 src={kind.thumbnail}
                                                 alt={kind.genrename}
-                                            />{" "}
+                                                className="square-img"
+                                            />
                                         </td>
-                                       
+                                        <td>{kind.genrename}</td>
+
                                         <td>{kind.description}</td>
                                         <td>
                                             <button
@@ -375,14 +378,14 @@ const CategoryAdmin = () => {
                     isOpen={isEditModalOpen} // Change this line
                     onRequestClose={closeEditModal}
                     contentLabel="Edit Music Kind"
-                    className="modal-kindMusic"
+                    className="modal-kindMusic overflow-scroll h-75"
                     overlayClassName="modal-overlay-1"
                 >
                     {/* Nội dung của pop-up form chỉnh sửa */}
                     <h2 className="text-center opacity-75 mb-5 fs-2">
                         Chỉnh sửa thông tin Thể loại
                     </h2>
-                    <form>
+                    <form className="d-flex flex-column">
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="edit-name">
                                 id:
@@ -410,51 +413,16 @@ const CategoryAdmin = () => {
                                 onChange={handleEditFormChange}
                             />
                         </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-profile">
-                                thumbnail:
-                            </label>
-                            {thumbnailUrl && (
-                                <img
-                                    style={{ width: "12%" }}
-                                    src={thumbnailUrl}
-                                    className="avt-img"
-                                    alt="Uploaded"
-                                />
-                            )}
-
+                        <div className="mb-4 form-group img-upload">
+                            {thumbnailUrl ? <img style={{ width: "12%" }} src={thumbnailUrl} className="avt-img" alt="Uploaded" /> : <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
                             <ImageUploader onUpload={handleUploadThumbnail} />
                         </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-profile">
-                                thumbnailHasText:
-                            </label>
-                            {thumbnailHasTextUrl && (
-                                <img
-                                    style={{ width: "12%" }}
-                                    src={thumbnailHasTextUrl}
-                                    className="avt-img"
-                                    alt="Uploaded"
-                                />
-                            )}
-
-                            <ImageUploader
-                                onUpload={handleUploadThumbnailHasText}
-                            />
+                        <div className="mb-4 form-group img-upload">
+                            {thumbnailHasTextUrl ? <img style={{ width: "12%" }} src={thumbnailHasTextUrl} className="avt-img" alt="Uploaded" /> : <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
+                            <ImageUploader onUpload={handleUploadThumbnailHasText} />
                         </div>
-                        <div className="mb-4 form-group">
-                            <label className="fs-4 mb-2" htmlFor="edit-profile">
-                                thumbnailR:
-                            </label>
-                            {thumbnailRUrl && (
-                                <img
-                                    style={{ width: "12%" }}
-                                    src={thumbnailRUrl}
-                                    className="avt-img"
-                                    alt="Uploaded"
-                                />
-                            )}
-
+                        <div className="mb-4 form-group img-upload">
+                            {thumbnailRUrl ? <img style={{ width: "12%" }} src={thumbnailRUrl} className="avt-img" alt="Uploaded" /> : <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
                             <ImageUploader onUpload={handleUploadThumbnailR} />
                         </div>
 
@@ -462,14 +430,12 @@ const CategoryAdmin = () => {
                             <label className="fs-4 mb-2" htmlFor="edit-email">
                                 Mô Tả:
                             </label>
-                            <input
-                                type="text"
+                            <textarea type="text"
                                 className="fs-4 form-control"
                                 id="edit-email"
                                 name="description"
                                 value={editForm.description}
-                                onChange={handleEditFormChange}
-                            />
+                                onChange={handleEditFormChange}></textarea>
                         </div>
 
 
@@ -497,13 +463,13 @@ const CategoryAdmin = () => {
                     isOpen={isCreateModalOpen} // Change this line
                     onRequestClose={closeCreateModal}
                     contentLabel="Create Music Kind"
-                    className="modal-kindMusic"
+                    className="modal-kindMusic overflow-scroll h-75"
                     overlayClassName="modal-overlay-1"
                 >
                     <h2 className="text-center opacity-75 mb-5 fs-2">
                         Tạo mới Thể loại
                     </h2>
-                    <form>
+                    <form className="d-flex flex-column">
                         <div className="mb-4 form-group">
                             <label className="fs-4 mb-2" htmlFor="create-name">
                                 Tên Thể loại:
@@ -569,14 +535,13 @@ const CategoryAdmin = () => {
                             <label className="fs-4 mb-2" htmlFor="edit-email">
                                 Mô Tả:
                             </label>
-                            <input
+                            <textarea
                                 type="text"
                                 className="fs-4 form-control"
                                 id="edit-email"
                                 name="description"
                                 value={createForm.description}
-                                onChange={handleCreateFormChange}
-                            />
+                                onChange={handleCreateFormChange}></textarea>
                         </div>
 
                         <div className="text-end form-group">

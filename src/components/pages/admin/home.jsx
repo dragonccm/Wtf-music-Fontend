@@ -27,6 +27,7 @@ import {
 } from "../../../services/adminSearchSongService";
 import { useForm } from "react-hook-form";
 import { Modal, Button } from 'react-bootstrap';
+import { format } from 'date-fns';
 
 const HomeAdmin = () => {
     const [user, setuser] = useState([]);
@@ -145,6 +146,10 @@ const HomeAdmin = () => {
         setSearchResults({ ...searchResults, playlist: response.DT.data.Playlist });
     };
 
+    const formatDate = (dateString) => {
+        return format(new Date(dateString), 'dd/MM/yyyy');
+    };
+
     if (isLoading && currData) {
         return <div><Loading /></div>;
     }
@@ -152,7 +157,7 @@ const HomeAdmin = () => {
     return (
         <main className="main-content">
             <div className="HomeAdmin">
-                <h2 className="page_title">DASHBOARD</h2>
+                <h2 className="page_title">BẢNG ĐIỀU KHIỂN</h2>
                 {/* data statistical */}
                 <section className="row">
                     <div className="col">
@@ -167,7 +172,7 @@ const HomeAdmin = () => {
 
                                 <h4 className="text-capitalize mt-4 mb-1">{currData && currData.ar}</h4>
                                 <p className="mb-0 text-capitalize text-body">
-                                    total Music Artist
+                                    Tổng số Nghệ Sĩ
                                 </p>
                             </div>
                         </div>
@@ -184,7 +189,7 @@ const HomeAdmin = () => {
 
                                 <h4 className="text-capitalize mt-4 mb-1">{currData && currData.songs}</h4>
                                 <p className="mb-0 text-capitalize text-body">
-                                    total Music Songs
+                                    Tổng số Bài Hát
                                 </p>
                             </div>
                         </div>
@@ -201,7 +206,7 @@ const HomeAdmin = () => {
 
                                 <h4 className="text-capitalize mt-4 mb-1">{currData && currData.Playlist}</h4>
                                 <p className="mb-0 text-capitalize text-body">
-                                    total Music Playlist
+                                    Tổng số Danh Sách Phát
                                 </p>
                             </div>
                         </div>
@@ -218,7 +223,7 @@ const HomeAdmin = () => {
                                 <h4 className="text-capitalize mt-4 mb-1">{currData && currData.User}</h4>
 
                                 <p className="mb-0 text-capitalize text-body">
-                                    total Music Users
+                                    Tổng Số Người Dùng
                                 </p>
                             </div>
                         </div>
@@ -233,7 +238,7 @@ const HomeAdmin = () => {
                         <div className="row py-5 card-header">
                             <div className="col-lg-6 header-title">
                                 <h4 className="card-title text-capitalize">
-                                    top artist
+                                    Những Nghệ Sĩ Mới
                                 </h4>
                             </div>
                         </div>
@@ -243,28 +248,26 @@ const HomeAdmin = () => {
                         >
                             <thead>
                                 <tr>
-                                    <th>Thứ tự</th>
+                                    <th>ID</th>
                                     <th>Tên nghệ sĩ</th>
                                     <th>Ngày hoạt động</th>
                                     <th>Tổng bài hát</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {Artists && Artists.slice(0, 3).map((data) => (
+                                {Artists && Artists.slice(0, 5).map((data) => (
                                     <tr>
                                         <td>{data.id}</td>
                                         <td>
-                                            <h6 className="fs-4 text-capitalize">
-                                                {data.artistsName}
-                                            </h6>
-                                            <p
-                                                className="mb-0 custom-icon"
-                                                style={{ color: "#aaa" }}
-                                            >
-                                                {data.alias}
-                                            </p>
+                                            <div className="infor">
+                                                <img
+                                                    src={data.avt}
+                                                    alt={data.artistsName}
+                                                />
+                                                <span>{data.artistsName}</span>
+                                            </div>
                                         </td>
-                                        <td>{data.createdAt}</td>
+                                        <td>{formatDate(data.createdAt)}</td>
                                         <td>{Array.isArray(data.songListId) && data.songListId.length}</td>
                                     </tr>
                                 ))}
@@ -281,7 +284,7 @@ const HomeAdmin = () => {
                             <div className="card-header">
                                 <div className="header-title">
                                     <h4 className="card-title text-capitalize">
-                                        Recent Users
+                                    Người dùng gần đây
                                     </h4>
                                 </div>
                             </div>
@@ -318,7 +321,7 @@ const HomeAdmin = () => {
                                                     }}
                                                     className="mb-0 custom-icon fs-3"
                                                 >
-                                                    {data.createdAt}
+                                                    {formatDate(data.createdAt)}
                                                 </p>
                                             </div>{" "}
                                         </li>
@@ -333,7 +336,7 @@ const HomeAdmin = () => {
                             <div className="card-header">
                                 <div className="header-title">
                                     <h4 className="card-title text-capitalize">
-                                        total reviews
+                                        Những bài hát được nghe nhiều
                                     </h4>
                                 </div>
                             </div>
@@ -367,7 +370,7 @@ const HomeAdmin = () => {
                                                             }}
                                                             className="text-capitalize custom-icon fs-3"
                                                         >
-                                                            {data.createdAt}
+                                                            {formatDate(data.createdAt)}
                                                         </small>
                                                     </div>
                                                 </div>
@@ -386,7 +389,7 @@ const HomeAdmin = () => {
                     <div className="col-lg-8 py-3 card container-admin w-100">
                         <div className="row py-5 card-header"> 
                             <div className="col-lg-6 header-title">
-                                <h4 className="card-title text-capitalize">Slider</h4>
+                                <h4 className="card-title text-capitalize">Danh Sách Tiêu Đề</h4>
                             </div>
                             <div className="col-lg-6 text-end">
                                 <Button className="btn btn-info" onClick={handleShowModal}>
@@ -426,7 +429,7 @@ const HomeAdmin = () => {
                         <Modal.Title>{editMode ? "Cập nhật tiêu đề" : "Tạo mới tiêu đề"}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <form onSubmit={handleSubmit(handleSubmitForm)} className="needs-validation" noValidate>
+                        <form onSubmit={handleSubmit(handleSubmitForm)} className="needs-validation d-flex flex-column" noValidate>
                             <div className="mb-4 form-group">
                                 <label className="fs-5 mb-2" htmlFor="create-name">Tên slide:</label>
                                 <input type="text" className="fs-5 form-control" id="create-name" {...register("slideName", { required: true })} />

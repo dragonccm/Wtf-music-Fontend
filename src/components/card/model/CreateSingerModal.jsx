@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import ImageUploader from "../../profile/Profile-setting/uploadImage";
+import ImageUploader from "../../pages/profile/Profile-setting/uploadImage";
 import { MuiChipsInput } from 'mui-chips-input';
 import {
     adminSearchS,
     adminSearchArtistsService,
-} from "../../../../services/adminSearchSongService";
+} from "../../../services/adminSearchSongService";
 import { toast } from "react-toastify";
-import { createArtists } from "../../../../services/restArtistsService";
-import useSingerAdmin from "../../../../hooks/useSingerAdmin";
+import { createArtists } from "../../../services/restArtistsService";
+import useSingerAdmin from "../../../hooks/useSingerAdmin";
 
 const CreateSingerModal = ({
     isCreateModalOpen,
@@ -114,7 +114,7 @@ const CreateSingerModal = ({
             overlayClassName="modal-overlay-1"
         >
             <h2 className="text-center opacity-75 mb-5 fs-2">Tạo mới Ca sĩ</h2>
-            <form onSubmit={handleSubmit}>
+           <form onSubmit={handleSubmit} className="d-flex flex-column">
                 <div className="mb-4 form-group img-upload">
                     {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> : <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
                     <ImageUploader onUpload={handleUpload} />
@@ -128,11 +128,11 @@ const CreateSingerModal = ({
                     <input type="text" className="fs-4 form-control" id="create-name" name="biography" value={createForm.biography} onChange={handleCreateFormChange} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="create-name">sinh nhât:</label>
+                    <label className="fs-4 mb-2" htmlFor="create-name">Sinh nhật:</label>
                     <input type="date" className="fs-4 form-control" id="create-name" name="birthday" value={createForm.birthday} onChange={handleCreateFormChange} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="create-name">tên thật:</label>
+                    <label className="fs-4 mb-2" htmlFor="create-name">Tên thật:</label>
                     <input type="text" className="fs-4 form-control" id="create-name" name="realName" value={createForm.realName} onChange={handleCreateFormChange} />
                 </div>
                 <div className="mb-4 form-group">
@@ -157,7 +157,7 @@ const CreateSingerModal = ({
                     </div>
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="create-playlist">Playlist:</label>
+                    <label className="fs-4 mb-2" htmlFor="create-playlist">Danh sách phát:</label>
                     <input
                         type="text"
                         className="fs-4 form-control mb-2"
@@ -166,7 +166,7 @@ const CreateSingerModal = ({
                     />
                     <MuiChipsInput 
                         value={playlists.map(p => p.name)}
-                        onAdd={(chip) => handleAddItem('playlist', { id: chip, artistsName: chip })}
+                        onAdd={(chip) => handleAddItem('playlist', { id: chip, playlistname: chip })}
                         onDeleteChip={(chip, index) => handleDeleteItem('playlist', index)}
                     />
                     <div className="list-group d-flex flex-wrap">

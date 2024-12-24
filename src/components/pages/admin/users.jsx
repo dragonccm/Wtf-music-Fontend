@@ -10,7 +10,7 @@ import {
 } from "../../../services/restUserService";
 import { adminSearchUserService } from "../../../services/adminSearchSongService";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";import Pagination from '@mui/material/Pagination';
+import "react-toastify/dist/ReactToastify.css"; import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 const UserAdmin = () => {
     const [musicSongs, setMusicSongs] = useState([]); // Danh sách thể loại nhạc
@@ -135,17 +135,19 @@ const UserAdmin = () => {
                                     kind.role === "1" && (
                                         <tr key={kind.id}>
                                             <td>{index}</td>
-                                            <td className="td_img">
-                                                {" "}
-                                                <img
-                                                    src={kind.avt}
-                                                    alt={`${kind.username}_avt`}
-                                                />{" "}
+                                            <td>
+                                                <div className="infor">
+                                                    <img
+                                                        src={kind.avt}
+                                                        alt={`${kind.username}_avt`}
+                                                    />
+                                                    <span>{kind.username}</span>
+                                                </div>
                                             </td>
                                             <td>{kind.username}</td>
                                             <td>{new Date(kind.birthday).toLocaleDateString('en-GB')}</td>
                                             <td>
-                                               
+
                                                 {kind.role === "1" ? (
                                                     <button
                                                         className="btn btn-danger-custom fs-3 ms-3"
@@ -164,23 +166,26 @@ const UserAdmin = () => {
 
                                             </td>
                                         </tr>
-                                    ) 
+                                    )
                                 }
                                 {
                                     kind.role === "2" && (
                                         <tr style={{ background: '#b5d5ff' }} key={kind.id}>
                                             <td>{index}</td>
-                                            <td>{kind.username}</td>
-                                            <td className="td_img">
-                                                {" "}
-                                                <img
-                                                    src={kind.avt}
-                                                    alt={`${kind.username}_avt`}
-                                                />{" "}
+                                            <td>
+                                                <div className="infor">
+                                                    <img
+                                                        src={kind.avt}
+                                                        alt={`${kind.username}_avt`}
+                                                    />
+                                                    <span>{kind.username}</span>
+                                                </div>
                                             </td>
+                                            <td>{kind.username}</td>
+
                                             <td>{new Date(kind.birthday).toLocaleDateString('en-GB')}</td>
                                             <td>
-                                               
+
                                                 {kind.role === "1" ? (
                                                     <button
                                                         className="btn btn-danger-custom fs-3 ms-3"
@@ -199,29 +204,32 @@ const UserAdmin = () => {
 
                                             </td>
                                         </tr>
-                                    ) 
+                                    )
                                 }
                                 {
                                     kind.role === "0" && (
                                         <tr key={kind.id}>
                                             <td>{index}</td>
-                                            <td>{kind.username}</td>
-                                            <td className="td_img">
-                                                {" "}
-                                                <img
-                                                    src={kind.avt}
-                                                    alt={`${kind.username}_avt`}
-                                                />{" "}
+                                            <td>
+                                                <div className="infor">
+                                                    <img
+                                                        src={kind.avt}
+                                                        alt={`${kind.username}_avt`}
+                                                    />
+                                                    <span>{kind.username}</span>
+                                                </div>
                                             </td>
+                                            <td>{kind.username}</td>
+
                                             <td>{new Date(kind.birthday).toLocaleDateString('en-GB')}</td>
                                             <td>
 
 
                                             </td>
                                         </tr>
-                                    ) 
+                                    )
                                 }
-                                
+
                             </>
 
                         ))}

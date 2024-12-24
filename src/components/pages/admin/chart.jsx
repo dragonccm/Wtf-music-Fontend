@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import { BarChart } from '@mui/x-charts/BarChart';
 import ChartElement from "../../card/chartElement";
 import {
     songRankService,
@@ -10,8 +10,7 @@ import {
     songRankPLService,
     songRankPLListenService,
 } from "../../../services/songRankService";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMicrophone, faCircleUser, faMusic, faList } from "@fortawesome/free-solid-svg-icons";
+import { adminGetSong } from "../../../services/adminSongService";
 import { getbanService } from "../../../services/getbanService";
 import { adminSearchS, adminSearchPlaylistService } from "../../../services/adminSearchSongService";
 import Loading from "../../sideNavigation/mascot_animation";
@@ -33,11 +32,10 @@ export default function Chart() {
     const [startDate, setStartDate] = useState("12-5-2024");
     const [range, setRange] = useState("30");
     const [dataType, setDataType] = useState("song");
-    const currData = useSelector((state) => state.admin.AdminHome.DT);
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
     const [selectedName, setSelectedName] = useState("");
-
+    const [musicSongs, setMusicSongs] = useState({ data: [], label: [] });
     useEffect(() => {
         dispatch(fetchAdminHome())
             .then(() => {
@@ -62,8 +60,8 @@ export default function Chart() {
     const fetchRankSongsListen = async () => {
         try {
             const response = await songRankListenService(id, range, startDate);
-            setListenData(response.DT.data);
-            console.log(response.DT.data);
+            setListenData(response.DT);
+            console.table(response.DT);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -83,7 +81,6 @@ export default function Chart() {
         try {
             const response = await songRankPLListenService({ id, days: range, startDate });
             setPlaylistListenData(response.DT);
-            console.log(response.DT);
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -242,9 +239,27 @@ export default function Chart() {
     const endDate = new Date(formatDate(startDate));
     endDate.setDate(endDate.getDate() + parseInt(range));
 
-    const formattedStartDate = `${formatDate(startDate).getDate()}-${formatDate(startDate).getMonth() + 1}-${formatDate(startDate).getFullYear()}`;
-    const formattedEndDate = `${endDate.getDate()}-${endDate.getMonth() + 1}-${endDate.getFullYear()}`;
 
+    const fetchMusicSongs = async () => {
+        try {
+            const songsresponse = await adminGetSong(0);
+            const label = songsresponse.handledata
+                .filter((data, index) => index < 4 && data.songname !== undefined)
+                .map((data) => data.songname);
+            const data = songsresponse.handledata
+                .filter((data, index) => index < 4 && data.listen !== undefined)
+                .map((data) => data.listen);
+            if (label.length === data.length) {
+                setMusicSongs({ data: data, label: label });
+            }
+            setMusicSongs({ data: data, label: label });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    useEffect(() => {
+        fetchMusicSongs();
+    }, []);
     if (isLoading || data.length < 0) {
         return <div><Loading /></div>;
     }
@@ -270,7 +285,7 @@ export default function Chart() {
                             onChange={(e) => setRange(e.target.value)}
                         />
                         <button className="btn btn-primary" onClick={() => setDataType(dataType === "song" ? "playlist" : "song")}>
-                            {dataType === "song" ? "Xem Playlist" : "Xem Bài hát"}
+                            {dataType === "song" ? "Xem Playlist" : "Xem Nhạc"}
                         </button>
                     </div>
                 </div>
@@ -321,83 +336,26 @@ export default function Chart() {
                 <>
                     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
                         <div className="HomeAdmin">
-                            <section className="row">
-                                <div className="col">
-                                    <div className="card card-box text-center ">
-                                        <div className="card-body bg-artist">
-                                            <div className="admin-circle-box rounded-pill">
-                                                <FontAwesomeIcon
-                                                    icon={faMicrophone}
-                                                    className="icon-artist"
-                                                />
-                                            </div>
-
-                                            <h4 className="text-capitalize mt-4 mb-1">{currData.ar}</h4>
-                                            <p className="mb-0 text-capitalize text-body">
-                                                Tổng Số Nghệ Sĩ
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="card card-box text-center">
-                                        <div className="card-body bg-songs">
-                                            <div className="admin-circle-box rounded-pill">
-                                                <FontAwesomeIcon
-                                                    icon={faMusic}
-                                                    className="icon-songs"
-                                                />
-                                            </div>
-
-                                            <h4 className="text-capitalize mt-4 mb-1">{currData.songs}</h4>
-                                            <p className="mb-0 text-capitalize text-body">
-                                                Tổng Số Bài Hát
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="card card-box text-center">
-                                        <div className="card-body bg-playlist">
-                                            <div className="admin-circle-box rounded-pill">
-                                                <FontAwesomeIcon
-                                                    icon={faList}
-                                                    className="icon-playlist"
-                                                />
-                                            </div>
-
-                                            <h4 className="text-capitalize mt-4 mb-1">{currData.Playlist}</h4>
-                                            <p className="mb-0 text-capitalize text-body">
-                                                Tổng Số Playlist
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="card card-box text-center">
-                                        <div className="card-body bg-users">
-                                            <div className="admin-circle-box rounded-pill">
-                                                <FontAwesomeIcon
-                                                    icon={faCircleUser}
-                                                    className="icon-users"
-                                                />
-                                            </div>
-                                            <h4 className="text-capitalize mt-4 mb-1">{currData.User}</h4>
-
-                                            <p className="mb-0 text-capitalize text-body">
-                                                Tổng Số Người Dùng
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                            {JSON.stringify(musicSongs)}
+                            {musicSongs.data.length > 0 && musicSongs.label.length > 0 ? (
+                                <BarChart
+                                    series={[
+                                        { data: musicSongs.data },
+                                    ]}
+                                    height={290}
+                                    xAxis={[{ data: musicSongs.label, scaleType: 'band' }]}
+                                    margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+                                />
+                            ) : (
+                                <p>No music data available</p>
+                            )}
                         </div>
                         <h1>
                             {dataType === "song"
                                 ? selectedName ? `Dữ Liệu Thống Kê Của Bài Hát: ${selectedName}` : "Dữ Liệu Thống Kê Của Nhạc"
                                 : selectedName ? `Dữ Liệu Thống Kê Của Playlist: ${selectedName}` : "Dữ Liệu Thống Kê Của PlayList"}
                             <br />
-                            {`(Từ ngày ${formattedStartDate} đến ngày ${formattedEndDate})`}
+
                         </h1>
                         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
                             <ChartElement

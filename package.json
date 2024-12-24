@@ -30,6 +30,7 @@
     "assemblyai": "^4.8.0",
     "babel-plugin-macros": "^3.1.0",
     "bootstrap": "^5.3.3",
+    "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "es-abstract": "^1.23.3",
     "express": "^4.18.2",

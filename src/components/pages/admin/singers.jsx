@@ -6,8 +6,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useSingerAdmin from "../../../hooks/useSingerAdmin";
 import SingerTable from "./table/singerTable";
-import EditSingerModal from "./model/EditSingerModal";
-import CreateSingerModal from "./model/CreateSingerModal";
+import EditSingerModal from "../../card/model/EditSingerModal";
+import CreateSingerModal from "../../card/model/CreateSingerModal";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 const SingerAdmin = () => {

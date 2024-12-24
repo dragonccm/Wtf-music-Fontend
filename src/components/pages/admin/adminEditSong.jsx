@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { deditgetdata } from "../../../services/editgetdata";
 import ImageUploader from "../profile/Profile-setting/uploadImage";
+import AudioUploader from "../profile/Profile-setting/upladAudio";
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -28,6 +29,13 @@ const formatTime = (seconds) => {
 
     return `${minutes}:${remainingSeconds}:${milliseconds}`;
 }
+
+const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...';
+    }
+    return text;
+};
 
 const AdminEditSong = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -59,7 +67,7 @@ const AdminEditSong = () => {
                     barWidth: 2,
                     barRadius: 3,
                     responsive: true,
-                    height: 100,
+                    height: 70,
                     normalize: true,
                     partialRender: true,
                 });
@@ -76,7 +84,6 @@ const AdminEditSong = () => {
                 });
             }
         }
-
         return () => {
             if (wavesurferRef.current) {
                 wavesurferRef.current.destroy();
@@ -92,11 +99,24 @@ const AdminEditSong = () => {
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching lyric:', error);
-
                 setLoading(false);
             }
         };
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                const ser = await adminSearchGenreService("");
+                if (ser.DT.data.genre.length > 0) {
+                    setSearchGenre(ser.DT.data.genre);
+                }
+            } catch (error) {
+                console.error("Error fetching genres:", error);
+            }
+        };
+        fetchGenres();
     }, []);
 
     const onPlayPause = () => {
@@ -148,6 +168,10 @@ const AdminEditSong = () => {
     const handleUpload = (file) => {
         setFile(file);
         setImageUrl(URL.createObjectURL(file));
+    };
+
+    const handleAudioUpload = (audioFile) => {
+        setData((prevData) => ({ ...prevData, songLink: audioFile }));
     };
 
     const handleDelete = (chipToDelete, type) => () => {
@@ -225,11 +249,17 @@ const AdminEditSong = () => {
             </h1>
             <div className="player">
                 <div ref={containerRef} />
-                <p>Current time: {formatTime(currentTime)}</p>
+                <p style={{ fontSize: "13px" }}>Current time: {formatTime(currentTime)}</p>
                 <div style={{ margin: '1em 0', display: 'flex', gap: '1em' }}>
                     <button onClick={onPlayPause} style={{ minWidth: '5em' }}>
                         {isPlaying ? 'Pause' : 'Play'}
                     </button>
+                </div>
+                <div className="d-flex align-items-center gap-3"> 
+                    <label className="fs-4 mb-2" htmlFor="create-email">
+                        Chọn File Nhạc:
+                    </label>
+                    <AudioUploader onUpload={handleAudioUpload} />
                 </div>
             </div>
 
@@ -276,7 +306,7 @@ const AdminEditSong = () => {
                                                 name="endTime"
                                                 onChange={(event) => handleInputChange(event, word._id, "endTime", lineIndex)}
                                             />
-                                        </div>                                        
+                                        </div>
                                     </div>
                                 </span>
                             ))}
@@ -290,7 +320,7 @@ const AdminEditSong = () => {
                             <ImageUploader onUpload={handleUpload} />
                         </div>
                         <div className="edit_body_info_text">
-                            <input className="edit_body_info_text_title" onChange={(e)=>handleSongNameChange(e)} defaultValue={data.songname} />
+                            <input className="edit_body_info_text_title" onChange={(e) => handleSongNameChange(e)} defaultValue={data.songname} />
                             <div className="edit_body_info_text_category_gr">
                                 {data.genre && data.genre.map((data) => {
                                     return (
@@ -329,23 +359,13 @@ const AdminEditSong = () => {
                                         padding: 0,
                                     }}
                                     value="1">
-                                    <input
-                                        type="text"
-                                        className="fs-4 form-control col"
-                                        id="create-date"
-                                        // value={editForm.genresid}
-                                        onChange={handgenreleserch}
-                                    />
                                     <div className="search_result">
-                                        {searchGenre && searchGenre.map((data) => {
+                                        {Array.isArray(searchGenre) && searchGenre && searchGenre.map((data) => {
                                             return (
                                                 <div className="search_result_item" key={data.genreId} onClick={handleAdd({
                                                     genreId: data.genreId,
                                                     genrename: data.genrename
                                                 }, "genre")}>
-                                                    <div className="search_result_img">
-                                                        <img src={data.thumbnail} alt="Avatar" />
-                                                    </div>
                                                     <div className="search_result_text">
                                                         <p className="search_result_text_name">{data.genrename}</p>
                                                     </div>
@@ -357,6 +377,9 @@ const AdminEditSong = () => {
                                 <TabPanel
                                     sx={{
                                         padding: 0,
+                                        overflow: "scroll",
+                                        height: "100%",
+                                        paddingBottom: "10rem",
                                     }}
                                     value="2">
                                     <input
@@ -389,8 +412,8 @@ const AdminEditSong = () => {
                     </div>
                 </div>
             </div>
-            <div className="gr"> 
-                {isSaving ? <FontAwesomeIcon icon={faSpinner} spin className="spinner"/> :
+            <div className="gr">
+                {isSaving ? <FontAwesomeIcon icon={faSpinner} spin className="spinner" /> :
                     <button className="save_change" onClick={() => handleSave()} disabled={isSaving}>
                         Lưu
                     </button>}
