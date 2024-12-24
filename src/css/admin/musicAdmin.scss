@@ -241,7 +241,7 @@
 
                 .td_img {
                     max-width: 100%;
-                    
+
                     .square-img {
                         height: 50px;
                         width: 50px;
@@ -467,20 +467,27 @@
         overflow-x: unset;
         font-size: medium;
         font-weight: 700;
-        background-color: #a6b0c0b0;
-        border-radius: 1rem;
+        background-color: #d6e6ff;
+        // border-radius: 1rem;
         padding: 1rem;
         z-index: 10;
 
         .search_result_item {
             width: 100%;
             padding: 0.5rem;
-            border-bottom: 1px solid #000000;
+            // border-bottom: 1px solid #a0a0a0;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
+            text-align: left;
+            border-radius: 5px;
+
+            &.top_item {
+                background-color: #2d5ff6;
+                color: #fff;
+            }
 
             &:hover {
-                background-color: #0b5fd0;
+                background-color: #71afff;
                 color: white;
             }
         }

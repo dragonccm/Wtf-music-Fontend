@@ -11,7 +11,7 @@ export default function ChartElement(series, xAxis) {
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
         <Typography component="h2" variant="subtitle2" gutterBottom>
-          {"thống kê dữ liệu "}
+          {"Thống kê dữ liệu "}
         </Typography>
         <Stack sx={{ justifyContent: 'space-between' }}>
           <Stack

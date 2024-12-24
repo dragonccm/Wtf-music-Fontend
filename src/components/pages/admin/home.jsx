@@ -27,7 +27,7 @@ import {
 } from "../../../services/adminSearchSongService";
 import { useForm } from "react-hook-form";
 import { Modal, Button } from 'react-bootstrap';
-import { format } from 'date-fns';
+import moment from 'moment';
 
 const HomeAdmin = () => {
     const [user, setuser] = useState([]);
@@ -146,9 +146,7 @@ const HomeAdmin = () => {
         setSearchResults({ ...searchResults, playlist: response.DT.data.Playlist });
     };
 
-    const formatDate = (dateString) => {
-        return format(new Date(dateString), 'dd/MM/yyyy');
-    };
+  
 
     if (isLoading && currData) {
         return <div><Loading /></div>;
@@ -267,7 +265,7 @@ const HomeAdmin = () => {
                                                 <span>{data.artistsName}</span>
                                             </div>
                                         </td>
-                                        <td>{formatDate(data.createdAt)}</td>
+                                        <td>{moment(data.createdAt).format('DD.MM.YYYY')}</td>
                                         <td>{Array.isArray(data.songListId) && data.songListId.length}</td>
                                     </tr>
                                 ))}
@@ -321,7 +319,7 @@ const HomeAdmin = () => {
                                                     }}
                                                     className="mb-0 custom-icon fs-3"
                                                 >
-                                                    {formatDate(data.createdAt)}
+                                                    {moment(data.createdAt).format('DD.MM.YYYY')}
                                                 </p>
                                             </div>{" "}
                                         </li>
@@ -370,7 +368,7 @@ const HomeAdmin = () => {
                                                             }}
                                                             className="text-capitalize custom-icon fs-3"
                                                         >
-                                                            {formatDate(data.createdAt)}
+                                                            {moment(data.createdAt).format('DD.MM.YYYY')}
                                                         </small>
                                                     </div>
                                                 </div>
