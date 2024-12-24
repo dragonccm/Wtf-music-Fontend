@@ -107,7 +107,6 @@ const AdminUpload = () => {
             setIsSaving(true);
             data.thumbnail = file;
             data.songLink = audioFile;
-
             const newData = { ...data, artists: data.artist.map((data) => data.id).join(','), genresid: data.genre.map((data) => data.genreId).join(',') };
             const res = await createSong(newData);
             if (res) {
@@ -242,11 +241,12 @@ const AdminUpload = () => {
                         {isPlaying ? 'Pause' : 'Play'}
                     </button>
                 </div>
-
-                <label className="fs-4 mb-2" htmlFor="create-email">
-                    Chọn File Bhạc:
-                </label>
-                <AudioUploader onUpload={handleAudioUpload} />
+                <div className="d-flex align-items-center gap-3">
+                    <label className="fs-4 mb-2" htmlFor="create-email">
+                        Chọn File Nhạc:
+                    </label>
+                    <AudioUploader onUpload={handleAudioUpload} />
+                </div>
             </div>
 
             <div className="edit_body">
@@ -410,7 +410,7 @@ const AdminUpload = () => {
                 </div>
             </div>
             <div className="gr">
-                {isSaving ? <FontAwesomeIcon icon={faSpinner} spin  className="spinner"/> :
+                {isSaving ? <FontAwesomeIcon icon={faSpinner} spin className="spinner" /> :
                     <button className="save_change" onClick={() => createMusicSongs()} disabled={isSaving}>
                         Lưu
                     </button>}

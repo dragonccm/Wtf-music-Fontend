@@ -16,8 +16,8 @@ import { getbanService } from "../../../services/getbanService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SongTable from "./table/SongTable";
-import EditSongModal from "./model/EditSongModal";
-import CreateSongModal from "./model/CreateSongModal";
+import EditSongModal from "../../card/model/EditSongModal";
+import CreateSongModal from "../../card/model/CreateSongModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 const SongAdmin = () => {

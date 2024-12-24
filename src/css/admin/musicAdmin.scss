@@ -51,6 +51,7 @@
     }
 }
 
+
 .img-upload {
     width: 13rem;
     border-radius: 5px;
@@ -70,7 +71,8 @@
     }
 
 }
-.song-upload{
+
+.song-upload {
     width: 100%;
     border-radius: 5px;
     overflow: hidden;
@@ -87,6 +89,7 @@
     }
 
 }
+
 .audio_group {
     position: absolute;
     width: 9rem;
@@ -137,6 +140,7 @@
         padding: 16px 0;
         border-bottom: 1px solid #cccccc;
         background: #4e73df;
+
         .heading-admin {
             border-radius: 20px;
             // padding: 10px 20px;
@@ -185,16 +189,19 @@
         justify-content: space-between;
         align-items: center;
         padding: 15px;
-        button{
+
+        button {
             background: #2d5ff6;
             color: #fff;
             padding: 10px;
             border-radius: 12px;
-            &:hover{
+
+            &:hover {
                 background: #6085f3;
 
             }
         }
+
         .card {
             flex-direction: row !important;
             border: 0 !important;
@@ -231,9 +238,17 @@
                 &:hover {
                     background: #f5f5f5;
                 }
+
                 .td_img {
                     max-width: 100%;
+                    
+                    .square-img {
+                        height: 50px;
+                        width: 50px;
+                        border-radius: 5px !important;
+                    }
                 }
+
 
                 td {
                     font-size: medium;
@@ -245,21 +260,26 @@
                     word-break: break-all;
                     /* Chia dòng ngay cả khi từ không thể đặt trên dòng mới */
                     hyphens: auto;
+
                     /* Chèn dấu gạch ngang khi cần thiết */
-                    .infor{
+                    .infor {
                         display: flex;
                         align-items: center;
 
                         img {
                             width: 50px;
+                            height: 50px !important;
                             border-radius: 50%;
                             margin-right: 10px;
                         }
                     }
+
                     img {
                         width: 50px;
                         border-radius: 50%;
+                        height: 50px !important;
                         margin-right: 10px;
+                        object-fit: cover;
                     }
                 }
             }
@@ -268,12 +288,15 @@
         tr {
             --bs-gutter-x: 0;
             flex-wrap: nowrap;
+
             &:nth-of-type(odd) {
                 background-color: #fcfcfc;
             }
+
             &:nth-of-type(odd) {
                 background-color: #fcfcfc;
             }
+
             th,
             td {
                 padding: 10px;
@@ -312,11 +335,13 @@
                     transition: all 0.1s linear;
                     padding: 10px !important;
                     display: flex;
+
                     &:hover {
                         opacity: 0.8 !important;
                         scale: 1.1;
                     }
-                    svg{
+
+                    svg {
                         width: 12px;
                         height: 12px;
                     }
@@ -337,6 +362,7 @@
     .pagination-admin {
         justify-content: space-between;
         padding: 30px 20px;
+
         .description-pagination {
 
             span {
@@ -349,21 +375,25 @@
             ul {
                 .border {
                     transition: all 0.1s linear;
+
                     &:first-child {
                         border-top-left-radius: 10px;
                         border-bottom-left-radius: 10px;
                         background-color: #fff !important;
                     }
-                    &:last-child{
+
+                    &:last-child {
                         border-top-right-radius: 10px;
                         border-bottom-right-radius: 10px;
                         background-color: #fff !important;
                     }
+
                     &:hover {
                         scale: 1.1;
                         background-color: #4e73df !important;
                         color: #fff !important;
-                        a{
+
+                        a {
                             color: #fff;
                             font-weight: 600;
                         }
@@ -374,6 +404,7 @@
                     border-color: #d1d1d1 !important;
                     cursor: pointer;
                     padding: 5px 10px;
+
                     &.active {
                         background-color: #bfd7fa;
 

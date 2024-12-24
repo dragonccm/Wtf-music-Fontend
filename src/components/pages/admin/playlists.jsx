@@ -5,8 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { usePlaylistAdmin } from "../../../hooks/usePlaylistAdmin";
 import PlaylistTable from "./table/PlaylistTable";
-import EditModal from "./model/EditModal";
-import CreateModal from "./model/CreateModal";
+import EditModal from "../../card/model/EditModal";
+import CreateModal from "../../card/model/CreateModal";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 const PlaylistAdmin = () => {

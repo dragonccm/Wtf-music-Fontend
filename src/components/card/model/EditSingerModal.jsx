@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import ImageUploader from "../../profile/Profile-setting/uploadImage";
+import ImageUploader from "../../pages/profile/Profile-setting/uploadImage";
 import { MuiChipsInput } from 'mui-chips-input';
 import {
     adminSearchS,
     adminSearchPlaylistService,
-} from "../../../../services/adminSearchSongService";
+} from "../../../services/adminSearchSongService";
 import { toast } from "react-toastify";
-import { updateArtists } from "../../../../services/restArtistsService";
-import useSingerAdmin from "../../../../hooks/useSingerAdmin";
+import { updateArtists } from "../../../services/restArtistsService";
+import useSingerAdmin from "../../../hooks/useSingerAdmin";
 
 const EditSingerModal = ({
     isEditModalOpen,
@@ -132,7 +132,7 @@ const EditSingerModal = ({
             overlayClassName="modal-overlay-1"
         >
             <h2 className="text-center opacity-75 mb-5 fs-2">Chỉnh sửa thông tin Ca sĩ</h2>
-            <form onSubmit={handleSubmit}>
+           <form onSubmit={handleSubmit} className="d-flex flex-column">
                 <div className="mb-4 form-group img-upload">
                     {localImageUrl ? <img style={{ width: "12%" }} src={getImageUrl(localImageUrl)} className="avt-img" alt="Uploaded" /> : <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
                     <ImageUploader onUpload={handleUpload} />
@@ -142,27 +142,27 @@ const EditSingerModal = ({
                     <input type="text" className="fs-4 form-control" id="edit-name" name="id" value={editForm.id} onChange={handleEditFormChange} readOnly />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="edit-profile">artistsName:</label>
+                    <label className="fs-4 mb-2" htmlFor="edit-profile">Tên Nghệ Sĩ:</label>
                     <input type="text" className="fs-4 form-control" id="thumbnail" value={editForm.artistsName} name="artistsName" onChange={handleEditFormChange} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="edit-profile">bio:</label>
+                    <label className="fs-4 mb-2" htmlFor="edit-profile">Mô tả:</label>
                     <input type="text" className="fs-4 form-control" id="bio" name="biography" value={editForm.biography} onChange={handleEditFormChange} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="edit-profile">realName:</label>
+                    <label className="fs-4 mb-2" htmlFor="edit-profile">Tên thật:</label>
                     <input type="text" className="fs-4 form-control" name="realName" id="thumbnail" value={editForm.realName} onChange={handleEditFormChange} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="edit-date">alias:</label>
+                    <label className="fs-4 mb-2" htmlFor="edit-date">Tên khác:</label>
                     <input type="text" className="fs-4 form-control" id="edit-date" name="alias" value={editForm.alias} onChange={handleEditFormChange} />
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="edit-date">sinh nhật:</label>
+                    <label className="fs-4 mb-2" htmlFor="edit-date">Sinh nhật:</label>
                     <input type="date" className="fs-4 form-control" id="edit-date" name="birthday" value={editForm.birthday} onChange={handleEditFormChange} />
                 </div>
                 <div style={{ display: "none" }} className="mb-4 form-group hidden">
-                    <label className="fs-4 mb-2" htmlFor="edit-date">totalFollow:</label>
+                    <label className="fs-4 mb-2" htmlFor="edit-date">Tổng số người theo dõi:</label>
                     <input type="text" className="fs-4 form-control" id="edit-date" name="totalFollow" value={editForm.totalFollow} onChange={handleEditFormChange} readOnly />
                 </div>
                 <div className="mb-4 form-group">
@@ -187,7 +187,7 @@ const EditSingerModal = ({
                     </div>
                 </div>
                 <div className="mb-4 form-group">
-                    <label className="fs-4 mb-2" htmlFor="edit-playlist">Playlist:</label>
+                    <label className="fs-4 mb-2" htmlFor="edit-playlist">Danh sách phát:</label>
                     <input
                         type="text"
                         className="fs-4 form-control mb-2"
