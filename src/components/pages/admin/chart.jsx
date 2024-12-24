@@ -10,7 +10,7 @@ import {
     songRankPLService,
     songRankPLListenService,
 } from "../../../services/songRankService";
-import { adminGetSong } from "../../../services/adminSongService";
+import { adminGetSongRankThisMonthSV } from "../../../services/adminSongService";
 import { getbanService } from "../../../services/getbanService";
 import { adminSearchS, adminSearchPlaylistService } from "../../../services/adminSearchSongService";
 import Loading from "../../sideNavigation/mascot_animation";
@@ -29,8 +29,8 @@ export default function Chart() {
     const [id, setid] = useState("all");
     const [searchdata, setsearchdata] = useState([]);
     const [isInteractingWithResults, setIsInteractingWithResults] = useState(false);
-    const [startDate, setStartDate] = useState("12-5-2024");
-    const [range, setRange] = useState("30");
+    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+    const [range, setRange] = useState("10");
     const [dataType, setDataType] = useState("song");
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(true);
@@ -242,30 +242,51 @@ export default function Chart() {
 
     const fetchMusicSongs = async () => {
         try {
-            const songsresponse = await adminGetSong(0);
-            const label = songsresponse.handledata
-                .filter((data, index) => index < 4 && data.songname !== undefined)
-                .map((data) => data.songname);
-            const data = songsresponse.handledata
-                .filter((data, index) => index < 4 && data.listen !== undefined)
-                .map((data) => data.listen);
+            const songsresponse = await adminGetSongRankThisMonthSV();
+            const label = songsresponse.DT
+                .filter((data, index) => index < 10 && data.songName !== undefined)
+                .map((data) => data.songName);
+            const data = songsresponse.DT
+                .filter((data, index) => index < 10 && data.listenCount !== undefined)
+                .map((data) => data.listenCount);
             if (label.length === data.length) {
                 setMusicSongs({ data: data, label: label });
             }
-            setMusicSongs({ data: data, label: label });
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
+
     useEffect(() => {
         fetchMusicSongs();
     }, []);
+
+
+
+    useEffect(() => {
+        console.log("startDate", startDate);
+    }, [startDate]);
     if (isLoading || data.length < 0) {
         return <div><Loading /></div>;
     }
 
     return (
         <>
+            <h1>XẾP HẠNG LƯỢT NGHE THÁNG</h1>
+            <div className="HomeAdmin">
+                {musicSongs.data.length > 0 && musicSongs.label.length > 0 ? (
+                    <BarChart
+                        series={[
+                            { data: musicSongs.data },
+                        ]}
+                        height={290}
+                        xAxis={[{ data: musicSongs.label, scaleType: 'band' }]}
+                        margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+                    />
+                ) : (
+                    <p>No music data available</p>
+                )}
+            </div>
             <h1>{tilte}</h1>
             <nav className="d-flex flex-column flex-md-row align-items-md-center ranking_select mb-3">
                 <div className="d-flex flex-column flex-md-row align-items-md-center mb-3 mb-md-0">
@@ -335,21 +356,7 @@ export default function Chart() {
             ) : (
                 <>
                     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
-                        <div className="HomeAdmin">
-                            {JSON.stringify(musicSongs)}
-                            {musicSongs.data.length > 0 && musicSongs.label.length > 0 ? (
-                                <BarChart
-                                    series={[
-                                        { data: musicSongs.data },
-                                    ]}
-                                    height={290}
-                                    xAxis={[{ data: musicSongs.label, scaleType: 'band' }]}
-                                    margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
-                                />
-                            ) : (
-                                <p>No music data available</p>
-                            )}
-                        </div>
+
                         <h1>
                             {dataType === "song"
                                 ? selectedName ? `Dữ Liệu Thống Kê Của Bài Hát: ${selectedName}` : "Dữ Liệu Thống Kê Của Nhạc"
