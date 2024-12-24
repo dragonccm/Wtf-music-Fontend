@@ -50,7 +50,7 @@ const Singerpage = () => {
                                     : ""}{" "} người quan tâm{" "}
 
                             </p>
-                            <button className="btn-follow"><FontAwesomeIcon icon={faUserPlus} /> Quan tâm</button>
+                            {/* <button className="btn-follow"><FontAwesomeIcon icon={faUserPlus} /> Quan tâm</button> */}
                         </div>
                     </div>
                 </section>
@@ -97,23 +97,24 @@ const Singerpage = () => {
                 <h1>Xuất hiện trong</h1>
                 <Card playlist={currData.playlistJoin} />
             </div>}
-            <div className="list_card">
+            {currData.relatedArtists && currData.relatedArtists.length>0&&<div className="list_card">
 
                 <h1>Bạn có thể thích</h1>
                 <ArtistList data={currData.relatedArtists} />
-            </div>
+            </div>}
             <h1 className="for_artist_lable">VỀ {currData.artistsName}</h1>
             <section className="for_artists_ctn">
                 <div className="for_artist_avt_ctn">
                     <img src={currData.avt} alt="f" />
                 </div>
                 <div className="for_artist_if_ctn">
-                    <p className="for_artist_name" dangerouslySetInnerHTML={currData.biography ? { __html: currData.biography.replace(/<br>/g, "<br/>") } : ''}></p>
-                    {/* <span className="for_artist_name">
+                {/* <p className="for_artist_name" dangerouslySetInnerHTML={currData.biography ? { __html: DOMPurify.sanitize(currData.biography) } : ''}></p>
+                    <p className="for_artist_name" dangerouslySetInnerHTML={currData.biography ? { __html: currData.biography.replace(/<br>/g, "<br/>") } : ''}></p> */}
+                    <span className="for_artist_name">
                                 {currData.biography
                                     ? currData.biography.replace(/<br>/g, "\n")
                                     : ""}
-                            </span> */}
+                            </span>
                     <div className="follower">
                         <p >
                             {currData.totalFollow

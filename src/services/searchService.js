@@ -26,6 +26,7 @@ export const searchFetch = async (searchData) => {
                     aliasName:suggestion.artistsName,
                     name: suggestion.artistsName,
                     avatar: suggestion.avt,
+                    alias: suggestion.alias,
                 };
             }
             else if (suggestion.type === 3) {
