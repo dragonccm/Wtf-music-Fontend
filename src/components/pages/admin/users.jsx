@@ -126,6 +126,8 @@ const UserAdmin = () => {
                             <th>Hình</th>
                             <th>Tài khoản</th>
                             <th>Sinh nhật</th>
+                            <th>Thao Tác</th>
+
                         </tr>
                     </thead>
                     <tbody>
