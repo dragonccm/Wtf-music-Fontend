@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify"
 
 const instance = axios.create({
-    baseURL: 'https://backend-tfcopy-production.up.railway.app/'
+    baseURL: 'https://backend-tfcopy-production.up.railway.app'
 });
 
 
