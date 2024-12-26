@@ -46,12 +46,12 @@ const RegisterPage = () => {
     const handleLoginGG = (event) => {
         event.preventDefault();
 
-        window.location.href = 'http://localhost:6969/api/google';
+        window.location.href = 'https://backend-tfcopy-production.up.railway.app/api/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
 
-        window.location.href = 'http://localhost:6969/api/facebook';
+        window.location.href = 'https://backend-tfcopy-production.up.railway.app/api/facebook';
     }
     const handleRegister = async (e) => {
         e.preventDefault();

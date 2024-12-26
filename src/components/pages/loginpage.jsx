@@ -121,12 +121,12 @@ const LoginPage = () => {
     const handleLoginGG = (event) => {
         event.preventDefault();
 
-        window.location.href = 'http://localhost:6969/api/auth/google';
+        window.location.href = 'https://backend-tfcopy-production.up.railway.app/api/auth/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
 
-        window.location.href = 'http://localhost:6969/api/facebook';
+        window.location.href = 'https://backend-tfcopy-production.up.railway.app/api/facebook';
     }
     return (
         <div className="loginPage">
