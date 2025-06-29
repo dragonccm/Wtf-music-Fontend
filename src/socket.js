@@ -1,3 +1,3 @@
 // socket.js
 import io from 'socket.io-client';
-export const socket = io("http://localhost:6969")
+export const socket = io("http://backend-tfcopy-production.up.railway.app")
