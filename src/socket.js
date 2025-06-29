@@ -1,3 +1,3 @@
 // socket.js
 import io from 'socket.io-client';
-export const socket = io("https://freedom-ht-market-voting.trycloudflare.com")
+export const socket = io("https://kuwait-caring-conditions-councils.trycloudflare.com")
