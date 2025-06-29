@@ -46,12 +46,12 @@ const RegisterPage = () => {
     const handleLoginGG = (event) => {
         event.preventDefault();
 
-        window.location.href = '18.141.55.214/api/auth/google';
+        window.location.href = '18.141.55.214:3000/api/auth/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
 
-        window.location.href = '18.141.55.214/api/facebook';
+        window.location.href = '18.141.55.214:3000/api/facebook';
     }
     const handleRegister = async (e) => {
         e.preventDefault();
