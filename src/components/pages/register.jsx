@@ -46,7 +46,7 @@ const RegisterPage = () => {
     const handleLoginGG = (event) => {
         event.preventDefault();
 
-        window.location.href = '18.141.55.214:3000/api/auth/google';
+        window.location.href = 'http://18.141.55.214:3000/api/auth/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
