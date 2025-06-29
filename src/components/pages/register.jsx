@@ -46,7 +46,7 @@ const RegisterPage = () => {
     const handleLoginGG = (event) => {
         event.preventDefault();
 
-        window.location.href = 'https://recorders-guidelines-spanish-vermont.trycloudflare.com//api/auth/google';
+        window.location.href = 'https://recorders-guidelines-spanish-vermont.trycloudflare.com/api/auth/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
