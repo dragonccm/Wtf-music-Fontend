@@ -79,6 +79,8 @@ const useSongAdmin = () => {
             const res = await updateSong({ ...editForm, thumbnail: file, songLink: audioFile });
             if (res) {
                 toast.success(res.EM);
+                alert("Cập nhật thành công")
+
                 fetchMusicSongs();
                 handleserch({ target: { value: '' } }); // Ensure updated data is fetched
                 closeEditModal();
@@ -93,7 +95,9 @@ const useSongAdmin = () => {
         try {
             const res = await createSong({ ...createForm, thumbnail: file, songLink: audioFile });
             if (res) {
-                toast.success(res.EM);
+                toast.success('Thành công');
+                alert("Cập nhật thành công")
+
                 fetchMusicSongs();
                 handleserch({ target: { value: '' } }); // Ensure updated data is fetched
                 closeCreateModal();
@@ -108,6 +112,7 @@ const useSongAdmin = () => {
             const res = await deleteSong({ id });
             if (res) {
                 toast.success("Cập nhật thành công");
+                alert("Cập nhật thành công")
                 fetchMusicSongs();
             }
         } catch (error) {

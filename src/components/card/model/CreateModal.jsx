@@ -94,6 +94,8 @@ const CreateModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, cre
             const res = await createPlaylist(newForm);
             if (res) {
                 toast.success(res.EM);
+                alert("Cập nhật thành công")
+
                 fetchMusicSongs();
                 closeModal();
             }

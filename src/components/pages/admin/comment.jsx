@@ -70,17 +70,15 @@ const CommentAdmin = () => {
             <div className="text-center container-img">
                 <img style={{ width: "12%" }} src={logo} alt="logo" />
             </div>
+            <div className="table-container">
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <h2 className="fw-normal fs-1 heading-admin">
                     Danh sách bình luận báo cáo
                 </h2>
             </div>
             <div className="px-4 py-5 event-admin">
-                <div class="card">
-                    <label className="fs-3 me-3" htmlFor="search-kind">
-                        Tìm kiếm:
-                    </label>
-                    <div class="input-box">
+                <div className="card">
+                    <div className="input-box">
                         <input
                             id="search-kind"
                             type="text"
@@ -163,10 +161,14 @@ const CommentAdmin = () => {
                         bình luận
                     </div>
                 </div>
+                                 <div className="pagination-numbers">
+
                 <Stack spacing={2}>
                     <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
                 </Stack>
+                </div>
                
+            </div>
             </div>
             <ToastContainer
                 style={{ fontSize: "16px" }}

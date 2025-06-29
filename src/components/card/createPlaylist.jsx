@@ -73,7 +73,7 @@ const CreatePlaylist = ({ idSongs, type }) => {
             trigger={
                 <div className="r_click_list_item add-playlist" >
                     <FontAwesomeIcon icon={faCirclePlus} />
-                    Thêm vào playlist
+                    <span>Thêm vào playlist</span>
                 </div>
             }
             position={type ? 'left top' : 'right top'}

@@ -52,7 +52,8 @@ const SingerAdmin = () => {
             <div className="text-center container-img">
                 <img style={{ width: "12%" }} src={logo} alt="logo" />
             </div>
-            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
+            <div className="table-container">
+                <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <h2 className="fw-normal fs-1 heading-admin">Danh sách ca sĩ</h2>
                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
                     <button className="btn fs-4 py-2" onClick={openCreateModal}>
@@ -69,15 +70,12 @@ const SingerAdmin = () => {
                         Lấy Nghệ Bị Ban
                     </button>
                 </div>
-                <div class="card">
-                    <label className="fs-3 me-3" htmlFor="search-kind">
-                        Tìm kiếm:
-                    </label>
-                    <div class="input-box">
+                <div className="card bg-transparent">
+                    <div className="input-box">
                         <input
                             id="search-kind"
                             type="text"
-                            placeholder="Nhập ca sĩ"
+                            placeholder="Tìm ca sĩ"
                             required
                             className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
                             onChange={handleserch}
@@ -92,9 +90,12 @@ const SingerAdmin = () => {
                         Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> ca sĩ
                     </div>
                 </div>
-                <Stack spacing={2}>
-                    <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
+                <div className="pagination-numbers">
+                    <Stack spacing={2}>
+                    <Pagination color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
                 </Stack>
+                </div>
+            </div>
             </div>
             <EditSingerModal
                 isEditModalOpen={isEditModalOpen}

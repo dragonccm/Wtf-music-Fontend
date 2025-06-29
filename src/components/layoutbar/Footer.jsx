@@ -25,17 +25,17 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="column">
-                        <h3>Contact</h3>
+                        <h3>Liên hệ</h3>
                         <div className="pd_phone">
                             <FontAwesomeIcon icon={faLocationDot} />
                             <span>
-                                120 Đồng Không Mông Quạnh,Ninh Kiều, Cần Thơ, VN
+                                120 Nguyễn Văn Cừ, Ninh Kiều, Cần Thơ, VIệt Nam
                             </span>
                         </div>
                         <div>
                             <FontAwesomeIcon icon={faPhone} />
                             <a href="tel:(+84) 25042003">
-                                <span>(+84) 25042003</span>
+                                <span>(+84) 922148355</span>
                             </a>
                         </div>
                         <div>
@@ -44,7 +44,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <div className="column">
-                        <h3>Communities</h3>
+                        <h3>Cộng đồng</h3>
                         <div>For Artists</div>
                         <div>Developers</div>
                         <div>Advertising</div>
@@ -52,9 +52,9 @@ const Footer = () => {
                         <div>Vendors</div>
                     </div>
                     <div className="column">
-                        <h3>Useful links</h3>
-                        <div>Support</div>
-                        <div>Free Mobile App</div>
+                        <h3>Mở rộng</h3>
+                        <div>Hỗ trợ</div>
+                        <div>Mobile App</div>
                     </div>
                 </div>
 

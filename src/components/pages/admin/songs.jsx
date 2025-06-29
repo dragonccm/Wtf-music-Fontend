@@ -55,13 +55,6 @@ const SongAdmin = () => {
     const [isGenreModalOpen, setIsGenreModalOpen] = useState(false);
     const [isArModalOpen, setIsArModalOpen] = useState(false);
     const itemsPerPage = 10;
-
-    useEffect(() => {
-        fetchMusicSongs();
-    }, [currentPage]);
-    const handleChange = (event, value) => {
-        setCurrentPage(value);
-    };
     const fetchMusicSongs = async () => {
         if (!isSendingRequest) {
             setIsSendingRequest(true);
@@ -77,6 +70,13 @@ const SongAdmin = () => {
             }
         }
     };
+    useEffect(() => {
+        fetchMusicSongs();
+    }, [currentPage]);
+    const handleChange = (event, value) => {
+        setCurrentPage(value);
+    };
+   
 
     
 
@@ -354,6 +354,7 @@ const SongAdmin = () => {
             <div className="text-center container-img">
                 <img style={{ width: "12%" }} src={logo} alt="logo" />
             </div>
+            <div className="table-container">
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <h2 className="fw-normal fs-1 heading-admin">
                     Danh sách bài hát
@@ -376,15 +377,12 @@ const SongAdmin = () => {
                         Lấy Nghệ Bị Ban
                     </button>
                 </div>
-                <div class="card">
-                    <label className="fs-3 me-3" htmlFor="search-kind">
-                        Tìm kiếm:
-                    </label>
-                    <div class="input-box">
+                <div className="card">
+                    <div className="input-box">
                         <input
                             id="search-kind"
                             type="text"
-                            placeholder="Nhập ca sĩ"
+                            placeholder="Tìm ca sĩ"
                             required
                             className="fs-4 ps-3 py-1 border border-dark-subtle rounded-1"
                             onChange={handleserch}
@@ -401,6 +399,7 @@ const SongAdmin = () => {
                 maxpage={maxpage}
                 handlePageChange={handleChange}
             />
+            </div>
             <EditSongModal
                 isEditModalOpen={isEditModalOpen}
                 closeEditModal={closeEditModal}

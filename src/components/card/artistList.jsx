@@ -12,9 +12,9 @@ const ArtistList = ({ data }) => {
                 <div className="artist_item" key={index}>
                     <div className="img_container">
                         <img src={element.avt} alt="" />
-                        <a href={`/artists/${element.alias}`} class="img_overlay">
-                            <div class="img_overlay_group_btn">
-                                <button class="rhap_main-controls-button rhap_button-clear">
+                        <a href={`/artists/${element.alias}`} className="img_overlay">
+                            <div className="img_overlay_group_btn">
+                                <button className="rhap_main-controls-button rhap_button-clear">
                                 <FontAwesomeIcon icon={faShuffle} />
                                 </button>
                             </div>

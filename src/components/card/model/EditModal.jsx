@@ -107,6 +107,8 @@ const EditModal = ({ isOpen, closeModal, form, handleFormChange, imageUrl, updat
             const res = await updatePlaylist(updatedForm);
             if (res) {
                 toast.success(res.EM);
+                alert("Cập nhật thành công")
+
                 fetchMusicSongs();
                 closeModal();
             }

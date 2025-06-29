@@ -43,6 +43,7 @@ const PlaylistAdmin = () => {
             <div className="text-center container-img">
                 <img style={{ width: "12%" }} src={logo} alt="logo" />
             </div>
+            <div className="table-container">
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <h2 className="fw-normal fs-1 heading-admin">Danh sách phát nhạc</h2>
                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
@@ -52,8 +53,12 @@ const PlaylistAdmin = () => {
                 </div>
             </div>
             <div className="px-4 py-5 event-admin">
+                 <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
+                    <button className="btn fs-4 py-2" onClick={handlegetban}>
+                        Lấy Danh Sách Phát Bị Ban
+                    </button>
+                </div>
                 <div className="card">
-                    <label className="fs-3 me-3" htmlFor="search-kind">Tìm kiếm:</label>
                     <div className="input-box">
                         <input
                             id="search-kind"
@@ -66,13 +71,7 @@ const PlaylistAdmin = () => {
                     </div>
                 </div>
             </div>
-            <div className="d-flex align-items-center justify-content-between px-4 header-admin">
-                <div className="d-flex flex-column align-items-end justify-content-center actions-admin">
-                    <button className="btn fs-4 py-2" onClick={handlegetban}>
-                        Lấy Danh Sách Phát Bị Ban
-                    </button>
-                </div>
-            </div>
+           
             <div className="px-4">
                 <PlaylistTable
                     musicSongs={musicSongs}
@@ -86,9 +85,12 @@ const PlaylistAdmin = () => {
                         Hiển thị <span style={{ color: "red" }}>{(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, maxpage)}</span> trong <span style={{ color: "red" }}>{maxpage}</span> playlist
                     </div>
                 </div>
+                 <div className="pagination-numbers">
                 <Stack spacing={2}>
                     <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handleChange} showFirstButton showLastButton />
                 </Stack>
+                </div>
+            </div>
             </div>
             <EditModal
                 isOpen={isEditModalOpen}

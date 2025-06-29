@@ -16,7 +16,7 @@ import icon_Music from "../../img/play-music-admin.svg";
 import icon_Statistical1 from "../../img/stats-1371-svgrepo-com.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faRightFromBracket,
+    faRightFromBracket,faChartSimple
 } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../img/logo3 (1).png";
 import "../../css/admin/NavigationBar.scss";
@@ -53,7 +53,7 @@ const NavigationBar = () => {
                             className="d-inline-block align-top"
                             alt="React Bootstrap logo"
                         />
-                        <span>What Musics</span>
+                        <span>Admin</span>
                     </Navbar.Brand>
                     <hr />
                     <Navbar
@@ -84,14 +84,7 @@ const NavigationBar = () => {
                                 className="nav-link list_nav_item"
                             >
                                 <div className="icon_list_nav_item">
-                                    <ReactSVG
-                                        beforeInjection={(svg) => {
-                                            svg.classList.add(
-                                                "icon_list_nav_item_svg"
-                                            );
-                                        }}
-                                        src={icon_Statistical1}
-                                    />
+                                    <FontAwesomeIcon icon={faChartSimple} />
                                 </div>
                                 <span>Thống kê dữ liệu</span>
                             </NavLink>
@@ -205,7 +198,7 @@ const NavigationBar = () => {
                                 <>
                                     <button
                                         onClick={() => handleLogoutUser()}
-                                        className="nav-link list_nav_item menu-item"
+                                        className="nav-link list_nav_item menu-item logout_btn"
                                     >
                                         <FontAwesomeIcon
                                             icon={faRightFromBracket}

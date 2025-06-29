@@ -97,6 +97,8 @@ const CreateSingerModal = ({
             const res = await createArtists(newForm);
             if (res) {
                 toast.success(res.EM);
+                alert("Cập nhật thành công")
+
                 fetchMusicSongs();
                 closeCreateModal();
             }

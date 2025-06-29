@@ -109,6 +109,8 @@ const EditSingerModal = ({
             const res = await updateArtists(updatedForm);
             if (res) {
                 toast.success(res.EM);
+                alert("Cập nhật thành công")
+
                 fetchMusicSongs();
                 closeEditModal();
             }

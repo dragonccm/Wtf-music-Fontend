@@ -32,7 +32,7 @@ instance.interceptors.request.use(function (config) {
       case 401: {
         if (window.location.pathname !== '/' && window.location.pathname !== '/login' && window.location.pathname !== '/register') {
           
-          toast.error('Not authenticated the user')
+          // toast.error('Not authenticated the user')
         }
         return error.response.data;
       }

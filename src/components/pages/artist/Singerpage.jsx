@@ -34,8 +34,8 @@ const Singerpage = () => {
         <section className="main_artists">
             <div className="artist-hero">
                 <div className="blur-container">
-                    <div class="blur" style={{ backgroundImage: `url(${currData.avt})` }}></div>
-                    <div class="bg-alpha"></div>
+                    <div className="blur" style={{ backgroundImage: `url(${currData.avt})` }}></div>
+                    <div className="bg-alpha"></div>
                 </div>
                 <section className="main_artists_head">
                     <div className="artists_avt_ctn">

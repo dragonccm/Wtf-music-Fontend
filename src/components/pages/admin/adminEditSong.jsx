@@ -62,8 +62,8 @@ const AdminEditSong = () => {
                 wavesurferRef.current = WaveSurfer.create({
                     container: containerRef.current,
                     waveColor: '#ddd',
-                    progressColor: '#ff5500',
-                    cursorColor: '#ff5500',
+                    progressColor: '#0004ff',
+                    cursorColor: '#1900ff',
                     barWidth: 2,
                     barRadius: 3,
                     responsive: true,
@@ -249,7 +249,7 @@ const AdminEditSong = () => {
             </h1>
             <div className="player">
                 <div ref={containerRef} />
-                <p style={{ fontSize: "13px" }}>Current time: {formatTime(currentTime)}</p>
+                <p className="current-time" style={{ fontSize: "13px" }}>Current time: {formatTime(currentTime)}</p>
                 <div style={{ margin: '1em 0', display: 'flex', gap: '1em' }}>
                     <button onClick={onPlayPause} style={{ minWidth: '5em' }}>
                         {isPlaying ? 'Pause' : 'Play'}
@@ -320,7 +320,10 @@ const AdminEditSong = () => {
                             <ImageUploader onUpload={handleUpload} />
                         </div>
                         <div className="edit_body_info_text">
+                            <label htmlFor="song-name">Tên Bài Hát:</label>
                             <input className="edit_body_info_text_title" onChange={(e) => handleSongNameChange(e)} defaultValue={data.songname} />
+                            <label htmlFor="song-name">Thể loại:</label>
+
                             <div className="edit_body_info_text_category_gr">
                                 {data.genre && data.genre.map((data) => {
                                     return (
@@ -332,6 +335,8 @@ const AdminEditSong = () => {
                                     );
                                 })}
                             </div>
+                            <label htmlFor="song-name">Tên ca sĩ:</label>
+
                             <div className="edit_body_info_text_singer_gr">
                                 {data.artist && data.artist.map((data) => {
                                     return (

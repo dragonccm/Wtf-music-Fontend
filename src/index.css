@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
 }
-.App{
+.App {
   background: var(--background-color) !important;
 }
 body {
@@ -69,30 +69,28 @@ button {
   transition: opacity 300ms ease-in;
 }
 
-
-
 :root {
-
   --lightmain-color: #257eff;
   --lightwhite-color: #fff;
   --lightfooter-text: #333;
-  --light-text-1: #000;
+  --light-text-1: #1b1b1b;
   --light-text-2: #868585;
   --lightbg-white: #ebf1ff;
   --lightbg-white-1: #bcd0fe;
-  --lightdeep-black: #000;
-  --lightbackground-color: rgb(217, 228, 255) 52%;
+  --lightdeep-black: #292929;
+  --lightbackground-color: #e2eeff;
   --lightrightsidebar-light: #ebf1ff;
   --lightrightsidebar-item: rgba(255, 255, 255, 0.3);
   --likerightsidebar-hover: rgba(60, 117, 255, 0.34);
-  --light-bg-radio: #afc7ff;
+  --light-bg-radio: #6a97ff;
   --light-stroke: #001062;
-  --light-bg-header: #bfd7fa;
-  --light-bg-player: #fff;
+  --light-bg-header: #e2eeff;
+  --light-bg-player: #e0f1ff;
   --light-item-player: #424242;
   --light-line-player: #fff;
-  --light-shadow:rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-
+  --light-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
+    rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  --light-bg-playist-item: #5d9fff;
   /* --background-color-dark: linear-gradient(180deg, 
   rgb(27, 27, 27) 0%, 
   rgb(86, 86, 86) 42%, 
@@ -122,7 +120,9 @@ button {
   --dark-item-player: #fff;
   --dark-line-player: #5d6d84;
   --dark-form-login: #072b56;
-  --dark-shadow:rgb(212 212 212 / 12%) 0px 2px 5px, rgb(164 164 164 / 24%) 0px 1px 3px;
+  --dark-shadow: rgb(212 212 212 / 12%) 0px 2px 5px,
+    rgb(164 164 164 / 24%) 0px 1px 3px;
+  --dark-bg-playist-item: #005ce3;
 }
 
 [data-theme="dark"] {
@@ -149,6 +149,11 @@ button {
   --bg-form_login: var(--dark-form-login);
   --arrow_btn_bg: var(--dark-item-player);
   --box-shadow: var(--dark-shadow);
+  --header-bottom-line: rgba(46, 91, 240, 0.4) 0px 2px,
+    rgba(46, 114, 240, 0.3) 0px 1px, rgba(46, 91, 240, 0.2) 0px 5px,
+    rgba(46, 124, 240, 0.1) 0px 7px, rgba(46, 146, 240, 0.05) 0px 10px;
+  --bg-playlist-item: var(--dark-bg-playist-item);
+--bg-time:#97969663;
 }
 
 [data-theme="light"] {
@@ -173,12 +178,13 @@ button {
   --text-2: var(--light-text-2);
   --line-player: var(--light-line-player);
   --bg-form_login: var(--light-line-player);
-  --arrow_btn_bg: var(--lightmain-color);
+  --arrow_btn_bg: #fff;
   --box-shadow: var(--light-shadow);
+  --header-bottom-line: rgba(0, 0, 0, 0.16) 3px 2px 5px;
+  --bg-playlist-item: var(--light-bg-playist-item);
+--bg-time:#ffffff63;
+
 }
-
-
-
 
 /* scrollbar  */
 html *::-webkit-scrollbar {

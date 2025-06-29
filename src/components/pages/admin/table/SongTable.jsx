@@ -60,9 +60,11 @@ const SongTable = ({ musicSongs, openEditModal, deleteMusicKind, currentPage, it
                         bài hát
                     </div>
                 </div>
+                 <div className="pagination-numbers">
                 <Stack spacing={2}>
                     <Pagination variant="outlined" color="primary" count={Math.ceil(maxpage / itemsPerPage)} page={currentPage} onChange={handlePageChange} showFirstButton showLastButton />
                 </Stack>
+                </div>
             </div>
         </div>
     );

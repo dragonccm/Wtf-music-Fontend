@@ -205,10 +205,10 @@ export default function OTPInput() {
           <h1>Verify</h1>
           <span>Your code was sent to your email</span>
           <OTP separator={<span>-</span>} value={otp} onChange={setOtp} length={5} />
-          <button class="form_btn " onClick={() => handleSendOtp()}>
+          <button className="form_btn " onClick={() => handleSendOtp()}>
             Verify
           </button>
-          <p class="resend  mb-0">
+          <p className="resend  mb-0">
             Didn't receive code? <a href='a' onClick={(e) => handleAgainSend(e)}>Request again</a>
           </p>
         </Box>

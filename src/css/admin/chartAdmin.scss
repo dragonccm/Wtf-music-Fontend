@@ -1,0 +1,43 @@
+.chart-container {
+  h1 {
+    color: #ffffff;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .top_music {
+    background-color: #171f2f;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .btn {
+    border: 1px solid #344054;
+    background-color: color-mix(in oklab, #fff 3%, transparent) !important;
+    padding: 10px;
+    color: #98a2b3;
+    border-radius: 10px;
+    font-size: 13px !important;
+    padding: 10px!important;
+    &:hover {
+      color: #fefeff;
+      border-color: #fefeff;
+    }
+    &.btn_toggle {
+      background-color: #4483e2!important;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100% !important;
+    }
+  }
+  .chart-listen{
+    .css-1r2iop5-MuiPaper-root-MuiCard-root{
+        background-color: #171f2f !important;
+        border-radius: 20px;
+        border: none;
+    }
+  }
+
+}

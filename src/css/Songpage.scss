@@ -81,6 +81,17 @@
     margin     : 2rem 0;
     align-items: center;
     gap        : 2rem;
+    
+    .add-playlist{
+      cursor: pointer;
+      color: var(--main-color);
+      svg{
+        font-size: 25px;
+      }
+      span{
+        display: none;
+      }
+    }
   }
 
   .menu_btn {

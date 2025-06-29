@@ -2,14 +2,14 @@
   z-index: 10 !important;
   position: fixed;
   left: 0;
-  width: 24rem;
+  width: 16%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #4e73df;
+  background-color: #101828;
   z-index: 1;
-
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
   .bg-body-tertiary {
     background-color: unset !important;
     width: 100%;
@@ -38,7 +38,7 @@
     span {
       color: #fff;
       font-family: monospace;
-      font-size: 16px;
+      font-size: 21px;
     }
   }
 
@@ -91,7 +91,11 @@
     overflow-y: auto;
     overflow-x: hidden;
   }
-
+  .logout_btn{
+    border: 1px solid #ffffffbe;
+    background-color: rgba(212, 212, 212, 0.212);
+    margin-top: 30px;
+  }
   .icon_list_nav_item {
     margin-right: 12px;
   }
@@ -108,8 +112,9 @@
 
   /* #ee1169 */
   .list_nav_item svg {
-    color: var(--deep-black);
+    color: #fff;
     transition: opacity 100ms ease-in-out;
+    margin-right: 10px;
   }
 
   .list_nav_item span {
@@ -123,14 +128,14 @@
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     transition: all 0.3s ease-in-out;
-    background: #c8d9f94d;
+    background: color-mix(in oklab, #465fff 12%, transparent);
 
     & span {
-      color: #fff;
+      color: #7592ff;
     }
 
     & svg {
-      fill: #fff;
+      fill: #7592ff ;
 
     }
   }
@@ -138,11 +143,10 @@
   .list_nav_item:hover {
     // backdrop-filter: blur(4px);
     // -webkit-backdrop-filter: blur(4px);
-    background: #c8d9f94d;
+    background: color-mix(in oklab, #fff 12%, transparent);
     box-shadow: unset;
     transform: scale(95%);
     transition: all 0.2s ease-in-out;
-    border-radius: 20px;
   }
 
   .list_nav_item:hover .icon_list_nav_item_svg {
@@ -179,7 +183,7 @@
   }
 
   .list_nav_item {
-    --color: var(--white-color) !important;
+    color: #fff !important;
     position: relative;
     overflow: hidden;
     transition: color 0.5s;
@@ -188,11 +192,11 @@
     font-weight: 500;
     display: flex;
     align-items: center;
-    padding: 20px !important;
+    padding: 15px !important;
     /* transition  : all .3s; */
     z-index: 1;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: 15px;
   }
 
 

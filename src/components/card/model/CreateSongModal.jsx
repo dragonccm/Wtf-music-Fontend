@@ -91,6 +91,8 @@ const CreateSongModal = ({ isCreateModalOpen, closeCreateModal, createForm, hand
             const res = await createSong(newForm);
             if (res) {
                 toast.success(res.EM);
+                alert("Cập nhật thành công")
+
                 fetchMusicSongs();
                 closeCreateModal();
             }

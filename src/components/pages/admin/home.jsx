@@ -235,7 +235,7 @@ const HomeAdmin = () => {
                 </section>
 
                 {/* top data */}
-                <section className="row my-5">
+                <section className="py-5">
 
 
                     <div className="col-lg-8 py-3 card container-admin  w-100">
@@ -283,7 +283,7 @@ const HomeAdmin = () => {
 
                 {/* total users */}
                 <section className="row">
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 user-recently">
                         <div className="card py-3 px-2">
                             <div className="card-header">
                                 <div className="header-title">
@@ -335,7 +335,7 @@ const HomeAdmin = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-6">
+                    <div className="col-lg-6 music-recently">
                         <div className="card py-3 px-2">
                             <div className="card-header">
                                 <div className="header-title">
@@ -356,7 +356,7 @@ const HomeAdmin = () => {
                                                     alt="review-img"
                                                 />
                                                 <div className="ms-5">
-                                                    <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider">
+                                                    <h6 className="text-capitalize mb-2 fs-3 fw-normal tracking-wider text-white">
                                                         {data.songname}
                                                     </h6>
                                                     <div className="d-flex align-items-center justify-content-between">
@@ -389,14 +389,14 @@ const HomeAdmin = () => {
                 {/* form  */}
 
 
-                <section className="row my-5 w-100">
+                <section className="py-5">
                     <div className="col-lg-8 py-3 card container-admin w-100">
-                        <div className="row py-5 card-header"> 
+                        <div className="row py-4 card-header"> 
                             <div className="col-lg-6 header-title">
                                 <h4 className="card-title text-capitalize">Danh Sách Tiêu Đề</h4>
                             </div>
                             <div className="col-lg-6 text-end">
-                                <Button className="btn btn-info" onClick={handleShowModal}>
+                                <Button className="banner_btn" onClick={handleShowModal}>
                                     Thêm mới
                                 </Button>
                             </div>
@@ -419,7 +419,7 @@ const HomeAdmin = () => {
                                         <td>{slide.slideDescription}</td>
                                         <td><img src={slide.slideImage} alt={slide.slideName} className="img-fluid" style={{ width: "50px" }} /></td>
                                         <td>
-                                            <button className="btn btn-secondary" onClick={() => handleEdit(slide)}>Chỉnh sửa</button>
+                                            <button className="banner_btn" onClick={() => handleEdit(slide)}>Chỉnh sửa</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -434,6 +434,11 @@ const HomeAdmin = () => {
                     </Modal.Header>
                     <Modal.Body>
                         <form onSubmit={handleSubmit(handleSubmitForm)} className="needs-validation d-flex flex-column" noValidate>
+                             <label className="fs-5 mb-2 text-white" htmlFor="create-name">Tên slide:</label>
+                            <div className="mb-4 form-group img-upload">
+                                {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> : <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
+                                <ImageUploader onUpload={handleUpload} />
+                            </div>
                             <div className="mb-4 form-group">
                                 <label className="fs-5 mb-2" htmlFor="create-name">Tên slide:</label>
                                 <input type="text" className="fs-5 form-control" id="create-name" {...register("slideName", { required: true })} />
@@ -441,10 +446,7 @@ const HomeAdmin = () => {
                                     Vui lòng nhập tên slide.
                                 </div>
                             </div>
-                            <div className="mb-4 form-group img-upload">
-                                {localImageUrl ? <img style={{ width: "12%" }} src={localImageUrl} className="avt-img" alt="Uploaded" /> : <img style={{ width: "12%" }} src='https://st4.depositphotos.com/14953852/24787/v/380/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg' className="avt-img" alt="Uploaded" />}
-                                <ImageUploader onUpload={handleUpload} />
-                            </div>
+                            
                             <div className="mb-4 form-group">
                                 <label className="fs-5 mb-2" htmlFor="create-description">Mô tả slide:</label>
                                 <input type="text" className="fs-5 form-control" id="create-description" {...register("slideDescription", { required: true })} />
@@ -465,7 +467,7 @@ const HomeAdmin = () => {
                                     onAdd={(chip) => handleAddItem({ playlistId: chip, playlistname: chip })}
                                     onDeleteChip={(chip, index) => handleDeleteItem(index)}
                                 />
-                                <div className="list-group d-flex flex-wrap">
+                                <div className="list-group d-flex">
                                     {Array.isArray(searchResults.playlist) && searchResults.playlist.map((playlist, index) => (
                                         <button key={index} type="button" className="list-group-item list-group-item-action m-1" onClick={() => handleAddItem(playlist)}>
                                             {playlist.playlistname}
@@ -474,8 +476,8 @@ const HomeAdmin = () => {
                                 </div>
                             </div>
                             <div className="text-end form-group">
-                                <button type="submit" className="px-4 py-2 btn btn-primary fs-4">{editMode ? "Cập nhật slide" : "Tạo mới"}</button>
-                                <button type="button" className="px-4 py-2 btn btn-secondary ms-3 fs-4" onClick={handleCloseModal}>Hủy bỏ</button>
+                                <button type="button" className="px-4 py-2 btn btn-secondary  fs-4" onClick={handleCloseModal}>Hủy bỏ</button>
+                                <button type="submit" className="px-4 py-2 btn btn-primary fs-4 ms-3">{editMode ? "Cập nhật slide" : "Tạo mới"}</button>
                             </div>
                         </form>
                     </Modal.Body>

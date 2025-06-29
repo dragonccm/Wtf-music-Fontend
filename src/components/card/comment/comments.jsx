@@ -302,7 +302,7 @@ const Comments = ({ commentsUrl, currentUser, id }) => {
     //   }, []);
     return (
         <div className="comments">
-            <h3 className="comments-title">Comments</h3>
+            <h3 className="comments-title">Bình luận</h3>
             <div className="main-comment">
                 {currentUser.id ?
 

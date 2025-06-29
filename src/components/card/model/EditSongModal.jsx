@@ -100,6 +100,8 @@ const EditSongModal = ({ isEditModalOpen, closeEditModal, editForm, handleEditFo
             const res = await updateSong(updatedForm);
             if (res) {
                 toast.success(res.EM);
+                alert("Cập nhật thành công")
+
                 fetchMusicSongs();
                 closeEditModal();
             }

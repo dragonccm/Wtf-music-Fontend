@@ -730,6 +730,14 @@ const Bottombar = () => {
                       <div className="name">
                         <NavLink to={"/song/" + songInfo.infor.id}>{songInfo.infor.songname}</NavLink>
                       </div>
+                      {/* <div className="artist_con">
+                        {songInfo.infor.artistInfo.map((artist, index) => (
+                          <span key={index}>
+                            <NavLink to={"/artists/" + artist.alias}>{artist.artistsName}</NavLink>
+                            {index !== songInfo.infor.artistInfo.length - 1 && ", "}
+                          </span>
+                        ))}
+                      </div> */}
                       <div className="more">
                         <div className="more_item">
                           <FontAwesomeIcon icon={faHeart} />
@@ -1071,23 +1079,23 @@ const Bottombar = () => {
                 value={outTime}
                 onChange={handleStopTimeChange}
               />
-              <div class="time-picker">
-                <div class="time-input">
-                  <div class="control"><input class="input is-primary" type="text" value="02" />
-                    <div class="time-options">
-                      <div class="option">00 giờ</div>
-                      <div class="option">01 giờ</div>
-                      <div class="option active">02 giờ</div>
-                      <div class="option">03 giờ</div><div class="option">04 giờ</div>
-                      <div class="option">05 giờ</div><div class="option">06 giờ</div>
-                      <div class="option">07 giờ</div><div class="option">08 giờ</div>
-                      <div class="option">09 giờ</div><div class="option">10 giờ</div>
-                      <div class="option">11 giờ</div><div class="option">12 giờ</div>
+              <div className="time-picker">
+                <div className="time-input">
+                  <div className="control"><input className="input is-primary" type="text" value="02" />
+                    <div className="time-options">
+                      <div className="option">00 giờ</div>
+                      <div className="option">01 giờ</div>
+                      <div className="option active">02 giờ</div>
+                      <div className="option">03 giờ</div><div className="option">04 giờ</div>
+                      <div className="option">05 giờ</div><div className="option">06 giờ</div>
+                      <div className="option">07 giờ</div><div className="option">08 giờ</div>
+                      <div className="option">09 giờ</div><div className="option">10 giờ</div>
+                      <div className="option">11 giờ</div><div className="option">12 giờ</div>
                     </div>
               /> */}
-            <div class="time-picker" >
-              <div class="time-input" onClick={() => setIsActiveHours(true)}>
-                <div class="control"><input class="input is-primary" type="number"
+            <div className="time-picker" >
+              <div className="time-input" onClick={() => setIsActiveHours(true)}>
+                <div className="control"><input className="input is-primary" type="number"
                   min="1"
                   max="12" value={hours.toString().padStart(2, '0')} onChange={(e) => handleSetHours(e)} />
                   <div className={`time-options ${isActivehours === true ? 'active' : ''}`}>
@@ -1102,15 +1110,15 @@ const Bottombar = () => {
                     ))}
                   </div>
                 </div>
-                <span class="label">giờ</span>
+                <span className="label">giờ</span>
               </div>
-              <div class="dot">:</div>
-              <div class="time-input" onClick={() => setIsActiveMinutes(true)}>
-                <div class="control">
-                  <input class="input is-primary" type="number"
+              <div className="dot">:</div>
+              <div className="time-input" onClick={() => setIsActiveMinutes(true)}>
+                <div className="control">
+                  <input className="input is-primary" type="number"
                     min="0"
                     max="60" value={minutes.toString().padStart(2, '0')} onChange={(e) => handleSetMinutes(e)} />
-                  <div class={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
+                  <div className={`time-options ${isActiveminutes === true ? 'active' : ''}`}>
                     {minutesOptions.map((option, index) => (
                       <div
                         key={index}
@@ -1122,16 +1130,16 @@ const Bottombar = () => {
                     ))}
                   </div>
                 </div>
-                <span class="label">phút</span>
+                <span className="label">phút</span>
 
               </div>
-              <div class="dot">:</div>
-              <div class="time-input" onClick={() => setIsActiveSecond(true)}>
-                <div class="control">
-                  <input class="input is-primary" type="number"
+              <div className="dot">:</div>
+              <div className="time-input" onClick={() => setIsActiveSecond(true)}>
+                <div className="control">
+                  <input className="input is-primary" type="number"
                     min="0"
                     max="60" value={second.toString().padStart(2, '0')} onChange={(e) => handleSetSeconds(e)} />
-                  <div class={`time-options ${isActivesecond === true ? 'active' : ''}`}>
+                  <div className={`time-options ${isActivesecond === true ? 'active' : ''}`}>
                     {secondsOptions.map((option, index) => (
                       <div
                         key={index}
@@ -1143,7 +1151,7 @@ const Bottombar = () => {
                     ))}
                   </div>
                 </div>
-                <span class="label">giây</span>
+                <span className="label">giây</span>
 
               </div>
             </div>

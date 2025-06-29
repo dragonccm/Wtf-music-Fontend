@@ -6,7 +6,7 @@ import {
 export const getComments = async (id,page) => {
   const data = await getComment(id,page);
   console.log(data);
-  if (data.EC == "0") {
+  if (data.EC === "0") {
     return data.DT;
   } else {
     return false;

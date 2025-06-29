@@ -43,6 +43,7 @@ const SongAdminPage = () => {
             <div className="text-center container-img">
                 <img style={{ width: "12%" }} src={logo} alt="logo" />
             </div>
+            <div className="table-container">
             <div className="d-flex align-items-center justify-content-between px-4 header-admin">
                 <h2 className="fw-normal fs-1 heading-admin">Danh sách bài hát</h2>
                 <div className="d-flex flex-row align-items-end justify-content-center actions-admin">
@@ -85,6 +86,7 @@ const SongAdminPage = () => {
                 maxpage={maxpage}
                 handlePageChange={handlePageChange}
             />
+            </div>
             <EditSongModal
                 isEditModalOpen={isEditModalOpen}
                 closeEditModal={closeEditModal}
