@@ -121,12 +121,12 @@ const LoginPage = () => {
     const handleLoginGG = (event) => {
         event.preventDefault();
 
-        window.location.href = 'https://courteous-liberation-production-6fe4.up.railway.app/api/auth/google';
+        window.location.href = '18.141.55.214:3000/api/auth/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
 
-        window.location.href = 'https://courteous-liberation-production-6fe4.up.railway.app/api/facebook';
+        window.location.href = '18.141.55.214:3000/api/facebook';
     }
     return (
         <div className="loginPage">

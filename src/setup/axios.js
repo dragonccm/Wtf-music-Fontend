@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify"
 
 const instance = axios.create({
-    baseURL: 'https://courteous-liberation-production-6fe4.up.railway.app'
+    baseURL: '18.141.55.214:3000/api', // Replace with your API base URL
 });
 
 
