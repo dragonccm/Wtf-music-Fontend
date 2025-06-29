@@ -121,12 +121,12 @@ const LoginPage = () => {
     const handleLoginGG = (event) => {
         event.preventDefault();
 
-        window.location.href = 'http://18.141.55.214:3000/api/auth/google';
+        window.location.href = 'https://freedom-ht-market-voting.trycloudflare.com/api/auth/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
 
-        window.location.href = 'http://18.141.55.214:3000/api/facebook';
+        window.location.href = 'https://freedom-ht-market-voting.trycloudflare.com/api/facebook';
     }
     return (
         <div className="loginPage">

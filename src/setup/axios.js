@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify"
 
 const instance = axios.create({
-    baseURL: 'http://18.141.55.214:3000', // Replace with your API base URL
+    baseURL: 'https://freedom-ht-market-voting.trycloudflare.com', // Replace with your API base URL
 });
 
 
