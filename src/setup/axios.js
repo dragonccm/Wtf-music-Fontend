@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify"
 
 const instance = axios.create({
-    baseURL: 'https://kuwait-caring-conditions-councils.trycloudflare.com', // Replace with your API base URL
+    baseURL: 'https://zero-streaming-mauritius-lincoln.trycloudflare.com', // Replace with your API base URL
 });
 
 
