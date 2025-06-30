@@ -8,7 +8,7 @@ export const getSongData = async (Songid) => {
       const id = songDetailResult.song.id;
 
       if (songDetailResult) {
-        const genres = songDetailResult.genres?songDetailResult.genres
+        const genres = songDetailResult.song.genres?songDetailResult.song.genres
           : ["undefined", "undefined", "undefined"];
         const like = songDetailResult.song.like;
         const listen = songDetailResult.song.listen;

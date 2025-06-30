@@ -121,12 +121,12 @@ const LoginPage = () => {
     const handleLoginGG = (event) => {
         event.preventDefault();
 
-        window.location.href = 'https://recorders-guidelines-spanish-vermont.trycloudflare.com/api/auth/google';
+        window.location.href = 'https://vehicle-ear-or-component.trycloudflare.com/api/auth/google';
     }
     const handleLoginFb = (event) => {
         event.preventDefault();
 
-        window.location.href = 'https://recorders-guidelines-spanish-vermont.trycloudflare.com/api/facebook';
+        window.location.href = 'https://vehicle-ear-or-component.trycloudflare.com/api/facebook';
     }
     return (
         <div className="loginPage">
