@@ -46,7 +46,6 @@ import icon_mic from "../../img/karaoke-svgrepo-com.svg";
 import { useSelector, useDispatch } from "react-redux";
 // import Play_animation from "../../components/card/play_animation"
 
-// Modal.setAppElement("#root");
 const Bottombar = () => {
 
   const [isFullScreen, SetIsFullScreen] = useState(false);
